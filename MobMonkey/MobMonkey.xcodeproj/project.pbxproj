@@ -21,6 +21,14 @@
 		8C5C45941596762E00E3710B /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C5C45931596762E00E3710B /* second@2x.png */; };
 		8C5C45971596762E00E3710B /* FirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C5C45951596762E00E3710B /* FirstViewController.xib */; };
 		8C5C459A1596762E00E3710B /* SecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C5C45981596762E00E3710B /* SecondViewController.xib */; };
+		8C5C45A1159676A400E3710B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45A0159676A400E3710B /* Parse.framework */; };
+		8C5C45A3159676CE00E3710B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45A2159676CE00E3710B /* AudioToolbox.framework */; };
+		8C5C45A5159676DB00E3710B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45A4159676DB00E3710B /* CFNetwork.framework */; };
+		8C5C45A7159676E600E3710B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45A6159676E600E3710B /* SystemConfiguration.framework */; };
+		8C5C45A9159676EB00E3710B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45A8159676EB00E3710B /* MobileCoreServices.framework */; };
+		8C5C45AB159676FE00E3710B /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45AA159676FE00E3710B /* libz.1.1.3.dylib */; };
+		8C5C45AD1596770700E3710B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45AC1596770700E3710B /* Security.framework */; };
+		8C5C45AF1596770C00E3710B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45AE1596770C00E3710B /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +52,14 @@
 		8C5C45931596762E00E3710B /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
 		8C5C45961596762E00E3710B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FirstViewController.xib; sourceTree = "<group>"; };
 		8C5C45991596762E00E3710B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SecondViewController.xib; sourceTree = "<group>"; };
+		8C5C45A0159676A400E3710B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		8C5C45A2159676CE00E3710B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		8C5C45A4159676DB00E3710B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		8C5C45A6159676E600E3710B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		8C5C45A8159676EB00E3710B /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		8C5C45AA159676FE00E3710B /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
+		8C5C45AC1596770700E3710B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		8C5C45AE1596770C00E3710B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,9 +67,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C5C45AF1596770C00E3710B /* QuartzCore.framework in Frameworks */,
+				8C5C45AD1596770700E3710B /* Security.framework in Frameworks */,
+				8C5C45AB159676FE00E3710B /* libz.1.1.3.dylib in Frameworks */,
+				8C5C457A1596762E00E3710B /* CoreGraphics.framework in Frameworks */,
+				8C5C45A9159676EB00E3710B /* MobileCoreServices.framework in Frameworks */,
+				8C5C45A7159676E600E3710B /* SystemConfiguration.framework in Frameworks */,
+				8C5C45A5159676DB00E3710B /* CFNetwork.framework in Frameworks */,
+				8C5C45A3159676CE00E3710B /* AudioToolbox.framework in Frameworks */,
 				8C5C45761596762E00E3710B /* UIKit.framework in Frameworks */,
 				8C5C45781596762E00E3710B /* Foundation.framework in Frameworks */,
-				8C5C457A1596762E00E3710B /* CoreGraphics.framework in Frameworks */,
+				8C5C45A1159676A400E3710B /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +104,14 @@
 		8C5C45741596762E00E3710B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8C5C45AE1596770C00E3710B /* QuartzCore.framework */,
+				8C5C45AC1596770700E3710B /* Security.framework */,
+				8C5C45AA159676FE00E3710B /* libz.1.1.3.dylib */,
+				8C5C45A8159676EB00E3710B /* MobileCoreServices.framework */,
+				8C5C45A6159676E600E3710B /* SystemConfiguration.framework */,
+				8C5C45A4159676DB00E3710B /* CFNetwork.framework */,
+				8C5C45A2159676CE00E3710B /* AudioToolbox.framework */,
+				8C5C45A0159676A400E3710B /* Parse.framework */,
 				8C5C45751596762E00E3710B /* UIKit.framework */,
 				8C5C45771596762E00E3710B /* Foundation.framework */,
 				8C5C45791596762E00E3710B /* CoreGraphics.framework */,
@@ -270,6 +302,10 @@
 		8C5C459E1596762E00E3710B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobMonkey/MobMonkey-Prefix.pch";
 				INFOPLIST_FILE = "MobMonkey/MobMonkey-Info.plist";
@@ -281,6 +317,10 @@
 		8C5C459F1596762E00E3710B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobMonkey/MobMonkey-Prefix.pch";
 				INFOPLIST_FILE = "MobMonkey/MobMonkey-Info.plist";

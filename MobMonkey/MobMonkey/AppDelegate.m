@@ -12,6 +12,8 @@
 
 #import "SecondViewController.h"
 
+#import <Parse/Parse.h>
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -21,6 +23,10 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    [Parse setApplicationId:@"UT8fGQ77gPqU8DKKOHYDlerNGi8QZBO3tpLmsu1x"
+                  clientKey:@"3gdOuv0ehtCS6ZhmaPnwXSrHVdANvq59khwqhAjv"];
+    
     UIViewController *viewController1 = [[FirstViewController alloc] initWithNibName:@"FirstViewController" bundle:nil];
     UIViewController *viewController2 = [[SecondViewController alloc] initWithNibName:@"SecondViewController" bundle:nil];
     self.tabBarController = [[UITabBarController alloc] init];
