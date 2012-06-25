@@ -1,25 +1,25 @@
 //
-//  FirstViewController.m
+//  SecondViewController.m
 //  MobMonkey
 //
 //  Created by Sheehan Alam on 6/23/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "FirstViewController.h"
+#import "SearchViewController.h"
 
-@interface FirstViewController ()
+@interface SearchViewController ()
 
 @end
 
-@implementation FirstViewController
+@implementation SearchViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"First", @"First");
-        self.tabBarItem.image = [UIImage imageNamed:@"first"];
+        self.title = NSLocalizedString(@"Search", @"Search");
+        self.tabBarItem.image = [UIImage imageNamed:@"second"];
     }
     return self;
 }

@@ -1,25 +1,25 @@
 //
-//  SecondViewController.m
+//  FirstViewController.m
 //  MobMonkey
 //
 //  Created by Sheehan Alam on 6/23/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "SecondViewController.h"
+#import "HomeViewController.h"
 
-@interface SecondViewController ()
+@interface HomeViewController ()
 
 @end
 
-@implementation SecondViewController
+@implementation HomeViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Second", @"Second");
-        self.tabBarItem.image = [UIImage imageNamed:@"second"];
+        self.title = NSLocalizedString(@"Home", @"Home");
+        self.tabBarItem.image = [UIImage imageNamed:@"first"];
     }
     return self;
 }
