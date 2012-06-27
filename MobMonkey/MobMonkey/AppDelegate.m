@@ -30,10 +30,16 @@
                   clientKey:@"3gdOuv0ehtCS6ZhmaPnwXSrHVdANvq59khwqhAjv"];
     
     UIViewController *homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+    UINavigationController* homeNavController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+    homeNavController.title = @"Home";
     
-    UIViewController *searchViewController = [[SearchViewController alloc] initWithNibName:@"SecondViewController" bundle:nil];
+    UIViewController *searchViewController = [[SearchViewController alloc] initWithNibName:@"SearchViewController" bundle:nil];
+    UINavigationController* searchNavController = [[UINavigationController alloc] initWithRootViewController:searchViewController];
+    searchNavController.title = @"Search";
     
     UIViewController *nearbyViewController = [[NearbyViewController alloc] initWithNibName:@"NearbyViewController" bundle:nil];
+    UINavigationController* nearbyNavController = [[UINavigationController alloc] initWithRootViewController:nearbyViewController];
+    nearbyNavController.title = @"Nearby";
     
     UIViewController *bookmarksViewController = [[BookmarksViewController alloc] initWithNibName:@"BookmarksViewController" bundle:nil];
     UINavigationController* bookmarksNavController = [[UINavigationController alloc] initWithRootViewController:bookmarksViewController];
@@ -45,7 +51,7 @@
 
     
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:homeViewController, searchViewController, nearbyViewController, bookmarksNavController, settingsNavController, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:homeNavController, searchNavController, nearbyNavController, bookmarksNavController, settingsNavController, nil];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;

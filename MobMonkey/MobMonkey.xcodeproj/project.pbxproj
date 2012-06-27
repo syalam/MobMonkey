@@ -13,14 +13,10 @@
 		8C5C45801596762E00E3710B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8C5C457E1596762E00E3710B /* InfoPlist.strings */; };
 		8C5C45821596762E00E3710B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5C45811596762E00E3710B /* main.m */; };
 		8C5C45861596762E00E3710B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5C45851596762E00E3710B /* AppDelegate.m */; };
-		8C5C45891596762E00E3710B /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5C45881596762E00E3710B /* HomeViewController.m */; };
 		8C5C458B1596762E00E3710B /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C5C458A1596762E00E3710B /* first.png */; };
 		8C5C458D1596762E00E3710B /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C5C458C1596762E00E3710B /* first@2x.png */; };
-		8C5C45901596762E00E3710B /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5C458F1596762E00E3710B /* SearchViewController.m */; };
 		8C5C45921596762E00E3710B /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C5C45911596762E00E3710B /* second.png */; };
 		8C5C45941596762E00E3710B /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C5C45931596762E00E3710B /* second@2x.png */; };
-		8C5C45971596762E00E3710B /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C5C45951596762E00E3710B /* HomeViewController.xib */; };
-		8C5C459A1596762E00E3710B /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C5C45981596762E00E3710B /* SearchViewController.xib */; };
 		8C5C45A1159676A400E3710B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45A0159676A400E3710B /* Parse.framework */; };
 		8C5C45A3159676CE00E3710B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45A2159676CE00E3710B /* AudioToolbox.framework */; };
 		8C5C45A5159676DB00E3710B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45A4159676DB00E3710B /* CFNetwork.framework */; };
@@ -29,12 +25,16 @@
 		8C5C45AB159676FE00E3710B /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45AA159676FE00E3710B /* libz.1.1.3.dylib */; };
 		8C5C45AD1596770700E3710B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45AC1596770700E3710B /* Security.framework */; };
 		8C5C45AF1596770C00E3710B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45AE1596770C00E3710B /* QuartzCore.framework */; };
-		8CCDA1F71598058F006B0093 /* NearbyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCDA1F51598058F006B0093 /* NearbyViewController.m */; };
-		8CCDA1F81598058F006B0093 /* NearbyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CCDA1F61598058F006B0093 /* NearbyViewController.xib */; };
 		8CCDA1FD15980629006B0093 /* BookmarksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCDA1FB15980629006B0093 /* BookmarksViewController.m */; };
 		8CCDA1FE15980629006B0093 /* BookmarksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CCDA1FC15980629006B0093 /* BookmarksViewController.xib */; };
 		8CCDA2031598070B006B0093 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCDA2011598070B006B0093 /* SettingsViewController.m */; };
 		8CCDA2041598070B006B0093 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CCDA2021598070B006B0093 /* SettingsViewController.xib */; };
+		8CD18BD6159B99D90096E7F4 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD18BD4159B99D90096E7F4 /* HomeViewController.m */; };
+		8CD18BD7159B99D90096E7F4 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CD18BD5159B99D90096E7F4 /* HomeViewController.xib */; };
+		8CD18BDB159B99F40096E7F4 /* NearbyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD18BD9159B99F40096E7F4 /* NearbyViewController.m */; };
+		8CD18BDC159B99F40096E7F4 /* NearbyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CD18BDA159B99F40096E7F4 /* NearbyViewController.xib */; };
+		8CD18BE0159B9A120096E7F4 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD18BDE159B9A120096E7F4 /* SearchViewController.m */; };
+		8CD18BE1159B9A120096E7F4 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CD18BDF159B9A120096E7F4 /* SearchViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,16 +48,10 @@
 		8C5C45831596762E00E3710B /* MobMonkey-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobMonkey-Prefix.pch"; sourceTree = "<group>"; };
 		8C5C45841596762E00E3710B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8C5C45851596762E00E3710B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8C5C45871596762E00E3710B /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		8C5C45881596762E00E3710B /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		8C5C458A1596762E00E3710B /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
 		8C5C458C1596762E00E3710B /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
-		8C5C458E1596762E00E3710B /* SearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
-		8C5C458F1596762E00E3710B /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		8C5C45911596762E00E3710B /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
 		8C5C45931596762E00E3710B /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
-		8C5C45961596762E00E3710B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/HomeViewController.xib; sourceTree = "<group>"; };
-		8C5C45991596762E00E3710B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SearchViewController.xib; sourceTree = "<group>"; };
 		8C5C45A0159676A400E3710B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		8C5C45A2159676CE00E3710B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		8C5C45A4159676DB00E3710B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -66,15 +60,21 @@
 		8C5C45AA159676FE00E3710B /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
 		8C5C45AC1596770700E3710B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8C5C45AE1596770C00E3710B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		8CCDA1F41598058F006B0093 /* NearbyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NearbyViewController.h; path = MobMonkey/NearbyViewController.h; sourceTree = "<group>"; };
-		8CCDA1F51598058F006B0093 /* NearbyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NearbyViewController.m; path = MobMonkey/NearbyViewController.m; sourceTree = "<group>"; };
-		8CCDA1F61598058F006B0093 /* NearbyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NearbyViewController.xib; path = MobMonkey/NearbyViewController.xib; sourceTree = "<group>"; };
 		8CCDA1FA15980629006B0093 /* BookmarksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookmarksViewController.h; sourceTree = "<group>"; };
 		8CCDA1FB15980629006B0093 /* BookmarksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookmarksViewController.m; sourceTree = "<group>"; };
 		8CCDA1FC15980629006B0093 /* BookmarksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookmarksViewController.xib; sourceTree = "<group>"; };
 		8CCDA2001598070B006B0093 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		8CCDA2011598070B006B0093 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		8CCDA2021598070B006B0093 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		8CD18BD3159B99D90096E7F4 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		8CD18BD4159B99D90096E7F4 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		8CD18BD5159B99D90096E7F4 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		8CD18BD8159B99F40096E7F4 /* NearbyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyViewController.h; sourceTree = "<group>"; };
+		8CD18BD9159B99F40096E7F4 /* NearbyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyViewController.m; sourceTree = "<group>"; };
+		8CD18BDA159B99F40096E7F4 /* NearbyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NearbyViewController.xib; sourceTree = "<group>"; };
+		8CD18BDD159B9A120096E7F4 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		8CD18BDE159B9A120096E7F4 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		8CD18BDF159B9A120096E7F4 /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,9 +164,9 @@
 		8CCDA1F115980547006B0093 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				8C5C45871596762E00E3710B /* HomeViewController.h */,
-				8C5C45951596762E00E3710B /* HomeViewController.xib */,
-				8C5C45881596762E00E3710B /* HomeViewController.m */,
+				8CD18BD3159B99D90096E7F4 /* HomeViewController.h */,
+				8CD18BD4159B99D90096E7F4 /* HomeViewController.m */,
+				8CD18BD5159B99D90096E7F4 /* HomeViewController.xib */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -174,9 +174,9 @@
 		8CCDA1F21598054D006B0093 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				8C5C458E1596762E00E3710B /* SearchViewController.h */,
-				8C5C45981596762E00E3710B /* SearchViewController.xib */,
-				8C5C458F1596762E00E3710B /* SearchViewController.m */,
+				8CD18BDD159B9A120096E7F4 /* SearchViewController.h */,
+				8CD18BDE159B9A120096E7F4 /* SearchViewController.m */,
+				8CD18BDF159B9A120096E7F4 /* SearchViewController.xib */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -195,9 +195,9 @@
 		8CCDA1F915980593006B0093 /* Nearby */ = {
 			isa = PBXGroup;
 			children = (
-				8CCDA1F41598058F006B0093 /* NearbyViewController.h */,
-				8CCDA1F51598058F006B0093 /* NearbyViewController.m */,
-				8CCDA1F61598058F006B0093 /* NearbyViewController.xib */,
+				8CD18BD8159B99F40096E7F4 /* NearbyViewController.h */,
+				8CD18BD9159B99F40096E7F4 /* NearbyViewController.m */,
+				8CD18BDA159B99F40096E7F4 /* NearbyViewController.xib */,
 			);
 			name = Nearby;
 			path = ..;
@@ -278,11 +278,11 @@
 				8C5C458D1596762E00E3710B /* first@2x.png in Resources */,
 				8C5C45921596762E00E3710B /* second.png in Resources */,
 				8C5C45941596762E00E3710B /* second@2x.png in Resources */,
-				8C5C45971596762E00E3710B /* HomeViewController.xib in Resources */,
-				8C5C459A1596762E00E3710B /* SearchViewController.xib in Resources */,
-				8CCDA1F81598058F006B0093 /* NearbyViewController.xib in Resources */,
 				8CCDA1FE15980629006B0093 /* BookmarksViewController.xib in Resources */,
 				8CCDA2041598070B006B0093 /* SettingsViewController.xib in Resources */,
+				8CD18BD7159B99D90096E7F4 /* HomeViewController.xib in Resources */,
+				8CD18BDC159B99F40096E7F4 /* NearbyViewController.xib in Resources */,
+				8CD18BE1159B9A120096E7F4 /* SearchViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,11 +295,11 @@
 			files = (
 				8C5C45821596762E00E3710B /* main.m in Sources */,
 				8C5C45861596762E00E3710B /* AppDelegate.m in Sources */,
-				8C5C45891596762E00E3710B /* HomeViewController.m in Sources */,
-				8C5C45901596762E00E3710B /* SearchViewController.m in Sources */,
-				8CCDA1F71598058F006B0093 /* NearbyViewController.m in Sources */,
 				8CCDA1FD15980629006B0093 /* BookmarksViewController.m in Sources */,
 				8CCDA2031598070B006B0093 /* SettingsViewController.m in Sources */,
+				8CD18BD6159B99D90096E7F4 /* HomeViewController.m in Sources */,
+				8CD18BDB159B99F40096E7F4 /* NearbyViewController.m in Sources */,
+				8CD18BE0159B9A120096E7F4 /* SearchViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,22 +312,6 @@
 				8C5C457F1596762E00E3710B /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		8C5C45951596762E00E3710B /* HomeViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8C5C45961596762E00E3710B /* en */,
-			);
-			name = HomeViewController.xib;
-			sourceTree = "<group>";
-		};
-		8C5C45981596762E00E3710B /* SearchViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8C5C45991596762E00E3710B /* en */,
-			);
-			name = SearchViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
