@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LocationViewController : UITableViewController
+@interface LocationViewController : UITableViewController<UIActionSheetDelegate>
 
 @end

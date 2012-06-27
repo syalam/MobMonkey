@@ -129,6 +129,13 @@
 #pragma mark - IBAction Methods
 -(void)cameraButtonTapped:(id)sender
 {
+    UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:@"What would you like to capture?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"A Picture", @"A Video", nil];
+    
+    [actionSheet showFromTabBar:self.navigationController.tabBarController.tabBar];
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
     
 }
 @end
