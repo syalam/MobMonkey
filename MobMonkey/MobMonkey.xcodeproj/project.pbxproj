@@ -149,13 +149,13 @@
 			children = (
 				8C5C45841596762E00E3710B /* AppDelegate.h */,
 				8C5C45851596762E00E3710B /* AppDelegate.m */,
+				8CD18BF1159BA1210096E7F4 /* Location View */,
 				8CCDA2051598070F006B0093 /* Settings */,
 				8CCDA1FF1598062E006B0093 /* Bookmarks */,
 				8CCDA1F915980593006B0093 /* Nearby */,
 				8CCDA1F115980547006B0093 /* Home */,
 				8CCDA1F21598054D006B0093 /* Search */,
 				8C5C457C1596762E00E3710B /* Supporting Files */,
-				8CD18BF1159BA1210096E7F4 /* Location View */,
 			);
 			path = MobMonkey;
 			sourceTree = "<group>";

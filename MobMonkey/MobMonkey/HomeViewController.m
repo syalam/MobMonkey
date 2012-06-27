@@ -8,6 +8,8 @@
 
 #import "HomeViewController.h"
 #import "HomeCell.h"
+#import "LocationViewController.h"
+
 @interface HomeViewController ()
 
 @end
@@ -32,6 +34,9 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.title = @"Home";
+
 }
 
 - (void)viewDidUnload
@@ -119,13 +124,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    HomeCell* cell = (HomeCell*)[tableView cellForRowAtIndexPath:indexPath];
+    
+    LocationViewController* locationViewController = [[LocationViewController alloc] initWithNibName:@"LocationViewController" bundle:nil];
+    locationViewController.title = cell.locationNameLabel.text;
+    [self.navigationController pushViewController:locationViewController animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
