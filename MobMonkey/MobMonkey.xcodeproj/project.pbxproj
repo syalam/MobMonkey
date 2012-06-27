@@ -35,6 +35,10 @@
 		8CD18BDC159B99F40096E7F4 /* NearbyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CD18BDA159B99F40096E7F4 /* NearbyViewController.xib */; };
 		8CD18BE0159B9A120096E7F4 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD18BDE159B9A120096E7F4 /* SearchViewController.m */; };
 		8CD18BE1159B9A120096E7F4 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CD18BDF159B9A120096E7F4 /* SearchViewController.xib */; };
+		8CD18BE4159B9B520096E7F4 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD18BE3159B9B520096E7F4 /* HomeCell.m */; };
+		8CD18BEB159BA01D0096E7F4 /* monkey.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8CD18BEA159BA01D0096E7F4 /* monkey.jpg */; };
+		8CD18BEF159BA1150096E7F4 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD18BED159BA1150096E7F4 /* LocationViewController.m */; };
+		8CD18BF0159BA1150096E7F4 /* LocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CD18BEE159BA1150096E7F4 /* LocationViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +79,12 @@
 		8CD18BDD159B9A120096E7F4 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		8CD18BDE159B9A120096E7F4 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		8CD18BDF159B9A120096E7F4 /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
+		8CD18BE2159B9B520096E7F4 /* HomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
+		8CD18BE3159B9B520096E7F4 /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
+		8CD18BEA159BA01D0096E7F4 /* monkey.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = monkey.jpg; sourceTree = "<group>"; };
+		8CD18BEC159BA1150096E7F4 /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
+		8CD18BED159BA1150096E7F4 /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
+		8CD18BEE159BA1150096E7F4 /* LocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +155,7 @@
 				8CCDA1F115980547006B0093 /* Home */,
 				8CCDA1F21598054D006B0093 /* Search */,
 				8C5C457C1596762E00E3710B /* Supporting Files */,
+				8CD18BF1159BA1210096E7F4 /* Location View */,
 			);
 			path = MobMonkey;
 			sourceTree = "<group>";
@@ -167,6 +178,7 @@
 				8CD18BD3159B99D90096E7F4 /* HomeViewController.h */,
 				8CD18BD4159B99D90096E7F4 /* HomeViewController.m */,
 				8CD18BD5159B99D90096E7F4 /* HomeViewController.xib */,
+				8CD18BE5159B9B5B0096E7F4 /* Home Cell */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -184,6 +196,7 @@
 		8CCDA1F31598056A006B0093 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				8CD18BEA159BA01D0096E7F4 /* monkey.jpg */,
 				8C5C458A1596762E00E3710B /* first.png */,
 				8C5C458C1596762E00E3710B /* first@2x.png */,
 				8C5C45911596762E00E3710B /* second.png */,
@@ -221,6 +234,25 @@
 				8CCDA2021598070B006B0093 /* SettingsViewController.xib */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		8CD18BE5159B9B5B0096E7F4 /* Home Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8CD18BE2159B9B520096E7F4 /* HomeCell.h */,
+				8CD18BE3159B9B520096E7F4 /* HomeCell.m */,
+			);
+			name = "Home Cell";
+			sourceTree = "<group>";
+		};
+		8CD18BF1159BA1210096E7F4 /* Location View */ = {
+			isa = PBXGroup;
+			children = (
+				8CD18BEC159BA1150096E7F4 /* LocationViewController.h */,
+				8CD18BED159BA1150096E7F4 /* LocationViewController.m */,
+				8CD18BEE159BA1150096E7F4 /* LocationViewController.xib */,
+			);
+			name = "Location View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,6 +315,8 @@
 				8CD18BD7159B99D90096E7F4 /* HomeViewController.xib in Resources */,
 				8CD18BDC159B99F40096E7F4 /* NearbyViewController.xib in Resources */,
 				8CD18BE1159B9A120096E7F4 /* SearchViewController.xib in Resources */,
+				8CD18BEB159BA01D0096E7F4 /* monkey.jpg in Resources */,
+				8CD18BF0159BA1150096E7F4 /* LocationViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +334,8 @@
 				8CD18BD6159B99D90096E7F4 /* HomeViewController.m in Sources */,
 				8CD18BDB159B99F40096E7F4 /* NearbyViewController.m in Sources */,
 				8CD18BE0159B9A120096E7F4 /* SearchViewController.m in Sources */,
+				8CD18BE4159B9B520096E7F4 /* HomeCell.m in Sources */,
+				8CD18BEF159BA1150096E7F4 /* LocationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,18 +1,18 @@
 //
-//  HomeViewController.m
+//  LocationViewController.m
 //  MobMonkey
 //
 //  Created by Sheehan Alam on 6/27/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "HomeViewController.h"
-#import "HomeCell.h"
-@interface HomeViewController ()
+#import "LocationViewController.h"
+
+@interface LocationViewController ()
 
 @end
 
-@implementation HomeViewController
+@implementation LocationViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -50,28 +50,24 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 1;
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 10;
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    HomeCell *cell = (HomeCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    if (cell == nil) {
-        cell = [[HomeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-
     // Configure the cell...
-    cell.locationNameLabel.text = @"Majerle's";
-    cell.timeLabel.text = @"14m ago";
     
     return cell;
 }
@@ -126,10 +122,6 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-}
-
-- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 200;
 }
 
 @end
