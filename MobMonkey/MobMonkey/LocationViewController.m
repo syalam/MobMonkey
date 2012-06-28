@@ -134,7 +134,29 @@
     [actionSheet showFromTabBar:self.navigationController.tabBarController.tabBar];
 }
 
+#pragma mark - ActionSheet Delegate Methods
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    UIImagePickerController* picker = [[UIImagePickerController alloc] init];
+    picker.showsCameraControls = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    picker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+
+    switch (buttonIndex) {
+        case 0:
+            [self presentViewController:picker animated:YES completion:nil];
+            break;
+        case 1:
+            [self presentViewController:picker animated:YES completion:nil];
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark - UIImagePickerController Delegate Methods
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     
 }
