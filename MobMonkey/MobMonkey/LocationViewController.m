@@ -14,6 +14,12 @@
 
 @implementation LocationViewController
 @synthesize scrollView;
+@synthesize photosButton;
+@synthesize videosButton;
+@synthesize requestButton;
+@synthesize shareButton;
+@synthesize bookmarkButton;
+@synthesize notificationsButton;
 
 - (void)viewDidLoad
 {
@@ -34,6 +40,12 @@
 - (void)viewDidUnload
 {
     [self setScrollView:nil];
+    [self setPhotosButton:nil];
+    [self setVideosButton:nil];
+    [self setRequestButton:nil];
+    [self setShareButton:nil];
+    [self setBookmarkButton:nil];
+    [self setNotificationsButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -78,5 +90,24 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     
+}
+
+#pragma mark - IBAction Methods
+- (IBAction)videosButtonTapped:(id)sender {
+}
+
+- (IBAction)requestButtonTapped:(id)sender {
+}
+
+- (IBAction)bookmarkButtonTapped:(id)sender {
+}
+
+- (IBAction)shareButtonTapped:(id)sender {
+}
+
+- (IBAction)notificationsButtonTapped:(id)sender {
+}
+
+- (IBAction)photosButtonTapped:(id)sender {
 }
 @end
