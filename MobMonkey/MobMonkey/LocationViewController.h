@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LocationViewController : UITableViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate>
+@interface LocationViewController : UIViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate>
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end
