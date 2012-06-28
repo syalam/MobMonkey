@@ -8,6 +8,10 @@
 
 #import "LocationViewController.h"
 
+NSUInteger const kCameraSheet = 0;
+NSUInteger const kLoginSheet = 1;
+
+
 @interface LocationViewController ()
 
 @end
@@ -61,28 +65,43 @@
 -(void)cameraButtonTapped:(id)sender
 {
     UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:@"What would you like to capture?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"A Picture", @"A Video", nil];
+    actionSheet.tag = kCameraSheet;
     
     [actionSheet showFromTabBar:self.navigationController.tabBarController.tabBar];
 }
 
-#pragma mark - ActionSheet Delegate Methods
+#pragma mark - ActionSheet elegate Methods
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     
-    UIImagePickerController* picker = [[UIImagePickerController alloc] init];
-    picker.showsCameraControls = YES;
-    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    picker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
-
-    switch (buttonIndex) {
-        case 0:
-            [self presentViewController:picker animated:YES completion:nil];
-            break;
-        case 1:
-            [self presentViewController:picker animated:YES completion:nil];
-            break;
-        default:
-            break;
+    if (actionSheet.tag == kCameraSheet) {
+        UIImagePickerController* picker = [[UIImagePickerController alloc] init];
+        picker.showsCameraControls = YES;
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        picker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+        
+        switch (buttonIndex) {
+            case 0:
+                [self presentViewController:picker animated:YES completion:nil];
+                break;
+            case 1:
+                [self presentViewController:picker animated:YES completion:nil];
+                break;
+            default:
+                break;
+        }
+    }
+    else if (actionSheet.tag = kLoginSheet){
+        switch (buttonIndex) {
+            case 0:
+                //show mob monkey login
+                break;
+            case 1:
+                //do a facebooklogin
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -97,6 +116,16 @@
 }
 
 - (IBAction)requestButtonTapped:(id)sender {
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"loggedIn"]) {
+        //show alert view
+    }
+    else {
+        //show login view
+        UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:@"Please login" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"MobMonkey", @"Facebook", nil];
+        sheet.tag = kLoginSheet;
+        
+        [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
+    }
 }
 
 - (IBAction)bookmarkButtonTapped:(id)sender {
