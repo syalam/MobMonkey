@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HomeViewController : UITableViewController
+@interface HomeViewController : UITableViewController {
+    IBOutlet UIView *headerView;
+}
 
-@property (nonatomic)BOOL nearby;
+@property (nonatomic, retain)NSString *screen;
 
 @end

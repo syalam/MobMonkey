@@ -29,22 +29,21 @@
     [Parse setApplicationId:@"UT8fGQ77gPqU8DKKOHYDlerNGi8QZBO3tpLmsu1x"
                   clientKey:@"3gdOuv0ehtCS6ZhmaPnwXSrHVdANvq59khwqhAjv"];
     
-    UIViewController *homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+    HomeViewController *homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
     UINavigationController* homeNavController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
-    homeNavController.title = @"Home";
+    homeViewController.title = @"Home";
     
     UIViewController *searchViewController = [[SearchViewController alloc] initWithNibName:@"SearchViewController" bundle:nil];
     UINavigationController* searchNavController = [[UINavigationController alloc] initWithRootViewController:searchViewController];
-    searchNavController.title = @"Search";
+    searchViewController.title = @"Search";
     
     HomeViewController *nearbyViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
-    nearbyViewController.nearby = YES;
     UINavigationController* nearbyNavController = [[UINavigationController alloc] initWithRootViewController:nearbyViewController];
-    nearbyNavController.title = @"Nearby";
+    nearbyViewController.title = @"Nearby";
     
-    UIViewController *bookmarksViewController = [[BookmarksViewController alloc] initWithNibName:@"BookmarksViewController" bundle:nil];
+    HomeViewController *bookmarksViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
     UINavigationController* bookmarksNavController = [[UINavigationController alloc] initWithRootViewController:bookmarksViewController];
-    bookmarksNavController.title = @"Bookmarks";
+    bookmarksViewController.title = @"Bookmarks";
     
     UIViewController *settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
     UINavigationController* settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];

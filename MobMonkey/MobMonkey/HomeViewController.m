@@ -15,7 +15,7 @@
 @end
 
 @implementation HomeViewController
-@synthesize nearby = _nearby;
+@synthesize screen = _screen;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -35,14 +35,14 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    if (_nearby) {
-        self.title = @"Nearby";
-    }
-    else {
-        self.title = @"Home";
+    
+    
+    
+    if ([self.title isEqualToString:@"Bookmarks"]) {
+        [headerView setFrame:CGRectMake(0, 0, 320, 46)];
+        [self.tableView setTableHeaderView:headerView];
     }
     
-
 }
 
 - (void)viewDidUnload
