@@ -32,9 +32,6 @@
     [super viewDidLoad];    
     
     UIBarButtonItem *signInButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign Up" style:UIBarButtonItemStyleBordered target:self action:@selector(signInButtonClicked:)];
-    self.navigationItem.leftBarButtonItem = signInButton;
-    
-    UIBarButtonItem *notificationsButton = [[UIBarButtonItem alloc]initWithTitle:@"Notifications" style:UIBarButtonItemStyleBordered target:self action:@selector(notificationsButtonClicked:)];
     self.navigationItem.rightBarButtonItem = signInButton;
     
     if ([self.title isEqualToString:@"Bookmarks"]) {

@@ -51,6 +51,8 @@
 		F79F95FC15A643EB00BE96EE /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79F95FA15A643EB00BE96EE /* LoginViewController.xib */; };
 		F79F960215A6449000BE96EE /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F960015A6449000BE96EE /* SignUpViewController.m */; };
 		F79F960315A6449000BE96EE /* SignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79F960115A6449000BE96EE /* SignUpViewController.xib */; };
+		F79F961015A64DB000BE96EE /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F960E15A64DB000BE96EE /* NotificationsViewController.m */; };
+		F79F961115A64DB000BE96EE /* NotificationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79F960F15A64DB000BE96EE /* NotificationsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +117,9 @@
 		F79F95FF15A6449000BE96EE /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		F79F960015A6449000BE96EE /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		F79F960115A6449000BE96EE /* SignUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignUpViewController.xib; sourceTree = "<group>"; };
+		F79F960D15A64DB000BE96EE /* NotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsViewController.h; sourceTree = "<group>"; };
+		F79F960E15A64DB000BE96EE /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
+		F79F960F15A64DB000BE96EE /* NotificationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,6 +290,7 @@
 		8CD18BF1159BA1210096E7F4 /* Location View */ = {
 			isa = PBXGroup;
 			children = (
+				F79F960415A64CD200BE96EE /* Notifications */,
 				8CD18BEC159BA1150096E7F4 /* LocationViewController.h */,
 				8CD18BED159BA1150096E7F4 /* LocationViewController.m */,
 				8CD18BEE159BA1150096E7F4 /* LocationViewController.xib */,
@@ -360,6 +366,16 @@
 			name = "Sign Up";
 			sourceTree = "<group>";
 		};
+		F79F960415A64CD200BE96EE /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				F79F960D15A64DB000BE96EE /* NotificationsViewController.h */,
+				F79F960E15A64DB000BE96EE /* NotificationsViewController.m */,
+				F79F960F15A64DB000BE96EE /* NotificationsViewController.xib */,
+			);
+			name = Notifications;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -427,6 +443,7 @@
 				F79F95F615A6186400BE96EE /* FilterViewController.xib in Resources */,
 				F79F95FC15A643EB00BE96EE /* LoginViewController.xib in Resources */,
 				F79F960315A6449000BE96EE /* SignUpViewController.xib in Resources */,
+				F79F961115A64DB000BE96EE /* NotificationsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,6 +469,7 @@
 				F79F95F515A6186400BE96EE /* FilterViewController.m in Sources */,
 				F79F95FB15A643EB00BE96EE /* LoginViewController.m in Sources */,
 				F79F960215A6449000BE96EE /* SignUpViewController.m in Sources */,
+				F79F961015A64DB000BE96EE /* NotificationsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

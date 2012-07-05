@@ -7,6 +7,7 @@
 //
 
 #import "LocationViewController.h"
+#import "NotificationsViewController.h"
 
 NSUInteger const kCameraSheet = 0;
 NSUInteger const kLoginSheet = 1;
@@ -82,10 +83,22 @@ NSUInteger const kLoginSheet = 1;
         
         switch (buttonIndex) {
             case 0:
-                [self presentViewController:picker animated:YES completion:nil];
+                if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                    [self presentViewController:picker animated:YES completion:nil];
+                }
+                else {
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Unable to take a picture using this device" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                    [alert show];
+                }
                 break;
             case 1:
-                [self presentViewController:picker animated:YES completion:nil];
+                if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                    [self presentViewController:picker animated:YES completion:nil];
+                }
+                else {
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Unable to take a video using this device" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                    [alert show];
+                }
                 break;
             default:
                 break;
@@ -135,6 +148,9 @@ NSUInteger const kLoginSheet = 1;
 }
 
 - (IBAction)notificationsButtonTapped:(id)sender {
+    NotificationsViewController *notificationsVc = [[NotificationsViewController alloc]initWithNibName:@"NotificationsViewController" bundle:nil];
+    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:notificationsVc];
+    [self.navigationController presentViewController:navC animated:YES completion:NULL];
 }
 
 - (IBAction)photosButtonTapped:(id)sender {
