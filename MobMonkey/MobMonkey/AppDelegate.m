@@ -37,7 +37,8 @@
     UINavigationController* searchNavController = [[UINavigationController alloc] initWithRootViewController:searchViewController];
     searchNavController.title = @"Search";
     
-    UIViewController *nearbyViewController = [[NearbyViewController alloc] initWithNibName:@"NearbyViewController" bundle:nil];
+    HomeViewController *nearbyViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+    nearbyViewController.nearby = YES;
     UINavigationController* nearbyNavController = [[UINavigationController alloc] initWithRootViewController:nearbyViewController];
     nearbyNavController.title = @"Nearby";
     

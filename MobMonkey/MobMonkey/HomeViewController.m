@@ -15,6 +15,7 @@
 @end
 
 @implementation HomeViewController
+@synthesize nearby = _nearby;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -34,8 +35,13 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    if (_nearby) {
+        self.title = @"Nearby";
+    }
+    else {
+        self.title = @"Home";
+    }
     
-    self.title = @"Home";
 
 }
 

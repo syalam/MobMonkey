@@ -10,4 +10,6 @@
 
 @interface HomeViewController : UITableViewController
 
+@property (nonatomic)BOOL nearby;
+
 @end
