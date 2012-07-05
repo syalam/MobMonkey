@@ -31,10 +31,11 @@
 {
     [super viewDidLoad];    
     
-    UIBarButtonItem *signInButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign Up" style:UIBarButtonItemStyleBordered target:self action:@selector(signInButtonClicked:)];
-    self.navigationItem.rightBarButtonItem = signInButton;
-    
-    if ([self.title isEqualToString:@"Bookmarks"]) {
+    if ([self.title isEqualToString:@"Home"]) {
+        UIBarButtonItem *signInButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign Up" style:UIBarButtonItemStyleBordered target:self action:@selector(signInButtonClicked:)];
+        self.navigationItem.rightBarButtonItem = signInButton;
+    }
+    else if ([self.title isEqualToString:@"Bookmarks"]) {
         [headerView setFrame:CGRectMake(0, 0, 320, 46)];
         [self.tableView setTableHeaderView:headerView];
     }
