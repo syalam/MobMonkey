@@ -31,11 +31,17 @@
 
     self.title = @"Search";
     
-    UIBarButtonItem *filterButton = [[UIBarButtonItem alloc]initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(filterButtonClicked:)];
+    headerView.clipsToBounds = YES;
+
+    [self.tableView setTableHeaderView:headerView];
+    
+    filterButton = [[UIBarButtonItem alloc]initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(filterButtonClicked:)];
     self.navigationItem.leftBarButtonItem = filterButton;
     
-    UIBarButtonItem *mapButton = [[UIBarButtonItem alloc]initWithTitle:@"Map" style:UIBarButtonItemStylePlain target:self action:@selector(mapButtonClicked:)];
+    mapButton = [[UIBarButtonItem alloc]initWithTitle:@"Map" style:UIBarButtonItemStylePlain target:self action:@selector(mapButtonClicked:)];
     self.navigationItem.rightBarButtonItem = mapButton;
+    
+    cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonClicked:)];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -152,15 +158,37 @@
     [self.navigationController presentViewController:nvc animated:YES completion:NULL];
 }
 
+- (void)cancelButtonClicked:(id)sender {
+    self.navigationItem.leftBarButtonItem = filterButton;
+    self.navigationItem.rightBarButtonItem = mapButton;
+    [categoryTextField resignFirstResponder];
+    [nearTextField resignFirstResponder];
+    [headerView setFrame:CGRectMake(0, 0, 320, 44)];
+    [self.tableView setTableHeaderView:headerView];
+    
+}
+
 #pragma mark - Search Cell Delegate Methods
 - (void)requestButtonClicked:(id)sender {
     
 }
 
 #pragma mark - UITextField Delegate
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    self.navigationItem.rightBarButtonItem = cancelButton;
+    self.navigationItem.leftBarButtonItem = nil;
+    [headerView setFrame:CGRectMake(0, 0, 320, 84)];
+    [self.tableView setTableHeaderView:headerView];
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    self.navigationItem.leftBarButtonItem = filterButton;
+    self.navigationItem.rightBarButtonItem = mapButton;
     [categoryTextField resignFirstResponder];
     [nearTextField resignFirstResponder];
+    [headerView setFrame:CGRectMake(0, 0, 320, 44)];
+    [self.tableView setTableHeaderView:headerView];
+    
     return YES;
 }
 

@@ -10,8 +10,13 @@
 #import "SearchCell.h"
 
 @interface SearchViewController : UITableViewController <SearchCellDelegate, UITextFieldDelegate> {
+    IBOutlet UIView *headerView;
     IBOutlet UITextField *categoryTextField;
     IBOutlet UITextField *nearTextField;
+    
+    UIBarButtonItem *filterButton;
+    UIBarButtonItem *mapButton;
+    UIBarButtonItem *cancelButton;
 }
 
 @property (nonatomic, retain)NSMutableArray *contentList;
