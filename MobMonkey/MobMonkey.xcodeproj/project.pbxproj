@@ -40,6 +40,11 @@
 		8CD18BEF159BA1150096E7F4 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD18BED159BA1150096E7F4 /* LocationViewController.m */; };
 		8CD18BF0159BA1150096E7F4 /* LocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CD18BEE159BA1150096E7F4 /* LocationViewController.xib */; };
 		8CD18BF3159C02F30096E7F4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CD18BF2159C02F30096E7F4 /* MapKit.framework */; };
+		F79F95DF15A562D200BE96EE /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F95DE15A562D200BE96EE /* SearchCell.m */; };
+		F79F95E415A56B9200BE96EE /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F95E215A56B9200BE96EE /* MapViewController.m */; };
+		F79F95E515A56B9200BE96EE /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79F95E315A56B9200BE96EE /* MapViewController.xib */; };
+		F79F95EA15A56CC800BE96EE /* AddLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F95E815A56CC800BE96EE /* AddLocationViewController.m */; };
+		F79F95EB15A56CC800BE96EE /* AddLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79F95E915A56CC800BE96EE /* AddLocationViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +92,14 @@
 		8CD18BED159BA1150096E7F4 /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
 		8CD18BEE159BA1150096E7F4 /* LocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationViewController.xib; sourceTree = "<group>"; };
 		8CD18BF2159C02F30096E7F4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		F79F95DD15A562D200BE96EE /* SearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
+		F79F95DE15A562D200BE96EE /* SearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
+		F79F95E115A56B9200BE96EE /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		F79F95E215A56B9200BE96EE /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		F79F95E315A56B9200BE96EE /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
+		F79F95E715A56CC800BE96EE /* AddLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddLocationViewController.h; sourceTree = "<group>"; };
+		F79F95E815A56CC800BE96EE /* AddLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddLocationViewController.m; sourceTree = "<group>"; };
+		F79F95E915A56CC800BE96EE /* AddLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddLocationViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +203,9 @@
 		8CCDA1F21598054D006B0093 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				F79F95E615A56C9E00BE96EE /* Add Location */,
+				F79F95E015A56B7B00BE96EE /* MapView */,
+				F79F95DB15A562A500BE96EE /* SearchCell */,
 				8CD18BDD159B9A120096E7F4 /* SearchViewController.h */,
 				8CD18BDE159B9A120096E7F4 /* SearchViewController.m */,
 				8CD18BDF159B9A120096E7F4 /* SearchViewController.xib */,
@@ -259,6 +275,35 @@
 			name = "Location View";
 			sourceTree = "<group>";
 		};
+		F79F95DB15A562A500BE96EE /* SearchCell */ = {
+			isa = PBXGroup;
+			children = (
+				F79F95DD15A562D200BE96EE /* SearchCell.h */,
+				F79F95DE15A562D200BE96EE /* SearchCell.m */,
+			);
+			name = SearchCell;
+			sourceTree = "<group>";
+		};
+		F79F95E015A56B7B00BE96EE /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				F79F95E115A56B9200BE96EE /* MapViewController.h */,
+				F79F95E215A56B9200BE96EE /* MapViewController.m */,
+				F79F95E315A56B9200BE96EE /* MapViewController.xib */,
+			);
+			name = MapView;
+			sourceTree = "<group>";
+		};
+		F79F95E615A56C9E00BE96EE /* Add Location */ = {
+			isa = PBXGroup;
+			children = (
+				F79F95E715A56CC800BE96EE /* AddLocationViewController.h */,
+				F79F95E815A56CC800BE96EE /* AddLocationViewController.m */,
+				F79F95E915A56CC800BE96EE /* AddLocationViewController.xib */,
+			);
+			name = "Add Location";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -321,6 +366,8 @@
 				8CD18BE1159B9A120096E7F4 /* SearchViewController.xib in Resources */,
 				8CD18BEB159BA01D0096E7F4 /* monkey.jpg in Resources */,
 				8CD18BF0159BA1150096E7F4 /* LocationViewController.xib in Resources */,
+				F79F95E515A56B9200BE96EE /* MapViewController.xib in Resources */,
+				F79F95EB15A56CC800BE96EE /* AddLocationViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +387,9 @@
 				8CD18BE0159B9A120096E7F4 /* SearchViewController.m in Sources */,
 				8CD18BE4159B9B520096E7F4 /* HomeCell.m in Sources */,
 				8CD18BEF159BA1150096E7F4 /* LocationViewController.m in Sources */,
+				F79F95DF15A562D200BE96EE /* SearchCell.m in Sources */,
+				F79F95E415A56B9200BE96EE /* MapViewController.m in Sources */,
+				F79F95EA15A56CC800BE96EE /* AddLocationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

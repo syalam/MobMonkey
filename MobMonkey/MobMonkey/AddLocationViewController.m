@@ -1,19 +1,18 @@
 //
-//  SearchViewController.m
+//  AddLocationViewController.m
 //  MobMonkey
 //
-//  Created by Sheehan Alam on 6/27/12.
+//  Created by Reyaad Sidique on 7/4/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "SearchViewController.h"
-#import "MapViewController.h"
+#import "AddLocationViewController.h"
 
-@interface SearchViewController ()
+@interface AddLocationViewController ()
 
 @end
 
-@implementation SearchViewController
+@implementation AddLocationViewController
 @synthesize contentList = _contentList;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -28,15 +27,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.title = @"Add Location";
+    
+    CGRect textFieldRect = CGRectMake(10, 10, 250, 30);
+    
+    nameTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    nameTextField.placeholder = @"Name";
+    
+    locationTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    locationTextField.placeholder = @"Location";
+    
+    NSMutableArray *fieldArray = [[NSMutableArray alloc]initWithObjects:nameTextField, locationTextField, nil];
+    [self setContentList:fieldArray];
+    
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonClicked:)];
+    self.navigationItem.leftBarButtonItem = cancelButton;
+    
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonClicked:)];
+    self.navigationItem.rightBarButtonItem = doneButton;
 
-    self.title = @"Search";
-    
-    UIBarButtonItem *filterButton = [[UIBarButtonItem alloc]initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(filterButtonClicked:)];
-    self.navigationItem.leftBarButtonItem = filterButton;
-    
-    UIBarButtonItem *mapButton = [[UIBarButtonItem alloc]initWithTitle:@"Map" style:UIBarButtonItemStylePlain target:self action:@selector(mapButtonClicked:)];
-    self.navigationItem.rightBarButtonItem = mapButton;
-    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -67,20 +77,18 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 5;
+    return _contentList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    SearchCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
-    cell = [[SearchCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    cell.iconImageView.image = [UIImage imageNamed:@"monkey.jpg"];
-    cell.locationNameLabel.text = @"Majerle's";
-    cell.timeLabel.text = @"10m ago";
+    [cell.contentView addSubview:[_contentList objectAtIndex:indexPath.row]];
     
-    // Configure the cell...
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
@@ -137,24 +145,13 @@
      */
 }
 
-- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 70;
+#pragma mark - UIBarButtonItem Action Methods
+- (void)cancelButtonClicked:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark - Bar Button Action Methods
-- (void)filterButtonClicked:(id)sender {
-    
-}
-
-- (void)mapButtonClicked:(id)sender {
-    MapViewController *mvc = [[MapViewController alloc]initWithNibName:@"MapViewController" bundle:nil];
-    UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:mvc];
-    [self.navigationController presentViewController:nvc animated:YES completion:NULL];
-}
-
-#pragma mark - Search Cell Delegate Methods
-- (void)requestButtonClicked:(id)sender {
-    
+- (void)doneButtonClicked:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
