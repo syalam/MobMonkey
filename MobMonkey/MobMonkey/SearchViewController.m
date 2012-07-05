@@ -80,7 +80,7 @@
     cell.locationNameLabel.text = @"Majerle's";
     cell.timeLabel.text = @"10m ago";
     
-    // Configure the cell...
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
