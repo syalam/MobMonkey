@@ -47,6 +47,10 @@
 		F79F95EB15A56CC800BE96EE /* AddLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79F95E915A56CC800BE96EE /* AddLocationViewController.xib */; };
 		F79F95F515A6186400BE96EE /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F95F315A6186400BE96EE /* FilterViewController.m */; };
 		F79F95F615A6186400BE96EE /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79F95F415A6186400BE96EE /* FilterViewController.xib */; };
+		F79F95FB15A643EB00BE96EE /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F95F915A643EB00BE96EE /* LoginViewController.m */; };
+		F79F95FC15A643EB00BE96EE /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79F95FA15A643EB00BE96EE /* LoginViewController.xib */; };
+		F79F960215A6449000BE96EE /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F960015A6449000BE96EE /* SignUpViewController.m */; };
+		F79F960315A6449000BE96EE /* SignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79F960115A6449000BE96EE /* SignUpViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +109,12 @@
 		F79F95F215A6186400BE96EE /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
 		F79F95F315A6186400BE96EE /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
 		F79F95F415A6186400BE96EE /* FilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterViewController.xib; sourceTree = "<group>"; };
+		F79F95F815A643EB00BE96EE /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		F79F95F915A643EB00BE96EE /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		F79F95FA15A643EB00BE96EE /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		F79F95FF15A6449000BE96EE /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		F79F960015A6449000BE96EE /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		F79F960115A6449000BE96EE /* SignUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignUpViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +179,7 @@
 		8C5C457B1596762E00E3710B /* MobMonkey */ = {
 			isa = PBXGroup;
 			children = (
+				F79F95F715A643CB00BE96EE /* Authentication */,
 				8C5C45841596762E00E3710B /* AppDelegate.h */,
 				8C5C45851596762E00E3710B /* AppDelegate.m */,
 				8CD18BF1159BA1210096E7F4 /* Location View */,
@@ -320,6 +331,35 @@
 			name = Filter;
 			sourceTree = "<group>";
 		};
+		F79F95F715A643CB00BE96EE /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				F79F95FE15A6448100BE96EE /* Sign Up */,
+				F79F95FD15A6447600BE96EE /* Login */,
+			);
+			name = Authentication;
+			sourceTree = "<group>";
+		};
+		F79F95FD15A6447600BE96EE /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				F79F95F815A643EB00BE96EE /* LoginViewController.h */,
+				F79F95F915A643EB00BE96EE /* LoginViewController.m */,
+				F79F95FA15A643EB00BE96EE /* LoginViewController.xib */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		F79F95FE15A6448100BE96EE /* Sign Up */ = {
+			isa = PBXGroup;
+			children = (
+				F79F95FF15A6449000BE96EE /* SignUpViewController.h */,
+				F79F960015A6449000BE96EE /* SignUpViewController.m */,
+				F79F960115A6449000BE96EE /* SignUpViewController.xib */,
+			);
+			name = "Sign Up";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -385,6 +425,8 @@
 				F79F95E515A56B9200BE96EE /* MapViewController.xib in Resources */,
 				F79F95EB15A56CC800BE96EE /* AddLocationViewController.xib in Resources */,
 				F79F95F615A6186400BE96EE /* FilterViewController.xib in Resources */,
+				F79F95FC15A643EB00BE96EE /* LoginViewController.xib in Resources */,
+				F79F960315A6449000BE96EE /* SignUpViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +450,8 @@
 				F79F95E415A56B9200BE96EE /* MapViewController.m in Sources */,
 				F79F95EA15A56CC800BE96EE /* AddLocationViewController.m in Sources */,
 				F79F95F515A6186400BE96EE /* FilterViewController.m in Sources */,
+				F79F95FB15A643EB00BE96EE /* LoginViewController.m in Sources */,
+				F79F960215A6449000BE96EE /* SignUpViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

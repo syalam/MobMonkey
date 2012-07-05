@@ -1,22 +1,20 @@
 //
-//  HomeViewController.m
+//  SignUpViewController.m
 //  MobMonkey
 //
-//  Created by Sheehan Alam on 6/27/12.
+//  Created by Reyaad Sidique on 7/5/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "HomeViewController.h"
-#import "HomeCell.h"
-#import "LocationViewController.h"
 #import "SignUpViewController.h"
+#import "LoginViewController.h"
 
-@interface HomeViewController ()
+@interface SignUpViewController ()
 
 @end
 
-@implementation HomeViewController
-@synthesize screen = _screen;
+@implementation SignUpViewController
+@synthesize contentList = _contentList;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -29,19 +27,31 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];    
+    [super viewDidLoad];
     
-    UIBarButtonItem *signInButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign Up" style:UIBarButtonItemStyleBordered target:self action:@selector(signInButtonClicked:)];
-    self.navigationItem.leftBarButtonItem = signInButton;
+    self.title = @"Sign Up";
+
+    CGRect textFieldRect = CGRectMake(10, 10, 250, 30);
     
-    UIBarButtonItem *notificationsButton = [[UIBarButtonItem alloc]initWithTitle:@"Notifications" style:UIBarButtonItemStyleBordered target:self action:@selector(notificationsButtonClicked:)];
-    self.navigationItem.rightBarButtonItem = signInButton;
+    firstNameTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    firstNameTextField.placeholder = @"First Name";
     
-    if ([self.title isEqualToString:@"Bookmarks"]) {
-        [headerView setFrame:CGRectMake(0, 0, 320, 46)];
-        [self.tableView setTableHeaderView:headerView];
-    }
+    lastNameTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    lastNameTextField.placeholder = @"Last Name";
     
+    emailTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    emailTextField.placeholder = @"Email Address";
+    emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    
+    passwordTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    passwordTextField.placeholder = @"Password";
+    passwordTextField.secureTextEntry = YES;
+    
+    confirmPasswordTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    confirmPasswordTextField.placeholder = @"Confirm Password";
+    confirmPasswordTextField.secureTextEntry = YES;
+    
+    _contentList = [[NSMutableArray alloc]initWithObjects:firstNameTextField, lastNameTextField, emailTextField, passwordTextField, confirmPasswordTextField, nil];
 }
 
 - (void)viewDidUnload
@@ -60,30 +70,21 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return 10;
+    return _contentList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    HomeCell *cell = (HomeCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    if (cell == nil) {
-        cell = [[HomeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-
-    // Configure the cell...
-    cell.locationNameLabel.text = @"Majerle's";
-    cell.timeLabel.text = @"14m ago";
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    [cell.contentView addSubview:[_contentList objectAtIndex:indexPath.row]];
     
     return cell;
 }
@@ -131,26 +132,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HomeCell* cell = (HomeCell*)[tableView cellForRowAtIndexPath:indexPath];
-    
-    LocationViewController* locationViewController = [[LocationViewController alloc] initWithNibName:@"LocationViewController" bundle:nil];
-    locationViewController.title = cell.locationNameLabel.text;
-    [self.navigationController pushViewController:locationViewController animated:YES];
+    // Navigation logic may go here. Create and push another view controller.
+    /*
+     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+     // ...
+     // Pass the selected object to the new view controller.
+     [self.navigationController pushViewController:detailViewController animated:YES];
+     */
 }
 
-- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 200;
+#pragma mark - IBAction Methods
+- (IBAction)signUpButtonClicked:(id)sender {
+    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
-
-#pragma mark - UIBarButtonItem Action Methods
-- (void)signInButtonClicked:(id)sender {
-    SignUpViewController *signUpVc = [[SignUpViewController alloc]initWithNibName:@"SignUpViewController" bundle:nil];
-    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:signUpVc];
-    [self.navigationController presentViewController:navC animated:YES completion:NULL];
-}
-
-- (void)notificationsButtonClicked:(id)sender {
-    
+- (IBAction)signInButtonClicked:(id)sender {
+    LoginViewController *lvc = [[LoginViewController alloc]initWithNibName:@"LoginViewController" bundle:nil];
+    [self.navigationController pushViewController:lvc animated:YES];
 }
 
 @end

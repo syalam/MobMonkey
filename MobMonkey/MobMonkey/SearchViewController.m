@@ -8,6 +8,7 @@
 
 #import "SearchViewController.h"
 #import "MapViewController.h"
+#import "FilterViewController.h"
 
 @interface SearchViewController ()
 
@@ -149,7 +150,9 @@
 
 #pragma mark - Bar Button Action Methods
 - (void)filterButtonClicked:(id)sender {
-    
+    FilterViewController *fvc = [[FilterViewController alloc]initWithNibName:@"FilterViewController" bundle:nil];
+    UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:fvc];
+    [self.navigationController presentViewController:navc animated:YES completion:NULL];
 }
 
 - (void)mapButtonClicked:(id)sender {

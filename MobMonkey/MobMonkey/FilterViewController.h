@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FilterViewController : UIViewController
+@interface FilterViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource> {
+    IBOutlet UISegmentedControl *segmentedControl;
+    IBOutlet UIPickerView *pickerView;
+    
+    NSString *rangeSelection;
+    NSMutableArray *pickerArray;
+}
+
+- (IBAction)segmentedControlSelected:(id)sender;
 
 @end
