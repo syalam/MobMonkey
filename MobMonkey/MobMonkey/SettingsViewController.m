@@ -13,6 +13,7 @@
 @end
 
 @implementation SettingsViewController
+@synthesize contentList = _contentList;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -32,6 +33,14 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    selectionDictionary = [[NSMutableDictionary alloc]init];
+    
+    NSArray *socialNetworksArray = [NSArray arrayWithObjects:@"Facebook", @"Twitter", nil];
+    NSArray *favoritesArray = [NSArray arrayWithObjects:@"Clubs", @"Coffee Shops", @"Concerts", @"Taco Shops", nil];
+    NSMutableArray *tableContentArray = [NSMutableArray arrayWithObjects:socialNetworksArray, favoritesArray, nil];
+    
+    [self setContentList:tableContentArray];
     
     self.title = @"Settings";
 
@@ -54,23 +63,47 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 0;
+    return _contentList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 0;
+    NSArray *sectionContent = [_contentList objectAtIndex:section];
+    
+    return sectionContent.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSArray *sectionConent = [_contentList objectAtIndex:indexPath.section];
+    id contentForThisRow = [sectionConent objectAtIndex:indexPath.row];
+    
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    // Configure the cell...
+    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    
+    cell.textLabel.text = contentForThisRow;
+    
+    if (indexPath.section == 0) {
+        UISwitch *socialSwitch = [[UISwitch alloc]initWithFrame:CGRectMake(215, 9, 0, 0)];
+        [socialSwitch setOn:NO];
+        socialSwitch.tag = indexPath.row;
+        [cell.contentView addSubview:socialSwitch];
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return @"Social Networks";
+    }
+    else {
+        return @"Favorite Categories";
+    }
 }
 
 /*
@@ -116,13 +149,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    if (indexPath.section == 1) {
+        if ([selectionDictionary valueForKey:[NSString stringWithFormat:@"%d", indexPath.row]]) {
+            [selectionDictionary removeObjectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+            [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+        }
+        else {
+            [selectionDictionary setObject:@"selected" forKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+            [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+    }
 }
 
 @end

@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingsViewController : UITableViewController
+@interface SettingsViewController : UITableViewController {
+    NSMutableDictionary *selectionDictionary;
+}
+
+@property (nonatomic, retain)NSMutableArray *contentList;
 
 @end
