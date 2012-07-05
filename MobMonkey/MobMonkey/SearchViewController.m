@@ -157,4 +157,11 @@
     
 }
 
+#pragma mark - UITextField Delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [categoryTextField resignFirstResponder];
+    [nearTextField resignFirstResponder];
+    return YES;
+}
+
 @end

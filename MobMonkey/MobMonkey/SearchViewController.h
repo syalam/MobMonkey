@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "SearchCell.h"
 
-@interface SearchViewController : UITableViewController <SearchCellDelegate>
+@interface SearchViewController : UITableViewController <SearchCellDelegate, UITextFieldDelegate> {
+    IBOutlet UITextField *categoryTextField;
+    IBOutlet UITextField *nearTextField;
+}
 
 @property (nonatomic, retain)NSMutableArray *contentList;
 
