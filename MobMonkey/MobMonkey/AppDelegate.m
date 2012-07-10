@@ -20,6 +20,16 @@
 
 @synthesize window = _window;
 @synthesize tabBarController = _tabBarController;
+@synthesize apiObject=_apiObject;
+@synthesize currentLocation=_currentLocation;
+
+- (void) initializeLocationManager { 
+    _locationManager = [[CLLocationManager alloc]init];
+    _locationManager.delegate = self;
+    _locationManager.desiredAccuracy =kCLLocationAccuracyBest;
+    _locationManager.distanceFilter = 60.0f; // update every 200ft
+    [_locationManager startUpdatingLocation];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -30,6 +40,10 @@
                   clientKey:@"3gdOuv0ehtCS6ZhmaPnwXSrHVdANvq59khwqhAjv"];
     
     [TestFlight takeOff:@"e6432d80aed42a955243c8d93a493dea_MTAwODk2MjAxMi0wNi0yMyAxODoxNzoxOC45NjMzMjY"];
+    
+     _apiObject = [[FactualAPI alloc] initWithAPIKey:@"BEoV3TPDev03P6NJSVJPgTmuTNOegwRsjJN41DnM" secret:@"hwxVQz4lAxb5YpWhbLq10KhWiEw5k35WgFuoR2YI"];
+    
+    [self initializeLocationManager];
     
     HomeViewController *homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
     UINavigationController* homeNavController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
@@ -61,6 +75,8 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    [_locationManager stopUpdatingLocation];
+
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
@@ -73,7 +89,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [_locationManager startUpdatingLocation];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -85,6 +101,26 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
++(FactualAPI*) getAPIObject {
+    UIApplication* app = [UIApplication sharedApplication];
+    return ((AppDelegate*)app.delegate).apiObject;
+}
+
++(AppDelegate*) getDelegate {
+    UIApplication* app = [UIApplication sharedApplication];
+    return ((AppDelegate*)app.delegate);
+}
+
+#pragma mark CLLocationManagerDelegate methods
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation {
+    
+    _currentLocation = [newLocation copy];
+}
+
 
 /*
 // Optional UITabBarControllerDelegate method.

@@ -26,6 +26,8 @@
 		8C5C45AD1596770700E3710B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45AC1596770700E3710B /* Security.framework */; };
 		8C5C45AF1596770C00E3710B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45AE1596770C00E3710B /* QuartzCore.framework */; };
 		8CA147D215ABBB280085B346 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA147CF15ABBB010085B346 /* libTestFlight.a */; };
+		8CA147D415ABBCA60085B346 /* FactualSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA147D315ABBCA60085B346 /* FactualSDK.framework */; };
+		8CA147DA15ABBF680085B346 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA147D915ABBF680085B346 /* CoreLocation.framework */; };
 		8CCDA1FD15980629006B0093 /* BookmarksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCDA1FB15980629006B0093 /* BookmarksViewController.m */; };
 		8CCDA1FE15980629006B0093 /* BookmarksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CCDA1FC15980629006B0093 /* BookmarksViewController.xib */; };
 		8CCDA2031598070B006B0093 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCDA2011598070B006B0093 /* SettingsViewController.m */; };
@@ -81,6 +83,8 @@
 		8C5C45AE1596770C00E3710B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8CA147CF15ABBB010085B346 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		8CA147D015ABBB010085B346 /* TestFlight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		8CA147D315ABBCA60085B346 /* FactualSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FactualSDK.framework; sourceTree = "<group>"; };
+		8CA147D915ABBF680085B346 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		8CCDA1FA15980629006B0093 /* BookmarksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookmarksViewController.h; sourceTree = "<group>"; };
 		8CCDA1FB15980629006B0093 /* BookmarksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookmarksViewController.m; sourceTree = "<group>"; };
 		8CCDA1FC15980629006B0093 /* BookmarksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookmarksViewController.xib; sourceTree = "<group>"; };
@@ -130,6 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CA147DA15ABBF680085B346 /* CoreLocation.framework in Frameworks */,
 				8CD18BF3159C02F30096E7F4 /* MapKit.framework in Frameworks */,
 				8C5C45AF1596770C00E3710B /* QuartzCore.framework in Frameworks */,
 				8C5C45AD1596770700E3710B /* Security.framework in Frameworks */,
@@ -143,6 +148,7 @@
 				8C5C45781596762E00E3710B /* Foundation.framework in Frameworks */,
 				8CA147D215ABBB280085B346 /* libTestFlight.a in Frameworks */,
 				8C5C45A1159676A400E3710B /* Parse.framework in Frameworks */,
+				8CA147D415ABBCA60085B346 /* FactualSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,6 +175,8 @@
 		8C5C45741596762E00E3710B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8CA147D915ABBF680085B346 /* CoreLocation.framework */,
+				8CA147D315ABBCA60085B346 /* FactualSDK.framework */,
 				8CA147D115ABBB080085B346 /* TestFlight SDK */,
 				8CD18BF2159C02F30096E7F4 /* MapKit.framework */,
 				8C5C45AE1596770C00E3710B /* QuartzCore.framework */,
