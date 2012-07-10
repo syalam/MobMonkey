@@ -50,6 +50,8 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    [self performFactualQuery];
 }
 
 - (void)viewDidUnload
@@ -207,7 +209,7 @@
     
     FactualSortCriteria* primarySort = [[FactualSortCriteria alloc] initWithFieldName:@"$relevance" sortOrder:FactualSortOrder_Ascending];
     [queryObject setPrimarySortCriteria:primarySort];
-    [queryObject addFullTextQueryTerms:@"coffee", nil];
+    [queryObject addFullTextQueryTerms:categoryTextField.text, nil];
     
     
     _activeRequest = [[AppDelegate getAPIObject] queryTable:@"global" optionalQueryParams:queryObject withDelegate:self];
