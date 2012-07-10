@@ -29,6 +29,8 @@
     [Parse setApplicationId:@"UT8fGQ77gPqU8DKKOHYDlerNGi8QZBO3tpLmsu1x"
                   clientKey:@"3gdOuv0ehtCS6ZhmaPnwXSrHVdANvq59khwqhAjv"];
     
+    [TestFlight takeOff:@"e6432d80aed42a955243c8d93a493dea_MTAwODk2MjAxMi0wNi0yMyAxODoxNzoxOC45NjMzMjY"];
+    
     HomeViewController *homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
     UINavigationController* homeNavController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
     homeViewController.title = @"Home";

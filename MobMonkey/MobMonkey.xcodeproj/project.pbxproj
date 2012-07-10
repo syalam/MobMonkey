@@ -25,6 +25,7 @@
 		8C5C45AB159676FE00E3710B /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45AA159676FE00E3710B /* libz.1.1.3.dylib */; };
 		8C5C45AD1596770700E3710B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45AC1596770700E3710B /* Security.framework */; };
 		8C5C45AF1596770C00E3710B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45AE1596770C00E3710B /* QuartzCore.framework */; };
+		8CA147D215ABBB280085B346 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA147CF15ABBB010085B346 /* libTestFlight.a */; };
 		8CCDA1FD15980629006B0093 /* BookmarksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCDA1FB15980629006B0093 /* BookmarksViewController.m */; };
 		8CCDA1FE15980629006B0093 /* BookmarksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CCDA1FC15980629006B0093 /* BookmarksViewController.xib */; };
 		8CCDA2031598070B006B0093 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCDA2011598070B006B0093 /* SettingsViewController.m */; };
@@ -78,6 +79,8 @@
 		8C5C45AA159676FE00E3710B /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
 		8C5C45AC1596770700E3710B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8C5C45AE1596770C00E3710B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		8CA147CF15ABBB010085B346 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		8CA147D015ABBB010085B346 /* TestFlight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		8CCDA1FA15980629006B0093 /* BookmarksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookmarksViewController.h; sourceTree = "<group>"; };
 		8CCDA1FB15980629006B0093 /* BookmarksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookmarksViewController.m; sourceTree = "<group>"; };
 		8CCDA1FC15980629006B0093 /* BookmarksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookmarksViewController.xib; sourceTree = "<group>"; };
@@ -138,6 +141,7 @@
 				8C5C45A3159676CE00E3710B /* AudioToolbox.framework in Frameworks */,
 				8C5C45761596762E00E3710B /* UIKit.framework in Frameworks */,
 				8C5C45781596762E00E3710B /* Foundation.framework in Frameworks */,
+				8CA147D215ABBB280085B346 /* libTestFlight.a in Frameworks */,
 				8C5C45A1159676A400E3710B /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -165,6 +169,7 @@
 		8C5C45741596762E00E3710B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8CA147D115ABBB080085B346 /* TestFlight SDK */,
 				8CD18BF2159C02F30096E7F4 /* MapKit.framework */,
 				8C5C45AE1596770C00E3710B /* QuartzCore.framework */,
 				8C5C45AC1596770700E3710B /* Security.framework */,
@@ -208,6 +213,15 @@
 				8C5C45831596762E00E3710B /* MobMonkey-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8CA147D115ABBB080085B346 /* TestFlight SDK */ = {
+			isa = PBXGroup;
+			children = (
+				8CA147CF15ABBB010085B346 /* libTestFlight.a */,
+				8CA147D015ABBB010085B346 /* TestFlight.h */,
+			);
+			name = "TestFlight SDK";
 			sourceTree = "<group>";
 		};
 		8CCDA1F115980547006B0093 /* Home */ = {
@@ -493,7 +507,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: TAPPFORCE LLC";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: TAPPFORCE LLC";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -508,6 +523,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				PROVISIONING_PROFILE = "88CC78A3-3C90-4A03-962B-AEEF3B7E9EEF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "88CC78A3-3C90-4A03-962B-AEEF3B7E9EEF";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -518,7 +535,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: TAPPFORCE LLC";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: TAPPFORCE LLC";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -527,6 +545,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "88CC78A3-3C90-4A03-962B-AEEF3B7E9EEF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "88CC78A3-3C90-4A03-962B-AEEF3B7E9EEF";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -542,6 +562,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobMonkey/MobMonkey-Prefix.pch";
 				INFOPLIST_FILE = "MobMonkey/MobMonkey-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -557,6 +581,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobMonkey/MobMonkey-Prefix.pch";
 				INFOPLIST_FILE = "MobMonkey/MobMonkey-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
