@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <FactualSDK/FactualAPI.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, CLLocationManagerDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, CLLocationManagerDelegate, FactualAPIDelegate>
 {
     CLLocationManager *_locationManager;
     CLLocation* _currentLocation;
+    FactualAPIRequest* _activeRequest;
 }
 
 @property (strong, nonatomic) UIWindow *window;

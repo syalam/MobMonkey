@@ -41,7 +41,7 @@
     
     [TestFlight takeOff:@"e6432d80aed42a955243c8d93a493dea_MTAwODk2MjAxMi0wNi0yMyAxODoxNzoxOC45NjMzMjY"];
     
-     _apiObject = [[FactualAPI alloc] initWithAPIKey:@"BEoV3TPDev03P6NJSVJPgTmuTNOegwRsjJN41DnM" secret:@"hwxVQz4lAxb5YpWhbLq10KhWiEw5k35WgFuoR2YI"];
+    _apiObject = [[FactualAPI alloc] initWithAPIKey:@"BEoV3TPDev03P6NJSVJPgTmuTNOegwRsjJN41DnM" secret:@"hwxVQz4lAxb5YpWhbLq10KhWiEw5k35WgFuoR2YI"];
     
     [self initializeLocationManager];
     
@@ -64,19 +64,20 @@
     UIViewController *settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
     UINavigationController* settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
     settingsNavController.title = @"Settings";
-
+    
     
     self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:homeNavController, searchNavController, nearbyNavController, bookmarksNavController, settingsNavController, nil];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     [_locationManager stopUpdatingLocation];
-
+    
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
@@ -118,22 +119,44 @@
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation {
     
-    _currentLocation = [newLocation copy];
+    _currentLocation = newLocation;
 }
 
-
-/*
-// Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+-(void)performFactualQuery
 {
+    FactualQuery* queryObject = [FactualQuery query];
+    queryObject.limit = 50;
+    [queryObject setGeoFilter:_currentLocation.coordinate radiusInMeters:100.0];
+    
+    NSLog(@"latitude %@",_currentLocation.coordinate.latitude);
+    NSLog(@"longitude %@", _currentLocation.coordinate.longitude);
+    
+    FactualSortCriteria* primarySort = [[FactualSortCriteria alloc] initWithFieldName:@"$relevance" sortOrder:FactualSortOrder_Ascending];
+    [queryObject setPrimarySortCriteria:primarySort];
+    [queryObject addFullTextQueryTerms:@"coffee", nil];
+    
+    
+    _activeRequest = [[AppDelegate getAPIObject] queryTable:@"global" optionalQueryParams:queryObject withDelegate:self];
 }
-*/
 
-/*
-// Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed
-{
+#pragma mark -
+#pragma mark FactualAPIDelegate methods
+
+- (void)requestDidReceiveInitialResponse:(FactualAPIRequest *)request {
+    NSLog(@"received factual response");
 }
-*/
+
+- (void)requestDidReceiveData:(FactualAPIRequest *)request { 
+    NSLog(@"received factual data");
+}
+
+-(void) requestComplete:(FactualAPIRequest *)request failedWithError:(NSError *)error {
+    NSLog(@"Active request failed with Error:%@", [error localizedDescription]);
+}
+
+
+-(void) requestComplete:(FactualAPIRequest *)request receivedQueryResult:(FactualQueryResult *)queryResultObj {
+    NSLog(@"Active request Completed!");
+}
 
 @end
