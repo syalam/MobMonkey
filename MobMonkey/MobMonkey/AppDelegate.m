@@ -122,41 +122,4 @@
     _currentLocation = newLocation;
 }
 
--(void)performFactualQuery
-{
-    FactualQuery* queryObject = [FactualQuery query];
-    queryObject.limit = 50;
-    [queryObject setGeoFilter:_currentLocation.coordinate radiusInMeters:100.0];
-    
-    NSLog(@"latitude %@",_currentLocation.coordinate.latitude);
-    NSLog(@"longitude %@", _currentLocation.coordinate.longitude);
-    
-    FactualSortCriteria* primarySort = [[FactualSortCriteria alloc] initWithFieldName:@"$relevance" sortOrder:FactualSortOrder_Ascending];
-    [queryObject setPrimarySortCriteria:primarySort];
-    [queryObject addFullTextQueryTerms:@"coffee", nil];
-    
-    
-    _activeRequest = [[AppDelegate getAPIObject] queryTable:@"global" optionalQueryParams:queryObject withDelegate:self];
-}
-
-#pragma mark -
-#pragma mark FactualAPIDelegate methods
-
-- (void)requestDidReceiveInitialResponse:(FactualAPIRequest *)request {
-    NSLog(@"received factual response");
-}
-
-- (void)requestDidReceiveData:(FactualAPIRequest *)request { 
-    NSLog(@"received factual data");
-}
-
--(void) requestComplete:(FactualAPIRequest *)request failedWithError:(NSError *)error {
-    NSLog(@"Active request failed with Error:%@", [error localizedDescription]);
-}
-
-
--(void) requestComplete:(FactualAPIRequest *)request receivedQueryResult:(FactualQueryResult *)queryResultObj {
-    NSLog(@"Active request Completed!");
-}
-
 @end

@@ -13,7 +13,6 @@
 {
     CLLocationManager *_locationManager;
     CLLocation* _currentLocation;
-    FactualAPIRequest* _activeRequest;
 }
 
 @property (strong, nonatomic) UIWindow *window;
