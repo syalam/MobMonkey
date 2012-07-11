@@ -204,8 +204,8 @@
     queryObject.limit = 50;
     [queryObject setGeoFilter:[AppDelegate getDelegate].currentLocation.coordinate radiusInMeters:100.0];
     
-    NSLog(@"latitude %@",[AppDelegate getDelegate].currentLocation.coordinate.latitude);
-    NSLog(@"longitude %@", [AppDelegate getDelegate].currentLocation.coordinate.longitude);
+    NSLog(@"latitude %f",[AppDelegate getDelegate].currentLocation.coordinate.latitude);
+    NSLog(@"longitude %f", [AppDelegate getDelegate].currentLocation.coordinate.longitude);
     
     FactualSortCriteria* primarySort = [[FactualSortCriteria alloc] initWithFieldName:@"$relevance" sortOrder:FactualSortOrder_Ascending];
     [queryObject setPrimarySortCriteria:primarySort];

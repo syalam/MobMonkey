@@ -43,6 +43,25 @@
     
     _apiObject = [[FactualAPI alloc] initWithAPIKey:@"BEoV3TPDev03P6NJSVJPgTmuTNOegwRsjJN41DnM" secret:@"hwxVQz4lAxb5YpWhbLq10KhWiEw5k35WgFuoR2YI"];
     
+    //Enable Anonymous Users
+    [PFUser enableAutomaticUser];
+    
+    //Get user's UUID
+    CFUUIDRef uuid;
+    CFStringRef uuidStr;
+    uuid = CFUUIDCreate(NULL);
+    uuidStr = CFUUIDCreateString(NULL, uuid);
+    
+    NSString* uuidString = [NSString stringWithFormat:@"%@", uuidStr];
+    NSLog(@"%@", uuidString);
+    
+    
+    //Save UUID to user object
+    [[PFUser currentUser]setObject:uuidString forKey:@"uuid"];
+    [[PFUser currentUser]saveEventually];
+    
+    [PFPush subscribeToChannelInBackground:uuidString];
+    
     [self initializeLocationManager];
     
     HomeViewController *homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
@@ -120,6 +139,13 @@
            fromLocation:(CLLocation *)oldLocation {
     
     _currentLocation = newLocation;
+    
+    //set user's location
+    if (newLocation) {
+        PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:newLocation.coordinate.latitude longitude:newLocation.coordinate.longitude];
+        [[PFUser currentUser]setObject:point forKey:@"userLocation"];
+        [[PFUser currentUser]saveEventually];
+    }
 }
 
 @end

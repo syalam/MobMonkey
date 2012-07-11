@@ -39,9 +39,6 @@
         [headerView setFrame:CGRectMake(0, 0, 320, 46)];
         [self.tableView setTableHeaderView:headerView];
     }
-    PFObject *testObject = [PFObject objectWithClassName:@"test"];
-    [testObject setObject:@"hello world" forKey:@"test"];
-    [testObject saveEventually];
 }
 
 - (void)viewDidUnload
