@@ -166,7 +166,7 @@
         [passwordTextField becomeFirstResponder];
     }
     else {
-        PFUser *user = [PFUser user];
+        PFUser *user = [PFUser currentUser];
         [user setObject:firstNameTextField.text forKey:@"firstName"];
         [user setObject:lastNameTextField.text forKey:@"lastName"];
         user.username = emailTextField.text;
@@ -188,7 +188,6 @@
                 
                 [PFPush subscribeToChannelInBackground:uuidString];
 
-                
                 [[AppDelegate getDelegate] initializeLocationManager];
                 [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
             }

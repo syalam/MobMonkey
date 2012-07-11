@@ -12,8 +12,7 @@
 
 typedef enum  {
   FactualSortOrder_Ascending,
-  FactualSortOrder_Descending
-  
+  FactualSortOrder_Descending,
 } FactualSortOrder;
 
 /*! @abstract Encapsulates sort criteria, including field name and sort order 

@@ -142,6 +142,7 @@
 - (void)setNavButtons {
     if ([self.title isEqualToString:@"Home"]) {
         self.navigationItem.rightBarButtonItem = nil;
+        
         if ([PFUser currentUser]) {
             UIBarButtonItem *signOutButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign Out" style:UIBarButtonItemStyleBordered target:self action:@selector(signOutButtonClicked:)];
             self.navigationItem.rightBarButtonItem = signOutButton;
