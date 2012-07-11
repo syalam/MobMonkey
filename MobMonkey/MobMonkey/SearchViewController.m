@@ -212,7 +212,7 @@
     [queryObject addFullTextQueryTerms:categoryTextField.text, nil];
     
     
-    _activeRequest = [[AppDelegate getAPIObject] queryTable:@"global" optionalQueryParams:queryObject withDelegate:self];
+    //_activeRequest = [[AppDelegate getAPIObject] queryTable:@"global" optionalQueryParams:queryObject withDelegate:self];
 }
 
 #pragma mark -
