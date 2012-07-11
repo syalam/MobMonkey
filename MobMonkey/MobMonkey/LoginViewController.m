@@ -7,6 +7,8 @@
 //
 
 #import "LoginViewController.h"
+#import "AppDelegate.h"
+#import <Parse/Parse.h>
 
 @interface LoginViewController ()
 
@@ -14,7 +16,6 @@
 
 @implementation LoginViewController
 @synthesize contentList = _contentList;
-@synthesize homeScreen = _homeScreen;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -134,10 +135,51 @@
 
 #pragma mark - IBAction Methods
 - (IBAction)loginButtonClicked:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+    NSString *message;
+    if ([emailTextField.text isEqualToString:@""] || [emailTextField.text isKindOfClass:[NSNull class]]) {
+        message = @"Please enter your email address";
+    }
+    else if ([passwordTextField.text isEqualToString:@""] || [passwordTextField isKindOfClass:[NSNull class]]) {
+        message = @"Please enter your password";
+    }
+    else {
+        [PFUser logInWithUsernameInBackground:emailTextField.text password:passwordTextField.text block:^(PFUser *user, NSError *error) {
+            if (!error) {
+                CFUUIDRef uuid;
+                CFStringRef uuidStr;
+                uuid = CFUUIDCreate(NULL);
+                uuidStr = CFUUIDCreateString(NULL, uuid);
+                
+                NSString* uuidString = [NSString stringWithFormat:@"%@", uuidStr];
+                NSLog(@"%@", uuidString);
+                
+                //Save UUID to user object
+                [user setObject:uuidString forKey:@"uuid"];
+                [user saveEventually];
+                
+                [PFPush subscribeToChannelInBackground:uuidString];
+                
+                [[AppDelegate getDelegate] initializeLocationManager];
+                [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+            }
+            else {
+                NSString *errorString = [[error userInfo] objectForKey:@"error"];
+                [self showAlertView:errorString];
+            }
+        }];
+    }
+    
+    
 }
 - (IBAction)signUpButtonClicked:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+#pragma mark - Helper Methods
+- (void)showAlertView:(NSString*)message {
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
 }
 
 @end

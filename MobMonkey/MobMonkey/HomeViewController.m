@@ -161,7 +161,6 @@
 #pragma mark - UIBarButtonItem Action Methods
 - (void)signInButtonClicked:(id)sender {
     SignUpViewController *signUpVc = [[SignUpViewController alloc]initWithNibName:@"SignUpViewController" bundle:nil];
-    signUpVc.homeScreen = self;
     UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:signUpVc];
     [self.navigationController presentViewController:navC animated:YES completion:NULL];
 }

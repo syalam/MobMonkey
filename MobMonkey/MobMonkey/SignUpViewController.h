@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HomeViewController.h"
 
 @interface SignUpViewController : UITableViewController {
     IBOutlet UIButton *signUpButton;
@@ -26,6 +25,5 @@
 - (void)showAlertView:(NSString*)message;
 
 @property (nonatomic, retain)NSMutableArray *contentList;
-@property (nonatomic, retain)HomeViewController *homeScreen;
 
 @end

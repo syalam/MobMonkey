@@ -17,7 +17,6 @@
 
 @implementation SignUpViewController
 @synthesize contentList = _contentList;
-@synthesize homeScreen = _homeScreen;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -175,6 +174,21 @@
         user.password = passwordTextField.text;
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
+                CFUUIDRef uuid;
+                CFStringRef uuidStr;
+                uuid = CFUUIDCreate(NULL);
+                uuidStr = CFUUIDCreateString(NULL, uuid);
+                
+                NSString* uuidString = [NSString stringWithFormat:@"%@", uuidStr];
+                NSLog(@"%@", uuidString);
+                
+                //Save UUID to user object
+                [user setObject:uuidString forKey:@"uuid"];
+                [user saveEventually];
+                
+                [PFPush subscribeToChannelInBackground:uuidString];
+
+                
                 [[AppDelegate getDelegate] initializeLocationManager];
                 [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
             }

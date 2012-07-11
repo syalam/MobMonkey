@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HomeViewController.h"
 
 @interface LoginViewController : UITableViewController {
     UITextField *emailTextField;
@@ -20,8 +19,8 @@
 - (IBAction)loginButtonClicked:(id)sender;
 - (IBAction)signUpButtonClicked:(id)sender;
 
+- (void)showAlertView:(NSString*)message;
 
 @property (nonatomic, retain) NSMutableArray *contentList;
-@property (nonatomic, retain) HomeViewController *homeScreen;
 
 @end

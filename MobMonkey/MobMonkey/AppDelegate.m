@@ -47,20 +47,6 @@
     //Enable Anonymous Users
     if ([PFUser currentUser]) {
         //Get user's UUID
-        CFUUIDRef uuid;
-        CFStringRef uuidStr;
-        uuid = CFUUIDCreate(NULL);
-        uuidStr = CFUUIDCreateString(NULL, uuid);
-        
-        NSString* uuidString = [NSString stringWithFormat:@"%@", uuidStr];
-        NSLog(@"%@", uuidString);
-        
-        //Save UUID to user object
-        [[PFUser currentUser]setObject:uuidString forKey:@"uuid"];
-        [[PFUser currentUser]saveEventually];
-        
-        [PFPush subscribeToChannelInBackground:uuidString];
-        
         [self initializeLocationManager];
     }
     
