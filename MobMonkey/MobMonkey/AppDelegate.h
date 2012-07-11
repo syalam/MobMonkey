@@ -20,6 +20,8 @@
 @property (nonatomic, readonly) FactualAPI* apiObject;
 @property (nonatomic, readonly) CLLocation* currentLocation;
 
+
+- (void) initializeLocationManager;
 +(FactualAPI*) getAPIObject;
 +(AppDelegate*) getDelegate;
 

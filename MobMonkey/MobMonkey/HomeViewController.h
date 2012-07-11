@@ -15,4 +15,6 @@
 
 @property (nonatomic, retain)NSString *screen;
 
+- (void)setNavButtons;
+
 @end

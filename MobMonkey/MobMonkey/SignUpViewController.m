@@ -8,6 +8,8 @@
 
 #import "SignUpViewController.h"
 #import "LoginViewController.h"
+#import "AppDelegate.h"
+#import <Parse/Parse.h>
 
 @interface SignUpViewController ()
 
@@ -15,6 +17,7 @@
 
 @implementation SignUpViewController
 @synthesize contentList = _contentList;
+@synthesize homeScreen = _homeScreen;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -143,11 +146,60 @@
 
 #pragma mark - IBAction Methods
 - (IBAction)signUpButtonClicked:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+    NSString *message;
+    if ([firstNameTextField.text isEqualToString:@""] || [firstNameTextField.text isKindOfClass:[NSNull class]]) {
+        message = @"Please enter your first name";
+    }
+    else if ([lastNameTextField.text isEqualToString:@""] || [lastNameTextField.text isKindOfClass:[NSNull class]]) {
+        message = @"Please enter your last name";
+    }
+    else if ([emailTextField.text isEqualToString:@""] || [emailTextField.text isKindOfClass:[NSNull class]]) {
+        message = @"Please enter your email address";
+    }
+    else if ([passwordTextField.text isEqualToString:@""] || [passwordTextField.text isKindOfClass:[NSNull class]]) {
+        message = @"Please enter a password";
+    }
+    else if (![passwordTextField.text isEqualToString:confirmPasswordTextField.text]) {
+        message = @"The passwords you have entered to not match";
+        passwordTextField.text = @"";
+        confirmPasswordTextField.text = @"";
+        
+        [passwordTextField becomeFirstResponder];
+    }
+    else {
+        PFUser *user = [PFUser user];
+        [user setObject:firstNameTextField.text forKey:@"firstName"];
+        [user setObject:lastNameTextField.text forKey:@"lastName"];
+        user.username = emailTextField.text;
+        user.email = emailTextField.text;
+        user.password = passwordTextField.text;
+        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                [[AppDelegate getDelegate] initializeLocationManager];
+                [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+            }
+            else {
+                NSString *errorString = [[error userInfo] objectForKey:@"error"];
+                [self showAlertView:errorString];
+            }
+        }];
+    }
+    
+    if (message) {
+        [self showAlertView:message];
+    }
+    
+    
 }
 - (IBAction)signInButtonClicked:(id)sender {
     LoginViewController *lvc = [[LoginViewController alloc]initWithNibName:@"LoginViewController" bundle:nil];
     [self.navigationController pushViewController:lvc animated:YES];
+}
+
+#pragma mark - Helper Methods
+- (void)showAlertView:(NSString*)message {
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
 }
 
 @end

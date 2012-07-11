@@ -14,6 +14,7 @@
 
 @implementation LoginViewController
 @synthesize contentList = _contentList;
+@synthesize homeScreen = _homeScreen;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {

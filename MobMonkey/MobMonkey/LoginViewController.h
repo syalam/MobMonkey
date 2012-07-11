@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeViewController.h"
 
 @interface LoginViewController : UITableViewController {
     UITextField *emailTextField;
@@ -21,5 +22,6 @@
 
 
 @property (nonatomic, retain) NSMutableArray *contentList;
+@property (nonatomic, retain) HomeViewController *homeScreen;
 
 @end

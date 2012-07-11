@@ -45,10 +45,27 @@
     _apiObject = [[FactualAPI alloc] initWithAPIKey:@"BEoV3TPDev03P6NJSVJPgTmuTNOegwRsjJN41DnM" secret:@"hwxVQz4lAxb5YpWhbLq10KhWiEw5k35WgFuoR2YI"];
     
     //Enable Anonymous Users
-    [PFUser enableAutomaticUser];
+    if ([PFUser currentUser]) {
+        //Get user's UUID
+        CFUUIDRef uuid;
+        CFStringRef uuidStr;
+        uuid = CFUUIDCreate(NULL);
+        uuidStr = CFUUIDCreateString(NULL, uuid);
+        
+        NSString* uuidString = [NSString stringWithFormat:@"%@", uuidStr];
+        NSLog(@"%@", uuidString);
+        
+        //Save UUID to user object
+        [[PFUser currentUser]setObject:uuidString forKey:@"uuid"];
+        [[PFUser currentUser]saveEventually];
+        
+        [PFPush subscribeToChannelInBackground:uuidString];
+        
+        [self initializeLocationManager];
+    }
     
     //Get user's UUID
-    CFUUIDRef uuid;
+    /*CFUUIDRef uuid;
     CFStringRef uuidStr;
     uuid = CFUUIDCreate(NULL);
     uuidStr = CFUUIDCreateString(NULL, uuid);
@@ -56,14 +73,13 @@
     NSString* uuidString = [NSString stringWithFormat:@"%@", uuidStr];
     NSLog(@"%@", uuidString);
     
-    
     //Save UUID to user object
     [[PFUser currentUser]setObject:uuidString forKey:@"uuid"];
     [[PFUser currentUser]saveEventually];
     
     [PFPush subscribeToChannelInBackground:uuidString];
     
-    [self initializeLocationManager];
+    [self initializeLocationManager];*/
     
     HomeViewController *homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
     UINavigationController* homeNavController = [[UINavigationController alloc] initWithRootViewController:homeViewController];

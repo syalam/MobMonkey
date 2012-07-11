@@ -10,6 +10,7 @@
 #import "HomeCell.h"
 #import "LocationViewController.h"
 #import "SignUpViewController.h"
+#import <Parse/Parse.h>
 
 @interface HomeViewController ()
 
@@ -31,14 +32,12 @@
 {
     [super viewDidLoad];    
     
-    if ([self.title isEqualToString:@"Home"]) {
-        UIBarButtonItem *signInButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign Up" style:UIBarButtonItemStyleBordered target:self action:@selector(signInButtonClicked:)];
-        self.navigationItem.rightBarButtonItem = signInButton;
-    }
-    else if ([self.title isEqualToString:@"Bookmarks"]) {
-        [headerView setFrame:CGRectMake(0, 0, 320, 46)];
-        [self.tableView setTableHeaderView:headerView];
-    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self setNavButtons];
 }
 
 - (void)viewDidUnload
@@ -139,15 +138,41 @@
     return 200;
 }
 
+#pragma mark - Helper Methods
+- (void)setNavButtons {
+    if ([self.title isEqualToString:@"Home"]) {
+        self.navigationItem.rightBarButtonItem = nil;
+        if ([PFUser currentUser]) {
+            UIBarButtonItem *signOutButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign Out" style:UIBarButtonItemStyleBordered target:self action:@selector(signOutButtonClicked:)];
+            self.navigationItem.rightBarButtonItem = signOutButton;
+        }
+        else {
+            UIBarButtonItem *signInButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign Up" style:UIBarButtonItemStyleBordered target:self action:@selector(signInButtonClicked:)];
+            self.navigationItem.rightBarButtonItem = signInButton;
+        }
+    }
+    else if ([self.title isEqualToString:@"Bookmarks"]) {
+        [headerView setFrame:CGRectMake(0, 0, 320, 46)];
+        [self.tableView setTableHeaderView:headerView];
+    }
+}
+
+
 #pragma mark - UIBarButtonItem Action Methods
 - (void)signInButtonClicked:(id)sender {
     SignUpViewController *signUpVc = [[SignUpViewController alloc]initWithNibName:@"SignUpViewController" bundle:nil];
+    signUpVc.homeScreen = self;
     UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:signUpVc];
     [self.navigationController presentViewController:navC animated:YES completion:NULL];
 }
 
 - (void)notificationsButtonClicked:(id)sender {
     
+}
+
+- (void)signOutButtonClicked:(id)sender {
+    [PFUser logOut];
+    [self setNavButtons];
 }
 
 @end
