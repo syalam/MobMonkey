@@ -201,17 +201,30 @@
 -(void)performFactualQuery
 {
     FactualQuery* queryObject = [FactualQuery query];
-    //queryObject.limit = 50;
-    [queryObject setGeoFilter:[AppDelegate getDelegate].currentLocation.coordinate radiusInMeters:100.0];
     
-    NSLog(@"latitude %f",[AppDelegate getDelegate].currentLocation.coordinate.latitude);
-    NSLog(@"longitude %f", [AppDelegate getDelegate].currentLocation.coordinate.longitude);
+    // set limit
+    queryObject.limit = 50;
     
+    // set geo location 
+    CLLocationCoordinate2D coordinate = [AppDelegate getDelegate].currentLocation.coordinate;       
+        
+    // set geo filter 
+    [queryObject setGeoFilter:coordinate radiusInMeters:100.0];
+        
+    // set the sort criteria 
     FactualSortCriteria* primarySort = [[FactualSortCriteria alloc] initWithFieldName:@"$relevance" sortOrder:FactualSortOrder_Ascending];
     [queryObject setPrimarySortCriteria:primarySort];
-    [queryObject addFullTextQueryTerms:categoryTextField.text, nil];
     
+    // full text term  
+    [queryObject addFullTextQueryTerms:@"coffee", nil];
     
+    // check if locality filter is on ... 
+    [queryObject addRowFilter:[FactualRowFilter fieldName:@"country" equalTo:@"US"]];    
+    
+    // check if category filter is on ... 
+    [queryObject addRowFilter:[FactualRowFilter fieldName:@"category" beginsWith:@"Food & Beverage"]];
+        
+    // start the request ... 
     _activeRequest = [[AppDelegate getAPIObject] queryTable:@"global" optionalQueryParams:queryObject withDelegate:self];
 }
 
