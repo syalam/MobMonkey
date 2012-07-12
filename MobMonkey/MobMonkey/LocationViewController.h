@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
+#import "RequestsViewController.h"
 
-@interface LocationViewController : UIViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface LocationViewController : UIViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
+    UIImage *image;
+}
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIButton *photosButton;
 @property (strong, nonatomic) IBOutlet UIButton *videosButton;
@@ -16,6 +20,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *shareButton;
 @property (strong, nonatomic) IBOutlet UIButton *bookmarkButton;
 @property (strong, nonatomic) IBOutlet UIButton *notificationsButton;
+@property (nonatomic, retain) RequestsViewController *requestScreen;
+@property (nonatomic, retain) PFObject *requestObject;
+
 - (IBAction)videosButtonTapped:(id)sender;
 - (IBAction)requestButtonTapped:(id)sender;
 - (IBAction)bookmarkButtonTapped:(id)sender;

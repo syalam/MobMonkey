@@ -9,7 +9,7 @@
 #import "LocationViewController.h"
 #import "NotificationsViewController.h"
 #import "AppDelegate.h"
-#import <Parse/Parse.h>
+
 
 NSUInteger const kCameraSheet = 0;
 NSUInteger const kLoginSheet = 1;
@@ -27,6 +27,8 @@ NSUInteger const kLoginSheet = 1;
 @synthesize shareButton;
 @synthesize bookmarkButton;
 @synthesize notificationsButton;
+@synthesize requestScreen = _requestScreen;
+@synthesize requestObject = _requestObject;
 
 - (void)viewDidLoad
 {
@@ -70,7 +72,12 @@ NSUInteger const kLoginSheet = 1;
     UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:@"What would you like to capture?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"A Picture", @"A Video", nil];
     actionSheet.tag = kCameraSheet;
     
-    [actionSheet showFromTabBar:self.navigationController.tabBarController.tabBar];
+    if (_requestScreen) {
+        [actionSheet showInView:self.view];
+    }
+    else {
+        [actionSheet showFromTabBar:self.navigationController.tabBarController.tabBar];
+    }
 }
 
 #pragma mark - ActionSheet elegate Methods
@@ -130,7 +137,38 @@ NSUInteger const kLoginSheet = 1;
 #pragma mark - UIImagePickerController Delegate Methods
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     
+    /*UIImage *imageToSave;
+    if (image.imageOrientation != UIImageOrientationUp) {
+        imageToSave = [[UIImage alloc]initWithCGImage:image.CGImage scale:1.0 orientation:UIImageOrientationUp];
+    }*/
+    
+    UIImage *imageToSave = [[UIImage alloc]initWithCGImage:image.CGImage scale:.5 orientation:UIImageOrientationUp];
+    
+    NSData *dataObj = UIImageJPEGRepresentation(imageToSave, .1);
+    PFFile *imageFile = [PFFile fileWithData:dataObj];
+    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            PFObject *locationImage = [PFObject objectWithClassName:@"locationImages"];
+            [locationImage setObject:imageFile forKey:@"image"];
+            [locationImage setObject:[PFUser currentUser] forKey:@"uploadedBy"];
+            [locationImage setObject:@"LocationId" forKey:@"location"];
+            [locationImage setObject:[_requestObject objectForKey:@"requestor"] forKey:@"respondingTo"];
+            [locationImage saveEventually];
+            
+            if (_requestScreen) {
+                [_requestScreen responseComplete:_requestObject];
+            }
+            
+            [picker dismissModalViewControllerAnimated:YES];
+        } 
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark - IBAction Methods
@@ -156,7 +194,6 @@ NSUInteger const kLoginSheet = 1;
                 [request setObject:point forKey:@"locationCoordinates"];
                 [request setObject:[PFUser currentUser] forKey:@"requestor"];
                 [request setObject:requestText forKey:@"requestText"];
-                [request setObject:[NSNumber numberWithBool:NO] forKey:@"requestFulfilled"];
                 [request saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (succeeded) {
                         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Your request has been sent" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -198,5 +235,8 @@ NSUInteger const kLoginSheet = 1;
 }
 
 - (IBAction)photosButtonTapped:(id)sender {
+
 }
+
+
 @end

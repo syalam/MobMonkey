@@ -7,13 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 #import "RequestCell.h"
 
 @interface RequestsViewController : UITableViewController <RequestCellDelegate> {
     NSMutableArray *indexPathArray;
+    int currentIndex;
 }
 
 @property (nonatomic, retain) NSMutableArray *contentList;
 
+
+- (void)responseComplete:(PFObject *)requestObject;
 
 @end

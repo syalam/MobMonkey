@@ -9,7 +9,6 @@
 #import "RequestsViewController.h"
 #import "LocationViewController.h"
 #import "HomeViewController.h"
-#import <Parse/Parse.h>
 
 #define FONT_SIZE 13.0f
 #define CELL_CONTENT_WIDTH 180.0f
@@ -35,7 +34,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Notifications";
+    self.title = @"Requests";
     
     indexPathArray = [[NSMutableArray alloc]init];
 
@@ -166,7 +165,11 @@
 
 #pragma mark - RequestCell Delegate Methods
 - (void)respondButtonTapped:(id)sender {
+    currentIndex = [sender tag];
+    PFObject *requestObject = [_contentList objectAtIndex:[sender tag]];
     LocationViewController *locationScreen = [[LocationViewController alloc]initWithNibName:@"LocationViewController" bundle:nil];
+    locationScreen.requestObject = requestObject;
+    locationScreen.requestScreen = self;
     [self.navigationController pushViewController:locationScreen animated:YES];
 }
 
@@ -183,6 +186,21 @@
     NSArray *indexPathToDeleteArray = [NSArray arrayWithObject:indexPath];
     [_contentList removeObjectAtIndex:[sender tag]];
     [indexPathArray removeObjectAtIndex:[sender tag]];
+    [self.tableView deleteRowsAtIndexPaths:indexPathToDeleteArray withRowAnimation:UITableViewRowAnimationFade];
+}
+
+#pragma mark - Helper Methods
+- (void)responseComplete:(PFObject *)requestObject {
+    PFObject *response = [PFObject objectWithClassName:@"requestResponses"];
+    [response setObject:requestObject forKey:@"requestObject"];
+    [response setObject:[NSNumber numberWithBool:YES] forKey:@"responded"];
+    [response setObject:[PFUser currentUser] forKey:@"responder"];
+    [response saveEventually];
+    
+    NSIndexPath *indexPath = [indexPathArray objectAtIndex:currentIndex];
+    NSArray *indexPathToDeleteArray = [NSArray arrayWithObject:indexPath];
+    [_contentList removeObjectAtIndex:currentIndex];
+    [indexPathArray removeObjectAtIndex:currentIndex];
     [self.tableView deleteRowsAtIndexPaths:indexPathToDeleteArray withRowAnimation:UITableViewRowAnimationFade];
 }
 
