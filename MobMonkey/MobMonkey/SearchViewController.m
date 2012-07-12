@@ -212,7 +212,7 @@
     [queryObject setGeoFilter:coordinate radiusInMeters:100.0];
         
     // set the sort criteria 
-    FactualSortCriteria* primarySort = [[FactualSortCriteria alloc] initWithFieldName:@"$relevance" sortOrder:FactualSortOrder_Ascending];
+    /*FactualSortCriteria* primarySort = [[FactualSortCriteria alloc] initWithFieldName:@"$relevance" sortOrder:FactualSortOrder_Ascending];
     [queryObject setPrimarySortCriteria:primarySort];
     
     // full text term  
@@ -225,7 +225,7 @@
     [queryObject addRowFilter:[FactualRowFilter fieldName:@"category" beginsWith:@"Food & Beverage"]];
         
     // start the request ... 
-    _activeRequest = [[AppDelegate getAPIObject] queryTable:@"global" optionalQueryParams:queryObject withDelegate:self];
+    _activeRequest = [[AppDelegate getAPIObject] queryTable:@"global" optionalQueryParams:queryObject withDelegate:self];*/
 }
 
 #pragma mark -

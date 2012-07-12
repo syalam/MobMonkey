@@ -19,7 +19,7 @@
     _locationManager = [[CLLocationManager alloc]init];
     _locationManager.delegate = self;
     _locationManager.desiredAccuracy =kCLLocationAccuracyBest;
-    //_locationManager.distanceFilter = 60.0f; // update every 200ft
+    _locationManager.distanceFilter = 60.0f; // update every 200ft
     [_locationManager startMonitoringSignificantLocationChanges];
     //[_locationManager startUpdatingLocation];
 }
