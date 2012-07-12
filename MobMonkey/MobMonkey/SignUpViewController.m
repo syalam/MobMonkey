@@ -88,6 +88,8 @@
     cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     [cell.contentView addSubview:[_contentList objectAtIndex:indexPath.row]];
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
 }
 

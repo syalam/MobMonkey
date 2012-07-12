@@ -82,14 +82,16 @@ NSUInteger const kLoginSheet = 1;
         
         UIImagePickerController* picker = [[UIImagePickerController alloc] init];
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            picker.showsCameraControls = YES;
+            picker.delegate = self;
             picker.sourceType = UIImagePickerControllerSourceTypeCamera;
             picker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+            picker.showsCameraControls = YES;
         }
         
         switch (buttonIndex) {
             case 0:
                 if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                    picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
                     [self presentViewController:picker animated:YES completion:nil];
                 }
                 else {
@@ -99,6 +101,7 @@ NSUInteger const kLoginSheet = 1;
                 break;
             case 1:
                 if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                    picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
                     [self presentViewController:picker animated:YES completion:nil];
                 }
                 else {
@@ -149,6 +152,7 @@ NSUInteger const kLoginSheet = 1;
                 //create the request
                 PFObject *request = [PFObject objectWithClassName:@"requests"]; 
                 [request setObject:point forKey:@"locationCoordinates"];
+                [request setObject:[PFUser currentUser] forKey:@"requestor"];
                 [request setObject:[NSNumber numberWithBool:NO] forKey:@"requestFulfilled"];
                 [request saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (succeeded) {

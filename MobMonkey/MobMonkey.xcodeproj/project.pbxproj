@@ -43,6 +43,8 @@
 		8CD18BEF159BA1150096E7F4 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD18BED159BA1150096E7F4 /* LocationViewController.m */; };
 		8CD18BF0159BA1150096E7F4 /* LocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CD18BEE159BA1150096E7F4 /* LocationViewController.xib */; };
 		8CD18BF3159C02F30096E7F4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CD18BF2159C02F30096E7F4 /* MapKit.framework */; };
+		F7193B7915AEA14B00CCFC5A /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7193B7715AEA14B00CCFC5A /* RequestsViewController.m */; };
+		F7193B7A15AEA14B00CCFC5A /* RequestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7193B7815AEA14B00CCFC5A /* RequestsViewController.xib */; };
 		F79F95DF15A562D200BE96EE /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F95DE15A562D200BE96EE /* SearchCell.m */; };
 		F79F95E415A56B9200BE96EE /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F95E215A56B9200BE96EE /* MapViewController.m */; };
 		F79F95E515A56B9200BE96EE /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79F95E315A56B9200BE96EE /* MapViewController.xib */; };
@@ -107,6 +109,9 @@
 		8CD18BED159BA1150096E7F4 /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
 		8CD18BEE159BA1150096E7F4 /* LocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationViewController.xib; sourceTree = "<group>"; };
 		8CD18BF2159C02F30096E7F4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		F7193B7615AEA14B00CCFC5A /* RequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestsViewController.h; sourceTree = "<group>"; };
+		F7193B7715AEA14B00CCFC5A /* RequestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestsViewController.m; sourceTree = "<group>"; };
+		F7193B7815AEA14B00CCFC5A /* RequestsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RequestsViewController.xib; sourceTree = "<group>"; };
 		F79F95DD15A562D200BE96EE /* SearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
 		F79F95DE15A562D200BE96EE /* SearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
 		F79F95E115A56B9200BE96EE /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -235,6 +240,7 @@
 		8CCDA1F115980547006B0093 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				F7193B7515AEA11100CCFC5A /* Notifications */,
 				8CD18BD3159B99D90096E7F4 /* HomeViewController.h */,
 				8CD18BD4159B99D90096E7F4 /* HomeViewController.m */,
 				8CD18BD5159B99D90096E7F4 /* HomeViewController.xib */,
@@ -318,6 +324,16 @@
 				8CD18BEE159BA1150096E7F4 /* LocationViewController.xib */,
 			);
 			name = "Location View";
+			sourceTree = "<group>";
+		};
+		F7193B7515AEA11100CCFC5A /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				F7193B7615AEA14B00CCFC5A /* RequestsViewController.h */,
+				F7193B7715AEA14B00CCFC5A /* RequestsViewController.m */,
+				F7193B7815AEA14B00CCFC5A /* RequestsViewController.xib */,
+			);
+			name = Notifications;
 			sourceTree = "<group>";
 		};
 		F79F95DB15A562A500BE96EE /* SearchCell */ = {
@@ -466,6 +482,7 @@
 				F79F95FC15A643EB00BE96EE /* LoginViewController.xib in Resources */,
 				F79F960315A6449000BE96EE /* SignUpViewController.xib in Resources */,
 				F79F961115A64DB000BE96EE /* NotificationsViewController.xib in Resources */,
+				F7193B7A15AEA14B00CCFC5A /* RequestsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,6 +509,7 @@
 				F79F95FB15A643EB00BE96EE /* LoginViewController.m in Sources */,
 				F79F960215A6449000BE96EE /* SignUpViewController.m in Sources */,
 				F79F961015A64DB000BE96EE /* NotificationsViewController.m in Sources */,
+				F7193B7915AEA14B00CCFC5A /* RequestsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

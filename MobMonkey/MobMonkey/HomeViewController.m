@@ -146,6 +146,9 @@
         if ([PFUser currentUser]) {
             UIBarButtonItem *signOutButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign Out" style:UIBarButtonItemStyleBordered target:self action:@selector(signOutButtonClicked:)];
             self.navigationItem.rightBarButtonItem = signOutButton;
+            
+            UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc]initWithTitle:@"Notifications" style:UIBarButtonItemStyleBordered target:self action:@selector(notificationsButtonClicked:)];
+            self.navigationItem.leftBarButtonItem = notificationsBarButton;
         }
         else {
             UIBarButtonItem *signInButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign Up" style:UIBarButtonItemStyleBordered target:self action:@selector(signInButtonClicked:)];

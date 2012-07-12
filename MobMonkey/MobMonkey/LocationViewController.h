@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LocationViewController : UIViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate>
+@interface LocationViewController : UIViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIButton *photosButton;
 @property (strong, nonatomic) IBOutlet UIButton *videosButton;
