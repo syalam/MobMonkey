@@ -159,6 +159,12 @@ NSUInteger const kLoginSheet = 1;
             
             if (_requestScreen) {
                 [_requestScreen responseComplete:_requestObject];
+                PFObject *requestorObject = [_requestObject objectForKey:@"requestor"];
+                [requestorObject fetchIfNeededInBackgroundWithBlock:^(PFObject *person, NSError *error) {
+                    if (!error) {
+                        [PFPush sendPushMessageToChannelInBackground:[NSString stringWithFormat:@"MM%@",[person objectForKey:@"uuid"]] withMessage:[NSString stringWithFormat:@"%@ %@ has responded to your request", [[PFUser currentUser]objectForKey:@"firstName"], [[PFUser currentUser]objectForKey:@"lastName"]]];
+                    } 
+                }];
             }
             
             [picker dismissModalViewControllerAnimated:YES];
@@ -196,6 +202,7 @@ NSUInteger const kLoginSheet = 1;
                 [request setObject:requestText forKey:@"requestText"];
                 [request saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (succeeded) {
+                        NSLog(@"%@", request);
                         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Your request has been sent" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                         [alert show];
                         

@@ -174,7 +174,7 @@
 - (void)checkForNotifications {
     PFQuery *getRequests = [PFQuery queryWithClassName:@"requests"];
     [getRequests whereKey:@"locationCoordinates" nearGeoPoint:[[PFUser currentUser]objectForKey:@"userLocation"] withinMiles:25000];
-    [getRequests whereKey:@"requestFulfilled" equalTo:[NSNumber numberWithBool:NO]];
+    [getRequests whereKey:@"updatedAt" lessThan:[NSDate dateWithTimeIntervalSinceNow:43200]];
     [getRequests whereKey:@"requestor" notEqualTo:[PFUser currentUser]];
     [getRequests findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
