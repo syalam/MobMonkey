@@ -10,6 +10,7 @@
 #import "HomeCell.h"
 #import "LocationViewController.h"
 #import "SignUpViewController.h"
+#import "RequestsViewController.h"
 #import <Parse/Parse.h>
 
 @interface HomeViewController ()
@@ -161,6 +162,17 @@
     }
 }
 
+- (void)checkForNotifications {
+    PFQuery *getRequests = [PFQuery queryWithClassName:@"requests"];
+    [getRequests whereKey:@"locationCoordinates" nearGeoPoint:[[PFUser currentUser]objectForKey:@"userLocation"] withinMiles:.25];
+    [getRequests whereKey:@"requestFulfilled" equalTo:[NSNumber numberWithBool:NO]];
+    [getRequests findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            
+        } 
+    }];
+}
+
 
 #pragma mark - UIBarButtonItem Action Methods
 - (void)signInButtonClicked:(id)sender {
@@ -170,7 +182,9 @@
 }
 
 - (void)notificationsButtonClicked:(id)sender {
-    
+    RequestsViewController *notificationScreen = [[RequestsViewController alloc]initWithNibName:@"RequestsViewController" bundle:nil];
+    UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:notificationScreen];
+    [self.navigationController presentViewController:navc animated:YES completion:NULL];
 }
 
 - (void)signOutButtonClicked:(id)sender {

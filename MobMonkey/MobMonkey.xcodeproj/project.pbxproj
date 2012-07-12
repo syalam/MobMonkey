@@ -45,6 +45,7 @@
 		8CD18BF3159C02F30096E7F4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CD18BF2159C02F30096E7F4 /* MapKit.framework */; };
 		F7193B7915AEA14B00CCFC5A /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7193B7715AEA14B00CCFC5A /* RequestsViewController.m */; };
 		F7193B7A15AEA14B00CCFC5A /* RequestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7193B7815AEA14B00CCFC5A /* RequestsViewController.xib */; };
+		F7193B7E15AEA24A00CCFC5A /* RequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7193B7D15AEA24A00CCFC5A /* RequestCell.m */; };
 		F79F95DF15A562D200BE96EE /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F95DE15A562D200BE96EE /* SearchCell.m */; };
 		F79F95E415A56B9200BE96EE /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F95E215A56B9200BE96EE /* MapViewController.m */; };
 		F79F95E515A56B9200BE96EE /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79F95E315A56B9200BE96EE /* MapViewController.xib */; };
@@ -112,6 +113,8 @@
 		F7193B7615AEA14B00CCFC5A /* RequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestsViewController.h; sourceTree = "<group>"; };
 		F7193B7715AEA14B00CCFC5A /* RequestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestsViewController.m; sourceTree = "<group>"; };
 		F7193B7815AEA14B00CCFC5A /* RequestsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RequestsViewController.xib; sourceTree = "<group>"; };
+		F7193B7C15AEA24A00CCFC5A /* RequestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestCell.h; sourceTree = "<group>"; };
+		F7193B7D15AEA24A00CCFC5A /* RequestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestCell.m; sourceTree = "<group>"; };
 		F79F95DD15A562D200BE96EE /* SearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
 		F79F95DE15A562D200BE96EE /* SearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
 		F79F95E115A56B9200BE96EE /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -240,7 +243,7 @@
 		8CCDA1F115980547006B0093 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				F7193B7515AEA11100CCFC5A /* Notifications */,
+				F7193B7515AEA11100CCFC5A /* Requests */,
 				8CD18BD3159B99D90096E7F4 /* HomeViewController.h */,
 				8CD18BD4159B99D90096E7F4 /* HomeViewController.m */,
 				8CD18BD5159B99D90096E7F4 /* HomeViewController.xib */,
@@ -326,14 +329,24 @@
 			name = "Location View";
 			sourceTree = "<group>";
 		};
-		F7193B7515AEA11100CCFC5A /* Notifications */ = {
+		F7193B7515AEA11100CCFC5A /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				F7193B7B15AEA21A00CCFC5A /* Requests Cell */,
 				F7193B7615AEA14B00CCFC5A /* RequestsViewController.h */,
 				F7193B7715AEA14B00CCFC5A /* RequestsViewController.m */,
 				F7193B7815AEA14B00CCFC5A /* RequestsViewController.xib */,
 			);
-			name = Notifications;
+			name = Requests;
+			sourceTree = "<group>";
+		};
+		F7193B7B15AEA21A00CCFC5A /* Requests Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F7193B7C15AEA24A00CCFC5A /* RequestCell.h */,
+				F7193B7D15AEA24A00CCFC5A /* RequestCell.m */,
+			);
+			name = "Requests Cell";
 			sourceTree = "<group>";
 		};
 		F79F95DB15A562A500BE96EE /* SearchCell */ = {
@@ -510,6 +523,7 @@
 				F79F960215A6449000BE96EE /* SignUpViewController.m in Sources */,
 				F79F961015A64DB000BE96EE /* NotificationsViewController.m in Sources */,
 				F7193B7915AEA14B00CCFC5A /* RequestsViewController.m in Sources */,
+				F7193B7E15AEA24A00CCFC5A /* RequestCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

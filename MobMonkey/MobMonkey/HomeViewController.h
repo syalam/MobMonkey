@@ -16,5 +16,6 @@
 @property (nonatomic, retain)NSString *screen;
 
 - (void)setNavButtons;
+- (void)checkForNotifications;
 
 @end
