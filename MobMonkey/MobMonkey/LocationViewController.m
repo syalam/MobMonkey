@@ -8,6 +8,8 @@
 
 #import "LocationViewController.h"
 #import "NotificationsViewController.h"
+#import "AppDelegate.h"
+#import <Parse/Parse.h>
 
 NSUInteger const kCameraSheet = 0;
 NSUInteger const kLoginSheet = 1;
@@ -74,12 +76,16 @@ NSUInteger const kLoginSheet = 1;
 #pragma mark - ActionSheet elegate Methods
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    NSLog(@"%d", buttonIndex);
     
     if (actionSheet.tag == kCameraSheet) {
+        
         UIImagePickerController* picker = [[UIImagePickerController alloc] init];
-        picker.showsCameraControls = YES;
-        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        picker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            picker.showsCameraControls = YES;
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            picker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+        }
         
         switch (buttonIndex) {
             case 0:
@@ -126,11 +132,42 @@ NSUInteger const kLoginSheet = 1;
 
 #pragma mark - IBAction Methods
 - (IBAction)videosButtonTapped:(id)sender {
+
 }
 
 - (IBAction)requestButtonTapped:(id)sender {
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"loggedIn"]) {
-        //show alert view
+    if ([PFUser currentUser]) {
+        PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:[AppDelegate getDelegate].currentLocation.coordinate.latitude longitude:[AppDelegate getDelegate].currentLocation.coordinate.longitude];
+        
+        //find all users within range
+        PFQuery *findUsersNearLocation = [PFUser query];
+        [findUsersNearLocation whereKey:@"userLocation" nearGeoPoint:point withinMiles:0.25];
+        //limit results to people who have been at the location in the last two hours
+        [findUsersNearLocation whereKey:@"updatedAt" greaterThan:[NSDate dateWithTimeIntervalSinceNow:-3600]];
+        [findUsersNearLocation findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                //create the request
+                PFObject *request = [PFObject objectWithClassName:@"requests"]; 
+                [request setObject:point forKey:@"locationCoordinates"];
+                [request setObject:[NSNumber numberWithBool:NO] forKey:@"requestFulfilled"];
+                [request saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (succeeded) {
+                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Your request has been sent" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                        [alert show];
+                        
+                        //Send push notifications to all the users in range
+                        for (PFObject* person in objects) {
+                            [PFPush sendPushMessageToChannelInBackground:[person objectForKey:@"uuid"] withMessage:[NSString stringWithFormat:@"%@ %@ requests that you post a picture or video of this location", [[PFUser currentUser]objectForKey:@"firstName"], [[PFUser currentUser]objectForKey:@"lastName"]]];
+                        }
+                        
+                    }
+                    else {
+                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to send your request at this time. Please try again later" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                        [alert show];
+                    }
+                }];
+            } 
+        }];
     }
     else {
         //show login view

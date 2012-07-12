@@ -166,7 +166,7 @@
         [passwordTextField becomeFirstResponder];
     }
     else {
-        PFUser *user = [PFUser currentUser];
+        PFUser *user = [PFUser user];
         [user setObject:firstNameTextField.text forKey:@"firstName"];
         [user setObject:lastNameTextField.text forKey:@"lastName"];
         user.username = emailTextField.text;

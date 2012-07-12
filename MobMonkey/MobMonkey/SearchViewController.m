@@ -207,12 +207,12 @@
     NSLog(@"latitude %f",[AppDelegate getDelegate].currentLocation.coordinate.latitude);
     NSLog(@"longitude %f", [AppDelegate getDelegate].currentLocation.coordinate.longitude);
     
-    FactualSortCriteria* primarySort = [[FactualSortCriteria alloc] initWithFieldName:@"$relevance" sortOrder:FactualSortOrder_Ascending];
+    /*FactualSortCriteria* primarySort = [[FactualSortCriteria alloc] initWithFieldName:@"$relevance" sortOrder:FactualSortOrder_Ascending];
     [queryObject setPrimarySortCriteria:primarySort];
     [queryObject addFullTextQueryTerms:categoryTextField.text, nil];
     
     
-    _activeRequest = [[AppDelegate getAPIObject] queryTable:@"global" optionalQueryParams:queryObject withDelegate:self];
+    _activeRequest = [[AppDelegate getAPIObject] queryTable:@"global" optionalQueryParams:queryObject withDelegate:self];*/
 }
 
 #pragma mark -

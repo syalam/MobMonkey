@@ -44,10 +44,25 @@
     
     _apiObject = [[FactualAPI alloc] initWithAPIKey:@"BEoV3TPDev03P6NJSVJPgTmuTNOegwRsjJN41DnM" secret:@"hwxVQz4lAxb5YpWhbLq10KhWiEw5k35WgFuoR2YI"];
     
-    /*if ([PFUser currentUser]) {
-        //Get user's UUID
+    if ([PFUser currentUser]) {
+        //get UUID
+        CFUUIDRef uuid;
+        CFStringRef uuidStr;
+        uuid = CFUUIDCreate(NULL);
+        uuidStr = CFUUIDCreateString(NULL, uuid);
+        
+        NSString* uuidString = [NSString stringWithFormat:@"%@", uuidStr];
+        NSLog(@"%@", uuidString);
+        
+        //Save UUID to user object
+        [[PFUser currentUser]setObject:uuidString forKey:@"uuid"];
+        [[PFUser currentUser]saveEventually];
+        
+        //subscribe to push cannel
+        [PFPush subscribeToChannelInBackground:uuidString];
+        
         [self initializeLocationManager];
-    }*/
+    }
     
     /*if (![PFUser currentUser]) {
         [PFAnonymousUtils logInWithBlock:^(PFUser *user, NSError *error) {
@@ -134,6 +149,18 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
+{
+    // Tell Parse about the device token.
+    [PFPush storeDeviceToken:newDeviceToken];
+}
+
+- (void)application:(UIApplication *)application 
+didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [PFPush handlePush:userInfo];
+}
+
 +(FactualAPI*) getAPIObject {
     UIApplication* app = [UIApplication sharedApplication];
     return ((AppDelegate*)app.delegate).apiObject;
@@ -151,6 +178,7 @@
            fromLocation:(CLLocation *)oldLocation {
     
     _currentLocation = newLocation;
+    NSLog(@"%@", _currentLocation);
     
     //set user's location
     if (newLocation) {
