@@ -10,7 +10,6 @@
 #import "HomeCell.h"
 #import "LocationViewController.h"
 #import "SignUpViewController.h"
-#import "RequestsViewController.h"
 #import <Parse/Parse.h>
 
 @interface HomeViewController ()
@@ -19,12 +18,22 @@
 
 @implementation HomeViewController
 @synthesize screen = _screen;
+@synthesize pendingRequestsArray = _pendingRequestsArray;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        
+    }
+    return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        notificationScreen = [[RequestsViewController alloc]initWithNibName:@"RequestsViewController" bundle:nil];
     }
     return self;
 }
@@ -164,11 +173,13 @@
 
 - (void)checkForNotifications {
     PFQuery *getRequests = [PFQuery queryWithClassName:@"requests"];
-    [getRequests whereKey:@"locationCoordinates" nearGeoPoint:[[PFUser currentUser]objectForKey:@"userLocation"] withinMiles:.25];
+    [getRequests whereKey:@"locationCoordinates" nearGeoPoint:[[PFUser currentUser]objectForKey:@"userLocation"] withinMiles:25000];
     [getRequests whereKey:@"requestFulfilled" equalTo:[NSNumber numberWithBool:NO]];
+    [getRequests whereKey:@"requestor" notEqualTo:[PFUser currentUser]];
     [getRequests findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            
+            _pendingRequestsArray = [objects mutableCopy];
+            notificationScreen.contentList = _pendingRequestsArray;
         } 
     }];
 }
@@ -182,7 +193,6 @@
 }
 
 - (void)notificationsButtonClicked:(id)sender {
-    RequestsViewController *notificationScreen = [[RequestsViewController alloc]initWithNibName:@"RequestsViewController" bundle:nil];
     UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:notificationScreen];
     [self.navigationController presentViewController:navc animated:YES completion:NULL];
 }

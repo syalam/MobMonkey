@@ -37,13 +37,16 @@
     
     firstNameTextField = [[UITextField alloc]initWithFrame:textFieldRect];
     firstNameTextField.placeholder = @"First Name";
+    firstNameTextField.autocorrectionType= UITextAutocorrectionTypeNo;
     
     lastNameTextField = [[UITextField alloc]initWithFrame:textFieldRect];
     lastNameTextField.placeholder = @"Last Name";
+    lastNameTextField.autocorrectionType= UITextAutocorrectionTypeNo;
     
     emailTextField = [[UITextField alloc]initWithFrame:textFieldRect];
     emailTextField.placeholder = @"Email Address";
     emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    emailTextField.autocorrectionType= UITextAutocorrectionTypeNo;
     
     passwordTextField = [[UITextField alloc]initWithFrame:textFieldRect];
     passwordTextField.placeholder = @"Password";
@@ -188,7 +191,7 @@
                 [user setObject:uuidString forKey:@"uuid"];
                 [user saveEventually];
                 
-                [PFPush subscribeToChannelInBackground:uuidString];
+                [PFPush subscribeToChannelInBackground:[NSString stringWithFormat:@"MM%@", uuidString]];
 
                 [[AppDelegate getDelegate] initializeLocationManager];
                 [self.navigationController dismissViewControllerAnimated:YES completion:NULL];

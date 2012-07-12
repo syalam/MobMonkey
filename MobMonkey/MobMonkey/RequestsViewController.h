@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RequestCell.h"
 
-@interface RequestsViewController : UITableViewController {
+@interface RequestsViewController : UITableViewController <RequestCellDelegate> {
     
 }
 
 @property (nonatomic, retain) NSMutableArray *contentList;
 
-- (void)getNotifications;
 
 @end

@@ -7,12 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 #import <FactualSDK/FactualAPI.h>
+#import "HomeViewController.h"
+#import "SearchViewController.h"
+#import "NearbyViewController.h"
+#import "BookmarksViewController.h"
+#import "SettingsViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, CLLocationManagerDelegate, FactualAPIDelegate>
 {
     CLLocationManager *_locationManager;
     CLLocation* _currentLocation;
+    
+    HomeViewController *homeViewController;
 }
 
 @property (strong, nonatomic) UIWindow *window;

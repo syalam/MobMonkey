@@ -8,6 +8,11 @@
 
 #import "RequestsViewController.h"
 
+
+#define FONT_SIZE 13.0f
+#define CELL_CONTENT_WIDTH 180.0f
+#define CELL_CONTENT_MARGIN 10.0f
+
 @interface RequestsViewController ()
 
 @end
@@ -27,9 +32,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.title = @"Notifications";
 
     UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonTapped:)];
     self.navigationItem.rightBarButtonItem = doneBarButton;
+    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -55,20 +63,24 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 0;
+    return _contentList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    RequestCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell = [[RequestCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
+    cell.notificationTextLabel.text = [[_contentList objectAtIndex:indexPath.row]objectForKey:@"requestText"];
+    cell.respondButton.tag = indexPath.row;
+    cell.ignoreButton.tag = indexPath.row;
     // Configure the cell...
     
     return cell;
@@ -117,7 +129,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 75;
+    return 110;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -134,6 +146,15 @@
 #pragma mark - Nav BarButton Action Methods
 - (void)doneButtonTapped:(id)sender {
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+}
+
+#pragma mark - RequestCell Delegate Methods
+- (void)respondButtonTapped:(id)sender {
+    
+}
+
+- (void)ignoreButtonTapped:(id)sender {
+    
 }
 
 @end

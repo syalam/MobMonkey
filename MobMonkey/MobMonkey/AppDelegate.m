@@ -8,14 +8,6 @@
 
 #import "AppDelegate.h"
 
-#import "HomeViewController.h"
-#import "SearchViewController.h"
-#import "NearbyViewController.h"
-#import "BookmarksViewController.h"
-#import "SettingsViewController.h"
-
-#import <Parse/Parse.h>
-
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -36,6 +28,10 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
+     UIRemoteNotificationTypeAlert|
+     UIRemoteNotificationTypeSound];
     
     [Parse setApplicationId:@"LUASgbV2PjApFDOJabTZeE1Yj8D2keJhLLua1DDl"
                   clientKey:@"1L3iRNHfSsOKc58TxlkOEpD69rTGi9sf8FIBPNmp"];
@@ -59,7 +55,7 @@
         [[PFUser currentUser]saveEventually];
         
         //subscribe to push cannel
-        [PFPush subscribeToChannelInBackground:uuidString];
+        [PFPush subscribeToChannelInBackground:[NSString stringWithFormat:@"MM%@", uuidString]];
         
         [self initializeLocationManager];
     }
@@ -91,7 +87,7 @@
         }];
     }*/
     
-    HomeViewController *homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+    homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
     UINavigationController* homeNavController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
     homeViewController.title = @"Home";
     
@@ -142,6 +138,11 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    if ([PFUser currentUser]) {
+        [homeViewController checkForNotifications];
+    }
+    
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

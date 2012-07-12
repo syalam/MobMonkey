@@ -18,15 +18,18 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        _notificationTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 5, 200, 30)];
+        _notificationTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 5, 260, 60)];
+        _notificationTextLabel.font = [UIFont systemFontOfSize:14];
+        _notificationTextLabel.lineBreakMode = UILineBreakModeWordWrap;
+        _notificationTextLabel.numberOfLines = 3;
         
         _respondButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [_respondButton setFrame:CGRectMake(20, 40, 80, 30)];
+        [_respondButton setFrame:CGRectMake(20, 70, 80, 30)];
         [_respondButton setTitle:@"Respond" forState:UIControlStateNormal];
         [_respondButton addTarget:self action:@selector(respondButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         
         _ignoreButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [_ignoreButton setFrame:CGRectMake(120, 40, 80, 30)];
+        [_ignoreButton setFrame:CGRectMake(120, 70, 80, 30)];
         [_ignoreButton setTitle:@"Ignore" forState:UIControlStateNormal];
         [_ignoreButton addTarget:self action:@selector(ignoreButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         

@@ -144,15 +144,18 @@ NSUInteger const kLoginSheet = 1;
         
         //find all users within range
         PFQuery *findUsersNearLocation = [PFUser query];
-        [findUsersNearLocation whereKey:@"userLocation" nearGeoPoint:point withinMiles:0.25];
+        [findUsersNearLocation whereKey:@"userLocation" nearGeoPoint:point withinMiles:25000];
         //limit results to people who have been at the location in the last two hours
         [findUsersNearLocation whereKey:@"updatedAt" greaterThan:[NSDate dateWithTimeIntervalSinceNow:-3600]];
         [findUsersNearLocation findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
                 //create the request
+                NSString *requestText = [NSString stringWithFormat:@"%@ %@ requests that you post a picture or video of this location", [[PFUser currentUser]objectForKey:@"firstName"], [[PFUser currentUser]objectForKey:@"lastName"]];
+                
                 PFObject *request = [PFObject objectWithClassName:@"requests"]; 
                 [request setObject:point forKey:@"locationCoordinates"];
                 [request setObject:[PFUser currentUser] forKey:@"requestor"];
+                [request setObject:requestText forKey:@"requestText"];
                 [request setObject:[NSNumber numberWithBool:NO] forKey:@"requestFulfilled"];
                 [request saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (succeeded) {
@@ -161,7 +164,7 @@ NSUInteger const kLoginSheet = 1;
                         
                         //Send push notifications to all the users in range
                         for (PFObject* person in objects) {
-                            [PFPush sendPushMessageToChannelInBackground:[person objectForKey:@"uuid"] withMessage:[NSString stringWithFormat:@"%@ %@ requests that you post a picture or video of this location", [[PFUser currentUser]objectForKey:@"firstName"], [[PFUser currentUser]objectForKey:@"lastName"]]];
+                            [PFPush sendPushMessageToChannelInBackground:[NSString stringWithFormat:@"MM%@",[person objectForKey:@"uuid"]] withMessage:[NSString stringWithFormat:@"%@ %@ requests that you post a picture or video of this location", [[PFUser currentUser]objectForKey:@"firstName"], [[PFUser currentUser]objectForKey:@"lastName"]]];
                         }
                         
                     }

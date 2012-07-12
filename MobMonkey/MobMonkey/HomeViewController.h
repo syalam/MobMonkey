@@ -8,14 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "RequestsViewController.h"
 
 @interface HomeViewController : UITableViewController {
     IBOutlet UIView *headerView;
+    
+    RequestsViewController *notificationScreen;
 }
 
 @property (nonatomic, retain)NSString *screen;
+@property (nonatomic, retain)NSMutableArray *pendingRequestsArray;
 
 - (void)setNavButtons;
 - (void)checkForNotifications;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 
 @end
