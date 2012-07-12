@@ -10,7 +10,7 @@
 #import "RequestCell.h"
 
 @interface RequestsViewController : UITableViewController <RequestCellDelegate> {
-    
+    NSMutableArray *indexPathArray;
 }
 
 @property (nonatomic, retain) NSMutableArray *contentList;

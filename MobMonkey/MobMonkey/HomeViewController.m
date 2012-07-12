@@ -157,7 +157,7 @@
             UIBarButtonItem *signOutButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign Out" style:UIBarButtonItemStyleBordered target:self action:@selector(signOutButtonClicked:)];
             self.navigationItem.rightBarButtonItem = signOutButton;
             
-            UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc]initWithTitle:@"Notifications" style:UIBarButtonItemStyleBordered target:self action:@selector(notificationsButtonClicked:)];
+            UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc]initWithTitle:@"Requests" style:UIBarButtonItemStyleBordered target:self action:@selector(notificationsButtonClicked:)];
             self.navigationItem.leftBarButtonItem = notificationsBarButton;
         }
         else {
@@ -178,9 +178,22 @@
     [getRequests whereKey:@"requestor" notEqualTo:[PFUser currentUser]];
     [getRequests findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            _pendingRequestsArray = [objects mutableCopy];
-            notificationScreen.contentList = _pendingRequestsArray;
-        } 
+            NSMutableArray *requestsToDisplay = [[NSMutableArray alloc]init];
+            for (PFObject *requestObject in objects) {
+                PFQuery *requestResponseQuery = [PFQuery queryWithClassName:@"requestResponses"];
+                [requestResponseQuery whereKey:@"responder" equalTo:[PFUser currentUser]];
+                [requestResponseQuery whereKey:@"requestObject" equalTo:requestObject];
+                [requestResponseQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    if (!error) {
+                        if (objects.count < 1) {
+                            [requestsToDisplay addObject:requestObject];
+                            [self setPendingRequestsArray:requestsToDisplay];
+                            notificationScreen.contentList = _pendingRequestsArray;
+                        }
+                    }
+                }];
+            }
+        }
     }];
 }
 

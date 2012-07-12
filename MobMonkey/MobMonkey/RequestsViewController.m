@@ -7,7 +7,9 @@
 //
 
 #import "RequestsViewController.h"
-
+#import "LocationViewController.h"
+#import "HomeViewController.h"
+#import <Parse/Parse.h>
 
 #define FONT_SIZE 13.0f
 #define CELL_CONTENT_WIDTH 180.0f
@@ -34,6 +36,8 @@
     [super viewDidLoad];
     
     self.title = @"Notifications";
+    
+    indexPathArray = [[NSMutableArray alloc]init];
 
     UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonTapped:)];
     self.navigationItem.rightBarButtonItem = doneBarButton;
@@ -77,11 +81,15 @@
     static NSString *CellIdentifier = @"Cell";
     RequestCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     cell = [[RequestCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    cell.delegate = self;
     
     cell.notificationTextLabel.text = [[_contentList objectAtIndex:indexPath.row]objectForKey:@"requestText"];
     cell.respondButton.tag = indexPath.row;
     cell.ignoreButton.tag = indexPath.row;
     // Configure the cell...
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    [indexPathArray insertObject:indexPath atIndex:indexPath.row];
     
     return cell;
 }
@@ -145,16 +153,37 @@
 
 #pragma mark - Nav BarButton Action Methods
 - (void)doneButtonTapped:(id)sender {
+    UITabBarController *tabBarController = (UITabBarController*) self.navigationController.presentingViewController;
+    NSArray *navControllers = [tabBarController viewControllers];
+    UINavigationController *homeNavC = [navControllers objectAtIndex:0];
+    
+    
+    HomeViewController *homeScreen = (HomeViewController*)[homeNavC.viewControllers objectAtIndex:0];
+    [homeScreen checkForNotifications];
+    
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 #pragma mark - RequestCell Delegate Methods
 - (void)respondButtonTapped:(id)sender {
-    
+    LocationViewController *locationScreen = [[LocationViewController alloc]initWithNibName:@"LocationViewController" bundle:nil];
+    [self.navigationController pushViewController:locationScreen animated:YES];
 }
 
 - (void)ignoreButtonTapped:(id)sender {
+    PFObject *requestObject = [_contentList objectAtIndex:[sender tag]];
     
+    PFObject *respond = [PFObject objectWithClassName:@"requestResponses"];
+    [respond setObject:requestObject forKey:@"requestObject"];
+    [respond setObject:[NSNumber numberWithBool:NO] forKey:@"responded"];
+    [respond setObject:[PFUser currentUser] forKey:@"responder"];
+    [respond saveEventually];
+    
+    NSIndexPath *indexPath = [indexPathArray objectAtIndex:[sender tag]];
+    NSArray *indexPathToDeleteArray = [NSArray arrayWithObject:indexPath];
+    [_contentList removeObjectAtIndex:[sender tag]];
+    [indexPathArray removeObjectAtIndex:[sender tag]];
+    [self.tableView deleteRowsAtIndexPaths:indexPathToDeleteArray withRowAnimation:UITableViewRowAnimationFade];
 }
 
 @end
