@@ -12,7 +12,10 @@
 
 @interface RequestsViewController : UITableViewController <RequestCellDelegate> {
     NSMutableArray *indexPathArray;
+    
     int currentIndex;
+    NSIndexPath *responseIndexPath;
+    
 }
 
 @property (nonatomic, retain) NSMutableArray *contentList;
