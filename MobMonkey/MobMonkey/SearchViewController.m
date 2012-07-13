@@ -10,6 +10,7 @@
 #import "MapViewController.h"
 #import "FilterViewController.h"
 #import "AppDelegate.h"
+#import "CLLocation (Strings).h"
 
 @interface SearchViewController ()
 
@@ -200,32 +201,41 @@
 
 -(void)performFactualQuery
 {
+/*
     FactualQuery* queryObject = [FactualQuery query];
     
     // set limit
     queryObject.limit = 50;
     
     // set geo location 
-    CLLocationCoordinate2D coordinate = [AppDelegate getDelegate].currentLocation.coordinate;       
+    CLLocationCoordinate2D coordinate = [AppDelegate getDelegate].currentLocation.coordinate;   
+    
+    coordinate.latitude = 34.0;
+    coordinate.longitude = -118;
+    
+    NSLog(@"Latitude: %f", coordinate.latitude);
+    NSLog(@"Longitude: %f", coordinate.longitude);
+    
         
     // set geo filter 
     [queryObject setGeoFilter:coordinate radiusInMeters:100.0];
         
     // set the sort criteria 
-    /*FactualSortCriteria* primarySort = [[FactualSortCriteria alloc] initWithFieldName:@"$relevance" sortOrder:FactualSortOrder_Ascending];
+    FactualSortCriteria* primarySort = [[FactualSortCriteria alloc] initWithFieldName:@"$relevance" sortOrder:FactualSortOrder_Ascending];
     [queryObject setPrimarySortCriteria:primarySort];
     
     // full text term  
-    [queryObject addFullTextQueryTerms:@"coffee", nil];
+    [queryObject addFullTextQueryTerms:@"coffee",nil];
     
     // check if locality filter is on ... 
-    [queryObject addRowFilter:[FactualRowFilter fieldName:@"country" equalTo:@"US"]];    
+    [queryObject addRowFilter:[FactualRowFilter fieldName:@"country" equalTo:@"us"]];    
     
     // check if category filter is on ... 
     [queryObject addRowFilter:[FactualRowFilter fieldName:@"category" beginsWith:@"Food & Beverage"]];
         
     // start the request ... 
-    _activeRequest = [[AppDelegate getAPIObject] queryTable:@"global" optionalQueryParams:queryObject withDelegate:self];*/
+    _activeRequest = [[AppDelegate getAPIObject] queryTable:@"restaurants-us" optionalQueryParams:queryObject withDelegate:self];
+ */
 }
 
 #pragma mark -
