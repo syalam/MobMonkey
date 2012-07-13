@@ -52,7 +52,6 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    [self performFactualQuery];
 }
 
 - (void)viewDidUnload
@@ -206,6 +205,11 @@
     return YES;
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [self performFactualQuery];
+}
+
 -(void)performFactualQuery
 {
 
@@ -225,7 +229,7 @@
     [queryObject setPrimarySortCriteria:primarySort];
     
     // full text term  
-    [queryObject addFullTextQueryTerms:@"coffee",nil];
+    [queryObject addFullTextQueryTerms:categoryTextField.text,nil];
     
     // check if locality filter is on ... 
     [queryObject addRowFilter:[FactualRowFilter fieldName:@"country" equalTo:@"us"]];    
