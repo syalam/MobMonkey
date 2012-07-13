@@ -189,9 +189,13 @@
     
     NSIndexPath *indexPath = [indexPathArray objectAtIndex:[sender tag]];
     NSArray *indexPathToDeleteArray = [NSArray arrayWithObject:indexPath];
+    [self.tableView beginUpdates];
     [_contentList removeObjectAtIndex:[sender tag]];
     [indexPathArray removeObjectAtIndex:[sender tag]];
     [self.tableView deleteRowsAtIndexPaths:indexPathToDeleteArray withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - Helper Methods
@@ -204,9 +208,13 @@
     
     NSIndexPath *indexPath = [indexPathArray objectAtIndex:currentIndex];
     NSArray *indexPathToDeleteArray = [NSArray arrayWithObject:indexPath];
+    [self.tableView beginUpdates];
     [_contentList removeObjectAtIndex:currentIndex];
     [indexPathArray removeObjectAtIndex:currentIndex];
     [self.tableView deleteRowsAtIndexPaths:indexPathToDeleteArray withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+    
+    [self.tableView reloadData];
 }
 
 @end
