@@ -78,20 +78,27 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 5;
+    return _queryResult.rows.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     SearchCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+
+    if (cell == nil)
+    {
+        cell = [[SearchCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     
-    cell = [[SearchCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    cell.iconImageView.image = [UIImage imageNamed:@"monkey.jpg"];
-    cell.locationNameLabel.text = @"Majerle's";
-    cell.timeLabel.text = @"10m ago";
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (_queryResult != nil) {
+        FactualRow* row = [_queryResult.rows objectAtIndex:indexPath.row];
+        cell.iconImageView.image = [UIImage imageNamed:@"monkey.jpg"];
+        cell.locationNameLabel.text = [row valueForName:@"name"];
+        cell.timeLabel.text = @"10m ago";
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
     
     return cell;
 }
@@ -209,13 +216,6 @@
     
     // set geo location 
     CLLocationCoordinate2D coordinate = [AppDelegate getDelegate].currentLocation.coordinate;   
-    
-    coordinate.latitude = 34.0;
-    coordinate.longitude = -118;
-    
-    NSLog(@"Latitude: %f", coordinate.latitude);
-    NSLog(@"Longitude: %f", coordinate.longitude);
-    
         
     // set geo filter 
     [queryObject setGeoFilter:coordinate radiusInMeters:100.0];
@@ -234,7 +234,7 @@
     [queryObject addRowFilter:[FactualRowFilter fieldName:@"category" beginsWith:@"Food & Beverage"]];
         
     // start the request ... 
-    _activeRequest = [[AppDelegate getAPIObject] queryTable:@"restaurants-us" optionalQueryParams:queryObject withDelegate:self];
+    _activeRequest = [[AppDelegate getAPIObject] queryTable:@"global" optionalQueryParams:queryObject withDelegate:self];
  
 }
 
@@ -255,7 +255,8 @@
 
 
 -(void) requestComplete:(FactualAPIRequest *)request receivedQueryResult:(FactualQueryResult *)queryResultObj {
-    NSLog(@"Active request Completed!");
+    _queryResult = queryResultObj;
+    [self.tableView reloadData];
 }
 
 

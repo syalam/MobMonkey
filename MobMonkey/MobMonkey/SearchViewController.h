@@ -20,6 +20,7 @@
     UIBarButtonItem *cancelButton;
     
     FactualAPIRequest* _activeRequest;
+    FactualQueryResult* _queryResult;
 }
 
 @property (nonatomic, retain)NSMutableArray *contentList;
