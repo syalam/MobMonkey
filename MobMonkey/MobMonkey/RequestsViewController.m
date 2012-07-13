@@ -169,8 +169,14 @@
 }
 
 #pragma mark - RequestCell Delegate Methods
-- (void)respondButtonTapped:(id)sender {
+- (void)respondButtonTapped:(id)sender event:event{
     currentIndex = [sender tag];
+    
+    NSSet *touches = [event allTouches];
+    UITouch *touch = [touches anyObject];
+    CGPoint currentTouchPosition = [touch locationInView:self.tableView];
+    responseIndexPath = [self.tableView indexPathForRowAtPoint: currentTouchPosition];
+    
     PFObject *requestObject = [_contentList objectAtIndex:[sender tag]];
     LocationViewController *locationScreen = [[LocationViewController alloc]initWithNibName:@"LocationViewController" bundle:nil];
     locationScreen.requestObject = requestObject;
@@ -178,8 +184,13 @@
     [self.navigationController pushViewController:locationScreen animated:YES];
 }
 
-- (void)ignoreButtonTapped:(id)sender {
+- (void)ignoreButtonTapped:(id)sender event:event {
     PFObject *requestObject = [_contentList objectAtIndex:[sender tag]];
+    
+    NSSet *touches = [event allTouches];
+    UITouch *touch = [touches anyObject];
+    CGPoint currentTouchPosition = [touch locationInView:self.tableView];
+    responseIndexPath = [self.tableView indexPathForRowAtPoint: currentTouchPosition];
     
     PFObject *respond = [PFObject objectWithClassName:@"requestResponses"];
     [respond setObject:requestObject forKey:@"requestObject"];
@@ -187,11 +198,12 @@
     [respond setObject:[PFUser currentUser] forKey:@"responder"];
     [respond saveEventually];
     
-    NSIndexPath *indexPath = [indexPathArray objectAtIndex:[sender tag]];
-    NSArray *indexPathToDeleteArray = [NSArray arrayWithObject:indexPath];
+    [self.tableView beginUpdates];
     [_contentList removeObjectAtIndex:[sender tag]];
-    [indexPathArray removeObjectAtIndex:[sender tag]];
-    [self.tableView deleteRowsAtIndexPaths:indexPathToDeleteArray withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:responseIndexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+    [self.tableView endUpdates];
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - Helper Methods
@@ -202,11 +214,13 @@
     [response setObject:[PFUser currentUser] forKey:@"responder"];
     [response saveEventually];
     
-    NSIndexPath *indexPath = [indexPathArray objectAtIndex:currentIndex];
-    NSArray *indexPathToDeleteArray = [NSArray arrayWithObject:indexPath];
+    [self.tableView beginUpdates];
     [_contentList removeObjectAtIndex:currentIndex];
-    [indexPathArray removeObjectAtIndex:currentIndex];
-    [self.tableView deleteRowsAtIndexPaths:indexPathToDeleteArray withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:responseIndexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+    [self.tableView endUpdates];
+    
+    [self.tableView reloadData];
 }
+
 
 @end

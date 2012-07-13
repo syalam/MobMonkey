@@ -57,6 +57,9 @@
     confirmPasswordTextField.secureTextEntry = YES;
     
     _contentList = [[NSMutableArray alloc]initWithObjects:firstNameTextField, lastNameTextField, emailTextField, passwordTextField, confirmPasswordTextField, nil];
+    
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(cancelButtonTapped:)];
+    self.navigationItem.leftBarButtonItem = cancelButton;
 }
 
 - (void)viewDidUnload
@@ -212,6 +215,10 @@
 - (IBAction)signInButtonClicked:(id)sender {
     LoginViewController *lvc = [[LoginViewController alloc]initWithNibName:@"LoginViewController" bundle:nil];
     [self.navigationController pushViewController:lvc animated:YES];
+}
+
+- (void)cancelButtonTapped:(id)sender {
+    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 #pragma mark - Helper Methods

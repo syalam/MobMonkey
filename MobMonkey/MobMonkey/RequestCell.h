@@ -10,8 +10,8 @@
 
 @protocol RequestCellDelegate
 
-- (void)respondButtonTapped:(id)sender;
-- (void)ignoreButtonTapped:(id)sender;
+- (void)respondButtonTapped:(id)sender event:(id)event;
+- (void)ignoreButtonTapped:(id)sender event:(id)event;
 
 @end
 

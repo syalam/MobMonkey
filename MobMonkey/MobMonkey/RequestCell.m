@@ -26,12 +26,12 @@
         _respondButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [_respondButton setFrame:CGRectMake(20, 70, 80, 30)];
         [_respondButton setTitle:@"Respond" forState:UIControlStateNormal];
-        [_respondButton addTarget:self action:@selector(respondButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [_respondButton addTarget:self action:@selector(respondButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
         
         _ignoreButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [_ignoreButton setFrame:CGRectMake(120, 70, 80, 30)];
         [_ignoreButton setTitle:@"Ignore" forState:UIControlStateNormal];
-        [_ignoreButton addTarget:self action:@selector(ignoreButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [_ignoreButton addTarget:self action:@selector(ignoreButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
         
         [self.contentView addSubview:_notificationTextLabel];
         [self.contentView addSubview:_respondButton];
@@ -48,12 +48,12 @@
     // Configure the view for the selected state
 }
 
-- (void)respondButtonTapped:(id)sender {
-    [_delegate respondButtonTapped:sender];
+- (void)respondButtonTapped:(id)sender event:(id)event {
+    [_delegate respondButtonTapped:sender event:event];
 }
 
-- (void)ignoreButtonTapped:(id)sender {
-    [_delegate ignoreButtonTapped:sender];
+- (void)ignoreButtonTapped:(id)sender event:(id)event {
+    [_delegate ignoreButtonTapped:sender event:event];
 }
 
 @end

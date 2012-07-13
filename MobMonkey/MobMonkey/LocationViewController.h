@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import <MobileCoreServices/UTCoreTypes.h>
 #import "RequestsViewController.h"
 
 @interface LocationViewController : UIViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
     UIImage *image;
+    
+    int currentActionSheetCall;
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIButton *photosButton;
@@ -29,4 +32,7 @@
 - (IBAction)shareButtonTapped:(id)sender;
 - (IBAction)notificationsButtonTapped:(id)sender;
 - (IBAction)photosButtonTapped:(id)sender;
+
+- (void)makeRequest:(NSString*)requestType;
+
 @end
