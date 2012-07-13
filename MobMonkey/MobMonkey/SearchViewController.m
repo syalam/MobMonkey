@@ -201,7 +201,7 @@
 
 -(void)performFactualQuery
 {
-/*
+
     FactualQuery* queryObject = [FactualQuery query];
     
     // set limit
@@ -235,7 +235,7 @@
         
     // start the request ... 
     _activeRequest = [[AppDelegate getAPIObject] queryTable:@"restaurants-us" optionalQueryParams:queryObject withDelegate:self];
- */
+ 
 }
 
 #pragma mark -
