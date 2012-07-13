@@ -8,11 +8,13 @@
 
 #import "LocationViewController.h"
 #import "NotificationsViewController.h"
+#import "SignUpViewController.h"
 #import "AppDelegate.h"
 
 
 NSUInteger const kCameraSheet = 0;
 NSUInteger const kLoginSheet = 1;
+NSUInteger const kRequestSheet = 2;
 
 
 @interface LocationViewController ()
@@ -65,37 +67,47 @@ NSUInteger const kLoginSheet = 1;
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-
-#pragma mark - IBAction Methods
--(void)cameraButtonTapped:(id)sender
-{
-    UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:@"What would you like to capture?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"A Picture", @"A Video", nil];
-    actionSheet.tag = kCameraSheet;
-    
-    if (_requestScreen) {
-        [actionSheet showInView:self.view];
-    }
-    else {
-        [actionSheet showFromTabBar:self.navigationController.tabBarController.tabBar];
-    }
-}
-
 #pragma mark - ActionSheet elegate Methods
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSLog(@"%d", buttonIndex);
     
-    if (actionSheet.tag == kCameraSheet) {
+    if (currentActionSheetCall == kCameraSheet) {
+        NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
         
         UIImagePickerController* picker = [[UIImagePickerController alloc] init];
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             picker.delegate = self;
             picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            picker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+            //picker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
             picker.showsCameraControls = YES;
         }
         
-        switch (buttonIndex) {
+        if ([buttonTitle isEqualToString:@"A Picture"]) {
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+                picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+                [self presentViewController:picker animated:YES completion:nil];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Unable to take a picture using this device" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+        }
+        
+        else if ([buttonTitle isEqualToString:@"A Video"]) {
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
+                picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+                [self presentViewController:picker animated:YES completion:nil];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Unable to take a video using this device" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+        }
+        
+        /*switch (buttonIndex) {
             case 0:
                 if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                     picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
@@ -118,16 +130,35 @@ NSUInteger const kLoginSheet = 1;
                 break;
             default:
                 break;
+        }*/
+    }
+    else if (currentActionSheetCall == kLoginSheet){
+        switch (buttonIndex) {
+            case 0: {
+                SignUpViewController *suvc = [[SignUpViewController alloc]initWithNibName:@"SignUpViewController" bundle:nil];
+                UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:suvc];
+                [self.navigationController presentViewController:navc animated:YES completion:NULL];
+            }
+                break;
+            case 1: {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Facebook login has not yet been implemented" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+                break;
+            default:
+                break;
         }
     }
-    else if (actionSheet.tag = kLoginSheet){
+    
+    else if (currentActionSheetCall == kRequestSheet) {
         switch (buttonIndex) {
             case 0:
-                //show mob monkey login
+                [self makeRequest:@"photo"];
                 break;
             case 1:
-                //do a facebooklogin
+                [self makeRequest:@"video"];
                 break;
+                
             default:
                 break;
         }
@@ -178,52 +209,52 @@ NSUInteger const kLoginSheet = 1;
 }
 
 #pragma mark - IBAction Methods
+-(void)cameraButtonTapped:(id)sender
+{
+    UIActionSheet* actionSheet = [[UIActionSheet alloc] init];
+    actionSheet.delegate = self;
+    if (!_requestObject) {
+        [actionSheet addButtonWithTitle:@"A Picture"];
+        [actionSheet addButtonWithTitle:@"A Video"];
+    }
+    else if ([[_requestObject objectForKey:@"requestType"]isEqualToString:@"photo"]) {
+        [actionSheet addButtonWithTitle:@"A Picture"];
+    }
+    else {
+        [actionSheet addButtonWithTitle:@"A Video"];
+    }
+    
+    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
+    
+    currentActionSheetCall = kCameraSheet;
+    
+    if (_requestScreen) {
+        [actionSheet showInView:self.view];
+    }
+    else {
+        [actionSheet showFromTabBar:self.navigationController.tabBarController.tabBar];
+    }
+}
+
 - (IBAction)videosButtonTapped:(id)sender {
 
 }
 
 - (IBAction)requestButtonTapped:(id)sender {
     if ([PFUser currentUser]) {
-        PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:[AppDelegate getDelegate].currentLocation.coordinate.latitude longitude:[AppDelegate getDelegate].currentLocation.coordinate.longitude];
-        
-        //find all users within range
-        PFQuery *findUsersNearLocation = [PFUser query];
-        [findUsersNearLocation whereKey:@"userLocation" nearGeoPoint:point withinMiles:25000];
-        //limit results to people who have been at the location in the last two hours
-        [findUsersNearLocation whereKey:@"updatedAt" greaterThan:[NSDate dateWithTimeIntervalSinceNow:-3600]];
-        [findUsersNearLocation findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-            if (!error) {
-                //create the request
-                NSString *requestText = [NSString stringWithFormat:@"%@ %@ requests that you post a picture or video of this location", [[PFUser currentUser]objectForKey:@"firstName"], [[PFUser currentUser]objectForKey:@"lastName"]];
-                
-                PFObject *request = [PFObject objectWithClassName:@"requests"]; 
-                [request setObject:point forKey:@"locationCoordinates"];
-                [request setObject:[PFUser currentUser] forKey:@"requestor"];
-                [request setObject:requestText forKey:@"requestText"];
-                [request saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    if (succeeded) {
-                        NSLog(@"%@", request);
-                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Your request has been sent" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                        [alert show];
-                        
-                        //Send push notifications to all the users in range
-                        for (PFObject* person in objects) {
-                            [PFPush sendPushMessageToChannelInBackground:[NSString stringWithFormat:@"MM%@",[person objectForKey:@"uuid"]] withMessage:[NSString stringWithFormat:@"%@ %@ requests that you post a picture or video of this location", [[PFUser currentUser]objectForKey:@"firstName"], [[PFUser currentUser]objectForKey:@"lastName"]]];
-                        }
-                        
-                    }
-                    else {
-                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to send your request at this time. Please try again later" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                        [alert show];
-                    }
-                }];
-            } 
-        }];
+        UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:@"Select Request Type" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Photo", @"Video", nil];
+        currentActionSheetCall = kRequestSheet;
+        if (_requestScreen) {
+            [sheet showInView:self.view];
+        }
+        else {
+            [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
+        }
     }
     else {
         //show login view
         UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:@"Please login" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"MobMonkey", @"Facebook", nil];
-        sheet.tag = kLoginSheet;
+        currentActionSheetCall = kLoginSheet;
         
         [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
     }
@@ -243,6 +274,46 @@ NSUInteger const kLoginSheet = 1;
 
 - (IBAction)photosButtonTapped:(id)sender {
 
+}
+
+#pragma mark - Helper Methods
+- (void)makeRequest:(NSString*)requestType {
+    PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:[AppDelegate getDelegate].currentLocation.coordinate.latitude longitude:[AppDelegate getDelegate].currentLocation.coordinate.longitude];
+    
+    //find all users within range
+    PFQuery *findUsersNearLocation = [PFUser query];
+    [findUsersNearLocation whereKey:@"userLocation" nearGeoPoint:point withinMiles:25000];
+    //limit results to people who have been at the location in the last two hours
+    [findUsersNearLocation whereKey:@"updatedAt" greaterThan:[NSDate dateWithTimeIntervalSinceNow:-3600]];
+    [findUsersNearLocation findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            //create the request
+            NSString *requestText = [NSString stringWithFormat:@"%@ %@ requests that you post a %@ of this location", [[PFUser currentUser]objectForKey:@"firstName"], [[PFUser currentUser]objectForKey:@"lastName"], requestType];
+            
+            PFObject *request = [PFObject objectWithClassName:@"requests"]; 
+            [request setObject:point forKey:@"locationCoordinates"];
+            [request setObject:requestType forKey:@"requestType"];
+            [request setObject:[PFUser currentUser] forKey:@"requestor"];
+            [request setObject:requestText forKey:@"requestText"];
+            [request saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    NSLog(@"%@", request);
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Your request has been sent" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                    [alert show];
+                    
+                    //Send push notifications to all the users in range
+                    for (PFObject* person in objects) {
+                        [PFPush sendPushMessageToChannelInBackground:[NSString stringWithFormat:@"MM%@",[person objectForKey:@"uuid"]] withMessage:[NSString stringWithFormat:@"%@ %@ requests that you post a %@ of this location", [[PFUser currentUser]objectForKey:@"firstName"], [[PFUser currentUser]objectForKey:@"lastName"], requestType]];
+                    }
+                    
+                }
+                else {
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to send your request at this time. Please try again later" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                    [alert show];
+                }
+            }];
+        } 
+    }];
 }
 
 
