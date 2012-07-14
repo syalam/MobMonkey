@@ -62,8 +62,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8C5940ED15AF9AC000410B63 /* CLLocation (Strings).h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CLLocation (Strings).h"; sourceTree = "<group>"; };
-		8C5940EE15AF9AC000410B63 /* CLLocation (Strings).m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CLLocation (Strings).m"; sourceTree = "<group>"; };
 		8C5C45711596762E00E3710B /* MobMonkey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobMonkey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C5C45751596762E00E3710B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8C5C45771596762E00E3710B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -207,8 +205,6 @@
 		8C5C457B1596762E00E3710B /* MobMonkey */ = {
 			isa = PBXGroup;
 			children = (
-				8C5940ED15AF9AC000410B63 /* CLLocation (Strings).h */,
-				8C5940EE15AF9AC000410B63 /* CLLocation (Strings).m */,
 				8C5C45841596762E00E3710B /* AppDelegate.h */,
 				8C5C45851596762E00E3710B /* AppDelegate.m */,
 				F79F95F715A643CB00BE96EE /* Authentication */,

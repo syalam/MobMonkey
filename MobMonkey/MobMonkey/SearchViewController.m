@@ -10,7 +10,6 @@
 #import "MapViewController.h"
 #import "FilterViewController.h"
 #import "AppDelegate.h"
-#import "CLLocation (Strings).h"
 
 @interface SearchViewController ()
 
@@ -94,7 +93,7 @@
         FactualRow* row = [_queryResult.rows objectAtIndex:indexPath.row];
         cell.iconImageView.image = [UIImage imageNamed:@"monkey.jpg"];
         cell.locationNameLabel.text = [row valueForName:@"name"];
-        cell.timeLabel.text = @"10m ago";
+        //cell.timeLabel.text = @"10m ago";
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
@@ -222,7 +221,7 @@
     CLLocationCoordinate2D coordinate = [AppDelegate getDelegate].currentLocation.coordinate;   
         
     // set geo filter 
-    [queryObject setGeoFilter:coordinate radiusInMeters:100.0];
+    [queryObject setGeoFilter:coordinate radiusInMeters:100000.0];
         
     // set the sort criteria 
     FactualSortCriteria* primarySort = [[FactualSortCriteria alloc] initWithFieldName:@"$relevance" sortOrder:FactualSortOrder_Ascending];
@@ -235,7 +234,7 @@
     [queryObject addRowFilter:[FactualRowFilter fieldName:@"country" equalTo:@"us"]];    
     
     // check if category filter is on ... 
-    [queryObject addRowFilter:[FactualRowFilter fieldName:@"category" beginsWith:@"Food & Beverage"]];
+    //[queryObject addRowFilter:[FactualRowFilter fieldName:@"category" beginsWith:@"Food & Beverage"]];
         
     // start the request ... 
     _activeRequest = [[AppDelegate getAPIObject] queryTable:@"global" optionalQueryParams:queryObject withDelegate:self];
