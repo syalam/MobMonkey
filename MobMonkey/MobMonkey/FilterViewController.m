@@ -13,6 +13,7 @@
 @end
 
 @implementation FilterViewController
+@synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,6 +37,7 @@
     
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithTitle:@"Search" style:UIBarButtonItemStyleDone target:self action:@selector(searchButtonClicked:)];
     self.navigationItem.rightBarButtonItem = searchButton;
+    prefs = [NSUserDefaults standardUserDefaults];
 }
 
 - (void)viewDidUnload
@@ -56,7 +58,9 @@
 }
 
 - (void)searchButtonClicked:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+    [self.navigationController dismissViewControllerAnimated:YES completion:^(void){
+        [delegate performSearchFromFilteredQuery];
+    }];
 }
 
 #pragma mark - IBAction Methods
@@ -64,17 +68,22 @@
     switch (segmentedControl.selectedSegmentIndex) {
         case 0:
             rangeSelection = @"5 blocks";
+            [prefs setDouble:10.0 forKey:@"filteredRadius"];
             break;
         case 1:
             rangeSelection = @"1 mi";
+            [prefs setDouble:1609.0 forKey:@"filteredRadius"];
             break;
         case 2:
             rangeSelection = @"5 mi";
+            [prefs setDouble:8046.0 forKey:@"filteredRadius"];
             break;
         case 3:
             rangeSelection = @"10 mi";
+            [prefs setDouble:16093.0 forKey:@"filteredRadius"];
             
         default:
+            [prefs synchronize];
             break;
     }
 }
@@ -87,7 +96,7 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    
+    [prefs setValue:[pickerArray objectAtIndex:row] forKey:@"filteredCategory"];
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component;

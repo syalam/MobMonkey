@@ -51,6 +51,8 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    prefs = [NSUserDefaults standardUserDefaults];
+    
 }
 
 - (void)viewDidUnload
@@ -160,6 +162,7 @@
 #pragma mark - Bar Button Action Methods
 - (void)filterButtonClicked:(id)sender {
     FilterViewController *fvc = [[FilterViewController alloc]initWithNibName:@"FilterViewController" bundle:nil];
+    fvc.delegate = self;
     UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:fvc];
     [self.navigationController presentViewController:navc animated:YES completion:NULL];
 }
@@ -221,7 +224,12 @@
     CLLocationCoordinate2D coordinate = [AppDelegate getDelegate].currentLocation.coordinate;   
         
     // set geo filter 
-    [queryObject setGeoFilter:coordinate radiusInMeters:100000.0];
+    if ([prefs valueForKey:@"filteredRadius"] == nil) {
+        [queryObject setGeoFilter:coordinate radiusInMeters:100000.0];
+    }
+    else{
+        [queryObject setGeoFilter:coordinate radiusInMeters:[prefs doubleForKey:@"filteredRadius"]];
+    }
         
     // set the sort criteria 
     FactualSortCriteria* primarySort = [[FactualSortCriteria alloc] initWithFieldName:@"$relevance" sortOrder:FactualSortOrder_Ascending];
@@ -234,7 +242,8 @@
     [queryObject addRowFilter:[FactualRowFilter fieldName:@"country" equalTo:@"us"]];    
     
     // check if category filter is on ... 
-    //[queryObject addRowFilter:[FactualRowFilter fieldName:@"category" beginsWith:@"Food & Beverage"]];
+    if ([prefs valueForKey:@"filteredCategory"] == nil) 
+        [queryObject addRowFilter:[FactualRowFilter fieldName:@"category" beginsWith:[prefs valueForKey:@"filteredCategory"]]];
         
     // start the request ... 
     _activeRequest = [[AppDelegate getAPIObject] queryTable:@"global" optionalQueryParams:queryObject withDelegate:self];
@@ -262,5 +271,10 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - FilterViewDelegate
+-(void)performSearchFromFilteredQuery
+{
+    [self performFactualQuery];
+}
 
 @end

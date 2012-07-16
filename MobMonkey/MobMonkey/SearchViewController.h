@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "SearchCell.h"
 #import <FactualSDK/FactualAPI.h>
+#import "FilterViewController.h";
 
-@interface SearchViewController : UITableViewController <SearchCellDelegate, UITextFieldDelegate, FactualAPIDelegate> {
+@interface SearchViewController : UITableViewController <SearchCellDelegate, UITextFieldDelegate, FactualAPIDelegate, FilterViewDelegate> {
     IBOutlet UIView *headerView;
     IBOutlet UITextField *categoryTextField;
     IBOutlet UITextField *nearTextField;
@@ -21,6 +22,7 @@
     
     FactualAPIRequest* _activeRequest;
     FactualQueryResult* _queryResult;
+    NSUserDefaults* prefs;
 }
 
 @property (nonatomic, retain)NSMutableArray *contentList;

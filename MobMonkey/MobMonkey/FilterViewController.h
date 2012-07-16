@@ -8,14 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol FilterViewDelegate <NSObject>
+    -(void)performSearchFromFilteredQuery;
+@end
+
 @interface FilterViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource> {
     IBOutlet UISegmentedControl *segmentedControl;
     IBOutlet UIPickerView *pickerView;
     
     NSString *rangeSelection;
     NSMutableArray *pickerArray;
+    NSUserDefaults* prefs;
 }
 
 - (IBAction)segmentedControlSelected:(id)sender;
+@property(nonatomic,assign) id<FilterViewDelegate> delegate;
+
 
 @end
