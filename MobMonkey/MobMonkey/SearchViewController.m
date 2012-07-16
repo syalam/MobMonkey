@@ -224,7 +224,7 @@
     CLLocationCoordinate2D coordinate = [AppDelegate getDelegate].currentLocation.coordinate;   
         
     // set geo filter 
-    if ([prefs valueForKey:@"filteredRadius"] == nil) {
+    if ([prefs integerForKey:@"filteredRadius"] == 0) {
         [queryObject setGeoFilter:coordinate radiusInMeters:100000.0];
     }
     else{
