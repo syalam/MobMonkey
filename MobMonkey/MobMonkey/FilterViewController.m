@@ -29,8 +29,9 @@
     [super viewDidLoad];
     self.title = @"Filter/Search";
     
-    pickerArray = [[NSMutableArray alloc]initWithObjects:@"Bars", @"Clubs", @"Restaurants", @"Coffee Shops", @"Kids Stores", nil];
-    [pickerView selectRow:2 inComponent:0 animated:NO];
+    pickerArray = [[NSMutableArray alloc]initWithObjects:@"Food & Beverage", @"Shopping", @"legal & financial", @"business & professional services", @"real estate & home improvement", @"education", @"travel & tourism", @"community & government",
+                   @"health & medicine", @"personal care & services", @"automotive", @"arts, entertainment, & nightlife", 
+                   @"sports & recreation", nil];
     
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonClicked:)];
     self.navigationItem.leftBarButtonItem = cancelButton;
@@ -45,6 +46,11 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    segmentedControl.selectedSegmentIndex = [prefs integerForKey:@"savedSegmentValue"];
+    [pickerView selectRow:[prefs integerForKey:@"selectedPickerValue"] inComponent:0 animated:NO];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -69,20 +75,25 @@
         case 0:
             rangeSelection = @"5 blocks";
             [prefs setDouble:10.0 forKey:@"filteredRadius"];
+            [prefs synchronize];
             break;
         case 1:
             rangeSelection = @"1 mi";
             [prefs setDouble:1609.0 forKey:@"filteredRadius"];
+            [prefs synchronize];
             break;
         case 2:
             rangeSelection = @"5 mi";
             [prefs setDouble:8046.0 forKey:@"filteredRadius"];
+            [prefs synchronize];
             break;
         case 3:
             rangeSelection = @"10 mi";
             [prefs setDouble:16093.0 forKey:@"filteredRadius"];
+            [prefs synchronize];
             
         default:
+            [prefs setInteger:segmentedControl.selectedSegmentIndex forKey:@"savedSegmentValue"];
             [prefs synchronize];
             break;
     }
@@ -97,6 +108,8 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     [prefs setValue:[pickerArray objectAtIndex:row] forKey:@"filteredCategory"];
+    [prefs setInteger:row forKey:@"savedPickerValue"];
+    [prefs synchronize];
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component;
