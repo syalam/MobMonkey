@@ -11,10 +11,26 @@
 #import "SignUpViewController.h"
 #import "AppDelegate.h"
 
-
+//ActionSheet Constants
 NSUInteger const kCameraSheet = 0;
 NSUInteger const kLoginSheet = 1;
 NSUInteger const kRequestSheet = 2;
+
+//Factual Constants
+NSString* const kNeighborhood = @"neighborhood";
+NSString* const kDistance = @"distance";
+NSString* const kLongitude = @"longitude";
+NSString* const kAddress = @"address";
+NSString* const kLatitude = @"latitude";
+NSString* const kRegion = @"region";
+NSString* const kLocality = @"locality";
+NSString* const kName = @"name";
+NSString* const kPostcode = @"postcode";
+NSString* const kCountry = @"country";
+NSString* const kTelephone = @"tel";
+NSString* const kStatus = @"status";
+NSString* const kFactualId = @"factual_id";
+
 
 
 @interface LocationViewController ()
@@ -33,6 +49,7 @@ NSUInteger const kRequestSheet = 2;
 @synthesize requestObject = _requestObject;
 @synthesize locationNameLabel = _locationNameLabel;
 @synthesize locationName = _locationName;
+@synthesize venueData;
 
 - (void)viewDidLoad
 {
@@ -64,6 +81,12 @@ NSUInteger const kRequestSheet = 2;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    NSLog(@"%@", venueData);
+    _locationNameLabel.text = [venueData stringValueForName:kName];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

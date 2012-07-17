@@ -10,6 +10,7 @@
 #import "MapViewController.h"
 #import "FilterViewController.h"
 #import "AppDelegate.h"
+#import "LocationViewController.h"
 
 @interface SearchViewController ()
 
@@ -97,7 +98,7 @@
         cell.locationNameLabel.text = [row valueForName:@"name"];
         //cell.timeLabel.text = @"10m ago";
         
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        //cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     return cell;
@@ -146,13 +147,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    LocationViewController* lvc = [[LocationViewController alloc] initWithNibName:@"LocationViewController" bundle:nil];
+    lvc.venueData = [_queryResult.rows objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:lvc animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
