@@ -20,8 +20,8 @@
     _locationManager.delegate = self;
     _locationManager.desiredAccuracy =kCLLocationAccuracyBest;
     _locationManager.distanceFilter = 60.0f; // update every 200ft
-    [_locationManager startMonitoringSignificantLocationChanges];
-    //[_locationManager startUpdatingLocation];
+    //[_locationManager startMonitoringSignificantLocationChanges];
+    [_locationManager startUpdatingLocation];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -55,9 +55,7 @@
         [[PFUser currentUser]saveEventually];
         
         //subscribe to push cannel
-        [PFPush subscribeToChannelInBackground:[NSString stringWithFormat:@"MM%@", uuidString]];
-        
-        [self initializeLocationManager];
+        [PFPush subscribeToChannelInBackground:[NSString stringWithFormat:@"MM%@", uuidString]];        
     }
     
     /*if (![PFUser currentUser]) {
@@ -87,6 +85,8 @@
         }];
     }*/
     
+    [self initializeLocationManager];
+
     homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
     UINavigationController* homeNavController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
     homeViewController.title = @"Home";
@@ -182,7 +182,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
            fromLocation:(CLLocation *)oldLocation {
     
     _currentLocation = newLocation;
-    NSLog(@"%@", _currentLocation);
+    NSLog(@"AppDelegate Coordinate: %@", _currentLocation);
     
     //set user's location
     if (newLocation) {

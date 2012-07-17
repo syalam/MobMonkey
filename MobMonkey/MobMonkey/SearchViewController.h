@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SearchCell.h"
 #import <FactualSDK/FactualAPI.h>
-#import "FilterViewController.h";
+#import "FilterViewController.h"
 
 @interface SearchViewController : UITableViewController <SearchCellDelegate, UITextFieldDelegate, FactualAPIDelegate, FilterViewDelegate> {
     IBOutlet UIView *headerView;
