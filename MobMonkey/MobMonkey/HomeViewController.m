@@ -215,7 +215,9 @@
     
     CLLocationCoordinate2D coordinate = [AppDelegate getDelegate].currentLocation.coordinate;
     
-    [queryObject setGeoFilter:coordinate radiusInMeters:200000];
+    NSLog(@"current location: %@,%@", coordinate.latitude, coordinate.longitude);
+    
+    [queryObject setGeoFilter:coordinate radiusInMeters:16093.0];
     
     [queryObject addRowFilter:[FactualRowFilter fieldName:@"country" equalTo:@"US"]]; 
     
