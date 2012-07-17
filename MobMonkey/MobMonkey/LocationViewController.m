@@ -31,6 +31,8 @@ NSUInteger const kRequestSheet = 2;
 @synthesize notificationsButton;
 @synthesize requestScreen = _requestScreen;
 @synthesize requestObject = _requestObject;
+@synthesize locationNameLabel = _locationNameLabel;
+@synthesize locationName = _locationName;
 
 - (void)viewDidLoad
 {
@@ -46,6 +48,8 @@ NSUInteger const kRequestSheet = 2;
     
     // Setup scroll view
     [scrollView setContentSize:CGSizeMake(320,520)];
+    
+    _locationNameLabel.text = _locationName;
 }
 
 - (void)viewDidUnload

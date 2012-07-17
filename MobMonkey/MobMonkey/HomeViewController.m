@@ -150,6 +150,7 @@
     
     LocationViewController* locationViewController = [[LocationViewController alloc] initWithNibName:@"LocationViewController" bundle:nil];
     locationViewController.title = cell.locationNameLabel.text;
+    locationViewController.locationName = cell.locationNameLabel.text;
     [self.navigationController pushViewController:locationViewController animated:YES];
 }
 

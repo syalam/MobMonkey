@@ -17,12 +17,14 @@
     int currentActionSheetCall;
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, retain) IBOutlet UILabel *locationNameLabel;
 @property (strong, nonatomic) IBOutlet UIButton *photosButton;
 @property (strong, nonatomic) IBOutlet UIButton *videosButton;
 @property (strong, nonatomic) IBOutlet UIButton *requestButton;
 @property (strong, nonatomic) IBOutlet UIButton *shareButton;
 @property (strong, nonatomic) IBOutlet UIButton *bookmarkButton;
 @property (strong, nonatomic) IBOutlet UIButton *notificationsButton;
+@property (nonatomic, retain) NSString* locationName;
 @property (nonatomic, retain) RequestsViewController *requestScreen;
 @property (nonatomic, retain) PFObject *requestObject;
 
