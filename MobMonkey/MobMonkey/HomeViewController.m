@@ -146,11 +146,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HomeCell* cell = (HomeCell*)[tableView cellForRowAtIndexPath:indexPath];
+    FactualRow* venueData = [self.queryResult.rows objectAtIndex:indexPath.row];
     
     LocationViewController* locationViewController = [[LocationViewController alloc] initWithNibName:@"LocationViewController" bundle:nil];
-    locationViewController.title = cell.locationNameLabel.text;
-    locationViewController.locationName = cell.locationNameLabel.text;
+    locationViewController.venueData = venueData;
     [self.navigationController pushViewController:locationViewController animated:YES];
 }
 

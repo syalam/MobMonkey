@@ -65,8 +65,6 @@ NSString* const kFactualId = @"factual_id";
     
     // Setup scroll view
     [scrollView setContentSize:CGSizeMake(320,520)];
-    
-    _locationNameLabel.text = _locationName;
 }
 
 - (void)viewDidUnload
@@ -86,6 +84,7 @@ NSString* const kFactualId = @"factual_id";
 -(void)viewDidAppear:(BOOL)animated
 {
     NSLog(@"%@", venueData);
+    self.title = [venueData stringValueForName:kName];
     _locationNameLabel.text = [venueData stringValueForName:kName];
 }
 
