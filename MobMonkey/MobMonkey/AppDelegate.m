@@ -192,4 +192,9 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
     }
 }
 
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"%@", [error localizedDescription]);
+}
+
 @end
