@@ -11,6 +11,7 @@
 #import "LocationViewController.h"
 #import "SignUpViewController.h"
 #import <Parse/Parse.h>
+#import "AppDelegate.h"
 
 @interface HomeViewController ()
 
@@ -19,6 +20,8 @@
 @implementation HomeViewController
 @synthesize screen = _screen;
 @synthesize pendingRequestsArray = _pendingRequestsArray;
+@synthesize contentList = _contentList;
+@synthesize queryResult = _queryResult;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -40,7 +43,9 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];    
+    [super viewDidLoad];  
+    
+    [self doQuery:nil];
     
 }
 
@@ -73,7 +78,9 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 10;
+    NSLog(@"%d", _queryResult.rows.count);
+    
+    return _queryResult.rows.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -84,9 +91,11 @@
     if (cell == nil) {
         cell = [[HomeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    
+    FactualRow* row = [self.queryResult.rows objectAtIndex:indexPath.row];
 
     // Configure the cell...
-    cell.locationNameLabel.text = @"Majerle's";
+    cell.locationNameLabel.text = [row valueForName:@"name"];
     cell.timeLabel.text = @"14m ago";
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -197,6 +206,22 @@
     }];
 }
 
+- (void)doQuery:(id)sender {
+    FactualQuery* queryObject = [FactualQuery query];
+    
+    // set limit
+    queryObject.limit = 50;
+    
+    CLLocationCoordinate2D coordinate = [AppDelegate getDelegate].currentLocation.coordinate;
+    
+    [queryObject setGeoFilter:coordinate radiusInMeters:200000];
+    
+    [queryObject addRowFilter:[FactualRowFilter fieldName:@"country" equalTo:@"US"]]; 
+    
+    _activeRequest = [[AppDelegate getAPIObject] queryTable:@"global" optionalQueryParams:queryObject withDelegate:self];
+    
+    
+}
 
 #pragma mark - UIBarButtonItem Action Methods
 - (void)signInButtonClicked:(id)sender {
@@ -214,5 +239,38 @@
     [PFUser logOut];
     [self setNavButtons];
 }
+
+#pragma mark FactualAPIDelegate methods
+
+- (void)requestDidReceiveInitialResponse:(FactualAPIRequest *)request {
+    if (request == _activeRequest) {
+        NSLog(@"Received Initial Response");
+    }
+    
+}
+
+- (void)requestDidReceiveData:(FactualAPIRequest *)request { 
+    if (request == _activeRequest) {
+        NSLog(@"Received Data");
+    }  
+}
+
+
+-(void) requestComplete:(FactualAPIRequest *)request failedWithError:(NSError *)error {
+    if (_activeRequest == request) {
+        
+        NSLog(@"Active request failed with Error:%@", [error localizedDescription]);
+    }
+}
+
+
+-(void) requestComplete:(FactualAPIRequest *)request receivedQueryResult:(FactualQueryResult *)queryResultObj {
+    if (_activeRequest == request) {
+        NSLog(@"%@", queryResultObj);
+        self.queryResult = queryResultObj;
+        [self.tableView reloadData];
+    }
+}
+
 
 @end

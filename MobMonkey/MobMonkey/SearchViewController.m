@@ -221,14 +221,15 @@
     queryObject.limit = 50;
     
     // set geo location 
-    CLLocationCoordinate2D coordinate = [AppDelegate getDelegate].currentLocation.coordinate;   
+    CLLocationCoordinate2D coordinate = [AppDelegate getDelegate].currentLocation.coordinate;  
         
     // set geo filter 
     if ([prefs integerForKey:@"filteredRadius"] == 0) {
         [queryObject setGeoFilter:coordinate radiusInMeters:100000.0];
     }
     else{
-        [queryObject setGeoFilter:coordinate radiusInMeters:[prefs doubleForKey:@"filteredRadius"]];
+        [queryObject setGeoFilter:coordinate radiusInMeters:1000];
+        //[queryObject setGeoFilter:coordinate radiusInMeters:[prefs doubleForKey:@"filteredRadius"]];
     }
         
     // set the sort criteria 
@@ -239,7 +240,7 @@
     [queryObject addFullTextQueryTerms:categoryTextField.text,nil];
     
     // check if locality filter is on ... 
-    [queryObject addRowFilter:[FactualRowFilter fieldName:@"country" equalTo:@"us"]];    
+    [queryObject addRowFilter:[FactualRowFilter fieldName:@"country" equalTo:@"US"]];    
     
     // check if category filter is on ... 
     if ([prefs valueForKey:@"filteredCategory"] == nil) 

@@ -9,18 +9,28 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "RequestsViewController.h"
+#import <FactualSDK/FactualAPI.h>
+#import <FactualSDK/FactualQuery.h>
 
-@interface HomeViewController : UITableViewController {
+@interface HomeViewController : UITableViewController <FactualAPIDelegate> {
     IBOutlet UIView *headerView;
+    
+    FactualAPIRequest* _activeRequest;
+    FactualQueryResult* _queryResult;
+    CLLocation* _queryLocation;
     
     RequestsViewController *notificationScreen;
 }
 
 @property (nonatomic, retain)NSString *screen;
 @property (nonatomic, retain)NSMutableArray *pendingRequestsArray;
+@property (nonatomic, retain)NSMutableArray *contentList;
+@property (nonatomic,retain)  FactualQueryResult* queryResult;
 
 - (void)setNavButtons;
 - (void)checkForNotifications;
+- (void)doQuery:(id)sender;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 
