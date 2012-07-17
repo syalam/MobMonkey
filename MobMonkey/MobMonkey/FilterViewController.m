@@ -50,7 +50,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     segmentedControl.selectedSegmentIndex = [prefs integerForKey:@"savedSegmentValue"];
-    [pickerView selectRow:[prefs integerForKey:@"selectedPickerValue"] inComponent:0 animated:NO];
+    [pickerView selectRow:[prefs integerForKey:@"savedPickerValue"] inComponent:0 animated:NO];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -71,6 +71,9 @@
 
 #pragma mark - IBAction Methods
 - (IBAction)segmentedControlSelected:(id)sender {
+    [prefs setInteger:segmentedControl.selectedSegmentIndex forKey:@"savedSegmentValue"];
+    [prefs synchronize];
+    
     switch (segmentedControl.selectedSegmentIndex) {
         case 0:
             rangeSelection = @"5 blocks";
@@ -93,8 +96,6 @@
             [prefs synchronize];
             
         default:
-            [prefs setInteger:segmentedControl.selectedSegmentIndex forKey:@"savedSegmentValue"];
-            [prefs synchronize];
             break;
     }
 }
