@@ -304,20 +304,20 @@ NSString* const kFactualId = @"factual_id";
 
 #pragma mark - Helper Methods
 - (void)makeRequest:(NSString*)requestType {
-    PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:[AppDelegate getDelegate].currentLocation.coordinate.latitude longitude:[AppDelegate getDelegate].currentLocation.coordinate.longitude];
+    PFGeoPoint *requestLocation = [PFGeoPoint geoPointWithLatitude:[[venueData valueForName:kLatitude]doubleValue] longitude:[[venueData valueForName:kLongitude]doubleValue]];
     
     //find all users within range
     PFQuery *findUsersNearLocation = [PFUser query];
-    [findUsersNearLocation whereKey:@"userLocation" nearGeoPoint:point withinMiles:25000];
+    [findUsersNearLocation whereKey:@"userLocation" nearGeoPoint:requestLocation withinMiles:25000];
     //limit results to people who have been at the location in the last two hours
     [findUsersNearLocation whereKey:@"updatedAt" greaterThan:[NSDate dateWithTimeIntervalSinceNow:-3600]];
     [findUsersNearLocation findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             //create the request
-            NSString *requestText = [NSString stringWithFormat:@"%@ %@ requests that you post a %@ of this location", [[PFUser currentUser]objectForKey:@"firstName"], [[PFUser currentUser]objectForKey:@"lastName"], requestType];
+            NSString *requestText = [NSString stringWithFormat:@"%@ %@ requests that you post a %@ of %@", [[PFUser currentUser]objectForKey:@"firstName"], [[PFUser currentUser]objectForKey:@"lastName"], requestType, [venueData valueForName:kName]];
             
             PFObject *request = [PFObject objectWithClassName:@"requests"]; 
-            [request setObject:point forKey:@"locationCoordinates"];
+            [request setObject:requestLocation forKey:@"locationCoordinates"];
             [request setObject:requestType forKey:@"requestType"];
             [request setObject:[PFUser currentUser] forKey:@"requestor"];
             [request setObject:requestText forKey:@"requestText"];
@@ -329,7 +329,7 @@ NSString* const kFactualId = @"factual_id";
                     
                     //Send push notifications to all the users in range
                     for (PFObject* person in objects) {
-                        [PFPush sendPushMessageToChannelInBackground:[NSString stringWithFormat:@"MM%@",[person objectForKey:@"uuid"]] withMessage:[NSString stringWithFormat:@"%@ %@ requests that you post a %@ of this location", [[PFUser currentUser]objectForKey:@"firstName"], [[PFUser currentUser]objectForKey:@"lastName"], requestType]];
+                        [PFPush sendPushMessageToChannelInBackground:[NSString stringWithFormat:@"MM%@",[person objectForKey:@"uuid"]] withMessage:[NSString stringWithFormat:@"%@ %@ requests that you post a %@ of %@", [[PFUser currentUser]objectForKey:@"firstName"], [[PFUser currentUser]objectForKey:@"lastName"], requestType, [venueData valueForName:kName]]];
                     }
                     
                 }

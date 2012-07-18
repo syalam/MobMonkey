@@ -21,6 +21,8 @@
     CLLocation* _currentLocation;
     
     HomeViewController *homeViewController;
+    
+    UIApplicationState state;
 }
 
 @property (strong, nonatomic) UIWindow *window;

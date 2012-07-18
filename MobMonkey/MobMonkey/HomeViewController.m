@@ -172,6 +172,7 @@
         else {
             UIBarButtonItem *signInButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign Up" style:UIBarButtonItemStyleBordered target:self action:@selector(signInButtonClicked:)];
             self.navigationItem.rightBarButtonItem = signInButton;
+            self.navigationItem.leftBarButtonItem = nil;
         }
     }
     else if ([self.title isEqualToString:@"Bookmarks"]) {
@@ -212,9 +213,14 @@
     // set limit
     queryObject.limit = 50;
     
-    CLLocationCoordinate2D coordinate = [AppDelegate getDelegate].currentLocation.coordinate;
+    //CLLocationCoordinate2D coordinate = [AppDelegate getDelegate].currentLocation.coordinate;
+    CLLocationCoordinate2D coordinate = {
+        [((NSNumber*)[[NSUserDefaults standardUserDefaults]valueForKey:@"latitude"])doubleValue],
+        [((NSNumber*)[[NSUserDefaults standardUserDefaults]valueForKey:@"longitude"])doubleValue]
+    };
     
-    NSLog(@"current location: %@,%@", coordinate.latitude, coordinate.longitude);
+    
+    NSLog(@"current location: %f,%f", coordinate.latitude, coordinate.longitude);
     
     [queryObject setGeoFilter:coordinate radiusInMeters:16093.0];
     

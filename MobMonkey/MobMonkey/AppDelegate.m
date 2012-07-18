@@ -132,6 +132,8 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    state = [application applicationState];
+    
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -145,7 +147,7 @@
     if ([PFUser currentUser]) {
         [homeViewController checkForNotifications];
     }
-    
+    state = [application applicationState];
     
 }
 
@@ -190,9 +192,16 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
     //set user's location
     if (newLocation) {
+        [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%f", newLocation.coordinate.latitude] forKey:@"latitude"];
+        [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%f", newLocation.coordinate.longitude] forKey:@"longitude"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+        
         PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:newLocation.coordinate.latitude longitude:newLocation.coordinate.longitude];
         [[PFUser currentUser]setObject:point forKey:@"userLocation"];
         [[PFUser currentUser]saveEventually];
+    }
+    if (state == UIApplicationStateActive) {
+        [homeViewController doQuery:nil];
     }
 }
 
