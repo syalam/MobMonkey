@@ -182,28 +182,43 @@
 }
 
 - (void)checkForNotifications {
-    PFQuery *getRequests = [PFQuery queryWithClassName:@"requests"];
-    [getRequests whereKey:@"locationCoordinates" nearGeoPoint:[[PFUser currentUser]objectForKey:@"userLocation"] withinMiles:25000];
-    [getRequests whereKey:@"updatedAt" lessThan:[NSDate dateWithTimeIntervalSinceNow:43200]];
-    [getRequests whereKey:@"requestor" notEqualTo:[PFUser currentUser]];
-    [getRequests findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    NSMutableArray *requestsToDisplay = [[NSMutableArray alloc]init];
+    
+    PFQuery *getNotifications = [PFQuery queryWithClassName:@"notifications"];
+    [getNotifications whereKey:@"requestor" equalTo:[PFUser currentUser]];
+    [getNotifications orderByAscending:@"updatedAt"];
+    getNotifications.limit = 15;
+    [getNotifications findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            NSMutableArray *requestsToDisplay = [[NSMutableArray alloc]init];
-            for (PFObject *requestObject in objects) {
-                PFQuery *requestResponseQuery = [PFQuery queryWithClassName:@"requestResponses"];
-                [requestResponseQuery whereKey:@"responder" equalTo:[PFUser currentUser]];
-                [requestResponseQuery whereKey:@"requestObject" equalTo:requestObject];
-                [requestResponseQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    if (!error) {
-                        if (objects.count < 1) {
-                            [requestsToDisplay addObject:requestObject];
-                            [self setPendingRequestsArray:requestsToDisplay];
-                            notificationScreen.contentList = _pendingRequestsArray;
-                        }
-                    }
-                }];
+            for (PFObject *notification in objects) {
+                [requestsToDisplay addObject:notification];
             }
-        }
+            [self setPendingRequestsArray:requestsToDisplay];
+            notificationScreen.contentList = _pendingRequestsArray;
+            
+            PFQuery *getRequests = [PFQuery queryWithClassName:@"requests"];
+            [getRequests whereKey:@"locationCoordinates" nearGeoPoint:[[PFUser currentUser]objectForKey:@"userLocation"] withinMiles:25000];
+            [getRequests whereKey:@"updatedAt" lessThan:[NSDate dateWithTimeIntervalSinceNow:43200]];
+            [getRequests whereKey:@"requestor" notEqualTo:[PFUser currentUser]];
+            [getRequests findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                if (!error) {
+                    for (PFObject *requestObject in objects) {
+                        PFQuery *requestResponseQuery = [PFQuery queryWithClassName:@"requestResponses"];
+                        [requestResponseQuery whereKey:@"responder" equalTo:[PFUser currentUser]];
+                        [requestResponseQuery whereKey:@"requestObject" equalTo:requestObject];
+                        [requestResponseQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                            if (!error) {
+                                if (objects.count < 1) {
+                                    [requestsToDisplay addObject:requestObject];
+                                    [self setPendingRequestsArray:requestsToDisplay];
+                                    notificationScreen.contentList = _pendingRequestsArray;
+                                }
+                            }
+                        }];
+                    }
+                }
+            }];
+        } 
     }];
 }
 

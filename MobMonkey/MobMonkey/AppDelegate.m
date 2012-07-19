@@ -199,9 +199,10 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
         PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:newLocation.coordinate.latitude longitude:newLocation.coordinate.longitude];
         [[PFUser currentUser]setObject:point forKey:@"userLocation"];
         [[PFUser currentUser]saveEventually];
-    }
-    if (state == UIApplicationStateActive) {
-        [homeViewController doQuery:nil];
+        
+        if (state == UIApplicationStateActive) {
+            [homeViewController doQuery:nil];
+        }
     }
 }
 

@@ -211,7 +211,7 @@ NSString* const kFactualId = @"factual_id";
             [locationImage setObject:imageFile forKey:@"image"];
             [locationImage setObject:[PFUser currentUser] forKey:@"uploadedBy"];
             [locationImage setObject:@"LocationId" forKey:@"location"];
-            [locationImage setObject:[_requestObject objectForKey:@"requestor"] forKey:@"respondingTo"];
+            [locationImage setObject:[_requestObject objectForKey:@"requestor"] forKey:@"requestor"];
             [locationImage saveEventually];
             
             if (_requestScreen) {
@@ -219,13 +219,34 @@ NSString* const kFactualId = @"factual_id";
                 PFObject *requestorObject = [_requestObject objectForKey:@"requestor"];
                 [requestorObject fetchIfNeededInBackgroundWithBlock:^(PFObject *person, NSError *error) {
                     if (!error) {
-                        [PFPush sendPushMessageToChannelInBackground:[NSString stringWithFormat:@"MM%@",[person objectForKey:@"uuid"]] withMessage:[NSString stringWithFormat:@"%@ %@ has responded to your request", [[PFUser currentUser]objectForKey:@"firstName"], [[PFUser currentUser]objectForKey:@"lastName"]]];
+                        NSString *notificationText = [NSString stringWithFormat:@"%@ %@ has responded to your request to take a %@ of %@", [[PFUser currentUser]objectForKey:@"firstName"], [[PFUser currentUser]objectForKey:@"lastName"], [_requestObject objectForKey:@"requestType"], [_requestObject objectForKey:@"locationName"]];
+                        PFObject *notificationObject = [PFObject objectWithClassName:@"notifications"];
+                        [notificationObject setObject:notificationText forKey:@"notificationText"];
+                        [notificationObject setObject:requestorObject forKey:@"requestor"];
+                        [notificationObject setObject:[NSNumber numberWithBool:NO] forKey:@"notificationViewed"];
+                        [notificationObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                            if (succeeded) {
+                                [PFPush sendPushMessageToChannelInBackground:[NSString stringWithFormat:@"MM%@",[person objectForKey:@"uuid"]] withMessage:notificationText];
+                                [picker dismissModalViewControllerAnimated:YES];
+                            }
+                            else {
+                                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to respond to this request at this time. Please try again later" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil , nil];
+                                [alert show];
+                            }
+                        }];
+                        
+                        
                     } 
                 }];
             }
-            
-            [picker dismissModalViewControllerAnimated:YES];
-        } 
+            else {
+                [picker dismissModalViewControllerAnimated:YES];
+            }
+        }
+        else {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to respond to this request at this time. Please try again later" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil , nil];
+            [alert show];
+        }
     }];
 }
 
@@ -320,6 +341,7 @@ NSString* const kFactualId = @"factual_id";
             [request setObject:requestLocation forKey:@"locationCoordinates"];
             [request setObject:requestType forKey:@"requestType"];
             [request setObject:[PFUser currentUser] forKey:@"requestor"];
+            [request setObject:[venueData valueForName:kName] forKey:@"locationName"];
             [request setObject:requestText forKey:@"requestText"];
             [request saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {

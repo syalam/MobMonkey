@@ -87,9 +87,16 @@
     cell = [[RequestCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     cell.delegate = self;
     
-    cell.notificationTextLabel.text = [[_contentList objectAtIndex:indexPath.row]objectForKey:@"requestText"];
-    cell.respondButton.tag = indexPath.row;
-    cell.ignoreButton.tag = indexPath.row;
+    if ([[_contentList objectAtIndex:indexPath.row]objectForKey:@"notificationText"]) {
+        cell.notificationTextLabel.text = [[_contentList objectAtIndex:indexPath.row]objectForKey:@"notificationText"];
+        [cell.respondButton setHidden:YES];
+        [cell.ignoreButton setHidden:YES];
+    }
+    else {
+        cell.notificationTextLabel.text = [[_contentList objectAtIndex:indexPath.row]objectForKey:@"requestText"];
+        cell.respondButton.tag = indexPath.row;
+        cell.ignoreButton.tag = indexPath.row;
+    }
     // Configure the cell...
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -210,6 +217,7 @@
 - (void)responseComplete:(PFObject *)requestObject {
     PFObject *response = [PFObject objectWithClassName:@"requestResponses"];
     [response setObject:requestObject forKey:@"requestObject"];
+    [response setObject:[requestObject objectForKey:@"requestor"] forKey:@"requestor"];
     [response setObject:[NSNumber numberWithBool:YES] forKey:@"responded"];
     [response setObject:[PFUser currentUser] forKey:@"responder"];
     [response saveEventually];
