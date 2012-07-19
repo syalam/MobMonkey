@@ -54,6 +54,10 @@ NSString* const kFactualId = @"factual_id";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if (_requestScreen) {
+        [requestButton setHidden:YES];
+    }
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -84,8 +88,14 @@ NSString* const kFactualId = @"factual_id";
 -(void)viewDidAppear:(BOOL)animated
 {
     NSLog(@"%@", venueData);
-    self.title = [venueData stringValueForName:kName];
-    _locationNameLabel.text = [venueData stringValueForName:kName];
+    if (_requestScreen) {
+        self.title = [_requestObject objectForKey:@"locationName"];
+        _locationNameLabel.text = [_requestObject objectForKey:@"locationName"];
+    }
+    else {
+        self.title = [venueData stringValueForName:kName];
+        _locationNameLabel.text = [venueData stringValueForName:kName];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
