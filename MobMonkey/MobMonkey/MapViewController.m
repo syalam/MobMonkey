@@ -227,7 +227,7 @@
         NSNumber* longitude = [row valueForName:@"longitude"];
         NSString* name = [row valueForName:@"name"];
         NSString* address = [row valueForName:@"address"];
-        
+
         CLLocationCoordinate2D coordinate;
         coordinate.latitude = latitude.doubleValue;
         coordinate.longitude = longitude.doubleValue; 

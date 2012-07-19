@@ -32,4 +32,15 @@
     return self;
 }
 
+- (NSString *)title {
+    if ([_name isKindOfClass:[NSNull class]]) 
+        return @"Unknown charge";
+    else
+        return _name;
+}
+
+- (NSString *)subtitle {
+    return _address;
+}
+
 @end
