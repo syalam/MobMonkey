@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C1C02DC15B84AFC00D1C992 /* MMLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1C02DB15B84AFC00D1C992 /* MMLocationAnnotation.m */; };
 		8C5C45761596762E00E3710B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45751596762E00E3710B /* UIKit.framework */; };
 		8C5C45781596762E00E3710B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45771596762E00E3710B /* Foundation.framework */; };
 		8C5C457A1596762E00E3710B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5C45791596762E00E3710B /* CoreGraphics.framework */; };
@@ -62,6 +63,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C1C02DA15B84AFC00D1C992 /* MMLocationAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationAnnotation.h; sourceTree = "<group>"; };
+		8C1C02DB15B84AFC00D1C992 /* MMLocationAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationAnnotation.m; sourceTree = "<group>"; };
 		8C5C45711596762E00E3710B /* MobMonkey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobMonkey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C5C45751596762E00E3710B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8C5C45771596762E00E3710B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -163,6 +166,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C1C02DE15B84B0000D1C992 /* Location Annotation */ = {
+			isa = PBXGroup;
+			children = (
+				8C1C02DA15B84AFC00D1C992 /* MMLocationAnnotation.h */,
+				8C1C02DB15B84AFC00D1C992 /* MMLocationAnnotation.m */,
+			);
+			name = "Location Annotation";
+			sourceTree = "<group>";
+		};
 		8C5C45661596762E00E3710B = {
 			isa = PBXGroup;
 			children = (
@@ -364,6 +376,7 @@
 				F79F95E115A56B9200BE96EE /* MapViewController.h */,
 				F79F95E215A56B9200BE96EE /* MapViewController.m */,
 				F79F95E315A56B9200BE96EE /* MapViewController.xib */,
+				8C1C02DE15B84B0000D1C992 /* Location Annotation */,
 			);
 			name = MapView;
 			sourceTree = "<group>";
@@ -524,6 +537,7 @@
 				F79F961015A64DB000BE96EE /* NotificationsViewController.m in Sources */,
 				F7193B7915AEA14B00CCFC5A /* RequestsViewController.m in Sources */,
 				F7193B7E15AEA24A00CCFC5A /* RequestCell.m in Sources */,
+				8C1C02DC15B84AFC00D1C992 /* MMLocationAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

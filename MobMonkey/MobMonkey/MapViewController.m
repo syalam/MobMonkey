@@ -11,6 +11,7 @@
 #import <MapKit/MapKit.h>
 #import <FactualSDK/FactualAPI.h>
 #import "AppDelegate.h"
+#import "MMLocationAnnotation.h"
 
 @interface MapViewController ()
 
@@ -19,6 +20,7 @@
 @implementation MapViewController
 @synthesize mapView;
 @synthesize searchBar;
+@synthesize queryResult;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,6 +47,7 @@
     
     [self.mapView setUserTrackingMode:MKUserTrackingModeFollowWithHeading animated:YES];
     prefs = [NSUserDefaults standardUserDefaults];
+    _mapRadius = 10000; //set a default radius in case user doesnt select anything;
 }
 
 
@@ -65,7 +68,8 @@
 
 #pragma mark - Nav Bar Button Action Methods
 - (void)searchButtonClicked:(id)sender {
-    
+    [self performFactualQuery];
+    [self.searchBar resignFirstResponder];
 }
 
 - (void)cancelButtonClicked:(id)sender {
@@ -207,10 +211,50 @@
 
 
 -(void) requestComplete:(FactualAPIRequest *)request receivedQueryResult:(FactualQueryResult *)queryResultObj {
-    _queryResult = queryResultObj;
+    self.queryResult = queryResultObj;
     
-    //TODO: refresh map with pins
+    //Clear existing annotations
+    for (id<MKAnnotation> annotation in self.mapView.annotations) {
+        [self.mapView removeAnnotation:annotation];
+    }
+    
+    //Refresh with new annotations
+    for (FactualRow* row in self.queryResult.rows)
+    {
+        NSNumber* latitude = [row valueForKey:@"latitude"];
+        NSNumber* longitude = [row valueForKey:@"longitude"];
+        NSString* name = [row valueForKey:@"name"];
+        NSString* address = [row valueForKey:@"address"];
+        
+        CLLocationCoordinate2D coordinate;
+        coordinate.latitude = latitude.doubleValue;
+        coordinate.longitude = longitude.doubleValue; 
+        MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc] initWithName:name address:address coordinate:coordinate] ;
+        [self.mapView addAnnotation:(id)annotation];    
+    }
+
 }
 
+#pragma mark - MapView Delegate Methods
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    
+    static NSString *identifier = @"MMLocation";   
+    if ([annotation isKindOfClass:[MMLocationAnnotation class]]) {
+        
+        MKPinAnnotationView *annotationView = (MKPinAnnotationView *) [self.mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+        if (annotationView == nil) {
+            annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
+        } else {
+            annotationView.annotation = annotation;
+        }
+        
+        annotationView.enabled = YES;
+        annotationView.canShowCallout = YES;
+        
+        return annotationView;
+    }
+    
+    return nil;    
+}
 
 @end
