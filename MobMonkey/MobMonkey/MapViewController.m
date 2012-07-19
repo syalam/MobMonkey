@@ -48,6 +48,11 @@
     [self.mapView setUserTrackingMode:MKUserTrackingModeFollowWithHeading animated:YES];
     prefs = [NSUserDefaults standardUserDefaults];
     _mapRadius = 10000; //set a default radius in case user doesnt select anything;
+    
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] 
+                                          initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 2.0; //user needs to press for 2 seconds
+    [self.mapView addGestureRecognizer:lpgr];
 }
 
 
@@ -257,6 +262,20 @@
     }
     
     return nil;    
+}
+
+- (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
+        return;
+    
+    CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];   
+    CLLocationCoordinate2D touchMapCoordinate = 
+    [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+    
+    MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc] init];
+    annotation.coordinate = touchMapCoordinate;
+    [self.mapView addAnnotation:(id)annotation];
 }
 
 @end
