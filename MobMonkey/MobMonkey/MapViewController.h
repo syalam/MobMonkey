@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import <FactualSDK/FactualAPI.h>
 
-@interface MapViewController : UIViewController <UIActionSheetDelegate, UIPickerViewDataSource, UIPickerViewDelegate, FactualAPIDelegate, MKMapViewDelegate> {
+@interface MapViewController : UIViewController <UIActionSheetDelegate, UIPickerViewDataSource, UIPickerViewDelegate, FactualAPIDelegate, MKMapViewDelegate, UISearchBarDelegate> {
     IBOutlet UIButton *radiusButton;
     IBOutlet UIButton *addLocationButton;
     

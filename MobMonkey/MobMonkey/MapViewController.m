@@ -251,6 +251,8 @@
         MKPinAnnotationView *annotationView = (MKPinAnnotationView *) [self.mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
         if (annotationView == nil) {
             annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
+            annotationView.animatesDrop = YES; 
+
         } else {
             annotationView.annotation = annotation;
         }
@@ -269,6 +271,11 @@
     if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
         return;
     
+    //Clear existing annotations
+    for (id<MKAnnotation> annotation in self.mapView.annotations) {
+        [self.mapView removeAnnotation:annotation];
+    }
+    
     CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];   
     CLLocationCoordinate2D touchMapCoordinate = 
     [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
@@ -278,4 +285,9 @@
     [self.mapView addAnnotation:(id)annotation];
 }
 
+#pragma mark - UISearchBar Delegate Methods
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [self.searchBar resignFirstResponder];
+    [self performFactualQuery];
+}
 @end
