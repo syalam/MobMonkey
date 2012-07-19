@@ -57,34 +57,7 @@
         //subscribe to push cannel
         [PFPush subscribeToChannelInBackground:[NSString stringWithFormat:@"MM%@", uuidString]];        
     }
-    
-    /*if (![PFUser currentUser]) {
-        [PFAnonymousUtils logInWithBlock:^(PFUser *user, NSError *error) {
-            if (error) {
-                NSLog(@"Anonymous login failed.");
-            } else {
-                NSLog(@"Anonymous user logged in.");
-                //Get user's UUID
-                
-                CFUUIDRef uuid;
-                CFStringRef uuidStr;
-                uuid = CFUUIDCreate(NULL);
-                uuidStr = CFUUIDCreateString(NULL, uuid);
-                
-                NSString* uuidString = [NSString stringWithFormat:@"%@", uuidStr];
-                NSLog(@"%@", uuidString);
-                
-                //Save UUID to user object
-                [[PFUser currentUser]setObject:uuidString forKey:@"uuid"];
-                [[PFUser currentUser]saveEventually];
-                
-                [PFPush subscribeToChannelInBackground:uuidString];
-                
-                [self initializeLocationManager];
-            }
-        }];
-    }*/
-    
+       
     [self initializeLocationManager];
 
     homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];

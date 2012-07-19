@@ -219,20 +219,22 @@
     }
     
     //Refresh with new annotations
-    for (FactualRow* row in self.queryResult.rows)
-    {
-        NSNumber* latitude = [row valueForKey:@"latitude"];
-        NSNumber* longitude = [row valueForKey:@"longitude"];
-        NSString* name = [row valueForKey:@"name"];
-        NSString* address = [row valueForKey:@"address"];
+    FactualRow* row;
+    for (int i = 0; i < [self.queryResult.rows count]; ++i) {
+        row = [self.queryResult.rows objectAtIndex:i];
+        
+        NSNumber* latitude = [row valueForName:@"latitude"];
+        NSNumber* longitude = [row valueForName:@"longitude"];
+        NSString* name = [row valueForName:@"name"];
+        NSString* address = [row valueForName:@"address"];
         
         CLLocationCoordinate2D coordinate;
         coordinate.latitude = latitude.doubleValue;
         coordinate.longitude = longitude.doubleValue; 
-        MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc] initWithName:name address:address coordinate:coordinate] ;
-        [self.mapView addAnnotation:(id)annotation];    
+        MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc] initWithName:name address:address coordinate:coordinate];
+        [self.mapView addAnnotation:(id)annotation];
     }
-
+    
 }
 
 #pragma mark - MapView Delegate Methods
