@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
+#import <FactualSDK/FactualAPI.h>
 
-@interface MapViewController : UIViewController <UIActionSheetDelegate, UIPickerViewDataSource, UIPickerViewDelegate> {
+@interface MapViewController : UIViewController <UIActionSheetDelegate, UIPickerViewDataSource, UIPickerViewDelegate, FactualAPIDelegate> {
     IBOutlet UIButton *radiusButton;
     IBOutlet UIButton *addLocationButton;
     
@@ -16,9 +18,16 @@
     UIPickerView *radiusPicker;
     
     NSMutableArray *radiusPickerItemsArray;
+    FactualQueryResult* _queryResult;
+    NSUserDefaults* prefs;
+    FactualAPIRequest* _activeRequest;
+    double _mapRadius;
+
 }
 
 - (IBAction)radiusButtonClicked:(id)sender;
 - (IBAction)addLocationButtonClicked:(id)sender;
+@property (strong, nonatomic) IBOutlet MKMapView *mapView;
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end

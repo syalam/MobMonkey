@@ -599,7 +599,8 @@
 		8C5C459E1596762E00E3710B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: TAPPFORCE LLC";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sheehan Alam (SZ66Y33F93)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sheehan Alam (SZ66Y33F93)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -612,7 +613,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "88CC78A3-3C90-4A03-962B-AEEF3B7E9EEF";
+				PROVISIONING_PROFILE = "8B4247C3-0BDB-4581-BE25-9D5AE2FEE735";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8B4247C3-0BDB-4581-BE25-9D5AE2FEE735";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -620,7 +622,8 @@
 		8C5C459F1596762E00E3710B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: TAPPFORCE LLC";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sheehan Alam (SZ66Y33F93)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sheehan Alam (SZ66Y33F93)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -633,7 +636,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "88CC78A3-3C90-4A03-962B-AEEF3B7E9EEF";
+				PROVISIONING_PROFILE = "8B4247C3-0BDB-4581-BE25-9D5AE2FEE735";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8B4247C3-0BDB-4581-BE25-9D5AE2FEE735";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -8,12 +8,17 @@
 
 #import "MapViewController.h"
 #import "AddLocationViewController.h"
+#import <MapKit/MapKit.h>
+#import <FactualSDK/FactualAPI.h>
+#import "AppDelegate.h"
 
 @interface MapViewController ()
 
 @end
 
 @implementation MapViewController
+@synthesize mapView;
+@synthesize searchBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,17 +35,24 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"Search";
     
-    radiusPickerItemsArray = [[NSMutableArray alloc]initWithObjects:@"100 yards", @"500 yards", @"1 mile", @"5 miles", nil];
+    radiusPickerItemsArray = [[NSMutableArray alloc]initWithObjects:@"5 blocks", @"1 mile", @"5 miles", @"10 miles", nil];
     
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithTitle:@"Search" style:UIBarButtonItemStyleDone target:self action:@selector(searchButtonClicked:)];
     self.navigationItem.rightBarButtonItem = searchButton;
     
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonClicked:)];
     self.navigationItem.leftBarButtonItem = cancelButton;
+    
+    [self.mapView setUserTrackingMode:MKUserTrackingModeFollowWithHeading animated:YES];
+    prefs = [NSUserDefaults standardUserDefaults];
 }
+
+
 
 - (void)viewDidUnload
 {
+    [self setMapView:nil];
+    [self setSearchBar:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -100,6 +112,39 @@
     [self.navigationController pushViewController:alvc animated:YES];
 }
 
+-(void)performFactualQuery
+{
+    
+    FactualQuery* queryObject = [FactualQuery query];
+    
+    // set limit
+    queryObject.limit = 50;
+    
+    // set geo location 
+    CLLocationCoordinate2D coordinate = [AppDelegate getDelegate].currentLocation.coordinate;  
+    
+    // set geo filter 
+    [queryObject setGeoFilter:coordinate radiusInMeters:_mapRadius];
+    
+    // set the sort criteria 
+    FactualSortCriteria* primarySort = [[FactualSortCriteria alloc] initWithFieldName:@"$relevance" sortOrder:FactualSortOrder_Ascending];
+    [queryObject setPrimarySortCriteria:primarySort];
+    
+    // full text term  
+    [queryObject addFullTextQueryTerms:searchBar.text,nil];
+    
+    // check if locality filter is on ... 
+    [queryObject addRowFilter:[FactualRowFilter fieldName:@"country" equalTo:@"US"]];    
+    
+    // check if category filter is on ... 
+    //if ([prefs valueForKey:@"filteredCategory"] != nil) 
+    //    [queryObject addRowFilter:[FactualRowFilter fieldName:@"category" beginsWith:[prefs valueForKey:@"filteredCategory"]]];
+    
+    // start the request ... 
+    _activeRequest = [[AppDelegate getAPIObject] queryTable:@"global" optionalQueryParams:queryObject withDelegate:self];
+    
+}
+
 #pragma mark - Radius Action Sheet Button Action Methods
 - (void)chooseButtonClicked:(id)sender {
     [radiusActionSheet dismissWithClickedButtonIndex:0 animated:YES];
@@ -117,7 +162,22 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    
+    switch (row) {
+        case 0:
+            _mapRadius = 10.0;
+            break;
+        case 1:
+            _mapRadius = 1609.0;
+            break;
+        case 2:
+            _mapRadius = 8046.0;
+            break;
+        case 3:
+            _mapRadius = 16093.0;
+            break;
+        default:
+            break;
+    }
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component;
@@ -129,5 +189,28 @@
 {
     return [radiusPickerItemsArray objectAtIndex:row];
 }
+
+#pragma mark -
+#pragma mark FactualAPIDelegate methods
+
+- (void)requestDidReceiveInitialResponse:(FactualAPIRequest *)request {
+    NSLog(@"received factual response");
+}
+
+- (void)requestDidReceiveData:(FactualAPIRequest *)request { 
+    NSLog(@"received factual data");
+}
+
+-(void) requestComplete:(FactualAPIRequest *)request failedWithError:(NSError *)error {
+    NSLog(@"Active request failed with Error:%@", [error localizedDescription]);
+}
+
+
+-(void) requestComplete:(FactualAPIRequest *)request receivedQueryResult:(FactualQueryResult *)queryResultObj {
+    _queryResult = queryResultObj;
+    
+    //TODO: refresh map with pins
+}
+
 
 @end
