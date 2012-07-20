@@ -30,6 +30,8 @@
 @property (nonatomic, retain) RequestsViewController *requestScreen;
 @property (nonatomic, retain) PFObject *requestObject;
 @property (nonatomic, retain) FactualRow* venueData;
+@property (nonatomic, retain) UITableView* tableView;
+@property (nonatomic, retain) NSMutableArray *contentList;
 
 - (IBAction)videosButtonTapped:(id)sender;
 - (IBAction)requestButtonTapped:(id)sender;

@@ -45,6 +45,8 @@ NSString* const kFactualId = @"factual_id";
 @synthesize shareButton;
 @synthesize bookmarkButton;
 @synthesize notificationsButton;
+@synthesize tableView = _tableView;
+@synthesize contentList = _contentList;
 @synthesize requestScreen = _requestScreen;
 @synthesize requestObject = _requestObject;
 @synthesize locationNameLabel = _locationNameLabel;
@@ -372,6 +374,33 @@ NSString* const kFactualId = @"factual_id";
             }];
         } 
     }];
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _contentList.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    
+    
+    return cell;
 }
 
 
