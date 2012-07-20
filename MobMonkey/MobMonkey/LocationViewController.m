@@ -61,6 +61,8 @@ NSString* const kFactualId = @"factual_id";
         [requestButton setHidden:YES];
     }
 
+    _contentList = [[NSMutableArray alloc]init];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
         
@@ -89,7 +91,6 @@ NSString* const kFactualId = @"factual_id";
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    NSLog(@"%@", venueData);
     if (_requestScreen) {
         self.title = [_requestObject objectForKey:@"locationName"];
         _locationNameLabel.text = [_requestObject objectForKey:@"locationName"];
@@ -336,6 +337,7 @@ NSString* const kFactualId = @"factual_id";
 }
 
 #pragma mark - Helper Methods
+
 - (void)makeRequest:(NSString*)requestType {
     PFGeoPoint *requestLocation = [PFGeoPoint geoPointWithLatitude:[[venueData valueForName:kLatitude]doubleValue] longitude:[[venueData valueForName:kLongitude]doubleValue]];
     
@@ -386,7 +388,7 @@ NSString* const kFactualId = @"factual_id";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _contentList.count;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -396,6 +398,25 @@ NSString* const kFactualId = @"factual_id";
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    if (_requestScreen) {
+        
+    }
+    else {
+        switch (indexPath.row) {
+            case 0:
+                cell.textLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@\n%@, %@", [venueData valueForName:@"address"], [venueData valueForName:@"locality"], [venueData valueForName:@"region"], [venueData valueForName:@"postcode"], [venueData valueForName:@"country"]];
+                break;
+            case 1:
+                cell.textLabel.text = [NSString stringWithFormat:@"Phone: %@", [venueData valueForName:@"tel"]];
+                break;
+            case 2:
+                cell.textLabel.text = [NSString stringWithFormat:@"Category: %@", [venueData valueForName:@"category"]];
+                break;
+            default:
+                break;
+        }
     }
     
     
