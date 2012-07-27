@@ -124,6 +124,7 @@ NSString* const kFactualId = @"factual_id";
         }
         
         if ([buttonTitle isEqualToString:@"A Picture"]) {
+            video = NO;
             if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                 picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
                 picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
@@ -136,6 +137,7 @@ NSString* const kFactualId = @"factual_id";
         }
         
         else if ([buttonTitle isEqualToString:@"A Video"]) {
+            video = YES;
             if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                 picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
                 picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
@@ -210,11 +212,6 @@ NSString* const kFactualId = @"factual_id";
 {
     [SVProgressHUD showWithStatus:@"Saving"];
     image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    
-    /*UIImage *imageToSave;
-    if (image.imageOrientation != UIImageOrientationUp) {
-        imageToSave = [[UIImage alloc]initWithCGImage:image.CGImage scale:1.0 orientation:UIImageOrientationUp];
-    }*/
     
     UIImage *imageToSave = [[UIImage alloc]initWithCGImage:image.CGImage scale:.5 orientation:UIImageOrientationUp];
     
