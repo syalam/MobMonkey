@@ -9,6 +9,7 @@
 #import "LocationViewController.h"
 #import "NotificationsViewController.h"
 #import "SignUpViewController.h"
+#import "SVProgressHUD.h"
 #import "AppDelegate.h"
 
 //ActionSheet Constants
@@ -207,6 +208,7 @@ NSString* const kFactualId = @"factual_id";
 #pragma mark - UIImagePickerController Delegate Methods
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    [SVProgressHUD showWithStatus:@"Saving"];
     image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     
     /*UIImage *imageToSave;
@@ -222,10 +224,15 @@ NSString* const kFactualId = @"factual_id";
         if (!error) {
             PFObject *locationImage = [PFObject objectWithClassName:@"locationImages"];
             [locationImage setObject:imageFile forKey:@"image"];
+            if (_requestObject) {
+                [locationImage setObject:_requestObject forKey:@"requestObject"];
+                [locationImage setObject:[_requestObject objectForKey:@"factualId"] forKey:@"factualId"];
+                [locationImage setObject:[_requestObject objectForKey:@"requestor"] forKey:@"requestor"];
+            }
+            else {
+                [locationImage setObject:kFactualId forKey:@"factualId"];
+            }
             [locationImage setObject:[PFUser currentUser] forKey:@"uploadedBy"];
-            [locationImage setObject:@"LocationId" forKey:@"location"];
-            [locationImage setObject:[_requestObject objectForKey:@"requestor"] forKey:@"requestor"];
-            [locationImage saveEventually];
             
             if (_requestScreen) {
                 [_requestScreen responseComplete:_requestObject];
@@ -236,28 +243,36 @@ NSString* const kFactualId = @"factual_id";
                         PFObject *notificationObject = [PFObject objectWithClassName:@"notifications"];
                         [notificationObject setObject:notificationText forKey:@"notificationText"];
                         [notificationObject setObject:requestorObject forKey:@"requestor"];
+                        [notificationObject setObject:_requestObject forKey:@"requestObject"];
+                        [notificationObject setObject:[_requestObject objectForKey:@"locationName"] forKey:@"locationName"];
                         [notificationObject setObject:[NSNumber numberWithBool:NO] forKey:@"notificationViewed"];
                         [notificationObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                             if (succeeded) {
+                                [locationImage setObject:notificationObject forKey:@"notificationObject"];
+                                [locationImage saveEventually];
+                                
+                                [SVProgressHUD dismissWithSuccess:@"Saved"];
                                 [PFPush sendPushMessageToChannelInBackground:[NSString stringWithFormat:@"MM%@",[person objectForKey:@"uuid"]] withMessage:notificationText];
                                 [picker dismissModalViewControllerAnimated:YES];
                             }
                             else {
+                                [SVProgressHUD dismissWithError:@"Error"];
                                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to respond to this request at this time. Please try again later" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil , nil];
                                 [alert show];
                             }
                         }];
-                        
-                        
                     } 
                 }];
             }
             else {
+                [locationImage saveEventually];
+                [SVProgressHUD dismissWithSuccess:@"Saved"];
                 [picker dismissModalViewControllerAnimated:YES];
             }
         }
         else {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to respond to this request at this time. Please try again later" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil , nil];
+            [SVProgressHUD dismissWithError:@"Error"];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to save. Please try again later" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil , nil];
             [alert show];
         }
     }];
@@ -355,6 +370,7 @@ NSString* const kFactualId = @"factual_id";
             [request setObject:requestLocation forKey:@"locationCoordinates"];
             [request setObject:requestType forKey:@"requestType"];
             [request setObject:[PFUser currentUser] forKey:@"requestor"];
+            [request setObject:kFactualId forKey:@"factualId"];
             [request setObject:[venueData valueForName:kName] forKey:@"locationName"];
             [request setObject:requestText forKey:@"requestText"];
             [request saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

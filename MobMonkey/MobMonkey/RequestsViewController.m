@@ -9,6 +9,7 @@
 #import "RequestsViewController.h"
 #import "LocationViewController.h"
 #import "HomeViewController.h"
+#import "ImageDetailViewController.h"
 
 #define FONT_SIZE 13.0f
 #define CELL_CONTENT_WIDTH 180.0f
@@ -153,13 +154,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    if ([[_contentList objectAtIndex:indexPath.row]objectForKey:@"notificationText"]) {
+        PFObject *notificationObject = [_contentList objectAtIndex:indexPath.row];
+        ImageDetailViewController *idvc = [[ImageDetailViewController alloc]initWithNibName:@"ImageDetailViewController" bundle:nil];
+        idvc.title = @"Image";
+        if ([notificationObject objectForKey:@"locationName"]) {
+            idvc.title = [notificationObject objectForKey:@"locationName"];
+        }
+        [idvc loadImage:notificationObject];
+        [self.navigationController pushViewController:idvc animated:YES];
+    }
 }
 
 #pragma mark - Nav BarButton Action Methods

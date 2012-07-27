@@ -60,6 +60,10 @@
 		F79F960315A6449000BE96EE /* SignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79F960115A6449000BE96EE /* SignUpViewController.xib */; };
 		F79F961015A64DB000BE96EE /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F960E15A64DB000BE96EE /* NotificationsViewController.m */; };
 		F79F961115A64DB000BE96EE /* NotificationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79F960F15A64DB000BE96EE /* NotificationsViewController.xib */; };
+		F7E2B07615C2B7DE006D3F57 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F7E2B07315C2B7DE006D3F57 /* SVProgressHUD.bundle */; };
+		F7E2B07715C2B7DE006D3F57 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E2B07515C2B7DE006D3F57 /* SVProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F7E2B07D15C2B99C006D3F57 /* ImageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E2B07B15C2B99C006D3F57 /* ImageDetailViewController.m */; };
+		F7E2B07E15C2B99C006D3F57 /* ImageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E2B07C15C2B99C006D3F57 /* ImageDetailViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -138,6 +142,12 @@
 		F79F960D15A64DB000BE96EE /* NotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsViewController.h; sourceTree = "<group>"; };
 		F79F960E15A64DB000BE96EE /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
 		F79F960F15A64DB000BE96EE /* NotificationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationsViewController.xib; sourceTree = "<group>"; };
+		F7E2B07315C2B7DE006D3F57 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		F7E2B07415C2B7DE006D3F57 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		F7E2B07515C2B7DE006D3F57 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		F7E2B07A15C2B99C006D3F57 /* ImageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDetailViewController.h; sourceTree = "<group>"; };
+		F7E2B07B15C2B99C006D3F57 /* ImageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDetailViewController.m; sourceTree = "<group>"; };
+		F7E2B07C15C2B99C006D3F57 /* ImageDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageDetailViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,10 +227,12 @@
 		8C5C457B1596762E00E3710B /* MobMonkey */ = {
 			isa = PBXGroup;
 			children = (
+				F7E2B07115C2B7C5006D3F57 /* Helpers */,
 				8C5C45841596762E00E3710B /* AppDelegate.h */,
 				8C5C45851596762E00E3710B /* AppDelegate.m */,
 				F79F95F715A643CB00BE96EE /* Authentication */,
 				8CD18BF1159BA1210096E7F4 /* Location View */,
+				F7E2B07915C2B97A006D3F57 /* Image Detail View */,
 				8CCDA2051598070F006B0093 /* Settings */,
 				8CCDA1FF1598062E006B0093 /* Bookmarks */,
 				8CCDA1F915980593006B0093 /* Nearby */,
@@ -440,6 +452,34 @@
 			name = Notifications;
 			sourceTree = "<group>";
 		};
+		F7E2B07115C2B7C5006D3F57 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F7E2B07815C2B7E2006D3F57 /* SVProgress HUD */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		F7E2B07815C2B7E2006D3F57 /* SVProgress HUD */ = {
+			isa = PBXGroup;
+			children = (
+				F7E2B07315C2B7DE006D3F57 /* SVProgressHUD.bundle */,
+				F7E2B07415C2B7DE006D3F57 /* SVProgressHUD.h */,
+				F7E2B07515C2B7DE006D3F57 /* SVProgressHUD.m */,
+			);
+			name = "SVProgress HUD";
+			sourceTree = "<group>";
+		};
+		F7E2B07915C2B97A006D3F57 /* Image Detail View */ = {
+			isa = PBXGroup;
+			children = (
+				F7E2B07A15C2B99C006D3F57 /* ImageDetailViewController.h */,
+				F7E2B07B15C2B99C006D3F57 /* ImageDetailViewController.m */,
+				F7E2B07C15C2B99C006D3F57 /* ImageDetailViewController.xib */,
+			);
+			name = "Image Detail View";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -509,6 +549,8 @@
 				F79F960315A6449000BE96EE /* SignUpViewController.xib in Resources */,
 				F79F961115A64DB000BE96EE /* NotificationsViewController.xib in Resources */,
 				F7193B7A15AEA14B00CCFC5A /* RequestsViewController.xib in Resources */,
+				F7E2B07615C2B7DE006D3F57 /* SVProgressHUD.bundle in Resources */,
+				F7E2B07E15C2B99C006D3F57 /* ImageDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +580,8 @@
 				F7193B7915AEA14B00CCFC5A /* RequestsViewController.m in Sources */,
 				F7193B7E15AEA24A00CCFC5A /* RequestCell.m in Sources */,
 				8C1C02DC15B84AFC00D1C992 /* MMLocationAnnotation.m in Sources */,
+				F7E2B07715C2B7DE006D3F57 /* SVProgressHUD.m in Sources */,
+				F7E2B07D15C2B99C006D3F57 /* ImageDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
