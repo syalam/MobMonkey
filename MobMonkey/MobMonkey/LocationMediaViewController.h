@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface LocationMediaViewController : UITableViewController
+
+
+@property (nonatomic, retain)NSMutableArray *contentList;
+
+- (void)getLocationItems:(NSString*)mediaType factualId:(NSString*)factualId;
 
 @end

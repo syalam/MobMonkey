@@ -60,6 +60,7 @@
 		F79F960315A6449000BE96EE /* SignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79F960115A6449000BE96EE /* SignUpViewController.xib */; };
 		F79F961015A64DB000BE96EE /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F960E15A64DB000BE96EE /* NotificationsViewController.m */; };
 		F79F961115A64DB000BE96EE /* NotificationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79F960F15A64DB000BE96EE /* NotificationsViewController.xib */; };
+		F7AA423D15C3ED02009E2106 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AA423C15C3ED02009E2106 /* MediaPlayer.framework */; };
 		F7E2B07615C2B7DE006D3F57 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F7E2B07315C2B7DE006D3F57 /* SVProgressHUD.bundle */; };
 		F7E2B07715C2B7DE006D3F57 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E2B07515C2B7DE006D3F57 /* SVProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F7E2B07D15C2B99C006D3F57 /* ImageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E2B07B15C2B99C006D3F57 /* ImageDetailViewController.m */; };
@@ -144,6 +145,7 @@
 		F79F960D15A64DB000BE96EE /* NotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsViewController.h; sourceTree = "<group>"; };
 		F79F960E15A64DB000BE96EE /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
 		F79F960F15A64DB000BE96EE /* NotificationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationsViewController.xib; sourceTree = "<group>"; };
+		F7AA423C15C3ED02009E2106 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		F7E2B07315C2B7DE006D3F57 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		F7E2B07415C2B7DE006D3F57 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		F7E2B07515C2B7DE006D3F57 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7AA423D15C3ED02009E2106 /* MediaPlayer.framework in Frameworks */,
 				8CA147DA15ABBF680085B346 /* CoreLocation.framework in Frameworks */,
 				8CD18BF3159C02F30096E7F4 /* MapKit.framework in Frameworks */,
 				8C5C45AF1596770C00E3710B /* QuartzCore.framework in Frameworks */,
@@ -210,6 +213,7 @@
 		8C5C45741596762E00E3710B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F7AA423C15C3ED02009E2106 /* MediaPlayer.framework */,
 				8CA147D915ABBF680085B346 /* CoreLocation.framework */,
 				8CA147D315ABBCA60085B346 /* FactualSDK.framework */,
 				8CA147D115ABBB080085B346 /* TestFlight SDK */,

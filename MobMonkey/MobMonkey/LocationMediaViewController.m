@@ -14,6 +14,7 @@
 
 @implementation LocationMediaViewController
 
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -32,6 +33,9 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonTapped:)];
+    self.navigationItem.rightBarButtonItem = doneButton;
 }
 
 - (void)viewDidUnload
@@ -50,22 +54,24 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return _contentList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    
+    if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isEqualToString:@"video"]) {
+        cell.textLabel.text = @"Video";
+    }
+    
     
     // Configure the cell...
     
@@ -114,14 +120,49 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+{    
+    if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isEqualToString:@"video"]) {
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", [[_contentList objectAtIndex:indexPath.row]valueForKey:@"url"]]];
+        MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:url];
+        if ([player respondsToSelector:@selector(loadState)])
+        {
+            // Set movie player layout
+            [player setControlStyle:MPMovieControlStyleFullscreen];
+            [player setFullscreen:YES];
+            
+            [player prepareToPlay];
+            [player play];
+        }
+    }
+    else if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isEqualToString:@"photo"]) {
+        
+    }
+}
+
+#pragma mark - NavBar Button Action Methods
+- (void)doneButtonTapped:(id)sender {
+    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+}
+
+#pragma mark - Helper Methods
+- (void)getLocationItems:(NSString*)mediaType factualId:(NSString*)factualId {
+    NSMutableArray *urlArray = [[NSMutableArray alloc]init];
+    PFQuery *queryForItems = [PFQuery queryWithClassName:@"locationImages"];
+    [queryForItems whereKey:@"factualId" equalTo:factualId];
+    [queryForItems whereKey:@"mediaType" equalTo:mediaType];
+    [queryForItems orderByAscending:@"updatedAt"];
+    [queryForItems findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (PFObject *locationItemObject in objects) {
+                PFFile *mediaFile = [locationItemObject objectForKey:@"image"];
+                [mediaFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                    [urlArray addObject:[NSDictionary dictionaryWithObjectsAndKeys:mediaFile.url, @"url", mediaType, @"mediaType", data, @"file", nil]];
+                    [self setContentList:urlArray];
+                    [self.tableView reloadData];
+                }];
+            }
+        }
+    }];
 }
 
 @end

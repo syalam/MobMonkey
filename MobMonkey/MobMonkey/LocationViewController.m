@@ -9,6 +9,7 @@
 #import "LocationViewController.h"
 #import "NotificationsViewController.h"
 #import "SignUpViewController.h"
+#import "LocationMediaViewController.h"
 #import "SVProgressHUD.h"
 #import "AppDelegate.h"
 
@@ -238,7 +239,6 @@ NSString* const kFactualId = @"factual_id";
             [locationImage setObject:imageFile forKey:@"image"];
             if (_requestObject) {
                 [locationImage setObject:_requestObject forKey:@"requestObject"];
-                [locationImage setObject:mediaType forKey:@"mediaType"];
                 [locationImage setObject:[_requestObject objectForKey:@"factualId"] forKey:@"factualId"];
                 [locationImage setObject:[_requestObject objectForKey:@"requestor"] forKey:@"requestor"];
             }
@@ -246,6 +246,7 @@ NSString* const kFactualId = @"factual_id";
                 [locationImage setObject:[venueData valueForName:kFactualId] forKey:@"factualId"];
             }
             [locationImage setObject:[PFUser currentUser] forKey:@"uploadedBy"];
+            [locationImage setObject:mediaType forKey:@"mediaType"];
             
             if (_requestScreen) {
                 [_requestScreen responseComplete:_requestObject];
@@ -325,7 +326,10 @@ NSString* const kFactualId = @"factual_id";
 }
 
 - (IBAction)videosButtonTapped:(id)sender {
-
+    LocationMediaViewController *lmvc = [[LocationMediaViewController alloc]initWithNibName:@"LocationMediaViewController" bundle:nil];
+    [lmvc getLocationItems:@"video" factualId:[venueData valueForName:kFactualId]];
+    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:lmvc];
+    [self.navigationController presentViewController:navC animated:YES completion:NULL];
 }
 
 - (IBAction)requestButtonTapped:(id)sender {
