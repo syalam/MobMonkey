@@ -73,7 +73,11 @@
         cell.textLabel.text = @"Video";
     }
     else {
-        cell.imageView.image = [[UIImage alloc]initWithData:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"file"]];
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake((self.view.frame.size.width/2)-75, 5, 150, 150)];
+        imageView.clipsToBounds = YES;
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.image = [[UIImage alloc]initWithData:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"file"]];
+        [cell.contentView addSubview:imageView];
     }
     
     
@@ -122,6 +126,16 @@
 */
 
 #pragma mark - Table view delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isEqualToString:@"video"]) {
+        return 44;
+    }
+    else {
+        return 160;
+    }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {    
