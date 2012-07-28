@@ -74,7 +74,7 @@ NSString* const kFactualId = @"factual_id";
                                                                                            action:@selector(cameraButtonTapped:)];
     
     // Setup scroll view
-    [scrollView setContentSize:CGSizeMake(320,520)];
+    [scrollView setContentSize:CGSizeMake(320,630)];
 }
 
 - (void)viewDidUnload

@@ -97,14 +97,16 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         [cell.respondButton setHidden:YES];
         [cell.ignoreButton setHidden:YES];
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
     else {
         cell.notificationTextLabel.text = [contentForThisRow objectForKey:@"requestText"];
         cell.respondButton.tag = indexPath.row;
         cell.ignoreButton.tag = indexPath.row;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     // Configure the cell...
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     
     [indexPathArray insertObject:indexPath atIndex:indexPath.row];
     
@@ -191,6 +193,7 @@
         }
         [idvc loadImage:notificationObject];
         [self.navigationController pushViewController:idvc animated:YES];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }
 
