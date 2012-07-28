@@ -139,7 +139,7 @@ NSString* const kFactualId = @"factual_id";
         else if ([buttonTitle isEqualToString:@"A Video"]) {
             mediaType = @"video";
             if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-                [picker setVideoQuality:UIImagePickerControllerQualityType640x480];
+                [picker setVideoQuality:UIImagePickerControllerQualityTypeLow];
                 //Maximum video length
                 [picker setVideoMaximumDuration:10];
                 picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
