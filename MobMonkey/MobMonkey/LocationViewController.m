@@ -365,7 +365,11 @@ NSString* const kFactualId = @"factual_id";
 }
 
 - (IBAction)photosButtonTapped:(id)sender {
-
+    LocationMediaViewController *lmvc = [[LocationMediaViewController alloc]initWithNibName:@"LocationMediaViewController" bundle:nil];
+    [lmvc getLocationItems:@"photo" factualId:[venueData valueForName:kFactualId]];
+    lmvc.title = self.title;
+    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:lmvc];
+    [self.navigationController presentViewController:navC animated:YES completion:NULL];
 }
 
 #pragma mark - Helper Methods

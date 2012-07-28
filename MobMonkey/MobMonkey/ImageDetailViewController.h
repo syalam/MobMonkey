@@ -14,7 +14,9 @@
 }
 
 @property (nonatomic, retain)IBOutlet UIWebView *webView;
+@property (nonatomic, retain)NSString *imageUrl;
 
 - (void)loadImage:(PFObject*)notificationObject;
+- (void)loadImageFromUrl:(NSString*)urlString;
 
 @end

@@ -29,6 +29,13 @@
     // Do any additional setup after loading the view from its nib.
     [_webView setScalesPageToFit:YES];
     [_webView setScalesPageToFit:YES];
+    
+    if (_imageUrl) {
+        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_imageUrl]]];
+    }
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc]initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backButtonTapped:)];
+    self.navigationItem.leftBarButtonItem = backButton;
 }
 
 - (void)viewDidUnload
@@ -57,6 +64,15 @@
             }
         }
     }];
+}
+
+- (void)loadImageFromUrl:(NSString*)urlString {
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+}
+
+#pragma mark - Nav Bar Action Methods
+- (void)backButtonTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

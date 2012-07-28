@@ -7,6 +7,7 @@
 //
 
 #import "LocationMediaViewController.h"
+#import "ImageDetailViewController.h"
 
 @interface LocationMediaViewController ()
 
@@ -70,6 +71,9 @@
     
     if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isEqualToString:@"video"]) {
         cell.textLabel.text = @"Video";
+    }
+    else {
+        cell.imageView.image = [[UIImage alloc]initWithData:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"file"]];
     }
     
     
@@ -135,7 +139,10 @@
         }
     }
     else if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isEqualToString:@"photo"]) {
-        
+        ImageDetailViewController *idvc = [[ImageDetailViewController alloc]initWithNibName:@"ImageDetailViewController" bundle:nil];
+        idvc.imageUrl = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"url"];
+        idvc.title = self.title;
+        [self.navigationController pushViewController:idvc animated:YES];
     }
 }
 
