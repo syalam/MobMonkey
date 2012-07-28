@@ -8,6 +8,7 @@
 
 #import "LocationMediaViewController.h"
 #import "ImageDetailViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface LocationMediaViewController ()
 
@@ -140,17 +141,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {    
     if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isEqualToString:@"video"]) {
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", [[_contentList objectAtIndex:indexPath.row]valueForKey:@"url"]]];
-        MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:url];
-        if ([player respondsToSelector:@selector(loadState)])
-        {
-            // Set movie player layout
-            [player setControlStyle:MPMovieControlStyleFullscreen];
-            [player setFullscreen:YES];
-            
-            [player prepareToPlay];
-            [player play];
-        }
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@.mp4", [[_contentList objectAtIndex:indexPath.row]valueForKey:@"url"]]];
+        NSLog(@"video url is: %@", [NSString stringWithFormat:@"%@.mp4", [[_contentList objectAtIndex:indexPath.row]valueForKey:@"url"]]);
+        MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+        [self.navigationController presentMoviePlayerViewControllerAnimated:player];
     }
     else if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isEqualToString:@"photo"]) {
         ImageDetailViewController *idvc = [[ImageDetailViewController alloc]initWithNibName:@"ImageDetailViewController" bundle:nil];
