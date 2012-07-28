@@ -52,7 +52,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.tableView reloadData];
+    [self separateSections];
 }
 
 - (void)viewDidUnload
@@ -72,30 +72,34 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    return _contentList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return _contentList.count;
+    NSArray *sectionArray = [_contentList objectAtIndex:section];
+    return sectionArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSArray *sectionArray = [_contentList objectAtIndex:indexPath.section];
+    id contentForThisRow = [sectionArray objectAtIndex:indexPath.row];
+    
     static NSString *CellIdentifier = @"Cell";
     RequestCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     cell = [[RequestCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     cell.delegate = self;
     
-    if ([[_contentList objectAtIndex:indexPath.row]objectForKey:@"notificationText"]) {
-        cell.notificationTextLabel.text = [[_contentList objectAtIndex:indexPath.row]objectForKey:@"notificationText"];
+    if ([contentForThisRow objectForKey:@"notificationText"]) {
+        cell.notificationTextLabel.text = [contentForThisRow objectForKey:@"notificationText"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         [cell.respondButton setHidden:YES];
         [cell.ignoreButton setHidden:YES];
     }
     else {
-        cell.notificationTextLabel.text = [[_contentList objectAtIndex:indexPath.row]objectForKey:@"requestText"];
+        cell.notificationTextLabel.text = [contentForThisRow objectForKey:@"requestText"];
         cell.respondButton.tag = indexPath.row;
         cell.ignoreButton.tag = indexPath.row;
     }
@@ -150,12 +154,35 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 110;
+    if (indexPath.section == 0) {
+        return 110;
+    }
+    else {
+        return 85;
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSArray *sectionArray = [_contentList objectAtIndex:section];
+    if (sectionArray.count > 0) {
+        if (section == 0) {
+            return @"Requests";
+        }
+        else {
+            return @"Notifications";
+        }
+    }
+    else {
+        return @"";
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[_contentList objectAtIndex:indexPath.row]objectForKey:@"notificationText"]) {
+    NSArray *sectionArray = [_contentList objectAtIndex:indexPath.section];
+    id contentForThisRow = [sectionArray objectAtIndex:indexPath.row];
+    
+    if ([contentForThisRow objectForKey:@"notificationText"]) {
         PFObject *notificationObject = [_contentList objectAtIndex:indexPath.row];
         ImageDetailViewController *idvc = [[ImageDetailViewController alloc]initWithNibName:@"ImageDetailViewController" bundle:nil];
         idvc.title = @"Image";
@@ -235,5 +262,22 @@
     [self.tableView reloadData];
 }
 
+- (void)separateSections { 
+    NSMutableArray *allItems = [_contentList mutableCopy];
+    NSMutableArray *notificationArray = [[NSMutableArray alloc]init];
+    NSMutableArray *requestArray = [[NSMutableArray alloc]init];
+    
+    for (int i = 0; i < allItems.count; i++) {
+        if ([[allItems objectAtIndex:i]objectForKey:@"notificationText"]) {
+            [notificationArray addObject:[allItems objectAtIndex:i]];
+        }
+        else {
+            [requestArray addObject:[allItems objectAtIndex:i]];
+        }
+    }
+    NSMutableArray *itemsToDisplay = [[NSMutableArray alloc]initWithObjects:requestArray, notificationArray, nil];
+    [self setContentList:itemsToDisplay];
+    [self.tableView reloadData];
+}
 
 @end

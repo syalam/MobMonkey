@@ -23,5 +23,6 @@
 
 
 - (void)responseComplete:(PFObject *)requestObject;
+- (void)separateSections;
 
 @end

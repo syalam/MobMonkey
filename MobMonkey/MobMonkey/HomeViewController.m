@@ -193,14 +193,16 @@
             for (PFObject *notification in objects) {
                 [requestsToDisplay addObject:notification];
             }
+            
             [self setPendingRequestsArray:requestsToDisplay];
             notificationScreen.contentList = _pendingRequestsArray;
             PFGeoPoint *currentLocation = [PFGeoPoint geoPointWithLatitude:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]floatValue] longitude:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]floatValue]];
             NSLog(@"%f, %f", currentLocation.latitude, currentLocation.longitude);
             PFQuery *getRequests = [PFQuery queryWithClassName:@"requests"];
-            [getRequests whereKey:@"locationCoordinates" nearGeoPoint:currentLocation withinMiles:25000];
+            //[getRequests whereKey:@"locationCoordinates" nearGeoPoint:currentLocation withinMiles:25000];
             [getRequests whereKey:@"updatedAt" lessThan:[NSDate dateWithTimeIntervalSinceNow:43200]];
             [getRequests whereKey:@"requestor" notEqualTo:[PFUser currentUser]];
+            [getRequests orderByDescending:@"updatedAt"];
             [getRequests findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 if (!error) {
                     for (PFObject *requestObject in objects) {
