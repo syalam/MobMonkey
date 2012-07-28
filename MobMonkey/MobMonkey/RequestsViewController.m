@@ -90,6 +90,7 @@
     
     if ([[_contentList objectAtIndex:indexPath.row]objectForKey:@"notificationText"]) {
         cell.notificationTextLabel.text = [[_contentList objectAtIndex:indexPath.row]objectForKey:@"notificationText"];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         [cell.respondButton setHidden:YES];
         [cell.ignoreButton setHidden:YES];
     }

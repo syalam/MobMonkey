@@ -419,7 +419,7 @@ NSString* const kFactualId = @"factual_id";
     else {
         switch (indexPath.row) {
             case 0:
-                cell.textLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@\n%@, %@", [venueData valueForName:@"address"], [venueData valueForName:@"locality"], [venueData valueForName:@"region"], [venueData valueForName:@"postcode"], [venueData valueForName:@"country"]];
+                cell.textLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@\n%@", [venueData valueForName:@"address"], [venueData valueForName:@"locality"], [venueData valueForName:@"region"], [venueData valueForName:@"postcode"], [venueData valueForName:@"country"]];
                 break;
             case 1:
                 cell.textLabel.text = [NSString stringWithFormat:@"Phone: %@", [venueData valueForName:@"tel"]];
