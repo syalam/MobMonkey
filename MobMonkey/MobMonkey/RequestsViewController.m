@@ -52,7 +52,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self separateSections];
+    //[self separateSections];
 }
 
 - (void)viewDidUnload
@@ -219,7 +219,8 @@
     CGPoint currentTouchPosition = [touch locationInView:self.tableView];
     responseIndexPath = [self.tableView indexPathForRowAtPoint: currentTouchPosition];
     
-    PFObject *requestObject = [_contentList objectAtIndex:[sender tag]];
+    NSMutableArray *requestSectionArray = [_contentList objectAtIndex:0];
+    PFObject *requestObject = [requestSectionArray objectAtIndex:[sender tag]];
     LocationViewController *locationScreen = [[LocationViewController alloc]initWithNibName:@"LocationViewController" bundle:nil];
     locationScreen.requestObject = requestObject;
     locationScreen.requestScreen = self;
@@ -227,12 +228,13 @@
 }
 
 - (void)ignoreButtonTapped:(id)sender event:event {
-    PFObject *requestObject = [_contentList objectAtIndex:[sender tag]];
-    
     NSSet *touches = [event allTouches];
     UITouch *touch = [touches anyObject];
     CGPoint currentTouchPosition = [touch locationInView:self.tableView];
     responseIndexPath = [self.tableView indexPathForRowAtPoint: currentTouchPosition];
+    
+    NSMutableArray *requestSectionArray = [_contentList objectAtIndex:0];
+    PFObject *requestObject = [requestSectionArray objectAtIndex:[sender tag]];
     
     PFObject *respond = [PFObject objectWithClassName:@"requestResponses"];
     [respond setObject:requestObject forKey:@"requestObject"];
@@ -241,8 +243,9 @@
     [respond saveEventually];
     
     [self.tableView beginUpdates];
-    [_contentList removeObjectAtIndex:[sender tag]];
+    [requestSectionArray removeObjectAtIndex:[sender tag]];
     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:responseIndexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+    [_contentList replaceObjectAtIndex:0 withObject:requestSectionArray];
     [self.tableView endUpdates];
     
     [self.tableView reloadData];
@@ -257,10 +260,12 @@
     [response setObject:[PFUser currentUser] forKey:@"responder"];
     [response saveEventually];
     
+    NSMutableArray *requestSectionArray = [_contentList objectAtIndex:0];
     [self.tableView beginUpdates];
-    [_contentList removeObjectAtIndex:currentIndex];
+    [requestSectionArray removeObjectAtIndex:currentIndex];
     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:responseIndexPath] withRowAnimation:UITableViewRowAnimationMiddle];
     [self.tableView endUpdates];
+    [_contentList replaceObjectAtIndex:0 withObject:requestSectionArray];
     
     [self.tableView reloadData];
 }

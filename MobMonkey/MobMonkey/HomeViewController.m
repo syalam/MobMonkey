@@ -258,6 +258,7 @@
 
 - (void)notificationsButtonClicked:(id)sender {
     UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:notificationScreen];
+    [notificationScreen separateSections];
     [self.navigationController presentViewController:navc animated:YES completion:NULL];
 }
 
