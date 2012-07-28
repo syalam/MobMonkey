@@ -195,7 +195,7 @@
             }
             
             [self setPendingRequestsArray:requestsToDisplay];
-            notificationScreen.contentList = _pendingRequestsArray;
+            notificationScreen.requestQueryItems = _pendingRequestsArray;
             PFGeoPoint *currentLocation = [PFGeoPoint geoPointWithLatitude:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]floatValue] longitude:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]floatValue]];
             NSLog(@"%f, %f", currentLocation.latitude, currentLocation.longitude);
             PFQuery *getRequests = [PFQuery queryWithClassName:@"requests"];
@@ -214,7 +214,7 @@
                                 if (objects.count < 1) {
                                     [requestsToDisplay addObject:requestObject];
                                     [self setPendingRequestsArray:requestsToDisplay];
-                                    notificationScreen.contentList = _pendingRequestsArray;
+                                    notificationScreen.requestQueryItems = _pendingRequestsArray;
                                 }
                             }
                         }];

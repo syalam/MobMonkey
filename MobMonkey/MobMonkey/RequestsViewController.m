@@ -183,7 +183,7 @@
     id contentForThisRow = [sectionArray objectAtIndex:indexPath.row];
     
     if ([contentForThisRow objectForKey:@"notificationText"]) {
-        PFObject *notificationObject = [_contentList objectAtIndex:indexPath.row];
+        PFObject *notificationObject = contentForThisRow;
         ImageDetailViewController *idvc = [[ImageDetailViewController alloc]initWithNibName:@"ImageDetailViewController" bundle:nil];
         idvc.title = @"Image";
         if ([notificationObject objectForKey:@"locationName"]) {
@@ -263,7 +263,7 @@
 }
 
 - (void)separateSections { 
-    NSMutableArray *allItems = [_contentList mutableCopy];
+    NSMutableArray *allItems = [_requestQueryItems mutableCopy];
     NSMutableArray *notificationArray = [[NSMutableArray alloc]init];
     NSMutableArray *requestArray = [[NSMutableArray alloc]init];
     

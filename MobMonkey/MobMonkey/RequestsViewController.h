@@ -20,6 +20,7 @@
 }
 
 @property (nonatomic, retain) NSMutableArray *contentList;
+@property (nonatomic, retain) NSMutableArray *requestQueryItems;
 
 
 - (void)responseComplete:(PFObject *)requestObject;
