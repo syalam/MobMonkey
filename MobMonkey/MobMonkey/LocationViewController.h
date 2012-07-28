@@ -15,7 +15,7 @@
 @interface LocationViewController : UIViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
     UIImage *image;
     
-    BOOL video;
+    NSString *mediaType;
     
     int currentActionSheetCall;
 }

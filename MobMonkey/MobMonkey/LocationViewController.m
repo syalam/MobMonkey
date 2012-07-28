@@ -124,7 +124,7 @@ NSString* const kFactualId = @"factual_id";
         }
         
         if ([buttonTitle isEqualToString:@"A Picture"]) {
-            video = NO;
+            mediaType = @"photo";
             if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                 picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
                 picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
@@ -137,7 +137,7 @@ NSString* const kFactualId = @"factual_id";
         }
         
         else if ([buttonTitle isEqualToString:@"A Video"]) {
-            video = YES;
+            mediaType = @"video";
             if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                 picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
                 picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
@@ -211,11 +211,23 @@ NSString* const kFactualId = @"factual_id";
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [SVProgressHUD showWithStatus:@"Saving"];
-    image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     
-    UIImage *imageToSave = [[UIImage alloc]initWithCGImage:image.CGImage scale:.5 orientation:UIImageOrientationUp];
+    NSString *fileType = [info objectForKey: UIImagePickerControllerMediaType];
+    NSData *dataObj;
     
-    NSData *dataObj = UIImageJPEGRepresentation(imageToSave, .1);
+    if (CFStringCompare ((__bridge CFStringRef) fileType, kUTTypeImage, 0)
+        == kCFCompareEqualTo) {
+        image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+        image = [[UIImage alloc]initWithCGImage:image.CGImage scale:.5 orientation:UIImageOrientationUp];
+        dataObj = UIImageJPEGRepresentation(image, .1);
+    }
+    
+    else if (CFStringCompare ((__bridge CFStringRef) fileType, kUTTypeMovie, 0)
+        == kCFCompareEqualTo) {
+        NSString *moviePath = [[info objectForKey:UIImagePickerControllerMediaURL] path];
+        dataObj = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:moviePath]];
+    }
+    
     PFFile *imageFile = [PFFile fileWithData:dataObj];
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
@@ -223,11 +235,12 @@ NSString* const kFactualId = @"factual_id";
             [locationImage setObject:imageFile forKey:@"image"];
             if (_requestObject) {
                 [locationImage setObject:_requestObject forKey:@"requestObject"];
+                [locationImage setObject:mediaType forKey:@"mediaType"];
                 [locationImage setObject:[_requestObject objectForKey:@"factualId"] forKey:@"factualId"];
                 [locationImage setObject:[_requestObject objectForKey:@"requestor"] forKey:@"requestor"];
             }
             else {
-                [locationImage setObject:kFactualId forKey:@"factualId"];
+                [locationImage setObject:[venueData valueForName:kFactualId] forKey:@"factualId"];
             }
             [locationImage setObject:[PFUser currentUser] forKey:@"uploadedBy"];
             
@@ -367,7 +380,7 @@ NSString* const kFactualId = @"factual_id";
             [request setObject:requestLocation forKey:@"locationCoordinates"];
             [request setObject:requestType forKey:@"requestType"];
             [request setObject:[PFUser currentUser] forKey:@"requestor"];
-            [request setObject:kFactualId forKey:@"factualId"];
+            [request setObject:[venueData valueForName:kFactualId] forKey:@"factualId"];
             [request setObject:[venueData valueForName:kName] forKey:@"locationName"];
             [request setObject:requestText forKey:@"requestText"];
             [request saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
