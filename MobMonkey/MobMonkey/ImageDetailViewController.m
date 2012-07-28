@@ -7,6 +7,7 @@
 //
 
 #import "ImageDetailViewController.h"
+#import "SVProgressHUD.h"
 
 @interface ImageDetailViewController ()
 
@@ -48,6 +49,19 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - UIWebView Delegate methods
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    [SVProgressHUD show];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [SVProgressHUD dismiss];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [SVProgressHUD dismissWithError:@"Error"];
 }
 
 #pragma mark - Helper Methods

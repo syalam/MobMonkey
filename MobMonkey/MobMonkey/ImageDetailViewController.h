@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface ImageDetailViewController : UIViewController {
+@interface ImageDetailViewController : UIViewController <UIWebViewDelegate> {
     
 }
 
