@@ -29,9 +29,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [_webView setScalesPageToFit:YES];
-    [_webView setScalesPageToFit:YES];
     
     if (_imageUrl) {
+        NSLog(@"%@", _imageUrl);
         [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_imageUrl]]];
     }
     

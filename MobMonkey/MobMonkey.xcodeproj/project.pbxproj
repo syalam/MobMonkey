@@ -67,6 +67,10 @@
 		F7E2B07E15C2B99C006D3F57 /* ImageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E2B07C15C2B99C006D3F57 /* ImageDetailViewController.xib */; };
 		F7E2B08715C2C58D006D3F57 /* LocationMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E2B08515C2C58D006D3F57 /* LocationMediaViewController.m */; };
 		F7E2B08815C2C58D006D3F57 /* LocationMediaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E2B08615C2C58D006D3F57 /* LocationMediaViewController.xib */; };
+		F7F95F1C15CA949300AC36D6 /* TCImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7F95F1B15CA949300AC36D6 /* TCImageView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F7F95F2415CA9B4400AC36D6 /* LocationMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7F95F2315CA9B4400AC36D6 /* LocationMediaCell.m */; };
+		F7F95F2615CAABEF00AC36D6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F95F2515CAABEF00AC36D6 /* AVFoundation.framework */; };
+		F7F95F2815CAAC8300AC36D6 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F95F2715CAAC8300AC36D6 /* CoreMedia.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -155,6 +159,12 @@
 		F7E2B08415C2C58D006D3F57 /* LocationMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationMediaViewController.h; sourceTree = "<group>"; };
 		F7E2B08515C2C58D006D3F57 /* LocationMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationMediaViewController.m; sourceTree = "<group>"; };
 		F7E2B08615C2C58D006D3F57 /* LocationMediaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationMediaViewController.xib; sourceTree = "<group>"; };
+		F7F95F1A15CA949300AC36D6 /* TCImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCImageView.h; sourceTree = "<group>"; };
+		F7F95F1B15CA949300AC36D6 /* TCImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCImageView.m; sourceTree = "<group>"; };
+		F7F95F2215CA9B4400AC36D6 /* LocationMediaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationMediaCell.h; sourceTree = "<group>"; };
+		F7F95F2315CA9B4400AC36D6 /* LocationMediaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationMediaCell.m; sourceTree = "<group>"; };
+		F7F95F2515CAABEF00AC36D6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		F7F95F2715CAAC8300AC36D6 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +172,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7F95F2815CAAC8300AC36D6 /* CoreMedia.framework in Frameworks */,
+				F7F95F2615CAABEF00AC36D6 /* AVFoundation.framework in Frameworks */,
 				F7AA423D15C3ED02009E2106 /* MediaPlayer.framework in Frameworks */,
 				8CA147DA15ABBF680085B346 /* CoreLocation.framework in Frameworks */,
 				8CD18BF3159C02F30096E7F4 /* MapKit.framework in Frameworks */,
@@ -196,6 +208,8 @@
 		8C5C45661596762E00E3710B = {
 			isa = PBXGroup;
 			children = (
+				F7F95F2715CAAC8300AC36D6 /* CoreMedia.framework */,
+				F7F95F2515CAABEF00AC36D6 /* AVFoundation.framework */,
 				8C5C457B1596762E00E3710B /* MobMonkey */,
 				8C5C45741596762E00E3710B /* Frameworks */,
 				8C5C45721596762E00E3710B /* Products */,
@@ -465,6 +479,7 @@
 		F7E2B07115C2B7C5006D3F57 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F7F95F1915CA942800AC36D6 /* TCImageView */,
 				F7E2B07815C2B7E2006D3F57 /* SVProgress HUD */,
 			);
 			name = Helpers;
@@ -493,11 +508,30 @@
 		F7E2B08315C2C56B006D3F57 /* Location Media */ = {
 			isa = PBXGroup;
 			children = (
+				F7F95F2115CA9B2E00AC36D6 /* Location Media Cell */,
 				F7E2B08415C2C58D006D3F57 /* LocationMediaViewController.h */,
 				F7E2B08515C2C58D006D3F57 /* LocationMediaViewController.m */,
 				F7E2B08615C2C58D006D3F57 /* LocationMediaViewController.xib */,
 			);
 			name = "Location Media";
+			sourceTree = "<group>";
+		};
+		F7F95F1915CA942800AC36D6 /* TCImageView */ = {
+			isa = PBXGroup;
+			children = (
+				F7F95F1A15CA949300AC36D6 /* TCImageView.h */,
+				F7F95F1B15CA949300AC36D6 /* TCImageView.m */,
+			);
+			name = TCImageView;
+			sourceTree = "<group>";
+		};
+		F7F95F2115CA9B2E00AC36D6 /* Location Media Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F7F95F2215CA9B4400AC36D6 /* LocationMediaCell.h */,
+				F7F95F2315CA9B4400AC36D6 /* LocationMediaCell.m */,
+			);
+			name = "Location Media Cell";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -604,6 +638,8 @@
 				F7E2B07715C2B7DE006D3F57 /* SVProgressHUD.m in Sources */,
 				F7E2B07D15C2B99C006D3F57 /* ImageDetailViewController.m in Sources */,
 				F7E2B08715C2C58D006D3F57 /* LocationMediaViewController.m in Sources */,
+				F7F95F1C15CA949300AC36D6 /* TCImageView.m in Sources */,
+				F7F95F2415CA9B4400AC36D6 /* LocationMediaCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

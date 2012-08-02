@@ -232,7 +232,14 @@ NSString* const kFactualId = @"factual_id";
         dataObj = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:moviePath]];
     }
     
-    PFFile *imageFile = [PFFile fileWithData:dataObj];
+    PFFile *imageFile;
+    if ([mediaType isEqualToString:@"photo"]) {
+        imageFile = [PFFile fileWithName:@"photo.jpg" data:dataObj];
+    }
+    else {
+        imageFile = [PFFile fileWithName:@"video.mov" data:dataObj];
+
+    }
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             PFObject *locationImage = [PFObject objectWithClassName:@"locationImages"];

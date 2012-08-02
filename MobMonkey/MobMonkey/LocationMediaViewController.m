@@ -9,6 +9,8 @@
 #import "LocationMediaViewController.h"
 #import "ImageDetailViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "TCImageView.h"
+
 
 @interface LocationMediaViewController ()
 
@@ -67,10 +69,39 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    LocationMediaCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell.delegate = self;
     
-    if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isEqualToString:@"video"]) {
+    cell = [[LocationMediaCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    
+        
+    if ([[_contentList objectAtIndex:indexPath.row] rangeOfString:@".mov"].location != NSNotFound) {
+        AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[_contentList objectAtIndex:indexPath.row]] options:nil];
+        AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+        generate.appliesPreferredTrackTransform = YES;
+        NSError *err = NULL;
+        CMTime time = CMTimeMake(0, 60);
+        CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
+        cell.imageView.image = [[UIImage alloc] initWithCGImage:imgRef];
+    }
+    else {
+        [cell.cellImageView reloadWithUrl:[_contentList objectAtIndex:indexPath.row]];
+    }
+    
+    
+    //NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[_contentList objectAtIndex:indexPath.row]]];
+    /*[cell.cellWebView loadRequest:request];
+    if ([[_contentList objectAtIndex:indexPath.row] rangeOfString:@".mov"].location != NSNotFound) {
+        [cell.cellWebView setScalesPageToFit:NO];
+    }*/
+    /*else {
+        
+        [cell.cellWebView setHidden:YES];
+        [cell.cellImageView reloadWithUrl:[_contentList objectAtIndex:indexPath.row]];
+    }*/
+    
+    
+    /*if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isEqualToString:@"video"]) {
         cell.textLabel.text = @"Video";
     }
     else {
@@ -79,8 +110,7 @@
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.image = [[UIImage alloc]initWithData:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"file"]];
         [cell.contentView addSubview:imageView];
-    }
-    
+    }*/
     
     // Configure the cell...
     
@@ -130,28 +160,23 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isEqualToString:@"video"]) {
-        return 44;
-    }
-    else {
-        return 160;
-    }
+    return 160;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {    
-    if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isEqualToString:@"video"]) {
+    /*if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isEqualToString:@"video"]) {
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@.mp4", [[_contentList objectAtIndex:indexPath.row]valueForKey:@"url"]]];
         NSLog(@"video url is: %@", [NSString stringWithFormat:@"%@.mp4", [[_contentList objectAtIndex:indexPath.row]valueForKey:@"url"]]);
         MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
         [self.navigationController presentMoviePlayerViewControllerAnimated:player];
-    }
-    else if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isEqualToString:@"photo"]) {
+    }*/
+    //else if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isEqualToString:@"photo"]) {
         ImageDetailViewController *idvc = [[ImageDetailViewController alloc]initWithNibName:@"ImageDetailViewController" bundle:nil];
-        idvc.imageUrl = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"url"];
+        idvc.imageUrl = [_contentList objectAtIndex:indexPath.row];
         idvc.title = self.title;
         [self.navigationController pushViewController:idvc animated:YES];
-    }
+    //}
 }
 
 #pragma mark - NavBar Button Action Methods
@@ -170,14 +195,31 @@
         if (!error) {
             for (PFObject *locationItemObject in objects) {
                 PFFile *mediaFile = [locationItemObject objectForKey:@"image"];
-                [mediaFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                [urlArray addObject:mediaFile.url];
+                /*[mediaFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                     [urlArray addObject:[NSDictionary dictionaryWithObjectsAndKeys:mediaFile.url, @"url", mediaType, @"mediaType", data, @"file", nil]];
                     [self setContentList:urlArray];
                     [self.tableView reloadData];
-                }];
+                }];*/
             }
+            [self setContentList:urlArray];
+            [self.tableView reloadData];
         }
     }];
+}
+
+#pragma mark - UIWebView Delegate Methods
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    webView.mediaPlaybackRequiresUserAction = YES;
+    return YES;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    webView.mediaPlaybackRequiresUserAction = YES;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    webView.mediaPlaybackRequiresUserAction = YES;
 }
 
 @end

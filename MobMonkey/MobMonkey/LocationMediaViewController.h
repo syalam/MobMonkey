@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
+#import "LocationMediaCell.h"
 
-@interface LocationMediaViewController : UITableViewController
+@interface LocationMediaViewController : UITableViewController <LocationMediaCellDelegate>
 
 
 @property (nonatomic, retain)NSMutableArray *contentList;
