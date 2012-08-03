@@ -19,7 +19,6 @@
         
         [_cellImageView setContentMode:UIViewContentModeScaleAspectFit];
         [_cellImageView setClipsToBounds:YES];
-
         
         [self.contentView addSubview:_cellImageView];
     }
@@ -33,17 +32,5 @@
     // Configure the view for the selected state
 }
 
-#pragma mark - UIWebview delegate methods
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    webView.mediaPlaybackRequiresUserAction = YES;
-    return YES;
-}
-- (void)webViewDidStartLoad:(UIWebView *)webView {
-    webView.mediaPlaybackRequiresUserAction = YES;
-    [_delegate webViewDidStartLoad:webView];
-}
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
-    [_delegate webViewDidFinishLoad:webView];
-}
 
 @end

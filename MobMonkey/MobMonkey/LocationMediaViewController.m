@@ -88,32 +88,6 @@
         [cell.cellImageView reloadWithUrl:[_contentList objectAtIndex:indexPath.row]];
     }
     
-    
-    //NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[_contentList objectAtIndex:indexPath.row]]];
-    /*[cell.cellWebView loadRequest:request];
-    if ([[_contentList objectAtIndex:indexPath.row] rangeOfString:@".mov"].location != NSNotFound) {
-        [cell.cellWebView setScalesPageToFit:NO];
-    }*/
-    /*else {
-        
-        [cell.cellWebView setHidden:YES];
-        [cell.cellImageView reloadWithUrl:[_contentList objectAtIndex:indexPath.row]];
-    }*/
-    
-    
-    /*if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isEqualToString:@"video"]) {
-        cell.textLabel.text = @"Video";
-    }
-    else {
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake((self.view.frame.size.width/2)-75, 5, 150, 150)];
-        imageView.clipsToBounds = YES;
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
-        imageView.image = [[UIImage alloc]initWithData:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"file"]];
-        [cell.contentView addSubview:imageView];
-    }*/
-    
-    // Configure the cell...
-    
     return cell;
 }
 
@@ -165,18 +139,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {    
-    /*if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isEqualToString:@"video"]) {
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@.mp4", [[_contentList objectAtIndex:indexPath.row]valueForKey:@"url"]]];
-        NSLog(@"video url is: %@", [NSString stringWithFormat:@"%@.mp4", [[_contentList objectAtIndex:indexPath.row]valueForKey:@"url"]]);
-        MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-        [self.navigationController presentMoviePlayerViewControllerAnimated:player];
-    }*/
-    //else if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isEqualToString:@"photo"]) {
-        ImageDetailViewController *idvc = [[ImageDetailViewController alloc]initWithNibName:@"ImageDetailViewController" bundle:nil];
-        idvc.imageUrl = [_contentList objectAtIndex:indexPath.row];
-        idvc.title = self.title;
-        [self.navigationController pushViewController:idvc animated:YES];
-    //}
+    ImageDetailViewController *idvc = [[ImageDetailViewController alloc]initWithNibName:@"ImageDetailViewController" bundle:nil];
+    idvc.imageUrl = [_contentList objectAtIndex:indexPath.row];
+    idvc.title = self.title;
+    [self.navigationController pushViewController:idvc animated:YES];
 }
 
 #pragma mark - NavBar Button Action Methods

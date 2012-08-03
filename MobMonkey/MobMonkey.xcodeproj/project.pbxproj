@@ -208,8 +208,6 @@
 		8C5C45661596762E00E3710B = {
 			isa = PBXGroup;
 			children = (
-				F7F95F2715CAAC8300AC36D6 /* CoreMedia.framework */,
-				F7F95F2515CAABEF00AC36D6 /* AVFoundation.framework */,
 				8C5C457B1596762E00E3710B /* MobMonkey */,
 				8C5C45741596762E00E3710B /* Frameworks */,
 				8C5C45721596762E00E3710B /* Products */,
@@ -227,6 +225,8 @@
 		8C5C45741596762E00E3710B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F7F95F2715CAAC8300AC36D6 /* CoreMedia.framework */,
+				F7F95F2515CAABEF00AC36D6 /* AVFoundation.framework */,
 				F7AA423C15C3ED02009E2106 /* MediaPlayer.framework */,
 				8CA147D915ABBF680085B346 /* CoreLocation.framework */,
 				8CA147D315ABBCA60085B346 /* FactualSDK.framework */,

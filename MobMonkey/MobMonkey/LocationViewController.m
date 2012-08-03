@@ -216,13 +216,15 @@ NSString* const kFactualId = @"factual_id";
 {
     [SVProgressHUD showWithStatus:@"Saving"];
     
+    NSLog(@"%@", info);
+    
     NSString *fileType = [info objectForKey: UIImagePickerControllerMediaType];
     NSData *dataObj;
     
     if (CFStringCompare ((__bridge CFStringRef) fileType, kUTTypeImage, 0)
         == kCFCompareEqualTo) {
         image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-        image = [[UIImage alloc]initWithCGImage:image.CGImage scale:.5 orientation:UIImageOrientationUp];
+        image = [[UIImage alloc]initWithCGImage:image.CGImage scale:.25 orientation:UIImageOrientationUp];
         dataObj = UIImageJPEGRepresentation(image, .1);
     }
     
@@ -332,9 +334,27 @@ NSString* const kFactualId = @"factual_id";
     }
 }
 
+- (IBAction)photosButtonTapped:(id)sender {
+    LocationMediaViewController *lmvc = [[LocationMediaViewController alloc]initWithNibName:@"LocationMediaViewController" bundle:nil];
+    if (_requestObject) {
+        [lmvc getLocationItems:@"photo" factualId:[_requestObject objectForKey:@"factualId"]];
+    }
+    else {
+        [lmvc getLocationItems:@"photo" factualId:[venueData valueForName:kFactualId]];
+    }
+    lmvc.title = self.title;
+    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:lmvc];
+    [self.navigationController presentViewController:navC animated:YES completion:NULL];
+}
+
 - (IBAction)videosButtonTapped:(id)sender {
     LocationMediaViewController *lmvc = [[LocationMediaViewController alloc]initWithNibName:@"LocationMediaViewController" bundle:nil];
-    [lmvc getLocationItems:@"video" factualId:[venueData valueForName:kFactualId]];
+    if (_requestObject) {
+        [lmvc getLocationItems:@"video" factualId:[_requestObject objectForKey:@"factualId"]];
+    }
+    else {
+        [lmvc getLocationItems:@"video" factualId:[venueData valueForName:kFactualId]];
+    }
     UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:lmvc];
     [self.navigationController presentViewController:navC animated:YES completion:NULL];
 }
@@ -368,14 +388,6 @@ NSString* const kFactualId = @"factual_id";
 - (IBAction)notificationsButtonTapped:(id)sender {
     NotificationsViewController *notificationsVc = [[NotificationsViewController alloc]initWithNibName:@"NotificationsViewController" bundle:nil];
     UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:notificationsVc];
-    [self.navigationController presentViewController:navC animated:YES completion:NULL];
-}
-
-- (IBAction)photosButtonTapped:(id)sender {
-    LocationMediaViewController *lmvc = [[LocationMediaViewController alloc]initWithNibName:@"LocationMediaViewController" bundle:nil];
-    [lmvc getLocationItems:@"photo" factualId:[venueData valueForName:kFactualId]];
-    lmvc.title = self.title;
-    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:lmvc];
     [self.navigationController presentViewController:navC animated:YES completion:NULL];
 }
 

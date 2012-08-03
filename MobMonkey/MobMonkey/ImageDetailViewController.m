@@ -61,7 +61,7 @@
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    [SVProgressHUD dismissWithError:@"Error"];
+    [SVProgressHUD dismiss];
 }
 
 #pragma mark - Helper Methods
