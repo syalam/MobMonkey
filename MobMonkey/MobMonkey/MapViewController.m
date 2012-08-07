@@ -143,7 +143,7 @@
     [queryObject addFullTextQueryTerms:searchBar.text,nil];
     
     // check if locality filter is on ... 
-    [queryObject addRowFilter:[FactualRowFilter fieldName:@"country" equalTo:@"US"]];    
+    [queryObject addRowFilter:[FactualRowFilter fieldName:@"cosauntry" equalTo:@"US"]];    
     
     // check if category filter is on ... 
     //if ([prefs valueForKey:@"filteredCategory"] != nil) 

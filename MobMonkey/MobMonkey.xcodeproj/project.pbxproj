@@ -47,6 +47,48 @@
 		F7193B7915AEA14B00CCFC5A /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7193B7715AEA14B00CCFC5A /* RequestsViewController.m */; };
 		F7193B7A15AEA14B00CCFC5A /* RequestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7193B7815AEA14B00CCFC5A /* RequestsViewController.xib */; };
 		F7193B7E15AEA24A00CCFC5A /* RequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7193B7D15AEA24A00CCFC5A /* RequestCell.m */; };
+		F78F6BEB15D06D2B006EFF27 /* Background@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC215D06D2B006EFF27 /* Background@2x~iphone.png */; };
+		F78F6BEC15D06D2B006EFF27 /* Background~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC315D06D2B006EFF27 /* Background~iphone.png */; };
+		F78F6BED15D06D2B006EFF27 /* BookmarksIcn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC415D06D2B006EFF27 /* BookmarksIcn@2x~iphone.png */; };
+		F78F6BEE15D06D2B006EFF27 /* BookmarksIcnSelected@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC515D06D2B006EFF27 /* BookmarksIcnSelected@2x~iphone.png */; };
+		F78F6BEF15D06D2B006EFF27 /* BookmarksIcnSelected~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC615D06D2B006EFF27 /* BookmarksIcnSelected~iphone.png */; };
+		F78F6BF015D06D2B006EFF27 /* BookmarksIcn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC715D06D2B006EFF27 /* BookmarksIcn~iphone.png */; };
+		F78F6BF115D06D2B006EFF27 /* Colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC815D06D2B006EFF27 /* Colors.txt */; };
+		F78F6BF215D06D2B006EFF27 /* HomeIcn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC915D06D2B006EFF27 /* HomeIcn@2x~iphone.png */; };
+		F78F6BF315D06D2B006EFF27 /* HomeIcnSelected@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BCA15D06D2B006EFF27 /* HomeIcnSelected@2x~iphone.png */; };
+		F78F6BF415D06D2B006EFF27 /* HomeIcnSelected~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BCB15D06D2B006EFF27 /* HomeIcnSelected~iphone.png */; };
+		F78F6BF515D06D2B006EFF27 /* HomeIcn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BCC15D06D2B006EFF27 /* HomeIcn~iphone.png */; };
+		F78F6BF615D06D2B006EFF27 /* LocationIcn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BCD15D06D2B006EFF27 /* LocationIcn@2x~iphone.png */; };
+		F78F6BF715D06D2B006EFF27 /* LocationIcnSelected@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BCE15D06D2B006EFF27 /* LocationIcnSelected@2x~iphone.png */; };
+		F78F6BF815D06D2B006EFF27 /* LocationIcnSelected~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BCF15D06D2B006EFF27 /* LocationIcnSelected~iphone.png */; };
+		F78F6BF915D06D2B006EFF27 /* LocationIcn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BD015D06D2B006EFF27 /* LocationIcn~iphone.png */; };
+		F78F6BFA15D06D2B006EFF27 /* LocationWindow@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BD115D06D2B006EFF27 /* LocationWindow@2x~iphone.png */; };
+		F78F6BFB15D06D2B006EFF27 /* LocationWindowPlusTime@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BD215D06D2B006EFF27 /* LocationWindowPlusTime@2x~iphone.png */; };
+		F78F6BFC15D06D2B006EFF27 /* LocationWindowPlusTime~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BD315D06D2B006EFF27 /* LocationWindowPlusTime~iphone.png */; };
+		F78F6BFD15D06D2B006EFF27 /* LocationWindow~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BD415D06D2B006EFF27 /* LocationWindow~iphone.png */; };
+		F78F6BFE15D06D2B006EFF27 /* NavBar@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BD515D06D2B006EFF27 /* NavBar@2x~iphone.png */; };
+		F78F6BFF15D06D2B006EFF27 /* NavBar~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BD615D06D2B006EFF27 /* NavBar~iphone.png */; };
+		F78F6C0015D06D2B006EFF27 /* Notifications@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BD715D06D2B006EFF27 /* Notifications@2x~iphone.png */; };
+		F78F6C0115D06D2B006EFF27 /* Notifications~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BD815D06D2B006EFF27 /* Notifications~iphone.png */; };
+		F78F6C0215D06D2B006EFF27 /* SearchIcn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BD915D06D2B006EFF27 /* SearchIcn@2x~iphone.png */; };
+		F78F6C0315D06D2B006EFF27 /* SearchIcnSelected@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BDA15D06D2B006EFF27 /* SearchIcnSelected@2x~iphone.png */; };
+		F78F6C0415D06D2B006EFF27 /* SearchIcnSelected~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BDB15D06D2B006EFF27 /* SearchIcnSelected~iphone.png */; };
+		F78F6C0515D06D2B006EFF27 /* SearchIcn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BDC15D06D2B006EFF27 /* SearchIcn~iphone.png */; };
+		F78F6C0615D06D2B006EFF27 /* Separator@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BDD15D06D2B006EFF27 /* Separator@2x~iphone.png */; };
+		F78F6C0715D06D2B006EFF27 /* Separator~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BDE15D06D2B006EFF27 /* Separator~iphone.png */; };
+		F78F6C0815D06D2B006EFF27 /* SettingsIcn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BDF15D06D2B006EFF27 /* SettingsIcn@2x~iphone.png */; };
+		F78F6C0915D06D2B006EFF27 /* SettingsIcnSelected@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BE015D06D2B006EFF27 /* SettingsIcnSelected@2x~iphone.png */; };
+		F78F6C0A15D06D2B006EFF27 /* SettingsIcnSelected~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BE115D06D2B006EFF27 /* SettingsIcnSelected~iphone.png */; };
+		F78F6C0B15D06D2B006EFF27 /* SettingsIcn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BE215D06D2B006EFF27 /* SettingsIcn~iphone.png */; };
+		F78F6C0C15D06D2B006EFF27 /* TabBar@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BE315D06D2B006EFF27 /* TabBar@2x~iphone.png */; };
+		F78F6C0D15D06D2B006EFF27 /* TabBarPlusShadow@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BE415D06D2B006EFF27 /* TabBarPlusShadow@2x~iphone.png */; };
+		F78F6C0E15D06D2B006EFF27 /* TabBarPlusShadow~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BE515D06D2B006EFF27 /* TabBarPlusShadow~iphone.png */; };
+		F78F6C0F15D06D2B006EFF27 /* TabBar~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BE615D06D2B006EFF27 /* TabBar~iphone.png */; };
+		F78F6C1015D06D2B006EFF27 /* TabSelected@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BE715D06D2B006EFF27 /* TabSelected@2x~iphone.png */; };
+		F78F6C1115D06D2B006EFF27 /* TabSelected~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BE815D06D2B006EFF27 /* TabSelected~iphone.png */; };
+		F78F6C1215D06D2B006EFF27 /* TimeAgo@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BE915D06D2B006EFF27 /* TimeAgo@2x~iphone.png */; };
+		F78F6C1315D06D2B006EFF27 /* TimeAgo~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BEA15D06D2B006EFF27 /* TimeAgo~iphone.png */; };
+		F78F6C1815D06F26006EFF27 /* HelveticaNeue-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F78F6C1615D06F26006EFF27 /* HelveticaNeue-Bold.otf */; };
 		F79F95DF15A562D200BE96EE /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F95DE15A562D200BE96EE /* SearchCell.m */; };
 		F79F95E415A56B9200BE96EE /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F95E215A56B9200BE96EE /* MapViewController.m */; };
 		F79F95E515A56B9200BE96EE /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79F95E315A56B9200BE96EE /* MapViewController.xib */; };
@@ -129,6 +171,49 @@
 		F7193B7815AEA14B00CCFC5A /* RequestsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RequestsViewController.xib; sourceTree = "<group>"; };
 		F7193B7C15AEA24A00CCFC5A /* RequestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestCell.h; sourceTree = "<group>"; };
 		F7193B7D15AEA24A00CCFC5A /* RequestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestCell.m; sourceTree = "<group>"; };
+		F78F6BC215D06D2B006EFF27 /* Background@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BC315D06D2B006EFF27 /* Background~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background~iphone.png"; sourceTree = "<group>"; };
+		F78F6BC415D06D2B006EFF27 /* BookmarksIcn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BookmarksIcn@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BC515D06D2B006EFF27 /* BookmarksIcnSelected@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BookmarksIcnSelected@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BC615D06D2B006EFF27 /* BookmarksIcnSelected~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BookmarksIcnSelected~iphone.png"; sourceTree = "<group>"; };
+		F78F6BC715D06D2B006EFF27 /* BookmarksIcn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BookmarksIcn~iphone.png"; sourceTree = "<group>"; };
+		F78F6BC815D06D2B006EFF27 /* Colors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Colors.txt; sourceTree = "<group>"; };
+		F78F6BC915D06D2B006EFF27 /* HomeIcn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HomeIcn@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BCA15D06D2B006EFF27 /* HomeIcnSelected@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HomeIcnSelected@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BCB15D06D2B006EFF27 /* HomeIcnSelected~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HomeIcnSelected~iphone.png"; sourceTree = "<group>"; };
+		F78F6BCC15D06D2B006EFF27 /* HomeIcn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HomeIcn~iphone.png"; sourceTree = "<group>"; };
+		F78F6BCD15D06D2B006EFF27 /* LocationIcn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationIcn@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BCE15D06D2B006EFF27 /* LocationIcnSelected@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationIcnSelected@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BCF15D06D2B006EFF27 /* LocationIcnSelected~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationIcnSelected~iphone.png"; sourceTree = "<group>"; };
+		F78F6BD015D06D2B006EFF27 /* LocationIcn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationIcn~iphone.png"; sourceTree = "<group>"; };
+		F78F6BD115D06D2B006EFF27 /* LocationWindow@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationWindow@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BD215D06D2B006EFF27 /* LocationWindowPlusTime@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationWindowPlusTime@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BD315D06D2B006EFF27 /* LocationWindowPlusTime~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationWindowPlusTime~iphone.png"; sourceTree = "<group>"; };
+		F78F6BD415D06D2B006EFF27 /* LocationWindow~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationWindow~iphone.png"; sourceTree = "<group>"; };
+		F78F6BD515D06D2B006EFF27 /* NavBar@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavBar@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BD615D06D2B006EFF27 /* NavBar~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavBar~iphone.png"; sourceTree = "<group>"; };
+		F78F6BD715D06D2B006EFF27 /* Notifications@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Notifications@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BD815D06D2B006EFF27 /* Notifications~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Notifications~iphone.png"; sourceTree = "<group>"; };
+		F78F6BD915D06D2B006EFF27 /* SearchIcn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SearchIcn@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BDA15D06D2B006EFF27 /* SearchIcnSelected@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SearchIcnSelected@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BDB15D06D2B006EFF27 /* SearchIcnSelected~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SearchIcnSelected~iphone.png"; sourceTree = "<group>"; };
+		F78F6BDC15D06D2B006EFF27 /* SearchIcn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SearchIcn~iphone.png"; sourceTree = "<group>"; };
+		F78F6BDD15D06D2B006EFF27 /* Separator@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Separator@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BDE15D06D2B006EFF27 /* Separator~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Separator~iphone.png"; sourceTree = "<group>"; };
+		F78F6BDF15D06D2B006EFF27 /* SettingsIcn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsIcn@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BE015D06D2B006EFF27 /* SettingsIcnSelected@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsIcnSelected@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BE115D06D2B006EFF27 /* SettingsIcnSelected~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsIcnSelected~iphone.png"; sourceTree = "<group>"; };
+		F78F6BE215D06D2B006EFF27 /* SettingsIcn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsIcn~iphone.png"; sourceTree = "<group>"; };
+		F78F6BE315D06D2B006EFF27 /* TabBar@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBar@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BE415D06D2B006EFF27 /* TabBarPlusShadow@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarPlusShadow@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BE515D06D2B006EFF27 /* TabBarPlusShadow~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarPlusShadow~iphone.png"; sourceTree = "<group>"; };
+		F78F6BE615D06D2B006EFF27 /* TabBar~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBar~iphone.png"; sourceTree = "<group>"; };
+		F78F6BE715D06D2B006EFF27 /* TabSelected@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabSelected@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BE815D06D2B006EFF27 /* TabSelected~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabSelected~iphone.png"; sourceTree = "<group>"; };
+		F78F6BE915D06D2B006EFF27 /* TimeAgo@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeAgo@2x~iphone.png"; sourceTree = "<group>"; };
+		F78F6BEA15D06D2B006EFF27 /* TimeAgo~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeAgo~iphone.png"; sourceTree = "<group>"; };
+		F78F6C1615D06F26006EFF27 /* HelveticaNeue-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HelveticaNeue-Bold.otf"; sourceTree = "<group>"; };
+		F78F6C1C15D089F6006EFF27 /* vagrounded-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "vagrounded-bold.ttf"; sourceTree = "<group>"; };
 		F79F95DD15A562D200BE96EE /* SearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
 		F79F95DE15A562D200BE96EE /* SearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
 		F79F95E115A56B9200BE96EE /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -316,6 +401,8 @@
 		8CCDA1F31598056A006B0093 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				F78F6C1515D06F26006EFF27 /* Fonts */,
+				F78F6BC115D06D2B006EFF27 /* Home */,
 				8CD18BEA159BA01D0096E7F4 /* monkey.jpg */,
 				8C5C458A1596762E00E3710B /* first.png */,
 				8C5C458C1596762E00E3710B /* first@2x.png */,
@@ -395,6 +482,63 @@
 				F7193B7D15AEA24A00CCFC5A /* RequestCell.m */,
 			);
 			name = "Requests Cell";
+			sourceTree = "<group>";
+		};
+		F78F6BC115D06D2B006EFF27 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F78F6BC215D06D2B006EFF27 /* Background@2x~iphone.png */,
+				F78F6BC315D06D2B006EFF27 /* Background~iphone.png */,
+				F78F6BC415D06D2B006EFF27 /* BookmarksIcn@2x~iphone.png */,
+				F78F6BC515D06D2B006EFF27 /* BookmarksIcnSelected@2x~iphone.png */,
+				F78F6BC615D06D2B006EFF27 /* BookmarksIcnSelected~iphone.png */,
+				F78F6BC715D06D2B006EFF27 /* BookmarksIcn~iphone.png */,
+				F78F6BC815D06D2B006EFF27 /* Colors.txt */,
+				F78F6BC915D06D2B006EFF27 /* HomeIcn@2x~iphone.png */,
+				F78F6BCA15D06D2B006EFF27 /* HomeIcnSelected@2x~iphone.png */,
+				F78F6BCB15D06D2B006EFF27 /* HomeIcnSelected~iphone.png */,
+				F78F6BCC15D06D2B006EFF27 /* HomeIcn~iphone.png */,
+				F78F6BCD15D06D2B006EFF27 /* LocationIcn@2x~iphone.png */,
+				F78F6BCE15D06D2B006EFF27 /* LocationIcnSelected@2x~iphone.png */,
+				F78F6BCF15D06D2B006EFF27 /* LocationIcnSelected~iphone.png */,
+				F78F6BD015D06D2B006EFF27 /* LocationIcn~iphone.png */,
+				F78F6BD115D06D2B006EFF27 /* LocationWindow@2x~iphone.png */,
+				F78F6BD215D06D2B006EFF27 /* LocationWindowPlusTime@2x~iphone.png */,
+				F78F6BD315D06D2B006EFF27 /* LocationWindowPlusTime~iphone.png */,
+				F78F6BD415D06D2B006EFF27 /* LocationWindow~iphone.png */,
+				F78F6BD515D06D2B006EFF27 /* NavBar@2x~iphone.png */,
+				F78F6BD615D06D2B006EFF27 /* NavBar~iphone.png */,
+				F78F6BD715D06D2B006EFF27 /* Notifications@2x~iphone.png */,
+				F78F6BD815D06D2B006EFF27 /* Notifications~iphone.png */,
+				F78F6BD915D06D2B006EFF27 /* SearchIcn@2x~iphone.png */,
+				F78F6BDA15D06D2B006EFF27 /* SearchIcnSelected@2x~iphone.png */,
+				F78F6BDB15D06D2B006EFF27 /* SearchIcnSelected~iphone.png */,
+				F78F6BDC15D06D2B006EFF27 /* SearchIcn~iphone.png */,
+				F78F6BDD15D06D2B006EFF27 /* Separator@2x~iphone.png */,
+				F78F6BDE15D06D2B006EFF27 /* Separator~iphone.png */,
+				F78F6BDF15D06D2B006EFF27 /* SettingsIcn@2x~iphone.png */,
+				F78F6BE015D06D2B006EFF27 /* SettingsIcnSelected@2x~iphone.png */,
+				F78F6BE115D06D2B006EFF27 /* SettingsIcnSelected~iphone.png */,
+				F78F6BE215D06D2B006EFF27 /* SettingsIcn~iphone.png */,
+				F78F6BE315D06D2B006EFF27 /* TabBar@2x~iphone.png */,
+				F78F6BE415D06D2B006EFF27 /* TabBarPlusShadow@2x~iphone.png */,
+				F78F6BE515D06D2B006EFF27 /* TabBarPlusShadow~iphone.png */,
+				F78F6BE615D06D2B006EFF27 /* TabBar~iphone.png */,
+				F78F6BE715D06D2B006EFF27 /* TabSelected@2x~iphone.png */,
+				F78F6BE815D06D2B006EFF27 /* TabSelected~iphone.png */,
+				F78F6BE915D06D2B006EFF27 /* TimeAgo@2x~iphone.png */,
+				F78F6BEA15D06D2B006EFF27 /* TimeAgo~iphone.png */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		F78F6C1515D06F26006EFF27 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				F78F6C1615D06F26006EFF27 /* HelveticaNeue-Bold.otf */,
+				F78F6C1C15D089F6006EFF27 /* vagrounded-bold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		F79F95DB15A562A500BE96EE /* SearchCell */ = {
@@ -606,6 +750,48 @@
 				F7E2B07615C2B7DE006D3F57 /* SVProgressHUD.bundle in Resources */,
 				F7E2B07E15C2B99C006D3F57 /* ImageDetailViewController.xib in Resources */,
 				F7E2B08815C2C58D006D3F57 /* LocationMediaViewController.xib in Resources */,
+				F78F6BEB15D06D2B006EFF27 /* Background@2x~iphone.png in Resources */,
+				F78F6BEC15D06D2B006EFF27 /* Background~iphone.png in Resources */,
+				F78F6BED15D06D2B006EFF27 /* BookmarksIcn@2x~iphone.png in Resources */,
+				F78F6BEE15D06D2B006EFF27 /* BookmarksIcnSelected@2x~iphone.png in Resources */,
+				F78F6BEF15D06D2B006EFF27 /* BookmarksIcnSelected~iphone.png in Resources */,
+				F78F6BF015D06D2B006EFF27 /* BookmarksIcn~iphone.png in Resources */,
+				F78F6BF115D06D2B006EFF27 /* Colors.txt in Resources */,
+				F78F6BF215D06D2B006EFF27 /* HomeIcn@2x~iphone.png in Resources */,
+				F78F6BF315D06D2B006EFF27 /* HomeIcnSelected@2x~iphone.png in Resources */,
+				F78F6BF415D06D2B006EFF27 /* HomeIcnSelected~iphone.png in Resources */,
+				F78F6BF515D06D2B006EFF27 /* HomeIcn~iphone.png in Resources */,
+				F78F6BF615D06D2B006EFF27 /* LocationIcn@2x~iphone.png in Resources */,
+				F78F6BF715D06D2B006EFF27 /* LocationIcnSelected@2x~iphone.png in Resources */,
+				F78F6BF815D06D2B006EFF27 /* LocationIcnSelected~iphone.png in Resources */,
+				F78F6BF915D06D2B006EFF27 /* LocationIcn~iphone.png in Resources */,
+				F78F6BFA15D06D2B006EFF27 /* LocationWindow@2x~iphone.png in Resources */,
+				F78F6BFB15D06D2B006EFF27 /* LocationWindowPlusTime@2x~iphone.png in Resources */,
+				F78F6BFC15D06D2B006EFF27 /* LocationWindowPlusTime~iphone.png in Resources */,
+				F78F6BFD15D06D2B006EFF27 /* LocationWindow~iphone.png in Resources */,
+				F78F6BFE15D06D2B006EFF27 /* NavBar@2x~iphone.png in Resources */,
+				F78F6BFF15D06D2B006EFF27 /* NavBar~iphone.png in Resources */,
+				F78F6C0015D06D2B006EFF27 /* Notifications@2x~iphone.png in Resources */,
+				F78F6C0115D06D2B006EFF27 /* Notifications~iphone.png in Resources */,
+				F78F6C0215D06D2B006EFF27 /* SearchIcn@2x~iphone.png in Resources */,
+				F78F6C0315D06D2B006EFF27 /* SearchIcnSelected@2x~iphone.png in Resources */,
+				F78F6C0415D06D2B006EFF27 /* SearchIcnSelected~iphone.png in Resources */,
+				F78F6C0515D06D2B006EFF27 /* SearchIcn~iphone.png in Resources */,
+				F78F6C0615D06D2B006EFF27 /* Separator@2x~iphone.png in Resources */,
+				F78F6C0715D06D2B006EFF27 /* Separator~iphone.png in Resources */,
+				F78F6C0815D06D2B006EFF27 /* SettingsIcn@2x~iphone.png in Resources */,
+				F78F6C0915D06D2B006EFF27 /* SettingsIcnSelected@2x~iphone.png in Resources */,
+				F78F6C0A15D06D2B006EFF27 /* SettingsIcnSelected~iphone.png in Resources */,
+				F78F6C0B15D06D2B006EFF27 /* SettingsIcn~iphone.png in Resources */,
+				F78F6C0C15D06D2B006EFF27 /* TabBar@2x~iphone.png in Resources */,
+				F78F6C0D15D06D2B006EFF27 /* TabBarPlusShadow@2x~iphone.png in Resources */,
+				F78F6C0E15D06D2B006EFF27 /* TabBarPlusShadow~iphone.png in Resources */,
+				F78F6C0F15D06D2B006EFF27 /* TabBar~iphone.png in Resources */,
+				F78F6C1015D06D2B006EFF27 /* TabSelected@2x~iphone.png in Resources */,
+				F78F6C1115D06D2B006EFF27 /* TabSelected~iphone.png in Resources */,
+				F78F6C1215D06D2B006EFF27 /* TimeAgo@2x~iphone.png in Resources */,
+				F78F6C1315D06D2B006EFF27 /* TimeAgo~iphone.png in Resources */,
+				F78F6C1815D06F26006EFF27 /* HelveticaNeue-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

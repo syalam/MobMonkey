@@ -43,7 +43,26 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];  
+    [super viewDidLoad];
+    
+    UIButton *mmNavButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [mmNavButton setFrame:CGRectMake(0, 0, 320, 44)];
+    [mmNavButton addTarget:self action:@selector(notificationsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, mmNavButton.frame.size.width, mmNavButton.frame.size.height)];
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = [UIColor whiteColor];
+    label.font = [UIFont fontWithName:@"vagrounded-bold" size:15];
+    label.textAlignment = UITextAlignmentCenter;
+    self.navigationItem.titleView = label;
+    label.text = @"MobMonkey";
+    
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
+    
+    [mmNavButton addSubview:label];
+    
+    self.navigationItem.titleView = mmNavButton;
+    
     
     [self doQuery:nil];
     

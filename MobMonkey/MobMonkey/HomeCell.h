@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface HomeCell : UITableViewCell
+@property(nonatomic, retain)UIImageView *cellBackgroundImage;
 @property(nonatomic,retain)UILabel* locationNameLabel;
 @property(nonatomic,retain)UILabel* timeLabel;
 @property(nonatomic,retain)UIImageView* thumbnailImageView;
