@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController.h"
+#import "SignUpViewController.h"
 
 @interface SettingsViewController ()
 
@@ -43,6 +44,8 @@
     [self setContentList:tableContentArray];
     
     self.title = @"Settings";
+    
+    
 
 }
 
@@ -158,6 +161,31 @@
             [selectionDictionary setObject:@"selected" forKey:[NSString stringWithFormat:@"%d", indexPath.row]];
             [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
         }
+    }
+}
+
+#pragma mark - UIBarButtonItem Action Methods
+- (void)signInButtonClicked:(id)sender {
+    SignUpViewController *signUpVc = [[SignUpViewController alloc]initWithNibName:@"SignUpViewController" bundle:nil];
+    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:signUpVc];
+    [self.navigationController presentViewController:navC animated:YES completion:NULL];
+}
+
+- (void)signOutButtonClicked:(id)sender {
+    [PFUser logOut];
+    [self setNavButtons];
+}
+
+#pragma mark - Helper Methods
+- (void)setNavButtons {
+    if ([PFUser currentUser]) {
+        UIBarButtonItem *signOutButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign Out" style:UIBarButtonItemStyleBordered target:self action:@selector(signOutButtonClicked:)];
+        self.navigationItem.rightBarButtonItem = signOutButton;
+    }
+    else {
+        UIBarButtonItem *signInButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign Up" style:UIBarButtonItemStyleBordered target:self action:@selector(signInButtonClicked:)];
+        self.navigationItem.rightBarButtonItem = signInButton;
+        self.navigationItem.leftBarButtonItem = nil;
     }
 }
 

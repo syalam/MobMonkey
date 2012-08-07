@@ -64,6 +64,7 @@
     self.navigationItem.titleView = mmNavButton;
     
     
+    
     [self doQuery:nil];
     
 }
@@ -178,7 +179,7 @@
 
 #pragma mark - Helper Methods
 - (void)setNavButtons {
-    if ([self.title isEqualToString:@"Home"]) {
+    /*if ([self.title isEqualToString:@"Home"]) {
         self.navigationItem.rightBarButtonItem = nil;
         
         if ([PFUser currentUser]) {
@@ -197,7 +198,7 @@
     else if ([self.title isEqualToString:@"Bookmarks"]) {
         [headerView setFrame:CGRectMake(0, 0, 320, 46)];
         [self.tableView setTableHeaderView:headerView];
-    }
+    }*/
 }
 
 - (void)checkForNotifications {
@@ -218,8 +219,8 @@
             PFGeoPoint *currentLocation = [PFGeoPoint geoPointWithLatitude:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]floatValue] longitude:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]floatValue]];
             NSLog(@"%f, %f", currentLocation.latitude, currentLocation.longitude);
             PFQuery *getRequests = [PFQuery queryWithClassName:@"requests"];
-            //[getRequests whereKey:@"locationCoordinates" nearGeoPoint:currentLocation withinMiles:25000];
-            [getRequests whereKey:@"updatedAt" lessThan:[NSDate dateWithTimeIntervalSinceNow:43200]];
+            [getRequests whereKey:@"locationCoordinates" nearGeoPoint:currentLocation withinMiles:25000];
+            [getRequests whereKey:@"updatedAt" greaterThan:[NSDate dateWithTimeIntervalSinceNow:-43200]];
             [getRequests whereKey:@"requestor" notEqualTo:[PFUser currentUser]];
             [getRequests orderByDescending:@"updatedAt"];
             [getRequests findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -276,9 +277,16 @@
 }
 
 - (void)notificationsButtonClicked:(id)sender {
-    UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:notificationScreen];
-    [notificationScreen separateSections];
-    [self.navigationController presentViewController:navc animated:YES completion:NULL];
+    if ([PFUser currentUser]) {
+        UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:notificationScreen];
+        [notificationScreen separateSections];
+        [self.navigationController presentViewController:navc animated:YES completion:NULL];
+    }
+    else {
+        SignUpViewController *signUpVc = [[SignUpViewController alloc]initWithNibName:@"SignUpViewController" bundle:nil];
+        UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:signUpVc];
+        [self.navigationController presentViewController:navC animated:YES completion:NULL];
+    }
 }
 
 - (void)signOutButtonClicked:(id)sender {
@@ -292,7 +300,6 @@
     if (request == _activeRequest) {
         NSLog(@"Received Initial Response");
     }
-    
 }
 
 - (void)requestDidReceiveData:(FactualAPIRequest *)request { 

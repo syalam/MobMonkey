@@ -7,6 +7,7 @@
 //
 
 #import "HomeCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation HomeCell
 @synthesize locationNameLabel;
@@ -24,10 +25,13 @@
         
         
         self.thumbnailImageView.image = [UIImage imageNamed:@"monkey.jpg"];
+        self.thumbnailImageView.clipsToBounds = YES;
         
-        [self.locationNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15]];
+        [self.locationNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]];
         [self.timeLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];
         
+        
+        [self.locationNameLabel setTextColor:[UIColor colorWithRed:.8941 green:.4509 blue:.1725 alpha:1]];
         [self.timeLabel setTextColor:[UIColor whiteColor]];
         
         [locationNameLabel setBackgroundColor:[UIColor clearColor]];
