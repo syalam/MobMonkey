@@ -27,7 +27,7 @@
         self.thumbnailImageView.image = [UIImage imageNamed:@"monkey.jpg"];
         self.thumbnailImageView.clipsToBounds = YES;
         
-        [self.locationNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]];
+        [self.locationNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:15]];
         [self.timeLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];
         
         

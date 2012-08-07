@@ -17,6 +17,7 @@
 NSUInteger const kCameraSheet = 0;
 NSUInteger const kLoginSheet = 1;
 NSUInteger const kRequestSheet = 2;
+NSUInteger const kPopupSheet = 3;
 
 //Factual Constants
 NSString* const kNeighborhood = @"neighborhood";
@@ -65,16 +66,39 @@ NSString* const kFactualId = @"factual_id";
 
     _contentList = [[NSMutableArray alloc]init];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-        
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera 
-                                                                                           target:self 
-                                                                                           action:@selector(cameraButtonTapped:)];
+    _locationNameLabel.textColor = [UIColor colorWithRed:.8941 green:.4509 blue:.1725 alpha:1];
+    
+    //Add custom Camera button to the nav bar
+    UIButton *cameraButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44, 30)];
+    [cameraButton addTarget:self action:@selector(cameraButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [cameraButton setBackgroundImage:[UIImage imageNamed:@"CameraBtn~iphone"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem *cameraBarButton = [[UIBarButtonItem alloc]initWithCustomView:cameraButton];
+    self.navigationItem.rightBarButtonItem = cameraBarButton;
+
+     
+    //Add custom back button to the nav bar
+    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+    [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    self.navigationItem.leftBarButtonItem = backButton;
     
     // Setup scroll view
-    [scrollView setContentSize:CGSizeMake(320,630)];
+    [scrollView setContentSize:CGSizeMake(320,700)];
+    
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([[venueData valueForName:kLatitude]doubleValue], [[venueData valueForName:kLongitude]doubleValue]);
+    
+    MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc]initWithName:self.title address:[venueData valueForName:kAddress] coordinate:coordinate];
+    [_mapView addAnnotation:(id)annotation];
+
+    //zoom out of map
+    MKCoordinateRegion region;
+    region.center = coordinate;
+    region.span.latitudeDelta = 0.005;
+    region.span.longitudeDelta = 0.005;
+    [_mapView setRegion:region animated:YES];
 }
 
 - (void)viewDidUnload
@@ -334,6 +358,10 @@ NSString* const kFactualId = @"factual_id";
     }
 }
 
+- (void)backButtonTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (IBAction)photosButtonTapped:(id)sender {
     LocationMediaViewController *lmvc = [[LocationMediaViewController alloc]initWithNibName:@"LocationMediaViewController" bundle:nil];
     if (_requestObject) {
@@ -383,6 +411,13 @@ NSString* const kFactualId = @"factual_id";
 }
 
 - (IBAction)shareButtonTapped:(id)sender {
+    
+}
+
+- (IBAction)popupButtonTapped:(id)sender {
+    UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:self.title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Bookmark", @"Notification Settings", nil];
+    currentActionSheetCall = kPopupSheet;
+    [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
 }
 
 - (IBAction)notificationsButtonTapped:(id)sender {
@@ -454,6 +489,7 @@ NSString* const kFactualId = @"factual_id";
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
     }
     
     if (_requestScreen) {
@@ -480,5 +516,29 @@ NSString* const kFactualId = @"factual_id";
     return cell;
 }
 
+
+#pragma mark - MapView Delegate Methods
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    
+    static NSString *identifier = @"MMLocation";
+    if ([annotation isKindOfClass:[MMLocationAnnotation class]]) {
+        
+        MKPinAnnotationView *annotationView = (MKPinAnnotationView *) [self.mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+        if (annotationView == nil) {
+            annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
+            annotationView.animatesDrop = YES;
+            
+        } else {
+            annotationView.annotation = annotation;
+        }
+        
+        annotationView.enabled = YES;
+        annotationView.canShowCallout = YES;
+        
+        return annotationView;
+    }
+    
+    return nil;
+}
 
 @end

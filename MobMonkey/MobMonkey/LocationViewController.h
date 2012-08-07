@@ -11,8 +11,10 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "RequestsViewController.h"
 #import <FactualSDK/FactualAPI.h>
+#import <MapKit/MapKit.h>
+#import "MMLocationAnnotation.h"
 
-@interface LocationViewController : UIViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
+@interface LocationViewController : UIViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MKMapViewDelegate> {
     UIImage *image;
     
     NSString *mediaType;
@@ -28,12 +30,14 @@
 @property (strong, nonatomic) IBOutlet UIButton *shareButton;
 @property (strong, nonatomic) IBOutlet UIButton *bookmarkButton;
 @property (strong, nonatomic) IBOutlet UIButton *notificationsButton;
+@property (strong, nonatomic) IBOutlet UIButton *popupButton;
 @property (nonatomic, retain) NSString* locationName;
 @property (nonatomic, retain) RequestsViewController *requestScreen;
 @property (nonatomic, retain) PFObject *requestObject;
 @property (nonatomic, retain) FactualRow* venueData;
 @property (nonatomic, retain) UITableView* tableView;
 @property (nonatomic, retain) NSMutableArray *contentList;
+@property (nonatomic, retain) IBOutlet MKMapView *mapView;
 
 - (IBAction)videosButtonTapped:(id)sender;
 - (IBAction)requestButtonTapped:(id)sender;
@@ -41,6 +45,7 @@
 - (IBAction)shareButtonTapped:(id)sender;
 - (IBAction)notificationsButtonTapped:(id)sender;
 - (IBAction)photosButtonTapped:(id)sender;
+- (IBAction)popupButtonTapped:(id)sender;
 
 - (void)makeRequest:(NSString*)requestType;
 
