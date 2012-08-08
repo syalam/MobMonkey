@@ -12,6 +12,7 @@
 #import "LocationMediaViewController.h"
 #import "SVProgressHUD.h"
 #import "AppDelegate.h"
+#import "HomeViewController.h"
 
 //ActionSheet Constants
 NSUInteger const kCameraSheet = 0;
@@ -95,6 +96,12 @@ NSString* const kFactualId = @"factual_id";
     
     self.navigationItem.titleView = navBarView;
     
+    
+    //update notifications badge count
+    NSArray *navViewControllers = [self.tabBarController viewControllers];
+    UINavigationController *homeNavC = [navViewControllers objectAtIndex:0];
+    HomeViewController *homeScreen = [homeNavC.viewControllers objectAtIndex:0];
+    notificationsCountLabel.text = [NSString stringWithFormat:@"%d", homeScreen.pendingRequestsArray.count];
     
     //Add custom Camera button to the nav bar
     UIButton *cameraButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44, 30)];
@@ -449,10 +456,17 @@ NSString* const kFactualId = @"factual_id";
 }
 
 - (IBAction)notificationsButtonTapped:(id)sender {
-    NotificationsViewController *notificationsVc = [[NotificationsViewController alloc]initWithNibName:@"NotificationsViewController" bundle:nil];
+    NSArray *navViewControllers = [self.tabBarController viewControllers];
+    UINavigationController *homeNavC = [navViewControllers objectAtIndex:0];
+    HomeViewController *homeScreen = [homeNavC.viewControllers objectAtIndex:0];
+    [homeScreen notificationsButtonTapped:nil];
+    
+    /*NotificationsViewController *notificationsVc = [[NotificationsViewController alloc]initWithNibName:@"NotificationsViewController" bundle:nil];
     UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:notificationsVc];
-    [self.navigationController presentViewController:navC animated:YES completion:NULL];
+    [self.navigationController presentViewController:navC animated:YES completion:NULL];*/
 }
+
+
 
 #pragma mark - Helper Methods
 

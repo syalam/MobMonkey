@@ -30,6 +30,7 @@
 @property (nonatomic, retain)NSMutableArray *contentList;
 @property (nonatomic,retain)  FactualQueryResult* queryResult;
 
+- (void)notificationsButtonTapped:(id)sender;
 - (void)setNavButtons;
 - (void)checkForNotifications;
 - (void)doQuery:(id)sender;
