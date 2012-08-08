@@ -15,6 +15,9 @@
 @interface HomeViewController : UITableViewController <FactualAPIDelegate> {
     IBOutlet UIView *headerView;
     
+    UIImageView *notificationsImageView;
+    UILabel *notificationsCountLabel;
+    
     FactualAPIRequest* _activeRequest;
     FactualQueryResult* _queryResult;
     CLLocation* _queryLocation;

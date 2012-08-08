@@ -45,26 +45,37 @@
 {
     [super viewDidLoad];
     
+    //add nav bar view and button
+    UIView *navBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
+    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(96.5, 9.5, 127, 25)];
+    notificationsImageView = [[UIImageView alloc]initWithFrame:CGRectMake(titleImageView.frame.origin.x + titleImageView.frame.size.width + 5, 9.5, 18, 18)];
+    notificationsCountLabel = [[UILabel alloc]initWithFrame:notificationsImageView.frame];
+    
+    [notificationsCountLabel setTextColor:[UIColor whiteColor]];
+    [notificationsCountLabel setBackgroundColor:[UIColor clearColor]];
+    [notificationsCountLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:11]];
+    [notificationsCountLabel setTextAlignment:UITextAlignmentCenter];
+    
+    notificationsImageView.image = [UIImage imageNamed:@"Notifications~iphone"];
+    
+    titleImageView.image = [UIImage imageNamed:@"logo~iphone"];
+    titleImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
     UIButton *mmNavButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [mmNavButton setFrame:CGRectMake(0, 0, 320, 44)];
-    [mmNavButton addTarget:self action:@selector(notificationsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [mmNavButton setFrame:titleImageView.frame];
+    [mmNavButton addTarget:self action:@selector(notificationsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, mmNavButton.frame.size.width, mmNavButton.frame.size.height)];
-    label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor whiteColor];
-    label.font = [UIFont fontWithName:@"vagrounded-bold" size:15];
-    label.textAlignment = UITextAlignmentCenter;
-    self.navigationItem.titleView = label;
-    label.text = @"MobMonkey";
+    [navBarView addSubview:titleImageView];
+    [navBarView addSubview:notificationsImageView];
+    [navBarView addSubview:notificationsCountLabel];
+    [navBarView addSubview:mmNavButton];
     
+    self.navigationItem.titleView = navBarView;
+    
+    //set background color
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
     
-    [mmNavButton addSubview:label];
-    
-    self.navigationItem.titleView = mmNavButton;
-    
-    
-    
+    //call query to grab nearby locations
     [self doQuery:nil];
     
 }
@@ -215,6 +226,9 @@
             }
             
             [self setPendingRequestsArray:requestsToDisplay];
+            
+            notificationsCountLabel.text = [NSString stringWithFormat:@"%d", _pendingRequestsArray.count];
+            
             notificationScreen.requestQueryItems = _pendingRequestsArray;
             PFGeoPoint *currentLocation = [PFGeoPoint geoPointWithLatitude:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]floatValue] longitude:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]floatValue]];
             NSLog(@"%f, %f", currentLocation.latitude, currentLocation.longitude);
@@ -235,6 +249,7 @@
                                     [requestsToDisplay addObject:requestObject];
                                     [self setPendingRequestsArray:requestsToDisplay];
                                     notificationScreen.requestQueryItems = _pendingRequestsArray;
+                                    notificationsCountLabel.text = [NSString stringWithFormat:@"%d", _pendingRequestsArray.count];
                                 }
                             }
                         }];
@@ -276,7 +291,7 @@
     [self.navigationController presentViewController:navC animated:YES completion:NULL];
 }
 
-- (void)notificationsButtonClicked:(id)sender {
+- (void)notificationsButtonTapped:(id)sender {
     if ([PFUser currentUser]) {
         UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:notificationScreen];
         [notificationScreen separateSections];

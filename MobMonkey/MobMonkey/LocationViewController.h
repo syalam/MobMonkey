@@ -16,6 +16,8 @@
 
 @interface LocationViewController : UIViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MKMapViewDelegate> {
     UIImage *image;
+    UIImageView *notificationsImageView;
+    UILabel *notificationsCountLabel;
     
     NSString *mediaType;
     
