@@ -39,10 +39,20 @@
     
     radiusPickerItemsArray = [[NSMutableArray alloc]initWithObjects:@"5 blocks", @"1 mile", @"5 miles", @"10 miles", nil];
     
-    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithTitle:@"Search" style:UIBarButtonItemStyleDone target:self action:@selector(searchButtonClicked:)];
+    UIButton *searchNavButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [searchNavButton setFrame:CGRectMake(0, 0, 60, 30)];
+    [searchNavButton addTarget:self action:@selector(searchButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [searchNavButton setBackgroundImage:[UIImage imageNamed:@"NavSearchBtn~iphone"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithCustomView:searchNavButton];
     self.navigationItem.rightBarButtonItem = searchButton;
     
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonClicked:)];
+    UIButton *cancelNavButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [cancelNavButton setFrame:CGRectMake(0, 0, 60, 30)];
+    [cancelNavButton addTarget:self action:@selector(cancelButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [cancelNavButton setImage:[UIImage imageNamed:@"NavCancelBtn~iphone"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithCustomView:cancelNavButton];
     self.navigationItem.leftBarButtonItem = cancelButton;
     
     [self.mapView setUserTrackingMode:MKUserTrackingModeFollowWithHeading animated:YES];
@@ -64,6 +74,34 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    //add nav bar view and button
+    UIView *navBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
+    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(19, 9.5, 127, 25)];
+    notificationsImageView = [[UIImageView alloc]initWithFrame:CGRectMake(titleImageView.frame.origin.x + titleImageView.frame.size.width + 5, 9.5, 18, 18)];
+    notificationsCountLabel = [(AppDelegate *)[[UIApplication sharedApplication] delegate] notificationsCountLabel];
+    notificationsCountLabel.frame = notificationsImageView.frame;
+    
+    notificationsImageView.image = [UIImage imageNamed:@"Notifications~iphone"];
+    
+    titleImageView.image = [UIImage imageNamed:@"logo~iphone"];
+    titleImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    UIButton *mmNavButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [mmNavButton setFrame:titleImageView.frame];
+    [mmNavButton addTarget:self action:@selector(notificationsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [navBarView addSubview:titleImageView];
+    [navBarView addSubview:notificationsImageView];
+    [navBarView addSubview:notificationsCountLabel];
+    [navBarView addSubview:mmNavButton];
+    
+    self.navigationItem.titleView = navBarView;
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -143,7 +181,7 @@
     [queryObject addFullTextQueryTerms:searchBar.text,nil];
     
     // check if locality filter is on ... 
-    [queryObject addRowFilter:[FactualRowFilter fieldName:@"cosauntry" equalTo:@"US"]];    
+    [queryObject addRowFilter:[FactualRowFilter fieldName:@"country" equalTo:@"US"]];    
     
     // check if category filter is on ... 
     //if ([prefs valueForKey:@"filteredCategory"] != nil) 

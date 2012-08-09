@@ -69,33 +69,6 @@ NSString* const kFactualId = @"factual_id";
     
     _locationNameLabel.textColor = [UIColor colorWithRed:.8941 green:.4509 blue:.1725 alpha:1];
     
-    //add nav bar view and button
-    UIView *navBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
-    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(45, 9.5, 127, 25)];
-    notificationsImageView = [[UIImageView alloc]initWithFrame:CGRectMake(titleImageView.frame.origin.x + titleImageView.frame.size.width + 5, 9.5, 18, 18)];
-    notificationsCountLabel = [[UILabel alloc]initWithFrame:notificationsImageView.frame];
-    
-    [notificationsCountLabel setTextColor:[UIColor whiteColor]];
-    [notificationsCountLabel setBackgroundColor:[UIColor clearColor]];
-    [notificationsCountLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:11]];
-    [notificationsCountLabel setTextAlignment:UITextAlignmentCenter];
-    
-    notificationsImageView.image = [UIImage imageNamed:@"Notifications~iphone"];
-    
-    titleImageView.image = [UIImage imageNamed:@"logo~iphone"];
-    titleImageView.contentMode = UIViewContentModeScaleAspectFill;
-    
-    UIButton *mmNavButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [mmNavButton setFrame:titleImageView.frame];
-    [mmNavButton addTarget:self action:@selector(notificationsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [navBarView addSubview:titleImageView];
-    [navBarView addSubview:notificationsImageView];
-    [navBarView addSubview:notificationsCountLabel];
-    [navBarView addSubview:mmNavButton];
-    
-    self.navigationItem.titleView = navBarView;
-    
     
     //update notifications badge count
     NSArray *navViewControllers = [self.tabBarController viewControllers];
@@ -160,6 +133,29 @@ NSString* const kFactualId = @"factual_id";
         self.title = [venueData stringValueForName:kName];
         _locationNameLabel.text = [venueData stringValueForName:kName];
     }
+    
+    //add nav bar view and button
+    UIView *navBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
+    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(45, 9.5, 127, 25)];
+    notificationsImageView = [[UIImageView alloc]initWithFrame:CGRectMake(titleImageView.frame.origin.x + titleImageView.frame.size.width + 5, 9.5, 18, 18)];
+    notificationsCountLabel = [(AppDelegate *)[[UIApplication sharedApplication] delegate] notificationsCountLabel];
+    notificationsCountLabel.frame = notificationsImageView.frame;
+    
+    notificationsImageView.image = [UIImage imageNamed:@"Notifications~iphone"];
+    
+    titleImageView.image = [UIImage imageNamed:@"logo~iphone"];
+    titleImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    UIButton *mmNavButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [mmNavButton setFrame:titleImageView.frame];
+    [mmNavButton addTarget:self action:@selector(notificationsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [navBarView addSubview:titleImageView];
+    [navBarView addSubview:notificationsImageView];
+    [navBarView addSubview:notificationsCountLabel];
+    [navBarView addSubview:mmNavButton];
+    
+    self.navigationItem.titleView = navBarView;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

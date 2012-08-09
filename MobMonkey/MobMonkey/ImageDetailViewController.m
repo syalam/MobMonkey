@@ -8,6 +8,7 @@
 
 #import "ImageDetailViewController.h"
 #import "SVProgressHUD.h"
+#import "HomeViewController.h"
 
 @interface ImageDetailViewController ()
 
@@ -87,6 +88,13 @@
 #pragma mark - Nav Bar Action Methods
 - (void)backButtonTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)notificationsButtonTapped:(id)sender {
+    NSArray *navViewControllers = [self.tabBarController viewControllers];
+    UINavigationController *homeNavC = [navViewControllers objectAtIndex:0];
+    HomeViewController *homeScreen = [homeNavC.viewControllers objectAtIndex:0];
+    [homeScreen notificationsButtonTapped:nil];
 }
 
 @end

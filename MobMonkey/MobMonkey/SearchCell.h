@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TCImageView.h"
 
 @protocol SearchCellDelegate
 
@@ -16,7 +17,8 @@
 
 @interface SearchCell : UITableViewCell
 
-@property (nonatomic, retain)UIImageView *iconImageView;
+@property (nonatomic, retain)UIImageView *cellBackGroundImageView;
+@property (nonatomic, retain)TCImageView *iconImageView;
 @property (nonatomic, retain)UILabel *locationNameLabel;
 @property (nonatomic, retain)UIImageView *videoImageView;
 @property (nonatomic, retain)UILabel *timeLabel;

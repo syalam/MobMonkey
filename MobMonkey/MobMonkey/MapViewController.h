@@ -17,6 +17,9 @@
     UIActionSheet *radiusActionSheet;
     UIPickerView *radiusPicker;
     
+    UIImageView *notificationsImageView;
+    UILabel *notificationsCountLabel;
+    
     NSMutableArray *radiusPickerItemsArray;
     NSUserDefaults* prefs;
     FactualAPIRequest* _activeRequest;

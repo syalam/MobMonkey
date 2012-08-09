@@ -8,6 +8,8 @@
 
 #import "SettingsViewController.h"
 #import "SignUpViewController.h"
+#import "HomeViewController.h"
+
 
 @interface SettingsViewController ()
 
@@ -174,6 +176,13 @@
 - (void)signOutButtonClicked:(id)sender {
     [PFUser logOut];
     [self setNavButtons];
+}
+
+- (void)notificationsButtonTapped:(id)sender {
+    NSArray *navViewControllers = [self.tabBarController viewControllers];
+    UINavigationController *homeNavC = [navViewControllers objectAtIndex:0];
+    HomeViewController *homeScreen = [homeNavC.viewControllers objectAtIndex:0];
+    [homeScreen notificationsButtonTapped:nil];
 }
 
 #pragma mark - Helper Methods

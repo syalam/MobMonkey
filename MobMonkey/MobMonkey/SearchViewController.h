@@ -16,6 +16,9 @@
     IBOutlet UITextField *categoryTextField;
     IBOutlet UITextField *nearTextField;
     
+    UIImageView *notificationsImageView;
+    UILabel *notificationsCountLabel;
+    
     UIBarButtonItem *filterButton;
     UIBarButtonItem *mapButton;
     UIBarButtonItem *cancelButton;

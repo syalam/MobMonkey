@@ -29,6 +29,7 @@
 @property (strong, nonatomic) UITabBarController *tabBarController;
 @property (nonatomic, readonly) FactualAPI* apiObject;
 @property (nonatomic, readonly) CLLocation* currentLocation;
+@property (nonatomic, strong) UILabel *notificationsCountLabel;
 
 
 - (void) initializeLocationManager;

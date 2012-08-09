@@ -11,6 +11,7 @@
 #import "FilterViewController.h"
 #import "AppDelegate.h"
 #import "LocationViewController.h"
+#import "SignUpViewController.h"
 
 @interface SearchViewController ()
 
@@ -38,10 +39,22 @@
 
     [self.tableView setTableHeaderView:headerView];
     
-    filterButton = [[UIBarButtonItem alloc]initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(filterButtonClicked:)];
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
+    
+    UIButton *filterNavBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [filterNavBarButton setFrame:CGRectMake(0, 0, 52, 30)];
+    [filterNavBarButton setBackgroundImage:[UIImage imageNamed:@"FilterBtn~iphone"] forState:UIControlStateNormal];
+    [filterNavBarButton addTarget:self action:@selector(filterButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    filterButton = [[UIBarButtonItem alloc]initWithCustomView:filterNavBarButton];
     self.navigationItem.leftBarButtonItem = filterButton;
     
-    mapButton = [[UIBarButtonItem alloc]initWithTitle:@"Map" style:UIBarButtonItemStylePlain target:self action:@selector(mapButtonClicked:)];
+    UIButton *mapNavBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [mapNavBarButton setFrame:CGRectMake(0, 0, 33, 30)];
+    [mapNavBarButton setBackgroundImage:[UIImage imageNamed:@"GlobeBtn~iphone"] forState:UIControlStateNormal];
+    [mapNavBarButton addTarget:self action:@selector(mapButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    mapButton = [[UIBarButtonItem alloc]initWithCustomView:mapNavBarButton];
     self.navigationItem.rightBarButtonItem = mapButton;
     
     cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonClicked:)];
@@ -61,6 +74,32 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    //add nav bar view and button
+    UIView *navBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
+    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(37, 9.5, 127, 25)];
+    notificationsImageView = [[UIImageView alloc]initWithFrame:CGRectMake(titleImageView.frame.origin.x + titleImageView.frame.size.width + 5, 9.5, 18, 18)];
+    notificationsCountLabel = [(AppDelegate *)[[UIApplication sharedApplication] delegate] notificationsCountLabel];
+    notificationsCountLabel.frame = notificationsImageView.frame;
+    
+    notificationsImageView.image = [UIImage imageNamed:@"Notifications~iphone"];
+    
+    titleImageView.image = [UIImage imageNamed:@"logo~iphone"];
+    titleImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    UIButton *mmNavButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [mmNavButton setFrame:titleImageView.frame];
+    [mmNavButton addTarget:self action:@selector(notificationsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [navBarView addSubview:titleImageView];
+    [navBarView addSubview:notificationsImageView];
+    [navBarView addSubview:notificationsCountLabel];
+    [navBarView addSubview:mmNavButton];
+    
+    self.navigationItem.titleView = navBarView;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -90,16 +129,19 @@
     if (cell == nil)
     {
         cell = [[SearchCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.delegate = self;
     }
     
     if (_queryResult != nil) {
         FactualRow* row = [_queryResult.rows objectAtIndex:indexPath.row];
-        cell.iconImageView.image = [UIImage imageNamed:@"monkey.jpg"];
         cell.locationNameLabel.text = [row valueForName:@"name"];
-        //cell.timeLabel.text = @"10m ago";
+        
+        cell.requestButton.tag = indexPath.row;
         
         //cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    
+    cell.selectionStyle = UITableViewCellAccessoryNone;
     
     return cell;
 }
@@ -147,13 +189,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    LocationViewController* lvc = [[LocationViewController alloc] initWithNibName:@"LocationViewController" bundle:nil];
+    /*LocationViewController* lvc = [[LocationViewController alloc] initWithNibName:@"LocationViewController" bundle:nil];
     lvc.venueData = [_queryResult.rows objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:lvc animated:YES];
+    [self.navigationController pushViewController:lvc animated:YES];*/
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 70;
+    return 98;
 }
 
 #pragma mark - Bar Button Action Methods
@@ -171,6 +213,12 @@
 }
 
 - (void)cancelButtonClicked:(id)sender {
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    [UIView setAnimationDuration: 0.2];
+    [UIView setAnimationDelegate: self];
+
     self.navigationItem.leftBarButtonItem = filterButton;
     self.navigationItem.rightBarButtonItem = mapButton;
     [categoryTextField resignFirstResponder];
@@ -178,28 +226,53 @@
     [headerView setFrame:CGRectMake(0, 0, 320, 44)];
     [self.tableView setTableHeaderView:headerView];
     
+    [UIView commitAnimations];
+}
+
+- (void)notificationsButtonTapped:(id)sender {
+    NSArray *navViewControllers = [self.tabBarController viewControllers];
+    UINavigationController *homeNavC = [navViewControllers objectAtIndex:0];
+    HomeViewController *homeScreen = [homeNavC.viewControllers objectAtIndex:0];
+    [homeScreen notificationsButtonTapped:nil];
 }
 
 #pragma mark - Search Cell Delegate Methods
 - (void)requestButtonClicked:(id)sender {
-    
+    LocationViewController* lvc = [[LocationViewController alloc] initWithNibName:@"LocationViewController" bundle:nil];
+    lvc.venueData = [_queryResult.rows objectAtIndex:[sender tag]];
+    [self.navigationController pushViewController:lvc animated:YES];
 }
 
 #pragma mark - UITextField Delegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    self.navigationItem.rightBarButtonItem = cancelButton;
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    [UIView setAnimationDuration: 0.2];
+    [UIView setAnimationDelegate: self];
     self.navigationItem.leftBarButtonItem = nil;
     [headerView setFrame:CGRectMake(0, 0, 320, 84)];
     [self.tableView setTableHeaderView:headerView];
+    [UIView commitAnimations];
+    
+    self.navigationItem.rightBarButtonItem = cancelButton;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    [UIView setAnimationDuration: 0.2];
+    [UIView setAnimationDelegate: self];
+    
     self.navigationItem.leftBarButtonItem = filterButton;
     self.navigationItem.rightBarButtonItem = mapButton;
     [categoryTextField resignFirstResponder];
     [nearTextField resignFirstResponder];
     [headerView setFrame:CGRectMake(0, 0, 320, 44)];
     [self.tableView setTableHeaderView:headerView];
+    
+    [UIView commitAnimations];
     
     return YES;
 }

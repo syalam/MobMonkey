@@ -20,18 +20,40 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        _iconImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 34, 34)];
+        _cellBackGroundImageView = [[UIImageView alloc]initWithFrame:CGRectMake(3, 5, 313, 96)];
+        _iconImageView = [[TCImageView alloc]initWithFrame:CGRectMake(13, 16.5, 67, 67)];
         _iconImageView.clipsToBounds = YES;
         _iconImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _locationNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(55, 10, 150, 20)];
-        _videoImageView = [[UIImageView alloc]initWithFrame:CGRectMake(55, 35, 15, 20)];
-        _timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(75, 35, 100, 20)];
+        _locationNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(88, 17, 175, 20)];
+        _videoImageView = [[UIImageView alloc]initWithFrame:CGRectMake(52, 35, 15, 20)];
+        _timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(109, 39, 100, 20)];
         _timeLabel.font = [UIFont systemFontOfSize:12];
-        _requestButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [_requestButton setFrame:CGRectMake(220, 15, 70, 35)];
-        [_requestButton setTitle:@"Request" forState:UIControlStateNormal];
+        _requestButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_requestButton setFrame:CGRectMake(275, 35, 28, 28)];
+        [_requestButton setImage:[UIImage imageNamed:@"ResultArrow~iphone"] forState:UIControlStateNormal];
         [_requestButton addTarget:self action:@selector(requestButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        _iconImageView.contentMode = UIViewContentModeScaleAspectFill;
+        
+        _locationNameLabel.backgroundColor = [UIColor clearColor];
+        _timeLabel.backgroundColor = [UIColor clearColor];
+        
+        [_locationNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]];
+        [_timeLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:13]];
+        
+        
+        [_locationNameLabel setTextColor:[UIColor colorWithRed:.8941 green:.4509 blue:.1725 alpha:1]];
+        [_timeLabel setTextColor:[UIColor whiteColor]];
+        
+        _timeLabel.text = @"10m Ago";
+
+        
+        _cellBackGroundImageView.image = [UIImage imageNamed:@"SearchResultPlusTimePlusIcons~iphone"];
+        _iconImageView.image = [UIImage imageNamed:@"PlaceHolderImg~iphone"];
+        
+        
     }
+    [self.contentView addSubview:_cellBackGroundImageView];
     [self.contentView addSubview:_iconImageView];
     [self.contentView addSubview:_locationNameLabel];
     [self.contentView addSubview:_videoImageView];

@@ -29,6 +29,14 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
+    
+    _notificationsCountLabel = [[UILabel alloc]init];
+    [_notificationsCountLabel setTextColor:[UIColor whiteColor]];
+    [_notificationsCountLabel setBackgroundColor:[UIColor clearColor]];
+    [_notificationsCountLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:11]];
+    [_notificationsCountLabel setTextAlignment:UITextAlignmentCenter];
+
+    
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
      UIRemoteNotificationTypeAlert|
      UIRemoteNotificationTypeSound];

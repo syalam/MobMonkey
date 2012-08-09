@@ -45,16 +45,25 @@
 {
     [super viewDidLoad];
     
+
+    //set background color
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
+    
+    //call query to grab nearby locations
+    [self doQuery:nil];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
     //add nav bar view and button
     UIView *navBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
     UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(96.5, 9.5, 127, 25)];
     notificationsImageView = [[UIImageView alloc]initWithFrame:CGRectMake(titleImageView.frame.origin.x + titleImageView.frame.size.width + 5, 9.5, 18, 18)];
-    notificationsCountLabel = [[UILabel alloc]initWithFrame:notificationsImageView.frame];
-    
-    [notificationsCountLabel setTextColor:[UIColor whiteColor]];
-    [notificationsCountLabel setBackgroundColor:[UIColor clearColor]];
-    [notificationsCountLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:11]];
-    [notificationsCountLabel setTextAlignment:UITextAlignmentCenter];
+    //get the notification label instance from app delegate. We will be using this since this value will be updated on all screens
+    notificationsCountLabel = [(AppDelegate *)[[UIApplication sharedApplication] delegate] notificationsCountLabel];
+    notificationsCountLabel.frame = notificationsImageView.frame;
     
     notificationsImageView.image = [UIImage imageNamed:@"Notifications~iphone"];
     
@@ -67,23 +76,12 @@
     
     [navBarView addSubview:titleImageView];
     [navBarView addSubview:notificationsImageView];
-    [navBarView addSubview:notificationsCountLabel];
     [navBarView addSubview:mmNavButton];
+    [navBarView addSubview:notificationsCountLabel];
     
     self.navigationItem.titleView = navBarView;
-    
-    //set background color
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
-    
-    //call query to grab nearby locations
-    [self doQuery:nil];
-    
-}
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [self setNavButtons];
+    NSLog(@"%@", self.title);
 }
 
 - (void)viewDidUnload
@@ -292,16 +290,25 @@
 }
 
 - (void)notificationsButtonTapped:(id)sender {
-    if ([PFUser currentUser]) {
-        UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:notificationScreen];
-        [notificationScreen separateSections];
-        [self.navigationController presentViewController:navc animated:YES completion:NULL];
+    if ([self.title isEqualToString:@"Home"]) {
+        if ([PFUser currentUser]) {
+            UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:notificationScreen];
+            [notificationScreen separateSections];
+            [self.navigationController presentViewController:navc animated:YES completion:NULL];
+        }
+        else {
+            SignUpViewController *signUpVc = [[SignUpViewController alloc]initWithNibName:@"SignUpViewController" bundle:nil];
+            UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:signUpVc];
+            [self.navigationController presentViewController:navC animated:YES completion:NULL];
+        }
     }
     else {
-        SignUpViewController *signUpVc = [[SignUpViewController alloc]initWithNibName:@"SignUpViewController" bundle:nil];
-        UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:signUpVc];
-        [self.navigationController presentViewController:navC animated:YES completion:NULL];
+        NSArray *navViewControllers = [self.tabBarController viewControllers];
+        UINavigationController *homeNavC = [navViewControllers objectAtIndex:0];
+        HomeViewController *homeScreen = [homeNavC.viewControllers objectAtIndex:0];
+        [homeScreen notificationsButtonTapped:nil];
     }
+    
 }
 
 - (void)signOutButtonClicked:(id)sender {
