@@ -119,6 +119,13 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 
+- (void)notificationsButtonTapped:(id)sender {
+    NSArray *navViewControllers = [self.tabBarController viewControllers];
+    UINavigationController *homeNavC = [navViewControllers objectAtIndex:0];
+    HomeViewController *homeScreen = [homeNavC.viewControllers objectAtIndex:0];
+    [homeScreen notificationsButtonTapped:nil];
+}
+
 #pragma mark - IBAction Methods
 - (IBAction)radiusButtonClicked:(id)sender {
     radiusActionSheet = [[UIActionSheet alloc] init];
