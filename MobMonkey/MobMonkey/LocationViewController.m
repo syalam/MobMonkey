@@ -223,31 +223,6 @@ NSString* const kFactualId = @"factual_id";
                 [alert show];
             }
         }
-        
-        /*switch (buttonIndex) {
-            case 0:
-                if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-                    picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
-                    [self presentViewController:picker animated:YES completion:nil];
-                }
-                else {
-                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Unable to take a picture using this device" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                    [alert show];
-                }
-                break;
-            case 1:
-                if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-                    picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
-                    [self presentViewController:picker animated:YES completion:nil];
-                }
-                else {
-                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Unable to take a video using this device" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                    [alert show];
-                }
-                break;
-            default:
-                break;
-        }*/
     }
     else if (currentActionSheetCall == kLoginSheet){
         switch (buttonIndex) {
@@ -274,6 +249,24 @@ NSString* const kFactualId = @"factual_id";
                 break;
             case 1:
                 [self makeRequest:@"video"];
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
+    else if (currentActionSheetCall == kPopupSheet) {
+        switch (buttonIndex) {
+            case 0: {
+                if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+                    
+                }
+                else {
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Facebook Sign In Required" message:@"You must sign in with a facebook account to use this feature" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Sign In", nil];
+                    [alert show];
+                }
+            }
                 break;
                 
             default:
@@ -640,6 +633,31 @@ NSString* const kFactualId = @"factual_id";
     }
     
     return nil;
+}
+
+#pragma mark - UIAlertView Delegate Methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        NSArray* permissions = [NSArray arrayWithObjects:@"publish_stream", @"user_questions", nil];
+        [PFFacebookUtils linkUser:[PFUser currentUser] permissions:permissions block:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"MobMonkey"
+                                                                    message:@"You have successfully linked your MobMonkey account to your Facebook acccount. You can now login to MobMonkey using the Sign in with Facebook option"
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil];
+                [alertView show];
+            }
+            else {
+                UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"MobMonkey"
+                                                                    message:@"This facebook account is associated with another user"
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil];
+                [alertView show];
+            }
+        }];
+    }
 }
 
 @end

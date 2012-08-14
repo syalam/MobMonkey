@@ -8,6 +8,7 @@
 
 #import "SignUpViewController.h"
 #import "LoginViewController.h"
+#import "SVProgressHUD.h"
 #import "AppDelegate.h"
 
 @interface SignUpViewController ()
@@ -221,17 +222,18 @@
 }
 
 - (IBAction)facebookButtonTapped:(id)sender {
+    [SVProgressHUD show];
     NSArray* permissions = [NSArray arrayWithObjects:@"publish_stream", @"user_questions", @"email", nil];
-    
     [PFFacebookUtils logInWithPermissions:permissions block:^(PFUser *user, NSError *error) {
         if (!user) {
             NSLog(@"Uh oh. The user cancelled the Facebook login.");
+            [SVProgressHUD dismiss];
         }
         else {
             NSLog(@"User logged in through Facebook!");
             [PFPush subscribeToChannelInBackground:[NSString stringWithFormat:@"%@%@", @"WYR", [[PFUser currentUser] objectId]]];
             NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                           @"email,name,picture,username",  @"fields",
+                                           @"email,name,username,first_name,last_name",  @"fields",
                                            nil];
             [[PFFacebookUtils facebook]requestWithGraphPath:@"me" andParams:params andDelegate:self];
         }
@@ -252,23 +254,31 @@
 
 - (void)request:(PF_FBRequest *)request didLoad:(id)result {
     //save the users username and email address to parse
-    NSLog(@"%@", result);
+    //NSLog(@"%@", result);
     PFUser *user = [PFUser currentUser];
     
     if ([result objectForKey:@"email"]) {
         user.username = [[result objectForKey:@"email"]lowercaseString];
+        [user setObject:[result objectForKey:@"email"] forKey:@"email"];
     }
-    if ([result objectForKey:@"firstname"]) {
-        [user setObject:[result objectForKey:@"firstname"] forKey:@"firstName"];
+    if ([result objectForKey:@"first_name"]) {
+        [user setObject:[result objectForKey:@"first_name"] forKey:@"firstName"];
+    }
+    if ([result objectForKey:@"last_name"]) {
+        [user setObject:[result objectForKey:@"last_name"] forKey:@"lastName"];
     }
     if ([result objectForKey:@"id"]) {
         [user setObject:[result objectForKey:@"id"] forKey:@"fbId"];
     }
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
+            HomeViewController *homeVC = [(AppDelegate *)[[UIApplication sharedApplication] delegate] homeViewController];
+            [homeVC checkForNotifications];
+            [SVProgressHUD dismiss];
             [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
         }
         else {
+            [SVProgressHUD dismiss];
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Unable to login at this time. Please try again later" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
         }
@@ -279,6 +289,7 @@
 
 - (void)request:(PF_FBRequest *)request didFailWithError:(NSError *)error {
     NSLog(@"%@", error);
+    [SVProgressHUD dismiss];
 }
 
 @end

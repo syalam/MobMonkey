@@ -75,9 +75,9 @@
        
     [self initializeLocationManager];
 
-    homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
-    UINavigationController* homeNavController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
-    homeViewController.title = @"Trending";
+    _homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+    UINavigationController* homeNavController = [[UINavigationController alloc] initWithRootViewController:_homeViewController];
+    _homeViewController.title = @"Trending";
     
     UIViewController *searchViewController = [[SearchViewController alloc] initWithNibName:@"SearchViewController" bundle:nil];
     UINavigationController* searchNavController = [[UINavigationController alloc] initWithRootViewController:searchViewController];
@@ -133,7 +133,7 @@
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     if ([PFUser currentUser]) {
-        [homeViewController checkForNotifications];
+        [_homeViewController checkForNotifications];
     }
     state = [application applicationState];
     
@@ -155,7 +155,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
 didReceiveRemoteNotification:(NSDictionary *)userInfo {
     //[PFPush handlePush:userInfo];
     if ([PFUser currentUser]) {
-        [homeViewController checkForNotifications];
+        [_homeViewController checkForNotifications];
     }
 }
 
@@ -189,7 +189,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
         [[PFUser currentUser]saveEventually];
         
         if (state == UIApplicationStateActive) {
-            [homeViewController doQuery:nil];
+            [_homeViewController doQuery:nil];
         }
     }
 }

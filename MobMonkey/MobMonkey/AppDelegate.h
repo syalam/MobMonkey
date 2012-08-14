@@ -21,8 +21,6 @@
     CLLocationManager *_locationManager;
     CLLocation* _currentLocation;
     
-    HomeViewController *homeViewController;
-    
     UIApplicationState state;
 }
 
@@ -32,7 +30,7 @@
 @property (nonatomic, readonly) CLLocation* currentLocation;
 @property (nonatomic, strong) UILabel *notificationsCountLabel;
 @property (nonatomic, retain) RequestsViewController *requestsViewController;
-
+@property (nonatomic, retain) HomeViewController *homeViewController;
 
 - (void) initializeLocationManager;
 +(FactualAPI*) getAPIObject;
