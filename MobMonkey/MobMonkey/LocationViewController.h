@@ -41,11 +41,11 @@
 @property (strong, nonatomic) IBOutlet UIButton *bookmarkButton;
 @property (strong, nonatomic) IBOutlet UIButton *notificationsButton;
 @property (strong, nonatomic) IBOutlet UIButton *popupButton;
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) NSString* locationName;
 @property (nonatomic, retain) RequestsViewController *requestScreen;
 @property (nonatomic, retain) PFObject *requestObject;
 @property (nonatomic, retain) FactualRow* venueData;
-@property (nonatomic, retain) UITableView* tableView;
 @property (nonatomic, retain) NSMutableArray *contentList;
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 

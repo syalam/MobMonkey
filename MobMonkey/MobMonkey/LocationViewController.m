@@ -64,6 +64,8 @@ NSString* const kFactualId = @"factual_id";
     
     if (_requestScreen) {
         [requestButton setHidden:YES];
+        [_mapView setHidden:YES];
+        [_tableView setHidden:YES];
     }
 
     _contentList = [[NSMutableArray alloc]init];
@@ -166,7 +168,7 @@ NSString* const kFactualId = @"factual_id";
     [navBarView addSubview:notificationsCountLabel];
     [navBarView addSubview:mmNavButton];
     
-    if ([notificationsCountLabel.text isEqualToString:@"0"]) {
+    if ([notificationsCountLabel.text isEqualToString:@"0"] || !notificationsCountLabel.text) {
         [notificationsCountLabel setHidden:YES];
         [notificationsImageView setHidden:YES];
     }
