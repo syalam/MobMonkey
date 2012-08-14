@@ -60,7 +60,7 @@
     //add nav bar view and button
     UIView *navBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
     UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(96.5, 9.5, 127, 25)];
-    notificationsImageView = [[UIImageView alloc]initWithFrame:CGRectMake(titleImageView.frame.origin.x + titleImageView.frame.size.width + 5, 9.5, 18, 18)];
+    notificationsImageView = [[UIImageView alloc]initWithFrame:CGRectMake(titleImageView.frame.origin.x + titleImageView.frame.size.width, 9.5, 18, 18)];
     //get the notification label instance from app delegate. We will be using this since this value will be updated on all screens
     notificationsCountLabel = [(AppDelegate *)[[UIApplication sharedApplication] delegate] notificationsCountLabel];
     notificationsCountLabel.frame = notificationsImageView.frame;
@@ -80,6 +80,11 @@
     [navBarView addSubview:notificationsCountLabel];
     
     self.navigationItem.titleView = navBarView;
+    
+    if (!notificationsCountLabel.text || [notificationsCountLabel.text isEqualToString:@"0"]) {
+        [notificationsCountLabel setHidden:YES];
+        [notificationsImageView setHidden:YES];
+    }
 
     NSLog(@"%@", self.title);
 }
@@ -227,12 +232,21 @@
             
             notificationsCountLabel.text = [NSString stringWithFormat:@"%d", _pendingRequestsArray.count];
             
+            if (_pendingRequestsArray.count < 1) {
+                [notificationsImageView setHidden:YES];
+                [notificationsCountLabel setHidden:YES];
+            }
+            else {
+                [notificationsCountLabel setHidden:NO];
+                [notificationsImageView setHidden:NO];
+            }
+            
             notificationScreen.requestQueryItems = _pendingRequestsArray;
             PFGeoPoint *currentLocation = [PFGeoPoint geoPointWithLatitude:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]floatValue] longitude:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]floatValue]];
             NSLog(@"%f, %f", currentLocation.latitude, currentLocation.longitude);
             PFQuery *getRequests = [PFQuery queryWithClassName:@"requests"];
             [getRequests whereKey:@"locationCoordinates" nearGeoPoint:currentLocation withinMiles:25000];
-            [getRequests whereKey:@"updatedAt" greaterThan:[NSDate dateWithTimeIntervalSinceNow:-43200]];
+            [getRequests whereKey:@"updatedAt" greaterThan:[NSDate dateWithTimeIntervalSinceNow:-7200]];
             [getRequests whereKey:@"requestor" notEqualTo:[PFUser currentUser]];
             [getRequests orderByDescending:@"updatedAt"];
             [getRequests findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -290,25 +304,26 @@
 }
 
 - (void)notificationsButtonTapped:(id)sender {
-    if ([self.title isEqualToString:@"Home"]) {
-        if ([PFUser currentUser]) {
-            UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:notificationScreen];
-            [notificationScreen separateSections];
-            [self.navigationController presentViewController:navc animated:YES completion:NULL];
+    if (![notificationsCountLabel.text isEqualToString:@"0"]) {
+        if ([self.title isEqualToString:@"Home"]) {
+            if ([PFUser currentUser]) {
+                UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:notificationScreen];
+                [notificationScreen separateSections];
+                [self.navigationController presentViewController:navc animated:YES completion:NULL];
+            }
+            else {
+                SignUpViewController *signUpVc = [[SignUpViewController alloc]initWithNibName:@"SignUpViewController" bundle:nil];
+                UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:signUpVc];
+                [self.navigationController presentViewController:navC animated:YES completion:NULL];
+            }
         }
         else {
-            SignUpViewController *signUpVc = [[SignUpViewController alloc]initWithNibName:@"SignUpViewController" bundle:nil];
-            UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:signUpVc];
-            [self.navigationController presentViewController:navC animated:YES completion:NULL];
+            NSArray *navViewControllers = [self.tabBarController viewControllers];
+            UINavigationController *homeNavC = [navViewControllers objectAtIndex:0];
+            HomeViewController *homeScreen = [homeNavC.viewControllers objectAtIndex:0];
+            [homeScreen notificationsButtonTapped:nil];
         }
     }
-    else {
-        NSArray *navViewControllers = [self.tabBarController viewControllers];
-        UINavigationController *homeNavC = [navViewControllers objectAtIndex:0];
-        HomeViewController *homeScreen = [homeNavC.viewControllers objectAtIndex:0];
-        [homeScreen notificationsButtonTapped:nil];
-    }
-    
 }
 
 - (void)signOutButtonClicked:(id)sender {

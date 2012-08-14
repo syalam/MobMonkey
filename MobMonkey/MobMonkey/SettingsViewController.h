@@ -11,6 +11,8 @@
 
 @interface SettingsViewController : UITableViewController {
     NSMutableDictionary *selectionDictionary;
+    UIImageView *notificationsImageView;
+    UILabel *notificationsCountLabel;
 }
 
 @property (nonatomic, retain)NSMutableArray *contentList;

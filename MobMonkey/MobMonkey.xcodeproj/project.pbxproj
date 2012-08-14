@@ -1381,8 +1381,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: TAPPFORCE LLC";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: TAPPFORCE LLC";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Reyaad Sidique (BLBMN68477)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Reyaad Sidique (BLBMN68477)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1399,8 +1399,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "-all_load";
 				"OTHER_LDFLAGS[arch=*]" = "-all_load";
-				PROVISIONING_PROFILE = "88CC78A3-3C90-4A03-962B-AEEF3B7E9EEF";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "88CC78A3-3C90-4A03-962B-AEEF3B7E9EEF";
+				PROVISIONING_PROFILE = "741896E6-F092-4B50-86C9-E5A9435E5CBB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "741896E6-F092-4B50-86C9-E5A9435E5CBB";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1411,8 +1411,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: TAPPFORCE LLC";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: TAPPFORCE LLC";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Reyaad Sidique (BLBMN68477)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Reyaad Sidique (BLBMN68477)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1423,8 +1423,8 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-all_load";
 				"OTHER_LDFLAGS[arch=*]" = "-all_load";
-				PROVISIONING_PROFILE = "88CC78A3-3C90-4A03-962B-AEEF3B7E9EEF";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "88CC78A3-3C90-4A03-962B-AEEF3B7E9EEF";
+				PROVISIONING_PROFILE = "741896E6-F092-4B50-86C9-E5A9435E5CBB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "741896E6-F092-4B50-86C9-E5A9435E5CBB";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1433,8 +1433,8 @@
 		8C5C459E1596762E00E3710B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: TAPPFORCE LLC";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: TAPPFORCE LLC";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Reyaad Sidique (BLBMN68477)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Reyaad Sidique (BLBMN68477)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1447,8 +1447,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "88CC78A3-3C90-4A03-962B-AEEF3B7E9EEF";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "88CC78A3-3C90-4A03-962B-AEEF3B7E9EEF";
+				PROVISIONING_PROFILE = "741896E6-F092-4B50-86C9-E5A9435E5CBB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "741896E6-F092-4B50-86C9-E5A9435E5CBB";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1456,8 +1456,8 @@
 		8C5C459F1596762E00E3710B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: TAPPFORCE LLC";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: TAPPFORCE LLC";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Reyaad Sidique (BLBMN68477)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Reyaad Sidique (BLBMN68477)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1470,8 +1470,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "88CC78A3-3C90-4A03-962B-AEEF3B7E9EEF";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "88CC78A3-3C90-4A03-962B-AEEF3B7E9EEF";
+				PROVISIONING_PROFILE = "741896E6-F092-4B50-86C9-E5A9435E5CBB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "741896E6-F092-4B50-86C9-E5A9435E5CBB";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -81,7 +81,7 @@
     //add nav bar view and button
     UIView *navBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
     UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(37, 9.5, 127, 25)];
-    notificationsImageView = [[UIImageView alloc]initWithFrame:CGRectMake(titleImageView.frame.origin.x + titleImageView.frame.size.width + 5, 9.5, 18, 18)];
+    notificationsImageView = [[UIImageView alloc]initWithFrame:CGRectMake(titleImageView.frame.origin.x + titleImageView.frame.size.width, 9.5, 18, 18)];
     notificationsCountLabel = [(AppDelegate *)[[UIApplication sharedApplication] delegate] notificationsCountLabel];
     notificationsCountLabel.frame = notificationsImageView.frame;
     
@@ -100,6 +100,12 @@
     [navBarView addSubview:mmNavButton];
     
     self.navigationItem.titleView = navBarView;
+    
+    if ([notificationsCountLabel.text isEqualToString:@"0"]) {
+        [notificationsCountLabel setHidden:YES];
+        [notificationsImageView setHidden:YES];
+    }
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

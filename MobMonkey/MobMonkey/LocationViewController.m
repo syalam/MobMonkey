@@ -137,7 +137,7 @@ NSString* const kFactualId = @"factual_id";
     //add nav bar view and button
     UIView *navBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
     UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(45, 9.5, 127, 25)];
-    notificationsImageView = [[UIImageView alloc]initWithFrame:CGRectMake(titleImageView.frame.origin.x + titleImageView.frame.size.width + 5, 9.5, 18, 18)];
+    notificationsImageView = [[UIImageView alloc]initWithFrame:CGRectMake(titleImageView.frame.origin.x + titleImageView.frame.size.width, 9.5, 18, 18)];
     notificationsCountLabel = [(AppDelegate *)[[UIApplication sharedApplication] delegate] notificationsCountLabel];
     notificationsCountLabel.frame = notificationsImageView.frame;
     
@@ -154,6 +154,11 @@ NSString* const kFactualId = @"factual_id";
     [navBarView addSubview:notificationsImageView];
     [navBarView addSubview:notificationsCountLabel];
     [navBarView addSubview:mmNavButton];
+    
+    if ([notificationsCountLabel.text isEqualToString:@"0"]) {
+        [notificationsCountLabel setHidden:YES];
+        [notificationsImageView setHidden:YES];
+    }
     
     self.navigationItem.titleView = navBarView;
 }
@@ -456,10 +461,6 @@ NSString* const kFactualId = @"factual_id";
     UINavigationController *homeNavC = [navViewControllers objectAtIndex:0];
     HomeViewController *homeScreen = [homeNavC.viewControllers objectAtIndex:0];
     [homeScreen notificationsButtonTapped:nil];
-    
-    /*NotificationsViewController *notificationsVc = [[NotificationsViewController alloc]initWithNibName:@"NotificationsViewController" bundle:nil];
-    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:notificationsVc];
-    [self.navigationController presentViewController:navC animated:YES completion:NULL];*/
 }
 
 
