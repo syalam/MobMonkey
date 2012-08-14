@@ -136,6 +136,12 @@
 		F77681E015D33DFE0002BA14 /* Divider@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F77681DB15D33DFE0002BA14 /* Divider@2x~iphone.png */; };
 		F77681E115D33DFE0002BA14 /* Divider~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F77681DC15D33DFE0002BA14 /* Divider~iphone.png */; };
 		F77681E215D33DFE0002BA14 /* Settings.png in Resources */ = {isa = PBXBuildFile; fileRef = F77681DD15D33DFE0002BA14 /* Settings.png */; };
+		F77705D715DA334100BE4A78 /* SettingsCellBottom@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F77705D115DA334100BE4A78 /* SettingsCellBottom@2x~iphone.png */; };
+		F77705D815DA334100BE4A78 /* SettingsCellBottom~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F77705D215DA334100BE4A78 /* SettingsCellBottom~iphone.png */; };
+		F77705D915DA334100BE4A78 /* SettingsCellMiddle@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F77705D315DA334100BE4A78 /* SettingsCellMiddle@2x~iphone.png */; };
+		F77705DA15DA334100BE4A78 /* SettingsCellMiddle~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F77705D415DA334100BE4A78 /* SettingsCellMiddle~iphone.png */; };
+		F77705DB15DA334100BE4A78 /* SettingsCellTop@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F77705D515DA334100BE4A78 /* SettingsCellTop@2x~iphone.png */; };
+		F77705DC15DA334100BE4A78 /* SettingsCellTop~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F77705D615DA334100BE4A78 /* SettingsCellTop~iphone.png */; };
 		F78F6BEB15D06D2B006EFF27 /* Background@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC215D06D2B006EFF27 /* Background@2x~iphone.png */; };
 		F78F6BEC15D06D2B006EFF27 /* Background~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC315D06D2B006EFF27 /* Background~iphone.png */; };
 		F78F6BED15D06D2B006EFF27 /* BookmarksIcn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC415D06D2B006EFF27 /* BookmarksIcn@2x~iphone.png */; };
@@ -375,6 +381,12 @@
 		F77681DB15D33DFE0002BA14 /* Divider@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Divider@2x~iphone.png"; sourceTree = "<group>"; };
 		F77681DC15D33DFE0002BA14 /* Divider~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Divider~iphone.png"; sourceTree = "<group>"; };
 		F77681DD15D33DFE0002BA14 /* Settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Settings.png; sourceTree = "<group>"; };
+		F77705D115DA334100BE4A78 /* SettingsCellBottom@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsCellBottom@2x~iphone.png"; sourceTree = "<group>"; };
+		F77705D215DA334100BE4A78 /* SettingsCellBottom~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsCellBottom~iphone.png"; sourceTree = "<group>"; };
+		F77705D315DA334100BE4A78 /* SettingsCellMiddle@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsCellMiddle@2x~iphone.png"; sourceTree = "<group>"; };
+		F77705D415DA334100BE4A78 /* SettingsCellMiddle~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsCellMiddle~iphone.png"; sourceTree = "<group>"; };
+		F77705D515DA334100BE4A78 /* SettingsCellTop@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsCellTop@2x~iphone.png"; sourceTree = "<group>"; };
+		F77705D615DA334100BE4A78 /* SettingsCellTop~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsCellTop~iphone.png"; sourceTree = "<group>"; };
 		F78F6BC215D06D2B006EFF27 /* Background@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background@2x~iphone.png"; sourceTree = "<group>"; };
 		F78F6BC315D06D2B006EFF27 /* Background~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background~iphone.png"; sourceTree = "<group>"; };
 		F78F6BC415D06D2B006EFF27 /* BookmarksIcn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BookmarksIcn@2x~iphone.png"; sourceTree = "<group>"; };
@@ -835,6 +847,12 @@
 		F77681D815D33DFB0002BA14 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				F77705D115DA334100BE4A78 /* SettingsCellBottom@2x~iphone.png */,
+				F77705D215DA334100BE4A78 /* SettingsCellBottom~iphone.png */,
+				F77705D315DA334100BE4A78 /* SettingsCellMiddle@2x~iphone.png */,
+				F77705D415DA334100BE4A78 /* SettingsCellMiddle~iphone.png */,
+				F77705D515DA334100BE4A78 /* SettingsCellTop@2x~iphone.png */,
+				F77705D615DA334100BE4A78 /* SettingsCellTop~iphone.png */,
 				F77681D915D33DFE0002BA14 /* Check@2x~iphone.png */,
 				F77681DA15D33DFE0002BA14 /* Check~iphone.png */,
 				F77681DB15D33DFE0002BA14 /* Divider@2x~iphone.png */,
@@ -1300,6 +1318,12 @@
 				F77681E015D33DFE0002BA14 /* Divider@2x~iphone.png in Resources */,
 				F77681E115D33DFE0002BA14 /* Divider~iphone.png in Resources */,
 				F77681E215D33DFE0002BA14 /* Settings.png in Resources */,
+				F77705D715DA334100BE4A78 /* SettingsCellBottom@2x~iphone.png in Resources */,
+				F77705D815DA334100BE4A78 /* SettingsCellBottom~iphone.png in Resources */,
+				F77705D915DA334100BE4A78 /* SettingsCellMiddle@2x~iphone.png in Resources */,
+				F77705DA15DA334100BE4A78 /* SettingsCellMiddle~iphone.png in Resources */,
+				F77705DB15DA334100BE4A78 /* SettingsCellTop@2x~iphone.png in Resources */,
+				F77705DC15DA334100BE4A78 /* SettingsCellTop~iphone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
