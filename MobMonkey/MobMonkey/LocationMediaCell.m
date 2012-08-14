@@ -15,10 +15,11 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        _cellImageView = [[TCImageView alloc]initWithFrame:CGRectMake(85, 5, 150, 150)];
+        _cellImageView = [[TCImageView alloc]initWithFrame:CGRectMake(5, 5, 310, 400)];
         
         [_cellImageView setContentMode:UIViewContentModeScaleAspectFill];
         [_cellImageView setClipsToBounds:YES];
+        [_cellImageView setCaching:YES];
         
         [self.contentView addSubview:_cellImageView];
     }

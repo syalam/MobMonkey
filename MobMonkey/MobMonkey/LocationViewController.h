@@ -22,6 +22,7 @@
     UIImageView *notificationsImageView;
     UILabel *notificationsCountLabel;
     
+    IBOutlet UILabel *timeLabel;
     IBOutlet UILabel *photoCountLabel;
     IBOutlet UILabel *videoCountLabel;
     IBOutlet TCImageView *locationImageView;

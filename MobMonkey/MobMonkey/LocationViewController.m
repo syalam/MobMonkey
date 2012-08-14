@@ -13,6 +13,7 @@
 #import "SVProgressHUD.h"
 #import "AppDelegate.h"
 #import "HomeViewController.h"
+#import "GetRelativeTime.h"
 
 //ActionSheet Constants
 NSUInteger const kCameraSheet = 0;
@@ -112,7 +113,7 @@ NSString* const kFactualId = @"factual_id";
     [_mapView setRegion:region animated:YES];
     
     //show latest picture available for this location
-    [self getLatestPictureForThisLocation];
+    [self getLatestMediaForThisLocation];
     
     //get media counts
     [self getMediaCount:@"photo"];
@@ -535,7 +536,7 @@ NSString* const kFactualId = @"factual_id";
     }];
 }
 
-- (void)getLatestPictureForThisLocation {
+- (void)getLatestMediaForThisLocation {
     PFQuery *queryForItems = [PFQuery queryWithClassName:@"locationImages"];
     [queryForItems whereKey:@"factualId" equalTo:[venueData valueForName:kFactualId]];
     [queryForItems orderByAscending:@"updatedAt"];
@@ -556,8 +557,8 @@ NSString* const kFactualId = @"factual_id";
                     CMTime time = CMTimeMake(0, 60);
                     CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
                     locationImageView.image =  [UIImage imageWithCGImage:imgRef];
-                    
                 }
+                timeLabel.text = [[GetRelativeTime alloc]getRelativeTime:locationItemObject.createdAt];
             }
         }
     }];
