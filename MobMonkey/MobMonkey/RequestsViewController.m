@@ -10,6 +10,7 @@
 #import "LocationViewController.h"
 #import "HomeViewController.h"
 #import "ImageDetailViewController.h"
+#import "SignUpViewController.h"
 
 #define FONT_SIZE 13.0f
 #define CELL_CONTENT_WIDTH 180.0f
@@ -35,12 +36,12 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Requests";
-    
     indexPathArray = [[NSMutableArray alloc]init];
 
-    UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonTapped:)];
-    self.navigationItem.rightBarButtonItem = doneBarButton;
+    if (_fromHome) {
+        UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonTapped:)];
+        self.navigationItem.rightBarButtonItem = doneBarButton;
+    }
     
     
     // Uncomment the following line to preserve selection between presentations.
@@ -52,7 +53,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    //[self separateSections];
+    if (![PFUser currentUser]) {
+        SignUpViewController *signUpVc = [[SignUpViewController alloc]initWithNibName:@"SignUpViewController" bundle:nil];
+        UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:signUpVc];
+        [self.navigationController presentViewController:navC animated:YES completion:NULL];
+    }
+    else {
+        [self separateSections];
+    }
 }
 
 - (void)viewDidUnload

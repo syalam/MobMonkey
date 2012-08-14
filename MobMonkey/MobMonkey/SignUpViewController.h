@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
-@interface SignUpViewController : UITableViewController {
+@interface SignUpViewController : UITableViewController <PF_FBRequestDelegate> {
     IBOutlet UIButton *signUpButton;
     IBOutlet UIButton *signInButton;
+    IBOutlet UIButton *facebookButton;
     
     UITextField *firstNameTextField;
     UITextField *lastNameTextField;
@@ -21,6 +23,7 @@
 
 - (IBAction)signUpButtonClicked:(id)sender;
 - (IBAction)signInButtonClicked:(id)sender;
+- (IBAction)facebookButtonTapped:(id)sender;
 
 - (void)showAlertView:(NSString*)message;
 

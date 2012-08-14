@@ -84,11 +84,15 @@
     
     self.navigationItem.titleView = navBarView;
     
-    if ([notificationsCountLabel.text isEqualToString:@"0"]) {
+    if ([notificationsCountLabel.text isEqualToString:@"0"] || !notificationsCountLabel.text) {
         [notificationsCountLabel setHidden:YES];
         [notificationsImageView setHidden:YES];
     }
-
+    
+    if ([PFUser currentUser]) {
+        UIBarButtonItem *signOutButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign Out" style:UIBarButtonItemStyleBordered target:self action:@selector(signOutButtonClicked:)];
+        self.navigationItem.rightBarButtonItem = signOutButton;
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -207,8 +211,9 @@
 }
 
 - (void)signOutButtonClicked:(id)sender {
+    notificationsCountLabel.text = @"0";
     [PFUser logOut];
-    [self setNavButtons];
+    self.navigationItem.rightBarButtonItem = nil;
 }
 
 - (void)notificationsButtonTapped:(id)sender {

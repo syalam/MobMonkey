@@ -91,6 +91,8 @@
         [cell.cellImageView reloadWithUrl:[_contentList objectAtIndex:indexPath.row]];
     }
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
 }
 

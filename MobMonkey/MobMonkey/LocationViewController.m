@@ -360,6 +360,12 @@ NSString* const kFactualId = @"factual_id";
             }
             else {
                 [locationImage saveEventually];
+                if ([mediaType isEqualToString:@"photo"]) {
+                    [self performSelector:@selector(getMediaCount:) withObject:@"photo" afterDelay:2];
+                }
+                else {
+                    [self performSelector:@selector(getMediaCount:) withObject:@"video" afterDelay:2];
+                }
                 [SVProgressHUD dismissWithSuccess:@"Saved"];
                 [picker dismissModalViewControllerAnimated:YES];
             }

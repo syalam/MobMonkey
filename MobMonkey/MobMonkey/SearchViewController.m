@@ -101,7 +101,7 @@
     
     self.navigationItem.titleView = navBarView;
     
-    if ([notificationsCountLabel.text isEqualToString:@"0"]) {
+    if ([notificationsCountLabel.text isEqualToString:@"0"] || !notificationsCountLabel.text) {
         [notificationsCountLabel setHidden:YES];
         [notificationsImageView setHidden:YES];
     }

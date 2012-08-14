@@ -11,6 +11,7 @@
 #import <FactualSDK/FactualAPI.h>
 #import "HomeViewController.h"
 #import "SearchViewController.h"
+#import "RequestsViewController.h"
 #import "NearbyViewController.h"
 #import "BookmarksViewController.h"
 #import "SettingsViewController.h"
@@ -30,6 +31,7 @@
 @property (nonatomic, readonly) FactualAPI* apiObject;
 @property (nonatomic, readonly) CLLocation* currentLocation;
 @property (nonatomic, strong) UILabel *notificationsCountLabel;
+@property (nonatomic, retain) RequestsViewController *requestsViewController;
 
 
 - (void) initializeLocationManager;

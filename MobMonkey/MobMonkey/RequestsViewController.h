@@ -21,7 +21,7 @@
 
 @property (nonatomic, retain) NSMutableArray *contentList;
 @property (nonatomic, retain) NSMutableArray *requestQueryItems;
-
+@property (nonatomic)BOOL fromHome;
 
 - (void)responseComplete:(PFObject *)requestObject;
 - (void)separateSections;

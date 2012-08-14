@@ -9,7 +9,6 @@
 #import "SignUpViewController.h"
 #import "LoginViewController.h"
 #import "AppDelegate.h"
-#import <Parse/Parse.h>
 
 @interface SignUpViewController ()
 
@@ -221,10 +220,65 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 
+- (IBAction)facebookButtonTapped:(id)sender {
+    NSArray* permissions = [NSArray arrayWithObjects:@"publish_stream", @"user_questions", @"email", nil];
+    
+    [PFFacebookUtils logInWithPermissions:permissions block:^(PFUser *user, NSError *error) {
+        if (!user) {
+            NSLog(@"Uh oh. The user cancelled the Facebook login.");
+        }
+        else {
+            NSLog(@"User logged in through Facebook!");
+            [PFPush subscribeToChannelInBackground:[NSString stringWithFormat:@"%@%@", @"WYR", [[PFUser currentUser] objectId]]];
+            NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                           @"email,name,picture,username",  @"fields",
+                                           nil];
+            [[PFFacebookUtils facebook]requestWithGraphPath:@"me" andParams:params andDelegate:self];
+        }
+    }];
+
+}
+
 #pragma mark - Helper Methods
 - (void)showAlertView:(NSString*)message {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
+}
+
+#pragma mark - Facebook delegate Methods
+- (void)request:(PF_FBRequest *)request didReceiveResponse:(NSURLResponse *)response {
+    NSLog(@"received response");
+}
+
+- (void)request:(PF_FBRequest *)request didLoad:(id)result {
+    //save the users username and email address to parse
+    NSLog(@"%@", result);
+    PFUser *user = [PFUser currentUser];
+    
+    if ([result objectForKey:@"email"]) {
+        user.username = [[result objectForKey:@"email"]lowercaseString];
+    }
+    if ([result objectForKey:@"firstname"]) {
+        [user setObject:[result objectForKey:@"firstname"] forKey:@"firstName"];
+    }
+    if ([result objectForKey:@"id"]) {
+        [user setObject:[result objectForKey:@"id"] forKey:@"fbId"];
+    }
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+        }
+        else {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Unable to login at this time. Please try again later" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+    }];
+    
+    
+}
+
+- (void)request:(PF_FBRequest *)request didFailWithError:(NSError *)error {
+    NSLog(@"%@", error);
 }
 
 @end

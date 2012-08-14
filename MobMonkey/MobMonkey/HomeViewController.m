@@ -36,7 +36,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        notificationScreen = [[RequestsViewController alloc]initWithNibName:@"RequestsViewController" bundle:nil];
+
     }
     return self;
 }
@@ -48,6 +48,14 @@
 
     //set background color
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
+    
+    //notificationScreen = [(AppDelegate *)[[UIApplication sharedApplication] delegate] requestsViewController];
+    navViewControllers = [self.tabBarController viewControllers];
+    UINavigationController *requestsNavC = [navViewControllers objectAtIndex:2];
+    notificationScreen = [[RequestsViewController alloc]initWithNibName:@"RequestsViewController" bundle:nil];
+    tabBarNotificationScreenInstance = (RequestsViewController*)[requestsNavC.viewControllers objectAtIndex:0];
+    NSLog(@"%@", tabBarNotificationScreenInstance);
+    
     
     //call query to grab nearby locations
     [self doQuery:nil];
@@ -240,8 +248,9 @@
                 [notificationsCountLabel setHidden:NO];
                 [notificationsImageView setHidden:NO];
             }
-            
             notificationScreen.requestQueryItems = _pendingRequestsArray;
+            tabBarNotificationScreenInstance.requestQueryItems = _pendingRequestsArray;
+            
             PFGeoPoint *currentLocation = [PFGeoPoint geoPointWithLatitude:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]floatValue] longitude:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]floatValue]];
             NSLog(@"%f, %f", currentLocation.latitude, currentLocation.longitude);
             PFQuery *getRequests = [PFQuery queryWithClassName:@"requests"];
@@ -260,7 +269,16 @@
                                 if (objects.count < 1) {
                                     [requestsToDisplay addObject:requestObject];
                                     [self setPendingRequestsArray:requestsToDisplay];
+                                    if (_pendingRequestsArray.count < 1) {
+                                        [notificationsImageView setHidden:YES];
+                                        [notificationsCountLabel setHidden:YES];
+                                    }
+                                    else {
+                                        [notificationsCountLabel setHidden:NO];
+                                        [notificationsImageView setHidden:NO];
+                                    }
                                     notificationScreen.requestQueryItems = _pendingRequestsArray;
+                                    tabBarNotificationScreenInstance.requestQueryItems = _pendingRequestsArray;
                                     notificationsCountLabel.text = [NSString stringWithFormat:@"%d", _pendingRequestsArray.count];
                                 }
                             }
@@ -304,12 +322,12 @@
 }
 
 - (void)notificationsButtonTapped:(id)sender {
-    if (![notificationsCountLabel.text isEqualToString:@"0"]) {
-        if ([self.title isEqualToString:@"Home"]) {
+    if (![notificationsCountLabel.text isEqualToString:@"0"] && notificationsCountLabel.text ) {
+        if ([self.title isEqualToString:@"Trending"]) {
             if ([PFUser currentUser]) {
-                UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:notificationScreen];
-                [notificationScreen separateSections];
-                [self.navigationController presentViewController:navc animated:YES completion:NULL];
+                notificationScreen.fromHome = YES;
+                UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:notificationScreen];
+                [self.navigationController presentViewController:navC animated:YES completion:NULL];
             }
             else {
                 SignUpViewController *signUpVc = [[SignUpViewController alloc]initWithNibName:@"SignUpViewController" bundle:nil];
@@ -318,7 +336,6 @@
             }
         }
         else {
-            NSArray *navViewControllers = [self.tabBarController viewControllers];
             UINavigationController *homeNavC = [navViewControllers objectAtIndex:0];
             HomeViewController *homeScreen = [homeNavC.viewControllers objectAtIndex:0];
             [homeScreen notificationsButtonTapped:nil];

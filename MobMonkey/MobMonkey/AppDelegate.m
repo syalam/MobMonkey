@@ -29,7 +29,6 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    
     _notificationsCountLabel = [[UILabel alloc]init];
     [_notificationsCountLabel setTextColor:[UIColor whiteColor]];
     [_notificationsCountLabel setBackgroundColor:[UIColor clearColor]];
@@ -54,6 +53,8 @@
     
     _apiObject = [[FactualAPI alloc] initWithAPIKey:@"BEoV3TPDev03P6NJSVJPgTmuTNOegwRsjJN41DnM" secret:@"hwxVQz4lAxb5YpWhbLq10KhWiEw5k35WgFuoR2YI"];
     
+    [PFFacebookUtils initializeWithApplicationId:@"160583530745361"];
+    
     if ([PFUser currentUser]) {
         //get UUID
         CFUUIDRef uuid;
@@ -76,15 +77,15 @@
 
     homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
     UINavigationController* homeNavController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
-    homeViewController.title = @"Home";
+    homeViewController.title = @"Trending";
     
     UIViewController *searchViewController = [[SearchViewController alloc] initWithNibName:@"SearchViewController" bundle:nil];
     UINavigationController* searchNavController = [[UINavigationController alloc] initWithRootViewController:searchViewController];
     searchViewController.title = @"Search";
     
-    HomeViewController *nearbyViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
-    UINavigationController* nearbyNavController = [[UINavigationController alloc] initWithRootViewController:nearbyViewController];
-    nearbyViewController.title = @"Nearby";
+    _requestsViewController = [[RequestsViewController alloc] initWithNibName:@"RequestsViewController" bundle:nil];
+    UINavigationController *requestsNavController = [[UINavigationController alloc] initWithRootViewController:_requestsViewController];
+    _requestsViewController.title = @"Inbox";
     
     HomeViewController *bookmarksViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
     UINavigationController* bookmarksNavController = [[UINavigationController alloc] initWithRootViewController:bookmarksViewController];
@@ -96,7 +97,7 @@
     
     
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:homeNavController, searchNavController, nearbyNavController, bookmarksNavController, settingsNavController, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:homeNavController, searchNavController, requestsNavController, bookmarksNavController, settingsNavController, nil];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     
@@ -196,6 +197,16 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSLog(@"%@", [error localizedDescription]);
+}
+
+#pragma mark - FB Delegate Methods
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return [PFFacebookUtils handleOpenURL:url];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [PFFacebookUtils handleOpenURL:url];
 }
 
 @end

@@ -18,11 +18,14 @@
     UIImageView *notificationsImageView;
     UILabel *notificationsCountLabel;
     
+    NSArray *navViewControllers;
+    
     FactualAPIRequest* _activeRequest;
     FactualQueryResult* _queryResult;
     CLLocation* _queryLocation;
     
     RequestsViewController *notificationScreen;
+    RequestsViewController *tabBarNotificationScreenInstance;
 }
 
 @property (nonatomic, retain)NSString *screen;
