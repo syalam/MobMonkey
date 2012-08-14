@@ -69,6 +69,9 @@ NSString* const kFactualId = @"factual_id";
     
     _locationNameLabel.textColor = [UIColor colorWithRed:.8941 green:.4509 blue:.1725 alpha:1];
     
+    //setup location imageview
+    locationImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
     
     //update notifications badge count
     NSArray *navViewControllers = [self.tabBarController viewControllers];
@@ -107,6 +110,13 @@ NSString* const kFactualId = @"factual_id";
     region.span.latitudeDelta = 0.005;
     region.span.longitudeDelta = 0.005;
     [_mapView setRegion:region animated:YES];
+    
+    //show latest picture available for this location
+    [self getLatestPictureForThisLocation];
+    
+    //get media counts
+    [self getMediaCount:@"photo"];
+    [self getMediaCount:@"video"];
 }
 
 - (void)viewDidUnload
@@ -505,6 +515,51 @@ NSString* const kFactualId = @"factual_id";
                 }
             }];
         } 
+    }];
+}
+
+- (void)getMediaCount:(NSString*)mediaTypeToCount {
+    PFQuery *queryForItems = [PFQuery queryWithClassName:@"locationImages"];
+    [queryForItems whereKey:@"factualId" equalTo:[venueData valueForName:kFactualId]];
+    [queryForItems whereKey:@"mediaType" equalTo:mediaTypeToCount];
+    [queryForItems orderByAscending:@"updatedAt"];
+    [queryForItems countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            if ([mediaTypeToCount isEqualToString:@"photo"]) {
+                photoCountLabel.text = [NSString stringWithFormat:@"%d", number];
+            }
+            else {
+                videoCountLabel.text = [NSString stringWithFormat:@"%d", number];
+            }
+        }
+    }];
+}
+
+- (void)getLatestPictureForThisLocation {
+    PFQuery *queryForItems = [PFQuery queryWithClassName:@"locationImages"];
+    [queryForItems whereKey:@"factualId" equalTo:[venueData valueForName:kFactualId]];
+    [queryForItems orderByAscending:@"updatedAt"];
+    [queryForItems setLimit:1];
+    [queryForItems findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            if (objects.count > 0) {
+                PFObject *locationItemObject = [objects objectAtIndex:0];
+                PFFile *mediaFile = [locationItemObject objectForKey:@"image"];
+                if ([[locationItemObject objectForKey:@"mediaType"]isEqualToString:@"photo"]) {
+                    [locationImageView reloadWithUrl:mediaFile.url];
+                }
+                else {
+                    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:mediaFile.url] options:nil];
+                    AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+                    generate.appliesPreferredTrackTransform = YES;
+                    NSError *err = NULL;
+                    CMTime time = CMTimeMake(0, 60);
+                    CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
+                    locationImageView.image =  [UIImage imageWithCGImage:imgRef];
+                    
+                }
+            }
+        }
     }];
 }
 

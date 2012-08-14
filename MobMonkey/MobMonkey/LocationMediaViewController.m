@@ -82,7 +82,7 @@
         NSError *err = NULL;
         CMTime time = CMTimeMake(0, 60);
         CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
-        cell.imageView.image = [[UIImage alloc] initWithCGImage:imgRef];
+        cell.cellImageView.image = [[UIImage alloc] initWithCGImage:imgRef];
     }
     else {
         [cell.cellImageView reloadWithUrl:[_contentList objectAtIndex:indexPath.row]];

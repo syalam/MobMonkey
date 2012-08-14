@@ -13,11 +13,18 @@
 #import <FactualSDK/FactualAPI.h>
 #import <MapKit/MapKit.h>
 #import "MMLocationAnnotation.h"
+#import "TCImageView.h"
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface LocationViewController : UIViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MKMapViewDelegate> {
     UIImage *image;
     UIImageView *notificationsImageView;
     UILabel *notificationsCountLabel;
+    
+    IBOutlet UILabel *photoCountLabel;
+    IBOutlet UILabel *videoCountLabel;
+    IBOutlet TCImageView *locationImageView;
     
     NSString *mediaType;
     

@@ -17,7 +17,7 @@
         // Initialization code
         _cellImageView = [[TCImageView alloc]initWithFrame:CGRectMake(85, 5, 150, 150)];
         
-        [_cellImageView setContentMode:UIViewContentModeScaleAspectFit];
+        [_cellImageView setContentMode:UIViewContentModeScaleAspectFill];
         [_cellImageView setClipsToBounds:YES];
         
         [self.contentView addSubview:_cellImageView];

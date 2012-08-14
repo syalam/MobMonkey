@@ -142,6 +142,7 @@
 		F77705DA15DA334100BE4A78 /* SettingsCellMiddle~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F77705D415DA334100BE4A78 /* SettingsCellMiddle~iphone.png */; };
 		F77705DB15DA334100BE4A78 /* SettingsCellTop@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F77705D515DA334100BE4A78 /* SettingsCellTop@2x~iphone.png */; };
 		F77705DC15DA334100BE4A78 /* SettingsCellTop~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F77705D615DA334100BE4A78 /* SettingsCellTop~iphone.png */; };
+		F77705E115DA438900BE4A78 /* GetRelativeTime.m in Sources */ = {isa = PBXBuildFile; fileRef = F77705E015DA438900BE4A78 /* GetRelativeTime.m */; };
 		F78F6BEB15D06D2B006EFF27 /* Background@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC215D06D2B006EFF27 /* Background@2x~iphone.png */; };
 		F78F6BEC15D06D2B006EFF27 /* Background~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC315D06D2B006EFF27 /* Background~iphone.png */; };
 		F78F6BED15D06D2B006EFF27 /* BookmarksIcn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC415D06D2B006EFF27 /* BookmarksIcn@2x~iphone.png */; };
@@ -387,6 +388,8 @@
 		F77705D415DA334100BE4A78 /* SettingsCellMiddle~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsCellMiddle~iphone.png"; sourceTree = "<group>"; };
 		F77705D515DA334100BE4A78 /* SettingsCellTop@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsCellTop@2x~iphone.png"; sourceTree = "<group>"; };
 		F77705D615DA334100BE4A78 /* SettingsCellTop~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsCellTop~iphone.png"; sourceTree = "<group>"; };
+		F77705DF15DA438900BE4A78 /* GetRelativeTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetRelativeTime.h; sourceTree = "<group>"; };
+		F77705E015DA438900BE4A78 /* GetRelativeTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetRelativeTime.m; sourceTree = "<group>"; };
 		F78F6BC215D06D2B006EFF27 /* Background@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background@2x~iphone.png"; sourceTree = "<group>"; };
 		F78F6BC315D06D2B006EFF27 /* Background~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background~iphone.png"; sourceTree = "<group>"; };
 		F78F6BC415D06D2B006EFF27 /* BookmarksIcn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BookmarksIcn@2x~iphone.png"; sourceTree = "<group>"; };
@@ -862,6 +865,15 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		F77705DE15DA437200BE4A78 /* RelativeTime */ = {
+			isa = PBXGroup;
+			children = (
+				F77705DF15DA438900BE4A78 /* GetRelativeTime.h */,
+				F77705E015DA438900BE4A78 /* GetRelativeTime.m */,
+			);
+			name = RelativeTime;
+			sourceTree = "<group>";
+		};
 		F78F6BC115D06D2B006EFF27 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -1034,6 +1046,7 @@
 		F7E2B07115C2B7C5006D3F57 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F77705DE15DA437200BE4A78 /* RelativeTime */,
 				F7F95F1915CA942800AC36D6 /* TCImageView */,
 				F7E2B07815C2B7E2006D3F57 /* SVProgress HUD */,
 			);
@@ -1358,6 +1371,7 @@
 				F7E2B08715C2C58D006D3F57 /* LocationMediaViewController.m in Sources */,
 				F7F95F1C15CA949300AC36D6 /* TCImageView.m in Sources */,
 				F7F95F2415CA9B4400AC36D6 /* LocationMediaCell.m in Sources */,
+				F77705E115DA438900BE4A78 /* GetRelativeTime.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
