@@ -1,4 +1,4 @@
-//
+ //
 //  LocationViewController.m
 //  MobMonkey
 //
@@ -359,6 +359,7 @@ NSString* const kFactualId = @"factual_id";
                 else {
                     [self performSelector:@selector(getMediaCount:) withObject:@"video" afterDelay:2];
                 }
+                [self performSelector:@selector(getLatestMediaForThisLocation) withObject:nil afterDelay:2];
                 [SVProgressHUD dismissWithSuccess:@"Saved"];
                 [picker dismissModalViewControllerAnimated:YES];
             }
@@ -497,6 +498,7 @@ NSString* const kFactualId = @"factual_id";
             [request setObject:[venueData valueForName:kFactualId] forKey:@"factualId"];
             [request setObject:[venueData valueForName:kName] forKey:@"locationName"];
             [request setObject:requestText forKey:@"requestText"];
+            NSLog(@"%@", request);
             [request saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     NSLog(@"%@", request);
@@ -520,7 +522,12 @@ NSString* const kFactualId = @"factual_id";
 
 - (void)getMediaCount:(NSString*)mediaTypeToCount {
     PFQuery *queryForItems = [PFQuery queryWithClassName:@"locationImages"];
-    [queryForItems whereKey:@"factualId" equalTo:[venueData valueForName:kFactualId]];
+    if (_requestObject) {
+        [queryForItems whereKey:@"factualId" equalTo:[_requestObject objectForKey:@"factualId"]];
+    }
+    else {
+        [queryForItems whereKey:@"factualId" equalTo:[venueData valueForName:kFactualId]];
+    }
     [queryForItems whereKey:@"mediaType" equalTo:mediaTypeToCount];
     [queryForItems orderByAscending:@"updatedAt"];
     [queryForItems countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
@@ -537,8 +544,13 @@ NSString* const kFactualId = @"factual_id";
 
 - (void)getLatestMediaForThisLocation {
     PFQuery *queryForItems = [PFQuery queryWithClassName:@"locationImages"];
-    [queryForItems whereKey:@"factualId" equalTo:[venueData valueForName:kFactualId]];
-    [queryForItems orderByAscending:@"updatedAt"];
+    if (_requestObject) {
+        [queryForItems whereKey:@"factualId" equalTo:[_requestObject objectForKey:@"factualId"]];
+    }
+    else {
+        [queryForItems whereKey:@"factualId" equalTo:[venueData valueForName:kFactualId]];
+    }
+    [queryForItems orderByDescending:@"updatedAt"];
     [queryForItems setLimit:1];
     [queryForItems findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
