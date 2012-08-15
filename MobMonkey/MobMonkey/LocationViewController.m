@@ -120,6 +120,10 @@ NSString* const kFactualId = @"factual_id";
     //get media counts
     [self getMediaCount:@"photo"];
     [self getMediaCount:@"video"];
+    
+    //Add requests modal to view
+    [requestModalView setFrame:CGRectMake(0, self.view.frame.origin.y - requestModalView.frame.size.height, requestModalView.frame.size.width, requestModalView.frame.size.height)];
+    [self.scrollView addSubview:requestModalView];
 }
 
 - (void)viewDidUnload
@@ -438,14 +442,22 @@ NSString* const kFactualId = @"factual_id";
 
 - (IBAction)requestButtonTapped:(id)sender {
     if ([PFUser currentUser]) {
-        UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:@"Select Request Type" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Photo", @"Video", nil];
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        [UIView beginAnimations:nil context:context];
+        [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+        [UIView setAnimationDuration: 0.5];
+        [UIView setAnimationDelegate: self];
+        [requestModalView setFrame:CGRectMake(0, 10, requestModalView.frame.size.width, requestModalView.frame.size.height)];
+        [UIView commitAnimations];
+        
+        /*UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:@"Select Request Type" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Photo", @"Video", nil];
         currentActionSheetCall = kRequestSheet;
         if (_requestScreen) {
             [sheet showInView:self.view];
         }
         else {
             [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
-        }
+        }*/
     }
     else {
         //show login view
@@ -476,6 +488,39 @@ NSString* const kFactualId = @"factual_id";
     [homeScreen notificationsButtonTapped:nil];
 }
 
+//Request Modal IBAction Methods
+- (IBAction)requestVideoButtonTapped:(id)sender {
+    if (videoRequested) {
+        videoRequested = NO;
+    }
+    else {
+        videoRequested = YES;
+    }
+}
+- (IBAction)requestPhotoButtonTapped:(id)sender {
+    if (videoRequested) {
+        videoRequested = NO;
+    }
+    else {
+        videoRequested = YES;
+    }
+}
+- (IBAction)activeSwitchTapped:(id)sender {
+    
+}
+- (IBAction)cancelButtonTapped:(id)sender {
+    [requestTextView resignFirstResponder];
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    [UIView setAnimationDuration: 0.5];
+    [UIView setAnimationDelegate: self];
+    [requestModalView setFrame:CGRectMake(0, self.view.frame.origin.y - requestModalView.frame.size.height, requestModalView.frame.size.width, requestModalView.frame.size.height)];
+    [UIView commitAnimations];
+}
+- (IBAction)requestItButtonTapped:(id)sender {
+    
+}
 
 
 #pragma mark - Helper Methods
@@ -672,6 +717,28 @@ NSString* const kFactualId = @"factual_id";
             }
         }];
     }
+}
+
+#pragma mark - UITextView Delegate Methods
+- (void)textViewDidChange:(UITextView *)textView {
+    if (textView.text.length > 0) {
+        [placeholderLabel setHidden:YES];
+    }
+    else {
+        [placeholderLabel setHidden:NO];
+    }
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)aRange replacementText:(NSString *)aText {
+    
+    NSString* newText = [textView.text stringByReplacingCharactersInRange:aRange withString:aText];
+    
+    if([newText length] > 100)
+    {
+        return NO; // can't enter more text
+    }
+    else
+        return YES; // let the textView know that it should handle the inserted text
 }
 
 @end

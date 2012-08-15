@@ -17,10 +17,11 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 
-@interface LocationViewController : UIViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MKMapViewDelegate> {
+@interface LocationViewController : UIViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MKMapViewDelegate, UITextViewDelegate> {
     UIImage *image;
     UIImageView *notificationsImageView;
     UILabel *notificationsCountLabel;
+    
     
     IBOutlet UILabel *timeLabel;
     IBOutlet UILabel *photoCountLabel;
@@ -28,8 +29,21 @@
     IBOutlet TCImageView *locationImageView;
     
     NSString *mediaType;
-    
     int currentActionSheetCall;
+    
+    //request view items
+    IBOutlet UIView *requestModalView;
+    IBOutlet UITextView *requestTextView;
+    IBOutlet UILabel *placeholderLabel;
+    IBOutlet UIButton *requestVideoButton;
+    IBOutlet UIButton *requestPhotoButton;
+    IBOutlet UISwitch *activeSwitch;
+    IBOutlet UIButton *cancelButton;
+    IBOutlet UIButton *requestItButton;
+    
+    BOOL videoRequested;
+    
+    
 }
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -56,6 +70,12 @@
 - (IBAction)notificationsButtonTapped:(id)sender;
 - (IBAction)photosButtonTapped:(id)sender;
 - (IBAction)popupButtonTapped:(id)sender;
+- (IBAction)requestVideoButtonTapped:(id)sender;
+- (IBAction)requestPhotoButtonTapped:(id)sender;
+- (IBAction)activeSwitchTapped:(id)sender;
+- (IBAction)cancelButtonTapped:(id)sender;
+- (IBAction)requestItButtonTapped:(id)sender;
+
 
 - (void)makeRequest:(NSString*)requestType;
 

@@ -143,6 +143,27 @@
 		F77705DB15DA334100BE4A78 /* SettingsCellTop@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F77705D515DA334100BE4A78 /* SettingsCellTop@2x~iphone.png */; };
 		F77705DC15DA334100BE4A78 /* SettingsCellTop~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F77705D615DA334100BE4A78 /* SettingsCellTop~iphone.png */; };
 		F77705E115DA438900BE4A78 /* GetRelativeTime.m in Sources */ = {isa = PBXBuildFile; fileRef = F77705E015DA438900BE4A78 /* GetRelativeTime.m */; };
+		F777061515DB7BDB00BE4A78 /* AddItBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060015DB7BDB00BE4A78 /* AddItBtn@2x~iphone.png */; };
+		F777061615DB7BDB00BE4A78 /* AddItBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060115DB7BDB00BE4A78 /* AddItBtn~iphone.png */; };
+		F777061715DB7BDB00BE4A78 /* CancelBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060215DB7BDB00BE4A78 /* CancelBtn@2x~iphone.png */; };
+		F777061815DB7BDB00BE4A78 /* CancelBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060315DB7BDB00BE4A78 /* CancelBtn~iphone.png */; };
+		F777061915DB7BDB00BE4A78 /* GrayModalBtnBlank@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060415DB7BDB00BE4A78 /* GrayModalBtnBlank@2x~iphone.png */; };
+		F777061A15DB7BDB00BE4A78 /* GrayModalBtnBlank~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060515DB7BDB00BE4A78 /* GrayModalBtnBlank~iphone.png */; };
+		F777061B15DB7BDB00BE4A78 /* Make_A_Request.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060615DB7BDB00BE4A78 /* Make_A_Request.png */; };
+		F777061C15DB7BDB00BE4A78 /* MakeRequestModal@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060715DB7BDB00BE4A78 /* MakeRequestModal@2x~iphone.png */; };
+		F777061D15DB7BDB00BE4A78 /* MakeRequestModal~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060815DB7BDB00BE4A78 /* MakeRequestModal~iphone.png */; };
+		F777061E15DB7BDB00BE4A78 /* ModalPictureBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060915DB7BDB00BE4A78 /* ModalPictureBtn@2x~iphone.png */; };
+		F777061F15DB7BDB00BE4A78 /* ModalPictureBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060A15DB7BDB00BE4A78 /* ModalPictureBtn~iphone.png */; };
+		F777062015DB7BDB00BE4A78 /* ModalVideoBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060B15DB7BDB00BE4A78 /* ModalVideoBtn@2x~iphone.png */; };
+		F777062115DB7BDB00BE4A78 /* ModalVideoBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060C15DB7BDB00BE4A78 /* ModalVideoBtn~iphone.png */; };
+		F777062215DB7BDB00BE4A78 /* Notification_Modal.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060D15DB7BDB00BE4A78 /* Notification_Modal.png */; };
+		F777062315DB7BDB00BE4A78 /* NotificationsModal@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060E15DB7BDB00BE4A78 /* NotificationsModal@2x~iphone.png */; };
+		F777062415DB7BDB00BE4A78 /* OrangeModalBtnBlank@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060F15DB7BDB00BE4A78 /* OrangeModalBtnBlank@2x~iphone.png */; };
+		F777062515DB7BDB00BE4A78 /* OrangeModalBtnBlank~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777061015DB7BDB00BE4A78 /* OrangeModalBtnBlank~iphone.png */; };
+		F777062615DB7BDB00BE4A78 /* PostBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777061115DB7BDB00BE4A78 /* PostBtn@2x~iphone.png */; };
+		F777062715DB7BDB00BE4A78 /* PostBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777061215DB7BDB00BE4A78 /* PostBtn~iphone.png */; };
+		F777062815DB7BDB00BE4A78 /* TimeBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777061315DB7BDB00BE4A78 /* TimeBtn@2x~iphone.png */; };
+		F777062915DB7BDB00BE4A78 /* TimeBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777061415DB7BDB00BE4A78 /* TimeBtn~iphone.png */; };
 		F78F6BEB15D06D2B006EFF27 /* Background@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC215D06D2B006EFF27 /* Background@2x~iphone.png */; };
 		F78F6BEC15D06D2B006EFF27 /* Background~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC315D06D2B006EFF27 /* Background~iphone.png */; };
 		F78F6BED15D06D2B006EFF27 /* BookmarksIcn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC415D06D2B006EFF27 /* BookmarksIcn@2x~iphone.png */; };
@@ -390,6 +411,27 @@
 		F77705D615DA334100BE4A78 /* SettingsCellTop~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsCellTop~iphone.png"; sourceTree = "<group>"; };
 		F77705DF15DA438900BE4A78 /* GetRelativeTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetRelativeTime.h; sourceTree = "<group>"; };
 		F77705E015DA438900BE4A78 /* GetRelativeTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetRelativeTime.m; sourceTree = "<group>"; };
+		F777060015DB7BDB00BE4A78 /* AddItBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddItBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F777060115DB7BDB00BE4A78 /* AddItBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddItBtn~iphone.png"; sourceTree = "<group>"; };
+		F777060215DB7BDB00BE4A78 /* CancelBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CancelBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F777060315DB7BDB00BE4A78 /* CancelBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CancelBtn~iphone.png"; sourceTree = "<group>"; };
+		F777060415DB7BDB00BE4A78 /* GrayModalBtnBlank@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GrayModalBtnBlank@2x~iphone.png"; sourceTree = "<group>"; };
+		F777060515DB7BDB00BE4A78 /* GrayModalBtnBlank~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GrayModalBtnBlank~iphone.png"; sourceTree = "<group>"; };
+		F777060615DB7BDB00BE4A78 /* Make_A_Request.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Make_A_Request.png; sourceTree = "<group>"; };
+		F777060715DB7BDB00BE4A78 /* MakeRequestModal@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MakeRequestModal@2x~iphone.png"; sourceTree = "<group>"; };
+		F777060815DB7BDB00BE4A78 /* MakeRequestModal~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MakeRequestModal~iphone.png"; sourceTree = "<group>"; };
+		F777060915DB7BDB00BE4A78 /* ModalPictureBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalPictureBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F777060A15DB7BDB00BE4A78 /* ModalPictureBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalPictureBtn~iphone.png"; sourceTree = "<group>"; };
+		F777060B15DB7BDB00BE4A78 /* ModalVideoBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalVideoBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F777060C15DB7BDB00BE4A78 /* ModalVideoBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalVideoBtn~iphone.png"; sourceTree = "<group>"; };
+		F777060D15DB7BDB00BE4A78 /* Notification_Modal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Notification_Modal.png; sourceTree = "<group>"; };
+		F777060E15DB7BDB00BE4A78 /* NotificationsModal@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NotificationsModal@2x~iphone.png"; sourceTree = "<group>"; };
+		F777060F15DB7BDB00BE4A78 /* OrangeModalBtnBlank@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OrangeModalBtnBlank@2x~iphone.png"; sourceTree = "<group>"; };
+		F777061015DB7BDB00BE4A78 /* OrangeModalBtnBlank~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OrangeModalBtnBlank~iphone.png"; sourceTree = "<group>"; };
+		F777061115DB7BDB00BE4A78 /* PostBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PostBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F777061215DB7BDB00BE4A78 /* PostBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PostBtn~iphone.png"; sourceTree = "<group>"; };
+		F777061315DB7BDB00BE4A78 /* TimeBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F777061415DB7BDB00BE4A78 /* TimeBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeBtn~iphone.png"; sourceTree = "<group>"; };
 		F78F6BC215D06D2B006EFF27 /* Background@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background@2x~iphone.png"; sourceTree = "<group>"; };
 		F78F6BC315D06D2B006EFF27 /* Background~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background~iphone.png"; sourceTree = "<group>"; };
 		F78F6BC415D06D2B006EFF27 /* BookmarksIcn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BookmarksIcn@2x~iphone.png"; sourceTree = "<group>"; };
@@ -648,6 +690,7 @@
 			children = (
 				F7443A4B15D2914D00F5851C /* logo@2x~iphone.png */,
 				F7443A4C15D2915700F5851C /* logo~iphone.png */,
+				F77705FF15DB7BD400BE4A78 /* Notification and Location Modal Views */,
 				F77681D815D33DFB0002BA14 /* Settings */,
 				F744399E15D28F2200F5851C /* Search */,
 				F78F6C1515D06F26006EFF27 /* Fonts */,
@@ -872,6 +915,34 @@
 				F77705E015DA438900BE4A78 /* GetRelativeTime.m */,
 			);
 			name = RelativeTime;
+			sourceTree = "<group>";
+		};
+		F77705FF15DB7BD400BE4A78 /* Notification and Location Modal Views */ = {
+			isa = PBXGroup;
+			children = (
+				F777060015DB7BDB00BE4A78 /* AddItBtn@2x~iphone.png */,
+				F777060115DB7BDB00BE4A78 /* AddItBtn~iphone.png */,
+				F777060215DB7BDB00BE4A78 /* CancelBtn@2x~iphone.png */,
+				F777060315DB7BDB00BE4A78 /* CancelBtn~iphone.png */,
+				F777060415DB7BDB00BE4A78 /* GrayModalBtnBlank@2x~iphone.png */,
+				F777060515DB7BDB00BE4A78 /* GrayModalBtnBlank~iphone.png */,
+				F777060615DB7BDB00BE4A78 /* Make_A_Request.png */,
+				F777060715DB7BDB00BE4A78 /* MakeRequestModal@2x~iphone.png */,
+				F777060815DB7BDB00BE4A78 /* MakeRequestModal~iphone.png */,
+				F777060915DB7BDB00BE4A78 /* ModalPictureBtn@2x~iphone.png */,
+				F777060A15DB7BDB00BE4A78 /* ModalPictureBtn~iphone.png */,
+				F777060B15DB7BDB00BE4A78 /* ModalVideoBtn@2x~iphone.png */,
+				F777060C15DB7BDB00BE4A78 /* ModalVideoBtn~iphone.png */,
+				F777060D15DB7BDB00BE4A78 /* Notification_Modal.png */,
+				F777060E15DB7BDB00BE4A78 /* NotificationsModal@2x~iphone.png */,
+				F777060F15DB7BDB00BE4A78 /* OrangeModalBtnBlank@2x~iphone.png */,
+				F777061015DB7BDB00BE4A78 /* OrangeModalBtnBlank~iphone.png */,
+				F777061115DB7BDB00BE4A78 /* PostBtn@2x~iphone.png */,
+				F777061215DB7BDB00BE4A78 /* PostBtn~iphone.png */,
+				F777061315DB7BDB00BE4A78 /* TimeBtn@2x~iphone.png */,
+				F777061415DB7BDB00BE4A78 /* TimeBtn~iphone.png */,
+			);
+			path = "Notification and Location Modal Views";
 			sourceTree = "<group>";
 		};
 		F78F6BC115D06D2B006EFF27 /* Home */ = {
@@ -1337,6 +1408,27 @@
 				F77705DA15DA334100BE4A78 /* SettingsCellMiddle~iphone.png in Resources */,
 				F77705DB15DA334100BE4A78 /* SettingsCellTop@2x~iphone.png in Resources */,
 				F77705DC15DA334100BE4A78 /* SettingsCellTop~iphone.png in Resources */,
+				F777061515DB7BDB00BE4A78 /* AddItBtn@2x~iphone.png in Resources */,
+				F777061615DB7BDB00BE4A78 /* AddItBtn~iphone.png in Resources */,
+				F777061715DB7BDB00BE4A78 /* CancelBtn@2x~iphone.png in Resources */,
+				F777061815DB7BDB00BE4A78 /* CancelBtn~iphone.png in Resources */,
+				F777061915DB7BDB00BE4A78 /* GrayModalBtnBlank@2x~iphone.png in Resources */,
+				F777061A15DB7BDB00BE4A78 /* GrayModalBtnBlank~iphone.png in Resources */,
+				F777061B15DB7BDB00BE4A78 /* Make_A_Request.png in Resources */,
+				F777061C15DB7BDB00BE4A78 /* MakeRequestModal@2x~iphone.png in Resources */,
+				F777061D15DB7BDB00BE4A78 /* MakeRequestModal~iphone.png in Resources */,
+				F777061E15DB7BDB00BE4A78 /* ModalPictureBtn@2x~iphone.png in Resources */,
+				F777061F15DB7BDB00BE4A78 /* ModalPictureBtn~iphone.png in Resources */,
+				F777062015DB7BDB00BE4A78 /* ModalVideoBtn@2x~iphone.png in Resources */,
+				F777062115DB7BDB00BE4A78 /* ModalVideoBtn~iphone.png in Resources */,
+				F777062215DB7BDB00BE4A78 /* Notification_Modal.png in Resources */,
+				F777062315DB7BDB00BE4A78 /* NotificationsModal@2x~iphone.png in Resources */,
+				F777062415DB7BDB00BE4A78 /* OrangeModalBtnBlank@2x~iphone.png in Resources */,
+				F777062515DB7BDB00BE4A78 /* OrangeModalBtnBlank~iphone.png in Resources */,
+				F777062615DB7BDB00BE4A78 /* PostBtn@2x~iphone.png in Resources */,
+				F777062715DB7BDB00BE4A78 /* PostBtn~iphone.png in Resources */,
+				F777062815DB7BDB00BE4A78 /* TimeBtn@2x~iphone.png in Resources */,
+				F777062915DB7BDB00BE4A78 /* TimeBtn~iphone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
