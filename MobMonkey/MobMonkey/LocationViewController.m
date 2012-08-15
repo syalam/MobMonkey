@@ -102,7 +102,7 @@ NSString* const kFactualId = @"factual_id";
     self.navigationItem.leftBarButtonItem = backButton;
     
     // Setup scroll view
-    [scrollView setContentSize:CGSizeMake(320,460)];
+    [scrollView setContentSize:CGSizeMake(320,420)];
     
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([[venueData valueForName:kLatitude]doubleValue], [[venueData valueForName:kLongitude]doubleValue]);
     
@@ -283,7 +283,14 @@ NSString* const kFactualId = @"factual_id";
                 }
             }
                 break;
-                
+            case 4: {
+                PFObject *flagLocation = [PFObject objectWithClassName:@"flaggedLocations"];
+                [flagLocation setObject:[PFUser currentUser] forKey:@"user"];
+                [flagLocation setObject:[venueData valueForName:kFactualId] forKey:@"factualId"];
+                [flagLocation setObject:[venueData valueForName:kName] forKey:@"locationName"];
+                [flagLocation saveEventually];
+            }
+                break;
             default:
                 break;
         }
@@ -424,6 +431,26 @@ NSString* const kFactualId = @"factual_id";
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (IBAction)thumbsDownButtonTapped:(id)sender {
+    [thumbsDownButton setEnabled:NO];
+    PFObject *ratingObject = [PFObject objectWithClassName:@"ratings"];
+    [ratingObject setObject:[PFUser currentUser] forKey:@"user"];
+    [ratingObject setObject:[NSNumber numberWithBool:NO] forKey:@"thumbsUp"];
+    [ratingObject setObject:[venueData valueForName:kFactualId] forKey:@"factualId"];
+    [ratingObject setObject:[venueData valueForName:kName] forKey:@"locationName"];
+    [ratingObject saveEventually];
+}
+
+- (IBAction)thumbsUpButton:(id)sender {
+    [thumbsUpButton setEnabled:NO];
+    PFObject *ratingObject = [PFObject objectWithClassName:@"ratings"];
+    [ratingObject setObject:[PFUser currentUser] forKey:@"user"];
+    [ratingObject setObject:[NSNumber numberWithBool:YES] forKey:@"thumbsUp"];
+    [ratingObject setObject:[venueData valueForName:kFactualId] forKey:@"factualId"];
+    [ratingObject setObject:[venueData valueForName:kName] forKey:@"locationName"];
+    [ratingObject saveEventually];
+}
+
 - (IBAction)photosButtonTapped:(id)sender {
     LocationMediaViewController *lmvc = [[LocationMediaViewController alloc]initWithNibName:@"LocationMediaViewController" bundle:nil];
     if (_requestObject) {
@@ -504,7 +531,7 @@ NSString* const kFactualId = @"factual_id";
 }
 
 - (IBAction)popupButtonTapped:(id)sender {
-    UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:self.title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Bookmark", @"Notification Settings", nil];
+    UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:self.title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Bookmark", @"Notification Settings", @"Flag as Inappropriate", nil];
     currentActionSheetCall = kPopupSheet;
     [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
 }
@@ -539,7 +566,7 @@ NSString* const kFactualId = @"factual_id";
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
     [UIView setAnimationDuration: 0.5];
     [UIView setAnimationDelegate: self];
-    [scrollView setContentSize:CGSizeMake(320,460)];
+    [scrollView setContentSize:CGSizeMake(320,420)];
     [scrollView setContentOffset:CGPointMake(0, 0)animated:YES];
     [requestModalView setFrame:CGRectMake(0, self.view.frame.origin.y - requestModalView.frame.size.height - 100, requestModalView.frame.size.width, requestModalView.frame.size.height)];
     [UIView commitAnimations];
@@ -596,7 +623,7 @@ NSString* const kFactualId = @"factual_id";
                     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
                     [UIView setAnimationDuration: 0.5];
                     [UIView setAnimationDelegate: self];
-                    [scrollView setContentSize:CGSizeMake(320,460)];
+                    [scrollView setContentSize:CGSizeMake(320,420)];
                     [scrollView setContentOffset:CGPointMake(0, 0)animated:YES];
                     [requestModalView setFrame:CGRectMake(0, self.view.frame.origin.y - requestModalView.frame.size.height - 100, requestModalView.frame.size.width, requestModalView.frame.size.height)];
                     [UIView commitAnimations];
@@ -608,7 +635,6 @@ NSString* const kFactualId = @"factual_id";
                     for (PFObject* person in objects) {
                         [PFPush sendPushMessageToChannelInBackground:[NSString stringWithFormat:@"MM%@",[person objectForKey:@"uuid"]] withMessage:[NSString stringWithFormat:@"%@ %@ requests that you post a %@ of %@", [[PFUser currentUser]objectForKey:@"firstName"], [[PFUser currentUser]objectForKey:@"lastName"], requestType, [venueData valueForName:kName]]];
                     }
-                    
                 }
                 else {
                     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to send your request at this time. Please try again later" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];

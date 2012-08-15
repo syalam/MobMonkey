@@ -46,7 +46,8 @@
     
     BOOL videoRequested;
     
-    
+    IBOutlet UIButton *thumbsDownButton;
+    IBOutlet UIButton *thumbsUpButton;
 }
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -68,6 +69,8 @@
 
 
 - (IBAction)locationInfoButtonTapped:(id)sender;
+- (IBAction)thumbsDownButtonTapped:(id)sender;
+- (IBAction)thumbsUpButton:(id)sender;
 - (IBAction)videosButtonTapped:(id)sender;
 - (IBAction)requestButtonTapped:(id)sender;
 - (IBAction)bookmarkButtonTapped:(id)sender;
