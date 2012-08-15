@@ -228,6 +228,7 @@
     
     PFQuery *getNotifications = [PFQuery queryWithClassName:@"notifications"];
     [getNotifications whereKey:@"requestor" equalTo:[PFUser currentUser]];
+    [getNotifications whereKey:@"updatedAt" greaterThan:[NSDate dateWithTimeIntervalSinceNow:-7200]];
     [getNotifications orderByDescending:@"updatedAt"];
     getNotifications.limit = 15;
     [getNotifications findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {

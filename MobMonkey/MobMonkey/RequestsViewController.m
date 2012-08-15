@@ -101,14 +101,14 @@
     cell.delegate = self;
     
     if ([contentForThisRow objectForKey:@"notificationText"]) {
-        cell.notificationTextLabel.text = [contentForThisRow objectForKey:@"notificationText"];
+        cell.notificationTextLabel.text = [NSString stringWithFormat:@"%@", [contentForThisRow objectForKey:@"notificationText"]];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         [cell.respondButton setHidden:YES];
         [cell.ignoreButton setHidden:YES];
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
     else {
-        cell.notificationTextLabel.text = [contentForThisRow objectForKey:@"requestText"];
+        cell.notificationTextLabel.text = [NSString stringWithFormat:@"%@. %@", [contentForThisRow objectForKey:@"requestText"], [contentForThisRow objectForKey:@"userRequest"]];
         cell.respondButton.tag = indexPath.row;
         cell.ignoreButton.tag = indexPath.row;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;

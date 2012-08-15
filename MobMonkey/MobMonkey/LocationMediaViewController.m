@@ -161,7 +161,7 @@
     PFQuery *queryForItems = [PFQuery queryWithClassName:@"locationImages"];
     [queryForItems whereKey:@"factualId" equalTo:factualId];
     [queryForItems whereKey:@"mediaType" equalTo:mediaType];
-    [queryForItems orderByAscending:@"updatedAt"];
+    [queryForItems orderByDescending:@"updatedAt"];
     [queryForItems findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for (PFObject *locationItemObject in objects) {

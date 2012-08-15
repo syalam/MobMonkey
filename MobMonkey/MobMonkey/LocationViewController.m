@@ -122,7 +122,7 @@ NSString* const kFactualId = @"factual_id";
     [self getMediaCount:@"video"];
     
     //Add requests modal to view
-    [requestModalView setFrame:CGRectMake(0, self.view.frame.origin.y - requestModalView.frame.size.height, requestModalView.frame.size.width, requestModalView.frame.size.height)];
+    [requestModalView setFrame:CGRectMake(0, self.view.frame.origin.y - requestModalView.frame.size.height - 100, requestModalView.frame.size.width, requestModalView.frame.size.height)];
     [self.scrollView addSubview:requestModalView];
 }
 
@@ -515,11 +515,18 @@ NSString* const kFactualId = @"factual_id";
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
     [UIView setAnimationDuration: 0.5];
     [UIView setAnimationDelegate: self];
-    [requestModalView setFrame:CGRectMake(0, self.view.frame.origin.y - requestModalView.frame.size.height, requestModalView.frame.size.width, requestModalView.frame.size.height)];
+    [requestModalView setFrame:CGRectMake(0, self.view.frame.origin.y - requestModalView.frame.size.height - 100, requestModalView.frame.size.width, requestModalView.frame.size.height)];
     [UIView commitAnimations];
 }
 - (IBAction)requestItButtonTapped:(id)sender {
-    
+    if (![requestTextView.text isEqualToString:@""]) {
+        if (videoRequested) {
+            [self makeRequest:@"video"];
+        }
+        else {
+            [self makeRequest:@"photo"];
+        }
+    }
 }
 
 
@@ -537,10 +544,12 @@ NSString* const kFactualId = @"factual_id";
         if (!error) {
             //create the request
             NSString *requestText = [NSString stringWithFormat:@"%@ %@ requests that you post a %@ of %@", [[PFUser currentUser]objectForKey:@"firstName"], [[PFUser currentUser]objectForKey:@"lastName"], requestType, [venueData valueForName:kName]];
+            NSString *userRequest = requestTextView.text;
             
             PFObject *request = [PFObject objectWithClassName:@"requests"]; 
             [request setObject:requestLocation forKey:@"locationCoordinates"];
             [request setObject:requestType forKey:@"requestType"];
+            [request setObject:userRequest forKey:@"userRequest"];
             [request setObject:[PFUser currentUser] forKey:@"requestor"];
             [request setObject:[venueData valueForName:kFactualId] forKey:@"factualId"];
             [request setObject:[venueData valueForName:kName] forKey:@"locationName"];
@@ -549,6 +558,15 @@ NSString* const kFactualId = @"factual_id";
             [request saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     NSLog(@"%@", request);
+                    
+                    CGContextRef context = UIGraphicsGetCurrentContext();
+                    [UIView beginAnimations:nil context:context];
+                    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+                    [UIView setAnimationDuration: 0.5];
+                    [UIView setAnimationDelegate: self];
+                    [requestModalView setFrame:CGRectMake(0, self.view.frame.origin.y - requestModalView.frame.size.height - 100, requestModalView.frame.size.width, requestModalView.frame.size.height)];
+                    [UIView commitAnimations];
+                    
                     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Your request has been sent" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                     [alert show];
                     
