@@ -29,6 +29,12 @@
     [super viewDidLoad];
     self.title = @"Filter/Search";
     
+    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 127/2, 9.5, 127, 25)];
+    titleImageView.image = [UIImage imageNamed:@"logo~iphone"];
+    titleImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    self.navigationItem.titleView = titleImageView;
+    
     pickerArray = [[NSMutableArray alloc]initWithObjects:@"Food & Beverage", @"Shopping", @"legal & financial", @"business & professional services", @"real estate & home improvement", @"education", @"travel & tourism", @"community & government",
                    @"health & medicine", @"personal care & services", @"automotive", @"arts, entertainment, & nightlife", 
                    @"sports & recreation", nil];

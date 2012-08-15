@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 #import "HomeViewController.h"
 #import "GetRelativeTime.h"
+#import "LocationInfoViewController.h"
 
 //ActionSheet Constants
 NSUInteger const kCameraSheet = 0;
@@ -61,6 +62,7 @@ NSString* const kFactualId = @"factual_id";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     
     if (_requestScreen) {
         [requestButton setHidden:YES];
@@ -100,7 +102,7 @@ NSString* const kFactualId = @"factual_id";
     self.navigationItem.leftBarButtonItem = backButton;
     
     // Setup scroll view
-    [scrollView setContentSize:CGSizeMake(320,700)];
+    [scrollView setContentSize:CGSizeMake(320,460)];
     
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([[venueData valueForName:kLatitude]doubleValue], [[venueData valueForName:kLongitude]doubleValue]);
     
@@ -124,6 +126,9 @@ NSString* const kFactualId = @"factual_id";
     //Add requests modal to view
     [requestModalView setFrame:CGRectMake(0, self.view.frame.origin.y - requestModalView.frame.size.height - 100, requestModalView.frame.size.width, requestModalView.frame.size.height)];
     [self.scrollView addSubview:requestModalView];
+    
+    //initialize variables
+    videoRequested = NO;
 }
 
 - (void)viewDidUnload
@@ -138,6 +143,11 @@ NSString* const kFactualId = @"factual_id";
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [scrollView setContentOffset:CGPointMake(0, 0)animated:YES];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -197,7 +207,6 @@ NSString* const kFactualId = @"factual_id";
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             picker.delegate = self;
             picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            //picker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
             picker.showsCameraControls = YES;
         }
         
@@ -447,6 +456,8 @@ NSString* const kFactualId = @"factual_id";
         [UIView setAnimationCurve:UIViewAnimationCurveLinear];
         [UIView setAnimationDuration: 0.5];
         [UIView setAnimationDelegate: self];
+        [scrollView setContentSize:CGSizeMake(320,510)];
+        [scrollView setContentOffset:CGPointMake(0, 0)animated:YES];
         [requestModalView setFrame:CGRectMake(0, 10, requestModalView.frame.size.width, requestModalView.frame.size.height)];
         [UIView commitAnimations];
         
@@ -466,6 +477,23 @@ NSString* const kFactualId = @"factual_id";
         
         [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
     }
+}
+
+- (IBAction)locationInfoButtonTapped:(id)sender {
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([[venueData valueForName:kLatitude]doubleValue], [[venueData valueForName:kLongitude]doubleValue]);
+    
+    LocationInfoViewController *livc = [[LocationInfoViewController alloc]initWithNibName:@"LocationInfoViewController" bundle:nil];
+    livc.locationName = self.title;
+    livc.address = [venueData valueForName:kAddress];
+    livc.coordinate = coordinate;
+    livc.locality = [venueData valueForName:kLocality];
+    livc.region = [venueData valueForName:kRegion];
+    livc.postCode = [venueData valueForName:kPostcode];
+    livc.country = [venueData valueForName:kCountry];
+    livc.phoneNumber = [venueData valueForName:kTelephone];
+    livc.categories = [venueData valueForName:@"category"];
+    
+    [self.navigationController pushViewController:livc animated:YES];
 }
 
 - (IBAction)bookmarkButtonTapped:(id)sender {
@@ -490,20 +518,16 @@ NSString* const kFactualId = @"factual_id";
 
 //Request Modal IBAction Methods
 - (IBAction)requestVideoButtonTapped:(id)sender {
-    if (videoRequested) {
-        videoRequested = NO;
-    }
-    else {
-        videoRequested = YES;
-    }
+    [requestPhotoButton setImage:[UIImage imageNamed:@"ModalPictureBtn1~iphone"] forState:UIControlStateNormal];
+    [requestVideoButton setImage:[UIImage imageNamed:@"ModalVideoBtn2~iphone"] forState:UIControlStateNormal];
+    
+    videoRequested = YES;
 }
 - (IBAction)requestPhotoButtonTapped:(id)sender {
-    if (videoRequested) {
-        videoRequested = NO;
-    }
-    else {
-        videoRequested = YES;
-    }
+    [requestPhotoButton setImage:[UIImage imageNamed:@"ModalPictureBtn2~iphone"] forState:UIControlStateNormal];
+    [requestVideoButton setImage:[UIImage imageNamed:@"ModalVideoBtn1~iphone"] forState:UIControlStateNormal];
+    
+    videoRequested = NO;
 }
 - (IBAction)activeSwitchTapped:(id)sender {
     
@@ -515,6 +539,8 @@ NSString* const kFactualId = @"factual_id";
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
     [UIView setAnimationDuration: 0.5];
     [UIView setAnimationDelegate: self];
+    [scrollView setContentSize:CGSizeMake(320,460)];
+    [scrollView setContentOffset:CGPointMake(0, 0)animated:YES];
     [requestModalView setFrame:CGRectMake(0, self.view.frame.origin.y - requestModalView.frame.size.height - 100, requestModalView.frame.size.width, requestModalView.frame.size.height)];
     [UIView commitAnimations];
 }
@@ -550,6 +576,12 @@ NSString* const kFactualId = @"factual_id";
             [request setObject:requestLocation forKey:@"locationCoordinates"];
             [request setObject:requestType forKey:@"requestType"];
             [request setObject:userRequest forKey:@"userRequest"];
+            if (activeSwitch.on) {
+                [request setObject:[NSNumber numberWithInt:900] forKey:@"requestActiveTime"];
+            }
+            else {
+                [request setObject:[NSNumber numberWithInt:7200] forKey:@"requestActiveTime"];
+            }
             [request setObject:[PFUser currentUser] forKey:@"requestor"];
             [request setObject:[venueData valueForName:kFactualId] forKey:@"factualId"];
             [request setObject:[venueData valueForName:kName] forKey:@"locationName"];
@@ -564,6 +596,8 @@ NSString* const kFactualId = @"factual_id";
                     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
                     [UIView setAnimationDuration: 0.5];
                     [UIView setAnimationDelegate: self];
+                    [scrollView setContentSize:CGSizeMake(320,460)];
+                    [scrollView setContentOffset:CGPointMake(0, 0)animated:YES];
                     [requestModalView setFrame:CGRectMake(0, self.view.frame.origin.y - requestModalView.frame.size.height - 100, requestModalView.frame.size.width, requestModalView.frame.size.height)];
                     [UIView commitAnimations];
                     
@@ -745,6 +779,7 @@ NSString* const kFactualId = @"factual_id";
     else {
         [placeholderLabel setHidden:NO];
     }
+    characterCountLabel.text = [NSString stringWithFormat:@"%d", textView.text.length];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)aRange replacementText:(NSString *)aText {

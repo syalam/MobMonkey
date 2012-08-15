@@ -26,7 +26,7 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>vagrounded-bold.ttf</string>
+		<string>ufonts.com_vag_rounded-bold.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

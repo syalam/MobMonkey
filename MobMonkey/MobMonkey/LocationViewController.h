@@ -22,6 +22,8 @@
     UIImageView *notificationsImageView;
     UILabel *notificationsCountLabel;
     
+    IBOutlet UILabel *locationInfoLabel;
+    IBOutlet UIButton *locationInfoButton;
     
     IBOutlet UILabel *timeLabel;
     IBOutlet UILabel *photoCountLabel;
@@ -35,6 +37,7 @@
     IBOutlet UIView *requestModalView;
     IBOutlet UITextView *requestTextView;
     IBOutlet UILabel *placeholderLabel;
+    IBOutlet UILabel *characterCountLabel;
     IBOutlet UIButton *requestVideoButton;
     IBOutlet UIButton *requestPhotoButton;
     IBOutlet UISwitch *activeSwitch;
@@ -63,6 +66,8 @@
 @property (nonatomic, retain) NSMutableArray *contentList;
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 
+
+- (IBAction)locationInfoButtonTapped:(id)sender;
 - (IBAction)videosButtonTapped:(id)sender;
 - (IBAction)requestButtonTapped:(id)sender;
 - (IBAction)bookmarkButtonTapped:(id)sender;

@@ -44,6 +44,8 @@
 		8CD18BEF159BA1150096E7F4 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD18BED159BA1150096E7F4 /* LocationViewController.m */; };
 		8CD18BF0159BA1150096E7F4 /* LocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CD18BEE159BA1150096E7F4 /* LocationViewController.xib */; };
 		8CD18BF3159C02F30096E7F4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CD18BF2159C02F30096E7F4 /* MapKit.framework */; };
+		F70A612915DC34770072D776 /* LocationInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F70A612715DC34770072D776 /* LocationInfoViewController.m */; };
+		F70A612A15DC34770072D776 /* LocationInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F70A612815DC34770072D776 /* LocationInfoViewController.xib */; };
 		F7193B7915AEA14B00CCFC5A /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7193B7715AEA14B00CCFC5A /* RequestsViewController.m */; };
 		F7193B7A15AEA14B00CCFC5A /* RequestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7193B7815AEA14B00CCFC5A /* RequestsViewController.xib */; };
 		F7193B7E15AEA24A00CCFC5A /* RequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7193B7D15AEA24A00CCFC5A /* RequestCell.m */; };
@@ -152,10 +154,6 @@
 		F777061B15DB7BDB00BE4A78 /* Make_A_Request.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060615DB7BDB00BE4A78 /* Make_A_Request.png */; };
 		F777061C15DB7BDB00BE4A78 /* MakeRequestModal@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060715DB7BDB00BE4A78 /* MakeRequestModal@2x~iphone.png */; };
 		F777061D15DB7BDB00BE4A78 /* MakeRequestModal~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060815DB7BDB00BE4A78 /* MakeRequestModal~iphone.png */; };
-		F777061E15DB7BDB00BE4A78 /* ModalPictureBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060915DB7BDB00BE4A78 /* ModalPictureBtn@2x~iphone.png */; };
-		F777061F15DB7BDB00BE4A78 /* ModalPictureBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060A15DB7BDB00BE4A78 /* ModalPictureBtn~iphone.png */; };
-		F777062015DB7BDB00BE4A78 /* ModalVideoBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060B15DB7BDB00BE4A78 /* ModalVideoBtn@2x~iphone.png */; };
-		F777062115DB7BDB00BE4A78 /* ModalVideoBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060C15DB7BDB00BE4A78 /* ModalVideoBtn~iphone.png */; };
 		F777062215DB7BDB00BE4A78 /* Notification_Modal.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060D15DB7BDB00BE4A78 /* Notification_Modal.png */; };
 		F777062315DB7BDB00BE4A78 /* NotificationsModal@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060E15DB7BDB00BE4A78 /* NotificationsModal@2x~iphone.png */; };
 		F777062415DB7BDB00BE4A78 /* OrangeModalBtnBlank@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777060F15DB7BDB00BE4A78 /* OrangeModalBtnBlank@2x~iphone.png */; };
@@ -164,6 +162,14 @@
 		F777062715DB7BDB00BE4A78 /* PostBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777061215DB7BDB00BE4A78 /* PostBtn~iphone.png */; };
 		F777062815DB7BDB00BE4A78 /* TimeBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777061315DB7BDB00BE4A78 /* TimeBtn@2x~iphone.png */; };
 		F777062915DB7BDB00BE4A78 /* TimeBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777061415DB7BDB00BE4A78 /* TimeBtn~iphone.png */; };
+		F777063A15DC146500BE4A78 /* ModalPictureBtn1@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777063215DC13CA00BE4A78 /* ModalPictureBtn1@2x~iphone.png */; };
+		F777063B15DC146600BE4A78 /* ModalPictureBtn1~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777063315DC13D500BE4A78 /* ModalPictureBtn1~iphone.png */; };
+		F777063C15DC146600BE4A78 /* ModalPictureBtn2@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777063415DC13E200BE4A78 /* ModalPictureBtn2@2x~iphone.png */; };
+		F777063D15DC146700BE4A78 /* ModalPictureBtn2~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777063515DC13ED00BE4A78 /* ModalPictureBtn2~iphone.png */; };
+		F777063E15DC146700BE4A78 /* ModalVideoBtn1@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777063615DC13F300BE4A78 /* ModalVideoBtn1@2x~iphone.png */; };
+		F777063F15DC146800BE4A78 /* ModalVideoBtn1~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777063715DC140500BE4A78 /* ModalVideoBtn1~iphone.png */; };
+		F777064015DC146800BE4A78 /* ModalVideoBtn2@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777063815DC141500BE4A78 /* ModalVideoBtn2@2x~iphone.png */; };
+		F777064115DC146900BE4A78 /* ModalVideoBtn2~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F777063915DC143200BE4A78 /* ModalVideoBtn2~iphone.png */; };
 		F78F6BEB15D06D2B006EFF27 /* Background@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC215D06D2B006EFF27 /* Background@2x~iphone.png */; };
 		F78F6BEC15D06D2B006EFF27 /* Background~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC315D06D2B006EFF27 /* Background~iphone.png */; };
 		F78F6BED15D06D2B006EFF27 /* BookmarksIcn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6BC415D06D2B006EFF27 /* BookmarksIcn@2x~iphone.png */; };
@@ -309,6 +315,10 @@
 		8CD18BED159BA1150096E7F4 /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
 		8CD18BEE159BA1150096E7F4 /* LocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationViewController.xib; sourceTree = "<group>"; };
 		8CD18BF2159C02F30096E7F4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		F70A612515DC278A0072D776 /* ufonts.com_vag_rounded-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ufonts.com_vag_rounded-bold.ttf"; sourceTree = "<group>"; };
+		F70A612615DC34770072D776 /* LocationInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationInfoViewController.h; sourceTree = "<group>"; };
+		F70A612715DC34770072D776 /* LocationInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationInfoViewController.m; sourceTree = "<group>"; };
+		F70A612815DC34770072D776 /* LocationInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationInfoViewController.xib; sourceTree = "<group>"; };
 		F7193B7615AEA14B00CCFC5A /* RequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestsViewController.h; sourceTree = "<group>"; };
 		F7193B7715AEA14B00CCFC5A /* RequestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestsViewController.m; sourceTree = "<group>"; };
 		F7193B7815AEA14B00CCFC5A /* RequestsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RequestsViewController.xib; sourceTree = "<group>"; };
@@ -420,10 +430,6 @@
 		F777060615DB7BDB00BE4A78 /* Make_A_Request.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Make_A_Request.png; sourceTree = "<group>"; };
 		F777060715DB7BDB00BE4A78 /* MakeRequestModal@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MakeRequestModal@2x~iphone.png"; sourceTree = "<group>"; };
 		F777060815DB7BDB00BE4A78 /* MakeRequestModal~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MakeRequestModal~iphone.png"; sourceTree = "<group>"; };
-		F777060915DB7BDB00BE4A78 /* ModalPictureBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalPictureBtn@2x~iphone.png"; sourceTree = "<group>"; };
-		F777060A15DB7BDB00BE4A78 /* ModalPictureBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalPictureBtn~iphone.png"; sourceTree = "<group>"; };
-		F777060B15DB7BDB00BE4A78 /* ModalVideoBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalVideoBtn@2x~iphone.png"; sourceTree = "<group>"; };
-		F777060C15DB7BDB00BE4A78 /* ModalVideoBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalVideoBtn~iphone.png"; sourceTree = "<group>"; };
 		F777060D15DB7BDB00BE4A78 /* Notification_Modal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Notification_Modal.png; sourceTree = "<group>"; };
 		F777060E15DB7BDB00BE4A78 /* NotificationsModal@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NotificationsModal@2x~iphone.png"; sourceTree = "<group>"; };
 		F777060F15DB7BDB00BE4A78 /* OrangeModalBtnBlank@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OrangeModalBtnBlank@2x~iphone.png"; sourceTree = "<group>"; };
@@ -432,6 +438,14 @@
 		F777061215DB7BDB00BE4A78 /* PostBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PostBtn~iphone.png"; sourceTree = "<group>"; };
 		F777061315DB7BDB00BE4A78 /* TimeBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeBtn@2x~iphone.png"; sourceTree = "<group>"; };
 		F777061415DB7BDB00BE4A78 /* TimeBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeBtn~iphone.png"; sourceTree = "<group>"; };
+		F777063215DC13CA00BE4A78 /* ModalPictureBtn1@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalPictureBtn1@2x~iphone.png"; sourceTree = "<group>"; };
+		F777063315DC13D500BE4A78 /* ModalPictureBtn1~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalPictureBtn1~iphone.png"; sourceTree = "<group>"; };
+		F777063415DC13E200BE4A78 /* ModalPictureBtn2@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalPictureBtn2@2x~iphone.png"; sourceTree = "<group>"; };
+		F777063515DC13ED00BE4A78 /* ModalPictureBtn2~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalPictureBtn2~iphone.png"; sourceTree = "<group>"; };
+		F777063615DC13F300BE4A78 /* ModalVideoBtn1@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalVideoBtn1@2x~iphone.png"; sourceTree = "<group>"; };
+		F777063715DC140500BE4A78 /* ModalVideoBtn1~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalVideoBtn1~iphone.png"; sourceTree = "<group>"; };
+		F777063815DC141500BE4A78 /* ModalVideoBtn2@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalVideoBtn2@2x~iphone.png"; sourceTree = "<group>"; };
+		F777063915DC143200BE4A78 /* ModalVideoBtn2~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalVideoBtn2~iphone.png"; sourceTree = "<group>"; };
 		F78F6BC215D06D2B006EFF27 /* Background@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background@2x~iphone.png"; sourceTree = "<group>"; };
 		F78F6BC315D06D2B006EFF27 /* Background~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background~iphone.png"; sourceTree = "<group>"; };
 		F78F6BC415D06D2B006EFF27 /* BookmarksIcn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BookmarksIcn@2x~iphone.png"; sourceTree = "<group>"; };
@@ -474,7 +488,6 @@
 		F78F6BE915D06D2B006EFF27 /* TimeAgo@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeAgo@2x~iphone.png"; sourceTree = "<group>"; };
 		F78F6BEA15D06D2B006EFF27 /* TimeAgo~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeAgo~iphone.png"; sourceTree = "<group>"; };
 		F78F6C1615D06F26006EFF27 /* HelveticaNeue-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HelveticaNeue-Bold.otf"; sourceTree = "<group>"; };
-		F78F6C1C15D089F6006EFF27 /* vagrounded-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "vagrounded-bold.ttf"; sourceTree = "<group>"; };
 		F78F6C4315D1AF3C006EFF27 /* BackBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackBtn@2x~iphone.png"; sourceTree = "<group>"; };
 		F78F6C4415D1AF3C006EFF27 /* BackBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackBtn~iphone.png"; sourceTree = "<group>"; };
 		F78F6C4515D1AF3C006EFF27 /* Background@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background@2x~iphone.png"; sourceTree = "<group>"; };
@@ -748,6 +761,7 @@
 		8CD18BF1159BA1210096E7F4 /* Location View */ = {
 			isa = PBXGroup;
 			children = (
+				F70A611F15DC23DC0072D776 /* Location Info */,
 				F7E2B08315C2C56B006D3F57 /* Location Media */,
 				F79F960415A64CD200BE96EE /* Notifications */,
 				8CD18BEC159BA1150096E7F4 /* LocationViewController.h */,
@@ -755,6 +769,16 @@
 				8CD18BEE159BA1150096E7F4 /* LocationViewController.xib */,
 			);
 			name = "Location View";
+			sourceTree = "<group>";
+		};
+		F70A611F15DC23DC0072D776 /* Location Info */ = {
+			isa = PBXGroup;
+			children = (
+				F70A612615DC34770072D776 /* LocationInfoViewController.h */,
+				F70A612715DC34770072D776 /* LocationInfoViewController.m */,
+				F70A612815DC34770072D776 /* LocationInfoViewController.xib */,
+			);
+			name = "Location Info";
 			sourceTree = "<group>";
 		};
 		F7193B7515AEA11100CCFC5A /* Requests */ = {
@@ -929,10 +953,14 @@
 				F777060615DB7BDB00BE4A78 /* Make_A_Request.png */,
 				F777060715DB7BDB00BE4A78 /* MakeRequestModal@2x~iphone.png */,
 				F777060815DB7BDB00BE4A78 /* MakeRequestModal~iphone.png */,
-				F777060915DB7BDB00BE4A78 /* ModalPictureBtn@2x~iphone.png */,
-				F777060A15DB7BDB00BE4A78 /* ModalPictureBtn~iphone.png */,
-				F777060B15DB7BDB00BE4A78 /* ModalVideoBtn@2x~iphone.png */,
-				F777060C15DB7BDB00BE4A78 /* ModalVideoBtn~iphone.png */,
+				F777063215DC13CA00BE4A78 /* ModalPictureBtn1@2x~iphone.png */,
+				F777063315DC13D500BE4A78 /* ModalPictureBtn1~iphone.png */,
+				F777063415DC13E200BE4A78 /* ModalPictureBtn2@2x~iphone.png */,
+				F777063515DC13ED00BE4A78 /* ModalPictureBtn2~iphone.png */,
+				F777063615DC13F300BE4A78 /* ModalVideoBtn1@2x~iphone.png */,
+				F777063715DC140500BE4A78 /* ModalVideoBtn1~iphone.png */,
+				F777063815DC141500BE4A78 /* ModalVideoBtn2@2x~iphone.png */,
+				F777063915DC143200BE4A78 /* ModalVideoBtn2~iphone.png */,
 				F777060D15DB7BDB00BE4A78 /* Notification_Modal.png */,
 				F777060E15DB7BDB00BE4A78 /* NotificationsModal@2x~iphone.png */,
 				F777060F15DB7BDB00BE4A78 /* OrangeModalBtnBlank@2x~iphone.png */,
@@ -997,7 +1025,7 @@
 			isa = PBXGroup;
 			children = (
 				F78F6C1615D06F26006EFF27 /* HelveticaNeue-Bold.otf */,
-				F78F6C1C15D089F6006EFF27 /* vagrounded-bold.ttf */,
+				F70A612515DC278A0072D776 /* ufonts.com_vag_rounded-bold.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -1417,10 +1445,6 @@
 				F777061B15DB7BDB00BE4A78 /* Make_A_Request.png in Resources */,
 				F777061C15DB7BDB00BE4A78 /* MakeRequestModal@2x~iphone.png in Resources */,
 				F777061D15DB7BDB00BE4A78 /* MakeRequestModal~iphone.png in Resources */,
-				F777061E15DB7BDB00BE4A78 /* ModalPictureBtn@2x~iphone.png in Resources */,
-				F777061F15DB7BDB00BE4A78 /* ModalPictureBtn~iphone.png in Resources */,
-				F777062015DB7BDB00BE4A78 /* ModalVideoBtn@2x~iphone.png in Resources */,
-				F777062115DB7BDB00BE4A78 /* ModalVideoBtn~iphone.png in Resources */,
 				F777062215DB7BDB00BE4A78 /* Notification_Modal.png in Resources */,
 				F777062315DB7BDB00BE4A78 /* NotificationsModal@2x~iphone.png in Resources */,
 				F777062415DB7BDB00BE4A78 /* OrangeModalBtnBlank@2x~iphone.png in Resources */,
@@ -1429,6 +1453,15 @@
 				F777062715DB7BDB00BE4A78 /* PostBtn~iphone.png in Resources */,
 				F777062815DB7BDB00BE4A78 /* TimeBtn@2x~iphone.png in Resources */,
 				F777062915DB7BDB00BE4A78 /* TimeBtn~iphone.png in Resources */,
+				F777063A15DC146500BE4A78 /* ModalPictureBtn1@2x~iphone.png in Resources */,
+				F777063B15DC146600BE4A78 /* ModalPictureBtn1~iphone.png in Resources */,
+				F777063C15DC146600BE4A78 /* ModalPictureBtn2@2x~iphone.png in Resources */,
+				F777063D15DC146700BE4A78 /* ModalPictureBtn2~iphone.png in Resources */,
+				F777063E15DC146700BE4A78 /* ModalVideoBtn1@2x~iphone.png in Resources */,
+				F777063F15DC146800BE4A78 /* ModalVideoBtn1~iphone.png in Resources */,
+				F777064015DC146800BE4A78 /* ModalVideoBtn2@2x~iphone.png in Resources */,
+				F777064115DC146900BE4A78 /* ModalVideoBtn2~iphone.png in Resources */,
+				F70A612A15DC34770072D776 /* LocationInfoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1464,6 +1497,7 @@
 				F7F95F1C15CA949300AC36D6 /* TCImageView.m in Sources */,
 				F7F95F2415CA9B4400AC36D6 /* LocationMediaCell.m in Sources */,
 				F77705E115DA438900BE4A78 /* GetRelativeTime.m in Sources */,
+				F70A612915DC34770072D776 /* LocationInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

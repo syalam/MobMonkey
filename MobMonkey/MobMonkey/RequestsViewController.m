@@ -43,6 +43,11 @@
         self.navigationItem.rightBarButtonItem = doneBarButton;
     }
     
+    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 127/2, 9.5, 127, 25)];
+    titleImageView.image = [UIImage imageNamed:@"logo~iphone"];
+    titleImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    self.navigationItem.titleView = titleImageView;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -108,7 +113,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
     else {
-        cell.notificationTextLabel.text = [NSString stringWithFormat:@"%@. %@", [contentForThisRow objectForKey:@"requestText"], [contentForThisRow objectForKey:@"userRequest"]];
+        cell.notificationTextLabel.text = [NSString stringWithFormat:@"%@.\n%@", [contentForThisRow objectForKey:@"requestText"], [contentForThisRow objectForKey:@"userRequest"]];
         cell.respondButton.tag = indexPath.row;
         cell.ignoreButton.tag = indexPath.row;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
