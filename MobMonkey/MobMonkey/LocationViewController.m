@@ -311,7 +311,7 @@ NSString* const kFactualId = @"factual_id";
     if (CFStringCompare ((__bridge CFStringRef) fileType, kUTTypeImage, 0)
         == kCFCompareEqualTo) {
         image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-        image = [[UIImage alloc]initWithCGImage:image.CGImage scale:.25 orientation:UIImageOrientationUp];
+        image = [[UIImage alloc]initWithCGImage:image.CGImage scale:.25 orientation:UIImageOrientationRight];
         dataObj = UIImageJPEGRepresentation(image, .1);
     }
     
