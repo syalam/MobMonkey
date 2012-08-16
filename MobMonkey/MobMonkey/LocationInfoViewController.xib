@@ -43,7 +43,7 @@
 							<object class="IBMKMapView" id="749095877">
 								<reference key="NSNextResponder" ref="728698358"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 13}, {280, 199}}</string>
+								<string key="NSFrameSize">{320, 225}</string>
 								<reference key="NSSuperview" ref="728698358"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>

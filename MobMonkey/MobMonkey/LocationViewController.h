@@ -26,6 +26,7 @@
     NSString *mediaType;
     int currentActionSheetCall;
     BOOL videoRequested;
+    PFObject *ratingObject;
     
     //main view
     IBOutlet UILabel *locationInfoLabel;

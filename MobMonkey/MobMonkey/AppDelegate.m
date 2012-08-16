@@ -100,7 +100,7 @@
     
     
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:homeNavController, searchNavController, requestsNavController, bookmarksNavController, settingsNavController, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:requestsNavController, searchNavController, homeNavController, bookmarksNavController, settingsNavController, nil];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     

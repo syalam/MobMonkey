@@ -52,7 +52,7 @@
     
     //notificationScreen = [(AppDelegate *)[[UIApplication sharedApplication] delegate] requestsViewController];
     navViewControllers = [self.tabBarController viewControllers];
-    UINavigationController *requestsNavC = [navViewControllers objectAtIndex:2];
+    UINavigationController *requestsNavC = [navViewControllers objectAtIndex:0];
     notificationScreen = [[RequestsViewController alloc]initWithNibName:@"RequestsViewController" bundle:nil];
     tabBarNotificationScreenInstance = (RequestsViewController*)[requestsNavC.viewControllers objectAtIndex:0];
     NSLog(@"%@", tabBarNotificationScreenInstance);

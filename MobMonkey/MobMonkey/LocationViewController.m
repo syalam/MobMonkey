@@ -117,13 +117,13 @@ NSString* const kFactualId = @"factual_id";
     region.span.longitudeDelta = 0.005;
     [_mapView setRegion:region animated:YES];
     
-    //show latest picture available for this location
-    [self getLatestMediaForThisLocation];
     
-    //perform count queries
+    //perform parse queries for this location
+    [self getLatestMediaForThisLocation];
     [self getMediaCount:@"photo"];
     [self getMediaCount:@"video"];
     [self getPeopleAtLocationCount];
+    [self checkVoteStatusForUser];
     
     //Add requests modal to view
     [requestModalView setFrame:CGRectMake(0, self.view.frame.origin.y - requestModalView.frame.size.height - 100, requestModalView.frame.size.width, requestModalView.frame.size.height)];
@@ -435,21 +435,33 @@ NSString* const kFactualId = @"factual_id";
 
 - (IBAction)thumbsDownButtonTapped:(id)sender {
     [thumbsDownButton setEnabled:NO];
-    PFObject *ratingObject = [PFObject objectWithClassName:@"ratings"];
-    [ratingObject setObject:[PFUser currentUser] forKey:@"user"];
-    [ratingObject setObject:[NSNumber numberWithBool:NO] forKey:@"thumbsUp"];
-    [ratingObject setObject:[venueData valueForName:kFactualId] forKey:@"factualId"];
-    [ratingObject setObject:[venueData valueForName:kName] forKey:@"locationName"];
+    [thumbsUpButton setEnabled:YES];
+    if (ratingObject) {
+        [ratingObject setObject:[NSNumber numberWithBool:NO] forKey:@"thumbsUp"];
+    }
+    else {
+        ratingObject = [PFObject objectWithClassName:@"ratings"];
+        [ratingObject setObject:[PFUser currentUser] forKey:@"user"];
+        [ratingObject setObject:[NSNumber numberWithBool:NO] forKey:@"thumbsUp"];
+        [ratingObject setObject:[venueData valueForName:kFactualId] forKey:@"factualId"];
+        [ratingObject setObject:[venueData valueForName:kName] forKey:@"locationName"];
+    }
     [ratingObject saveEventually];
 }
 
 - (IBAction)thumbsUpButton:(id)sender {
     [thumbsUpButton setEnabled:NO];
-    PFObject *ratingObject = [PFObject objectWithClassName:@"ratings"];
-    [ratingObject setObject:[PFUser currentUser] forKey:@"user"];
-    [ratingObject setObject:[NSNumber numberWithBool:YES] forKey:@"thumbsUp"];
-    [ratingObject setObject:[venueData valueForName:kFactualId] forKey:@"factualId"];
-    [ratingObject setObject:[venueData valueForName:kName] forKey:@"locationName"];
+    [thumbsDownButton setEnabled:YES];
+    if (ratingObject) {
+        [ratingObject setObject:[NSNumber numberWithBool:YES] forKey:@"thumbsUp"];
+    }
+    else {
+        ratingObject = [PFObject objectWithClassName:@"ratings"];
+        [ratingObject setObject:[PFUser currentUser] forKey:@"user"];
+        [ratingObject setObject:[NSNumber numberWithBool:YES] forKey:@"thumbsUp"];
+        [ratingObject setObject:[venueData valueForName:kFactualId] forKey:@"factualId"];
+        [ratingObject setObject:[venueData valueForName:kName] forKey:@"locationName"];
+    }
     [ratingObject saveEventually];
 }
 
@@ -712,13 +724,27 @@ NSString* const kFactualId = @"factual_id";
             peopleAtLocationCountLabel.text = [NSString stringWithFormat:@"%d monkeys are here", number];
         }
     }];
-    
-    /*PFQuery *getRequests = [PFQuery queryWithClassName:@"requests"];
-    [getRequests whereKey:@"locationCoordinates" nearGeoPoint:currentLocation withinMiles:25000];
-    [getRequests whereKey:@"updatedAt" greaterThan:[NSDate dateWithTimeIntervalSinceNow:-7200]];
-    [getRequests whereKey:@"requestor" notEqualTo:[PFUser currentUser]];
-    [getRequests orderByDescending:@"updatedAt"];*/
+}
 
+- (void)checkVoteStatusForUser {
+    PFQuery *query = [PFQuery queryWithClassName:@"ratings"];
+    [query whereKey:@"user" equalTo:[PFUser currentUser]];
+    [query whereKey:@"factualId" equalTo:[venueData valueForName:kFactualId]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            if (objects.count > 0) {
+                ratingObject = [objects objectAtIndex:0];
+                if ([[ratingObject objectForKey:@"thumbsUp"]isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+                    thumbsUpButton.enabled = NO;
+                    thumbsDownButton.enabled = YES;
+                }
+                else {
+                    thumbsUpButton.enabled = YES;
+                    thumbsDownButton.enabled = NO;
+                }
+            }
+        }
+    }];
 }
 
 #pragma mark - Table view data source
