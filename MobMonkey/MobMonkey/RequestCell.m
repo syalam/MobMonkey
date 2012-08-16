@@ -21,15 +21,15 @@
         _notificationTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 5, 260, 60)];
         _notificationTextLabel.font = [UIFont systemFontOfSize:14];
         _notificationTextLabel.lineBreakMode = UILineBreakModeWordWrap;
-        _notificationTextLabel.numberOfLines = 3;
+        _notificationTextLabel.numberOfLines = 4;
         
         _respondButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [_respondButton setFrame:CGRectMake(20, 70, 80, 30)];
+        [_respondButton setFrame:CGRectMake(20, 80, 80, 30)];
         [_respondButton setTitle:@"Respond" forState:UIControlStateNormal];
         [_respondButton addTarget:self action:@selector(respondButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
         
         _ignoreButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [_ignoreButton setFrame:CGRectMake(120, 70, 80, 30)];
+        [_ignoreButton setFrame:CGRectMake(120, 80, 80, 30)];
         [_ignoreButton setTitle:@"Ignore" forState:UIControlStateNormal];
         [_ignoreButton addTarget:self action:@selector(ignoreButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
         

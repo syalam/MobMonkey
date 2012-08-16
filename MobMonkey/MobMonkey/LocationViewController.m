@@ -68,6 +68,7 @@ NSString* const kFactualId = @"factual_id";
         [requestButton setHidden:YES];
         [_mapView setHidden:YES];
         [_tableView setHidden:YES];
+        [locationInfoButton setHidden:YES];
     }
 
     _contentList = [[NSMutableArray alloc]init];
