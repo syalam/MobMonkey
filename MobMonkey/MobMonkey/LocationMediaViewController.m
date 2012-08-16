@@ -10,6 +10,7 @@
 #import "ImageDetailViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "TCImageView.h"
+#import "GetRelativeTime.h"
 
 
 @interface LocationMediaViewController ()
@@ -44,9 +45,12 @@
     UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 127/2, 9.5, 127, 25)];
     titleImageView.image = [UIImage imageNamed:@"logo~iphone"];
     titleImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.navigationItem.titleView = titleImageView;
     
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonTapped:)];
     self.navigationItem.rightBarButtonItem = doneButton;
+    
+    voteTrackerDictionary = [[NSMutableDictionary alloc]initWithCapacity:1];
 }
 
 - (void)viewDidUnload
@@ -77,11 +81,14 @@
 {
     static NSString *CellIdentifier = @"Cell";
     LocationMediaCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    cell.delegate = self;
     
     cell = [[LocationMediaCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    cell.delegate = self;
     
-    PFFile *mediaFile = [[_contentList objectAtIndex:indexPath.row] objectForKey:@"image"];
+    PFObject *locationMediaObject = [_contentList objectAtIndex:indexPath.row];
+    PFFile *mediaFile = [locationMediaObject objectForKey:@"image"];
+    
+    cell.timeLabel.text = [[GetRelativeTime alloc]getRelativeTime:locationMediaObject.createdAt];
     
     if ([mediaFile.url rangeOfString:@".mov"].location != NSNotFound) {
         AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:mediaFile.url] options:nil];
@@ -94,6 +101,22 @@
     }
     else {
         [cell.cellImageView reloadWithUrl:mediaFile.url];
+    }
+    
+    cell.thumbsDownButton.tag = indexPath.row;
+    cell.thumbsUpButton.tag = indexPath.row;
+    
+    
+    if ([[voteTrackerDictionary objectForKey:[NSString stringWithFormat:@"%d", indexPath.row]] isEqualToString:@"up"]) {
+        cell.thumbsUpButton.enabled = NO;
+        cell.thumbsDownButton.enabled = YES;
+    }
+    else if ([[voteTrackerDictionary objectForKey:[NSString stringWithFormat:@"%d", indexPath.row]] isEqualToString:@"down"]) {
+        cell.thumbsDownButton.enabled = NO;
+        cell.thumbsUpButton.enabled = YES;
+    }
+    else {
+        [self checkVoteStatusForUser:locationMediaObject thumbsUpButton:cell.thumbsUpButton thumbsDownButton:cell.thumbsDownButton];
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -148,20 +171,75 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{    
+{
+    PFObject *locationMediaObject = [_contentList objectAtIndex:indexPath.row];
+    PFFile *mediaFile = [locationMediaObject objectForKey:@"image"];
     ImageDetailViewController *idvc = [[ImageDetailViewController alloc]initWithNibName:@"ImageDetailViewController" bundle:nil];
-    idvc.imageUrl = [_contentList objectAtIndex:indexPath.row];
+    idvc.imageUrl = mediaFile.url;
     idvc.title = self.title;
     [self.navigationController pushViewController:idvc animated:YES];
 }
 
 #pragma mark - location media cell delegate methods 
 - (void)thumbsUpButtonTapped:(id)sender {
-    
+    PFObject *locationMediaObject = [_contentList objectAtIndex:[sender tag]];
+    LocationMediaCell *cell = (LocationMediaCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
+    UIButton *thumbsUpButton = cell.thumbsUpButton;
+    UIButton *thumbsDownButton = cell.thumbsDownButton;
+    [thumbsDownButton setEnabled:YES];
+    [thumbsUpButton setEnabled:NO];
+    PFQuery *query = [PFQuery queryWithClassName:@"ratings"];
+    [query whereKey:@"mediaObject" equalTo:locationMediaObject];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            PFObject *ratingObject;
+            if (objects.count > 0) {
+                ratingObject = [objects objectAtIndex:0];
+                [ratingObject setObject:[NSNumber numberWithBool:YES] forKey:@"thumbsUp"];
+            }
+            else {
+                ratingObject = [PFObject objectWithClassName:@"ratings"];
+                [ratingObject setObject:[PFUser currentUser] forKey:@"user"];
+                [ratingObject setObject:[NSNumber numberWithBool:YES] forKey:@"thumbsUp"];
+                [ratingObject setObject:_factualId forKey:@"factualId"];
+                [ratingObject setObject:locationMediaObject forKey:@"mediaObject"];
+                [ratingObject setObject:self.title forKey:@"locationName"];
+            }
+            [ratingObject saveEventually];
+            [voteTrackerDictionary setObject:@"up" forKey:[NSString stringWithFormat:@"%d", [sender tag]]];
+        }
+    }];
+
 }
 
 - (void)thumbsDownButtonTapped:(id)sender {
-    
+    PFObject *locationMediaObject = [_contentList objectAtIndex:[sender tag]];
+    LocationMediaCell *cell = (LocationMediaCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
+    UIButton *thumbsUpButton = cell.thumbsUpButton;
+    UIButton *thumbsDownButton = cell.thumbsDownButton;
+    [thumbsDownButton setEnabled:NO];
+    [thumbsUpButton setEnabled:YES];
+    PFQuery *query = [PFQuery queryWithClassName:@"ratings"];
+    [query whereKey:@"mediaObject" equalTo:locationMediaObject];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            PFObject *ratingObject;
+            if (objects.count > 0) {
+                ratingObject = [objects objectAtIndex:0];
+                [ratingObject setObject:[NSNumber numberWithBool:NO] forKey:@"thumbsUp"];
+            }
+            else {
+                ratingObject = [PFObject objectWithClassName:@"ratings"];
+                [ratingObject setObject:[PFUser currentUser] forKey:@"user"];
+                [ratingObject setObject:[NSNumber numberWithBool:NO] forKey:@"thumbsUp"];
+                [ratingObject setObject:_factualId forKey:@"factualId"];
+                [ratingObject setObject:locationMediaObject forKey:@"mediaObject"];
+                [ratingObject setObject:self.title forKey:@"locationName"];
+            }
+            [ratingObject saveEventually];
+            [voteTrackerDictionary setObject:@"down" forKey:[NSString stringWithFormat:@"%d", [sender tag]]];
+        }
+    }];
 }
 
 #pragma mark - NavBar Button Action Methods
@@ -185,6 +263,27 @@
             }
             [self setContentList:itemsArray];
             [self.tableView reloadData];
+        }
+    }];
+}
+
+- (void)checkVoteStatusForUser:(PFObject*)locationItemObject thumbsUpButton:(UIButton*)thumbsUpButton thumbsDownButton:(UIButton*)thumbsDownButton {
+    PFQuery *query = [PFQuery queryWithClassName:@"ratings"];
+    [query whereKey:@"user" equalTo:[PFUser currentUser]];
+    [query whereKey:@"mediaObject" equalTo:locationItemObject];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            if (objects.count > 0) {
+                PFObject *ratingObject = [objects objectAtIndex:0];
+                if ([[ratingObject objectForKey:@"thumbsUp"]isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+                    thumbsUpButton.enabled = NO;
+                    thumbsDownButton.enabled = YES;
+                }
+                else {
+                    thumbsUpButton.enabled = YES;
+                    thumbsDownButton.enabled = NO;
+                }
+            }
         }
     }];
 }

@@ -12,10 +12,13 @@
 #import <AVFoundation/AVFoundation.h>
 #import "LocationMediaCell.h"
 
-@interface LocationMediaViewController : UITableViewController <LocationMediaCellDelegate>
+@interface LocationMediaViewController : UITableViewController <LocationMediaCellDelegate> {
+    NSMutableDictionary *voteTrackerDictionary;
+}
 
 
 @property (nonatomic, retain)NSMutableArray *contentList;
+@property (nonatomic, retain)NSString *factualId;
 
 - (void)getLocationItems:(NSString*)mediaType factualId:(NSString*)factualId;
 

@@ -20,6 +20,7 @@
 @property (nonatomic, retain) UIImageView *cellBackgroundImageView;
 @property (nonatomic,retain)UILabel* timeLabel;
 @property (nonatomic, retain) TCImageView *cellImageView;
+@property (nonatomic, retain) UIImageView *voteBGImageView;
 @property (nonatomic, retain) UIButton *thumbsUpButton;
 @property (nonatomic, retain) UIButton *thumbsDownButton;
 @property (nonatomic, assign) id<LocationMediaCellDelegate> delegate;

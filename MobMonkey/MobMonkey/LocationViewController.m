@@ -470,9 +470,11 @@ NSString* const kFactualId = @"factual_id";
     LocationMediaViewController *lmvc = [[LocationMediaViewController alloc]initWithNibName:@"LocationMediaViewController" bundle:nil];
     if (_requestObject) {
         [lmvc getLocationItems:@"photo" factualId:[_requestObject objectForKey:@"factualId"]];
+        lmvc.factualId = [_requestObject objectForKey:@"factualId"];
     }
     else {
         [lmvc getLocationItems:@"photo" factualId:[venueData valueForName:kFactualId]];
+        lmvc.factualId = [venueData valueForName:kFactualId];
     }
     lmvc.title = self.title;
     UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:lmvc];
