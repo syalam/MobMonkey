@@ -26,11 +26,12 @@
     NSString *mediaType;
     int currentActionSheetCall;
     BOOL videoRequested;
+    NSString *locationItemUrl;
     PFObject *ratingObject;
     PFObject *locationItemObject;
     
     //main view
-    IBOutlet UILabel *locationInfoLabel;
+    IBOutlet UIButton *locationImageButton;
     IBOutlet UIButton *locationInfoButton;
     IBOutlet UILabel *timeLabel;
     IBOutlet UILabel *photoCountLabel;
@@ -69,7 +70,7 @@
 @property (nonatomic, retain) NSMutableArray *contentList;
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 
-
+- (IBAction)locationImageButtonTapped:(id)sender;
 - (IBAction)locationInfoButtonTapped:(id)sender;
 - (IBAction)thumbsDownButtonTapped:(id)sender;
 - (IBAction)thumbsUpButton:(id)sender;

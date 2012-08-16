@@ -15,6 +15,7 @@
 #import "HomeViewController.h"
 #import "GetRelativeTime.h"
 #import "LocationInfoViewController.h"
+#import "ImageDetailViewController.h"
 
 //ActionSheet Constants
 NSUInteger const kCameraSheet = 0;
@@ -149,6 +150,9 @@ NSString* const kFactualId = @"factual_id";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [scrollView setContentOffset:CGPointMake(0, 0)animated:YES];
+    if (locationItemObject) {
+        [self checkVoteStatusForUser];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -432,6 +436,15 @@ NSString* const kFactualId = @"factual_id";
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (IBAction)locationImageButtonTapped:(id)sender {
+    if (locationItemUrl) {
+        ImageDetailViewController *idvc = [[ImageDetailViewController alloc]initWithNibName:@"ImageDetailViewController" bundle:nil];
+        idvc.imageUrl = locationItemUrl;
+        idvc.title = self.title;
+        [self.navigationController pushViewController:idvc animated:YES];
+    }
+}
+
 - (IBAction)thumbsDownButtonTapped:(id)sender {
     [thumbsDownButton setEnabled:NO];
     [thumbsUpButton setEnabled:YES];
@@ -700,11 +713,12 @@ NSString* const kFactualId = @"factual_id";
                 locationItemObject = [objects objectAtIndex:0];
                 [self checkVoteStatusForUser];
                 PFFile *mediaFile = [locationItemObject objectForKey:@"image"];
+                locationItemUrl = mediaFile.url;
                 if ([[locationItemObject objectForKey:@"mediaType"]isEqualToString:@"photo"]) {
-                    [locationImageView reloadWithUrl:mediaFile.url];
+                    [locationImageView reloadWithUrl:locationItemUrl];
                 }
                 else {
-                    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:mediaFile.url] options:nil];
+                    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:locationItemUrl] options:nil];
                     AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
                     generate.appliesPreferredTrackTransform = YES;
                     NSError *err = NULL;

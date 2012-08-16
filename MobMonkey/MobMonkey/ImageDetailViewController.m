@@ -92,6 +92,7 @@
 
 #pragma mark - Nav Bar Action Methods
 - (void)backButtonTapped:(id)sender {
+    [SVProgressHUD dismiss];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
