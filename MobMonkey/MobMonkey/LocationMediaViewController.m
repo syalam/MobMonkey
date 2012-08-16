@@ -41,6 +41,10 @@
     //set background color
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
     
+    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 127/2, 9.5, 127, 25)];
+    titleImageView.image = [UIImage imageNamed:@"logo~iphone"];
+    titleImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonTapped:)];
     self.navigationItem.rightBarButtonItem = doneButton;
 }

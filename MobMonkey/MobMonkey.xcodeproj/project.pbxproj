@@ -238,6 +238,8 @@
 		F78F6C7415D1AF3D006EFF27 /* ThumbUp~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6C5A15D1AF3C006EFF27 /* ThumbUp~iphone.png */; };
 		F78F6C7515D1AF3D006EFF27 /* VideosBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6C5B15D1AF3C006EFF27 /* VideosBtn@2x~iphone.png */; };
 		F78F6C7615D1AF3D006EFF27 /* VideosBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F78F6C5C15D1AF3C006EFF27 /* VideosBtn~iphone.png */; };
+		F79D2F2A15DD678E009A4203 /* LocationInfoBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79D2F2815DD678E009A4203 /* LocationInfoBtn@2x~iphone.png */; };
+		F79D2F2B15DD678E009A4203 /* LocationInfoBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79D2F2915DD678E009A4203 /* LocationInfoBtn~iphone.png */; };
 		F79F95DF15A562D200BE96EE /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F95DE15A562D200BE96EE /* SearchCell.m */; };
 		F79F95E415A56B9200BE96EE /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F95E215A56B9200BE96EE /* MapViewController.m */; };
 		F79F95E515A56B9200BE96EE /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79F95E315A56B9200BE96EE /* MapViewController.xib */; };
@@ -514,6 +516,8 @@
 		F78F6C5A15D1AF3C006EFF27 /* ThumbUp~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ThumbUp~iphone.png"; sourceTree = "<group>"; };
 		F78F6C5B15D1AF3C006EFF27 /* VideosBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VideosBtn@2x~iphone.png"; sourceTree = "<group>"; };
 		F78F6C5C15D1AF3C006EFF27 /* VideosBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VideosBtn~iphone.png"; sourceTree = "<group>"; };
+		F79D2F2815DD678E009A4203 /* LocationInfoBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationInfoBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F79D2F2915DD678E009A4203 /* LocationInfoBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationInfoBtn~iphone.png"; sourceTree = "<group>"; };
 		F79F95DD15A562D200BE96EE /* SearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
 		F79F95DE15A562D200BE96EE /* SearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
 		F79F95E115A56B9200BE96EE /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -1033,6 +1037,8 @@
 		F78F6C4215D1AF34006EFF27 /* Location */ = {
 			isa = PBXGroup;
 			children = (
+				F79D2F2815DD678E009A4203 /* LocationInfoBtn@2x~iphone.png */,
+				F79D2F2915DD678E009A4203 /* LocationInfoBtn~iphone.png */,
 				F78F6C4315D1AF3C006EFF27 /* BackBtn@2x~iphone.png */,
 				F78F6C4415D1AF3C006EFF27 /* BackBtn~iphone.png */,
 				F78F6C4515D1AF3C006EFF27 /* Background@2x~iphone.png */,
@@ -1462,6 +1468,8 @@
 				F777064015DC146800BE4A78 /* ModalVideoBtn2@2x~iphone.png in Resources */,
 				F777064115DC146900BE4A78 /* ModalVideoBtn2~iphone.png in Resources */,
 				F70A612A15DC34770072D776 /* LocationInfoViewController.xib in Resources */,
+				F79D2F2A15DD678E009A4203 /* LocationInfoBtn@2x~iphone.png in Resources */,
+				F79D2F2B15DD678E009A4203 /* LocationInfoBtn~iphone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

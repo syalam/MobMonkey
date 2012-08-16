@@ -120,9 +120,10 @@ NSString* const kFactualId = @"factual_id";
     //show latest picture available for this location
     [self getLatestMediaForThisLocation];
     
-    //get media counts
+    //perform count queries
     [self getMediaCount:@"photo"];
     [self getMediaCount:@"video"];
+    [self getPeopleAtLocationCount];
     
     //Add requests modal to view
     [requestModalView setFrame:CGRectMake(0, self.view.frame.origin.y - requestModalView.frame.size.height - 100, requestModalView.frame.size.width, requestModalView.frame.size.height)];
@@ -699,6 +700,25 @@ NSString* const kFactualId = @"factual_id";
             }
         }
     }];
+}
+
+- (void)getPeopleAtLocationCount {
+    PFGeoPoint *locationCoordinates = [PFGeoPoint geoPointWithLatitude:[[venueData valueForName:kLatitude]doubleValue] longitude:[[venueData valueForName:kLongitude]doubleValue]];
+    PFQuery *findUsersAtLocation = [PFUser query];
+    [findUsersAtLocation whereKey:@"userLocation" nearGeoPoint:locationCoordinates withinMiles:[[[NSUserDefaults standardUserDefaults]objectForKey:@"range"]doubleValue]];
+    [findUsersAtLocation whereKey:@"updatedAt" greaterThan:[NSDate dateWithTimeIntervalSinceNow:-7200]];
+    [findUsersAtLocation countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            peopleAtLocationCountLabel.text = [NSString stringWithFormat:@"%d monkeys are here", number];
+        }
+    }];
+    
+    /*PFQuery *getRequests = [PFQuery queryWithClassName:@"requests"];
+    [getRequests whereKey:@"locationCoordinates" nearGeoPoint:currentLocation withinMiles:25000];
+    [getRequests whereKey:@"updatedAt" greaterThan:[NSDate dateWithTimeIntervalSinceNow:-7200]];
+    [getRequests whereKey:@"requestor" notEqualTo:[PFUser currentUser]];
+    [getRequests orderByDescending:@"updatedAt"];*/
+
 }
 
 #pragma mark - Table view data source

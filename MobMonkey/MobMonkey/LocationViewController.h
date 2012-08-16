@@ -22,16 +22,21 @@
     UIImageView *notificationsImageView;
     UILabel *notificationsCountLabel;
     
+    //variables
+    NSString *mediaType;
+    int currentActionSheetCall;
+    BOOL videoRequested;
+    
+    //main view
     IBOutlet UILabel *locationInfoLabel;
     IBOutlet UIButton *locationInfoButton;
-    
     IBOutlet UILabel *timeLabel;
     IBOutlet UILabel *photoCountLabel;
     IBOutlet UILabel *videoCountLabel;
     IBOutlet TCImageView *locationImageView;
-    
-    NSString *mediaType;
-    int currentActionSheetCall;
+    IBOutlet UIButton *thumbsDownButton;
+    IBOutlet UIButton *thumbsUpButton;
+    IBOutlet UILabel *peopleAtLocationCountLabel;
     
     //request view items
     IBOutlet UIView *requestModalView;
@@ -43,11 +48,6 @@
     IBOutlet UISwitch *activeSwitch;
     IBOutlet UIButton *cancelButton;
     IBOutlet UIButton *requestItButton;
-    
-    BOOL videoRequested;
-    
-    IBOutlet UIButton *thumbsDownButton;
-    IBOutlet UIButton *thumbsUpButton;
 }
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;

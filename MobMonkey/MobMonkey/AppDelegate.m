@@ -26,6 +26,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //set NSUserDefaults to be used in App
+    [[NSUserDefaults standardUserDefaults]setObject:@"25000" forKey:@"range"];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
