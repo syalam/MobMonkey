@@ -225,7 +225,7 @@
 }
 
 - (void)checkForNotifications {
-    NSMutableArray *requestsToDisplay = [[NSMutableArray alloc]init];
+    /*NSMutableArray *requestsToDisplay = [[NSMutableArray alloc]init];
     
     PFQuery *getNotifications = [PFQuery queryWithClassName:@"notifications"];
     [getNotifications whereKey:@"requestor" equalTo:[PFUser currentUser]];
@@ -289,7 +289,7 @@
                 }
             }];
         } 
-    }];
+    }];*/
 }
 
 - (void)doQuery:(id)sender {

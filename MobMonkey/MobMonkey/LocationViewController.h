@@ -27,6 +27,7 @@
     int currentActionSheetCall;
     BOOL videoRequested;
     PFObject *ratingObject;
+    PFObject *locationItemObject;
     
     //main view
     IBOutlet UILabel *locationInfoLabel;

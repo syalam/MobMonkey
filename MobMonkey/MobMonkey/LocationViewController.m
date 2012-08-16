@@ -81,7 +81,7 @@ NSString* const kFactualId = @"factual_id";
     
     //update notifications badge count
     NSArray *navViewControllers = [self.tabBarController viewControllers];
-    UINavigationController *homeNavC = [navViewControllers objectAtIndex:0];
+    UINavigationController *homeNavC = [navViewControllers objectAtIndex:2];
     HomeViewController *homeScreen = [homeNavC.viewControllers objectAtIndex:0];
     notificationsCountLabel.text = [NSString stringWithFormat:@"%d", homeScreen.pendingRequestsArray.count];
     
@@ -123,7 +123,6 @@ NSString* const kFactualId = @"factual_id";
     [self getMediaCount:@"photo"];
     [self getMediaCount:@"video"];
     [self getPeopleAtLocationCount];
-    [self checkVoteStatusForUser];
     
     //Add requests modal to view
     [requestModalView setFrame:CGRectMake(0, self.view.frame.origin.y - requestModalView.frame.size.height - 100, requestModalView.frame.size.width, requestModalView.frame.size.height)];
@@ -444,6 +443,7 @@ NSString* const kFactualId = @"factual_id";
         [ratingObject setObject:[PFUser currentUser] forKey:@"user"];
         [ratingObject setObject:[NSNumber numberWithBool:NO] forKey:@"thumbsUp"];
         [ratingObject setObject:[venueData valueForName:kFactualId] forKey:@"factualId"];
+        [ratingObject setObject:locationItemObject forKey:@"mediaObject"];
         [ratingObject setObject:[venueData valueForName:kName] forKey:@"locationName"];
     }
     [ratingObject saveEventually];
@@ -460,6 +460,7 @@ NSString* const kFactualId = @"factual_id";
         [ratingObject setObject:[PFUser currentUser] forKey:@"user"];
         [ratingObject setObject:[NSNumber numberWithBool:YES] forKey:@"thumbsUp"];
         [ratingObject setObject:[venueData valueForName:kFactualId] forKey:@"factualId"];
+        [ratingObject setObject:locationItemObject forKey:@"mediaObject"];
         [ratingObject setObject:[venueData valueForName:kName] forKey:@"locationName"];
     }
     [ratingObject saveEventually];
@@ -694,7 +695,8 @@ NSString* const kFactualId = @"factual_id";
     [queryForItems findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             if (objects.count > 0) {
-                PFObject *locationItemObject = [objects objectAtIndex:0];
+                locationItemObject = [objects objectAtIndex:0];
+                [self checkVoteStatusForUser];
                 PFFile *mediaFile = [locationItemObject objectForKey:@"image"];
                 if ([[locationItemObject objectForKey:@"mediaType"]isEqualToString:@"photo"]) {
                     [locationImageView reloadWithUrl:mediaFile.url];
@@ -709,6 +711,10 @@ NSString* const kFactualId = @"factual_id";
                     locationImageView.image =  [UIImage imageWithCGImage:imgRef];
                 }
                 timeLabel.text = [[GetRelativeTime alloc]getRelativeTime:locationItemObject.createdAt];
+            }
+            else {
+                [thumbsDownButton setHidden:YES];
+                [thumbsUpButton setHidden:YES];
             }
         }
     }];
@@ -729,7 +735,7 @@ NSString* const kFactualId = @"factual_id";
 - (void)checkVoteStatusForUser {
     PFQuery *query = [PFQuery queryWithClassName:@"ratings"];
     [query whereKey:@"user" equalTo:[PFUser currentUser]];
-    [query whereKey:@"factualId" equalTo:[venueData valueForName:kFactualId]];
+    [query whereKey:@"mediaObject" equalTo:locationItemObject];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             if (objects.count > 0) {

@@ -81,9 +81,10 @@
     
     cell = [[LocationMediaCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
-        
-    if ([[_contentList objectAtIndex:indexPath.row] rangeOfString:@".mov"].location != NSNotFound) {
-        AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[_contentList objectAtIndex:indexPath.row]] options:nil];
+    PFFile *mediaFile = [[_contentList objectAtIndex:indexPath.row] objectForKey:@"image"];
+    
+    if ([mediaFile.url rangeOfString:@".mov"].location != NSNotFound) {
+        AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:mediaFile.url] options:nil];
         AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
         generate.appliesPreferredTrackTransform = YES;
         NSError *err = NULL;
@@ -92,7 +93,7 @@
         cell.cellImageView.image = [[UIImage alloc] initWithCGImage:imgRef];
     }
     else {
-        [cell.cellImageView reloadWithUrl:[_contentList objectAtIndex:indexPath.row]];
+        [cell.cellImageView reloadWithUrl:mediaFile.url];
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -143,7 +144,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 420;
+    return 200;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -154,6 +155,15 @@
     [self.navigationController pushViewController:idvc animated:YES];
 }
 
+#pragma mark - location media cell delegate methods 
+- (void)thumbsUpButtonTapped:(id)sender {
+    
+}
+
+- (void)thumbsDownButtonTapped:(id)sender {
+    
+}
+
 #pragma mark - NavBar Button Action Methods
 - (void)doneButtonTapped:(id)sender {
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
@@ -161,7 +171,7 @@
 
 #pragma mark - Helper Methods
 - (void)getLocationItems:(NSString*)mediaType factualId:(NSString*)factualId {
-    NSMutableArray *urlArray = [[NSMutableArray alloc]init];
+    NSMutableArray *itemsArray = [[NSMutableArray alloc]init];
     PFQuery *queryForItems = [PFQuery queryWithClassName:@"locationImages"];
     [queryForItems whereKey:@"factualId" equalTo:factualId];
     [queryForItems whereKey:@"mediaType" equalTo:mediaType];
@@ -169,15 +179,11 @@
     [queryForItems findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for (PFObject *locationItemObject in objects) {
-                PFFile *mediaFile = [locationItemObject objectForKey:@"image"];
-                [urlArray addObject:mediaFile.url];
-                /*[mediaFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                    [urlArray addObject:[NSDictionary dictionaryWithObjectsAndKeys:mediaFile.url, @"url", mediaType, @"mediaType", data, @"file", nil]];
-                    [self setContentList:urlArray];
-                    [self.tableView reloadData];
-                }];*/
+                [itemsArray addObject:locationItemObject];
+                /*PFFile *mediaFile = [locationItemObject objectForKey:@"image"];
+                [itemsArray addObject:mediaFile.url];*/
             }
-            [self setContentList:urlArray];
+            [self setContentList:itemsArray];
             [self.tableView reloadData];
         }
     }];

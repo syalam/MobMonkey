@@ -10,17 +10,18 @@
 #import "TCImageView.h"
 
 @protocol LocationMediaCellDelegate
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
-- (void)webViewDidStartLoad:(UIWebView *)webView;
-- (void)webViewDidFinishLoad:(UIWebView *)webView;
+- (void)thumbsUpButtonTapped:(id)sender;
+- (void)thumbsDownButtonTapped:(id)sender;
 
 @end
 
 @interface LocationMediaCell : UITableViewCell <UIWebViewDelegate>
 
+@property (nonatomic, retain) UIImageView *cellBackgroundImageView;
+@property (nonatomic,retain)UILabel* timeLabel;
 @property (nonatomic, retain) TCImageView *cellImageView;
-@property (nonatomic, retain) UIWebView *cellWebView;
+@property (nonatomic, retain) UIButton *thumbsUpButton;
+@property (nonatomic, retain) UIButton *thumbsDownButton;
 @property (nonatomic, assign) id<LocationMediaCellDelegate> delegate;
 
 @end
