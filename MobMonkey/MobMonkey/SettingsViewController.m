@@ -78,9 +78,9 @@
     [mmNavButton addTarget:self action:@selector(notificationsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     [navBarView addSubview:titleImageView];
-    [navBarView addSubview:notificationsImageView];
+    //[navBarView addSubview:notificationsImageView];
     [navBarView addSubview:mmNavButton];
-    [navBarView addSubview:notificationsCountLabel];
+    //[navBarView addSubview:notificationsCountLabel];
     
     self.navigationItem.titleView = navBarView;
     

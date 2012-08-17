@@ -183,8 +183,8 @@ NSString* const kFactualId = @"factual_id";
     [mmNavButton addTarget:self action:@selector(notificationsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     [navBarView addSubview:titleImageView];
-    [navBarView addSubview:notificationsImageView];
-    [navBarView addSubview:notificationsCountLabel];
+    //[navBarView addSubview:notificationsImageView];
+    //[navBarView addSubview:notificationsCountLabel];
     [navBarView addSubview:mmNavButton];
     
     if ([notificationsCountLabel.text isEqualToString:@"0"] || !notificationsCountLabel.text) {
