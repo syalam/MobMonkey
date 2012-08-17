@@ -158,7 +158,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
 didReceiveRemoteNotification:(NSDictionary *)userInfo {
     //[PFPush handlePush:userInfo];
     if ([PFUser currentUser]) {
-        [_homeViewController checkForNotifications];
+        [_requestsViewController checkForNotifications];
     }
 }
 
