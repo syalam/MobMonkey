@@ -325,7 +325,11 @@
 
 - (void)notificationsButtonTapped:(id)sender {
     if (![notificationsCountLabel.text isEqualToString:@"0"] && notificationsCountLabel.text ) {
-        if ([self.title isEqualToString:@"Trending"]) {
+        UIViewController * target = [[self.tabBarController viewControllers] objectAtIndex:0];
+        [target.navigationController popToRootViewControllerAnimated: NO];
+        [self.tabBarController setSelectedIndex:0];
+        
+        /*if ([self.title isEqualToString:@"Trending"]) {
             if ([PFUser currentUser]) {
                 notificationScreen.fromHome = YES;
                 UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:notificationScreen];
@@ -341,7 +345,7 @@
             UINavigationController *homeNavC = [navViewControllers objectAtIndex:0];
             HomeViewController *homeScreen = [homeNavC.viewControllers objectAtIndex:0];
             [homeScreen notificationsButtonTapped:nil];
-        }
+        }*/
     }
 }
 

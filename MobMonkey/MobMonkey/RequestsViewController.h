@@ -13,6 +13,7 @@
 
 @interface RequestsViewController : UITableViewController <RequestCellDelegate> {
     NSMutableArray *indexPathArray;
+    UILabel *notificationsCountLabel;
     
     int currentIndex;
     NSIndexPath *responseIndexPath;

@@ -33,6 +33,7 @@
     UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 127/2, 9.5, 127, 25)];
     titleImageView.image = [UIImage imageNamed:@"logo~iphone"];
     titleImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.navigationItem.titleView = titleImageView;
     
     [_webView setScalesPageToFit:YES];
     

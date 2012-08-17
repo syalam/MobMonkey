@@ -217,10 +217,9 @@
 }
 
 - (void)notificationsButtonTapped:(id)sender {
-    NSArray *navViewControllers = [self.tabBarController viewControllers];
-    UINavigationController *homeNavC = [navViewControllers objectAtIndex:0];
-    HomeViewController *homeScreen = [homeNavC.viewControllers objectAtIndex:0];
-    [homeScreen notificationsButtonTapped:nil];
+    UIViewController * target = [[self.tabBarController viewControllers] objectAtIndex:0];
+    [target.navigationController popToRootViewControllerAnimated: NO];
+    [self.tabBarController setSelectedIndex:0];
 }
 
 #pragma mark - Helper Methods

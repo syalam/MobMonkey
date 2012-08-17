@@ -11,6 +11,7 @@
 #import "HomeViewController.h"
 #import "ImageDetailViewController.h"
 #import "SignUpViewController.h"
+#import "AppDelegate.h"
 
 #define FONT_SIZE 13.0f
 #define CELL_CONTENT_WIDTH 180.0f
@@ -49,11 +50,9 @@
     
     self.navigationItem.titleView = titleImageView;
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    if ([PFUser currentUser]) {
+        [self checkForNotifications];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -63,9 +62,8 @@
         UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:signUpVc];
         [self.navigationController presentViewController:navC animated:YES completion:NULL];
     }
-    else {
-        [self separateSections];
-    }
+    
+    notificationsCountLabel = [(AppDelegate *)[[UIApplication sharedApplication] delegate] notificationsCountLabel];
 }
 
 - (void)viewDidUnload
@@ -265,6 +263,61 @@
 }
 
 #pragma mark - Helper Methods
+- (void)checkForNotifications {
+    NSMutableArray *requestsToDisplay = [[NSMutableArray alloc]init];
+    PFQuery *getNotifications = [PFQuery queryWithClassName:@"notifications"];
+    [getNotifications whereKey:@"requestor" equalTo:[PFUser currentUser]];
+    [getNotifications whereKey:@"updatedAt" greaterThan:[NSDate dateWithTimeIntervalSinceNow:-7200]];
+    [getNotifications orderByDescending:@"updatedAt"];
+    getNotifications.limit = 15;
+    [getNotifications findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (PFObject *notification in objects) {
+                [requestsToDisplay addObject:notification];
+            }
+            
+            notificationsCountLabel.text = [NSString stringWithFormat:@"%d", _contentList.count];
+            
+            PFGeoPoint *currentLocation = [PFGeoPoint geoPointWithLatitude:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]floatValue] longitude:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]floatValue]];
+            NSLog(@"%f, %f", currentLocation.latitude, currentLocation.longitude);
+            PFQuery *getRequests = [PFQuery queryWithClassName:@"requests"];
+            [getRequests whereKey:@"locationCoordinates" nearGeoPoint:currentLocation withinMiles:25000];
+            [getRequests whereKey:@"updatedAt" greaterThan:[NSDate dateWithTimeIntervalSinceNow:-7200]];
+            [getRequests whereKey:@"requestor" notEqualTo:[PFUser currentUser]];
+            [getRequests orderByDescending:@"updatedAt"];
+            [getRequests findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                if (!error) {
+                    NSLog(@"%@", objects);
+                    NSMutableArray *allRequests = [objects mutableCopy];
+                    PFQuery *requestResponseQuery = [PFQuery queryWithClassName:@"requestResponses"];
+                    [requestResponseQuery whereKey:@"responder" equalTo:[PFUser currentUser]];
+                    [requestResponseQuery whereKey:@"requestObject" containedIn:objects];
+                    [requestResponseQuery findObjectsInBackgroundWithBlock:^(NSArray *responseArray, NSError *error) {
+                        if (!error) {
+                                for (PFObject *responseObject in responseArray) {
+                                    NSString *responseObjectId = [responseObject objectId];
+                                    for (int i = 0; i < allRequests.count; i++) {
+                                        NSString *requestObjectId = [[allRequests objectAtIndex:i]objectId];
+                                        if ([responseObjectId isEqualToString:requestObjectId]) {
+                                            [allRequests removeObjectAtIndex:i];
+                                        }
+                                    }
+                                }
+                            [requestsToDisplay addObjectsFromArray:allRequests];
+                            [self setRequestQueryItems:requestsToDisplay];
+                            [self separateSections];
+                            self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d", _requestQueryItems.count];
+                            notificationsCountLabel.text = [NSString stringWithFormat:@"%d", _requestQueryItems.count];
+                        }
+                    }];
+
+                }
+            }];
+        }
+    }];
+}
+
+
 - (void)responseComplete:(PFObject *)requestObject {
     PFObject *response = [PFObject objectWithClassName:@"requestResponses"];
     [response setObject:requestObject forKey:@"requestObject"];
@@ -283,8 +336,9 @@
     [self.tableView reloadData];
 }
 
-- (void)separateSections { 
+- (void)separateSections {
     NSMutableArray *allItems = [_requestQueryItems mutableCopy];
+    NSLog(@"%@", allItems);
     NSMutableArray *notificationArray = [[NSMutableArray alloc]init];
     NSMutableArray *requestArray = [[NSMutableArray alloc]init];
     

@@ -648,7 +648,8 @@
 				8CCDA2051598070F006B0093 /* Settings */,
 				8CCDA1FF1598062E006B0093 /* Bookmarks */,
 				8CCDA1F915980593006B0093 /* Nearby */,
-				8CCDA1F115980547006B0093 /* Home */,
+				F7193B7515AEA11100CCFC5A /* Inbox */,
+				8CCDA1F115980547006B0093 /* Trending */,
 				8CCDA1F21598054D006B0093 /* Search */,
 				8C5C457C1596762E00E3710B /* Supporting Files */,
 			);
@@ -676,16 +677,15 @@
 			name = "TestFlight SDK";
 			sourceTree = "<group>";
 		};
-		8CCDA1F115980547006B0093 /* Home */ = {
+		8CCDA1F115980547006B0093 /* Trending */ = {
 			isa = PBXGroup;
 			children = (
-				F7193B7515AEA11100CCFC5A /* Requests */,
 				8CD18BD3159B99D90096E7F4 /* HomeViewController.h */,
 				8CD18BD4159B99D90096E7F4 /* HomeViewController.m */,
 				8CD18BD5159B99D90096E7F4 /* HomeViewController.xib */,
 				8CD18BE5159B9B5B0096E7F4 /* Home Cell */,
 			);
-			name = Home;
+			name = Trending;
 			sourceTree = "<group>";
 		};
 		8CCDA1F21598054D006B0093 /* Search */ = {
@@ -785,24 +785,24 @@
 			name = "Location Info";
 			sourceTree = "<group>";
 		};
-		F7193B7515AEA11100CCFC5A /* Requests */ = {
+		F7193B7515AEA11100CCFC5A /* Inbox */ = {
 			isa = PBXGroup;
 			children = (
-				F7193B7B15AEA21A00CCFC5A /* Requests Cell */,
+				F7193B7B15AEA21A00CCFC5A /* Inbox Cell */,
 				F7193B7615AEA14B00CCFC5A /* RequestsViewController.h */,
 				F7193B7715AEA14B00CCFC5A /* RequestsViewController.m */,
 				F7193B7815AEA14B00CCFC5A /* RequestsViewController.xib */,
 			);
-			name = Requests;
+			name = Inbox;
 			sourceTree = "<group>";
 		};
-		F7193B7B15AEA21A00CCFC5A /* Requests Cell */ = {
+		F7193B7B15AEA21A00CCFC5A /* Inbox Cell */ = {
 			isa = PBXGroup;
 			children = (
 				F7193B7C15AEA24A00CCFC5A /* RequestCell.h */,
 				F7193B7D15AEA24A00CCFC5A /* RequestCell.m */,
 			);
-			name = "Requests Cell";
+			name = "Inbox Cell";
 			sourceTree = "<group>";
 		};
 		F744399E15D28F2200F5851C /* Search */ = {
