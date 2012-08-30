@@ -26,9 +26,22 @@
 ///---------------------------------------------
 
 /**
- Signs up a new user
+ Signs up a new user in the MobMonkey system
  
- @param params Dictionary object containing username and email address
+ @param params Dictionary object containing captured sign up information:
+ first name
+ last name
+ e-mail address
+ password
+ birthday
+ gender
+ phone number (optional)
+ latitude
+ longitude
+ city (optional)
+ state (optional)
+ tos - YES/NO
+ 
  
  @return The newly created user object
  */
