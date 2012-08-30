@@ -55,6 +55,9 @@
 		8CE76EE315EF2C3400DC3831 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE76ED815EF2C3400DC3831 /* AFXMLRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8CE76EE415EF2C3400DC3831 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE76EDA15EF2C3400DC3831 /* UIImageView+AFNetworking.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8CE76EEC15EF2CC100DC3831 /* MMHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE76EEB15EF2CC100DC3831 /* MMHTTPClient.m */; };
+		8CE76EF015EF2DA000DC3831 /* MMAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE76EEF15EF2DA000DC3831 /* MMAPI.m */; };
+		8CE76EF615EF32C900DC3831 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8CE76EF315EF32C900DC3831 /* SVProgressHUD.bundle */; };
+		8CE76EF715EF32C900DC3831 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE76EF515EF32C900DC3831 /* SVProgressHUD.m */; };
 		F70A612915DC34770072D776 /* LocationInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F70A612715DC34770072D776 /* LocationInfoViewController.m */; };
 		F70A612A15DC34770072D776 /* LocationInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F70A612815DC34770072D776 /* LocationInfoViewController.xib */; };
 		F7193B7915AEA14B00CCFC5A /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7193B7715AEA14B00CCFC5A /* RequestsViewController.m */; };
@@ -265,8 +268,6 @@
 		F79F961015A64DB000BE96EE /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F960E15A64DB000BE96EE /* NotificationsViewController.m */; };
 		F79F961115A64DB000BE96EE /* NotificationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79F960F15A64DB000BE96EE /* NotificationsViewController.xib */; };
 		F7AA423D15C3ED02009E2106 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AA423C15C3ED02009E2106 /* MediaPlayer.framework */; };
-		F7E2B07615C2B7DE006D3F57 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F7E2B07315C2B7DE006D3F57 /* SVProgressHUD.bundle */; };
-		F7E2B07715C2B7DE006D3F57 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E2B07515C2B7DE006D3F57 /* SVProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F7E2B07D15C2B99C006D3F57 /* ImageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E2B07B15C2B99C006D3F57 /* ImageDetailViewController.m */; };
 		F7E2B07E15C2B99C006D3F57 /* ImageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E2B07C15C2B99C006D3F57 /* ImageDetailViewController.xib */; };
 		F7E2B08715C2C58D006D3F57 /* LocationMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E2B08515C2C58D006D3F57 /* LocationMediaViewController.m */; };
@@ -351,6 +352,11 @@
 		8CE76EDA15EF2C3400DC3831 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		8CE76EEA15EF2CC100DC3831 /* MMHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMHTTPClient.h; sourceTree = "<group>"; };
 		8CE76EEB15EF2CC100DC3831 /* MMHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMHTTPClient.m; sourceTree = "<group>"; };
+		8CE76EEE15EF2DA000DC3831 /* MMAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAPI.h; sourceTree = "<group>"; };
+		8CE76EEF15EF2DA000DC3831 /* MMAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAPI.m; sourceTree = "<group>"; };
+		8CE76EF315EF32C900DC3831 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		8CE76EF415EF32C900DC3831 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		8CE76EF515EF32C900DC3831 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		F70A612515DC278A0072D776 /* ufonts.com_vag_rounded-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ufonts.com_vag_rounded-bold.ttf"; sourceTree = "<group>"; };
 		F70A612615DC34770072D776 /* LocationInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationInfoViewController.h; sourceTree = "<group>"; };
 		F70A612715DC34770072D776 /* LocationInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationInfoViewController.m; sourceTree = "<group>"; };
@@ -573,9 +579,6 @@
 		F79F960E15A64DB000BE96EE /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
 		F79F960F15A64DB000BE96EE /* NotificationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationsViewController.xib; sourceTree = "<group>"; };
 		F7AA423C15C3ED02009E2106 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		F7E2B07315C2B7DE006D3F57 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
-		F7E2B07415C2B7DE006D3F57 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
-		F7E2B07515C2B7DE006D3F57 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		F7E2B07A15C2B99C006D3F57 /* ImageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDetailViewController.h; sourceTree = "<group>"; };
 		F7E2B07B15C2B99C006D3F57 /* ImageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDetailViewController.m; sourceTree = "<group>"; };
 		F7E2B07C15C2B99C006D3F57 /* ImageDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageDetailViewController.xib; sourceTree = "<group>"; };
@@ -840,11 +843,29 @@
 		8CE76EED15EF2CCA00DC3831 /* MM Client API */ = {
 			isa = PBXGroup;
 			children = (
-				8CE76EEA15EF2CC100DC3831 /* MMHTTPClient.h */,
-				8CE76EEB15EF2CC100DC3831 /* MMHTTPClient.m */,
+				8CE76EF115EF2DA800DC3831 /* MMHTTPClient */,
 				8CE76EC515EF2C3400DC3831 /* AFNetworking */,
+				8CE76EF215EF301100DC3831 /* MM API */,
 			);
 			name = "MM Client API";
+			sourceTree = "<group>";
+		};
+		8CE76EF115EF2DA800DC3831 /* MMHTTPClient */ = {
+			isa = PBXGroup;
+			children = (
+				8CE76EEA15EF2CC100DC3831 /* MMHTTPClient.h */,
+				8CE76EEB15EF2CC100DC3831 /* MMHTTPClient.m */,
+			);
+			name = MMHTTPClient;
+			sourceTree = "<group>";
+		};
+		8CE76EF215EF301100DC3831 /* MM API */ = {
+			isa = PBXGroup;
+			children = (
+				8CE76EEE15EF2DA000DC3831 /* MMAPI.h */,
+				8CE76EEF15EF2DA000DC3831 /* MMAPI.m */,
+			);
+			name = "MM API";
 			sourceTree = "<group>";
 		};
 		F70A611F15DC23DC0072D776 /* Location Info */ = {
@@ -1234,9 +1255,9 @@
 		F7E2B07815C2B7E2006D3F57 /* SVProgress HUD */ = {
 			isa = PBXGroup;
 			children = (
-				F7E2B07315C2B7DE006D3F57 /* SVProgressHUD.bundle */,
-				F7E2B07415C2B7DE006D3F57 /* SVProgressHUD.h */,
-				F7E2B07515C2B7DE006D3F57 /* SVProgressHUD.m */,
+				8CE76EF315EF32C900DC3831 /* SVProgressHUD.bundle */,
+				8CE76EF415EF32C900DC3831 /* SVProgressHUD.h */,
+				8CE76EF515EF32C900DC3831 /* SVProgressHUD.m */,
 			);
 			name = "SVProgress HUD";
 			sourceTree = "<group>";
@@ -1349,7 +1370,6 @@
 				F79F960315A6449000BE96EE /* SignUpViewController.xib in Resources */,
 				F79F961115A64DB000BE96EE /* NotificationsViewController.xib in Resources */,
 				F7193B7A15AEA14B00CCFC5A /* RequestsViewController.xib in Resources */,
-				F7E2B07615C2B7DE006D3F57 /* SVProgressHUD.bundle in Resources */,
 				F7E2B07E15C2B99C006D3F57 /* ImageDetailViewController.xib in Resources */,
 				F7E2B08815C2C58D006D3F57 /* LocationMediaViewController.xib in Resources */,
 				F78F6BEB15D06D2B006EFF27 /* Background@2x~iphone.png in Resources */,
@@ -1543,6 +1563,7 @@
 				F70A612A15DC34770072D776 /* LocationInfoViewController.xib in Resources */,
 				F79D2F2A15DD678E009A4203 /* LocationInfoBtn@2x~iphone.png in Resources */,
 				F79D2F2B15DD678E009A4203 /* LocationInfoBtn~iphone.png in Resources */,
+				8CE76EF615EF32C900DC3831 /* SVProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1572,7 +1593,6 @@
 				F7193B7915AEA14B00CCFC5A /* RequestsViewController.m in Sources */,
 				F7193B7E15AEA24A00CCFC5A /* RequestCell.m in Sources */,
 				8C1C02DC15B84AFC00D1C992 /* MMLocationAnnotation.m in Sources */,
-				F7E2B07715C2B7DE006D3F57 /* SVProgressHUD.m in Sources */,
 				F7E2B07D15C2B99C006D3F57 /* ImageDetailViewController.m in Sources */,
 				F7E2B08715C2C58D006D3F57 /* LocationMediaViewController.m in Sources */,
 				F7F95F1C15CA949300AC36D6 /* TCImageView.m in Sources */,
@@ -1590,6 +1610,8 @@
 				8CE76EE315EF2C3400DC3831 /* AFXMLRequestOperation.m in Sources */,
 				8CE76EE415EF2C3400DC3831 /* UIImageView+AFNetworking.m in Sources */,
 				8CE76EEC15EF2CC100DC3831 /* MMHTTPClient.m in Sources */,
+				8CE76EF015EF2DA000DC3831 /* MMAPI.m in Sources */,
+				8CE76EF715EF32C900DC3831 /* SVProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

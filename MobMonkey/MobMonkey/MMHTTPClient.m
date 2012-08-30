@@ -6,13 +6,6 @@ static NSString * const kBMHTTPClientBaseURLString = @"http://50.112.125.134/API
 static NSString * const kBMHTTPClientApplicationID = @"29C851C2-CF6F-11E1-A0EC-4CE76188709B";
 static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE33-4DE76188709B";
 
-/**
-    TappForce API Credentials:
-    API URL: http://50.112.125.134/API/
-    ApplicationID: 29C851C2-CF6F-11E1-A0EC-4CE76188709B 
-    ApplicationSecret: 305F0990-CF6F-11E1-BE33-4DE76188709B
-*/
-
 @implementation MMHTTPClient
 
 + (MMHTTPClient *)sharedClient {
@@ -40,8 +33,8 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     return self;
 }
 
-- (void)postPath:(NSString *)path 
-      parameters:(NSDictionary *)parameters 
+- (void)postPath:(NSString *)path
+      parameters:(NSDictionary *)parameters
             data:(NSData*)data
          success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
@@ -51,8 +44,8 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [self enqueueHTTPRequestOperation:operation];
 }
 
-- (void)putPath:(NSString *)path 
-     parameters:(NSDictionary *)parameters 
+- (void)putPath:(NSString *)path
+     parameters:(NSDictionary *)parameters
            data:(NSData*)data
         success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
@@ -62,13 +55,13 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [self enqueueHTTPRequestOperation:operation];
 }
 
--(NSMutableURLRequest*)requestWithMethod:(NSString *)method 
-                                    path:(NSString *)path 
-                              parameters:(NSDictionary *)parameters 
+-(NSMutableURLRequest*)requestWithMethod:(NSString *)method
+                                    path:(NSString *)path
+                              parameters:(NSDictionary *)parameters
                                     data:(NSData*)data;
 {
-    NSMutableURLRequest* request = [super requestWithMethod:method 
-                                                       path:path 
+    NSMutableURLRequest* request = [super requestWithMethod:method
+                                                       path:path
                                                  parameters:parameters];
     
     [request setHTTPBody:data];
