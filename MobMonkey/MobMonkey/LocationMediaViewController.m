@@ -115,8 +115,12 @@
         cell.thumbsDownButton.enabled = NO;
         cell.thumbsUpButton.enabled = YES;
     }
+    else if ([[voteTrackerDictionary objectForKey:[NSString stringWithFormat:@"%d", indexPath.row]] isEqualToString:@"none"]) {
+        cell.thumbsDownButton.enabled = YES;
+        cell.thumbsUpButton.enabled = YES;
+    }
     else {
-        [self checkVoteStatusForUser:locationMediaObject thumbsUpButton:cell.thumbsUpButton thumbsDownButton:cell.thumbsDownButton];
+        [self checkVoteStatusForUser:locationMediaObject thumbsUpButton:cell.thumbsUpButton thumbsDownButton:cell.thumbsDownButton index:indexPath.row];
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -261,13 +265,40 @@
                 /*PFFile *mediaFile = [locationItemObject objectForKey:@"image"];
                 [itemsArray addObject:mediaFile.url];*/
             }
+            
+            /*PFQuery *checkVoteStatus = [PFQuery queryWithClassName:@"ratings"];
+            [checkVoteStatus whereKey:@"mediaObject" containedIn:itemsArray];
+            [checkVoteStatus whereKey:@"user" equalTo:[PFUser currentUser]];
+            [checkVoteStatus findObjectsInBackgroundWithBlock:^(NSArray *ratingObjects, NSError *error) {
+                if (!error) {
+                    NSMutableArray *itemsToDisplay = [[NSMutableArray alloc]initWithCapacity:1];
+                    for (PFObject *ratingObject in ratingObjects) {
+                        BOOL found = NO;
+                        NSString *ratingObjectId = [[ratingObject objectForKey:@"mediaObject"]objectId];
+                        for (int i = 0; i < itemsArray.count; i++) {
+                            NSString *mediaObjectId = [[itemsArray objectAtIndex:i]objectId];
+                            if ([mediaObjectId isEqualToString:ratingObjectId]) {
+                                found = YES;
+                                if ([[ratingObject objectForKey:@"thumbsUp"]isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+                                    [itemsToDisplay addObject:[NSDictionary dictionaryWithObjectsAndKeys:[itemsArray objectAtIndex:i], @"mediaItem", @"up", @"thumbsUp", nil]];
+                                }
+                                else {
+                                    [itemsToDisplay addObject:[NSDictionary dictionaryWithObjectsAndKeys:[itemsArray objectAtIndex:i], @"mediaItem", @"down", @"thumbsUp", nil]];
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+            }];*/
+            
             [self setContentList:itemsArray];
             [self.tableView reloadData];
         }
     }];
 }
 
-- (void)checkVoteStatusForUser:(PFObject*)locationItemObject thumbsUpButton:(UIButton*)thumbsUpButton thumbsDownButton:(UIButton*)thumbsDownButton {
+- (void)checkVoteStatusForUser:(PFObject*)locationItemObject thumbsUpButton:(UIButton*)thumbsUpButton thumbsDownButton:(UIButton*)thumbsDownButton index:(int)index {
     PFQuery *query = [PFQuery queryWithClassName:@"ratings"];
     [query whereKey:@"user" equalTo:[PFUser currentUser]];
     [query whereKey:@"mediaObject" equalTo:locationItemObject];
@@ -278,11 +309,16 @@
                 if ([[ratingObject objectForKey:@"thumbsUp"]isEqualToNumber:[NSNumber numberWithBool:YES]]) {
                     thumbsUpButton.enabled = NO;
                     thumbsDownButton.enabled = YES;
+                    [voteTrackerDictionary setObject:@"up" forKey:[NSString stringWithFormat:@"%d", index]];
                 }
                 else {
                     thumbsUpButton.enabled = YES;
                     thumbsDownButton.enabled = NO;
+                    [voteTrackerDictionary setObject:@"down" forKey:[NSString stringWithFormat:@"%d", index]];
                 }
+            }
+            else {
+                [voteTrackerDictionary setObject:@"none" forKey:[NSString stringWithFormat:@"%d", index]];
             }
         }
     }];

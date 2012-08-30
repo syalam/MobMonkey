@@ -24,6 +24,7 @@
 @property (nonatomic, retain) NSMutableArray *requestQueryItems;
 @property (nonatomic)BOOL fromHome;
 
+- (void)checkForNotifications;
 - (void)responseComplete:(PFObject *)requestObject;
 - (void)separateSections;
 

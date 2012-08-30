@@ -259,6 +259,13 @@
     [_contentList replaceObjectAtIndex:0 withObject:requestSectionArray];
     [self.tableView endUpdates];
     
+    int currentTabBarCount = [self.navigationController.tabBarItem.badgeValue intValue];
+    currentTabBarCount = currentTabBarCount - 1;
+    if (currentTabBarCount == 0) {
+        [self.navigationController.tabBarItem setBadgeValue:nil];
+    }
+    [self.navigationController.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", currentTabBarCount]];
+    
     [self.tableView reloadData];
 }
 
@@ -279,7 +286,6 @@
             notificationsCountLabel.text = [NSString stringWithFormat:@"%d", _contentList.count];
             
             PFGeoPoint *currentLocation = [PFGeoPoint geoPointWithLatitude:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]floatValue] longitude:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]floatValue]];
-            NSLog(@"%f, %f", currentLocation.latitude, currentLocation.longitude);
             PFQuery *getRequests = [PFQuery queryWithClassName:@"requests"];
             [getRequests whereKey:@"locationCoordinates" nearGeoPoint:currentLocation withinMiles:25000];
             [getRequests whereKey:@"updatedAt" greaterThan:[NSDate dateWithTimeIntervalSinceNow:-7200]];
@@ -287,7 +293,6 @@
             [getRequests orderByDescending:@"updatedAt"];
             [getRequests findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 if (!error) {
-                    NSLog(@"%@", objects);
                     NSMutableArray *allRequests = [objects mutableCopy];
                     PFQuery *requestResponseQuery = [PFQuery queryWithClassName:@"requestResponses"];
                     [requestResponseQuery whereKey:@"responder" equalTo:[PFUser currentUser]];
@@ -295,7 +300,7 @@
                     [requestResponseQuery findObjectsInBackgroundWithBlock:^(NSArray *responseArray, NSError *error) {
                         if (!error) {
                                 for (PFObject *responseObject in responseArray) {
-                                    NSString *responseObjectId = [responseObject objectId];
+                                    NSString *responseObjectId = [[responseObject objectForKey:@"requestObject"]objectId];
                                     for (int i = 0; i < allRequests.count; i++) {
                                         NSString *requestObjectId = [[allRequests objectAtIndex:i]objectId];
                                         if ([responseObjectId isEqualToString:requestObjectId]) {
@@ -310,7 +315,6 @@
                             notificationsCountLabel.text = [NSString stringWithFormat:@"%d", _requestQueryItems.count];
                         }
                     }];
-
                 }
             }];
         }
@@ -338,7 +342,6 @@
 
 - (void)separateSections {
     NSMutableArray *allItems = [_requestQueryItems mutableCopy];
-    NSLog(@"%@", allItems);
     NSMutableArray *notificationArray = [[NSMutableArray alloc]init];
     NSMutableArray *requestArray = [[NSMutableArray alloc]init];
     
