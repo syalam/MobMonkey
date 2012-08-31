@@ -42,6 +42,7 @@
 		F734A5C815F12AF10090E85A /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F734A5C515F12AF10090E85A /* SVProgressHUD.bundle */; };
 		F734A5CF15F12EBB0090E85A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A5CE15F12EBB0090E85A /* CoreLocation.framework */; };
 		F734A5D115F130650090E85A /* FactualSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A5D015F130650090E85A /* FactualSDK.framework */; };
+		F734A5D415F130E10090E85A /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A5D215F130E10090E85A /* libTestFlight.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,8 @@
 		F734A5C615F12AF10090E85A /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		F734A5CE15F12EBB0090E85A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F734A5D015F130650090E85A /* FactualSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FactualSDK.framework; sourceTree = "<group>"; };
+		F734A5D215F130E10090E85A /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		F734A5D315F130E10090E85A /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +136,7 @@
 				F734A56415F11C3E0090E85A /* SenTestingKit.framework in Frameworks */,
 				F734A56515F11C3E0090E85A /* UIKit.framework in Frameworks */,
 				F734A56615F11C3E0090E85A /* Foundation.framework in Frameworks */,
+				F734A5D415F130E10090E85A /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +165,7 @@
 		F734A53615F11C3E0090E85A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F734A5D515F130F00090E85A /* TestFlightSDK */,
 				F734A5D015F130650090E85A /* FactualSDK.framework */,
 				F734A5CE15F12EBB0090E85A /* CoreLocation.framework */,
 				F734A53715F11C3E0090E85A /* UIKit.framework */,
@@ -303,6 +308,15 @@
 				F734A5C615F12AF10090E85A /* SVProgressHUD.h */,
 			);
 			name = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		F734A5D515F130F00090E85A /* TestFlightSDK */ = {
+			isa = PBXGroup;
+			children = (
+				F734A5D215F130E10090E85A /* libTestFlight.a */,
+				F734A5D315F130E10090E85A /* TestFlight.h */,
+			);
+			name = TestFlightSDK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -567,6 +581,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobMonkey/MobMonkey-Prefix.pch";
 				INFOPLIST_FILE = "MobMonkeyTests/MobMonkeyTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -584,6 +602,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobMonkey/MobMonkey-Prefix.pch";
 				INFOPLIST_FILE = "MobMonkeyTests/MobMonkeyTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
