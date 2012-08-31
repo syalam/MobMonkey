@@ -2,17 +2,17 @@
 //  main.m
 //  MobMonkey
 //
-//  Created by Sheehan Alam on 6/23/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Reyaad Sidique on 8/31/12.
+//  Copyright (c) 2012 Reyaad Sidique. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-#import "AppDelegate.h"
+#import "MMAppDelegate.h"
 
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([MMAppDelegate class]));
     }
 }
