@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface MMTrendingViewController : UITableViewController
+@interface MMTrendingViewController : UITableViewController {
+    CLLocation* _queryLocation;
+}
+
+@property (nonatomic, retain)NSMutableArray *contentList;
 
 @end

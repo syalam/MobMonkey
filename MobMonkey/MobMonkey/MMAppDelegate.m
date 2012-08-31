@@ -17,10 +17,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //initialize testflight SDK
-    [TestFlight takeOff:@"e6432d80aed42a955243c8d93a493dea_MTAwODk2MjAxMi0wNi0yMyAxODoxNzoxOC45NjMzMjY"];
+    //[TestFlight takeOff:@"e6432d80aed42a955243c8d93a493dea_MTAwODk2MjAxMi0wNi0yMyAxODoxNzoxOC45NjMzMjY"];
     
-    //Save Factual API Object
-    _apiObject = [[FactualAPI alloc] initWithAPIKey:@"BEoV3TPDev03P6NJSVJPgTmuTNOegwRsjJN41DnM" secret:@"hwxVQz4lAxb5YpWhbLq10KhWiEw5k35WgFuoR2YI"];
+    [self initializeLocationManager];
+    
+    if ([UINavigationBar respondsToSelector:@selector(appearance)]) {
+        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar~iphone"] forBarMetrics:UIBarMetricsDefault];
+    } 
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
@@ -73,6 +76,7 @@
     _locationManager.distanceFilter = 60.0f; // update every 200ft
     [_locationManager startMonitoringSignificantLocationChanges];
 }
+
 
 #pragma mark CLLocationManagerDelegate methods
 
