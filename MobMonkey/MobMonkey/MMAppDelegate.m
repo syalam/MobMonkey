@@ -7,10 +7,9 @@
 //
 
 #import "MMAppDelegate.h"
-
 #import "MMTrendingViewController.h"
-
 #import "MMInboxViewController.h"
+#import "MMSettingsViewController.h"
 
 @implementation MMAppDelegate
 
@@ -29,14 +28,20 @@
     // Override point for customization after application launch.
     UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithNibName:@"MMTrendingViewController" bundle:nil];
     UIViewController *inboxVC = [[MMInboxViewController alloc] initWithNibName:@"MMInboxViewController" bundle:nil];
+    UIViewController *bookmarksVC = [[MMTrendingViewController alloc]initWithNibName:@"MMTrendingViewController" bundle:nil];
+    UIViewController *settingsVC = [[MMSettingsViewController alloc]initWithNibName:@"MMSettingsViewController" bundle:nil];
     UINavigationController *trendingNavC = [[UINavigationController alloc]initWithRootViewController:trendingVC];
     UINavigationController *inboxNavC = [[UINavigationController alloc]initWithRootViewController:inboxVC];
+    UINavigationController *bookmarksNavC = [[UINavigationController alloc]initWithRootViewController:bookmarksVC];
+    UINavigationController *settingsNavC = [[UINavigationController alloc]initWithRootViewController:settingsVC];
     
-    trendingVC.title = @"Trending";
     inboxVC.title = @"Inbox";
+    trendingVC.title = @"Trending";
+    bookmarksVC.title = @"Bookmarks";
+    settingsVC.title = @"Settings";
     
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = @[trendingNavC, inboxNavC];
+    self.tabBarController.viewControllers = @[inboxNavC, trendingNavC, bookmarksNavC, settingsNavC];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;

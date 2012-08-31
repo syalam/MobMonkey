@@ -12,7 +12,6 @@
 @implementation MMTrendingCell
 @synthesize locationNameLabel;
 @synthesize timeLabel;
-@synthesize thumbnailImageView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -22,6 +21,17 @@
         self.locationNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 15, 200, 25)];
         self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(256, 13, 100, 25)];
         self.thumbnailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(16, 41, 296, 145)];
+        _overlayView = [[UIView alloc]initWithFrame:_thumbnailImageView.frame];
+        
+        //setup overlay view
+        [_overlayView setBackgroundColor:[UIColor clearColor]];
+        UIImageView *overlayBGImageView = [[UIImageView alloc]initWithFrame:_overlayView.frame];
+        UIButton *likeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        UIButton *dislikeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        
+        [likeButton setFrame:CGRectMake(10, _overlayView.frame.size.height - 10, 20, 15)];
+        [dislikeButton setFrame:CGRectMake(likeButton.frame.origin.x + likeButton.frame.size.width + 5, likeButton.frame.origin.y, likeButton.frame.size.width, likeButton.frame.size.height)];
+        
         
         
         self.thumbnailImageView.image = [UIImage imageNamed:@"monkey.jpg"];
@@ -43,6 +53,7 @@
     [self.contentView addSubview:self.locationNameLabel];
     [self.contentView addSubview:self.timeLabel];
     [self.contentView addSubview:self.thumbnailImageView];
+    [self.contentView addSubview:_overlayView];
 
     return self;
 }

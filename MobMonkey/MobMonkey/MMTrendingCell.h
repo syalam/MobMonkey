@@ -13,5 +13,7 @@
 @property(nonatomic,retain)UILabel* locationNameLabel;
 @property(nonatomic,retain)UILabel* timeLabel;
 @property(nonatomic,retain)UIImageView* thumbnailImageView;
+@property(nonatomic,retain)UIView* overlayView;
+
 
 @end

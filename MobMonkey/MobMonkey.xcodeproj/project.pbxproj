@@ -83,6 +83,9 @@
 		F734A62A15F1465B0090E85A /* TabSelected~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F734A60115F1465B0090E85A /* TabSelected~iphone.png */; };
 		F734A62B15F1465B0090E85A /* TimeAgo@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F734A60215F1465B0090E85A /* TimeAgo@2x~iphone.png */; };
 		F734A62C15F1465B0090E85A /* TimeAgo~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F734A60315F1465B0090E85A /* TimeAgo~iphone.png */; };
+		F734A63215F16B740090E85A /* MMSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A63015F16B720090E85A /* MMSettingsViewController.m */; };
+		F734A63315F16B740090E85A /* MMSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F734A63115F16B730090E85A /* MMSettingsViewController.xib */; };
+		F734A64015F17A5C0090E85A /* GetRelativeTime.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A63F15F17A5C0090E85A /* GetRelativeTime.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,6 +197,11 @@
 		F734A60115F1465B0090E85A /* TabSelected~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabSelected~iphone.png"; sourceTree = "<group>"; };
 		F734A60215F1465B0090E85A /* TimeAgo@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeAgo@2x~iphone.png"; sourceTree = "<group>"; };
 		F734A60315F1465B0090E85A /* TimeAgo~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeAgo~iphone.png"; sourceTree = "<group>"; };
+		F734A62F15F16B720090E85A /* MMSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSettingsViewController.h; sourceTree = "<group>"; };
+		F734A63015F16B720090E85A /* MMSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSettingsViewController.m; sourceTree = "<group>"; };
+		F734A63115F16B730090E85A /* MMSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSettingsViewController.xib; sourceTree = "<group>"; };
+		F734A63E15F17A5C0090E85A /* GetRelativeTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetRelativeTime.h; sourceTree = "<group>"; };
+		F734A63F15F17A5C0090E85A /* GetRelativeTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetRelativeTime.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +263,7 @@
 		F734A53D15F11C3E0090E85A /* MobMonkey */ = {
 			isa = PBXGroup;
 			children = (
+				F734A63415F16B7D0090E85A /* Settings */,
 				F734A59A15F12A570090E85A /* Helpers */,
 				F734A57A15F1224E0090E85A /* Trending */,
 				F734A58515F123070090E85A /* Inbox */,
@@ -303,8 +312,7 @@
 		F734A57A15F1224E0090E85A /* Trending */ = {
 			isa = PBXGroup;
 			children = (
-				F734A5D615F1331B0090E85A /* MMTrendingCell.h */,
-				F734A5D715F1331B0090E85A /* MMTrendingCell.m */,
+				F734A62E15F1482F0090E85A /* Trending Cell */,
 				F734A57B15F1226C0090E85A /* MMTrendingViewController.h */,
 				F734A57C15F1226C0090E85A /* MMTrendingViewController.m */,
 				F734A57D15F1226C0090E85A /* MMTrendingViewController.xib */,
@@ -325,6 +333,7 @@
 		F734A59A15F12A570090E85A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F734A64115F17A610090E85A /* Calc Time Ago */,
 				F734A5C915F12AF70090E85A /* SVProgressHUD */,
 				F734A5A415F12AC00090E85A /* AFNetworking */,
 				F734A59C15F12AAF0090E85A /* MM HTTPClient */,
@@ -443,6 +452,34 @@
 				F734A5DA15F1465B0090E85A /* Home */,
 			);
 			name = Assets;
+			sourceTree = "<group>";
+		};
+		F734A62E15F1482F0090E85A /* Trending Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F734A5D615F1331B0090E85A /* MMTrendingCell.h */,
+				F734A5D715F1331B0090E85A /* MMTrendingCell.m */,
+			);
+			name = "Trending Cell";
+			sourceTree = "<group>";
+		};
+		F734A63415F16B7D0090E85A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				F734A62F15F16B720090E85A /* MMSettingsViewController.h */,
+				F734A63015F16B720090E85A /* MMSettingsViewController.m */,
+				F734A63115F16B730090E85A /* MMSettingsViewController.xib */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		F734A64115F17A610090E85A /* Calc Time Ago */ = {
+			isa = PBXGroup;
+			children = (
+				F734A63E15F17A5C0090E85A /* GetRelativeTime.h */,
+				F734A63F15F17A5C0090E85A /* GetRelativeTime.m */,
+			);
+			name = "Calc Time Ago";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -566,6 +603,7 @@
 				F734A62A15F1465B0090E85A /* TabSelected~iphone.png in Resources */,
 				F734A62B15F1465B0090E85A /* TimeAgo@2x~iphone.png in Resources */,
 				F734A62C15F1465B0090E85A /* TimeAgo~iphone.png in Resources */,
+				F734A63315F16B740090E85A /* MMSettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,6 +656,8 @@
 				F734A5C315F12AC00090E85A /* UIImageView+AFNetworking.m in Sources */,
 				F734A5C715F12AF10090E85A /* SVProgressHUD.m in Sources */,
 				F734A5D815F1331B0090E85A /* MMTrendingCell.m in Sources */,
+				F734A63215F16B740090E85A /* MMSettingsViewController.m in Sources */,
+				F734A64015F17A5C0090E85A /* GetRelativeTime.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
