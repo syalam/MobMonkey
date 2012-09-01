@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "MMTrendingCell.h"
 
-@interface MMTrendingViewController : UITableViewController {
+@interface MMTrendingViewController : UITableViewController <MMTrendingCellDelegate> {
     CLLocation* _queryLocation;
+    NSMutableDictionary* _cellToggleOnState;
 }
 
 @property (nonatomic, retain)NSMutableArray *contentList;

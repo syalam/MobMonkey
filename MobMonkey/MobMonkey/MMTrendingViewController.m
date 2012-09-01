@@ -7,7 +7,6 @@
 //
 
 #import "MMTrendingViewController.h"
-#import "MMTrendingCell.h"
 #import "MMAppDelegate.h"
 
 @interface MMTrendingViewController ()
@@ -31,6 +30,8 @@
     
     //set background color
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
+    
+    _cellToggleOnState = [[NSMutableDictionary alloc]initWithCapacity:1];
 }
 
 - (void)viewDidUnload
@@ -64,16 +65,33 @@
 {
     static NSString *CellIdentifier = @"Cell";
     MMTrendingCell *cell = (MMTrendingCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+
+    cell = [[MMTrendingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
-    if (cell == nil) {
-        cell = [[MMTrendingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
+    cell.delegate = self;
     
     // Configure the cell...
     
     cell.timeLabel.text = @"14m ago";
     cell.locationNameLabel.text = @"Tarka Chinese Bistro";
+    cell.thumbnailImageView.image = [UIImage imageNamed:@"monkey.jpg"];
+    
+    
+    //set tags
+    cell.likeButton.tag = indexPath.row;
+    cell.dislikeButton.tag = indexPath.row;
+    cell.flagButton.tag = indexPath.row;
+    cell.shareButton.tag = indexPath.row;
+    cell.toggleOverlayButton.tag = indexPath.row;
+    
+    if ([[_cellToggleOnState valueForKey:[NSString stringWithFormat:@"%d", indexPath.row]]isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+        [cell.overlayBGImageView setAlpha:1];
+        [cell.overlayButtonView setAlpha:1];
+    }
+    else {
+        [cell.overlayBGImageView setAlpha:0];
+        [cell.overlayButtonView setAlpha:0];
+    }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -129,6 +147,39 @@
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 200;
+}
+
+#pragma mark - MMTrendingCell Delegate Methods
+- (void)toggleOverlayButtonTapped:(id)sender {
+    MMTrendingCell *cell = (MMTrendingCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    [UIView setAnimationDuration: 0.3];
+    [UIView setAnimationDelegate: self];
+    if (cell.overlayButtonView.alpha == 0) {
+        [_cellToggleOnState setObject:[NSNumber numberWithBool:YES] forKey:[NSString stringWithFormat:@"%d", [sender tag]]];
+        [cell.overlayBGImageView setAlpha:1];
+        [cell.overlayButtonView setAlpha:1];
+    }
+    else {
+        [_cellToggleOnState setObject:[NSNumber numberWithBool:NO] forKey:[NSString stringWithFormat:@"%d", [sender tag]]];
+        [cell.overlayBGImageView setAlpha:0];
+        [cell.overlayButtonView setAlpha:0];
+    }
+    [UIView commitAnimations];
+}
+- (void)likeButtonTapped:(id)sender {
+    
+}
+- (void)dislikeButtonTapped:(id)sender {
+    
+}
+- (void)flagButtonTapped:(id)sender {
+    
+}
+- (void)shareButtonTapped:(id)sender {
+    
 }
 
 @end
