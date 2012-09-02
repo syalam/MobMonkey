@@ -7,6 +7,7 @@
 //
 
 #import "MMInboxViewController.h"
+#import "MMSetTitleImage.h"
 
 @interface MMInboxViewController ()
 
@@ -26,6 +27,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     
     //set background color
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];

@@ -23,10 +23,6 @@
     
     if ([UINavigationBar respondsToSelector:@selector(appearance)]) {
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar~iphone"] forBarMetrics:UIBarMetricsDefault];
-        
-        UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(37, 9.5, 127, 25)];
-        titleImageView.image = [UIImage imageNamed:@"logo~iphone"];
-        [[UINavigationBar appearance]setTitleView:titleImageView];
     } 
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

@@ -172,6 +172,7 @@
 		F79B504E15F3EEC50004BE01 /* TimeAgo~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FFC15F3EEC50004BE01 /* TimeAgo~iphone.png */; };
 		F79B505115F3F45E0004BE01 /* logo@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B504F15F3F45D0004BE01 /* logo@2x~iphone.png */; };
 		F79B505215F3F45E0004BE01 /* logo~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B505015F3F45E0004BE01 /* logo~iphone.png */; };
+		F79B505615F3F81F0004BE01 /* MMSetTitleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F79B505515F3F81F0004BE01 /* MMSetTitleImage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -375,6 +376,8 @@
 		F79B4FFC15F3EEC50004BE01 /* TimeAgo~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeAgo~iphone.png"; sourceTree = "<group>"; };
 		F79B504F15F3F45D0004BE01 /* logo@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x~iphone.png"; sourceTree = "<group>"; };
 		F79B505015F3F45E0004BE01 /* logo~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo~iphone.png"; sourceTree = "<group>"; };
+		F79B505415F3F81F0004BE01 /* MMSetTitleImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSetTitleImage.h; sourceTree = "<group>"; };
+		F79B505515F3F81F0004BE01 /* MMSetTitleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSetTitleImage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -507,6 +510,7 @@
 		F734A59A15F12A570090E85A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F79B505315F3F8000004BE01 /* Set Title ImageView */,
 				F734A64115F17A610090E85A /* Calc Time Ago */,
 				F734A5C915F12AF70090E85A /* SVProgressHUD */,
 				F734A5A415F12AC00090E85A /* AFNetworking */,
@@ -782,6 +786,15 @@
 			path = "Search Map";
 			sourceTree = "<group>";
 		};
+		F79B505315F3F8000004BE01 /* Set Title ImageView */ = {
+			isa = PBXGroup;
+			children = (
+				F79B505415F3F81F0004BE01 /* MMSetTitleImage.h */,
+				F79B505515F3F81F0004BE01 /* MMSetTitleImage.m */,
+			);
+			name = "Set Title ImageView";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1044,6 +1057,7 @@
 				F734A63215F16B740090E85A /* MMSettingsViewController.m in Sources */,
 				F734A64015F17A5C0090E85A /* GetRelativeTime.m in Sources */,
 				F79B4FA515F3EE5A0004BE01 /* MMSearchViewController.m in Sources */,
+				F79B505615F3F81F0004BE01 /* MMSetTitleImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

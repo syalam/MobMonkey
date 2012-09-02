@@ -10,4 +10,6 @@
 
 @interface MMInboxViewController : UITableViewController
 
+@property (nonatomic, retain)UIImageView *mmTitleImageView;
+
 @end

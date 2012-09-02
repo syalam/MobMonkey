@@ -8,6 +8,7 @@
 
 #import "MMSearchViewController.h"
 #import "MMResultCell.h"
+#import "MMSetTitleImage.h"
 
 @interface MMSearchViewController ()
 
@@ -28,6 +29,8 @@
 {
     [super viewDidLoad];
 
+    self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
+    
     // Uncomment the following line to preserve selection between presentations.
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
     
@@ -143,6 +146,10 @@
     
 }
 
+- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 200;
+}
+
 #pragma mark - MMResultCell delegate methods
 - (void)toggleOverlayButtonTapped:(id)sender {
     MMResultCell *cell = (MMResultCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
@@ -174,6 +181,19 @@
 }
 - (void)shareButtonTapped:(id)sender {
     
+}
+
+#pragma mark - UITextField delegate methods
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    //TAP THROUGH CODE. DELETE WHEN COMMUNICATING WITH SERVER
+    _contentList = [[NSMutableArray alloc]initWithCapacity:1];
+    for (int i = 0; i < 20; i++) {
+        [_contentList addObject:@""];
+    }
+    [self.tableView reloadData];
+    
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "MMTrendingViewController.h"
+#import "MMSetTitleImage.h"
 #import "MMAppDelegate.h"
 
 @interface MMTrendingViewController ()
@@ -27,6 +28,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     
     //set background color
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
