@@ -9,6 +9,7 @@
 #import "MMAppDelegate.h"
 #import "MMTrendingViewController.h"
 #import "MMInboxViewController.h"
+#import "MMSearchViewController.h"
 #import "MMSettingsViewController.h"
 
 @implementation MMAppDelegate
@@ -22,26 +23,34 @@
     
     if ([UINavigationBar respondsToSelector:@selector(appearance)]) {
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar~iphone"] forBarMetrics:UIBarMetricsDefault];
+        
+        UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(37, 9.5, 127, 25)];
+        titleImageView.image = [UIImage imageNamed:@"logo~iphone"];
+        [[UINavigationBar appearance]setTitleView:titleImageView];
     } 
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithNibName:@"MMTrendingViewController" bundle:nil];
     UIViewController *inboxVC = [[MMInboxViewController alloc] initWithNibName:@"MMInboxViewController" bundle:nil];
+    UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithNibName:@"MMTrendingViewController" bundle:nil];
+    UIViewController *searchVC = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
     UIViewController *bookmarksVC = [[MMTrendingViewController alloc]initWithNibName:@"MMTrendingViewController" bundle:nil];
     UIViewController *settingsVC = [[MMSettingsViewController alloc]initWithNibName:@"MMSettingsViewController" bundle:nil];
-    UINavigationController *trendingNavC = [[UINavigationController alloc]initWithRootViewController:trendingVC];
+    
     UINavigationController *inboxNavC = [[UINavigationController alloc]initWithRootViewController:inboxVC];
+    UINavigationController *trendingNavC = [[UINavigationController alloc]initWithRootViewController:trendingVC];
+    UINavigationController *searchNavC = [[UINavigationController alloc]initWithRootViewController:searchVC];
     UINavigationController *bookmarksNavC = [[UINavigationController alloc]initWithRootViewController:bookmarksVC];
     UINavigationController *settingsNavC = [[UINavigationController alloc]initWithRootViewController:settingsVC];
     
     inboxVC.title = @"Inbox";
     trendingVC.title = @"Trending";
+    searchVC.title = @"Search";
     bookmarksVC.title = @"Bookmarks";
     settingsVC.title = @"Settings";
     
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = @[inboxNavC, trendingNavC, bookmarksNavC, settingsNavC];
+    self.tabBarController.viewControllers = @[inboxNavC, trendingNavC, searchNavC, bookmarksNavC, settingsNavC];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;

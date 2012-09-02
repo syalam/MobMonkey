@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import "MMTrendingCell.h"
+#import "MMResultCell.h"
 
-@interface MMTrendingViewController : UITableViewController <MMTrendingCellDelegate> {
+@interface MMTrendingViewController : UITableViewController <MMResultCellDelegate> {
     CLLocation* _queryLocation;
     NSMutableDictionary* _cellToggleOnState;
 }

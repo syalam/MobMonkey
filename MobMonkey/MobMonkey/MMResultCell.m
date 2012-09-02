@@ -1,26 +1,25 @@
 //
-//  MMTrendingCell.m
+//  MMResultCell.m
 //  MobMonkey
 //
 //  Created by Sheehan Alam on 6/27/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "MMTrendingCell.h"
+#import "MMResultCell.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation MMTrendingCell
-@synthesize locationNameLabel;
-@synthesize timeLabel;
+@implementation MMResultCell
+
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.cellBackgroundImage = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 308, 186)];
-        self.locationNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 15, 200, 25)];
-        self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(256, 13, 100, 25)];
-        self.thumbnailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(16, 41, 296, 145)];
+        _cellBackgroundImage = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 308, 186)];
+        _locationNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 15, 200, 25)];
+        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(256, 13, 100, 25)];
+        _thumbnailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(16, 41, 296, 145)];
         _toggleOverlayButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _overlayButtonView = [[UIView alloc]initWithFrame:CGRectMake(_thumbnailImageView.frame.origin.x, _thumbnailImageView.frame.size.height + 11, _thumbnailImageView.frame.size.width, 30)];
         _overlayBGImageView = [[UIImageView alloc]initWithFrame:_thumbnailImageView.frame];
@@ -60,24 +59,24 @@
         [_toggleOverlayButton setFrame:_thumbnailImageView.frame];
         [_toggleOverlayButton addTarget:self action:@selector(toggleOverlayButtonTapped:) forControlEvents:UIControlEventTouchDown];
         
-        self.thumbnailImageView.clipsToBounds = YES;
+        _thumbnailImageView.clipsToBounds = YES;
         
-        [self.locationNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:15]];
-        [self.timeLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];
+        [_locationNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:15]];
+        [_timeLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];
         
         
-        [self.locationNameLabel setTextColor:[UIColor colorWithRed:.8941 green:.4509 blue:.1725 alpha:1]];
-        [self.timeLabel setTextColor:[UIColor whiteColor]];
+        [_locationNameLabel setTextColor:[UIColor colorWithRed:.8941 green:.4509 blue:.1725 alpha:1]];
+        [_timeLabel setTextColor:[UIColor whiteColor]];
         
-        [locationNameLabel setBackgroundColor:[UIColor clearColor]];
-        [timeLabel setBackgroundColor:[UIColor clearColor]];
+        [_locationNameLabel setBackgroundColor:[UIColor clearColor]];
+        [_timeLabel setBackgroundColor:[UIColor clearColor]];
         
-        [self.cellBackgroundImage setImage:[UIImage imageNamed:@"LocationWindowPlusTime~iphone"]];
+        [_cellBackgroundImage setImage:[UIImage imageNamed:@"LocationWindowPlusTime~iphone"]];
     }
-    [self.contentView addSubview:self.cellBackgroundImage];
-    [self.contentView addSubview:self.locationNameLabel];
-    [self.contentView addSubview:self.timeLabel];
-    [self.contentView addSubview:self.thumbnailImageView];
+    [self.contentView addSubview:_cellBackgroundImage];
+    [self.contentView addSubview:_locationNameLabel];
+    [self.contentView addSubview:_timeLabel];
+    [self.contentView addSubview:_thumbnailImageView];
     [self.contentView addSubview:_overlayBGImageView];
     [self.contentView addSubview:_toggleOverlayButton];
     [self.contentView addSubview:_overlayButtonView];

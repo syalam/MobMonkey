@@ -1,18 +1,19 @@
 //
-//  MMInboxViewController.m
+//  MMSearchViewController.m
 //  MobMonkey
 //
-//  Created by Reyaad Sidique on 8/31/12.
+//  Created by Reyaad Sidique on 9/2/12.
 //  Copyright (c) 2012 Reyaad Sidique. All rights reserved.
 //
 
-#import "MMInboxViewController.h"
+#import "MMSearchViewController.h"
+#import "MMResultCell.h"
 
-@interface MMInboxViewController ()
+@interface MMSearchViewController ()
 
 @end
 
-@implementation MMInboxViewController
+@implementation MMSearchViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -26,15 +27,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //set background color
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
 
     // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
+    
+    _cellToggleOnState = [[NSMutableDictionary alloc]initWithCapacity:1];
 }
 
 - (void)viewDidUnload
@@ -54,23 +51,49 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 0;
+    return _contentList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    MMResultCell *cell = (MMResultCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell = [[MMResultCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    cell.delegate = self;
     
     // Configure the cell...
     
+    cell.timeLabel.text = @"14m ago";
+    cell.locationNameLabel.text = @"Tarka Chinese Bistro";
+    cell.thumbnailImageView.image = [UIImage imageNamed:@"monkey.jpg"];
+    
+    
+    //set tags
+    cell.likeButton.tag = indexPath.row;
+    cell.dislikeButton.tag = indexPath.row;
+    cell.flagButton.tag = indexPath.row;
+    cell.shareButton.tag = indexPath.row;
+    cell.toggleOverlayButton.tag = indexPath.row;
+    
+    if ([[_cellToggleOnState valueForKey:[NSString stringWithFormat:@"%d", indexPath.row]]isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+        [cell.overlayBGImageView setAlpha:1];
+        [cell.overlayButtonView setAlpha:1];
+    }
+    else {
+        [cell.overlayBGImageView setAlpha:0];
+        [cell.overlayButtonView setAlpha:0];
+    }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
+
 }
 
 /*
@@ -117,12 +140,40 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    
+}
+
+#pragma mark - MMResultCell delegate methods
+- (void)toggleOverlayButtonTapped:(id)sender {
+    MMResultCell *cell = (MMResultCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    [UIView setAnimationDuration: 0.3];
+    [UIView setAnimationDelegate: self];
+    if (cell.overlayButtonView.alpha == 0) {
+        [_cellToggleOnState setObject:[NSNumber numberWithBool:YES] forKey:[NSString stringWithFormat:@"%d", [sender tag]]];
+        [cell.overlayBGImageView setAlpha:1];
+        [cell.overlayButtonView setAlpha:1];
+    }
+    else {
+        [_cellToggleOnState setObject:[NSNumber numberWithBool:NO] forKey:[NSString stringWithFormat:@"%d", [sender tag]]];
+        [cell.overlayBGImageView setAlpha:0];
+        [cell.overlayButtonView setAlpha:0];
+    }
+    [UIView commitAnimations];
+}
+- (void)likeButtonTapped:(id)sender {
+    
+}
+- (void)dislikeButtonTapped:(id)sender {
+    
+}
+- (void)flagButtonTapped:(id)sender {
+    
+}
+- (void)shareButtonTapped:(id)sender {
+    
 }
 
 @end

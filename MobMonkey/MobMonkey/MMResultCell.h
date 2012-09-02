@@ -1,5 +1,5 @@
 //
-//  MMTrendingCell.h
+//  MMResultCell.h
 //  MobMonkey
 //
 //  Created by Sheehan Alam on 6/27/12.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol MMTrendingCellDelegate
+@protocol MMResultCellDelegate
 
 - (void)toggleOverlayButtonTapped:(id)sender;
 - (void)likeButtonTapped:(id)sender;
@@ -18,7 +18,7 @@
 
 @end
 
-@interface MMTrendingCell : UITableViewCell
+@interface MMResultCell : UITableViewCell
 @property(nonatomic, retain)UIImageView *cellBackgroundImage;
 @property(nonatomic,retain)UILabel* locationNameLabel;
 @property(nonatomic,retain)UILabel* timeLabel;
@@ -30,7 +30,7 @@
 @property(nonatomic, retain)UIButton *dislikeButton;
 @property(nonatomic, retain)UIButton *flagButton;
 @property(nonatomic, retain)UIButton *shareButton;
-@property(nonatomic,assign)id<MMTrendingCellDelegate> delegate;
+@property(nonatomic,assign)id<MMResultCellDelegate> delegate;
 
 
 @end
