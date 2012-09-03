@@ -13,6 +13,8 @@
 
 @property (nonatomic, retain)IBOutlet UITableView *tableView;
 @property (nonatomic, readonly)IBOutlet UIScrollView *scrollView;
+@property (nonatomic, retain)IBOutlet UIButton *toggleButton;
+@property (nonatomic, retain)IBOutlet UIView *overlayButtonView;
 @property (nonatomic, retain)IBOutlet UIButton *likeButton;
 @property (nonatomic, retain)IBOutlet UIButton *dislikeButton;
 @property (nonatomic, retain)IBOutlet UIButton *videosButton;
@@ -21,5 +23,9 @@
 @property (nonatomic, retain)IBOutlet UILabel *videoCountLabel;
 @property (nonatomic, retain)IBOutlet UILabel *photoCountLabel;
 @property (nonatomic, retain)IBOutlet TCImageView *locationLatestImageView;
+
+
+- (IBAction)makeRequestButtonTapped:(id)sender;
+- (IBAction)toggleButtonTapped:(id)sender;
 
 @end

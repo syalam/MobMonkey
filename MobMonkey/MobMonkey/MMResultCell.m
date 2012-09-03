@@ -36,10 +36,10 @@
         _shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
 
         [_likeButton setFrame:CGRectMake(20, 0, 38, 38)];
-        [_dislikeButton setFrame:CGRectMake(_likeButton.frame.origin.x + _likeButton.frame.size.width + 10, _likeButton.frame.origin.y, _likeButton.frame.size.width, _likeButton.frame.size.height)];
-        [_flagButton setFrame:CGRectMake(_dislikeButton.frame.origin.x + _dislikeButton.frame.size.width + 10, _likeButton.frame.origin.y, _likeButton.frame.size.width, _likeButton.frame.size.height)];
-        [_enlargeButton setFrame:CGRectMake(_flagButton.frame.origin.x + _flagButton.frame.size.width + 10, _likeButton.frame.origin.y, _likeButton.frame.size.width, _likeButton.frame.size.height)];
-        [_shareButton setFrame:CGRectMake(_enlargeButton.frame.origin.x + _enlargeButton.frame.size.width + 10, _likeButton.frame.origin.y, _likeButton.frame.size.width, _likeButton.frame.size.height)];
+        [_dislikeButton setFrame:CGRectMake(_likeButton.frame.origin.x + _likeButton.frame.size.width + 15, _likeButton.frame.origin.y, _likeButton.frame.size.width, _likeButton.frame.size.height)];
+        [_flagButton setFrame:CGRectMake(_dislikeButton.frame.origin.x + _dislikeButton.frame.size.width + 15, _likeButton.frame.origin.y, _likeButton.frame.size.width, _likeButton.frame.size.height)];
+        [_enlargeButton setFrame:CGRectMake(_flagButton.frame.origin.x + _flagButton.frame.size.width + 15, _likeButton.frame.origin.y, _likeButton.frame.size.width, _likeButton.frame.size.height)];
+        [_shareButton setFrame:CGRectMake(_enlargeButton.frame.origin.x + _enlargeButton.frame.size.width + 15, _likeButton.frame.origin.y, _likeButton.frame.size.width, _likeButton.frame.size.height)];
         
         [_likeButton setImage:[UIImage imageNamed:@"ThumbUp~iphone"] forState:UIControlStateNormal];
         [_dislikeButton setImage:[UIImage imageNamed:@"ThumbDown~iphone"] forState:UIControlStateNormal];

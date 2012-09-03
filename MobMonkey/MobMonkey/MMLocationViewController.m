@@ -7,6 +7,7 @@
 //
 
 #import "MMLocationViewController.h"
+#import "MMRequestViewController.h"
 #import "MMSetTitleImage.h"
 
 @interface MMLocationViewController ()
@@ -36,6 +37,8 @@
     
     //set background color
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
+    
+    [_overlayButtonView setAlpha:0];
     
     //Add custom back button to the nav bar
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
@@ -84,6 +87,29 @@
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
     return cell;
+}
+
+#pragma mark - IBAction Methods
+- (IBAction)makeRequestButtonTapped:(id)sender {
+    MMRequestViewController *requestVC = [[MMRequestViewController alloc]initWithNibName:@"MMRequestViewController" bundle:nil];
+    UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
+    [self.navigationController presentViewController:requestNavC animated:YES completion:NULL];
+}
+
+- (IBAction)toggleButtonTapped:(id)sender {
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    [UIView setAnimationDuration: 0.3];
+    [UIView setAnimationDelegate: self];
+    if (_overlayButtonView.alpha == 0) {
+        [_overlayButtonView setAlpha:1];
+    }
+    else {
+        [_overlayButtonView setAlpha:0];
+    }
+    [UIView commitAnimations];
+
 }
 
 @end
