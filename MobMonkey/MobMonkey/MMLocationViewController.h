@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TCImageView.h"
 
-@interface MMLocationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface MMLocationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, retain)IBOutlet UITableView *tableView;
 @property (nonatomic, readonly)IBOutlet UIScrollView *scrollView;
@@ -27,5 +27,6 @@
 
 - (IBAction)makeRequestButtonTapped:(id)sender;
 - (IBAction)toggleButtonTapped:(id)sender;
+- (IBAction)shareButtonTapped:(id)sender;
 
 @end
