@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MMResultCell.h"
+#import "MMFilterViewController.h"
 
-@interface MMSearchViewController : UITableViewController <MMResultCellDelegate> {
+@interface MMSearchViewController : UITableViewController <MMResultCellDelegate, MMFilterViewDelegate> {
     NSMutableDictionary* _cellToggleOnState;
 }
 
@@ -18,5 +19,6 @@
 @property (nonatomic, retain) IBOutlet UIImageView *searchBackgroundImageView;
 @property (nonatomic, retain) IBOutlet UIImageView *searchTextFieldBackgroundImageView;
 @property (nonatomic, retain) IBOutlet UITextField *searchTextField;
+@property (nonatomic, retain) UIButton *filterNavBarButton;
 
 @end

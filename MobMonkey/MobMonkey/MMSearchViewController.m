@@ -10,6 +10,7 @@
 #import "MMLocationViewController.h"
 #import "MMResultCell.h"
 #import "MMSetTitleImage.h"
+#import "MMMapViewController.h"
 
 @interface MMSearchViewController ()
 
@@ -34,6 +35,15 @@
     
     // Uncomment the following line to preserve selection between presentations.
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
+    
+    
+    _filterNavBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_filterNavBarButton setFrame:CGRectMake(0, 0, 52, 30)];
+    [_filterNavBarButton setBackgroundImage:[UIImage imageNamed:@"FilterBtn~iphone"] forState:UIControlStateNormal];
+    [_filterNavBarButton addTarget:self action:@selector(filterButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *filterButton = [[UIBarButtonItem alloc]initWithCustomView:_filterNavBarButton];
+    self.navigationItem.leftBarButtonItem = filterButton;
     
     _cellToggleOnState = [[NSMutableDictionary alloc]initWithCapacity:1];
 }
@@ -187,6 +197,21 @@
 - (void)shareButtonTapped:(id)sender {
     
 }
+
+#pragma mark - Bar Button Action Methods
+- (void)filterButtonClicked:(id)sender {
+    MMFilterViewController *fvc = [[MMFilterViewController alloc]initWithNibName:@"MMFilterViewController" bundle:nil];
+    fvc.delegate = self;
+    UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:fvc];
+    [self.navigationController presentViewController:navc animated:YES completion:NULL];
+}
+
+- (void)mapButtonClicked:(id)sender {
+    MMMapViewController *mvc = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
+    UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:mvc];
+    [self.navigationController presentViewController:nvc animated:YES completion:NULL];
+}
+
 
 #pragma mark - UITextField delegate methods
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

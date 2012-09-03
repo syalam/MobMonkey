@@ -46,7 +46,7 @@
     settingsVC.title = @"Settings";
     
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = @[inboxNavC, trendingNavC, searchNavC, bookmarksNavC, settingsNavC];
+    self.tabBarController.viewControllers = @[inboxNavC, searchNavC, trendingNavC, bookmarksNavC, settingsNavC];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;
