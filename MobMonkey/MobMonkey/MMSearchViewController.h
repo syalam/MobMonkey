@@ -20,5 +20,6 @@
 @property (nonatomic, retain) IBOutlet UIImageView *searchTextFieldBackgroundImageView;
 @property (nonatomic, retain) IBOutlet UITextField *searchTextField;
 @property (nonatomic, retain) UIButton *filterNavBarButton;
+@property (nonatomic, retain) UIButton *mapNavBarButton;
 
 @end

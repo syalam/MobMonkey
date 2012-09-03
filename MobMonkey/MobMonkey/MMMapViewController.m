@@ -9,6 +9,7 @@
 #import "MMMapViewController.h"
 #import <MapKit/MapKit.h>
 #import "MMLocationAnnotation.h"
+#import "MMSetTitleImage.h"
 
 @interface MMMapViewController ()
 
@@ -32,6 +33,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"Search";
+    
+    self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     
     radiusPickerItemsArray = [[NSMutableArray alloc]initWithObjects:@"5 blocks", @"1 mile", @"5 miles", @"10 miles", nil];
     

@@ -45,6 +45,14 @@
     UIBarButtonItem *filterButton = [[UIBarButtonItem alloc]initWithCustomView:_filterNavBarButton];
     self.navigationItem.leftBarButtonItem = filterButton;
     
+    _mapNavBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_mapNavBarButton setFrame:CGRectMake(0, 0, 33, 30)];
+    [_mapNavBarButton setBackgroundImage:[UIImage imageNamed:@"GlobeBtn~iphone"] forState:UIControlStateNormal];
+    [_mapNavBarButton addTarget:self action:@selector(mapButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *mapButton = [[UIBarButtonItem alloc]initWithCustomView:_mapNavBarButton];
+    self.navigationItem.rightBarButtonItem = mapButton;
+    
     _cellToggleOnState = [[NSMutableDictionary alloc]initWithCapacity:1];
 }
 
