@@ -7,6 +7,7 @@
 //
 
 #import "MMSearchViewController.h"
+#import "MMLocationViewController.h"
 #import "MMResultCell.h"
 #import "MMSetTitleImage.h"
 
@@ -143,7 +144,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.
-    
+    MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+    [self.navigationController pushViewController:locationVC animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

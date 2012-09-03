@@ -8,6 +8,7 @@
 
 #import "MMTrendingViewController.h"
 #import "MMSetTitleImage.h"
+#import "MMLocationViewController.h"
 #import "MMAppDelegate.h"
 
 @interface MMTrendingViewController ()
@@ -145,7 +146,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+    [self.navigationController pushViewController:locationVC animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

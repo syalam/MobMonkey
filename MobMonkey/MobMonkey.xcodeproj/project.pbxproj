@@ -86,6 +86,39 @@
 		F734A63215F16B740090E85A /* MMSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A63015F16B720090E85A /* MMSettingsViewController.m */; };
 		F734A63315F16B740090E85A /* MMSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F734A63115F16B730090E85A /* MMSettingsViewController.xib */; };
 		F734A64015F17A5C0090E85A /* GetRelativeTime.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A63F15F17A5C0090E85A /* GetRelativeTime.m */; };
+		F747F0E615F42475002E5567 /* BackBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0CA15F42475002E5567 /* BackBtn@2x~iphone.png */; };
+		F747F0E715F42475002E5567 /* BackBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0CB15F42475002E5567 /* BackBtn~iphone.png */; };
+		F747F0E815F42475002E5567 /* Background@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0CC15F42475002E5567 /* Background@2x~iphone.png */; };
+		F747F0E915F42475002E5567 /* Background~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0CD15F42475002E5567 /* Background~iphone.png */; };
+		F747F0EA15F42475002E5567 /* BlankBtn2@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0CE15F42475002E5567 /* BlankBtn2@2x~iphone.png */; };
+		F747F0EB15F42475002E5567 /* BlankBtn2~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0CF15F42475002E5567 /* BlankBtn2~iphone.png */; };
+		F747F0EC15F42475002E5567 /* BlankBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0D015F42475002E5567 /* BlankBtn@2x~iphone.png */; };
+		F747F0ED15F42475002E5567 /* BlankBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0D115F42475002E5567 /* BlankBtn~iphone.png */; };
+		F747F0EE15F42475002E5567 /* CameraBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0D215F42475002E5567 /* CameraBtn@2x~iphone.png */; };
+		F747F0EF15F42475002E5567 /* CameraBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0D315F42475002E5567 /* CameraBtn~iphone.png */; };
+		F747F0F015F42475002E5567 /* LocationDetail@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0D415F42475002E5567 /* LocationDetail@2x~iphone.png */; };
+		F747F0F115F42475002E5567 /* LocationDetail~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0D515F42475002E5567 /* LocationDetail~iphone.png */; };
+		F747F0F215F42475002E5567 /* LocationInfoBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0D615F42475002E5567 /* LocationInfoBtn@2x~iphone.png */; };
+		F747F0F315F42475002E5567 /* LocationInfoBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0D715F42475002E5567 /* LocationInfoBtn~iphone.png */; };
+		F747F0F415F42475002E5567 /* PhotosBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0D815F42475002E5567 /* PhotosBtn@2x~iphone.png */; };
+		F747F0F515F42475002E5567 /* PhotosBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0D915F42475002E5567 /* PhotosBtn~iphone.png */; };
+		F747F0F615F42475002E5567 /* PopupBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0DA15F42475002E5567 /* PopupBtn@2x~iphone.png */; };
+		F747F0F715F42475002E5567 /* PopupBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0DB15F42475002E5567 /* PopupBtn~iphone.png */; };
+		F747F0F815F42475002E5567 /* RequestBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0DC15F42475002E5567 /* RequestBtn@2x~iphone.png */; };
+		F747F0F915F42475002E5567 /* RequestBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0DD15F42475002E5567 /* RequestBtn~iphone.png */; };
+		F747F0FA15F42475002E5567 /* ThumbDown@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0DE15F42475002E5567 /* ThumbDown@2x~iphone.png */; };
+		F747F0FB15F42475002E5567 /* ThumbDown~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0DF15F42475002E5567 /* ThumbDown~iphone.png */; };
+		F747F0FC15F42475002E5567 /* ThumbsBG@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0E015F42475002E5567 /* ThumbsBG@2x~iphone.png */; };
+		F747F0FD15F42475002E5567 /* ThumbsBG~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0E115F42475002E5567 /* ThumbsBG~iphone.png */; };
+		F747F0FE15F42475002E5567 /* ThumbUp@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0E215F42475002E5567 /* ThumbUp@2x~iphone.png */; };
+		F747F0FF15F42475002E5567 /* ThumbUp~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0E315F42475002E5567 /* ThumbUp~iphone.png */; };
+		F747F10015F42475002E5567 /* VideosBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0E415F42475002E5567 /* VideosBtn@2x~iphone.png */; };
+		F747F10115F42475002E5567 /* VideosBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0E515F42475002E5567 /* VideosBtn~iphone.png */; };
+		F747F10915F426F8002E5567 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F10715F426F8002E5567 /* MMLocationViewController.m */; };
+		F747F10A15F426F8002E5567 /* MMLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F10815F426F8002E5567 /* MMLocationViewController.xib */; };
+		F747F10C15F42B5A002E5567 /* monkey.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F747F10B15F42B5A002E5567 /* monkey.jpg */; };
+		F747F10E15F4376A002E5567 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F747F10D15F4376A002E5567 /* MapKit.framework */; };
+		F747F11115F4382B002E5567 /* TCImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F11015F4382B002E5567 /* TCImageView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F79B4FA515F3EE5A0004BE01 /* MMSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79B4FA315F3EE5A0004BE01 /* MMSearchViewController.m */; };
 		F79B4FA615F3EE5A0004BE01 /* MMSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FA415F3EE5A0004BE01 /* MMSearchViewController.xib */; };
 		F79B4FFD15F3EEC50004BE01 /* AddLocation@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FA915F3EEC50004BE01 /* AddLocation@2x~iphone.png */; };
@@ -289,6 +322,41 @@
 		F734A63115F16B730090E85A /* MMSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSettingsViewController.xib; sourceTree = "<group>"; };
 		F734A63E15F17A5C0090E85A /* GetRelativeTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetRelativeTime.h; sourceTree = "<group>"; };
 		F734A63F15F17A5C0090E85A /* GetRelativeTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetRelativeTime.m; sourceTree = "<group>"; };
+		F747F0CA15F42475002E5567 /* BackBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F0CB15F42475002E5567 /* BackBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackBtn~iphone.png"; sourceTree = "<group>"; };
+		F747F0CC15F42475002E5567 /* Background@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F0CD15F42475002E5567 /* Background~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background~iphone.png"; sourceTree = "<group>"; };
+		F747F0CE15F42475002E5567 /* BlankBtn2@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BlankBtn2@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F0CF15F42475002E5567 /* BlankBtn2~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BlankBtn2~iphone.png"; sourceTree = "<group>"; };
+		F747F0D015F42475002E5567 /* BlankBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BlankBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F0D115F42475002E5567 /* BlankBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BlankBtn~iphone.png"; sourceTree = "<group>"; };
+		F747F0D215F42475002E5567 /* CameraBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F0D315F42475002E5567 /* CameraBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraBtn~iphone.png"; sourceTree = "<group>"; };
+		F747F0D415F42475002E5567 /* LocationDetail@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationDetail@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F0D515F42475002E5567 /* LocationDetail~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationDetail~iphone.png"; sourceTree = "<group>"; };
+		F747F0D615F42475002E5567 /* LocationInfoBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationInfoBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F0D715F42475002E5567 /* LocationInfoBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationInfoBtn~iphone.png"; sourceTree = "<group>"; };
+		F747F0D815F42475002E5567 /* PhotosBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PhotosBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F0D915F42475002E5567 /* PhotosBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PhotosBtn~iphone.png"; sourceTree = "<group>"; };
+		F747F0DA15F42475002E5567 /* PopupBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PopupBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F0DB15F42475002E5567 /* PopupBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PopupBtn~iphone.png"; sourceTree = "<group>"; };
+		F747F0DC15F42475002E5567 /* RequestBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RequestBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F0DD15F42475002E5567 /* RequestBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RequestBtn~iphone.png"; sourceTree = "<group>"; };
+		F747F0DE15F42475002E5567 /* ThumbDown@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ThumbDown@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F0DF15F42475002E5567 /* ThumbDown~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ThumbDown~iphone.png"; sourceTree = "<group>"; };
+		F747F0E015F42475002E5567 /* ThumbsBG@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ThumbsBG@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F0E115F42475002E5567 /* ThumbsBG~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ThumbsBG~iphone.png"; sourceTree = "<group>"; };
+		F747F0E215F42475002E5567 /* ThumbUp@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ThumbUp@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F0E315F42475002E5567 /* ThumbUp~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ThumbUp~iphone.png"; sourceTree = "<group>"; };
+		F747F0E415F42475002E5567 /* VideosBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VideosBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F0E515F42475002E5567 /* VideosBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VideosBtn~iphone.png"; sourceTree = "<group>"; };
+		F747F10615F426F8002E5567 /* MMLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationViewController.h; sourceTree = "<group>"; };
+		F747F10715F426F8002E5567 /* MMLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationViewController.m; sourceTree = "<group>"; };
+		F747F10815F426F8002E5567 /* MMLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLocationViewController.xib; sourceTree = "<group>"; };
+		F747F10B15F42B5A002E5567 /* monkey.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = monkey.jpg; sourceTree = "<group>"; };
+		F747F10D15F4376A002E5567 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		F747F10F15F4382B002E5567 /* TCImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCImageView.h; sourceTree = "<group>"; };
+		F747F11015F4382B002E5567 /* TCImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCImageView.m; sourceTree = "<group>"; };
 		F79B4FA215F3EE5A0004BE01 /* MMSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSearchViewController.h; sourceTree = "<group>"; };
 		F79B4FA315F3EE5A0004BE01 /* MMSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSearchViewController.m; sourceTree = "<group>"; };
 		F79B4FA415F3EE5A0004BE01 /* MMSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSearchViewController.xib; sourceTree = "<group>"; };
@@ -385,6 +453,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F747F10E15F4376A002E5567 /* MapKit.framework in Frameworks */,
 				F734A5CF15F12EBB0090E85A /* CoreLocation.framework in Frameworks */,
 				F734A53815F11C3E0090E85A /* UIKit.framework in Frameworks */,
 				F734A53A15F11C3E0090E85A /* Foundation.framework in Frameworks */,
@@ -427,6 +496,7 @@
 		F734A53615F11C3E0090E85A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F747F10D15F4376A002E5567 /* MapKit.framework */,
 				F734A5CE15F12EBB0090E85A /* CoreLocation.framework */,
 				F734A53715F11C3E0090E85A /* UIKit.framework */,
 				F734A53915F11C3E0090E85A /* Foundation.framework */,
@@ -444,6 +514,7 @@
 				F734A57A15F1224E0090E85A /* Trending */,
 				F79B4FA015F3EE470004BE01 /* Search */,
 				F734A63415F16B7D0090E85A /* Settings */,
+				F747F0C815F42433002E5567 /* Location */,
 				F734A59A15F12A570090E85A /* Helpers */,
 				F734A54615F11C3E0090E85A /* MMAppDelegate.h */,
 				F734A54715F11C3E0090E85A /* MMAppDelegate.m */,
@@ -510,6 +581,7 @@
 		F734A59A15F12A570090E85A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F747F11215F43A48002E5567 /* TCImageView */,
 				F79B505315F3F8000004BE01 /* Set Title ImageView */,
 				F734A64115F17A610090E85A /* Calc Time Ago */,
 				F734A5C915F12AF70090E85A /* SVProgressHUD */,
@@ -627,8 +699,10 @@
 		F734A62D15F146630090E85A /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				F747F10B15F42B5A002E5567 /* monkey.jpg */,
 				F79B504F15F3F45D0004BE01 /* logo@2x~iphone.png */,
 				F79B505015F3F45E0004BE01 /* logo~iphone.png */,
+				F747F0C915F42475002E5567 /* Location */,
 				F79B4FA715F3EEC50004BE01 /* Search */,
 				F734A5DA15F1465B0090E85A /* Home */,
 			);
@@ -661,6 +735,60 @@
 				F734A63F15F17A5C0090E85A /* GetRelativeTime.m */,
 			);
 			name = "Calc Time Ago";
+			sourceTree = "<group>";
+		};
+		F747F0C815F42433002E5567 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				F747F10615F426F8002E5567 /* MMLocationViewController.h */,
+				F747F10715F426F8002E5567 /* MMLocationViewController.m */,
+				F747F10815F426F8002E5567 /* MMLocationViewController.xib */,
+			);
+			name = Location;
+			sourceTree = "<group>";
+		};
+		F747F0C915F42475002E5567 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				F747F0CA15F42475002E5567 /* BackBtn@2x~iphone.png */,
+				F747F0CB15F42475002E5567 /* BackBtn~iphone.png */,
+				F747F0CC15F42475002E5567 /* Background@2x~iphone.png */,
+				F747F0CD15F42475002E5567 /* Background~iphone.png */,
+				F747F0CE15F42475002E5567 /* BlankBtn2@2x~iphone.png */,
+				F747F0CF15F42475002E5567 /* BlankBtn2~iphone.png */,
+				F747F0D015F42475002E5567 /* BlankBtn@2x~iphone.png */,
+				F747F0D115F42475002E5567 /* BlankBtn~iphone.png */,
+				F747F0D215F42475002E5567 /* CameraBtn@2x~iphone.png */,
+				F747F0D315F42475002E5567 /* CameraBtn~iphone.png */,
+				F747F0D415F42475002E5567 /* LocationDetail@2x~iphone.png */,
+				F747F0D515F42475002E5567 /* LocationDetail~iphone.png */,
+				F747F0D615F42475002E5567 /* LocationInfoBtn@2x~iphone.png */,
+				F747F0D715F42475002E5567 /* LocationInfoBtn~iphone.png */,
+				F747F0D815F42475002E5567 /* PhotosBtn@2x~iphone.png */,
+				F747F0D915F42475002E5567 /* PhotosBtn~iphone.png */,
+				F747F0DA15F42475002E5567 /* PopupBtn@2x~iphone.png */,
+				F747F0DB15F42475002E5567 /* PopupBtn~iphone.png */,
+				F747F0DC15F42475002E5567 /* RequestBtn@2x~iphone.png */,
+				F747F0DD15F42475002E5567 /* RequestBtn~iphone.png */,
+				F747F0DE15F42475002E5567 /* ThumbDown@2x~iphone.png */,
+				F747F0DF15F42475002E5567 /* ThumbDown~iphone.png */,
+				F747F0E015F42475002E5567 /* ThumbsBG@2x~iphone.png */,
+				F747F0E115F42475002E5567 /* ThumbsBG~iphone.png */,
+				F747F0E215F42475002E5567 /* ThumbUp@2x~iphone.png */,
+				F747F0E315F42475002E5567 /* ThumbUp~iphone.png */,
+				F747F0E415F42475002E5567 /* VideosBtn@2x~iphone.png */,
+				F747F0E515F42475002E5567 /* VideosBtn~iphone.png */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		F747F11215F43A48002E5567 /* TCImageView */ = {
+			isa = PBXGroup;
+			children = (
+				F747F10F15F4382B002E5567 /* TCImageView.h */,
+				F747F11015F4382B002E5567 /* TCImageView.m */,
+			);
+			name = TCImageView;
 			sourceTree = "<group>";
 		};
 		F79B4FA015F3EE470004BE01 /* Search */ = {
@@ -1002,6 +1130,36 @@
 				F79B504E15F3EEC50004BE01 /* TimeAgo~iphone.png in Resources */,
 				F79B505115F3F45E0004BE01 /* logo@2x~iphone.png in Resources */,
 				F79B505215F3F45E0004BE01 /* logo~iphone.png in Resources */,
+				F747F0E615F42475002E5567 /* BackBtn@2x~iphone.png in Resources */,
+				F747F0E715F42475002E5567 /* BackBtn~iphone.png in Resources */,
+				F747F0E815F42475002E5567 /* Background@2x~iphone.png in Resources */,
+				F747F0E915F42475002E5567 /* Background~iphone.png in Resources */,
+				F747F0EA15F42475002E5567 /* BlankBtn2@2x~iphone.png in Resources */,
+				F747F0EB15F42475002E5567 /* BlankBtn2~iphone.png in Resources */,
+				F747F0EC15F42475002E5567 /* BlankBtn@2x~iphone.png in Resources */,
+				F747F0ED15F42475002E5567 /* BlankBtn~iphone.png in Resources */,
+				F747F0EE15F42475002E5567 /* CameraBtn@2x~iphone.png in Resources */,
+				F747F0EF15F42475002E5567 /* CameraBtn~iphone.png in Resources */,
+				F747F0F015F42475002E5567 /* LocationDetail@2x~iphone.png in Resources */,
+				F747F0F115F42475002E5567 /* LocationDetail~iphone.png in Resources */,
+				F747F0F215F42475002E5567 /* LocationInfoBtn@2x~iphone.png in Resources */,
+				F747F0F315F42475002E5567 /* LocationInfoBtn~iphone.png in Resources */,
+				F747F0F415F42475002E5567 /* PhotosBtn@2x~iphone.png in Resources */,
+				F747F0F515F42475002E5567 /* PhotosBtn~iphone.png in Resources */,
+				F747F0F615F42475002E5567 /* PopupBtn@2x~iphone.png in Resources */,
+				F747F0F715F42475002E5567 /* PopupBtn~iphone.png in Resources */,
+				F747F0F815F42475002E5567 /* RequestBtn@2x~iphone.png in Resources */,
+				F747F0F915F42475002E5567 /* RequestBtn~iphone.png in Resources */,
+				F747F0FA15F42475002E5567 /* ThumbDown@2x~iphone.png in Resources */,
+				F747F0FB15F42475002E5567 /* ThumbDown~iphone.png in Resources */,
+				F747F0FC15F42475002E5567 /* ThumbsBG@2x~iphone.png in Resources */,
+				F747F0FD15F42475002E5567 /* ThumbsBG~iphone.png in Resources */,
+				F747F0FE15F42475002E5567 /* ThumbUp@2x~iphone.png in Resources */,
+				F747F0FF15F42475002E5567 /* ThumbUp~iphone.png in Resources */,
+				F747F10015F42475002E5567 /* VideosBtn@2x~iphone.png in Resources */,
+				F747F10115F42475002E5567 /* VideosBtn~iphone.png in Resources */,
+				F747F10A15F426F8002E5567 /* MMLocationViewController.xib in Resources */,
+				F747F10C15F42B5A002E5567 /* monkey.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1058,6 +1216,8 @@
 				F734A64015F17A5C0090E85A /* GetRelativeTime.m in Sources */,
 				F79B4FA515F3EE5A0004BE01 /* MMSearchViewController.m in Sources */,
 				F79B505615F3F81F0004BE01 /* MMSetTitleImage.m in Sources */,
+				F747F10915F426F8002E5567 /* MMLocationViewController.m in Sources */,
+				F747F11115F4382B002E5567 /* TCImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
