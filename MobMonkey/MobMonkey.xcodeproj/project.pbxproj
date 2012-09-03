@@ -121,6 +121,33 @@
 		F747F11115F4382B002E5567 /* TCImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F11015F4382B002E5567 /* TCImageView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F747F11715F449A3002E5567 /* MMRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F11515F449A3002E5567 /* MMRequestViewController.m */; };
 		F747F11815F449A3002E5567 /* MMRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F11615F449A3002E5567 /* MMRequestViewController.xib */; };
+		F747F13315F4509C002E5567 /* AddItBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F11A15F4509C002E5567 /* AddItBtn@2x~iphone.png */; };
+		F747F13415F4509C002E5567 /* AddItBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F11B15F4509C002E5567 /* AddItBtn~iphone.png */; };
+		F747F13515F4509C002E5567 /* CancelBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F11C15F4509C002E5567 /* CancelBtn@2x~iphone.png */; };
+		F747F13615F4509C002E5567 /* CancelBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F11D15F4509C002E5567 /* CancelBtn~iphone.png */; };
+		F747F13715F4509C002E5567 /* GrayModalBtnBlank@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F11E15F4509C002E5567 /* GrayModalBtnBlank@2x~iphone.png */; };
+		F747F13815F4509C002E5567 /* GrayModalBtnBlank~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F11F15F4509C002E5567 /* GrayModalBtnBlank~iphone.png */; };
+		F747F13915F4509C002E5567 /* Make_A_Request.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F12015F4509C002E5567 /* Make_A_Request.png */; };
+		F747F13A15F4509C002E5567 /* MakeRequestModal@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F12115F4509C002E5567 /* MakeRequestModal@2x~iphone.png */; };
+		F747F13B15F4509C002E5567 /* MakeRequestModal~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F12215F4509C002E5567 /* MakeRequestModal~iphone.png */; };
+		F747F13C15F4509C002E5567 /* ModalPictureBtn1@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F12315F4509C002E5567 /* ModalPictureBtn1@2x~iphone.png */; };
+		F747F13D15F4509C002E5567 /* ModalPictureBtn1~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F12415F4509C002E5567 /* ModalPictureBtn1~iphone.png */; };
+		F747F13E15F4509C002E5567 /* ModalPictureBtn2@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F12515F4509C002E5567 /* ModalPictureBtn2@2x~iphone.png */; };
+		F747F13F15F4509C002E5567 /* ModalPictureBtn2~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F12615F4509C002E5567 /* ModalPictureBtn2~iphone.png */; };
+		F747F14015F4509C002E5567 /* ModalVideoBtn1@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F12715F4509C002E5567 /* ModalVideoBtn1@2x~iphone.png */; };
+		F747F14115F4509C002E5567 /* ModalVideoBtn1~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F12815F4509C002E5567 /* ModalVideoBtn1~iphone.png */; };
+		F747F14215F4509C002E5567 /* ModalVideoBtn2@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F12915F4509C002E5567 /* ModalVideoBtn2@2x~iphone.png */; };
+		F747F14315F4509C002E5567 /* ModalVideoBtn2~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F12A15F4509C002E5567 /* ModalVideoBtn2~iphone.png */; };
+		F747F14415F4509C002E5567 /* Notification_Modal.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F12B15F4509C002E5567 /* Notification_Modal.png */; };
+		F747F14515F4509C002E5567 /* NotificationsModal@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F12C15F4509C002E5567 /* NotificationsModal@2x~iphone.png */; };
+		F747F14615F4509C002E5567 /* OrangeModalBtnBlank@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F12D15F4509C002E5567 /* OrangeModalBtnBlank@2x~iphone.png */; };
+		F747F14715F4509C002E5567 /* OrangeModalBtnBlank~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F12E15F4509C002E5567 /* OrangeModalBtnBlank~iphone.png */; };
+		F747F14815F4509C002E5567 /* PostBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F12F15F4509C002E5567 /* PostBtn@2x~iphone.png */; };
+		F747F14915F4509C002E5567 /* PostBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F13015F4509C002E5567 /* PostBtn~iphone.png */; };
+		F747F14A15F4509C002E5567 /* TimeBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F13115F4509C002E5567 /* TimeBtn@2x~iphone.png */; };
+		F747F14B15F4509C002E5567 /* TimeBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F13215F4509C002E5567 /* TimeBtn~iphone.png */; };
+		F747F15915F46338002E5567 /* MMPresetMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F15715F46338002E5567 /* MMPresetMessagesViewController.m */; };
+		F747F15A15F46338002E5567 /* MMPresetMessagesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F15815F46338002E5567 /* MMPresetMessagesViewController.xib */; };
 		F79B4FA515F3EE5A0004BE01 /* MMSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79B4FA315F3EE5A0004BE01 /* MMSearchViewController.m */; };
 		F79B4FA615F3EE5A0004BE01 /* MMSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FA415F3EE5A0004BE01 /* MMSearchViewController.xib */; };
 		F79B4FFD15F3EEC50004BE01 /* AddLocation@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FA915F3EEC50004BE01 /* AddLocation@2x~iphone.png */; };
@@ -362,6 +389,34 @@
 		F747F11415F449A3002E5567 /* MMRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequestViewController.h; sourceTree = "<group>"; };
 		F747F11515F449A3002E5567 /* MMRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMRequestViewController.m; sourceTree = "<group>"; };
 		F747F11615F449A3002E5567 /* MMRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMRequestViewController.xib; sourceTree = "<group>"; };
+		F747F11A15F4509C002E5567 /* AddItBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddItBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F11B15F4509C002E5567 /* AddItBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddItBtn~iphone.png"; sourceTree = "<group>"; };
+		F747F11C15F4509C002E5567 /* CancelBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CancelBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F11D15F4509C002E5567 /* CancelBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CancelBtn~iphone.png"; sourceTree = "<group>"; };
+		F747F11E15F4509C002E5567 /* GrayModalBtnBlank@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GrayModalBtnBlank@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F11F15F4509C002E5567 /* GrayModalBtnBlank~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GrayModalBtnBlank~iphone.png"; sourceTree = "<group>"; };
+		F747F12015F4509C002E5567 /* Make_A_Request.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Make_A_Request.png; sourceTree = "<group>"; };
+		F747F12115F4509C002E5567 /* MakeRequestModal@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MakeRequestModal@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F12215F4509C002E5567 /* MakeRequestModal~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MakeRequestModal~iphone.png"; sourceTree = "<group>"; };
+		F747F12315F4509C002E5567 /* ModalPictureBtn1@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalPictureBtn1@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F12415F4509C002E5567 /* ModalPictureBtn1~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalPictureBtn1~iphone.png"; sourceTree = "<group>"; };
+		F747F12515F4509C002E5567 /* ModalPictureBtn2@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalPictureBtn2@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F12615F4509C002E5567 /* ModalPictureBtn2~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalPictureBtn2~iphone.png"; sourceTree = "<group>"; };
+		F747F12715F4509C002E5567 /* ModalVideoBtn1@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalVideoBtn1@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F12815F4509C002E5567 /* ModalVideoBtn1~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalVideoBtn1~iphone.png"; sourceTree = "<group>"; };
+		F747F12915F4509C002E5567 /* ModalVideoBtn2@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalVideoBtn2@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F12A15F4509C002E5567 /* ModalVideoBtn2~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ModalVideoBtn2~iphone.png"; sourceTree = "<group>"; };
+		F747F12B15F4509C002E5567 /* Notification_Modal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Notification_Modal.png; sourceTree = "<group>"; };
+		F747F12C15F4509C002E5567 /* NotificationsModal@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NotificationsModal@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F12D15F4509C002E5567 /* OrangeModalBtnBlank@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OrangeModalBtnBlank@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F12E15F4509C002E5567 /* OrangeModalBtnBlank~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OrangeModalBtnBlank~iphone.png"; sourceTree = "<group>"; };
+		F747F12F15F4509C002E5567 /* PostBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PostBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F13015F4509C002E5567 /* PostBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PostBtn~iphone.png"; sourceTree = "<group>"; };
+		F747F13115F4509C002E5567 /* TimeBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeBtn@2x~iphone.png"; sourceTree = "<group>"; };
+		F747F13215F4509C002E5567 /* TimeBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeBtn~iphone.png"; sourceTree = "<group>"; };
+		F747F15615F46338002E5567 /* MMPresetMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPresetMessagesViewController.h; sourceTree = "<group>"; };
+		F747F15715F46338002E5567 /* MMPresetMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPresetMessagesViewController.m; sourceTree = "<group>"; };
+		F747F15815F46338002E5567 /* MMPresetMessagesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMPresetMessagesViewController.xib; sourceTree = "<group>"; };
 		F79B4FA215F3EE5A0004BE01 /* MMSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSearchViewController.h; sourceTree = "<group>"; };
 		F79B4FA315F3EE5A0004BE01 /* MMSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSearchViewController.m; sourceTree = "<group>"; };
 		F79B4FA415F3EE5A0004BE01 /* MMSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSearchViewController.xib; sourceTree = "<group>"; };
@@ -708,6 +763,7 @@
 				F747F10B15F42B5A002E5567 /* monkey.jpg */,
 				F79B504F15F3F45D0004BE01 /* logo@2x~iphone.png */,
 				F79B505015F3F45E0004BE01 /* logo~iphone.png */,
+				F747F11915F4509C002E5567 /* Notification and Location Modal Views */,
 				F747F0C915F42475002E5567 /* Location */,
 				F79B4FA715F3EEC50004BE01 /* Search */,
 				F734A5DA15F1465B0090E85A /* Home */,
@@ -800,11 +856,54 @@
 		F747F11315F44992002E5567 /* Make Request */ = {
 			isa = PBXGroup;
 			children = (
+				F747F15015F462A1002E5567 /* Attach Message */,
 				F747F11415F449A3002E5567 /* MMRequestViewController.h */,
 				F747F11515F449A3002E5567 /* MMRequestViewController.m */,
 				F747F11615F449A3002E5567 /* MMRequestViewController.xib */,
 			);
 			name = "Make Request";
+			sourceTree = "<group>";
+		};
+		F747F11915F4509C002E5567 /* Notification and Location Modal Views */ = {
+			isa = PBXGroup;
+			children = (
+				F747F11A15F4509C002E5567 /* AddItBtn@2x~iphone.png */,
+				F747F11B15F4509C002E5567 /* AddItBtn~iphone.png */,
+				F747F11C15F4509C002E5567 /* CancelBtn@2x~iphone.png */,
+				F747F11D15F4509C002E5567 /* CancelBtn~iphone.png */,
+				F747F11E15F4509C002E5567 /* GrayModalBtnBlank@2x~iphone.png */,
+				F747F11F15F4509C002E5567 /* GrayModalBtnBlank~iphone.png */,
+				F747F12015F4509C002E5567 /* Make_A_Request.png */,
+				F747F12115F4509C002E5567 /* MakeRequestModal@2x~iphone.png */,
+				F747F12215F4509C002E5567 /* MakeRequestModal~iphone.png */,
+				F747F12315F4509C002E5567 /* ModalPictureBtn1@2x~iphone.png */,
+				F747F12415F4509C002E5567 /* ModalPictureBtn1~iphone.png */,
+				F747F12515F4509C002E5567 /* ModalPictureBtn2@2x~iphone.png */,
+				F747F12615F4509C002E5567 /* ModalPictureBtn2~iphone.png */,
+				F747F12715F4509C002E5567 /* ModalVideoBtn1@2x~iphone.png */,
+				F747F12815F4509C002E5567 /* ModalVideoBtn1~iphone.png */,
+				F747F12915F4509C002E5567 /* ModalVideoBtn2@2x~iphone.png */,
+				F747F12A15F4509C002E5567 /* ModalVideoBtn2~iphone.png */,
+				F747F12B15F4509C002E5567 /* Notification_Modal.png */,
+				F747F12C15F4509C002E5567 /* NotificationsModal@2x~iphone.png */,
+				F747F12D15F4509C002E5567 /* OrangeModalBtnBlank@2x~iphone.png */,
+				F747F12E15F4509C002E5567 /* OrangeModalBtnBlank~iphone.png */,
+				F747F12F15F4509C002E5567 /* PostBtn@2x~iphone.png */,
+				F747F13015F4509C002E5567 /* PostBtn~iphone.png */,
+				F747F13115F4509C002E5567 /* TimeBtn@2x~iphone.png */,
+				F747F13215F4509C002E5567 /* TimeBtn~iphone.png */,
+			);
+			path = "Notification and Location Modal Views";
+			sourceTree = "<group>";
+		};
+		F747F15015F462A1002E5567 /* Attach Message */ = {
+			isa = PBXGroup;
+			children = (
+				F747F15615F46338002E5567 /* MMPresetMessagesViewController.h */,
+				F747F15715F46338002E5567 /* MMPresetMessagesViewController.m */,
+				F747F15815F46338002E5567 /* MMPresetMessagesViewController.xib */,
+			);
+			name = "Attach Message";
 			sourceTree = "<group>";
 		};
 		F79B4FA015F3EE470004BE01 /* Search */ = {
@@ -1177,6 +1276,32 @@
 				F747F10A15F426F8002E5567 /* MMLocationViewController.xib in Resources */,
 				F747F10C15F42B5A002E5567 /* monkey.jpg in Resources */,
 				F747F11815F449A3002E5567 /* MMRequestViewController.xib in Resources */,
+				F747F13315F4509C002E5567 /* AddItBtn@2x~iphone.png in Resources */,
+				F747F13415F4509C002E5567 /* AddItBtn~iphone.png in Resources */,
+				F747F13515F4509C002E5567 /* CancelBtn@2x~iphone.png in Resources */,
+				F747F13615F4509C002E5567 /* CancelBtn~iphone.png in Resources */,
+				F747F13715F4509C002E5567 /* GrayModalBtnBlank@2x~iphone.png in Resources */,
+				F747F13815F4509C002E5567 /* GrayModalBtnBlank~iphone.png in Resources */,
+				F747F13915F4509C002E5567 /* Make_A_Request.png in Resources */,
+				F747F13A15F4509C002E5567 /* MakeRequestModal@2x~iphone.png in Resources */,
+				F747F13B15F4509C002E5567 /* MakeRequestModal~iphone.png in Resources */,
+				F747F13C15F4509C002E5567 /* ModalPictureBtn1@2x~iphone.png in Resources */,
+				F747F13D15F4509C002E5567 /* ModalPictureBtn1~iphone.png in Resources */,
+				F747F13E15F4509C002E5567 /* ModalPictureBtn2@2x~iphone.png in Resources */,
+				F747F13F15F4509C002E5567 /* ModalPictureBtn2~iphone.png in Resources */,
+				F747F14015F4509C002E5567 /* ModalVideoBtn1@2x~iphone.png in Resources */,
+				F747F14115F4509C002E5567 /* ModalVideoBtn1~iphone.png in Resources */,
+				F747F14215F4509C002E5567 /* ModalVideoBtn2@2x~iphone.png in Resources */,
+				F747F14315F4509C002E5567 /* ModalVideoBtn2~iphone.png in Resources */,
+				F747F14415F4509C002E5567 /* Notification_Modal.png in Resources */,
+				F747F14515F4509C002E5567 /* NotificationsModal@2x~iphone.png in Resources */,
+				F747F14615F4509C002E5567 /* OrangeModalBtnBlank@2x~iphone.png in Resources */,
+				F747F14715F4509C002E5567 /* OrangeModalBtnBlank~iphone.png in Resources */,
+				F747F14815F4509C002E5567 /* PostBtn@2x~iphone.png in Resources */,
+				F747F14915F4509C002E5567 /* PostBtn~iphone.png in Resources */,
+				F747F14A15F4509C002E5567 /* TimeBtn@2x~iphone.png in Resources */,
+				F747F14B15F4509C002E5567 /* TimeBtn~iphone.png in Resources */,
+				F747F15A15F46338002E5567 /* MMPresetMessagesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1236,6 +1361,7 @@
 				F747F10915F426F8002E5567 /* MMLocationViewController.m in Sources */,
 				F747F11115F4382B002E5567 /* TCImageView.m in Sources */,
 				F747F11715F449A3002E5567 /* MMRequestViewController.m in Sources */,
+				F747F15915F46338002E5567 /* MMPresetMessagesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
