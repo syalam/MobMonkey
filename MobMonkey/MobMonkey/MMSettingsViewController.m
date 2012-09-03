@@ -7,6 +7,7 @@
 //
 
 #import "MMSettingsViewController.h"
+#import "MMSignUpViewController.h"
 #import "MMSetTitleImage.h"
 
 @interface MMSettingsViewController ()
@@ -42,6 +43,9 @@
     [self setContentList:tableContentArray];
     
     self.title = @"Settings";
+    
+    UIBarButtonItem *signOutButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign In" style:UIBarButtonItemStyleBordered target:self action:@selector(signInButtonTapped:)];
+    self.navigationItem.rightBarButtonItem = signOutButton;
     
     
 
@@ -165,6 +169,13 @@
             [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
         }
     }
+}
+
+#pragma mark - UINavBar Methods
+- (void)signInButtonTapped:(id)sender {
+    MMSignUpViewController *signUpVc = [[MMSignUpViewController alloc]initWithNibName:@"MMSignUpViewController" bundle:nil];
+    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:signUpVc];
+    [self.navigationController presentViewController:navC animated:YES completion:NULL];
 }
 
 @end

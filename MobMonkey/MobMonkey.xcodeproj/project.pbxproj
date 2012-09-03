@@ -148,6 +148,10 @@
 		F747F14B15F4509C002E5567 /* TimeBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F13215F4509C002E5567 /* TimeBtn~iphone.png */; };
 		F747F15915F46338002E5567 /* MMPresetMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F15715F46338002E5567 /* MMPresetMessagesViewController.m */; };
 		F747F15A15F46338002E5567 /* MMPresetMessagesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F15815F46338002E5567 /* MMPresetMessagesViewController.xib */; };
+		F747F15E15F4740B002E5567 /* MMSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F15C15F4740A002E5567 /* MMSignUpViewController.m */; };
+		F747F15F15F4740B002E5567 /* MMSignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F15D15F4740B002E5567 /* MMSignUpViewController.xib */; };
+		F747F16315F4742D002E5567 /* MMLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F16115F4742C002E5567 /* MMLoginViewController.m */; };
+		F747F16415F4742D002E5567 /* MMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F16215F4742C002E5567 /* MMLoginViewController.xib */; };
 		F79B4FA515F3EE5A0004BE01 /* MMSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79B4FA315F3EE5A0004BE01 /* MMSearchViewController.m */; };
 		F79B4FA615F3EE5A0004BE01 /* MMSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FA415F3EE5A0004BE01 /* MMSearchViewController.xib */; };
 		F79B4FFD15F3EEC50004BE01 /* AddLocation@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FA915F3EEC50004BE01 /* AddLocation@2x~iphone.png */; };
@@ -417,6 +421,12 @@
 		F747F15615F46338002E5567 /* MMPresetMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPresetMessagesViewController.h; sourceTree = "<group>"; };
 		F747F15715F46338002E5567 /* MMPresetMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPresetMessagesViewController.m; sourceTree = "<group>"; };
 		F747F15815F46338002E5567 /* MMPresetMessagesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMPresetMessagesViewController.xib; sourceTree = "<group>"; };
+		F747F15B15F4740A002E5567 /* MMSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSignUpViewController.h; sourceTree = "<group>"; };
+		F747F15C15F4740A002E5567 /* MMSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSignUpViewController.m; sourceTree = "<group>"; };
+		F747F15D15F4740B002E5567 /* MMSignUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSignUpViewController.xib; sourceTree = "<group>"; };
+		F747F16015F4742B002E5567 /* MMLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLoginViewController.h; sourceTree = "<group>"; };
+		F747F16115F4742C002E5567 /* MMLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLoginViewController.m; sourceTree = "<group>"; };
+		F747F16215F4742C002E5567 /* MMLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLoginViewController.xib; sourceTree = "<group>"; };
 		F79B4FA215F3EE5A0004BE01 /* MMSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSearchViewController.h; sourceTree = "<group>"; };
 		F79B4FA315F3EE5A0004BE01 /* MMSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSearchViewController.m; sourceTree = "<group>"; };
 		F79B4FA415F3EE5A0004BE01 /* MMSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSearchViewController.xib; sourceTree = "<group>"; };
@@ -569,6 +579,7 @@
 		F734A53D15F11C3E0090E85A /* MobMonkey */ = {
 			isa = PBXGroup;
 			children = (
+				F747F16715F47450002E5567 /* Authentication */,
 				F734A62E15F1482F0090E85A /* Result Cell */,
 				F747F11315F44992002E5567 /* Make Request */,
 				F734A58515F123070090E85A /* Inbox */,
@@ -904,6 +915,35 @@
 				F747F15815F46338002E5567 /* MMPresetMessagesViewController.xib */,
 			);
 			name = "Attach Message";
+			sourceTree = "<group>";
+		};
+		F747F16515F47439002E5567 /* Sign in */ = {
+			isa = PBXGroup;
+			children = (
+				F747F16015F4742B002E5567 /* MMLoginViewController.h */,
+				F747F16115F4742C002E5567 /* MMLoginViewController.m */,
+				F747F16215F4742C002E5567 /* MMLoginViewController.xib */,
+			);
+			name = "Sign in";
+			sourceTree = "<group>";
+		};
+		F747F16615F47445002E5567 /* Sign up */ = {
+			isa = PBXGroup;
+			children = (
+				F747F15B15F4740A002E5567 /* MMSignUpViewController.h */,
+				F747F15C15F4740A002E5567 /* MMSignUpViewController.m */,
+				F747F15D15F4740B002E5567 /* MMSignUpViewController.xib */,
+			);
+			name = "Sign up";
+			sourceTree = "<group>";
+		};
+		F747F16715F47450002E5567 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				F747F16515F47439002E5567 /* Sign in */,
+				F747F16615F47445002E5567 /* Sign up */,
+			);
+			name = Authentication;
 			sourceTree = "<group>";
 		};
 		F79B4FA015F3EE470004BE01 /* Search */ = {
@@ -1302,6 +1342,8 @@
 				F747F14A15F4509C002E5567 /* TimeBtn@2x~iphone.png in Resources */,
 				F747F14B15F4509C002E5567 /* TimeBtn~iphone.png in Resources */,
 				F747F15A15F46338002E5567 /* MMPresetMessagesViewController.xib in Resources */,
+				F747F15F15F4740B002E5567 /* MMSignUpViewController.xib in Resources */,
+				F747F16415F4742D002E5567 /* MMLoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1362,6 +1404,8 @@
 				F747F11115F4382B002E5567 /* TCImageView.m in Sources */,
 				F747F11715F449A3002E5567 /* MMRequestViewController.m in Sources */,
 				F747F15915F46338002E5567 /* MMPresetMessagesViewController.m in Sources */,
+				F747F15E15F4740B002E5567 /* MMSignUpViewController.m in Sources */,
+				F747F16315F4742D002E5567 /* MMLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
