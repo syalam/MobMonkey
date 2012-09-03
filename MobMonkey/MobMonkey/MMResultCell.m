@@ -21,34 +21,43 @@
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(256, 13, 100, 25)];
         _thumbnailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(16, 41, 296, 145)];
         _toggleOverlayButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _overlayButtonView = [[UIView alloc]initWithFrame:CGRectMake(_thumbnailImageView.frame.origin.x, _thumbnailImageView.frame.size.height + 11, _thumbnailImageView.frame.size.width, 30)];
+        _overlayButtonView = [[UIView alloc]initWithFrame:CGRectMake(_thumbnailImageView.frame.origin.x, _thumbnailImageView.frame.size.height + 3, _thumbnailImageView.frame.size.width, 38)];
         _overlayBGImageView = [[UIImageView alloc]initWithFrame:_thumbnailImageView.frame];
         
         //setup overlay view
+        _overlayButtonBackgroundImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, _overlayButtonView.frame.size.width, _overlayButtonView.frame.size.height)];
+        _overlayButtonBackgroundImageView.image = [UIImage imageNamed:@"ThumbsBG~iphone.png"];
+    
         [_overlayButtonView setBackgroundColor:[UIColor clearColor]];
-        _likeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        _dislikeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        _likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _dislikeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _flagButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        _shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        _enlargeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        _shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
 
-        [_likeButton setFrame:CGRectMake(20, 0, 60, 30)];
-        [_dislikeButton setFrame:CGRectMake(_likeButton.frame.origin.x + _likeButton.frame.size.width + 5, _likeButton.frame.origin.y, _likeButton.frame.size.width, _likeButton.frame.size.height)];
-        [_flagButton setFrame:CGRectMake(_dislikeButton.frame.origin.x + _dislikeButton.frame.size.width + 5, _likeButton.frame.origin.y, _likeButton.frame.size.width, _likeButton.frame.size.height)];
-        [_shareButton setFrame:CGRectMake(_flagButton.frame.origin.x + _flagButton.frame.size.width + 5, _likeButton.frame.origin.y, _likeButton.frame.size.width, _likeButton.frame.size.height)];
+        [_likeButton setFrame:CGRectMake(20, 0, 38, 38)];
+        [_dislikeButton setFrame:CGRectMake(_likeButton.frame.origin.x + _likeButton.frame.size.width + 10, _likeButton.frame.origin.y, _likeButton.frame.size.width, _likeButton.frame.size.height)];
+        [_flagButton setFrame:CGRectMake(_dislikeButton.frame.origin.x + _dislikeButton.frame.size.width + 10, _likeButton.frame.origin.y, _likeButton.frame.size.width, _likeButton.frame.size.height)];
+        [_enlargeButton setFrame:CGRectMake(_flagButton.frame.origin.x + _flagButton.frame.size.width + 10, _likeButton.frame.origin.y, _likeButton.frame.size.width, _likeButton.frame.size.height)];
+        [_shareButton setFrame:CGRectMake(_enlargeButton.frame.origin.x + _enlargeButton.frame.size.width + 10, _likeButton.frame.origin.y, _likeButton.frame.size.width, _likeButton.frame.size.height)];
         
-        [_likeButton setTitle:@"✔" forState:UIControlStateNormal];
-        [_dislikeButton setTitle:@"x" forState:UIControlStateNormal];
+        [_likeButton setImage:[UIImage imageNamed:@"ThumbUp~iphone"] forState:UIControlStateNormal];
+        [_dislikeButton setImage:[UIImage imageNamed:@"ThumbDown~iphone"] forState:UIControlStateNormal];
         [_flagButton setTitle:@"Flag" forState:UIControlStateNormal];
-        [_shareButton setTitle:@"Share" forState:UIControlStateNormal];
+        [_enlargeButton setTitle:@"Enlarge" forState:UIControlStateNormal];
+        [_shareButton setImage:[UIImage imageNamed:@"PopupBtn~iphone"] forState:UIControlStateNormal];
     
         [_likeButton addTarget:self action:@selector(likeButtonTapped:) forControlEvents:UIControlEventTouchDown];
         [_dislikeButton addTarget:self action:@selector(dislikeButtonTapped:) forControlEvents:UIControlEventTouchDown];
         [_flagButton addTarget:self action:@selector(flagButtonTapped:) forControlEvents:UIControlEventTouchDown];
+        [_enlargeButton addTarget:self action:@selector(enlargeButtonTapped:) forControlEvents:UIControlEventTouchDown];
         [_shareButton addTarget:self action:@selector(shareButtonTapped:) forControlEvents:UIControlEventTouchDown];
         
+        [_overlayButtonView addSubview:_overlayButtonBackgroundImageView];
         [_overlayButtonView addSubview:_likeButton];
         [_overlayButtonView addSubview:_dislikeButton];
         [_overlayButtonView addSubview:_flagButton];
+        [_overlayButtonView addSubview:_enlargeButton];
         [_overlayButtonView addSubview:_shareButton];
         
         [_overlayButtonView setAlpha:0];
@@ -109,6 +118,10 @@
 
 - (void)shareButtonTapped:(id)sender {
     [_delegate shareButtonTapped:sender];
+}
+
+- (void)enlargeButtonTapped:(id)sender {
+    [_delegate enlargeButtonTapped:sender];
 }
 
 @end

@@ -183,6 +183,9 @@
 - (void)flagButtonTapped:(id)sender {
     
 }
+- (void)enlargeButtonTapped:(id)sender {
+    
+}
 - (void)shareButtonTapped:(id)sender {
     
 }

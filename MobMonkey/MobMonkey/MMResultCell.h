@@ -14,6 +14,7 @@
 - (void)likeButtonTapped:(id)sender;
 - (void)dislikeButtonTapped:(id)sender;
 - (void)flagButtonTapped:(id)sender;
+- (void)enlargeButtonTapped:(id)sender;
 - (void)shareButtonTapped:(id)sender;
 
 @end
@@ -26,9 +27,11 @@
 @property(nonatomic, retain)UIButton *toggleOverlayButton;
 @property(nonatomic, retain)UIImageView *overlayBGImageView;
 @property(nonatomic,retain)UIView* overlayButtonView;
+@property(nonatomic, retain)UIImageView *overlayButtonBackgroundImageView;
 @property(nonatomic, retain)UIButton *likeButton;
 @property(nonatomic, retain)UIButton *dislikeButton;
 @property(nonatomic, retain)UIButton *flagButton;
+@property(nonatomic, retain)UIButton *enlargeButton;
 @property(nonatomic, retain)UIButton *shareButton;
 @property(nonatomic,assign)id<MMResultCellDelegate> delegate;
 
