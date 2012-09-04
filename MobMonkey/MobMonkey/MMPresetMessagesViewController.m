@@ -15,9 +15,9 @@
 
 @implementation MMPresetMessagesViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithStyle:style];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
@@ -37,6 +37,10 @@
     
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    NSMutableArray *tableContents = [[NSMutableArray alloc]initWithObjects:@"Do they serve Coke or Pepsi here?", @"I want to see a picture of the wings", nil];
+    [self setContentList:tableContents];
+    
 }
 
 - (void)viewDidUnload
@@ -56,21 +60,25 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 0;
+    return _contentList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
-    // Configure the cell...
+    cell.textLabel.font = [UIFont fontWithName:@"HeleveticaNeue" size:13];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    
+    cell.textLabel.text = [_contentList objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -119,12 +127,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    [_delegate presetMessageSelected:[_contentList objectAtIndex:indexPath.row]];
+    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 #pragma mark - UINavBar Tap Methods

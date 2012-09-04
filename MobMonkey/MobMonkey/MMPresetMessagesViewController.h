@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMPresetMessagesViewController : UITableViewController
+@protocol MMPresetMessageDelegate
+
+- (void)presetMessageSelected:(id)message;
+
+@end
+
+@interface MMPresetMessagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, retain) IBOutlet UIImageView *screenBackground;
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, retain) NSMutableArray *contentList;
+@property (nonatomic, retain) id<MMPresetMessageDelegate> delegate;
 
 @end

@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMPresetMessagesViewController.h"
 
-@interface MMRequestViewController : UIViewController <UITextViewDelegate, UIGestureRecognizerDelegate>
+
+@interface MMRequestViewController : UIViewController <UITextViewDelegate, UIGestureRecognizerDelegate, MMPresetMessageDelegate>
 
 @property (nonatomic, retain) IBOutlet UITextView *requestTextView;
 @property (nonatomic, retain) IBOutlet UILabel *placeholderLabel;

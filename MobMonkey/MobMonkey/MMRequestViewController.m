@@ -64,6 +64,7 @@
 #pragma mark - IBAction Methods
 - (IBAction)attachMessageButtonTapped:(id)sender {
     MMPresetMessagesViewController *presetMessagesVC = [[MMPresetMessagesViewController alloc]initWithNibName:@"MMPresetMessagesViewController" bundle:nil];
+    presetMessagesVC.delegate = self;
     [self.navigationController pushViewController:presetMessagesVC animated:YES];
 }
 
@@ -100,6 +101,16 @@
         return NO;
     }
     return YES;
+}
+
+#pragma mark - MMPresetMessageDelegate Methods
+- (void)presetMessageSelected:(id)message {
+    NSString *messageString = message;
+    if (messageString.length > 0) {
+        [_placeholderLabel setHidden:YES];
+        [_requestTextView setText:messageString];
+        _characterCountLabel.text = [NSString stringWithFormat:@"%d", _requestTextView.text.length];
+    }
 }
 
 @end
