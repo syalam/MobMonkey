@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMSettingsViewController : UITableViewController {
+@interface MMSettingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     NSMutableDictionary *selectionDictionary;
     UIImageView *notificationsImageView;
     UILabel *notificationsCountLabel;
 }
 
 @property (nonatomic, retain)NSMutableArray *contentList;
+@property (nonatomic, retain)IBOutlet UIImageView *screenBackground;
+@property (nonatomic, retain)IBOutlet UITableView *tableView;
 
 @end

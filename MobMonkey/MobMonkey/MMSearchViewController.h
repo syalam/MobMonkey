@@ -10,16 +10,18 @@
 #import "MMResultCell.h"
 #import "MMFilterViewController.h"
 
-@interface MMSearchViewController : UITableViewController <MMResultCellDelegate, MMFilterViewDelegate> {
+@interface MMSearchViewController : UIViewController <MMResultCellDelegate, MMFilterViewDelegate, UITableViewDataSource, UITableViewDelegate> {
     NSMutableDictionary* _cellToggleOnState;
 }
 
 
 @property (nonatomic, retain) NSMutableArray *contentList;
+@property (nonatomic, retain) IBOutlet UIImageView *screenBackground;
 @property (nonatomic, retain) IBOutlet UIImageView *searchBackgroundImageView;
 @property (nonatomic, retain) IBOutlet UIImageView *searchTextFieldBackgroundImageView;
 @property (nonatomic, retain) IBOutlet UITextField *searchTextField;
 @property (nonatomic, retain) UIButton *filterNavBarButton;
 @property (nonatomic, retain) UIButton *mapNavBarButton;
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
 
 @end

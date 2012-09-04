@@ -17,9 +17,9 @@
 @implementation MMSettingsViewController
 @synthesize contentList = _contentList;
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithStyle:style];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
@@ -32,8 +32,6 @@
     
     self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
 
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
-    
     selectionDictionary = [[NSMutableDictionary alloc]init];
     
     NSArray *socialNetworksArray = [NSArray arrayWithObjects:@"Facebook", @"Twitter", nil];
@@ -46,9 +44,6 @@
     
     UIBarButtonItem *signOutButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign In" style:UIBarButtonItemStyleBordered target:self action:@selector(signInButtonTapped:)];
     self.navigationItem.rightBarButtonItem = signOutButton;
-    
-    
-
 }
 
 - (void)viewDidUnload

@@ -18,9 +18,9 @@
 
 @implementation MMSearchViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithStyle:style];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
@@ -32,10 +32,6 @@
     [super viewDidLoad];
 
     self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
-    
     
     _filterNavBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_filterNavBarButton setFrame:CGRectMake(0, 0, 52, 30)];
@@ -232,6 +228,12 @@
     
     [textField resignFirstResponder];
     return YES;
+}
+
+#pragma mark - FilterViewDelegate
+-(void)performSearchFromFilteredQuery
+{
+    
 }
 
 @end

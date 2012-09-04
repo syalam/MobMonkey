@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMInboxViewController : UITableViewController
+@interface MMInboxViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, retain)UIImageView *mmTitleImageView;
+@property (nonatomic, retain)IBOutlet UITableView *tableView;
+@property (nonatomic, retain)IBOutlet UIImageView *screenBackground;
 
 @end
