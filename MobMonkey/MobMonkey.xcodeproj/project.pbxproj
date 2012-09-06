@@ -86,6 +86,8 @@
 		F734A63215F16B740090E85A /* MMSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A63015F16B720090E85A /* MMSettingsViewController.m */; };
 		F734A63315F16B740090E85A /* MMSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F734A63115F16B730090E85A /* MMSettingsViewController.xib */; };
 		F734A64015F17A5C0090E85A /* GetRelativeTime.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A63F15F17A5C0090E85A /* GetRelativeTime.m */; };
+		F745180015F918980049277C /* MMNotificationSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F74517FE15F918980049277C /* MMNotificationSettingsViewController.m */; };
+		F745180115F918980049277C /* MMNotificationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F74517FF15F918980049277C /* MMNotificationSettingsViewController.xib */; };
 		F747F0E615F42475002E5567 /* BackBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0CA15F42475002E5567 /* BackBtn@2x~iphone.png */; };
 		F747F0E715F42475002E5567 /* BackBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0CB15F42475002E5567 /* BackBtn~iphone.png */; };
 		F747F0E815F42475002E5567 /* Background@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F0CC15F42475002E5567 /* Background@2x~iphone.png */; };
@@ -365,6 +367,9 @@
 		F734A63115F16B730090E85A /* MMSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSettingsViewController.xib; sourceTree = "<group>"; };
 		F734A63E15F17A5C0090E85A /* GetRelativeTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetRelativeTime.h; sourceTree = "<group>"; };
 		F734A63F15F17A5C0090E85A /* GetRelativeTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetRelativeTime.m; sourceTree = "<group>"; };
+		F74517FD15F918980049277C /* MMNotificationSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMNotificationSettingsViewController.h; sourceTree = "<group>"; };
+		F74517FE15F918980049277C /* MMNotificationSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMNotificationSettingsViewController.m; sourceTree = "<group>"; };
+		F74517FF15F918980049277C /* MMNotificationSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMNotificationSettingsViewController.xib; sourceTree = "<group>"; };
 		F747F0CA15F42475002E5567 /* BackBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackBtn@2x~iphone.png"; sourceTree = "<group>"; };
 		F747F0CB15F42475002E5567 /* BackBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackBtn~iphone.png"; sourceTree = "<group>"; };
 		F747F0CC15F42475002E5567 /* Background@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background@2x~iphone.png"; sourceTree = "<group>"; };
@@ -599,6 +604,7 @@
 			children = (
 				F747F16715F47450002E5567 /* Authentication */,
 				F734A62E15F1482F0090E85A /* Result Cell */,
+				F74517FB15F918600049277C /* Notification Settings */,
 				F747F11315F44992002E5567 /* Make Request */,
 				F734A58515F123070090E85A /* Inbox */,
 				F734A57A15F1224E0090E85A /* Trending */,
@@ -826,6 +832,16 @@
 				F734A63F15F17A5C0090E85A /* GetRelativeTime.m */,
 			);
 			name = "Calc Time Ago";
+			sourceTree = "<group>";
+		};
+		F74517FB15F918600049277C /* Notification Settings */ = {
+			isa = PBXGroup;
+			children = (
+				F74517FD15F918980049277C /* MMNotificationSettingsViewController.h */,
+				F74517FE15F918980049277C /* MMNotificationSettingsViewController.m */,
+				F74517FF15F918980049277C /* MMNotificationSettingsViewController.xib */,
+			);
+			name = "Notification Settings";
 			sourceTree = "<group>";
 		};
 		F747F0C815F42433002E5567 /* Location */ = {
@@ -1396,6 +1412,7 @@
 				F747F16415F4742D002E5567 /* MMLoginViewController.xib in Resources */,
 				F77BD34115F5252F00E76CA5 /* MMFilterViewController.xib in Resources */,
 				F77BD34915F52AA100E76CA5 /* MMMapViewController.xib in Resources */,
+				F745180115F918980049277C /* MMNotificationSettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1463,6 +1480,7 @@
 				F77BD33F15F5252F00E76CA5 /* MMFilterViewController.m in Sources */,
 				F77BD34715F52AA100E76CA5 /* MMMapViewController.m in Sources */,
 				F77BD35015F5321400E76CA5 /* MMLocationAnnotation.m in Sources */,
+				F745180015F918980049277C /* MMNotificationSettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

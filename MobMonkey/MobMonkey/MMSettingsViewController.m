@@ -34,9 +34,11 @@
 
     selectionDictionary = [[NSMutableDictionary alloc]init];
     
-    NSArray *socialNetworksArray = [NSArray arrayWithObjects:@"Facebook", @"Twitter", nil];
+    /*NSArray *socialNetworksArray = [NSArray arrayWithObjects:@"Facebook", @"Twitter", nil];
     NSArray *favoritesArray = [NSArray arrayWithObjects:@"Clubs", @"Coffee Shops", @"Concerts", @"Taco Shops", nil];
-    NSMutableArray *tableContentArray = [NSMutableArray arrayWithObjects:socialNetworksArray, favoritesArray, nil];
+    NSMutableArray *tableContentArray = [NSMutableArray arrayWithObjects:socialNetworksArray, favoritesArray, nil];*/
+    
+    NSMutableArray *tableContentArray = [NSMutableArray arrayWithObjects:@"My Info", @"My Rewards", @"Request Activity", @"Social Networks", @"Favorite Categories", nil];
     
     [self setContentList:tableContentArray];
     
@@ -68,21 +70,18 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return _contentList.count;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    NSArray *sectionContent = [_contentList objectAtIndex:section];
-    
-    return sectionContent.count;
+    return _contentList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *sectionConent = [_contentList objectAtIndex:indexPath.section];
-    id contentForThisRow = [sectionConent objectAtIndex:indexPath.row];
+    id contentForThisRow = [_contentList objectAtIndex:indexPath.row];
     
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -90,26 +89,11 @@
     cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
     cell.textLabel.text = contentForThisRow;
-    
-    if (indexPath.section == 0) {
-        UISwitch *socialSwitch = [[UISwitch alloc]initWithFrame:CGRectMake(215, 9, 0, 0)];
-        [socialSwitch setOn:NO];
-        socialSwitch.tag = indexPath.row;
-        [cell.contentView addSubview:socialSwitch];
-    }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return @"Social Networks";
-    }
-    else {
-        return @"Favorite Categories";
-    }
-}
 
 /*
 // Override to support conditional editing of the table view.
@@ -154,16 +138,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1) {
-        if ([selectionDictionary valueForKey:[NSString stringWithFormat:@"%d", indexPath.row]]) {
-            [selectionDictionary removeObjectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
-            [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
-        }
-        else {
-            [selectionDictionary setObject:@"selected" forKey:[NSString stringWithFormat:@"%d", indexPath.row]];
-            [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
-        }
-    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - UINavBar Methods
