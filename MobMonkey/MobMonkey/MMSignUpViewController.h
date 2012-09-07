@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMSignUpViewController : UITableViewController <UIActionSheetDelegate> {
+@interface MMSignUpViewController : UITableViewController <UIActionSheetDelegate, UITextFieldDelegate> {
     UIActionSheet *birthdayActionSheet;
     UIDatePicker *datePicker;
 }

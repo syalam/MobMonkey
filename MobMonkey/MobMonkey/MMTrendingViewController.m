@@ -9,6 +9,7 @@
 #import "MMTrendingViewController.h"
 #import "MMSetTitleImage.h"
 #import "MMLocationViewController.h"
+#import "MMFullScreenImageViewController.h"
 #import "MMAppDelegate.h"
 
 @interface MMTrendingViewController ()
@@ -184,7 +185,11 @@
     
 }
 - (void)enlargeButtonTapped:(id)sender {
-    
+    MMFullScreenImageViewController *fullScreenVC = [[MMFullScreenImageViewController alloc]initWithNibName:@"MMFullScreenImageViewController" bundle:nil];
+    fullScreenVC.imageToDisplay = [UIImage imageNamed:@"monkey.jpg"];
+    UINavigationController *fullScreenNavC = [[UINavigationController alloc]initWithRootViewController:fullScreenVC];
+    fullScreenNavC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self.navigationController presentViewController:fullScreenNavC animated:YES completion:NULL];
 }
 - (void)shareButtonTapped:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", nil];
