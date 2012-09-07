@@ -34,18 +34,12 @@
 
     selectionDictionary = [[NSMutableDictionary alloc]init];
     
-    /*NSArray *socialNetworksArray = [NSArray arrayWithObjects:@"Facebook", @"Twitter", nil];
-    NSArray *favoritesArray = [NSArray arrayWithObjects:@"Clubs", @"Coffee Shops", @"Concerts", @"Taco Shops", nil];
-    NSMutableArray *tableContentArray = [NSMutableArray arrayWithObjects:socialNetworksArray, favoritesArray, nil];*/
     
     NSMutableArray *tableContentArray = [NSMutableArray arrayWithObjects:@"My Info", @"My Rewards", @"Request Activity", @"Social Networks", @"Favorite Categories", nil];
     
     [self setContentList:tableContentArray];
     
     self.title = @"Settings";
-    
-    UIBarButtonItem *signOutButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign In" style:UIBarButtonItemStyleBordered target:self action:@selector(signInButtonTapped:)];
-    self.navigationItem.rightBarButtonItem = signOutButton;
 }
 
 - (void)viewDidUnload
@@ -87,6 +81,16 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    
+    switch (indexPath.row) {
+        case 1:
+            cell.backgroundColor = [UIColor grayColor];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            break;
+            
+        default:
+            break;
+    }
     
     cell.textLabel.text = contentForThisRow;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -138,12 +142,25 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    switch (indexPath.row) {
+        case 0: {
+            MMSignUpViewController *myInfoVc = [[MMSignUpViewController alloc]initWithNibName:@"MMSignUpViewController" bundle:nil];
+            myInfoVc.title = @"My Info";
+            [self.navigationController pushViewController:myInfoVc animated:YES];
+        }
+            
+            break;
+            
+        default:
+            break;
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - UINavBar Methods
-- (void)signInButtonTapped:(id)sender {
+- (IBAction)signInButtonTapped:(id)sender {
     MMSignUpViewController *signUpVc = [[MMSignUpViewController alloc]initWithNibName:@"MMSignUpViewController" bundle:nil];
+    signUpVc.title = @"Sign Up";
     UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:signUpVc];
     [self.navigationController presentViewController:navC animated:YES completion:NULL];
 }

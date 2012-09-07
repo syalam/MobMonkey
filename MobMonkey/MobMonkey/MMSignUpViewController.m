@@ -8,6 +8,7 @@
 
 #import "MMSignUpViewController.h"
 #import "MMLoginViewController.h"
+#import "MMSetTitleImage.h"
 #import "SVProgressHUD.h"
 
 @interface MMSignUpViewController ()
@@ -30,37 +31,61 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Sign Up";
+    self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
+    
+    [_saveButton setHidden:YES];
 
     CGRect textFieldRect = CGRectMake(10, 10, 250, 30);
     
-    firstNameTextField = [[UITextField alloc]initWithFrame:textFieldRect];
-    firstNameTextField.placeholder = @"First Name";
-    firstNameTextField.autocorrectionType= UITextAutocorrectionTypeNo;
+    _firstNameTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    _firstNameTextField.placeholder = @"First Name";
+    _firstNameTextField.autocorrectionType= UITextAutocorrectionTypeNo;
     
-    lastNameTextField = [[UITextField alloc]initWithFrame:textFieldRect];
-    lastNameTextField.placeholder = @"Last Name";
-    lastNameTextField.autocorrectionType= UITextAutocorrectionTypeNo;
+    _lastNameTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    _lastNameTextField.placeholder = @"Last Name";
+    _lastNameTextField.autocorrectionType= UITextAutocorrectionTypeNo;
     
-    emailTextField = [[UITextField alloc]initWithFrame:textFieldRect];
-    emailTextField.placeholder = @"Email Address";
-    emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    emailTextField.autocorrectionType= UITextAutocorrectionTypeNo;
+    _emailTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    _emailTextField.placeholder = @"Email Address";
+    _emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    _emailTextField.autocorrectionType= UITextAutocorrectionTypeNo;
+    _emailTextField.keyboardType = UIKeyboardTypeEmailAddress;
     
-    passwordTextField = [[UITextField alloc]initWithFrame:textFieldRect];
-    passwordTextField.placeholder = @"Password";
-    passwordTextField.secureTextEntry = YES;
+    _passwordTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    _passwordTextField.placeholder = @"Password";
+    _passwordTextField.secureTextEntry = YES;
     
-    confirmPasswordTextField = [[UITextField alloc]initWithFrame:textFieldRect];
-    confirmPasswordTextField.placeholder = @"Confirm Password";
-    confirmPasswordTextField.secureTextEntry = YES;
+    _confirmPasswordTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    _confirmPasswordTextField.placeholder = @"Confirm Password";
+    _confirmPasswordTextField.secureTextEntry = YES;
     
-    _contentList = [[NSMutableArray alloc]initWithObjects:firstNameTextField, lastNameTextField, emailTextField, passwordTextField, confirmPasswordTextField, nil];
+    _birthdayTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    _birthdayTextField.placeholder = @"Birthday";
+    _birthdayTextField.enabled = NO;
     
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(cancelButtonTapped:)];
-    self.navigationItem.leftBarButtonItem = cancelButton;
+    _genderTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    _genderTextField.placeholder = @"Gender";
+    _genderTextField.enabled = NO;
+    
+    
+     NSMutableArray *fieldsToDisplay = [[NSMutableArray alloc]initWithObjects:_firstNameTextField, _lastNameTextField, _emailTextField, _passwordTextField, _confirmPasswordTextField, _birthdayTextField, _genderTextField, nil];
+    [self setContentList:fieldsToDisplay];
+    
+    if ([self.title isEqualToString:@"My Info"]) {
+        [_signInButton setHidden:YES];
+        [_signUpButton setHidden:YES];
+        [_facebookButton setHidden:YES];
+        [_saveButton setHidden:NO];
+    }
+    
+    //Add custom back button to the nav bar
+    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+    [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    self.navigationItem.leftBarButtonItem = backButton;
 }
 
 - (void)viewDidUnload
@@ -143,13 +168,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    switch (indexPath.row) {
+        case 5:
+            [self createBirthdayActionSheet];
+            break;
+        case 6:
+            [self createGenderActionSheet];
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - IBAction Methods
@@ -161,18 +189,104 @@
     [self.navigationController pushViewController:lvc animated:YES];
 }
 
-- (void)cancelButtonTapped:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+- (void)backButtonTapped:(id)sender {
+    if ([self.title isEqualToString:@"My Info"]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else {
+        [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+    }
 }
 
 - (IBAction)facebookButtonTapped:(id)sender {
 
 }
 
+- (IBAction)saveButtonTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)chooseDateButtonTapped:(id)sender {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat:@"MM-dd-yyyy"];
+    NSString *dateString = [dateFormatter stringFromDate:datePicker.date];
+    _birthdayTextField.text = [NSString stringWithFormat:@"%@", dateString];
+    [birthdayActionSheet dismissWithClickedButtonIndex:[sender tag] animated:YES];
+}
+
+- (void)cancelDateButtonTapped:(id)sender {
+    [birthdayActionSheet dismissWithClickedButtonIndex:[sender tag] animated:YES];
+}
+
 #pragma mark - Helper Methods
 - (void)showAlertView:(NSString*)message {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
+}
+
+#pragma mark - Helper Classes
+- (void)createBirthdayActionSheet {
+    birthdayActionSheet = [[UIActionSheet alloc] init];
+    [birthdayActionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+    
+    UISegmentedControl *chooseButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"Choose"]];
+    chooseButton.momentary = YES;
+    chooseButton.frame = CGRectMake(260, 7.0f, 50.0f, 30.0f);
+    chooseButton.segmentedControlStyle = UISegmentedControlStyleBar;
+    chooseButton.tintColor = [UIColor blackColor];
+    chooseButton.tag = 0;
+    [chooseButton addTarget:self action:@selector(chooseDateButtonTapped:) forControlEvents:UIControlEventValueChanged];
+    [birthdayActionSheet addSubview:chooseButton];
+    
+    UISegmentedControl *cancelButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"Cancel"]];
+    cancelButton.momentary = YES;
+    cancelButton.frame = CGRectMake(10.0f, 7.0f, 50.0f, 30.0f);
+    cancelButton.segmentedControlStyle = UISegmentedControlStyleBar;
+    cancelButton.tintColor = [UIColor blackColor];
+    cancelButton.tag = 0;
+    [cancelButton addTarget:self action:@selector(cancelDateButtonTapped:) forControlEvents:UIControlEventValueChanged];
+    [birthdayActionSheet addSubview:cancelButton];
+    
+    
+    CGRect pickerFrame = CGRectMake(0, 40, 0, 0);
+    datePicker = [[UIDatePicker alloc] initWithFrame:pickerFrame];
+    datePicker.datePickerMode = UIDatePickerModeDate;
+    
+    [birthdayActionSheet addSubview:datePicker];
+    
+    if ([self.title isEqualToString:@"My Info"]) {
+        [birthdayActionSheet showInView:self.tabBarController.tabBar];
+    }
+    else {
+        [birthdayActionSheet showInView:self.view];
+    }
+    
+    [birthdayActionSheet setBounds:CGRectMake(0,0,320, 500)];
+}
+
+- (void)createGenderActionSheet {
+    UIActionSheet *genderActionSheet = [[UIActionSheet alloc]initWithTitle:@"Gender" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Male", @"Female", nil];
+    if ([self.title isEqualToString:@"My Info"]) {
+        [genderActionSheet showInView:self.tabBarController.tabBar];
+    }
+    else {
+        [genderActionSheet showInView:self.view];
+    }
+}
+
+#pragma mark - Action Sheet Delegate Methods
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            _genderTextField.text = @"Male";
+            break;
+        case 1:
+            _genderTextField.text = @"Female";
+            break;
+        default:
+            break;
+    }
 }
 
 @end

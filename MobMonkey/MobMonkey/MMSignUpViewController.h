@@ -8,24 +8,31 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMSignUpViewController : UITableViewController  {
-    IBOutlet UIButton *signUpButton;
-    IBOutlet UIButton *signInButton;
-    IBOutlet UIButton *facebookButton;
-    
-    UITextField *firstNameTextField;
-    UITextField *lastNameTextField;
-    UITextField *emailTextField;
-    UITextField *passwordTextField;
-    UITextField *confirmPasswordTextField;
+@interface MMSignUpViewController : UITableViewController <UIActionSheetDelegate> {
+    UIActionSheet *birthdayActionSheet;
+    UIDatePicker *datePicker;
 }
 
 - (IBAction)signUpButtonClicked:(id)sender;
 - (IBAction)signInButtonClicked:(id)sender;
 - (IBAction)facebookButtonTapped:(id)sender;
+- (IBAction)saveButtonTapped:(id)sender;
 
 - (void)showAlertView:(NSString*)message;
 
 @property (nonatomic, retain)NSMutableArray *contentList;
+@property (nonatomic, retain)UITextField *firstNameTextField;
+@property (nonatomic, retain)UITextField *lastNameTextField;
+@property (nonatomic, retain)UITextField *emailTextField;
+@property (nonatomic, retain)UITextField *passwordTextField;
+@property (nonatomic, retain)UITextField *confirmPasswordTextField;
+@property (nonatomic, retain)UITextField *birthdayTextField;
+@property (nonatomic, retain)UITextField *genderTextField;
+@property (nonatomic, retain)UITextField *phoneNumberTextField;
+@property (nonatomic, retain)IBOutlet UIButton *saveButton;
+@property (nonatomic, retain)IBOutlet UIButton *signUpButton;
+@property (nonatomic, retain)IBOutlet UIButton *signInButton;
+@property (nonatomic, retain)IBOutlet UIButton *facebookButton;
+
 
 @end

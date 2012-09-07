@@ -25,5 +25,6 @@
 @property (nonatomic, retain) IBOutlet UISegmentedControl *activeSegmentedControl;
 
 - (IBAction)attachMessageButtonTapped:(id)sender;
+- (IBAction)clearTextButtonTapped:(id)sender;
 
 @end

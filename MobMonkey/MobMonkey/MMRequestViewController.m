@@ -68,6 +68,12 @@
     [self.navigationController pushViewController:presetMessagesVC animated:YES];
 }
 
+- (IBAction)clearTextButtonTapped:(id)sender {
+    _placeholderLabel.hidden = YES;
+    _requestTextView.text = @"";
+    _characterCountLabel.text = @"0";
+}
+
 #pragma mark - UITextView Delegate Methods
 - (void)textViewDidChange:(UITextView *)textView {
     if (textView.text.length > 0) {
@@ -83,7 +89,12 @@
     
     NSString* newText = [textView.text stringByReplacingCharactersInRange:aRange withString:aText];
     
-    if([newText length] > 100)
+    if([newText isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    
+    else if([newText length] > 100)
     {
         return NO; // can't enter more text
     }
