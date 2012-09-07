@@ -36,7 +36,7 @@
     selectionDictionary = [[NSMutableDictionary alloc]init];
     
     
-    NSMutableArray *tableContentArray = [NSMutableArray arrayWithObjects:@"My Info", @"My Rewards", @"Request Activity", @"Social Networks", @"Favorite Categories", nil];
+    NSMutableArray *tableContentArray = [NSMutableArray arrayWithObjects:@"My Info", @"Request Activity", @"Social Networks", @"Favorite Categories", nil];
     
     [self setContentList:tableContentArray];
     
@@ -82,16 +82,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    
-    switch (indexPath.row) {
-        case 1:
-            cell.backgroundColor = [UIColor grayColor];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            break;
-            
-        default:
-            break;
-    }
     
     cell.textLabel.text = contentForThisRow;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
