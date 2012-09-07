@@ -8,6 +8,7 @@
 
 #import "MMLoginViewController.h"
 #import "MMSignUpViewController.h"
+#import "MMSetTitleImage.h"
 
 @interface MMLoginViewController ()
 
@@ -31,6 +32,8 @@
     
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
     
+    self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
+    
     CGRect textFieldRect = CGRectMake(10, 10, 250, 30);
     
     emailTextField = [[UITextField alloc]initWithFrame:textFieldRect];
@@ -50,7 +53,6 @@
     [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
     self.navigationItem.leftBarButtonItem = backButton;
-
 }
 
 - (void)viewDidUnload
