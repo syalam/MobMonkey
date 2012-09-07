@@ -8,6 +8,7 @@
 
 #import "MMLocationViewController.h"
 #import "MMRequestViewController.h"
+#import "MMNotificationSettingsViewController.h"
 #import "MMSetTitleImage.h"
 
 @interface MMLocationViewController ()
@@ -113,8 +114,28 @@
 }
 
 - (IBAction)shareButtonTapped:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Notification Settings", nil];
     [actionSheet showFromTabBar:self.tabBarController.tabBar];
+}
+
+#pragma mark - Action Sheet Delegate Methods
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            
+            break;
+        case 1:
+            
+            break;
+        case 2: {
+            MMNotificationSettingsViewController *notificationSettingsVC = [[MMNotificationSettingsViewController alloc]initWithNibName:@"MMNotificationSettingsViewController" bundle:nil];
+            UINavigationController *notificationSettingsNavC = [[UINavigationController alloc]initWithRootViewController:notificationSettingsVC];
+            [self.navigationController presentViewController:notificationSettingsNavC animated:YES completion:NULL];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 @end
