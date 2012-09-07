@@ -7,6 +7,7 @@
 //
 
 #import "MMLoginViewController.h"
+#import "MMSignUpViewController.h"
 
 @interface MMLoginViewController ()
 
@@ -43,8 +44,13 @@
     
     _contentList = [[NSMutableArray alloc]initWithObjects:emailTextField, passwordTextField, nil];
 
-    UIBarButtonItem *signInButton = [[UIBarButtonItem alloc]initWithTitle:@"Sign In" style:UIBarButtonItemStyleDone target:self action:@selector(loginButtonClicked:)];
-    self.navigationItem.rightBarButtonItem = signInButton;
+    //Add custom back button to the nav bar
+    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+    [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    self.navigationItem.leftBarButtonItem = backButton;
+
 }
 
 - (void)viewDidUnload
@@ -141,9 +147,14 @@
 
 }
 - (IBAction)signUpButtonClicked:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    MMSignUpViewController *myInfoVc = [[MMSignUpViewController alloc]initWithNibName:@"MMSignUpViewController" bundle:nil];
+    myInfoVc.title = @"Sign Up";
+    [self.navigationController pushViewController:myInfoVc animated:YES];
 }
 
+- (void)backButtonTapped:(id)sender {
+    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+}
 
 #pragma mark - Helper Methods
 - (void)showAlertView:(NSString*)message {

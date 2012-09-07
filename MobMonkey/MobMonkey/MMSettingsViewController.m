@@ -7,6 +7,7 @@
 //
 
 #import "MMSettingsViewController.h"
+#import "MMLoginViewController.h"
 #import "MMSignUpViewController.h"
 #import "MMSetTitleImage.h"
 
@@ -159,9 +160,9 @@
 
 #pragma mark - UINavBar Methods
 - (IBAction)signInButtonTapped:(id)sender {
-    MMSignUpViewController *signUpVc = [[MMSignUpViewController alloc]initWithNibName:@"MMSignUpViewController" bundle:nil];
-    signUpVc.title = @"Sign Up";
-    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:signUpVc];
+    MMLoginViewController *signInVc = [[MMLoginViewController alloc]initWithNibName:@"MMLoginViewController" bundle:nil];
+    signInVc.title = @"Sign In";
+    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:signInVc];
     [self.navigationController presentViewController:navC animated:YES completion:NULL];
 }
 

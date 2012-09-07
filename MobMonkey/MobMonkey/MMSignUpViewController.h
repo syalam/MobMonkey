@@ -16,6 +16,7 @@
 - (IBAction)signUpButtonClicked:(id)sender;
 - (IBAction)signInButtonClicked:(id)sender;
 - (IBAction)facebookButtonTapped:(id)sender;
+- (IBAction)twitterButtonTapped:(id)sender;
 - (IBAction)saveButtonTapped:(id)sender;
 
 - (void)showAlertView:(NSString*)message;
@@ -33,6 +34,6 @@
 @property (nonatomic, retain)IBOutlet UIButton *signUpButton;
 @property (nonatomic, retain)IBOutlet UIButton *signInButton;
 @property (nonatomic, retain)IBOutlet UIButton *facebookButton;
-
+@property (nonatomic, retain)IBOutlet UIButton *twitterButton;
 
 @end

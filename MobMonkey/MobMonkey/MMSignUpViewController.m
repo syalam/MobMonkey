@@ -77,6 +77,7 @@
         [_signInButton setHidden:YES];
         [_signUpButton setHidden:YES];
         [_facebookButton setHidden:YES];
+        [_twitterButton setHidden:YES];
         [_saveButton setHidden:NO];
     }
     
@@ -184,22 +185,17 @@
 - (IBAction)signUpButtonClicked:(id)sender {
     
 }
-- (IBAction)signInButtonClicked:(id)sender {
-    MMLoginViewController *lvc = [[MMLoginViewController alloc]initWithNibName:@"MMLoginViewController" bundle:nil];
-    [self.navigationController pushViewController:lvc animated:YES];
-}
 
 - (void)backButtonTapped:(id)sender {
-    if ([self.title isEqualToString:@"My Info"]) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-    else {
-        [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
-    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)facebookButtonTapped:(id)sender {
 
+}
+
+- (IBAction)twitterButtonTapped:(id)sender {
+    
 }
 
 - (IBAction)saveButtonTapped:(id)sender {
