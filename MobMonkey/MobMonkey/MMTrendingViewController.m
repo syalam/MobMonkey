@@ -183,7 +183,7 @@
 - (void)flagButtonTapped:(id)sender {
     
 }
-- (void)enlargeButtonTapped:(id)sender {f
+- (void)enlargeButtonTapped:(id)sender {
     MMFullScreenImageViewController *fullScreenVC = [[MMFullScreenImageViewController alloc]initWithNibName:@"MMFullScreenImageViewController" bundle:nil];
     fullScreenVC.imageToDisplay = [UIImage imageNamed:@"monkey.jpg"];
     UINavigationController *fullScreenNavC = [[UINavigationController alloc]initWithRootViewController:fullScreenVC];
