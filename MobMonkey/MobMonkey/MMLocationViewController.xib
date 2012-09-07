@@ -711,6 +711,15 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">enlargeButtonTapped:</string>
+						<reference key="source" ref="218207014"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">61</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">toggleButtonTapped:</string>
 						<reference key="source" ref="617321153"/>
 						<reference key="destination" ref="372490531"/>
@@ -917,7 +926,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">60</int>
+			<int key="maxID">61</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -925,11 +934,16 @@
 					<string key="className">MMLocationViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="enlargeButtonTapped:">id</string>
 						<string key="makeRequestButtonTapped:">id</string>
 						<string key="shareButtonTapped:">id</string>
 						<string key="toggleButtonTapped:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="enlargeButtonTapped:">
+							<string key="name">enlargeButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="makeRequestButtonTapped:">
 							<string key="name">makeRequestButtonTapped:</string>
 							<string key="candidateClassName">id</string>

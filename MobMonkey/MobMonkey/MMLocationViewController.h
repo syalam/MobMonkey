@@ -28,5 +28,6 @@
 - (IBAction)makeRequestButtonTapped:(id)sender;
 - (IBAction)toggleButtonTapped:(id)sender;
 - (IBAction)shareButtonTapped:(id)sender;
+- (IBAction)enlargeButtonTapped:(id)sender;
 
 @end

@@ -9,6 +9,7 @@
 #import "MMLocationViewController.h"
 #import "MMRequestViewController.h"
 #import "MMNotificationSettingsViewController.h"
+#import "MMFullScreenImageViewController.h"
 #import "MMSetTitleImage.h"
 
 @interface MMLocationViewController ()
@@ -116,6 +117,14 @@
 - (IBAction)shareButtonTapped:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Notification Settings", nil];
     [actionSheet showFromTabBar:self.tabBarController.tabBar];
+}
+
+- (void)enlargeButtonTapped:(id)sender {
+    MMFullScreenImageViewController *fullScreenVC = [[MMFullScreenImageViewController alloc]initWithNibName:@"MMFullScreenImageViewController" bundle:nil];
+    fullScreenVC.imageToDisplay = _locationLatestImageView.image;
+    UINavigationController *fullScreenNavC = [[UINavigationController alloc]initWithRootViewController:fullScreenVC];
+    fullScreenNavC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self.navigationController presentViewController:fullScreenNavC animated:YES completion:NULL];
 }
 
 #pragma mark - Action Sheet Delegate Methods
