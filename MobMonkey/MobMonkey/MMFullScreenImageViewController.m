@@ -33,7 +33,6 @@
     
     [overlayButtonView setAlpha:0];
     imageView.image = _imageToDisplay;
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
     
     // Do any additional setup after loading the view from its nib.
 }
