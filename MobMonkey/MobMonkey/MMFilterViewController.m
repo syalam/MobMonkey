@@ -67,11 +67,6 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (void)searchButtonClicked:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:YES completion:^(void){
-        [delegate performSearchFromFilteredQuery];
-    }];
-}
 
 #pragma mark - IBAction Methods
 - (IBAction)segmentedControlSelected:(id)sender {

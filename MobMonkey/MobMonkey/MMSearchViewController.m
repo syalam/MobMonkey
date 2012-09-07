@@ -8,6 +8,7 @@
 
 #import "MMSearchViewController.h"
 #import "MMLocationViewController.h"
+#import "MMFullScreenImageViewController.h"
 #import "MMResultCell.h"
 #import "MMSetTitleImage.h"
 #import "MMMapViewController.h"
@@ -98,6 +99,7 @@
     cell.flagButton.tag = indexPath.row;
     cell.shareButton.tag = indexPath.row;
     cell.toggleOverlayButton.tag = indexPath.row;
+    cell.enlargeButton.tag = indexPath.row;
     
     if ([[_cellToggleOnState valueForKey:[NSString stringWithFormat:@"%d", indexPath.row]]isEqualToNumber:[NSNumber numberWithBool:YES]]) {
         [cell.overlayBGImageView setAlpha:1];
@@ -196,7 +198,13 @@
     
 }
 - (void)enlargeButtonTapped:(id)sender {
-    
+    MMResultCell *cell = (MMResultCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
+
+    MMFullScreenImageViewController *fullScreenVC = [[MMFullScreenImageViewController alloc]initWithNibName:@"MMFullScreenImageViewController" bundle:nil];
+    fullScreenVC.imageToDisplay = cell.thumbnailImageView.image;
+    UINavigationController *fullScreenNavC = [[UINavigationController alloc]initWithRootViewController:fullScreenVC];
+    fullScreenNavC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self.navigationController presentViewController:fullScreenNavC animated:YES completion:NULL];
 }
 - (void)shareButtonTapped:(id)sender {
     
@@ -228,12 +236,6 @@
     
     [textField resignFirstResponder];
     return YES;
-}
-
-#pragma mark - FilterViewDelegate
--(void)performSearchFromFilteredQuery
-{
-    
 }
 
 @end

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol MMFilterViewDelegate <NSObject>
-    -(void)performSearchFromFilteredQuery;
+    
 @end
 
 @interface MMFilterViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource> {

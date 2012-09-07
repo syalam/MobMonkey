@@ -185,8 +185,10 @@
     
 }
 - (void)enlargeButtonTapped:(id)sender {
+    MMResultCell *cell = (MMResultCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
+    
     MMFullScreenImageViewController *fullScreenVC = [[MMFullScreenImageViewController alloc]initWithNibName:@"MMFullScreenImageViewController" bundle:nil];
-    fullScreenVC.imageToDisplay = [UIImage imageNamed:@"monkey.jpg"];
+    fullScreenVC.imageToDisplay = cell.thumbnailImageView.image;
     UINavigationController *fullScreenNavC = [[UINavigationController alloc]initWithRootViewController:fullScreenVC];
     fullScreenNavC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self.navigationController presentViewController:fullScreenNavC animated:YES completion:NULL];
