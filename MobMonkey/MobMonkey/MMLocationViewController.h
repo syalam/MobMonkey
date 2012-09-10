@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "TCImageView.h"
+#import "MMNotificationSettingsViewController.h"
 
-@interface MMLocationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
+@interface MMLocationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MMNotificationSettingsDelegate>
 
 @property (nonatomic, retain)IBOutlet UITableView *tableView;
 @property (nonatomic, readonly)IBOutlet UIScrollView *scrollView;
@@ -23,11 +24,13 @@
 @property (nonatomic, retain)IBOutlet UILabel *videoCountLabel;
 @property (nonatomic, retain)IBOutlet UILabel *photoCountLabel;
 @property (nonatomic, retain)IBOutlet TCImageView *locationLatestImageView;
-
+@property (nonatomic, retain)IBOutlet UIButton *notificationSettingsButton;
+@property (nonatomic, retain)IBOutlet UILabel *notificationSettingLabel;
 
 - (IBAction)makeRequestButtonTapped:(id)sender;
 - (IBAction)toggleButtonTapped:(id)sender;
 - (IBAction)shareButtonTapped:(id)sender;
 - (IBAction)enlargeButtonTapped:(id)sender;
+- (IBAction)notificationSettingsButtonTapped:(id)sender;
 
 @end

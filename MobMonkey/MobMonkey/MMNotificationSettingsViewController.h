@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol MMNotificationSettingsDelegate
+
+- (void)selectedSetting:(id)selectedNotificationSetting;
+
+@end
+
 @interface MMNotificationSettingsViewController : UIViewController 
 
 
@@ -15,5 +21,6 @@
 @property (nonatomic, retain)IBOutlet UIPickerView *pickerView;
 @property (nonatomic, retain)NSMutableArray *contentList;
 @property (nonatomic, retain)NSString *selectedItem;
+@property (nonatomic, retain)id<MMNotificationSettingsDelegate> delegate;
 
 @end

@@ -12,6 +12,7 @@
 #import "MMFullScreenImageViewController.h"
 #import "MMSetTitleImage.h"
 
+
 @interface MMLocationViewController ()
 
 @end
@@ -112,7 +113,12 @@
         [_overlayButtonView setAlpha:0];
     }
     [UIView commitAnimations];
+}
 
+- (IBAction)notificationSettingsButtonTapped:(id)sender {
+    MMNotificationSettingsViewController *noticiationSettingsVC = [[MMNotificationSettingsViewController alloc]initWithNibName:@"MMNotificationSettingsViewController" bundle:nil];
+    noticiationSettingsVC.delegate = self;
+    [self.navigationController pushViewController:noticiationSettingsVC animated:YES];
 }
 
 - (IBAction)shareButtonTapped:(id)sender {
@@ -146,6 +152,11 @@
         default:
             break;
     }
+}
+
+#pragma mark - MMNotificationSettings delegate methods
+- (void)selectedSetting:(id)selectedNotificationSetting {
+    
 }
 
 @end
