@@ -26,5 +26,6 @@
 
 - (IBAction)attachMessageButtonTapped:(id)sender;
 - (IBAction)clearTextButtonTapped:(id)sender;
+- (IBAction)scheduleRequestButtonTapped:(id)sender;
 
 @end

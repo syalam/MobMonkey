@@ -35,10 +35,14 @@
 
     selectionDictionary = [[NSMutableDictionary alloc]init];
     
+    NSArray *sectionOneArray = [NSArray arrayWithObjects:@"Enable Facebook", @"Enable Twitter", nil];
     
-    NSMutableArray *tableContentArray = [NSMutableArray arrayWithObjects:@"My Info", @"Request Activity", @"Social Networks", @"Favorite Categories", nil];
     
-    [self setContentList:tableContentArray];
+    NSArray *sectionTwoArray = [NSArray arrayWithObjects:@"My Info", @"Request Activity", @"Social Networks", @"Favorite Categories", nil];
+    
+    NSArray *tableContentsArray = [NSArray arrayWithObjects:sectionOneArray, sectionTwoArray, nil];
+    
+    [self setContentList:[tableContentsArray mutableCopy]];
     
     self.title = @"Settings";
 }
@@ -65,18 +69,19 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    return _contentList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return _contentList.count;
+    NSArray *sectionArray = [_contentList objectAtIndex:section];
+    return sectionArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id contentForThisRow = [_contentList objectAtIndex:indexPath.row];
+    NSArray *sectionArray = [_contentList objectAtIndex:indexPath.section];
+    id contentForThisRow = [sectionArray objectAtIndex:indexPath.row];
     
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -85,6 +90,35 @@
     
     cell.textLabel.text = contentForThisRow;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    if (indexPath.section == 0) {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        UISwitch *toggleSocialSwitch = [[UISwitch alloc]initWithFrame:CGRectMake(210, 9, 30, 30)];
+        [toggleSocialSwitch addTarget:self action:@selector(toggleSocialSwitchTapped:) forControlEvents:UIControlEventTouchUpInside];
+        toggleSocialSwitch.tag = indexPath.row;
+        switch (indexPath.row) {
+            case 0:
+                if ([[NSUserDefaults standardUserDefaults]boolForKey:@"facebookEnabled"]) {
+                    toggleSocialSwitch.on = YES;
+                }
+                else {
+                    toggleSocialSwitch.on = NO;
+                }
+                break;
+            case 1:
+                if ([[NSUserDefaults standardUserDefaults]boolForKey:@"twitterEnabled"]) {
+                    toggleSocialSwitch.on = YES;
+                }
+                else {
+                    toggleSocialSwitch.on = NO;
+                }
+                break;
+            default:
+                break;
+        }
+        [cell.contentView addSubview:toggleSocialSwitch];
+    }
     
     return cell;
 }
@@ -133,19 +167,47 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.row) {
-        case 0: {
-            MMSignUpViewController *myInfoVc = [[MMSignUpViewController alloc]initWithNibName:@"MMSignUpViewController" bundle:nil];
-            myInfoVc.title = @"My Info";
-            [self.navigationController pushViewController:myInfoVc animated:YES];
+    if (indexPath.section == 1) {
+        switch (indexPath.row) {
+            case 0: {
+                MMSignUpViewController *myInfoVc = [[MMSignUpViewController alloc]initWithNibName:@"MMSignUpViewController" bundle:nil];
+                myInfoVc.title = @"My Info";
+                [self.navigationController pushViewController:myInfoVc animated:YES];
+            }
+                
+                break;
+                
+            default:
+                break;
         }
-            
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
+
+#pragma mark - Settings tableview action methods
+- (void)toggleSocialSwitchTapped:(id)sender {
+    UISwitch *toggleSwitch = sender;
+    switch ([sender tag]) {
+        case 0:
+            if (toggleSwitch.on) {
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"facebookEnabled"];
+            }
+            else {
+                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"facebookEnabled"];
+            }
             break;
-            
+        case 1:
+            if (toggleSwitch.on) {
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"twitterEnabled"];
+            }
+            else {
+                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"twitterEnabled"];
+            }
+            break;
         default:
             break;
     }
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
 #pragma mark - UINavBar Methods

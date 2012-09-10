@@ -27,6 +27,13 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    //Add custom back button to the nav bar
+    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+    [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    self.navigationItem.leftBarButtonItem = backButton;
 }
 
 - (void)viewDidUnload
@@ -43,6 +50,11 @@
 
 #pragma mark - IBAction Methods
 - (IBAction)scheduleItButtonTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - UINavBar Methods
+- (void)backButtonTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -9,6 +9,7 @@
 #import "MMRequestViewController.h"
 #import "MMPresetMessagesViewController.h"
 #import "MMSetTitleImage.h"
+#import "MMScheduleRequestViewController.h"
 
 @interface MMRequestViewController ()
 
@@ -74,6 +75,13 @@
     _requestTextView.text = @"";
     _characterCountLabel.text = @"0";
 }
+
+- (IBAction)scheduleRequestButtonTapped:(id)sender {
+    MMScheduleRequestViewController *scheduleRequestVC = [[MMScheduleRequestViewController alloc]initWithNibName:@"MMScheduleRequestViewController"bundle:nil];
+    scheduleRequestVC.title = @"Schedule Request";
+    [self.navigationController pushViewController:scheduleRequestVC animated:YES];
+}
+
 
 #pragma mark - UITextView Delegate Methods
 - (void)textViewDidChange:(UITextView *)textView {

@@ -952,10 +952,10 @@
 			isa = PBXGroup;
 			children = (
 				F747F15015F462A1002E5567 /* Attach Message */,
+				F745182315FA55510049277C /* Schedule A Request */,
 				F747F11415F449A3002E5567 /* MMRequestViewController.h */,
 				F747F11515F449A3002E5567 /* MMRequestViewController.m */,
 				F747F11615F449A3002E5567 /* MMRequestViewController.xib */,
-				F745182315FA55510049277C /* Schedule A Request */,
 			);
 			name = "Make Request";
 			sourceTree = "<group>";
