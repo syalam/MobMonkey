@@ -45,6 +45,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{11, 0}, {302, 37}}</string>
 								<reference key="NSSuperview" ref="608644095"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="621212438"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -78,9 +79,9 @@
 							<object class="IBUIButton" id="988324238">
 								<reference key="NSNextResponder" ref="608644095"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{11, 87}, {300, 37}}</string>
+								<string key="NSFrame">{{11, 90}, {300, 37}}</string>
 								<reference key="NSSuperview" ref="608644095"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -100,8 +101,9 @@
 							<object class="IBUIButton" id="345478919">
 								<reference key="NSNextResponder" ref="608644095"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{13, 42}, {300, 37}}</string>
+								<string key="NSFrame">{{13, 45}, {300, 37}}</string>
 								<reference key="NSSuperview" ref="608644095"/>
+								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -123,6 +125,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{12, 0}, {300, 37}}</string>
 								<reference key="NSSuperview" ref="608644095"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="988324238"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -143,6 +146,7 @@
 						</array>
 						<string key="NSFrame">{{0, 304}, {320, 160}}</string>
 						<reference key="NSSuperview" ref="873029372"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1017423718"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="217297211">
@@ -154,6 +158,7 @@
 				</array>
 				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="608644095"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">10</int>
@@ -296,15 +301,6 @@ AAgACAAIAAEAAQABAAE</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">facebookButtonTapped:</string>
-						<reference key="source" ref="988324238"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">18</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">twitterButtonTapped:</string>
 						<reference key="source" ref="988324238"/>
 						<reference key="destination" ref="372490531"/>
@@ -409,7 +405,76 @@ AAgACAAIAAEAAQABAAE</bytes>
 			<nil key="sourceID"/>
 			<int key="maxID">27</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">MMSignUpViewController</string>
+					<string key="superclassName">UITableViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="facebookButtonTapped:">id</string>
+						<string key="saveButtonTapped:">id</string>
+						<string key="signInButtonClicked:">id</string>
+						<string key="signUpButtonClicked:">id</string>
+						<string key="twitterButtonTapped:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="facebookButtonTapped:">
+							<string key="name">facebookButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="saveButtonTapped:">
+							<string key="name">saveButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="signInButtonClicked:">
+							<string key="name">signInButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="signUpButtonClicked:">
+							<string key="name">signUpButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="twitterButtonTapped:">
+							<string key="name">twitterButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="facebookButton">UIButton</string>
+						<string key="saveButton">UIButton</string>
+						<string key="signInButton">UIButton</string>
+						<string key="signUpButton">UIButton</string>
+						<string key="twitterButton">UIButton</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="facebookButton">
+							<string key="name">facebookButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="saveButton">
+							<string key="name">saveButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="signInButton">
+							<string key="name">signInButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="signUpButton">
+							<string key="name">signUpButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="twitterButton">
+							<string key="name">twitterButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MMSignUpViewController.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">

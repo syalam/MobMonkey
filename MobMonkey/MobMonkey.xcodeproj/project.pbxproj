@@ -258,6 +258,8 @@
 		F7E7564215FC9D26005C8D7C /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E7564115FC9D26005C8D7C /* FacebookSDK.framework */; };
 		F7E7564515FC9D9E005C8D7C /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F7E7564415FC9D9E005C8D7C /* FacebookSDKResources.bundle */; };
 		F7E7568415FE06DA005C8D7C /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E7568315FE06DA005C8D7C /* Twitter.framework */; };
+		F7E7568615FE38F9005C8D7C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E7568515FE38F8005C8D7C /* Accounts.framework */; };
+		F7E7568D15FE3A7A005C8D7C /* TwitterAccounts.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E7568C15FE3A7A005C8D7C /* TwitterAccounts.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -555,6 +557,9 @@
 		F7E7564115FC9D26005C8D7C /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		F7E7564415FC9D9E005C8D7C /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKResources.bundle; sourceTree = "<group>"; };
 		F7E7568315FE06DA005C8D7C /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		F7E7568515FE38F8005C8D7C /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		F7E7568B15FE3A79005C8D7C /* TwitterAccounts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterAccounts.h; sourceTree = "<group>"; };
+		F7E7568C15FE3A7A005C8D7C /* TwitterAccounts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterAccounts.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -562,6 +567,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7E7568615FE38F9005C8D7C /* Accounts.framework in Frameworks */,
 				F7E7568415FE06DA005C8D7C /* Twitter.framework in Frameworks */,
 				F747F10E15F4376A002E5567 /* MapKit.framework in Frameworks */,
 				F734A5CF15F12EBB0090E85A /* CoreLocation.framework in Frameworks */,
@@ -588,7 +594,6 @@
 		F734A52815F11C3E0090E85A = {
 			isa = PBXGroup;
 			children = (
-				F7E7568315FE06DA005C8D7C /* Twitter.framework */,
 				F734A53D15F11C3E0090E85A /* MobMonkey */,
 				F734A56915F11C3E0090E85A /* MobMonkeyTests */,
 				F734A53615F11C3E0090E85A /* Frameworks */,
@@ -608,6 +613,8 @@
 		F734A53615F11C3E0090E85A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F7E7568515FE38F8005C8D7C /* Accounts.framework */,
+				F7E7568315FE06DA005C8D7C /* Twitter.framework */,
 				F7E7564415FC9D9E005C8D7C /* FacebookSDKResources.bundle */,
 				F7E7564115FC9D26005C8D7C /* FacebookSDK.framework */,
 				F747F10D15F4376A002E5567 /* MapKit.framework */,
@@ -699,6 +706,7 @@
 		F734A59A15F12A570090E85A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F7E7568E15FE3A7F005C8D7C /* Twitter Accounts */,
 				F747F11215F43A48002E5567 /* TCImageView */,
 				F79B505315F3F8000004BE01 /* Set Title ImageView */,
 				F734A64115F17A610090E85A /* Calc Time Ago */,
@@ -1187,6 +1195,15 @@
 			name = "Set Title ImageView";
 			sourceTree = "<group>";
 		};
+		F7E7568E15FE3A7F005C8D7C /* Twitter Accounts */ = {
+			isa = PBXGroup;
+			children = (
+				F7E7568B15FE3A79005C8D7C /* TwitterAccounts.h */,
+				F7E7568C15FE3A7A005C8D7C /* TwitterAccounts.m */,
+			);
+			name = "Twitter Accounts";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1529,6 +1546,7 @@
 				F745180015F918980049277C /* MMNotificationSettingsViewController.m in Sources */,
 				F745181815F9F3AA0049277C /* MMFullScreenImageViewController.m in Sources */,
 				F745182115FA54F20049277C /* MMScheduleRequestViewController.m in Sources */,
+				F7E7568D15FE3A7A005C8D7C /* TwitterAccounts.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

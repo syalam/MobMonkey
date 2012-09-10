@@ -208,7 +208,9 @@
 }
 
 - (IBAction)twitterButtonTapped:(id)sender {
-    
+    TwitterAccounts *twitter = [[TwitterAccounts alloc]init];
+    twitter.delegate = self;
+    [twitter fetchData];
 }
 
 - (IBAction)saveButtonTapped:(id)sender {
@@ -296,6 +298,11 @@
         default:
             break;
     }
+}
+
+#pragma mark - Twitter Accounts delegate
+- (void)showAccounts:(UIActionSheet*)accounts {
+    [accounts showInView:self.view];
 }
 
 @end

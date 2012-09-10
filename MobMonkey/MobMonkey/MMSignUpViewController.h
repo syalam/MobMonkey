@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import <Twitter/Twitter.h>
+#import <Accounts/Accounts.h>
+#import "TwitterAccounts.h"
 
-@interface MMSignUpViewController : UITableViewController <UIActionSheetDelegate, UITextFieldDelegate> {
+@interface MMSignUpViewController : UITableViewController <UIActionSheetDelegate, UITextFieldDelegate, TwitterAccountsDelegate> {
     UIActionSheet *birthdayActionSheet;
     UIDatePicker *datePicker;
 }
