@@ -12,6 +12,7 @@
 #import "MMResultCell.h"
 #import "MMSetTitleImage.h"
 #import "MMMapViewController.h"
+#import "MMCategoryViewController.h"
 
 @interface MMSearchViewController ()
 
@@ -214,10 +215,14 @@
 
 #pragma mark - Bar Button Action Methods
 - (void)filterButtonClicked:(id)sender {
-    MMFilterViewController *fvc = [[MMFilterViewController alloc]initWithNibName:@"MMFilterViewController" bundle:nil];
+    MMCategoryViewController *categoryVC = [[MMCategoryViewController alloc]initWithNibName:@"MMCategoryViewController" bundle:nil];
+    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:categoryVC];
+    [self.navigationController presentViewController:navC animated:YES completion:NULL];
+    
+    /*MMFilterViewController *fvc = [[MMFilterViewController alloc]initWithNibName:@"MMFilterViewController" bundle:nil];
     fvc.delegate = self;
     UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:fvc];
-    [self.navigationController presentViewController:navc animated:YES completion:NULL];
+    [self.navigationController presentViewController:navc animated:YES completion:NULL];*/
 }
 
 - (void)mapButtonClicked:(id)sender {

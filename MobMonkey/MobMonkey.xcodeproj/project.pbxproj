@@ -260,6 +260,8 @@
 		F7E7568415FE06DA005C8D7C /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E7568315FE06DA005C8D7C /* Twitter.framework */; };
 		F7E7568615FE38F9005C8D7C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E7568515FE38F8005C8D7C /* Accounts.framework */; };
 		F7E7568D15FE3A7A005C8D7C /* TwitterAccounts.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E7568C15FE3A7A005C8D7C /* TwitterAccounts.m */; };
+		F7E7569715FE8EE7005C8D7C /* MMCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E7569515FE8EE7005C8D7C /* MMCategoryViewController.m */; };
+		F7E7569815FE8EE7005C8D7C /* MMCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E7569615FE8EE7005C8D7C /* MMCategoryViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -560,6 +562,9 @@
 		F7E7568515FE38F8005C8D7C /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		F7E7568B15FE3A79005C8D7C /* TwitterAccounts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterAccounts.h; sourceTree = "<group>"; };
 		F7E7568C15FE3A7A005C8D7C /* TwitterAccounts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterAccounts.m; sourceTree = "<group>"; };
+		F7E7569415FE8EE7005C8D7C /* MMCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCategoryViewController.h; sourceTree = "<group>"; };
+		F7E7569515FE8EE7005C8D7C /* MMCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCategoryViewController.m; sourceTree = "<group>"; };
+		F7E7569615FE8EE7005C8D7C /* MMCategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMCategoryViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1064,6 +1069,7 @@
 		F79B4FA015F3EE470004BE01 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				F7E7569315FE8EAB005C8D7C /* Categories */,
 				F77BD34B15F52AA800E76CA5 /* Map View */,
 				F77BD33815F523E800E76CA5 /* Search Filter */,
 				F79B4FA215F3EE5A0004BE01 /* MMSearchViewController.h */,
@@ -1202,6 +1208,16 @@
 				F7E7568C15FE3A7A005C8D7C /* TwitterAccounts.m */,
 			);
 			name = "Twitter Accounts";
+			sourceTree = "<group>";
+		};
+		F7E7569315FE8EAB005C8D7C /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				F7E7569415FE8EE7005C8D7C /* MMCategoryViewController.h */,
+				F7E7569515FE8EE7005C8D7C /* MMCategoryViewController.m */,
+				F7E7569615FE8EE7005C8D7C /* MMCategoryViewController.xib */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1476,6 +1492,7 @@
 				F745181915F9F3AA0049277C /* MMFullScreenImageViewController.xib in Resources */,
 				F745182215FA54F20049277C /* MMScheduleRequestViewController.xib in Resources */,
 				F7E7564515FC9D9E005C8D7C /* FacebookSDKResources.bundle in Resources */,
+				F7E7569815FE8EE7005C8D7C /* MMCategoryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1547,6 +1564,7 @@
 				F745181815F9F3AA0049277C /* MMFullScreenImageViewController.m in Sources */,
 				F745182115FA54F20049277C /* MMScheduleRequestViewController.m in Sources */,
 				F7E7568D15FE3A7A005C8D7C /* TwitterAccounts.m in Sources */,
+				F7E7569715FE8EE7005C8D7C /* MMCategoryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
