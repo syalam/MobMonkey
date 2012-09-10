@@ -28,7 +28,7 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
+    //self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

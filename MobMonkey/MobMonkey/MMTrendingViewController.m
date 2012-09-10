@@ -31,7 +31,7 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
+    //self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     
     //set background color
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
@@ -147,6 +147,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+    //REPLACE WITH REAL LOCATION NAME;
+    locationVC.title = @"Tarka Chinese Bistro";
     [self.navigationController pushViewController:locationVC animated:YES];
 }
 

@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
+    //self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     
     //Add custom back button to the nav bar
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
@@ -64,12 +64,13 @@
 #pragma mark - IBAction Methods
 - (IBAction)attachMessageButtonTapped:(id)sender {
     MMPresetMessagesViewController *presetMessagesVC = [[MMPresetMessagesViewController alloc]initWithNibName:@"MMPresetMessagesViewController" bundle:nil];
+    presetMessagesVC.title = @"Attach a Message";
     presetMessagesVC.delegate = self;
     [self.navigationController pushViewController:presetMessagesVC animated:YES];
 }
 
 - (IBAction)clearTextButtonTapped:(id)sender {
-    _placeholderLabel.hidden = YES;
+    _placeholderLabel.hidden = NO;
     _requestTextView.text = @"";
     _characterCountLabel.text = @"0";
 }
@@ -89,7 +90,7 @@
     
     NSString* newText = [textView.text stringByReplacingCharactersInRange:aRange withString:aText];
     
-    if([newText isEqualToString:@"\n"]) {
+    if([aText isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
         return NO;
     }

@@ -32,7 +32,7 @@
 {
     [super viewDidLoad];
 
-    self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
+    //self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     
     _filterNavBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_filterNavBarButton setFrame:CGRectMake(0, 0, 52, 30)];
@@ -161,6 +161,8 @@
 {
     // Navigation logic may go here. Create and push another view controller.
     MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+    //REPLACE WITH REAL LOCATION NAME
+    locationVC.title = @"Tarka Chinese Bistro";
     [self.navigationController pushViewController:locationVC animated:YES];
 }
 

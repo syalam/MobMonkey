@@ -32,7 +32,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
+    //self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     
     //setup scrollview size
     [_scrollView setContentSize:CGSizeMake(320, 900)];
@@ -94,6 +94,7 @@
 #pragma mark - IBAction Methods
 - (IBAction)makeRequestButtonTapped:(id)sender {
     MMRequestViewController *requestVC = [[MMRequestViewController alloc]initWithNibName:@"MMRequestViewController" bundle:nil];
+    requestVC.title = @"Make a Request";
     UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
     [self.navigationController presentViewController:requestNavC animated:YES completion:NULL];
 }

@@ -33,7 +33,8 @@
     
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
     
-    self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
+    //self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
+    self.title = @"Sign In";
     
     CGRect textFieldRect = CGRectMake(10, 10, 250, 30);
     
