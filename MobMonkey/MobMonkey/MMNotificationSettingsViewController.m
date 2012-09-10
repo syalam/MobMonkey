@@ -58,7 +58,8 @@
 
 #pragma mark - UINavigationBar button tap methods
 - (void)backButtonTapped:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+    [_delegate selectedSetting:@"Today"];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark UIPickerView Delegate Methods
