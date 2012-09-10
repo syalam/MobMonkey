@@ -257,6 +257,7 @@
 		F79B505615F3F81F0004BE01 /* MMSetTitleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F79B505515F3F81F0004BE01 /* MMSetTitleImage.m */; };
 		F7E7564215FC9D26005C8D7C /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E7564115FC9D26005C8D7C /* FacebookSDK.framework */; };
 		F7E7564515FC9D9E005C8D7C /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F7E7564415FC9D9E005C8D7C /* FacebookSDKResources.bundle */; };
+		F7E7568415FE06DA005C8D7C /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E7568315FE06DA005C8D7C /* Twitter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -553,6 +554,7 @@
 		F79B505515F3F81F0004BE01 /* MMSetTitleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSetTitleImage.m; sourceTree = "<group>"; };
 		F7E7564115FC9D26005C8D7C /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		F7E7564415FC9D9E005C8D7C /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKResources.bundle; sourceTree = "<group>"; };
+		F7E7568315FE06DA005C8D7C /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -560,6 +562,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7E7568415FE06DA005C8D7C /* Twitter.framework in Frameworks */,
 				F747F10E15F4376A002E5567 /* MapKit.framework in Frameworks */,
 				F734A5CF15F12EBB0090E85A /* CoreLocation.framework in Frameworks */,
 				F734A53815F11C3E0090E85A /* UIKit.framework in Frameworks */,
@@ -585,6 +588,7 @@
 		F734A52815F11C3E0090E85A = {
 			isa = PBXGroup;
 			children = (
+				F7E7568315FE06DA005C8D7C /* Twitter.framework */,
 				F734A53D15F11C3E0090E85A /* MobMonkey */,
 				F734A56915F11C3E0090E85A /* MobMonkeyTests */,
 				F734A53615F11C3E0090E85A /* Frameworks */,
