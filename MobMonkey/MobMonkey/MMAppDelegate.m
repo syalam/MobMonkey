@@ -19,6 +19,8 @@
     //initialize testflight SDK
     //[TestFlight takeOff:@"e6432d80aed42a955243c8d93a493dea_MTAwODk2MjAxMi0wNi0yMyAxODoxNzoxOC45NjMzMjY"];
     
+    [FBProfilePictureView class];
+    
     [self initializeLocationManager];
     
     if ([UINavigationBar respondsToSelector:@selector(appearance)]) {
@@ -77,6 +79,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [FBSession.activeSession close];
 }
 
 - (void) initializeLocationManager {
@@ -108,6 +111,12 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSLog(@"%@", [error localizedDescription]);
+}
+
+#pragma mark - Facebook Methods
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    // attempt to extract a token from the url
+    return [FBSession.activeSession handleOpenURL:url];
 }
 
 /*

@@ -9,6 +9,7 @@
 #import "MMLoginViewController.h"
 #import "MMSignUpViewController.h"
 #import "MMSetTitleImage.h"
+#import "SVProgressHUD.h"
 
 @interface MMLoginViewController ()
 
@@ -148,6 +149,29 @@
 - (IBAction)loginButtonClicked:(id)sender {
 
 }
+
+- (IBAction)facebookButtonTapped:(id)sender {
+    [SVProgressHUD showWithStatus:@"Signing In"];
+    [FBSession openActiveSessionWithPermissions:nil allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        if (session.isOpen) {
+            FBRequest *me = [FBRequest requestForMe];
+            [me startWithCompletionHandler: ^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *my, NSError *error) {
+                [SVProgressHUD dismiss];
+                [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+            }];
+        }
+        else {
+            [SVProgressHUD dismiss];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to log you in. Please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+    }];
+}
+
+- (IBAction)twitterButtonTapped:(id)sender {
+    
+}
+
 - (IBAction)signUpButtonClicked:(id)sender {
     MMSignUpViewController *myInfoVc = [[MMSignUpViewController alloc]initWithNibName:@"MMSignUpViewController" bundle:nil];
     myInfoVc.title = @"Sign Up";

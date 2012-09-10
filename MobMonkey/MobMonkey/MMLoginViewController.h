@@ -14,10 +14,14 @@
     
     IBOutlet UIButton *loginButton;
     IBOutlet UIButton *signUpButton;
+    IBOutlet UIButton *facebookButton;
+    IBOutlet UIButton *twitterButton;
 }
 
 - (IBAction)loginButtonClicked:(id)sender;
 - (IBAction)signUpButtonClicked:(id)sender;
+- (IBAction)facebookButtonTapped:(id)sender;
+- (IBAction)twitterButtonTapped:(id)sender;
 
 - (void)showAlertView:(NSString*)message;
 

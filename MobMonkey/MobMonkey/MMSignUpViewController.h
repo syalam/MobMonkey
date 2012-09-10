@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface MMSignUpViewController : UITableViewController <UIActionSheetDelegate, UITextFieldDelegate> {
     UIActionSheet *birthdayActionSheet;
