@@ -168,6 +168,9 @@
 		F77BD34A15F52AA100E76CA5 /* MMMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F77BD34615F52AA100E76CA5 /* MMMapViewController.xib */; };
 		F77BD35015F5321400E76CA5 /* MMLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD34F15F5321400E76CA5 /* MMLocationAnnotation.m */; };
 		F77BD35115F5321400E76CA5 /* MMLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD34F15F5321400E76CA5 /* MMLocationAnnotation.m */; };
+		F792DA4815FF4C8000F5CD85 /* MMSocialNetworksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F792DA4615FF4C8000F5CD85 /* MMSocialNetworksViewController.m */; };
+		F792DA4915FF4C8000F5CD85 /* MMSocialNetworksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F792DA4715FF4C8000F5CD85 /* MMSocialNetworksViewController.xib */; };
+		F792DA4D15FF4DB300F5CD85 /* MMSocialNetworksCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F792DA4C15FF4DB300F5CD85 /* MMSocialNetworksCell.m */; };
 		F79B4FA515F3EE5A0004BE01 /* MMSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79B4FA315F3EE5A0004BE01 /* MMSearchViewController.m */; };
 		F79B4FA615F3EE5A0004BE01 /* MMSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FA415F3EE5A0004BE01 /* MMSearchViewController.xib */; };
 		F79B4FFD15F3EEC50004BE01 /* AddLocation@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FA915F3EEC50004BE01 /* AddLocation@2x~iphone.png */; };
@@ -467,6 +470,11 @@
 		F77BD34C15F52D0900E76CA5 /* MMMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMapViewController.h; sourceTree = "<group>"; };
 		F77BD34E15F5321400E76CA5 /* MMLocationAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationAnnotation.h; sourceTree = "<group>"; };
 		F77BD34F15F5321400E76CA5 /* MMLocationAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationAnnotation.m; sourceTree = "<group>"; };
+		F792DA4515FF4C8000F5CD85 /* MMSocialNetworksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSocialNetworksViewController.h; sourceTree = "<group>"; };
+		F792DA4615FF4C8000F5CD85 /* MMSocialNetworksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSocialNetworksViewController.m; sourceTree = "<group>"; };
+		F792DA4715FF4C8000F5CD85 /* MMSocialNetworksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSocialNetworksViewController.xib; sourceTree = "<group>"; };
+		F792DA4B15FF4DB300F5CD85 /* MMSocialNetworksCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSocialNetworksCell.h; sourceTree = "<group>"; };
+		F792DA4C15FF4DB300F5CD85 /* MMSocialNetworksCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSocialNetworksCell.m; sourceTree = "<group>"; };
 		F79B4FA215F3EE5A0004BE01 /* MMSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSearchViewController.h; sourceTree = "<group>"; };
 		F79B4FA315F3EE5A0004BE01 /* MMSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSearchViewController.m; sourceTree = "<group>"; };
 		F79B4FA415F3EE5A0004BE01 /* MMSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSearchViewController.xib; sourceTree = "<group>"; };
@@ -853,6 +861,8 @@
 		F734A63415F16B7D0090E85A /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				F792DA4415FF4C6500F5CD85 /* Social Networks */,
+				F7E7569315FE8EAB005C8D7C /* Categories */,
 				F734A62F15F16B720090E85A /* MMSettingsViewController.h */,
 				F734A63015F16B720090E85A /* MMSettingsViewController.m */,
 				F734A63115F16B730090E85A /* MMSettingsViewController.xib */,
@@ -1066,10 +1076,29 @@
 			name = "Location Annotation";
 			sourceTree = "<group>";
 		};
+		F792DA4415FF4C6500F5CD85 /* Social Networks */ = {
+			isa = PBXGroup;
+			children = (
+				F792DA4A15FF4D9A00F5CD85 /* Social Networks Cell */,
+				F792DA4515FF4C8000F5CD85 /* MMSocialNetworksViewController.h */,
+				F792DA4615FF4C8000F5CD85 /* MMSocialNetworksViewController.m */,
+				F792DA4715FF4C8000F5CD85 /* MMSocialNetworksViewController.xib */,
+			);
+			name = "Social Networks";
+			sourceTree = "<group>";
+		};
+		F792DA4A15FF4D9A00F5CD85 /* Social Networks Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F792DA4B15FF4DB300F5CD85 /* MMSocialNetworksCell.h */,
+				F792DA4C15FF4DB300F5CD85 /* MMSocialNetworksCell.m */,
+			);
+			name = "Social Networks Cell";
+			sourceTree = "<group>";
+		};
 		F79B4FA015F3EE470004BE01 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				F7E7569315FE8EAB005C8D7C /* Categories */,
 				F77BD34B15F52AA800E76CA5 /* Map View */,
 				F77BD33815F523E800E76CA5 /* Search Filter */,
 				F79B4FA215F3EE5A0004BE01 /* MMSearchViewController.h */,
@@ -1493,6 +1522,7 @@
 				F745182215FA54F20049277C /* MMScheduleRequestViewController.xib in Resources */,
 				F7E7564515FC9D9E005C8D7C /* FacebookSDKResources.bundle in Resources */,
 				F7E7569815FE8EE7005C8D7C /* MMCategoryViewController.xib in Resources */,
+				F792DA4915FF4C8000F5CD85 /* MMSocialNetworksViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1565,6 +1595,8 @@
 				F745182115FA54F20049277C /* MMScheduleRequestViewController.m in Sources */,
 				F7E7568D15FE3A7A005C8D7C /* TwitterAccounts.m in Sources */,
 				F7E7569715FE8EE7005C8D7C /* MMCategoryViewController.m in Sources */,
+				F792DA4815FF4C8000F5CD85 /* MMSocialNetworksViewController.m in Sources */,
+				F792DA4D15FF4DB300F5CD85 /* MMSocialNetworksCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMCategoryViewController : UITableViewController {
+@interface MMCategoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
     NSMutableDictionary *selectedItemsDictionary;
 }
 
+@property (nonatomic, retain)IBOutlet UITableView *tableView;
 @property (nonatomic, retain)NSMutableArray *contentList;
 
 @end

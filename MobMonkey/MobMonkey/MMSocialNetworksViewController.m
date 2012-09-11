@@ -1,18 +1,18 @@
 //
-//  MMCategoryViewController.m
+//  MMSocialNetworksViewController.m
 //  MobMonkey
 //
-//  Created by Reyaad Sidique on 9/10/12.
+//  Created by Reyaad Sidique on 9/11/12.
 //  Copyright (c) 2012 Reyaad Sidique. All rights reserved.
 //
 
-#import "MMCategoryViewController.h"
+#import "MMSocialNetworksViewController.h"
 
-@interface MMCategoryViewController ()
+@interface MMSocialNetworksViewController ()
 
 @end
 
-@implementation MMCategoryViewController
+@implementation MMSocialNetworksViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,17 +26,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSArray *sectionOneArray = [[NSArray alloc]initWithObjects:@"Facebook", @"Twitter", nil];
     
-    NSMutableArray *sectionOneArray = [[NSMutableArray alloc]initWithObjects:@"Health Clubs", @"Coffee Shops", @"Nightclubs", @"Pubs/Bars", @"Restaurants", @"Supermarkets", @"Cinemas", @"Dog Parks", @"Beaches", @"Hotels", @"Stadiums", @"Conferences" , @"Middle Schools & High Schools", nil];
-    
-    NSMutableArray *sectionTwoArray = [[NSMutableArray alloc]initWithObjects:@"History", @"My Locations", @"Events", @"Locations of Interest", nil];
-    
-    NSMutableArray *tableContentArray = [NSMutableArray arrayWithObjects:sectionOneArray, sectionTwoArray, nil];
+    NSArray *tableContentArray = [NSArray arrayWithObjects:sectionOneArray, nil];
     
     [self setContentList:tableContentArray];
-    
-    selectedItemsDictionary = [[NSMutableDictionary alloc]initWithCapacity:1];
-    
     
     //Add custom back button to the nav bar
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
@@ -45,6 +39,7 @@
     
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
     self.navigationItem.leftBarButtonItem = backButton;
+
 }
 
 - (void)viewDidUnload
@@ -68,7 +63,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSMutableArray *sectionContent = [_contentList objectAtIndex:section];
+    NSArray *sectionContent = [_contentList objectAtIndex:section];
     return sectionContent.count;
 }
 
@@ -78,18 +73,35 @@
     id contentForThisRow = [sectionContent objectAtIndex:indexPath.row];
     
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    MMSocialNetworksCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[MMSocialNetworksCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.textLabel.text = nil;
-    
-    cell.textLabel.text = contentForThisRow;
-    if ([selectedItemsDictionary objectForKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]]) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    cell.mmSocialNetworkTextLabel.text = contentForThisRow;
+    cell.mmSocialNetworkSwitch.tag = indexPath.row;
+    switch (indexPath.row) {
+        case 0:
+            if ([[NSUserDefaults standardUserDefaults]boolForKey:@"facebookEnabled"]) {
+                cell.mmSocialNetworkSwitch.on = YES;
+            }
+            else {
+                cell.mmSocialNetworkSwitch.on = NO;
+            }
+            break;
+        case 1:
+            if ([[NSUserDefaults standardUserDefaults]boolForKey:@"twitterEnabled"]) {
+                cell.mmSocialNetworkSwitch.on = YES;
+            }
+            else {
+                cell.mmSocialNetworkSwitch.on = NO;
+            }
+            break;
+        default:
+            break;
     }
+    
+    // Configure the cell...
     
     return cell;
 }
@@ -137,25 +149,42 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([selectedItemsDictionary objectForKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]]) {
-        [selectedItemsDictionary removeObjectForKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]];
-        [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
-    }
-    else {
-        [selectedItemsDictionary setObject:@"YES" forKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]];
-        [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
-    }
+    // Navigation logic may go here. Create and push another view controller.
+    /*
+     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+     // ...
+     // Pass the selected object to the new view controller.
+     [self.navigationController pushViewController:detailViewController animated:YES];
+     */
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    
-    if(section == 1)
-        return @" ";
-    else
-        return nil;
+#pragma mark - MMSocialNetworksCell delegate
+- (void)mmSocialNetworksSwitchTapped:(id)sender {
+    UISwitch *toggleSwitch = sender;
+    switch ([sender tag]) {
+        case 0:
+            if (toggleSwitch.on) {
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"facebookEnabled"];
+            }
+            else {
+                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"facebookEnabled"];
+            }
+            break;
+        case 1:
+            if (toggleSwitch.on) {
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"twitterEnabled"];
+            }
+            else {
+                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"twitterEnabled"];
+            }
+            break;
+        default:
+            break;
+    }
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
-#pragma mark - UINav Bar Action Methods
+#pragma mark - UINavBar Action Methods
 - (void)backButtonTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }

@@ -9,6 +9,8 @@
 #import "MMSettingsViewController.h"
 #import "MMLoginViewController.h"
 #import "MMSignUpViewController.h"
+#import "MMCategoryViewController.h"
+#import "MMSocialNetworksViewController.h"
 #import "MMSetTitleImage.h"
 
 @interface MMSettingsViewController ()
@@ -35,12 +37,10 @@
 
     selectionDictionary = [[NSMutableDictionary alloc]init];
     
-    NSArray *sectionOneArray = [NSArray arrayWithObjects:@"Enable Facebook", @"Enable Twitter", nil];
     
+    NSArray *sectionOneArray = [NSArray arrayWithObjects:@"My Info", @"Request Activity", @"Social Networks", @"Favorite Categories", nil];
     
-    NSArray *sectionTwoArray = [NSArray arrayWithObjects:@"My Info", @"Request Activity", @"Social Networks", @"Favorite Categories", nil];
-    
-    NSArray *tableContentsArray = [NSArray arrayWithObjects:sectionOneArray, sectionTwoArray, nil];
+    NSArray *tableContentsArray = [NSArray arrayWithObjects:sectionOneArray, nil];
     
     [self setContentList:[tableContentsArray mutableCopy]];
     
@@ -91,35 +91,6 @@
     cell.textLabel.text = contentForThisRow;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
-    if (indexPath.section == 0) {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        UISwitch *toggleSocialSwitch = [[UISwitch alloc]initWithFrame:CGRectMake(210, 9, 30, 30)];
-        [toggleSocialSwitch addTarget:self action:@selector(toggleSocialSwitchTapped:) forControlEvents:UIControlEventTouchUpInside];
-        toggleSocialSwitch.tag = indexPath.row;
-        switch (indexPath.row) {
-            case 0:
-                if ([[NSUserDefaults standardUserDefaults]boolForKey:@"facebookEnabled"]) {
-                    toggleSocialSwitch.on = YES;
-                }
-                else {
-                    toggleSocialSwitch.on = NO;
-                }
-                break;
-            case 1:
-                if ([[NSUserDefaults standardUserDefaults]boolForKey:@"twitterEnabled"]) {
-                    toggleSocialSwitch.on = YES;
-                }
-                else {
-                    toggleSocialSwitch.on = NO;
-                }
-                break;
-            default:
-                break;
-        }
-        [cell.contentView addSubview:toggleSocialSwitch];
-    }
-    
     return cell;
 }
 
@@ -167,21 +138,34 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1) {
-        switch (indexPath.row) {
-            case 0: {
-                MMSignUpViewController *myInfoVc = [[MMSignUpViewController alloc]initWithNibName:@"MMSignUpViewController" bundle:nil];
-                myInfoVc.title = @"My Info";
-                [self.navigationController pushViewController:myInfoVc animated:YES];
-            }
-                
-                break;
-                
-            default:
-                break;
+    switch (indexPath.row) {
+        case 0: {
+            MMSignUpViewController *myInfoVc = [[MMSignUpViewController alloc]initWithNibName:@"MMSignUpViewController" bundle:nil];
+            myInfoVc.title = @"My Info";
+            [self.navigationController pushViewController:myInfoVc animated:YES];
         }
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            break;
+        case 1: {
+            
+        }
+            break;
+        case 2: {
+            MMSocialNetworksViewController *socialNetworksVC = [[MMSocialNetworksViewController alloc]initWithNibName:@"MMSocialNetworksViewController" bundle:nil];
+            socialNetworksVC.title = @"Social Networks";
+            [self.navigationController pushViewController:socialNetworksVC animated:YES];
+        }
+            break;
+        case 3: {
+            MMCategoryViewController *categoryVC = [[MMCategoryViewController alloc]initWithNibName:@"MMCategoryViewController" bundle:nil];
+            categoryVC.title = @"Favorite Categories";
+            [self.navigationController pushViewController:categoryVC animated:YES];
+        }
+            break;
+        default:
+            break;
     }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Settings tableview action methods
