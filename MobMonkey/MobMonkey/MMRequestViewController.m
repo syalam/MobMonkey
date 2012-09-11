@@ -40,9 +40,9 @@
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    UITapGestureRecognizer *dismissKeyboard = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismissKeyBoardGestureTapped:)];
+    /*UITapGestureRecognizer *dismissKeyboard = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismissKeyBoardGestureTapped:)];
     dismissKeyboard.delegate = self;
-    [self.view addGestureRecognizer:dismissKeyboard];
+    [self.view addGestureRecognizer:dismissKeyboard];*/
 }
 
 - (void)viewDidUnload
@@ -71,9 +71,9 @@
 }
 
 - (IBAction)clearTextButtonTapped:(id)sender {
-    _placeholderLabel.hidden = NO;
+    /*_placeholderLabel.hidden = NO;
     _requestTextView.text = @"";
-    _characterCountLabel.text = @"0";
+    _characterCountLabel.text = @"0";*/
 }
 
 - (IBAction)scheduleRequestButtonTapped:(id)sender {
@@ -135,15 +135,39 @@
 {
     // Return the number of rows in the section.
     //return _contentList.count;
-    return 6;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
     MMMakeRequestCell *cell = (MMMakeRequestCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    cell = [[MMMakeRequestCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[MMMakeRequestCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        
+        cell.delegate = self;
+    }
     
-    cell.delegate = self;
+    switch (indexPath.row) {
+        case 0:
+            [cell.mmRequestPhotoVideoSegmentedControl setHidden:NO];
+            break;
+        case 1:
+            cell.textLabel.text = @"Attach Message";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            break;
+        case 2:
+            [cell.mmRequestMessageTextView setHidden:NO];
+            [cell.mmRequestClearTextButton setHidden:NO];
+            break;
+        case 3:
+            [cell.mmRequestStayActiveSegmentedControl setHidden:NO];
+            break;
+        case 4:
+            [cell.mmRequestScheduleSegmentedControl setHidden:NO];
+            break;
+        default:
+            break;
+    }
     
     return cell;
 }
@@ -156,7 +180,25 @@
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 200;
+    switch (indexPath.row) {
+        case 0:
+            return 55;
+            break;
+        case 1:
+            return 44;
+            break;
+        case 2:
+            return 90;
+            break;
+        case 3:
+            return 44;
+            break;
+        case 4:
+            return 55;
+        default:
+            return 44;
+            break;
+    }
 }
 
 #pragma mark - MMMakeRequestCellDelegate Methods

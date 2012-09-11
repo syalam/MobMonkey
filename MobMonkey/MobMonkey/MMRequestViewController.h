@@ -11,7 +11,7 @@
 #import "MMMakeRequestCell.h"
 
 
-@interface MMRequestViewController : UIViewController <UITextViewDelegate, UIGestureRecognizerDelegate, MMPresetMessageDelegate, UITableViewDataSource, UITableViewDelegate, MMMakeRequestCellDelegate>
+@interface MMRequestViewController : UIViewController <UIGestureRecognizerDelegate, MMPresetMessageDelegate, UITableViewDataSource, UITableViewDelegate, MMMakeRequestCellDelegate>
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 

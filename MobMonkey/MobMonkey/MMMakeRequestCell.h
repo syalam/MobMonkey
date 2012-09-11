@@ -18,9 +18,17 @@
 
 - (void)mmRequestClearTextButtonTapped:(id)sender;
 
+- (void)textViewDidChange:(UITextView *)textView;
+
+- (void)textViewDidBeginEditing:(UITextView *)textView;
+
+- (void)textViewDidEndEditing:(UITextView *)textView;
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
+
 @end
 
-@interface MMMakeRequestCell : UITableViewCell
+@interface MMMakeRequestCell : UITableViewCell <UITextViewDelegate>
 
 @property (nonatomic, retain) UISegmentedControl *mmRequestPhotoVideoSegmentedControl;
 @property (nonatomic, retain) UILabel *mmRequestTextLabel;
