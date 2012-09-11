@@ -122,13 +122,6 @@
     [cell.mmRequestMessageTextView resignFirstResponder];
 }
 
-/*- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if (touch.view == _videoButton || touch.view == _photoButton || touch.view == _attachMessageButton || touch.view == _clearTextButton || touch.view == _requestNowButton || touch.view == _scheduleButton || touch.view == _sendRequestButton || touch.view == _activeSegmentedControl || touch.view == _requestTextView) {
-        return NO;
-    }
-    return YES;
-}*/
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
