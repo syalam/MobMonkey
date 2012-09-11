@@ -11,12 +11,13 @@
 #import "MMMakeRequestCell.h"
 
 
-@interface MMRequestViewController : UIViewController <UIGestureRecognizerDelegate, MMPresetMessageDelegate, UITableViewDataSource, UITableViewDelegate, MMMakeRequestCellDelegate>
+@interface MMRequestViewController : UIViewController <UIGestureRecognizerDelegate, MMPresetMessageDelegate, UITableViewDataSource, UITableViewDelegate, MMMakeRequestCellDelegate> {
+    UITapGestureRecognizer *dismissKeyboard;
+}
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, retain) IBOutlet UIButton *sendRequestButton;
 
-- (IBAction)attachMessageButtonTapped:(id)sender;
-- (IBAction)clearTextButtonTapped:(id)sender;
-- (IBAction)scheduleRequestButtonTapped:(id)sender;
+- (IBAction)sendRequestButtonTapped:(id)sender;
 
 @end

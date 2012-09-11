@@ -63,6 +63,11 @@
 }
 
 #pragma mark - IBAction Methods
+- (IBAction)sendRequestButtonTapped:(id)sender {
+    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+}
+
+
 - (IBAction)attachMessageButtonTapped:(id)sender {
     MMPresetMessagesViewController *presetMessagesVC = [[MMPresetMessagesViewController alloc]initWithNibName:@"MMPresetMessagesViewController" bundle:nil];
     presetMessagesVC.title = @"Attach a Message";
@@ -94,7 +99,7 @@
     _characterCountLabel.text = [NSString stringWithFormat:@"%d", textView.text.length];
 }*/
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)aRange replacementText:(NSString *)aText {
+/*- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)aRange replacementText:(NSString *)aText {
     
     NSString* newText = [textView.text stringByReplacingCharactersInRange:aRange withString:aText];
     
@@ -109,11 +114,12 @@
     }
     else
         return YES; // let the textView know that it should handle the inserted text
-}
+}*/
 
 #pragma mark - Gesture recognizer tap methods
 - (void)dismissKeyBoardGestureTapped:(id)sender {
-    //[_requestTextView resignFirstResponder];
+    MMMakeRequestCell *cell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    [cell.mmRequestMessageTextView resignFirstResponder];
 }
 
 /*- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
@@ -143,9 +149,9 @@
     MMMakeRequestCell *cell = (MMMakeRequestCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[MMMakeRequestCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        
         cell.delegate = self;
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     switch (indexPath.row) {
         case 0:
@@ -154,12 +160,15 @@
         case 1:
             cell.textLabel.text = @"Attach Message";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
             break;
         case 2:
             [cell.mmRequestMessageTextView setHidden:NO];
             [cell.mmRequestClearTextButton setHidden:NO];
             break;
         case 3:
+            [cell.mmRequestTextLabel setHidden:NO];
+            [cell.mmRequestTextLabel setText:@"Stay Active For"];
             [cell.mmRequestStayActiveSegmentedControl setHidden:NO];
             break;
         case 4:
@@ -176,7 +185,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    switch (indexPath.row) {
+        case 1: {
+            MMPresetMessagesViewController *presetMessagesVC = [[MMPresetMessagesViewController alloc]initWithNibName:@"MMPresetMessagesViewController" bundle:nil];
+            presetMessagesVC.title = @"Attach a Message";
+            presetMessagesVC.delegate = self;
+            [self.navigationController pushViewController:presetMessagesVC animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -191,7 +213,7 @@
             return 90;
             break;
         case 3:
-            return 44;
+            return 75;
             break;
         case 4:
             return 55;
@@ -203,29 +225,79 @@
 
 #pragma mark - MMMakeRequestCellDelegate Methods
 - (void)mmRequestPhotoVideoSegmentedControlTapped:(id)sender {
-    
+    MMMakeRequestCell *cell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    if (cell.mmRequestPhotoVideoSegmentedControl.selectedSegmentIndex == 0) {
+        NSLog(@"%@", @"photo selected");
+    }
+    else {
+        NSLog(@"%@", @"video selected");
+    }
 }
 
 - (void)mmRequestStayActiveSegmentedControlTapped:(id)sender {
-    
+    MMMakeRequestCell *cell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+    switch (cell.mmRequestStayActiveSegmentedControl.selectedSegmentIndex) {
+        case 0:
+            NSLog(@"%@", @"15m");
+            break;
+        case 1:
+            NSLog(@"%@", @"30m");
+            break;
+        case 2:
+            NSLog(@"%@", @"1h");
+            break;
+        case 3:
+            NSLog(@"%@", @"3h");
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)mmRequestScheduleSegmentedControlTapped:(id)sender {
-    
+    MMMakeRequestCell *cell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
+    switch (cell.mmRequestScheduleSegmentedControl.selectedSegmentIndex) {
+        case 0:
+            NSLog(@"%@", @"RequestNow");
+            break;
+        case 1: {
+            NSLog(@"%@", @"Schedule Request");
+            MMScheduleRequestViewController *scheduleRequestVC = [[MMScheduleRequestViewController alloc]initWithNibName:@"MMScheduleRequestViewController"bundle:nil];
+            scheduleRequestVC.title = @"Schedule Request";
+            [self.navigationController pushViewController:scheduleRequestVC animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)mmRequestClearTextButtonTapped:(id)sender {
+    MMMakeRequestCell *cell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    cell.mmRequestMessageTextView.text = @"";
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
     
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    dismissKeyboard = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismissKeyBoardGestureTapped:)];
+    dismissKeyboard.delegate = self;
+    [self.view addGestureRecognizer:dismissKeyboard];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    [self.view removeGestureRecognizer:dismissKeyboard];
 }
 
 #pragma mark - MMPresetMessageDelegate Methods
 - (void)presetMessageSelected:(id)message {
-    /*NSString *messageString = message;
+    MMMakeRequestCell *cell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    NSString *messageString = message;
     if (messageString.length > 0) {
-        [_placeholderLabel setHidden:YES];
-        [_requestTextView setText:messageString];
-        _characterCountLabel.text = [NSString stringWithFormat:@"%d", _requestTextView.text.length];
-    }*/
+        [cell.mmRequestMessageTextView setText:messageString];
+    }
 }
 
 @end
