@@ -38,7 +38,7 @@
     selectionDictionary = [[NSMutableDictionary alloc]init];
     
     
-    NSArray *sectionOneArray = [NSArray arrayWithObjects:@"My Info", @"Request Activity", @"Social Networks", @"Favorite Categories", nil];
+    NSArray *sectionOneArray = [NSArray arrayWithObjects:@"My Info", @"Social Networks", @"Favorite Categories", nil];
     
     NSArray *tableContentsArray = [NSArray arrayWithObjects:sectionOneArray, nil];
     
@@ -146,16 +146,12 @@
         }
             break;
         case 1: {
-            
-        }
-            break;
-        case 2: {
             MMSocialNetworksViewController *socialNetworksVC = [[MMSocialNetworksViewController alloc]initWithNibName:@"MMSocialNetworksViewController" bundle:nil];
             socialNetworksVC.title = @"Social Networks";
             [self.navigationController pushViewController:socialNetworksVC animated:YES];
         }
             break;
-        case 3: {
+        case 2: {
             MMCategoryViewController *categoryVC = [[MMCategoryViewController alloc]initWithNibName:@"MMCategoryViewController" bundle:nil];
             categoryVC.title = @"Favorite Categories";
             [self.navigationController pushViewController:categoryVC animated:YES];

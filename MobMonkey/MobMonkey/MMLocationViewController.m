@@ -36,7 +36,7 @@
     //self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     
     //setup scrollview size
-    [_scrollView setContentSize:CGSizeMake(320, 900)];
+    [_scrollView setContentSize:CGSizeMake(320, 740)];
     
     //set background color
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
@@ -79,7 +79,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -88,6 +88,21 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    switch (indexPath.row) {
+        case 0:
+            cell.textLabel.text = @"819 N. Scottsdale Rd";
+            break;
+        case 1:
+            cell.textLabel.text = @"4808675309";
+            break;            
+        default:
+            break;
+    }
     
     return cell;
 }

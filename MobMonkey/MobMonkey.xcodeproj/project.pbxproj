@@ -171,6 +171,7 @@
 		F792DA4815FF4C8000F5CD85 /* MMSocialNetworksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F792DA4615FF4C8000F5CD85 /* MMSocialNetworksViewController.m */; };
 		F792DA4915FF4C8000F5CD85 /* MMSocialNetworksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F792DA4715FF4C8000F5CD85 /* MMSocialNetworksViewController.xib */; };
 		F792DA4D15FF4DB300F5CD85 /* MMSocialNetworksCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F792DA4C15FF4DB300F5CD85 /* MMSocialNetworksCell.m */; };
+		F792DA5D15FF72BA00F5CD85 /* MMMakeRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F792DA5C15FF72BA00F5CD85 /* MMMakeRequestCell.m */; };
 		F79B4FA515F3EE5A0004BE01 /* MMSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79B4FA315F3EE5A0004BE01 /* MMSearchViewController.m */; };
 		F79B4FA615F3EE5A0004BE01 /* MMSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FA415F3EE5A0004BE01 /* MMSearchViewController.xib */; };
 		F79B4FFD15F3EEC50004BE01 /* AddLocation@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FA915F3EEC50004BE01 /* AddLocation@2x~iphone.png */; };
@@ -475,6 +476,8 @@
 		F792DA4715FF4C8000F5CD85 /* MMSocialNetworksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSocialNetworksViewController.xib; sourceTree = "<group>"; };
 		F792DA4B15FF4DB300F5CD85 /* MMSocialNetworksCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSocialNetworksCell.h; sourceTree = "<group>"; };
 		F792DA4C15FF4DB300F5CD85 /* MMSocialNetworksCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSocialNetworksCell.m; sourceTree = "<group>"; };
+		F792DA5B15FF72BA00F5CD85 /* MMMakeRequestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMakeRequestCell.h; sourceTree = "<group>"; };
+		F792DA5C15FF72BA00F5CD85 /* MMMakeRequestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMakeRequestCell.m; sourceTree = "<group>"; };
 		F79B4FA215F3EE5A0004BE01 /* MMSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSearchViewController.h; sourceTree = "<group>"; };
 		F79B4FA315F3EE5A0004BE01 /* MMSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSearchViewController.m; sourceTree = "<group>"; };
 		F79B4FA415F3EE5A0004BE01 /* MMSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSearchViewController.xib; sourceTree = "<group>"; };
@@ -966,6 +969,7 @@
 		F747F11315F44992002E5567 /* Make Request */ = {
 			isa = PBXGroup;
 			children = (
+				F792DA5A15FF72A300F5CD85 /* Make Request Cell */,
 				F747F15015F462A1002E5567 /* Attach Message */,
 				F745182315FA55510049277C /* Schedule A Request */,
 				F747F11415F449A3002E5567 /* MMRequestViewController.h */,
@@ -1094,6 +1098,15 @@
 				F792DA4C15FF4DB300F5CD85 /* MMSocialNetworksCell.m */,
 			);
 			name = "Social Networks Cell";
+			sourceTree = "<group>";
+		};
+		F792DA5A15FF72A300F5CD85 /* Make Request Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F792DA5B15FF72BA00F5CD85 /* MMMakeRequestCell.h */,
+				F792DA5C15FF72BA00F5CD85 /* MMMakeRequestCell.m */,
+			);
+			name = "Make Request Cell";
 			sourceTree = "<group>";
 		};
 		F79B4FA015F3EE470004BE01 /* Search */ = {
@@ -1597,6 +1610,7 @@
 				F7E7569715FE8EE7005C8D7C /* MMCategoryViewController.m in Sources */,
 				F792DA4815FF4C8000F5CD85 /* MMSocialNetworksViewController.m in Sources */,
 				F792DA4D15FF4DB300F5CD85 /* MMSocialNetworksCell.m in Sources */,
+				F792DA5D15FF72BA00F5CD85 /* MMMakeRequestCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
