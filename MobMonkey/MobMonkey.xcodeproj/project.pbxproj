@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F71B9B1B1601ED05003BED33 /* SectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F71B9B1A1601ED05003BED33 /* SectionHeaderView.m */; };
-		F71B9B201601ED65003BED33 /* SectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F71B9B1F1601ED65003BED33 /* SectionInfo.m */; };
 		F71B9B241601F683003BED33 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71B9B231601F683003BED33 /* QuartzCore.framework */; };
+		F71B9B291602517E003BED33 /* SectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F71B9B261602517E003BED33 /* SectionHeaderView.m */; };
+		F71B9B2A1602517E003BED33 /* SectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F71B9B281602517E003BED33 /* SectionInfo.m */; };
 		F734A53815F11C3E0090E85A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53715F11C3E0090E85A /* UIKit.framework */; };
 		F734A53A15F11C3E0090E85A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53915F11C3E0090E85A /* Foundation.framework */; };
 		F734A53C15F11C3E0090E85A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53B15F11C3E0090E85A /* CoreGraphics.framework */; };
@@ -282,11 +282,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F71B9B191601ED05003BED33 /* SectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderView.h; sourceTree = "<group>"; };
-		F71B9B1A1601ED05003BED33 /* SectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderView.m; sourceTree = "<group>"; };
-		F71B9B1E1601ED65003BED33 /* SectionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionInfo.h; sourceTree = "<group>"; };
-		F71B9B1F1601ED65003BED33 /* SectionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionInfo.m; sourceTree = "<group>"; };
 		F71B9B231601F683003BED33 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F71B9B251602517E003BED33 /* SectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderView.h; sourceTree = "<group>"; };
+		F71B9B261602517E003BED33 /* SectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderView.m; sourceTree = "<group>"; };
+		F71B9B271602517E003BED33 /* SectionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionInfo.h; sourceTree = "<group>"; };
+		F71B9B281602517E003BED33 /* SectionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionInfo.m; sourceTree = "<group>"; };
 		F734A53315F11C3E0090E85A /* MobMonkey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobMonkey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F734A53715F11C3E0090E85A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F734A53915F11C3E0090E85A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -619,8 +619,8 @@
 		F71B9B1D1601ED0A003BED33 /* Section Header View */ = {
 			isa = PBXGroup;
 			children = (
-				F71B9B191601ED05003BED33 /* SectionHeaderView.h */,
-				F71B9B1A1601ED05003BED33 /* SectionHeaderView.m */,
+				F71B9B251602517E003BED33 /* SectionHeaderView.h */,
+				F71B9B261602517E003BED33 /* SectionHeaderView.m */,
 			);
 			name = "Section Header View";
 			sourceTree = "<group>";
@@ -628,8 +628,8 @@
 		F71B9B211601ED6A003BED33 /* Section Info */ = {
 			isa = PBXGroup;
 			children = (
-				F71B9B1E1601ED65003BED33 /* SectionInfo.h */,
-				F71B9B1F1601ED65003BED33 /* SectionInfo.m */,
+				F71B9B271602517E003BED33 /* SectionInfo.h */,
+				F71B9B281602517E003BED33 /* SectionInfo.m */,
 			);
 			name = "Section Info";
 			sourceTree = "<group>";
@@ -1649,8 +1649,8 @@
 				F792DA4815FF4C8000F5CD85 /* MMSocialNetworksViewController.m in Sources */,
 				F792DA4D15FF4DB300F5CD85 /* MMSocialNetworksCell.m in Sources */,
 				F792DA5D15FF72BA00F5CD85 /* MMMakeRequestCell.m in Sources */,
-				F71B9B1B1601ED05003BED33 /* SectionHeaderView.m in Sources */,
-				F71B9B201601ED65003BED33 /* SectionInfo.m in Sources */,
+				F71B9B291602517E003BED33 /* SectionHeaderView.m in Sources */,
+				F71B9B2A1602517E003BED33 /* SectionInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

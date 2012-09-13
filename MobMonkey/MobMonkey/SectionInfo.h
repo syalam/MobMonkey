@@ -60,8 +60,8 @@
 @interface SectionInfo : NSObject 
 
 @property (assign) BOOL open;
+@property (nonatomic, retain)NSMutableArray *contentList;
 @property (strong) SectionHeaderView* headerView;
-@property (nonatomic, retain) NSString *title;
 
 @property (nonatomic,strong,readonly) NSMutableArray *rowHeights;
 

@@ -19,7 +19,7 @@
 @end
 
 #define DEFAULT_ROW_HEIGHT 78
-#define HEADER_HEIGHT 45
+#define HEADER_HEIGHT 80
 
 @implementation MMTrendingViewController
 
@@ -41,14 +41,16 @@
     
     _cellToggleOnState = [[NSMutableDictionary alloc]initWithCapacity:1];
     
-    NSMutableArray *bookmarksArray = [NSMutableArray arrayWithObjects:@"bookmarks", nil];
+    
+    sectionTitleArray = [NSArray arrayWithObjects:@"Bookmarks", @"My Interests", @"Top Viewed", nil];
+    NSMutableArray *bookmarksArray = [NSMutableArray arrayWithObjects:@"bookmarks", @"2", nil];
     NSMutableArray *myInterestsArray = [NSMutableArray arrayWithObjects:@"my interests", nil];
     NSMutableArray *topViewedArray = [NSMutableArray arrayWithObjects:@"top viewed", nil];
     
     NSMutableArray *tableContentArray = [NSMutableArray arrayWithObjects:bookmarksArray, myInterestsArray, topViewedArray, nil];
 
     
-    if ((self.sectionInfoArray == nil) || ([self.sectionInfoArray count] != [self numberOfSectionsInTableView:self.tableView])) {
+    /*if ((self.sectionInfoArray == nil) || ([self.sectionInfoArray count] != [self numberOfSectionsInTableView:self.tableView])) {
 		
         // For each play, set up a corresponding SectionInfo object to contain the default height for each row.
 		NSMutableArray *infoArray = [[NSMutableArray alloc] init];
@@ -69,7 +71,7 @@
 		}
 		
 		self.sectionInfoArray = infoArray;
-	}
+	}*/
 
     [self setContentList:tableContentArray];
     
@@ -189,9 +191,9 @@
     /*
      Create the section header views lazily.
      */
-	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
+	SectionInfo *sectionInfo = [[SectionInfo alloc]init];
     if (!sectionInfo.headerView) {
-        sectionInfo.headerView = [[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.bounds.size.width, HEADER_HEIGHT) title:sectionInfo.title section:section delegate:self];
+        sectionInfo.headerView = [[SectionHeaderView alloc]initWithFrame:CGRectMake(0.0, 0.0, self.tableView.bounds.size.width, HEADER_HEIGHT) title:[sectionTitleArray objectAtIndex:section] section:section delegate:self];
     }
     
     return sectionInfo.headerView;
@@ -214,7 +216,6 @@
 
 
 #pragma mark Section header delegate
-
 -(void)sectionHeaderView:(SectionHeaderView*)sectionHeaderView sectionOpened:(NSInteger)sectionOpened {
 	
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:sectionOpened];
@@ -224,7 +225,11 @@
     /*
      Create an array containing the index paths of the rows to insert: These correspond to the rows for each quotation in the current section.
      */
-    NSInteger countOfRowsToInsert = 5;
+    //NSInteger countOfRowsToInsert = [sectionInfo.play.quotations count];
+    
+    NSArray *sectionContent = [_contentList objectAtIndex:sectionOpened];
+    NSInteger countOfRowsToInsert = sectionContent.count;
+    
     NSMutableArray *indexPathsToInsert = [[NSMutableArray alloc] init];
     for (NSInteger i = 0; i < countOfRowsToInsert; i++) {
         [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:i inSection:sectionOpened]];
@@ -238,10 +243,14 @@
     NSInteger previousOpenSectionIndex = self.openSectionIndex;
     if (previousOpenSectionIndex != NSNotFound) {
 		
-		SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:previousOpenSectionIndex];
+		/*SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:previousOpenSectionIndex];
         previousOpenSection.open = NO;
         [previousOpenSection.headerView toggleOpenWithUserAction:NO];
-        NSInteger countOfRowsToDelete = 1;
+        NSInteger countOfRowsToDelete = [previousOpenSection.play.quotations count];*/
+        
+        NSArray *prevSectionContent = [_contentList objectAtIndex:previousOpenSectionIndex];
+        NSInteger countOfRowsToDelete = prevSectionContent.count;
+        
         for (NSInteger i = 0; i < countOfRowsToDelete; i++) {
             [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:previousOpenSectionIndex]];
         }
@@ -265,7 +274,6 @@
     [self.tableView deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:deleteAnimation];
     [self.tableView endUpdates];
     self.openSectionIndex = sectionOpened;
-    
 }
 
 
@@ -274,9 +282,10 @@
     /*
      Create an array of the index paths of the rows in the section that was closed, then delete those rows from the table view.
      */
-	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:sectionClosed];
+	//SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:sectionClosed];
 	
-    sectionInfo.open = NO;
+    
+    //sectionInfo.open = NO;
     NSInteger countOfRowsToDelete = [self.tableView numberOfRowsInSection:sectionClosed];
     
     if (countOfRowsToDelete > 0) {
@@ -288,6 +297,7 @@
     }
     self.openSectionIndex = NSNotFound;
 }
+
 
 
 #pragma mark - MMResultCell Delegate Methods

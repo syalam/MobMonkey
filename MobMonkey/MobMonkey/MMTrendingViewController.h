@@ -15,6 +15,7 @@
 @interface MMTrendingViewController : UITableViewController <MMResultCellDelegate, MKMapViewDelegate, UIActionSheetDelegate, SectionHeaderViewDelegate> {
     CLLocation* _queryLocation;
     NSMutableDictionary* _cellToggleOnState;
+    NSMutableArray *sectionTitleArray;
 }
 
 @property (nonatomic, retain)NSMutableArray *sectionInfoArray;

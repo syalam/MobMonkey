@@ -55,6 +55,7 @@
 #import "SectionHeaderView.h"
 
 
+
 @implementation SectionInfo
 
 @synthesize open, rowHeights, headerView;
