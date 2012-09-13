@@ -21,6 +21,10 @@
     
     [FBProfilePictureView class];
     
+    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
+     UIRemoteNotificationTypeAlert|
+     UIRemoteNotificationTypeSound];
+    
     [self initializeLocationManager];
     
     if ([UINavigationBar respondsToSelector:@selector(appearance)]) {
@@ -88,6 +92,28 @@
     _locationManager.desiredAccuracy =kCLLocationAccuracyBest;
     _locationManager.distanceFilter = 60.0f; // update every 200ft
     [_locationManager startMonitoringSignificantLocationChanges];
+}
+
+- (void)application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
+{
+    NSUserDefaults *waqaData = [NSUserDefaults standardUserDefaults];
+    
+    NSString* tokenString = [[[[newDeviceToken description]
+                               stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                              stringByReplacingOccurrencesOfString: @">" withString: @""]
+                             stringByReplacingOccurrencesOfString: @" " withString: @""];
+    
+    NSLog(@"%@",tokenString);
+    
+    [waqaData setObject:[NSString stringWithFormat:@"%@", tokenString] forKey:@"apnsToken"];
+    [waqaData synchronize];
+    
+    
+}
+
+- (void)application:(UIApplication *)application
+    didReceiveRemoteNotification:(NSDictionary *)userInfo {
 }
 
 

@@ -104,10 +104,11 @@
     // Return the number of rows in the section.
     //return _contentList.count;
     //return 5;
-    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
-	NSInteger numStoriesInSection = 5;
+    //SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
+	//NSInteger numStoriesInSection = 5;
 	
-    return sectionInfo.open ? numStoriesInSection : 0;
+    //return sectionInfo.open ? numStoriesInSection : 0;
+    return 20;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -186,18 +187,15 @@
 }
 */
 
--(UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    /*
-     Create the section header views lazily.
-     */
+/*-(UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
+
 	SectionInfo *sectionInfo = [[SectionInfo alloc]init];
     if (!sectionInfo.headerView) {
         sectionInfo.headerView = [[SectionHeaderView alloc]initWithFrame:CGRectMake(0.0, 0.0, self.tableView.bounds.size.width, HEADER_HEIGHT) title:[sectionTitleArray objectAtIndex:section] section:section delegate:self];
     }
     
     return sectionInfo.headerView;
-}
+}*/
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 200;
