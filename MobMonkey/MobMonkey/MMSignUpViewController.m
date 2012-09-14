@@ -10,6 +10,7 @@
 #import "MMLoginViewController.h"
 #import "MMSetTitleImage.h"
 #import "SVProgressHUD.h"
+#import "AFHTTPRequestOperation.h"
 
 @interface MMSignUpViewController ()
 
@@ -182,8 +183,72 @@
 }
 
 #pragma mark - IBAction Methods
-- (IBAction)signUpButtonClicked:(id)sender {
+- (IBAction)signUpButtonTapped:(id)sender {
+    //NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:@"false", @"archived", nil];
+    NSString *errorMessageText;
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithCapacity:1];
+    if (!_firstNameTextField.text || [_firstNameTextField.text isEqualToString:@""]) {
+        errorMessageText = @"Please enter your first name.";
+    }
+    else if (!_lastNameTextField.text || [_lastNameTextField.text isEqualToString:@""]) {
+        errorMessageText = @"Please enter your first name.";
+    }
+    else if (!_emailTextField.text || [_emailTextField.text isEqualToString:@""]) {
+        errorMessageText = @"Please enter your email address.";
+    }
+    else if (!_passwordTextField.text || [_passwordTextField.text isEqualToString:@""] || ![_passwordTextField.text isEqualToString:_confirmPasswordTextField.text]) {
+        errorMessageText = @"The passwords you have entered do no match. Please re-enter your password.";
+    }
+    else if (!_birthdayTextField.text || [_birthdayTextField.text isEqualToString:@""]) {
+        errorMessageText = @"Please enter your birthday.";
+    }
+    else if (!_genderTextField.text || [_genderTextField.text isEqualToString:@""]) {
+        errorMessageText = @"Please enter your gender.";
+    }
     
+    if (errorMessageText) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:errorMessageText delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else {
+        //convert birthday field into unix epoch time
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        // this is imporant - we set our input date format to match our input string
+        // if format doesn't match you'll get nil from your string, so be careful
+        [dateFormatter setDateFormat:@"MM-dd-yyyy"];
+        NSDate *birthday = [[NSDate alloc] init];
+        // voila!
+        birthday = [dateFormatter dateFromString:_birthdayTextField.text];
+        
+        NSTimeInterval birthdayUnixTime = birthday.timeIntervalSince1970;
+        
+        [params setObject:_firstNameTextField.text forKey:@"firstName"];
+        [params setObject:_lastNameTextField.text forKey:@"lastName"];
+        [params setObject:_emailTextField.text forKey:@"eMailAddress"];
+        [params setObject:_passwordTextField.text forKey:@"password"];
+        [params setObject:[NSNumber numberWithDouble:birthdayUnixTime] forKey:@"birthday"];
+        if ([_genderTextField.text isEqualToString:@"Male"]) {
+            [params setObject:[NSNumber numberWithInt:1] forKey:@"gender"];
+        }
+        else {
+            [params setObject:[NSNumber numberWithInt:0] forKey:@"gender"];
+        }
+        [params setObject:@"01238jkl123iu33bb93aa621864be0a927de9672cb13af16b0e9512398uiu123oiu" forKey:@"deviceId"];
+        [params setObject:@"iOS" forKey:@"deviceType"];
+        
+        MMAPI *mobMonkeyApi = [MMAPI alloc];
+        mobMonkeyApi.delegate = self;
+        [mobMonkeyApi signUpNewUser:params];
+       // NSLog(@"%@", userDictionary);
+        
+        /*[[MMHTTPClient sharedClient] setDefaultHeader:@"application/json" value:@"Content-Type"];
+        [[MMHTTPClient sharedClient] postPath:@"signup/user" parameters:params success:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@", operation.responseString);
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@", operation.responseString);
+        }];*/
+    }
 }
 
 - (void)backButtonTapped:(id)sender {
@@ -303,6 +368,15 @@
 #pragma mark - Twitter Accounts delegate
 - (void)showAccounts:(UIActionSheet*)accounts {
     [accounts showInView:self.view];
+}
+
+#pragma mark - MMAPI Delegate Methods
+- (void)signUpSuccessful:(NSDictionary*)userDictionary {
+    NSLog(@"%@", userDictionary);
+}
+- (void)signUpFailed:(AFHTTPRequestOperation*)operation {
+    NSString *responseString = operation.responseString;
+    NSLog(@"%@", responseString);
 }
 
 @end

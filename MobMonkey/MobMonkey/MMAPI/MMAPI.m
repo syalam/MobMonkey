@@ -8,7 +8,6 @@
 
 #import "MMAPI.h"
 #import "MMHTTPClient.h"
-#import "AFJSONRequestOperation.h"
 #import "SVProgressHUD.h"
 
 @implementation MMAPI
@@ -22,14 +21,23 @@
     return _sharedAPI;
 }
 
--(NSDictionary*)signUpNewUser:(NSDictionary*)params{
-    [[MMHTTPClient sharedClient] postPath:@"Users" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON){
+-(void)signUpNewUser:(NSDictionary*)params {
+    NSLog(@"%@", params);
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:@"aba0007c-ebee-42db-bd52-7c9f02e3d371"];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [[MMHTTPClient sharedClient] postPath:@"signup/user" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON){
+        NSLog(@"%@", JSON);
+        [_delegate signUpSuccessful:JSON];
+        
         //TODO: return the server response
+        
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        id errorResponse = [(AFJSONRequestOperation *)operation responseJSON];
+        [_delegate signUpFailed:operation];
+        /*id errorResponse = [(AFJSONRequestOperation *)operation responseJSON];
+        NSString *responseString = operation.responseString;
         NSLog(@"/Users Error: %@", [error localizedDescription]);
-        NSLog(@"%@",errorResponse);
-        [SVProgressHUD showErrorWithStatus:[errorResponse valueForKey:@"Message"]];
+        NSLog(@"%@, %@",errorResponse, responseString);
+        [_delegate signUpFailed:operation];*/
     }];
 }
 @end

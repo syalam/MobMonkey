@@ -2,7 +2,7 @@
 
 #import "AFJSONRequestOperation.h"
 
-static NSString * const kBMHTTPClientBaseURLString = @"http://50.112.125.134/API/";
+static NSString * const kBMHTTPClientBaseURLString = @"http://api.mobmonkey.com/rest/";
 static NSString * const kBMHTTPClientApplicationID = @"29C851C2-CF6F-11E1-A0EC-4CE76188709B";
 static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE33-4DE76188709B";
 

@@ -10,14 +10,15 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <Twitter/Twitter.h>
 #import <Accounts/Accounts.h>
+#import "MMAPI.h"
 #import "TwitterAccounts.h"
 
-@interface MMSignUpViewController : UITableViewController <UIActionSheetDelegate, UITextFieldDelegate, TwitterAccountsDelegate> {
+@interface MMSignUpViewController : UITableViewController <UIActionSheetDelegate, UITextFieldDelegate, TwitterAccountsDelegate, MMAPIDelegate> {
     UIActionSheet *birthdayActionSheet;
     UIDatePicker *datePicker;
 }
 
-- (IBAction)signUpButtonClicked:(id)sender;
+- (IBAction)signUpButtonTapped:(id)sender;
 - (IBAction)signInButtonClicked:(id)sender;
 - (IBAction)facebookButtonTapped:(id)sender;
 - (IBAction)twitterButtonTapped:(id)sender;
@@ -39,5 +40,6 @@
 @property (nonatomic, retain)IBOutlet UIButton *signInButton;
 @property (nonatomic, retain)IBOutlet UIButton *facebookButton;
 @property (nonatomic, retain)IBOutlet UIButton *twitterButton;
+@property (nonatomic, retain)NSDictionary *userDictionary;
 
 @end

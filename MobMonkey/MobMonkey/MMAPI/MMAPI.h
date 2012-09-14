@@ -7,6 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AFJSONRequestOperation.h"
+
+@protocol MMAPIDelegate
+
+@optional
+//sign up delegate method definitions
+- (void)signUpSuccessful:(NSDictionary*)userDictionary;
+- (void)signUpFailed:(AFHTTPRequestOperation*)operation;
+
+@end
 
 @interface MMAPI : NSObject
 ///---------------------------------------------
@@ -45,6 +55,9 @@
  
  @return The newly created user object
  */
--(NSDictionary*)signUpNewUser:(NSDictionary*)params;
+-(void)signUpNewUser:(NSDictionary*)params;
+
+
+@property (nonatomic, assign)id<MMAPIDelegate> delegate;
 
 @end
