@@ -32,6 +32,13 @@
     // Do any additional setup after loading the view from its nib.
     //self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     
+    //Initialize segmented control selection vars
+    photoVideoSegmentedControlSelection = 100;
+    stayActiveSegmentedControlSelection = 100;
+    scheduleItSegmentedControlSelection = 100;
+    
+    
+    
     //Add custom back button to the nav bar
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
     [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -134,12 +141,18 @@
 {
     // Return the number of rows in the section.
     //return _contentList.count;
-    return 5;
+    if (_textEntered) {
+        return 5;
+    }
+    else {
+        return 4;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
     MMMakeRequestCell *cell = (MMMakeRequestCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell = nil;
     if (cell == nil) {
         cell = [[MMMakeRequestCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.delegate = self;
@@ -156,13 +169,32 @@
             cell.selectionStyle = UITableViewCellSelectionStyleBlue;
             break;
         case 2:
-            [cell.mmRequestMessageTextView setHidden:NO];
-            [cell.mmRequestClearTextButton setHidden:NO];
+            if (_textEntered) {
+                [cell.mmRequestMessageTextView setHidden:NO];
+                [cell.mmRequestClearTextButton setHidden:NO];
+                cell.mmRequestMessageTextView.text = messageText;
+            }
+            else {
+                [cell.mmRequestTextLabel setHidden:NO];
+                [cell.mmRequestTextLabel setText:@"Stay Active For"];
+                [cell.mmRequestStayActiveSegmentedControl setHidden:NO];
+                if (stayActiveSegmentedControlSelection != 100) {
+                    cell.mmRequestStayActiveSegmentedControl.selectedSegmentIndex = stayActiveSegmentedControlSelection;
+                }
+            }
             break;
         case 3:
-            [cell.mmRequestTextLabel setHidden:NO];
-            [cell.mmRequestTextLabel setText:@"Stay Active For"];
-            [cell.mmRequestStayActiveSegmentedControl setHidden:NO];
+            if (_textEntered) {
+                [cell.mmRequestTextLabel setHidden:NO];
+                [cell.mmRequestTextLabel setText:@"Stay Active For"];
+                [cell.mmRequestStayActiveSegmentedControl setHidden:NO];
+            }
+            else {
+                [cell.mmRequestScheduleSegmentedControl setHidden:NO];
+                if (scheduleItSegmentedControlSelection != 100) {
+                    
+                }
+            }
             break;
         case 4:
             [cell.mmRequestScheduleSegmentedControl setHidden:NO];
@@ -228,7 +260,14 @@
 }
 
 - (void)mmRequestStayActiveSegmentedControlTapped:(id)sender {
-    MMMakeRequestCell *cell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+    NSIndexPath *selectedIndexPath;
+    if (_textEntered) {
+        selectedIndexPath = [NSIndexPath indexPathForRow:3 inSection:0];
+    }
+    else {
+        selectedIndexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+    }
+    MMMakeRequestCell *cell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:selectedIndexPath];
     switch (cell.mmRequestStayActiveSegmentedControl.selectedSegmentIndex) {
         case 0:
             NSLog(@"%@", @"15m");
@@ -248,7 +287,14 @@
 }
 
 - (void)mmRequestScheduleSegmentedControlTapped:(id)sender {
-    MMMakeRequestCell *cell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
+    NSIndexPath *selectedIndexPath;
+    if (_textEntered) {
+        selectedIndexPath = [NSIndexPath indexPathForRow:4 inSection:0];
+    }
+    else {
+        selectedIndexPath = [NSIndexPath indexPathForRow:3 inSection:0];
+    }
+    MMMakeRequestCell *cell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:selectedIndexPath];
     switch (cell.mmRequestScheduleSegmentedControl.selectedSegmentIndex) {
         case 0:
             NSLog(@"%@", @"RequestNow");
@@ -266,8 +312,9 @@
 }
 
 - (void)mmRequestClearTextButtonTapped:(id)sender {
-    MMMakeRequestCell *cell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
-    cell.mmRequestMessageTextView.text = @"";
+    _textEntered = NO;
+    messageText = nil;
+    [self.tableView reloadData];
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
@@ -286,11 +333,16 @@
 
 #pragma mark - MMPresetMessageDelegate Methods
 - (void)presetMessageSelected:(id)message {
-    MMMakeRequestCell *cell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
     NSString *messageString = message;
     if (messageString.length > 0) {
-        [cell.mmRequestMessageTextView setText:messageString];
+        _textEntered = YES;
+        messageText = messageString;
     }
+    else {
+        _textEntered = NO;
+        messageText = nil;
+    }
+    [self.tableView reloadData];
 }
 
 @end

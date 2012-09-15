@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMAPI.h"
 
-@interface MMLoginViewController : UITableViewController {
+@interface MMLoginViewController : UITableViewController <MMAPIDelegate> {
     UITextField *emailTextField;
     UITextField *passwordTextField;
     

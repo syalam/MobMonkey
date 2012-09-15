@@ -16,6 +16,10 @@
 - (void)signUpSuccessful:(NSDictionary*)userDictionary;
 - (void)signUpFailed:(AFHTTPRequestOperation*)operation;
 
+//sign in delegate methods
+- (void)signInSuccessful:(NSDictionary*)userDictionary;
+- (void)signInFailed:(AFHTTPRequestOperation*)operation;
+
 @end
 
 @interface MMAPI : NSObject
@@ -56,7 +60,7 @@
  @return The newly created user object
  */
 -(void)signUpNewUser:(NSDictionary*)params;
-
+-(void)signInUser:(NSDictionary*)params;
 
 @property (nonatomic, assign)id<MMAPIDelegate> delegate;
 

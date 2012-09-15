@@ -10,6 +10,7 @@
 
 @protocol MMMakeRequestCellDelegate
 
+@optional
 - (void)mmRequestPhotoVideoSegmentedControlTapped:(id)sender;
 
 - (void)mmRequestStayActiveSegmentedControlTapped:(id)sender;

@@ -97,8 +97,6 @@
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
 {
-    NSUserDefaults *waqaData = [NSUserDefaults standardUserDefaults];
-    
     NSString* tokenString = [[[[newDeviceToken description]
                                stringByReplacingOccurrencesOfString: @"<" withString: @""]
                               stringByReplacingOccurrencesOfString: @">" withString: @""]
@@ -106,8 +104,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
     
     NSLog(@"%@",tokenString);
     
-    [waqaData setObject:[NSString stringWithFormat:@"%@", tokenString] forKey:@"apnsToken"];
-    [waqaData synchronize];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@", tokenString] forKey:@"apnsToken"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     
 }

@@ -11,6 +11,7 @@
 #import "MMSetTitleImage.h"
 #import "SVProgressHUD.h"
 
+
 @interface MMLoginViewController ()
 
 @end
@@ -148,7 +149,26 @@
 
 #pragma mark - IBAction Methods
 - (IBAction)loginButtonClicked:(id)sender {
-
+    NSString *errorMessage;
+    if (!emailTextField.text || [emailTextField.text isEqualToString:@""]) {
+        errorMessage = @"Please enter a valid email address";
+    }
+    else if (!passwordTextField.text || [passwordTextField.text isEqualToString:@""]) {
+        errorMessage = @"Please enter your password";
+    }
+    if (errorMessage) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else {
+        NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+        [params setObject:emailTextField.text forKey:@"eMailAddress"];
+        [params setObject:passwordTextField.text forKey:@"password"];
+        
+        MMAPI *mmAPI = [[MMAPI alloc]init];
+        mmAPI.delegate = self;
+        [mmAPI signInUser:params];
+    }
 }
 
 - (IBAction)facebookButtonTapped:(id)sender {
@@ -186,6 +206,22 @@
 #pragma mark - Helper Methods
 - (void)showAlertView:(NSString*)message {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
+}
+
+#pragma mark MMAPIDelegate Methods
+- (void)signInSuccessful:(NSDictionary*)userDictionary {
+    NSLog(@"%@", userDictionary);
+    [[NSUserDefaults standardUserDefaults]setObject:emailTextField.text forKey:@"userName"];
+    [[NSUserDefaults standardUserDefaults]setObject:passwordTextField.text forKey:@"password"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+}
+- (void)signInFailed:(AFHTTPRequestOperation*)operation {
+    NSString *responseString = operation.responseString;
+    NSLog(@"%@", responseString);
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:responseString delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
 }
 

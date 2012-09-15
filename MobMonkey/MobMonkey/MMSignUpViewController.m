@@ -233,21 +233,17 @@
         else {
             [params setObject:[NSNumber numberWithInt:0] forKey:@"gender"];
         }
-        [params setObject:@"01238jkl123iu33bb93aa621864be0a927de9672cb13af16b0e9512398uiu123oiu" forKey:@"deviceId"];
+        if ([[NSUserDefaults standardUserDefaults]objectForKey:@"apnsToken"]) {
+            [params setObject:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
+        }
+        else {
+            [params setObject:@"01238jkl123iu33bb93aa621864be0a927de9672cb13af16b0e9512398uiu123oiu" forKey:@"deviceId"];
+        }
         [params setObject:@"iOS" forKey:@"deviceType"];
         
         MMAPI *mobMonkeyApi = [MMAPI alloc];
         mobMonkeyApi.delegate = self;
         [mobMonkeyApi signUpNewUser:params];
-       // NSLog(@"%@", userDictionary);
-        
-        /*[[MMHTTPClient sharedClient] setDefaultHeader:@"application/json" value:@"Content-Type"];
-        [[MMHTTPClient sharedClient] postPath:@"signup/user" parameters:params success:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"%@", operation.responseString);
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"%@", operation.responseString);
-        }];*/
     }
 }
 
@@ -373,6 +369,10 @@
 #pragma mark - MMAPI Delegate Methods
 - (void)signUpSuccessful:(NSDictionary*)userDictionary {
     NSLog(@"%@", userDictionary);
+    [[NSUserDefaults standardUserDefaults]setObject:_emailTextField.text forKey:@"userName"];
+    [[NSUserDefaults standardUserDefaults]setObject:_passwordTextField.text forKey:@"password"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 - (void)signUpFailed:(AFHTTPRequestOperation*)operation {
     NSString *responseString = operation.responseString;

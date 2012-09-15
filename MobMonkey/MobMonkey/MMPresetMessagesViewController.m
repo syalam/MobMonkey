@@ -60,27 +60,52 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return _contentList.count;
+    if (section == 0) {
+        return 1;
+    }
+    else {
+        return _contentList.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    MMMakeRequestCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[MMMakeRequestCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.delegate = self;
+    }
     
-    cell.textLabel.font = [UIFont fontWithName:@"HeleveticaNeue" size:13];
-    cell.textLabel.textColor = [UIColor whiteColor];
-    
-    cell.textLabel.text = [_contentList objectAtIndex:indexPath.row];
+    if (indexPath.section == 0) {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell.mmRequestMessageTextView setHidden:NO];
+        [cell.mmRequestClearTextButton setHidden:NO];
+    }
+    else {
+        cell.textLabel.font = [UIFont fontWithName:@"HeleveticaNeue" size:13];
+        cell.textLabel.textColor = [UIColor whiteColor];
+        
+        cell.textLabel.text = [_contentList objectAtIndex:indexPath.row];
+    }
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return 90;
+    }
+    else {
+        return 45;
+    }
+    
 }
 
 /*
@@ -127,14 +152,45 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.
+    MMMakeRequestCell *textViewCell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    textViewCell.mmRequestMessageTextView.text = [_contentList objectAtIndex:indexPath.row];
     [_delegate presetMessageSelected:[_contentList objectAtIndex:indexPath.row]];
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 }
 
 #pragma mark - UINavBar Tap Methods
 - (void)backButtonTapped:(id)sender {
+    MMMakeRequestCell *textViewCell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    [_delegate presetMessageSelected:textViewCell.mmRequestMessageTextView.text];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - MMMakeRequestCell Delegate Methods
+- (void)mmRequestClearTextButtonTapped:(id)sender {
+    MMMakeRequestCell *cell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    cell.mmRequestMessageTextView.text = @"";
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    dismissKeyboard = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismissKeyBoardGestureTapped:)];
+    dismissKeyboard.delegate = self;
+    [self.view addGestureRecognizer:dismissKeyboard];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    [self.view removeGestureRecognizer:dismissKeyboard];
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    
+}
+
+#pragma mark - Gesture recognizer tap methods
+- (void)dismissKeyBoardGestureTapped:(id)sender {
+    MMMakeRequestCell *cell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    [cell.mmRequestMessageTextView resignFirstResponder];
 }
 
 @end

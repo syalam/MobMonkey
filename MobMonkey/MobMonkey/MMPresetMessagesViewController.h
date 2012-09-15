@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMMakeRequestCell.h"
 
 @protocol MMPresetMessageDelegate
 
@@ -14,7 +15,9 @@
 
 @end
 
-@interface MMPresetMessagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface MMPresetMessagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMMakeRequestCellDelegate, UIGestureRecognizerDelegate> {
+    UITapGestureRecognizer *dismissKeyboard;
+}
 
 @property (nonatomic, retain) IBOutlet UIImageView *screenBackground;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;

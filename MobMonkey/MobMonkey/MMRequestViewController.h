@@ -13,6 +13,13 @@
 
 @interface MMRequestViewController : UIViewController <UIGestureRecognizerDelegate, MMPresetMessageDelegate, UITableViewDataSource, UITableViewDelegate, MMMakeRequestCellDelegate> {
     UITapGestureRecognizer *dismissKeyboard;
+    BOOL _textEntered;
+    
+    int photoVideoSegmentedControlSelection;
+    int stayActiveSegmentedControlSelection;
+    int scheduleItSegmentedControlSelection;
+    
+    NSString *messageText;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
