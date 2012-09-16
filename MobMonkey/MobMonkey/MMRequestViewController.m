@@ -162,6 +162,9 @@
     switch (indexPath.row) {
         case 0:
             [cell.mmRequestPhotoVideoSegmentedControl setHidden:NO];
+            if (photoVideoSegmentedControlSelection != 100) {
+                cell.mmRequestScheduleSegmentedControl.selectedSegmentIndex = photoVideoSegmentedControlSelection;
+            }
             break;
         case 1:
             cell.textLabel.text = @"Attach Message";
@@ -178,9 +181,9 @@
                 [cell.mmRequestTextLabel setHidden:NO];
                 [cell.mmRequestTextLabel setText:@"Stay Active For"];
                 [cell.mmRequestStayActiveSegmentedControl setHidden:NO];
-                if (stayActiveSegmentedControlSelection != 100) {
-                    cell.mmRequestStayActiveSegmentedControl.selectedSegmentIndex = stayActiveSegmentedControlSelection;
-                }
+            }
+            if (stayActiveSegmentedControlSelection != 100) {
+                cell.mmRequestStayActiveSegmentedControl.selectedSegmentIndex = stayActiveSegmentedControlSelection;
             }
             break;
         case 3:
@@ -191,13 +194,16 @@
             }
             else {
                 [cell.mmRequestScheduleSegmentedControl setHidden:NO];
-                if (scheduleItSegmentedControlSelection != 100) {
-                    
-                }
+            }
+            if (scheduleItSegmentedControlSelection != 100) {
+                cell.mmRequestScheduleSegmentedControl.selectedSegmentIndex = scheduleItSegmentedControlSelection;
             }
             break;
         case 4:
             [cell.mmRequestScheduleSegmentedControl setHidden:NO];
+            if (scheduleItSegmentedControlSelection != 100) {
+                cell.mmRequestScheduleSegmentedControl.selectedSegmentIndex = scheduleItSegmentedControlSelection;
+            }
             break;
         default:
             break;
@@ -251,6 +257,7 @@
 #pragma mark - MMMakeRequestCellDelegate Methods
 - (void)mmRequestPhotoVideoSegmentedControlTapped:(id)sender {
     MMMakeRequestCell *cell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    photoVideoSegmentedControlSelection = cell.mmRequestScheduleSegmentedControl.selectedSegmentIndex;
     if (cell.mmRequestPhotoVideoSegmentedControl.selectedSegmentIndex == 0) {
         NSLog(@"%@", @"photo selected");
     }
@@ -268,6 +275,7 @@
         selectedIndexPath = [NSIndexPath indexPathForRow:2 inSection:0];
     }
     MMMakeRequestCell *cell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:selectedIndexPath];
+    stayActiveSegmentedControlSelection = cell.mmRequestStayActiveSegmentedControl.selectedSegmentIndex;
     switch (cell.mmRequestStayActiveSegmentedControl.selectedSegmentIndex) {
         case 0:
             NSLog(@"%@", @"15m");
@@ -295,6 +303,7 @@
         selectedIndexPath = [NSIndexPath indexPathForRow:3 inSection:0];
     }
     MMMakeRequestCell *cell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:selectedIndexPath];
+    scheduleItSegmentedControlSelection = cell.mmRequestScheduleSegmentedControl.selectedSegmentIndex;
     switch (cell.mmRequestScheduleSegmentedControl.selectedSegmentIndex) {
         case 0:
             NSLog(@"%@", @"RequestNow");

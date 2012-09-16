@@ -56,6 +56,12 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
+        [_signInButton setTitle:@"Sign Out" forState:UIControlStateNormal];
+    }
+    else {
+        [_signInButton setTitle:@"Sign In" forState:UIControlStateNormal];
+    }
     
 }
 
