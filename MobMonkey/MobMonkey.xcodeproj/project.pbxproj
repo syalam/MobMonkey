@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A44FFC01607C363001BB574 /* TimeAgo@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A44FFBE1607C363001BB574 /* TimeAgo@2x~iphone.png */; };
+		1A44FFC11607C363001BB574 /* TimeAgo~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A44FFBF1607C363001BB574 /* TimeAgo~iphone.png */; };
 		F71B9B241601F683003BED33 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71B9B231601F683003BED33 /* QuartzCore.framework */; };
 		F71B9B291602517E003BED33 /* SectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F71B9B261602517E003BED33 /* SectionHeaderView.m */; };
 		F71B9B2A1602517E003BED33 /* SectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F71B9B281602517E003BED33 /* SectionInfo.m */; };
@@ -257,8 +259,6 @@
 		F79B504A15F3EEC50004BE01 /* SmallPhotoIcn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FF815F3EEC50004BE01 /* SmallPhotoIcn~iphone.png */; };
 		F79B504B15F3EEC50004BE01 /* SmallVideoIcn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FF915F3EEC50004BE01 /* SmallVideoIcn@2x~iphone.png */; };
 		F79B504C15F3EEC50004BE01 /* SmallVideoIcn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FFA15F3EEC50004BE01 /* SmallVideoIcn~iphone.png */; };
-		F79B504D15F3EEC50004BE01 /* TimeAgo@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FFB15F3EEC50004BE01 /* TimeAgo@2x~iphone.png */; };
-		F79B504E15F3EEC50004BE01 /* TimeAgo~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FFC15F3EEC50004BE01 /* TimeAgo~iphone.png */; };
 		F79B505115F3F45E0004BE01 /* logo@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B504F15F3F45D0004BE01 /* logo@2x~iphone.png */; };
 		F79B505215F3F45E0004BE01 /* logo~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B505015F3F45E0004BE01 /* logo~iphone.png */; };
 		F79B505615F3F81F0004BE01 /* MMSetTitleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F79B505515F3F81F0004BE01 /* MMSetTitleImage.m */; };
@@ -282,6 +282,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A44FFBE1607C363001BB574 /* TimeAgo@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeAgo@2x~iphone.png"; sourceTree = "<group>"; };
+		1A44FFBF1607C363001BB574 /* TimeAgo~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeAgo~iphone.png"; sourceTree = "<group>"; };
 		F71B9B231601F683003BED33 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F71B9B251602517E003BED33 /* SectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderView.h; sourceTree = "<group>"; };
 		F71B9B261602517E003BED33 /* SectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderView.m; sourceTree = "<group>"; };
@@ -569,8 +571,6 @@
 		F79B4FF815F3EEC50004BE01 /* SmallPhotoIcn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SmallPhotoIcn~iphone.png"; sourceTree = "<group>"; };
 		F79B4FF915F3EEC50004BE01 /* SmallVideoIcn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SmallVideoIcn@2x~iphone.png"; sourceTree = "<group>"; };
 		F79B4FFA15F3EEC50004BE01 /* SmallVideoIcn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SmallVideoIcn~iphone.png"; sourceTree = "<group>"; };
-		F79B4FFB15F3EEC50004BE01 /* TimeAgo@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeAgo@2x~iphone.png"; sourceTree = "<group>"; };
-		F79B4FFC15F3EEC50004BE01 /* TimeAgo~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeAgo~iphone.png"; sourceTree = "<group>"; };
 		F79B504F15F3F45D0004BE01 /* logo@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x~iphone.png"; sourceTree = "<group>"; };
 		F79B505015F3F45E0004BE01 /* logo~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo~iphone.png"; sourceTree = "<group>"; };
 		F79B505415F3F81F0004BE01 /* MMSetTitleImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSetTitleImage.h; sourceTree = "<group>"; };
@@ -1196,8 +1196,8 @@
 				F79B4FF815F3EEC50004BE01 /* SmallPhotoIcn~iphone.png */,
 				F79B4FF915F3EEC50004BE01 /* SmallVideoIcn@2x~iphone.png */,
 				F79B4FFA15F3EEC50004BE01 /* SmallVideoIcn~iphone.png */,
-				F79B4FFB15F3EEC50004BE01 /* TimeAgo@2x~iphone.png */,
-				F79B4FFC15F3EEC50004BE01 /* TimeAgo~iphone.png */,
+				1A44FFBE1607C363001BB574 /* TimeAgo@2x~iphone.png */,
+				1A44FFBF1607C363001BB574 /* TimeAgo~iphone.png */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1503,8 +1503,6 @@
 				F79B504A15F3EEC50004BE01 /* SmallPhotoIcn~iphone.png in Resources */,
 				F79B504B15F3EEC50004BE01 /* SmallVideoIcn@2x~iphone.png in Resources */,
 				F79B504C15F3EEC50004BE01 /* SmallVideoIcn~iphone.png in Resources */,
-				F79B504D15F3EEC50004BE01 /* TimeAgo@2x~iphone.png in Resources */,
-				F79B504E15F3EEC50004BE01 /* TimeAgo~iphone.png in Resources */,
 				F79B505115F3F45E0004BE01 /* logo@2x~iphone.png in Resources */,
 				F79B505215F3F45E0004BE01 /* logo~iphone.png in Resources */,
 				F747F0E615F42475002E5567 /* BackBtn@2x~iphone.png in Resources */,
@@ -1574,6 +1572,8 @@
 				F7E7564515FC9D9E005C8D7C /* FacebookSDKResources.bundle in Resources */,
 				F7E7569815FE8EE7005C8D7C /* MMCategoryViewController.xib in Resources */,
 				F792DA4915FF4C8000F5CD85 /* MMSocialNetworksViewController.xib in Resources */,
+				1A44FFC01607C363001BB574 /* TimeAgo@2x~iphone.png in Resources */,
+				1A44FFC11607C363001BB574 /* TimeAgo~iphone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1703,8 +1703,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Reyaad Sidique (976QAJ2XLW)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Reyaad Sidique (976QAJ2XLW)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1719,8 +1719,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "F4CE6B1C-7B5D-4478-BE99-172ADC979440";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F4CE6B1C-7B5D-4478-BE99-172ADC979440";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1733,8 +1733,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Reyaad Sidique (976QAJ2XLW)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Reyaad Sidique (976QAJ2XLW)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1743,8 +1743,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "F4CE6B1C-7B5D-4478-BE99-172ADC979440";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F4CE6B1C-7B5D-4478-BE99-172ADC979440";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1753,8 +1753,8 @@
 		F734A57515F11C3E0090E85A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Reyaad Sidique (976QAJ2XLW)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Reyaad Sidique (976QAJ2XLW)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Rashaad Sidique (X2X5LCND8C)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rashaad Sidique (X2X5LCND8C)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1768,8 +1768,8 @@
 				);
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F4CE6B1C-7B5D-4478-BE99-172ADC979440";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F4CE6B1C-7B5D-4478-BE99-172ADC979440";
+				PROVISIONING_PROFILE = "59E9703D-F6D7-42F8-B426-780A6E6090FD";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "59E9703D-F6D7-42F8-B426-780A6E6090FD";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1777,8 +1777,8 @@
 		F734A57615F11C3E0090E85A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Reyaad Sidique (976QAJ2XLW)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Reyaad Sidique (976QAJ2XLW)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Rashaad Sidique (X2X5LCND8C)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rashaad Sidique (X2X5LCND8C)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1792,8 +1792,8 @@
 				);
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F4CE6B1C-7B5D-4478-BE99-172ADC979440";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F4CE6B1C-7B5D-4478-BE99-172ADC979440";
+				PROVISIONING_PROFILE = "59E9703D-F6D7-42F8-B426-780A6E6090FD";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "59E9703D-F6D7-42F8-B426-780A6E6090FD";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

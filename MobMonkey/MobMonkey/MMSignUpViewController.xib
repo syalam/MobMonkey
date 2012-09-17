@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12A269</string>
+		<string key="IBDocument.SystemVersion">12B19</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
 		<string key="IBDocument.AppKitVersion">1187</string>
 		<string key="IBDocument.HIToolboxVersion">624.00</string>
@@ -46,7 +46,6 @@
 								<string key="NSFrame">{{11, 90}, {300, 37}}</string>
 								<reference key="NSSuperview" ref="608644095"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -99,29 +98,6 @@
 								<reference key="IBUIFontDescription" ref="314453064"/>
 								<reference key="IBUIFont" ref="107012861"/>
 							</object>
-							<object class="IBUIButton" id="621212438">
-								<reference key="NSNextResponder" ref="608644095"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{12, 0}, {300, 37}}</string>
-								<reference key="NSSuperview" ref="608644095"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="83196187"/>
-								<string key="NSReuseIdentifierKey">_NS:9</string>
-								<bool key="IBUIOpaque">NO</bool>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<int key="IBUIContentHorizontalAlignment">0</int>
-								<int key="IBUIContentVerticalAlignment">0</int>
-								<int key="IBUIButtonType">1</int>
-								<string key="IBUINormalTitle">Save</string>
-								<reference key="IBUIHighlightedTitleColor" ref="892210820"/>
-								<object class="NSColor" key="IBUINormalTitleColor">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-								</object>
-								<reference key="IBUINormalTitleShadowColor" ref="654114600"/>
-								<reference key="IBUIFontDescription" ref="314453064"/>
-								<reference key="IBUIFont" ref="107012861"/>
-							</object>
 							<object class="IBUIButton" id="83196187">
 								<reference key="NSNextResponder" ref="608644095"/>
 								<int key="NSvFlags">292</int>
@@ -149,7 +125,7 @@
 						<string key="NSFrame">{{0, 304}, {320, 160}}</string>
 						<reference key="NSSuperview" ref="873029372"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="621212438"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="217297211">
 							<int key="NSColorSpace">3</int>
@@ -246,14 +222,6 @@ AAgACAAIAAEAAQABAAE</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">saveButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="621212438"/>
-					</object>
-					<int key="connectionID">21</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">facebookButton</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="345478919"/>
@@ -292,15 +260,6 @@ AAgACAAIAAEAAQABAAE</bytes>
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">27</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">saveButtonTapped:</string>
-						<reference key="source" ref="621212438"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">22</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -353,7 +312,6 @@ AAgACAAIAAEAAQABAAE</bytes>
 						<reference key="object" ref="608644095"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="988324238"/>
-							<reference ref="621212438"/>
 							<reference ref="345478919"/>
 							<reference ref="83196187"/>
 						</array>
@@ -362,11 +320,6 @@ AAgACAAIAAEAAQABAAE</bytes>
 					<object class="IBObjectRecord">
 						<int key="objectID">16</int>
 						<reference key="object" ref="988324238"/>
-						<reference key="parent" ref="608644095"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">19</int>
-						<reference key="object" ref="621212438"/>
 						<reference key="parent" ref="608644095"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -387,7 +340,6 @@ AAgACAAIAAEAAQABAAE</bytes>
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="16.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="19.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="30.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -408,7 +360,7 @@ AAgACAAIAAEAAQABAAE</bytes>
 						<string key="facebookButtonTapped:">id</string>
 						<string key="saveButtonTapped:">id</string>
 						<string key="signInButtonClicked:">id</string>
-						<string key="signUpButtonClicked:">id</string>
+						<string key="signUpButtonTapped:">id</string>
 						<string key="twitterButtonTapped:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -424,8 +376,8 @@ AAgACAAIAAEAAQABAAE</bytes>
 							<string key="name">signInButtonClicked:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="signUpButtonClicked:">
-							<string key="name">signUpButtonClicked:</string>
+						<object class="IBActionInfo" key="signUpButtonTapped:">
+							<string key="name">signUpButtonTapped:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="twitterButtonTapped:">

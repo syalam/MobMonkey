@@ -27,11 +27,13 @@
 {
     [super viewDidLoad];
     
-    NSMutableArray *sectionOneArray = [[NSMutableArray alloc]initWithObjects:@"Health Clubs", @"Coffee Shops", @"Nightclubs", @"Pubs/Bars", @"Restaurants", @"Supermarkets", @"Cinemas", @"Dog Parks", @"Beaches", @"Hotels", @"Stadiums", @"Conferences" , @"Middle Schools & High Schools", nil];
     
-    NSMutableArray *sectionTwoArray = [[NSMutableArray alloc]initWithObjects:@"History", @"My Locations", @"Events", @"Locations of Interest", nil];
+    NSMutableArray *sectionOneArray = [[NSMutableArray alloc]initWithObjects:@"Set Notifications", nil];
+    NSMutableArray *sectionTwoArray = [[NSMutableArray alloc]initWithObjects:@"Health Clubs", @"Coffee Shops", @"Nightclubs", @"Pubs/Bars", @"Restaurants", @"Supermarkets", @"Cinemas", @"Dog Parks", @"Beaches", @"Hotels", @"Stadiums", @"Conferences" , @"Middle Schools & High Schools", nil];
     
-    NSMutableArray *tableContentArray = [NSMutableArray arrayWithObjects:sectionOneArray, sectionTwoArray, nil];
+    NSMutableArray *sectionThreeArray = [[NSMutableArray alloc]initWithObjects:@"History", @"My Locations", @"Events", @"Locations of Interest", nil];
+    
+    NSMutableArray *tableContentArray = [NSMutableArray arrayWithObjects:sectionOneArray, sectionTwoArray, sectionThreeArray, nil];
     
     [self setContentList:tableContentArray];
     
@@ -149,11 +151,24 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
-    if(section == 1)
+    /*if(section == 1 || section == 2)
         return @" ";
     else
-        return nil;
+        return nil;*/
+    return nil;
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 10;
+    }
+    else {
+        return 1;
+    }
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 7;
+}
+
 
 #pragma mark - UINav Bar Action Methods
 - (void)backButtonTapped:(id)sender {

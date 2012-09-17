@@ -22,7 +22,7 @@
 - (IBAction)signInButtonClicked:(id)sender;
 - (IBAction)facebookButtonTapped:(id)sender;
 - (IBAction)twitterButtonTapped:(id)sender;
-- (IBAction)saveButtonTapped:(id)sender;
+//- (IBAction)saveButtonTapped:(id)sender;
 
 - (void)showAlertView:(NSString*)message;
 
@@ -35,7 +35,7 @@
 @property (nonatomic, retain)UITextField *birthdayTextField;
 @property (nonatomic, retain)UITextField *genderTextField;
 @property (nonatomic, retain)UITextField *phoneNumberTextField;
-@property (nonatomic, retain)IBOutlet UIButton *saveButton;
+//@property (nonatomic, retain)IBOutlet UIButton *saveButton;
 @property (nonatomic, retain)IBOutlet UIButton *signUpButton;
 @property (nonatomic, retain)IBOutlet UIButton *signInButton;
 @property (nonatomic, retain)IBOutlet UIButton *facebookButton;
