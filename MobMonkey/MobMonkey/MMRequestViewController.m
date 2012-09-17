@@ -71,6 +71,9 @@
 
 #pragma mark - IBAction Methods
 - (IBAction)sendRequestButtonTapped:(id)sender {
+    MMAPI *sendRequestApiCall = [[MMAPI alloc]init];
+    sendRequestApiCall.delegate = self;
+    
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -93,35 +96,6 @@
     scheduleRequestVC.title = @"Schedule Request";
     [self.navigationController pushViewController:scheduleRequestVC animated:YES];
 }
-
-/*
-#pragma mark - UITextView Delegate Methods
-- (void)textViewDidChange:(UITextView *)textView {
-    if (textView.text.length > 0) {
-        [_placeholderLabel setHidden:YES];
-    }
-    else {
-        [_placeholderLabel setHidden:NO];
-    }
-    _characterCountLabel.text = [NSString stringWithFormat:@"%d", textView.text.length];
-}*/
-
-/*- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)aRange replacementText:(NSString *)aText {
-    
-    NSString* newText = [textView.text stringByReplacingCharactersInRange:aRange withString:aText];
-    
-    if([aText isEqualToString:@"\n"]) {
-        [textView resignFirstResponder];
-        return NO;
-    }
-    
-    else if([newText length] > 100)
-    {
-        return NO; // can't enter more text
-    }
-    else
-        return YES; // let the textView know that it should handle the inserted text
-}*/
 
 #pragma mark - Gesture recognizer tap methods
 - (void)dismissKeyBoardGestureTapped:(id)sender {

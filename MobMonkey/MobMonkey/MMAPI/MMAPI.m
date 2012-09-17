@@ -27,17 +27,12 @@
     [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
     [[MMHTTPClient sharedClient] postPath:@"signup/user" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON){
         NSLog(@"%@", JSON);
-        [_delegate signUpSuccessful:JSON];
+        [_delegate mmAPICallSuccessful:JSON];
         
         //TODO: return the server response
         
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_delegate signUpFailed:operation];
-        /*id errorResponse = [(AFJSONRequestOperation *)operation responseJSON];
-        NSString *responseString = operation.responseString;
-        NSLog(@"/Users Error: %@", [error localizedDescription]);
-        NSLog(@"%@, %@",errorResponse, responseString);
-        [_delegate signUpFailed:operation];*/
+        [_delegate mmAPICallFailed:operation];
     }];
 }
 
@@ -46,9 +41,9 @@
     [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
     [[MMHTTPClient sharedClient] postPath:@"signin/user" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"%@", JSON);
-        [_delegate signInSuccessful:JSON];
+        [_delegate mmAPICallSuccessful:JSON];
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_delegate signInFailed:operation];
+        [_delegate mmAPICallFailed:operation];
     }];
 }
 
@@ -58,11 +53,10 @@
     [[MMHTTPClient sharedClient]setAuthorizationHeaderWithUsername:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"] password:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
     [[MMHTTPClient sharedClient] postPath:[NSString stringWithFormat:@"requestmedia/%@", mediaType] parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"%@", JSON);
-        [_delegate signInSuccessful:JSON];
+        [_delegate mmAPICallSuccessful:JSON];
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_delegate signInFailed:operation];
+        [_delegate mmAPICallFailed:operation];
     }];
-
 }
     
 

@@ -12,13 +12,9 @@
 @protocol MMAPIDelegate
 
 @optional
-//sign up delegate method definitions
-- (void)signUpSuccessful:(NSDictionary*)userDictionary;
-- (void)signUpFailed:(AFHTTPRequestOperation*)operation;
+- (void)mmAPICallSuccessful:(NSDictionary*)response;
+- (void)mmAPICallFailed:(AFHTTPRequestOperation*)operation;
 
-//sign in delegate methods
-- (void)signInSuccessful:(NSDictionary*)userDictionary;
-- (void)signInFailed:(AFHTTPRequestOperation*)operation;
 
 @end
 
@@ -55,12 +51,37 @@
  city (optional)
  state (optional)
  tos - YES/NO
- 
- 
- @return The newly created user object
  */
 -(void)signUpNewUser:(NSDictionary*)params;
+
+/**
+ Signs in a user
+ @param params Dictionary object containing captured sign in information:
+ eMailAddress
+ password
+
+*/
 -(void)signInUser:(NSDictionary*)params;
+
+
+
+/**
+ sends media request
+ @param media type is a string object to determine whether this is a video or photo request
+ @param params dictionary object containing captured request information
+ message
+ duration
+ scheduleMins
+ providerId
+ locationId
+ scheduleDate
+ recurring
+ latitude
+ longitude
+ radiusInYards
+ 
+*/
+-(void)requestMedia:(NSString*)mediaType params:(NSMutableDictionary*)params;
 
 @property (nonatomic, assign)id<MMAPIDelegate> delegate;
 

@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MMPresetMessagesViewController.h"
 #import "MMMakeRequestCell.h"
+#import "MMAPI.h"
 
-
-@interface MMRequestViewController : UIViewController <UIGestureRecognizerDelegate, MMPresetMessageDelegate, UITableViewDataSource, UITableViewDelegate, MMMakeRequestCellDelegate> {
+@interface MMRequestViewController : UIViewController <UIGestureRecognizerDelegate, MMPresetMessageDelegate, UITableViewDataSource, UITableViewDelegate, MMMakeRequestCellDelegate, MMAPIDelegate> {
     UITapGestureRecognizer *dismissKeyboard;
     BOOL _textEntered;
     

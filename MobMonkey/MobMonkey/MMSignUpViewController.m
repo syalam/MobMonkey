@@ -367,13 +367,13 @@
 }
 
 #pragma mark - MMAPI Delegate Methods
-- (void)signUpSuccessful:(NSDictionary*)userDictionary {
+- (void)mmAPICallSuccessful:(NSDictionary*)response {
     [[NSUserDefaults standardUserDefaults]setObject:_emailTextField.text forKey:@"userName"];
     [[NSUserDefaults standardUserDefaults]setObject:_passwordTextField.text forKey:@"password"];
     [[NSUserDefaults standardUserDefaults]synchronize];
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
-- (void)signUpFailed:(AFHTTPRequestOperation*)operation {
+- (void)mmAPICallFailed:(AFHTTPRequestOperation*)operation {
     NSString *responseString = operation.responseString;
     NSLog(@"%@", responseString);
 }

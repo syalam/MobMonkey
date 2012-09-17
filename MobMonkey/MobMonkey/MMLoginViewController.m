@@ -210,15 +210,15 @@
 }
 
 #pragma mark MMAPIDelegate Methods
-- (void)signInSuccessful:(NSDictionary*)userDictionary {
-    NSLog(@"%@", userDictionary);
+- (void)mmAPICallSuccessful:(NSDictionary*)response {
+    NSLog(@"%@", response);
     [[NSUserDefaults standardUserDefaults]setObject:emailTextField.text forKey:@"userName"];
     [[NSUserDefaults standardUserDefaults]setObject:passwordTextField.text forKey:@"password"];
     [[NSUserDefaults standardUserDefaults]synchronize];
     
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
-- (void)signInFailed:(AFHTTPRequestOperation*)operation {
+- (void)mmAPICallFailed:(AFHTTPRequestOperation*)operation {
     NSString *responseString = operation.responseString;
     NSLog(@"%@", responseString);
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:responseString delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
