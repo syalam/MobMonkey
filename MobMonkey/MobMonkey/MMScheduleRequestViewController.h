@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol MMScheduleDelegate
+@protocol MMScheduleRequestDelegate
 
-- (void)selectedScheduleDate:(NSDate*)scheduleDate;
+- (void)selectedScheduleDate:(NSDate*)scheduleDate recurring:(BOOL)recurring;
 
 @end
 
@@ -20,7 +20,8 @@
 
 @property (nonatomic, retain) IBOutlet UIDatePicker *datePicker;
 @property (nonatomic, retain) IBOutlet UIButton *scheduleItButton;
-@property (nonatomic, assign) id<MMScheduleDelegate>delegate;
+@property (nonatomic, retain) IBOutlet UISwitch *recurringSwitch;
+@property (nonatomic, assign) id<MMScheduleRequestDelegate> delegate;
 
 
 - (IBAction)scheduleItButtonTapped:(id)sender;

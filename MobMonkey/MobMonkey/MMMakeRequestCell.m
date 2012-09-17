@@ -21,6 +21,7 @@
         _mmRequestClearTextButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         _mmRequestStayActiveSegmentedControl = [[UISegmentedControl alloc]initWithItems:[NSArray arrayWithObjects:@"15m", @"30m", @"1hr", @"3hr", nil]];
         _mmRequestScheduleSegmentedControl = [[UISegmentedControl alloc]initWithItems:[NSArray arrayWithObjects:@"Request Now", @"Schedule", nil]];
+        _mmClearRequestScheduleButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         
         //set frames for items which did not have frames set on initialization
         [_mmRequestPhotoVideoSegmentedControl setFrame:CGRectMake(300/2 - _mmRequestPhotoVideoSegmentedControl.frame.size.width/2, 5, _mmRequestPhotoVideoSegmentedControl.frame.size.width, _mmRequestPhotoVideoSegmentedControl.frame.size.height)];
@@ -28,9 +29,11 @@
         [_mmRequestClearTextButton setFrame:CGRectMake(230, 57, 26, 24)];
         [_mmRequestStayActiveSegmentedControl setFrame:CGRectMake(300/2 - 215/2, 30, 215, 35)];
         [_mmRequestScheduleSegmentedControl setFrame:CGRectMake(300/2 - _mmRequestScheduleSegmentedControl.frame.size.width/2, 5, _mmRequestScheduleSegmentedControl.frame.size.width, _mmRequestScheduleSegmentedControl.frame.size.height)];
+        [_mmClearRequestScheduleButton setFrame:CGRectMake(255, 5, 30, 30)];
         
         //Add label to clear text button and set delegate
         [_mmRequestClearTextButton setTitle:@"x" forState:UIControlStateNormal];
+        [_mmClearRequestScheduleButton setTitle:@"x" forState:UIControlStateNormal];
         
         _mmRequestMessageTextView.delegate = self;
         
@@ -44,6 +47,7 @@
         [_mmRequestStayActiveSegmentedControl addTarget:self action:@selector(mmRequestStayActiveSegmentedControlTapped:) forControlEvents:UIControlEventValueChanged];
         [_mmRequestScheduleSegmentedControl addTarget:self action:@selector(mmRequestScheduleSegmentedControlTapped:) forControlEvents:UIControlEventValueChanged];
         [_mmRequestClearTextButton addTarget:self action:@selector(mmRequestClearTextButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [_mmClearRequestScheduleButton addTarget:self action:@selector(mmClearRequestScheduleButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         
         //Configure label
         [_mmRequestTextLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:13]];
@@ -56,6 +60,7 @@
         [_mmRequestClearTextButton setHidden:YES];
         [_mmRequestStayActiveSegmentedControl setHidden:YES];
         [_mmRequestScheduleSegmentedControl setHidden:YES];
+        [_mmClearRequestScheduleButton setHidden:YES];
         
         //add items to the cell's content view
         [self.contentView addSubview:_mmRequestTextLabel];
@@ -64,6 +69,7 @@
         [self.contentView addSubview:_mmRequestClearTextButton];
         [self.contentView addSubview:_mmRequestStayActiveSegmentedControl];
         [self.contentView addSubview:_mmRequestScheduleSegmentedControl];
+        [self.contentView addSubview:_mmClearRequestScheduleButton];
         
     }
     return self;
@@ -91,6 +97,10 @@
 
 - (void)mmRequestClearTextButtonTapped:(id)sender {
     [_delegate mmRequestClearTextButtonTapped:sender];
+}
+
+- (void)mmClearRequestScheduleButtonTapped:(id)sender {
+    [_delegate mmClearRequestScheduleButtonTapped:sender];
 }
 
 #pragma mark - UITextView delegate methods

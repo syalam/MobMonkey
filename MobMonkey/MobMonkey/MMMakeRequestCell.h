@@ -25,6 +25,8 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView;
 
+- (void)mmClearRequestScheduleButtonTapped:(id)sender;
+
 @end
 
 @interface MMMakeRequestCell : UITableViewCell <UITextViewDelegate>
@@ -35,6 +37,7 @@
 @property (nonatomic, retain) UISegmentedControl *mmRequestStayActiveSegmentedControl;
 @property (nonatomic, retain) UISegmentedControl *mmRequestScheduleSegmentedControl;
 @property (nonatomic, retain) UIButton *mmRequestClearTextButton;
+@property (nonatomic, retain) UIButton *mmClearRequestScheduleButton;
 @property (nonatomic, retain) id<MMMakeRequestCellDelegate> delegate;
 
 @end

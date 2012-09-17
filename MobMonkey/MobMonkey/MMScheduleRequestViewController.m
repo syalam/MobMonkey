@@ -50,7 +50,8 @@
 
 #pragma mark - IBAction Methods
 - (IBAction)scheduleItButtonTapped:(id)sender {
-    [_delegate selectedScheduleDate:_datePicker.date];
+    NSLog(@"%@", _datePicker.date);
+    [_delegate selectedScheduleDate:_datePicker.date recurring:_recurringSwitch.isOn];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

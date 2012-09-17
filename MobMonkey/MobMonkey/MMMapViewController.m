@@ -16,7 +16,6 @@
 @end
 
 @implementation MMMapViewController
-@synthesize mapView;
 @synthesize searchBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -46,15 +45,15 @@
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithCustomView:searchNavButton];
     self.navigationItem.rightBarButtonItem = searchButton;
     
-    UIButton *cancelNavButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cancelNavButton setFrame:CGRectMake(0, 0, 60, 30)];
-    [cancelNavButton addTarget:self action:@selector(cancelButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [cancelNavButton setImage:[UIImage imageNamed:@"NavCancelBtn~iphone"] forState:UIControlStateNormal];
+    //Add custom back button to the nav bar
+    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+    [backNavbutton addTarget:self action:@selector(cancelButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    self.navigationItem.leftBarButtonItem = backButton;
     
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithCustomView:cancelNavButton];
-    self.navigationItem.leftBarButtonItem = cancelButton;
     
-    [self.mapView setUserTrackingMode:MKUserTrackingModeFollowWithHeading animated:YES];
+    [_mapView showsUserLocation];
     prefs = [NSUserDefaults standardUserDefaults];
     _mapRadius = 10000; //set a default radius in case user doesnt select anything;
     
@@ -62,6 +61,26 @@
                                           initWithTarget:self action:@selector(handleLongPress:)];
     lpgr.minimumPressDuration = 2.0; //user needs to press for 2 seconds
     [self.mapView addGestureRecognizer:lpgr];
+    
+    if (_address) {
+        CLLocationCoordinate2D addressCoordinate = [self getLocationFromAddressString:_address];
+        MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc]initWithName:nil address:_address coordinate:addressCoordinate];
+        
+        MKCoordinateRegion region;
+        MKCoordinateSpan span;
+        
+        span.latitudeDelta = 0.025;
+        span.longitudeDelta  = 0.025;
+        
+        region.span = span;
+        region.center = addressCoordinate;
+        NSLog(@"Latitude:%f, Longitude:%f", addressCoordinate.latitude, addressCoordinate.longitude);
+        
+        [_mapView addAnnotation:(id)annotation];
+        
+        [_mapView setRegion:region animated:YES];
+        [_mapView regionThatFits:region];
+    }
 }
 
 
@@ -92,7 +111,12 @@
 }
 
 - (void)cancelButtonClicked:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+    if (_address) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else {
+        [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+    }
 }
 
 
@@ -227,5 +251,29 @@
 #pragma mark - UISearchBar Delegate Methods
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self.searchBar resignFirstResponder];
+}
+
+#pragma mark - Helper Methods
+-(CLLocationCoordinate2D) getLocationFromAddressString:(NSString*) addressStr {
+    NSString *urlStr = [NSString stringWithFormat:@"http://maps.google.com/maps/geo?q=%@&output=csv",
+                        [addressStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString *locationStr =  [NSString stringWithContentsOfURL:[NSURL URLWithString:urlStr] encoding:NSUTF8StringEncoding error:nil];
+    NSArray *items = [locationStr componentsSeparatedByString:@","];
+    
+    double lat = 0.0;
+    double longitude = 0.0;
+    
+    if([items count] >= 4 && [[items objectAtIndex:0] isEqualToString:@"200"]) {
+        lat = [[items objectAtIndex:2] doubleValue];
+        longitude = [[items objectAtIndex:3] doubleValue];
+    }
+    else {
+        NSLog(@"Address, %@ not found: Error %@",addressStr, [items objectAtIndex:0]);
+    }
+    CLLocationCoordinate2D location;
+    location.latitude = lat;
+    location.longitude = longitude;
+    
+    return location;
 }
 @end

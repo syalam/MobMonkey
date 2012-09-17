@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "MMPresetMessagesViewController.h"
 #import "MMMakeRequestCell.h"
+#import "MMScheduleRequestViewController.h"
 #import "MMAPI.h"
 
-@interface MMRequestViewController : UIViewController <UIGestureRecognizerDelegate, MMPresetMessageDelegate, UITableViewDataSource, UITableViewDelegate, MMMakeRequestCellDelegate, MMAPIDelegate> {
+@interface MMRequestViewController : UIViewController <UIGestureRecognizerDelegate, MMPresetMessageDelegate, UITableViewDataSource, UITableViewDelegate, MMMakeRequestCellDelegate, MMAPIDelegate, MMScheduleRequestDelegate> {
     UITapGestureRecognizer *dismissKeyboard;
     BOOL _textEntered;
+    BOOL _scheduleRequestDateSelected;
     
     int photoVideoSegmentedControlSelection;
     int stayActiveSegmentedControlSelection;

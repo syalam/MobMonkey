@@ -12,7 +12,7 @@
 #import "MMFullScreenImageViewController.h"
 #import "MMSetTitleImage.h"
 #import "MMLoginViewController.h"
-
+#import "MMMapViewController.h"
 
 @interface MMLocationViewController ()
 
@@ -120,7 +120,9 @@
         }
             break;
         case 1: {
-            
+            MMMapViewController *mmmVc = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
+            mmmVc.address = @"750 W. Baseline Rd. Tempe, AZ 85283";
+            [self.navigationController pushViewController:mmmVc animated:YES];
         }
             
         default:

@@ -9,7 +9,6 @@
 #import "MMRequestViewController.h"
 #import "MMPresetMessagesViewController.h"
 #import "MMSetTitleImage.h"
-#import "MMScheduleRequestViewController.h"
 #import "AFHTTPRequestOperation.h"
 
 @interface MMRequestViewController ()
@@ -75,11 +74,18 @@
     MMAPI *sendRequestApiCall = [[MMAPI alloc]init];
     sendRequestApiCall.delegate = self;
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-    [params setObject:messageText forKey:@"message"];
+    if (messageText) {
+        [params setObject:messageText forKey:@"message"];
+    }
     [params setObject:@"12345" forKey:@"providerId"];
     [params setObject:@"6789" forKey:@"locationId"];
-    [params setObject:selectedDuration forKey:@"duration"];
-    [params setObject:[NSNumber numberWithDouble:selectedScheduleDate.timeIntervalSince1970] forKey:@"scheduleDate"];
+    if (selectedDuration) {
+        [params setObject:selectedDuration forKey:@"duration"];
+    }
+    if (selectedScheduleDate) {
+        NSLog(@"%@", selectedScheduleDate);
+        [params setObject:[NSNumber numberWithDouble:selectedScheduleDate.timeIntervalSince1970] forKey:@"scheduleDate"];
+    }
     [params setObject:[NSNumber numberWithDouble:34.830256] forKey:@"latitude"];
     [params setObject:[NSNumber numberWithDouble:-111.812674] forKey:@"longitude"];
     [sendRequestApiCall requestMedia:@"image" params:params];
@@ -104,7 +110,10 @@
 {
     // Return the number of rows in the section.
     //return _contentList.count;
-    if (_textEntered) {
+    if (_textEntered && _scheduleRequestDateSelected) {
+        return 6;
+    }
+    else if (_textEntered || _scheduleRequestDateSelected) {
         return 5;
     }
     else {
@@ -167,10 +176,38 @@
             
             break;
         case 4:
-            [cell.mmRequestScheduleSegmentedControl setHidden:NO];
-            if (scheduleItSegmentedControlSelection != 100) {
-                cell.mmRequestScheduleSegmentedControl.selectedSegmentIndex = scheduleItSegmentedControlSelection;
+            if (_textEntered) {
+                [cell.mmRequestScheduleSegmentedControl setHidden:NO];
+                if (scheduleItSegmentedControlSelection != 100) {
+                    cell.mmRequestScheduleSegmentedControl.selectedSegmentIndex = scheduleItSegmentedControlSelection;
+                }
             }
+            else if (_scheduleRequestDateSelected) {
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"EEEE, MM/dd/yyy 'at' hh:mm a"];
+                NSString* dateString = [dateFormatter stringFromDate:selectedScheduleDate];
+                cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
+                cell.textLabel.numberOfLines = 2;
+                cell.textLabel.backgroundColor = [UIColor clearColor];
+                cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
+                cell.textLabel.text = [NSString stringWithFormat:@"Scheduled For:\n%@", dateString];
+                cell.mmClearRequestScheduleButton.hidden = NO;
+            }
+            break;
+        case 5: {
+            if (_scheduleRequestDateSelected) {
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"EEEE, MM/dd/yyy 'at' hh:mm a"];
+                NSString* dateString = [dateFormatter stringFromDate:selectedScheduleDate];
+                cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
+                cell.textLabel.numberOfLines = 2;
+                cell.textLabel.backgroundColor = [UIColor clearColor];
+                cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
+                cell.textLabel.text = [NSString stringWithFormat:@"Scheduled For:\n%@", dateString];
+                cell.mmClearRequestScheduleButton.hidden = NO;
+            }
+
+        }
             break;
         default:
             break;
@@ -273,12 +310,15 @@
     scheduleItSegmentedControlSelection = cell.mmRequestScheduleSegmentedControl.selectedSegmentIndex;
     switch (cell.mmRequestScheduleSegmentedControl.selectedSegmentIndex) {
         case 0:
-            NSLog(@"%@", @"RequestNow");
+            _scheduleRequestDateSelected = NO;
+            scheduleItSegmentedControlSelection = 0;
+            [self.tableView reloadData];
             break;
         case 1: {
             NSLog(@"%@", @"Schedule Request");
             MMScheduleRequestViewController *scheduleRequestVC = [[MMScheduleRequestViewController alloc]initWithNibName:@"MMScheduleRequestViewController"bundle:nil];
             scheduleRequestVC.title = @"Schedule Request";
+            scheduleRequestVC.delegate = self;
             [self.navigationController pushViewController:scheduleRequestVC animated:YES];
         }
             break;
@@ -307,6 +347,12 @@
     [self.view removeGestureRecognizer:dismissKeyboard];
 }
 
+- (void)mmClearRequestScheduleButtonTapped:(id)sender {
+    _scheduleRequestDateSelected = NO;
+    scheduleItSegmentedControlSelection = 0;
+    [self.tableView reloadData];
+}
+
 #pragma mark - MMPresetMessageDelegate Methods
 - (void)presetMessageSelected:(id)message {
     NSString *messageString = message;
@@ -322,12 +368,16 @@
 }
 
 #pragma mark - MMScheduleRequest Delegate Methods
-- (void)selectedScheduleDate:(NSDate*)scheduleDate {
+- (void)selectedScheduleDate:(NSDate*)scheduleDate recurring:(BOOL)recurring {
     selectedScheduleDate = scheduleDate;
+    _scheduleRequestDateSelected = YES;
+    [self.tableView reloadData];
 }
 
 #pragma mark - MMAPI delegate methods
 - (void)mmAPICallSuccessful:(NSDictionary*)response {
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Your request has been sent" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
     NSLog(@"%@", response);
 }

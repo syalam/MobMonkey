@@ -27,7 +27,9 @@
 
 - (IBAction)radiusButtonClicked:(id)sender;
 - (IBAction)addLocationButtonClicked:(id)sender;
+
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (nonatomic, retain) NSString* address;
 
 @end
