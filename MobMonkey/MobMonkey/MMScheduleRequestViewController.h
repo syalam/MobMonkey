@@ -8,9 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMScheduleRequestViewController : UIViewController
+@protocol MMScheduleDelegate
 
+- (void)selectedScheduleDate:(NSDate*)scheduleDate;
+
+@end
+
+@interface MMScheduleRequestViewController : UIViewController {
+    
+}
+
+@property (nonatomic, retain) IBOutlet UIDatePicker *datePicker;
 @property (nonatomic, retain) IBOutlet UIButton *scheduleItButton;
+@property (nonatomic, assign) id<MMScheduleDelegate>delegate;
 
 
 - (IBAction)scheduleItButtonTapped:(id)sender;

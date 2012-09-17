@@ -50,6 +50,7 @@
 
 #pragma mark - IBAction Methods
 - (IBAction)scheduleItButtonTapped:(id)sender {
+    [_delegate selectedScheduleDate:_datePicker.date];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -20,6 +20,8 @@
     int scheduleItSegmentedControlSelection;
     
     NSString *messageText;
+    NSNumber *selectedDuration;
+    NSDate *selectedScheduleDate;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;

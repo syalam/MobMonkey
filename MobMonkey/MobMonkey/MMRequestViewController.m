@@ -73,29 +73,17 @@
 - (IBAction)sendRequestButtonTapped:(id)sender {
     MMAPI *sendRequestApiCall = [[MMAPI alloc]init];
     sendRequestApiCall.delegate = self;
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    [params setObject:messageText forKey:@"message"];
+    [params setObject:@"12345" forKey:@"providerId"];
+    [params setObject:@"6789" forKey:@"locationId"];
+    [params setObject:selectedDuration forKey:@"duration"];
+    [params setObject:[NSNumber numberWithDouble:selectedScheduleDate.timeIntervalSince1970] forKey:@"scheduleDate"];
+    [params setObject:<#(id)#> forKey:<#(id)#>]
     
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 
-
-- (IBAction)attachMessageButtonTapped:(id)sender {
-    MMPresetMessagesViewController *presetMessagesVC = [[MMPresetMessagesViewController alloc]initWithNibName:@"MMPresetMessagesViewController" bundle:nil];
-    presetMessagesVC.title = @"Attach a Message";
-    presetMessagesVC.delegate = self;
-    [self.navigationController pushViewController:presetMessagesVC animated:YES];
-}
-
-- (IBAction)clearTextButtonTapped:(id)sender {
-    /*_placeholderLabel.hidden = NO;
-    _requestTextView.text = @"";
-    _characterCountLabel.text = @"0";*/
-}
-
-- (IBAction)scheduleRequestButtonTapped:(id)sender {
-    MMScheduleRequestViewController *scheduleRequestVC = [[MMScheduleRequestViewController alloc]initWithNibName:@"MMScheduleRequestViewController"bundle:nil];
-    scheduleRequestVC.title = @"Schedule Request";
-    [self.navigationController pushViewController:scheduleRequestVC animated:YES];
-}
 
 #pragma mark - Gesture recognizer tap methods
 - (void)dismissKeyBoardGestureTapped:(id)sender {
@@ -256,16 +244,16 @@
     stayActiveSegmentedControlSelection = cell.mmRequestStayActiveSegmentedControl.selectedSegmentIndex;
     switch (cell.mmRequestStayActiveSegmentedControl.selectedSegmentIndex) {
         case 0:
-            NSLog(@"%@", @"15m");
+            selectedDuration = [NSNumber numberWithInt:15];
             break;
         case 1:
-            NSLog(@"%@", @"30m");
+            selectedDuration = [NSNumber numberWithInt:30];
             break;
         case 2:
-            NSLog(@"%@", @"1h");
+            selectedDuration = [NSNumber numberWithInt:60];
             break;
         case 3:
-            NSLog(@"%@", @"3h");
+            selectedDuration = [NSNumber numberWithInt:180];
             break;
         default:
             break;
@@ -330,6 +318,11 @@
         messageText = nil;
     }
     [self.tableView reloadData];
+}
+
+#pragma mark - MMScheduleRequest Delegate Methods
+- (void)selectedScheduleDate:(NSDate*)scheduleDate {
+    selectedScheduleDate = scheduleDate;
 }
 
 @end
