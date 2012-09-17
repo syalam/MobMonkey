@@ -163,7 +163,8 @@
         case 0:
             [cell.mmRequestPhotoVideoSegmentedControl setHidden:NO];
             if (photoVideoSegmentedControlSelection != 100) {
-                cell.mmRequestScheduleSegmentedControl.selectedSegmentIndex = photoVideoSegmentedControlSelection;
+                NSLog(@"%d", photoVideoSegmentedControlSelection);
+                cell.mmRequestPhotoVideoSegmentedControl.selectedSegmentIndex = photoVideoSegmentedControlSelection;
             }
             break;
         case 1:
@@ -182,22 +183,25 @@
                 [cell.mmRequestTextLabel setText:@"Stay Active For"];
                 [cell.mmRequestStayActiveSegmentedControl setHidden:NO];
             }
-            if (stayActiveSegmentedControlSelection != 100) {
-                cell.mmRequestStayActiveSegmentedControl.selectedSegmentIndex = stayActiveSegmentedControlSelection;
-            }
             break;
         case 3:
             if (_textEntered) {
                 [cell.mmRequestTextLabel setHidden:NO];
                 [cell.mmRequestTextLabel setText:@"Stay Active For"];
                 [cell.mmRequestStayActiveSegmentedControl setHidden:NO];
+                
+                if (stayActiveSegmentedControlSelection != 100) {
+                    cell.mmRequestStayActiveSegmentedControl.selectedSegmentIndex = stayActiveSegmentedControlSelection;
+                }
             }
             else {
                 [cell.mmRequestScheduleSegmentedControl setHidden:NO];
+                
+                if (scheduleItSegmentedControlSelection != 100) {
+                    cell.mmRequestScheduleSegmentedControl.selectedSegmentIndex = scheduleItSegmentedControlSelection;
+                }
             }
-            if (scheduleItSegmentedControlSelection != 100) {
-                cell.mmRequestScheduleSegmentedControl.selectedSegmentIndex = scheduleItSegmentedControlSelection;
-            }
+            
             break;
         case 4:
             [cell.mmRequestScheduleSegmentedControl setHidden:NO];
@@ -257,7 +261,7 @@
 #pragma mark - MMMakeRequestCellDelegate Methods
 - (void)mmRequestPhotoVideoSegmentedControlTapped:(id)sender {
     MMMakeRequestCell *cell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    photoVideoSegmentedControlSelection = cell.mmRequestScheduleSegmentedControl.selectedSegmentIndex;
+    photoVideoSegmentedControlSelection = cell.mmRequestPhotoVideoSegmentedControl.selectedSegmentIndex;
     if (cell.mmRequestPhotoVideoSegmentedControl.selectedSegmentIndex == 0) {
         NSLog(@"%@", @"photo selected");
     }

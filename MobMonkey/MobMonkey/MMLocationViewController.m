@@ -11,6 +11,7 @@
 #import "MMNotificationSettingsViewController.h"
 #import "MMFullScreenImageViewController.h"
 #import "MMSetTitleImage.h"
+#import "MMLoginViewController.h"
 
 
 @interface MMLocationViewController ()
@@ -94,11 +95,13 @@
     
     switch (indexPath.row) {
         case 0:
-            cell.textLabel.text = @"819 N. Scottsdale Rd";
+            cell.textLabel.text = @"4808675309";
             break;
         case 1:
-            cell.textLabel.text = @"4808675309";
-            break;            
+            cell.textLabel.numberOfLines = 2;
+            cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
+            cell.textLabel.text = @"750 W. Baseline Rd.\nTempe, AZ 85283";
+            break;
         default:
             break;
     }
@@ -106,12 +109,49 @@
     return cell;
 }
 
+#pragma mark - UITableView Delegate Methods
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.row) {
+        case 0: {
+            NSString *urlString = @"tel:4808675309";
+            NSString *escaped = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSLog(@"%@", escaped);
+            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:escaped]];
+        }
+            break;
+        case 1: {
+            
+        }
+            
+        default:
+            break;
+    }
+   
+}
+- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.row) {
+        case 1:
+            return 88;
+            break;
+        default:
+            return 44;
+            break;
+    }
+}
+
 #pragma mark - IBAction Methods
 - (IBAction)makeRequestButtonTapped:(id)sender {
-    MMRequestViewController *requestVC = [[MMRequestViewController alloc]initWithNibName:@"MMRequestViewController" bundle:nil];
-    requestVC.title = @"Make a Request";
-    UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
-    [self.navigationController presentViewController:requestNavC animated:YES completion:NULL];
+    if (![[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
+        MMRequestViewController *requestVC = [[MMRequestViewController alloc]initWithNibName:@"MMRequestViewController" bundle:nil];
+        requestVC.title = @"Make a Request";
+        UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
+        [self.navigationController presentViewController:requestNavC animated:YES completion:NULL];
+    }
+    else {
+        MMLoginViewController *loginVC = [[MMLoginViewController alloc]initWithNibName:@"MMLoginViewController" bundle:nil];
+        UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:loginVC];
+        [self.navigationController presentViewController:navC animated:YES completion:NULL];
+    }
 }
 
 - (IBAction)toggleButtonTapped:(id)sender {

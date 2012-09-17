@@ -368,7 +368,6 @@
 
 #pragma mark - MMAPI Delegate Methods
 - (void)signUpSuccessful:(NSDictionary*)userDictionary {
-    NSLog(@"%@", userDictionary);
     [[NSUserDefaults standardUserDefaults]setObject:_emailTextField.text forKey:@"userName"];
     [[NSUserDefaults standardUserDefaults]setObject:_passwordTextField.text forKey:@"password"];
     [[NSUserDefaults standardUserDefaults]synchronize];
