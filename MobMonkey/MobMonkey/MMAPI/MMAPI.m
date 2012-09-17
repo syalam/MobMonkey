@@ -44,13 +44,25 @@
 -(void)signInUser:(NSDictionary*)params {
     [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:@"aba0007c-ebee-42db-bd52-7c9f02e3d371"];
     [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
-    //[[MMHTTPClient sharedClient]setAuthorizationHeaderWithUsername:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"] password:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
     [[MMHTTPClient sharedClient] postPath:@"signin/user" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"%@", JSON);
         [_delegate signInSuccessful:JSON];
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_delegate signInFailed:operation];
     }];
+}
+
+-(void)requestMedia:(NSString*)mediaType params:(NSMutableDictionary*)params {
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:@"aba0007c-ebee-42db-bd52-7c9f02e3d371"];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [[MMHTTPClient sharedClient]setAuthorizationHeaderWithUsername:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"] password:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
+    [[MMHTTPClient sharedClient] postPath:[NSString stringWithFormat:@"requestmedia/%@", mediaType] parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSLog(@"%@", JSON);
+        [_delegate signInSuccessful:JSON];
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_delegate signInFailed:operation];
+    }];
+
 }
     
 
