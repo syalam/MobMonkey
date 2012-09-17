@@ -10,6 +10,7 @@
 #import "MMPresetMessagesViewController.h"
 #import "MMSetTitleImage.h"
 #import "MMScheduleRequestViewController.h"
+#import "AFHTTPRequestOperation.h"
 
 @interface MMRequestViewController ()
 
@@ -79,9 +80,9 @@
     [params setObject:@"6789" forKey:@"locationId"];
     [params setObject:selectedDuration forKey:@"duration"];
     [params setObject:[NSNumber numberWithDouble:selectedScheduleDate.timeIntervalSince1970] forKey:@"scheduleDate"];
-    [params setObject:<#(id)#> forKey:<#(id)#>]
-    
-    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+    [params setObject:[NSNumber numberWithDouble:34.830256] forKey:@"latitude"];
+    [params setObject:[NSNumber numberWithDouble:-111.812674] forKey:@"longitude"];
+    [sendRequestApiCall requestMedia:@"image" params:params];
 }
 
 
@@ -323,6 +324,16 @@
 #pragma mark - MMScheduleRequest Delegate Methods
 - (void)selectedScheduleDate:(NSDate*)scheduleDate {
     selectedScheduleDate = scheduleDate;
+}
+
+#pragma mark - MMAPI delegate methods
+- (void)mmAPICallSuccessful:(NSDictionary*)response {
+    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+    NSLog(@"%@", response);
+}
+- (void)mmAPICallFailed:(AFHTTPRequestOperation*)operation {
+    NSString *responseString = operation.responseString;
+    NSLog(@"%@", responseString);
 }
 
 @end

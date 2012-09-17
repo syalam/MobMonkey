@@ -141,7 +141,7 @@
 
 #pragma mark - IBAction Methods
 - (IBAction)makeRequestButtonTapped:(id)sender {
-    if (![[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
+    if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
         MMRequestViewController *requestVC = [[MMRequestViewController alloc]initWithNibName:@"MMRequestViewController" bundle:nil];
         requestVC.title = @"Make a Request";
         UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
