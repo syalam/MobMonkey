@@ -198,6 +198,13 @@
 
 #pragma mark - UINavBar Methods
 - (IBAction)signInButtonTapped:(id)sender {
+    if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userName"];
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"password"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+        
+        [_signInButton setTitle:@"Sign In" forState:UIControlStateNormal];
+    }
     MMLoginViewController *signInVc = [[MMLoginViewController alloc]initWithNibName:@"MMLoginViewController" bundle:nil];
     signInVc.title = @"Sign In";
     UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:signInVc];
