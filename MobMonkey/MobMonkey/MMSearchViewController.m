@@ -37,6 +37,12 @@
     //self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     
     if (_showSearchResults) {
+        //hide search textfield
+        [headerView setFrame:CGRectMake(0, 0, 320, 0)];
+        [headerView setClipsToBounds:YES];
+        self.tableView.tableHeaderView = headerView;
+        
+        
         //Add custom back button to the nav bar
         UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
         [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];

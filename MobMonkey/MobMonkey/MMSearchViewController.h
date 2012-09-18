@@ -13,6 +13,7 @@
 #import "MMCategoryCell.h"
 
 @interface MMSearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMSearchCellDelegate, MMFilterViewDelegate> {
+    IBOutlet UIView *headerView;
 }
 
 
