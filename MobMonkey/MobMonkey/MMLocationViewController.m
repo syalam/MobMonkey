@@ -44,6 +44,11 @@
     
     [_overlayButtonView setAlpha:0];
     
+    
+    //set location name label text and font
+    _locationNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15];
+    _locationNameLabel.text = self.title;
+    
     //Add custom back button to the nav bar
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
     [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];

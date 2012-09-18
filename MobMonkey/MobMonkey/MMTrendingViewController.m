@@ -128,7 +128,7 @@
     // Configure the cell...
     
     cell.timeLabel.text = @"14m ago";
-    cell.locationNameLabel.text = @"Tarka Chinese Bistro";
+    cell.locationNameLabel.text = @"Nando's";
     cell.thumbnailImageView.image = [UIImage imageNamed:@"monkey.jpg"];
     
     
@@ -221,7 +221,7 @@
 {
     MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
     //REPLACE WITH REAL LOCATION NAME;
-    locationVC.title = @"Tarka Chinese Bistro";
+    locationVC.title = @"Nando's";
     [self.navigationController pushViewController:locationVC animated:YES];
 }
 

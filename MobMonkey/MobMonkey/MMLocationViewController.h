@@ -14,6 +14,7 @@
 
 @property (nonatomic, retain)IBOutlet UITableView *tableView;
 @property (nonatomic, readonly)IBOutlet UIScrollView *scrollView;
+@property (nonatomic, retain)IBOutlet UILabel *locationNameLabel;
 @property (nonatomic, retain)IBOutlet UIButton *toggleButton;
 @property (nonatomic, retain)IBOutlet UIView *overlayButtonView;
 @property (nonatomic, retain)IBOutlet UIButton *likeButton;

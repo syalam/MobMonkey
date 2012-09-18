@@ -71,45 +71,32 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    return _contentList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return _contentList.count;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    MMResultCell *cell = (MMResultCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    cell = [[MMResultCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    cell.delegate = self;
+    MMSearchCell *cell = (MMSearchCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[MMSearchCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.delegate = self;
+    }
+    cell.mmSearchCellMMEnabledIndicator.image = nil;
     
     // Configure the cell...
-    
-    cell.timeLabel.text = @"14m ago";
-    cell.locationNameLabel.text = @"Tarka Chinese Bistro";
-    cell.thumbnailImageView.image = [UIImage imageNamed:@"monkey.jpg"];
-    
-    
-    //set tags
-    cell.likeButton.tag = indexPath.row;
-    cell.dislikeButton.tag = indexPath.row;
-    cell.flagButton.tag = indexPath.row;
-    cell.shareButton.tag = indexPath.row;
-    cell.toggleOverlayButton.tag = indexPath.row;
-    cell.enlargeButton.tag = indexPath.row;
-    
-    if ([[_cellToggleOnState valueForKey:[NSString stringWithFormat:@"%d", indexPath.row]]isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-        [cell.overlayBGImageView setAlpha:1];
-        [cell.overlayButtonView setAlpha:1];
+    if (indexPath.section % 2 > 0) {
+        cell.mmSearchCellMMEnabledIndicator.image = [UIImage imageNamed:@"monkey.jpg"];
     }
-    else {
-        [cell.overlayBGImageView setAlpha:0];
-        [cell.overlayButtonView setAlpha:0];
-    }
+    cell.mmSearchCellLocationNameLabel.text = @"Nando's";
+    cell.mmSearchCellAddressLabel.text = @"750 W. Baseline Rd. Tempe, AZ 85283";
+    cell.mmSearchCellDistanceLabel.text = @"15 miles";
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -163,54 +150,30 @@
     // Navigation logic may go here. Create and push another view controller.
     MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
     //REPLACE WITH REAL LOCATION NAME
-    locationVC.title = @"Tarka Chinese Bistro";
+    locationVC.title = @"Nandos";
     [self.navigationController pushViewController:locationVC animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 200;
+    return 140;
 }
 
-#pragma mark - MMResultCell delegate methods
-- (void)toggleOverlayButtonTapped:(id)sender {
-    MMResultCell *cell = (MMResultCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    [UIView beginAnimations:nil context:context];
-    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-    [UIView setAnimationDuration: 0.3];
-    [UIView setAnimationDelegate: self];
-    if (cell.overlayButtonView.alpha == 0) {
-        [_cellToggleOnState setObject:[NSNumber numberWithBool:YES] forKey:[NSString stringWithFormat:@"%d", [sender tag]]];
-        [cell.overlayBGImageView setAlpha:1];
-        [cell.overlayButtonView setAlpha:1];
-    }
-    else {
-        [_cellToggleOnState setObject:[NSNumber numberWithBool:NO] forKey:[NSString stringWithFormat:@"%d", [sender tag]]];
-        [cell.overlayBGImageView setAlpha:0];
-        [cell.overlayButtonView setAlpha:0];
-    }
-    [UIView commitAnimations];
+#pragma mark - search cell delegate methods
+-(void)mmSearchCellViewLiveFeedButtonTapped:(id)sender {
+    NSLog(@"%@", @"Live Feed Tapped");
 }
-- (void)likeButtonTapped:(id)sender {
+-(void)mmSearchCellViewUploadedPhotoButtonTapped:(id)sender {
+     NSLog(@"%@", @"ViewUploadedPhoto Tapped");
+}
+-(void)mmSearchCellViewUploadedVideoButtonTapped:(id)sender {
+     NSLog(@"%@", @"ViewUploadedVideo Tapped");
+}
     
+-(void)mmSearchCellUploadPhotoButtonTapped:(id)sender {
+     NSLog(@"%@", @"uploadPhoto Tapped");
 }
-- (void)dislikeButtonTapped:(id)sender {
-    
-}
-- (void)flagButtonTapped:(id)sender {
-    
-}
-- (void)enlargeButtonTapped:(id)sender {
-    MMResultCell *cell = (MMResultCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
-
-    MMFullScreenImageViewController *fullScreenVC = [[MMFullScreenImageViewController alloc]initWithNibName:@"MMFullScreenImageViewController" bundle:nil];
-    fullScreenVC.imageToDisplay = cell.thumbnailImageView.image;
-    UINavigationController *fullScreenNavC = [[UINavigationController alloc]initWithRootViewController:fullScreenVC];
-    fullScreenNavC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self.navigationController presentViewController:fullScreenNavC animated:YES completion:NULL];
-}
-- (void)shareButtonTapped:(id)sender {
-    
+-(void)mmSearchCellUploadVideoButtonTapped:(id)sender {
+     NSLog(@"%@", @"uploadVideo Tapped");
 }
 
 #pragma mark - Bar Button Action Methods

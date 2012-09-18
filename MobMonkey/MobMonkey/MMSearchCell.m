@@ -15,11 +15,13 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Inititialize main elements
+        CGFloat labelXSize = 280;
+        
         _mmSearchCellMMEnabledIndicator = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, 10, 10)];
-        _mmSearchCellLocationNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 5, 150, 30)];
-        _mmSearchCellAddressLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 40, 150, 30)];
-        _mmSearchCellDistanceLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 70, 150, 30)];
-        _mmSearchCellButtonView = [[UIView alloc]initWithFrame:CGRectMake(0, 100, 300, 50)];
+        _mmSearchCellLocationNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 5, labelXSize, 30)];
+        _mmSearchCellAddressLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 30, labelXSize, 30)];
+        _mmSearchCellDistanceLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 55, labelXSize, 30)];
+        _mmSearchCellButtonView = [[UIView alloc]initWithFrame:CGRectMake(0, 85, 300, 50)];
         
         //initialize buttonview subviews
         _mmSearchCellViewUploadedVideoButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -29,7 +31,7 @@
         _mmSearchCellUploadVideoButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         
         //set button frames
-        CGFloat buttonXCoordinate = 10;
+        CGFloat buttonXCoordinate = 5;
         CGFloat buttonYCoordinate = 0;
         CGFloat buttonXSize = 50;
         CGFloat buttonYSize = 50;
@@ -51,6 +53,12 @@
         buttonXCoordinate = [self determineNextButtonXCooridanate:buttonXCoordinate prevButtonXSize:buttonXSize];
         [_mmSearchCellUploadVideoButton setFrame:CGRectMake(buttonXCoordinate, buttonYCoordinate, buttonXSize, buttonYSize)];
         
+        //set button titles
+        [_mmSearchCellViewUploadedVideoButton setTitle:@"View Video" forState:UIControlStateNormal];
+        [_mmSearchCellViewUploadedPhotoButton setTitle:@"View Photo" forState:UIControlStateNormal];
+        [_mmSearchCellViewLiveFeedButton setTitle:@"Live Video" forState:UIControlStateNormal];
+        [_mmSearchCellUploadPhotoButton setTitle:@"Upload Photo" forState:UIControlStateNormal];
+        [_mmSearchCellUploadVideoButton setTitle:@"Upload Video" forState:UIControlStateNormal];
         
         //add buttons to button view
         [_mmSearchCellButtonView addSubview:_mmSearchCellViewUploadedVideoButton];
@@ -58,6 +66,15 @@
         [_mmSearchCellButtonView addSubview:_mmSearchCellViewLiveFeedButton];
         [_mmSearchCellButtonView addSubview:_mmSearchCellUploadPhotoButton];
         [_mmSearchCellButtonView addSubview:_mmSearchCellUploadVideoButton];
+        
+        //Configure labels
+        _mmSearchCellLocationNameLabel.backgroundColor = [UIColor clearColor];
+        _mmSearchCellAddressLabel.backgroundColor = [UIColor clearColor];
+        _mmSearchCellDistanceLabel.backgroundColor = [UIColor clearColor];
+        
+        _mmSearchCellLocationNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:17];
+        _mmSearchCellAddressLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
+        _mmSearchCellDistanceLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
         
         //Add targets for button selectors
         [_mmSearchCellViewUploadedVideoButton addTarget:self action:@selector(mmSearchCellViewUploadedVideoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -72,7 +89,6 @@
         [self.contentView addSubview:_mmSearchCellAddressLabel];
         [self.contentView addSubview:_mmSearchCellDistanceLabel];
         [self.contentView addSubview:_mmSearchCellButtonView];
-        
     }
     return self;
 }
@@ -97,8 +113,8 @@
 -(void)mmSearchCellUploadPhotoButtonTapped:(id)sender {
     [_delegate mmSearchCellUploadPhotoButtonTapped:sender];
 }
--(void)mmSearchCellUploadVideoButton:(id)sender {
-    [_delegate mmSearchCellUploadVideoButton:sender];
+-(void)mmSearchCellUploadVideoButtonTapped:(id)sender {
+    [_delegate mmSearchCellUploadVideoButtonTapped:sender];
 }
 
 #pragma mark - helper methods

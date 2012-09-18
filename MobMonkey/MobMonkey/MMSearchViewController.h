@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MMResultCell.h"
 #import "MMFilterViewController.h"
+#import "MMSearchCell.h"
 
-@interface MMSearchViewController : UIViewController <MMResultCellDelegate, UITableViewDataSource, UITableViewDelegate> {
+@interface MMSearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMSearchCellDelegate> {
     NSMutableDictionary* _cellToggleOnState;
 }
 

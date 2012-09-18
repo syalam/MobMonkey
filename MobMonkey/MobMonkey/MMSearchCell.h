@@ -15,7 +15,7 @@
 -(void)mmSearchCellViewUploadedPhotoButtonTapped:(id)sender;
 -(void)mmSearchCellViewUploadedVideoButtonTapped:(id)sender;
 -(void)mmSearchCellUploadPhotoButtonTapped:(id)sender;
--(void)mmSearchCellUploadVideoButton:(id)sender;
+-(void)mmSearchCellUploadVideoButtonTapped:(id)sender;
 
 @end
 
