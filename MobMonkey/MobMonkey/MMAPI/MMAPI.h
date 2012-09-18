@@ -88,6 +88,13 @@
 -(void)facebookSignIn;
 
 
+/**
+ Retrieve list of categories from the server
+ 
+*/
+-(NSMutableArray *)retrieveCategories;
+
+
 @property (nonatomic, assign)id<MMAPIDelegate> delegate;
 
 @end

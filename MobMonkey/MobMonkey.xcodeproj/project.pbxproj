@@ -12,6 +12,7 @@
 		F71B9B2A1602517E003BED33 /* SectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F71B9B281602517E003BED33 /* SectionInfo.m */; };
 		F71B9B351602A163003BED33 /* MMHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F71B9B341602A163003BED33 /* MMHTTPClient.m */; };
 		F71BD704160877D9004E1ADB /* MMSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F71BD703160877D9004E1ADB /* MMSearchCell.m */; };
+		F71BD708160896C5004E1ADB /* MMCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F71BD707160896C5004E1ADB /* MMCategoryCell.m */; };
 		F734A53815F11C3E0090E85A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53715F11C3E0090E85A /* UIKit.framework */; };
 		F734A53A15F11C3E0090E85A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53915F11C3E0090E85A /* Foundation.framework */; };
 		F734A53C15F11C3E0090E85A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53B15F11C3E0090E85A /* CoreGraphics.framework */; };
@@ -292,6 +293,8 @@
 		F71B9B341602A163003BED33 /* MMHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMHTTPClient.m; sourceTree = "<group>"; };
 		F71BD702160877D9004E1ADB /* MMSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSearchCell.h; sourceTree = "<group>"; };
 		F71BD703160877D9004E1ADB /* MMSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSearchCell.m; sourceTree = "<group>"; };
+		F71BD706160896C5004E1ADB /* MMCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCategoryCell.h; sourceTree = "<group>"; };
+		F71BD707160896C5004E1ADB /* MMCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCategoryCell.m; sourceTree = "<group>"; };
 		F734A53315F11C3E0090E85A /* MobMonkey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobMonkey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F734A53715F11C3E0090E85A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F734A53915F11C3E0090E85A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -653,6 +656,15 @@
 				F71BD703160877D9004E1ADB /* MMSearchCell.m */,
 			);
 			name = "Search Cell";
+			sourceTree = "<group>";
+		};
+		F71BD705160896B3004E1ADB /* Category Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F71BD706160896C5004E1ADB /* MMCategoryCell.h */,
+				F71BD707160896C5004E1ADB /* MMCategoryCell.m */,
+			);
+			name = "Category Cell";
 			sourceTree = "<group>";
 		};
 		F734A52815F11C3E0090E85A = {
@@ -1163,6 +1175,7 @@
 		F79B4FA015F3EE470004BE01 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				F71BD705160896B3004E1ADB /* Category Cell */,
 				F71BD700160877BB004E1ADB /* Search Cell */,
 				F77BD33815F523E800E76CA5 /* Search Filter */,
 				F79B4FA215F3EE5A0004BE01 /* MMSearchViewController.h */,
@@ -1665,6 +1678,7 @@
 				F71B9B2A1602517E003BED33 /* SectionInfo.m in Sources */,
 				F71B9B351602A163003BED33 /* MMHTTPClient.m in Sources */,
 				F71BD704160877D9004E1ADB /* MMSearchCell.m in Sources */,
+				F71BD708160896C5004E1ADB /* MMCategoryCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

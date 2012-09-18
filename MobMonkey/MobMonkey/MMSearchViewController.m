@@ -13,6 +13,7 @@
 #import "MMSetTitleImage.h"
 #import "MMMapViewController.h"
 #import "MMCategoryViewController.h"
+#import "MMAPI.h"
 
 @interface MMSearchViewController ()
 
@@ -52,6 +53,9 @@
     self.navigationItem.rightBarButtonItem = mapButton;
     
     _cellToggleOnState = [[NSMutableDictionary alloc]initWithCapacity:1];
+    
+    _showCategories = YES;
+    [self setContentList:[[MMAPI sharedAPI]retrieveCategories]];
 }
 
 - (void)viewDidUnload
@@ -77,31 +81,54 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 1;
+    if (_showCategories) {
+        NSArray *sectionArray = [_contentList objectAtIndex:section];
+        return sectionArray.count;
+    }
+    else {
+        return 1;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    MMSearchCell *cell = (MMSearchCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (!cell) {
-        cell = [[MMSearchCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.delegate = self;
+    
+    if (_showCategories) {
+        NSArray *sectionArray = [_contentList objectAtIndex:indexPath.section];
+        id contentForThisRow = [sectionArray objectAtIndex:indexPath.row];
+        
+        MMCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (!cell) {
+            cell = [[MMCategoryCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
+        cell.mmCategoryCellImageView.image = [UIImage imageNamed:@"monkey.jpg"];
+        cell.mmCategoryTitleLabel.text = contentForThisRow;
+        
+        return cell;
     }
-    cell.mmSearchCellMMEnabledIndicator.image = nil;
-    
-    // Configure the cell...
-    if (indexPath.section % 2 > 0) {
-        cell.mmSearchCellMMEnabledIndicator.image = [UIImage imageNamed:@"monkey.jpg"];
+    else {
+        MMSearchCell *cell = (MMSearchCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (!cell) {
+            cell = [[MMSearchCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell.delegate = self;
+        }
+        cell.mmSearchCellMMEnabledIndicator.image = nil;
+        
+        // Configure the cell...
+        //FOR TAP THRU SHOW MM ENABLED FOR EVERY OTHER CELL
+        if (indexPath.section % 2 > 0) {
+            cell.mmSearchCellMMEnabledIndicator.image = [UIImage imageNamed:@"monkey.jpg"];
+        }
+        cell.mmSearchCellLocationNameLabel.text = @"Nando's";
+        cell.mmSearchCellAddressLabel.text = @"750 W. Baseline Rd. Tempe, AZ 85283";
+        cell.mmSearchCellDistanceLabel.text = @"15 miles";
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        return cell;
     }
-    cell.mmSearchCellLocationNameLabel.text = @"Nando's";
-    cell.mmSearchCellAddressLabel.text = @"750 W. Baseline Rd. Tempe, AZ 85283";
-    cell.mmSearchCellDistanceLabel.text = @"15 miles";
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    return cell;
-
 }
 
 /*
@@ -147,15 +174,24 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
-    //REPLACE WITH REAL LOCATION NAME
-    locationVC.title = @"Nandos";
-    [self.navigationController pushViewController:locationVC animated:YES];
+    if (_showCategories) {
+        
+    }
+    else {
+        MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+        //REPLACE WITH REAL LOCATION NAME
+        locationVC.title = @"Nandos";
+        [self.navigationController pushViewController:locationVC animated:YES];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 140;
+    if (_showCategories) {
+        return 44;
+    }
+    else {
+        return 140;
+    }
 }
 
 #pragma mark - search cell delegate methods
@@ -202,6 +238,9 @@
     for (int i = 0; i < 20; i++) {
         [_contentList addObject:@""];
     }
+    
+    _showCategories = NO;
+    
     [self.tableView reloadData];
     
     [textField resignFirstResponder];

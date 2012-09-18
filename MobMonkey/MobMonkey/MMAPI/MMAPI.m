@@ -95,4 +95,14 @@
     }];
 }
 
+#pragma mark - Retrieve categories
+-(NSMutableArray *)retrieveCategories {
+    NSMutableArray *sectionOneArray = [[NSMutableArray alloc]initWithObjects:@"Health Clubs", @"Coffee Shops", @"Nightclubs", @"Pubs/Bars", @"Restaurants", @"Supermarkets", @"Cinemas", @"Dog Parks", @"Beaches", @"Hotels", @"Stadiums", @"Conferences" , @"Middle Schools & High Schools", nil];
+    
+    NSMutableArray *sectionTwoArray = [[NSMutableArray alloc]initWithObjects:@"History", @"My Locations", @"Events", @"Locations of Interest", nil];
+    
+    NSMutableArray *categoriesArray = [NSMutableArray arrayWithObjects:sectionOneArray, sectionTwoArray, nil];
+    return categoriesArray;
+}
+
 @end

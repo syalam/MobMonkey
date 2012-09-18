@@ -10,9 +10,11 @@
 #import "MMResultCell.h"
 #import "MMFilterViewController.h"
 #import "MMSearchCell.h"
+#import "MMCategoryCell.h"
 
 @interface MMSearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMSearchCellDelegate> {
     NSMutableDictionary* _cellToggleOnState;
+    BOOL _showCategories;
 }
 
 
