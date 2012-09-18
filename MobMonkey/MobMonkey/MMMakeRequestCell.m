@@ -17,10 +17,13 @@
         // Initialize cell subviews
         _mmRequestTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 2, 270, 25)];
         _mmRequestPhotoVideoSegmentedControl = [[UISegmentedControl alloc]initWithItems:[NSArray arrayWithObjects:@"Photo", @"Video", nil]];
+        _mmRequestPhotoVideoSegmentedControl.selectedSegmentIndex = 0;
         _mmRequestMessageTextView = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, 240, 82)];
         _mmRequestClearTextButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         _mmRequestStayActiveSegmentedControl = [[UISegmentedControl alloc]initWithItems:[NSArray arrayWithObjects:@"15m", @"30m", @"1hr", @"3hr", nil]];
+        _mmRequestStayActiveSegmentedControl.selectedSegmentIndex = 1;
         _mmRequestScheduleSegmentedControl = [[UISegmentedControl alloc]initWithItems:[NSArray arrayWithObjects:@"Request Now", @"Schedule", nil]];
+        _mmRequestScheduleSegmentedControl.selectedSegmentIndex = 0;
         _mmClearRequestScheduleButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         
         //set frames for items which did not have frames set on initialization

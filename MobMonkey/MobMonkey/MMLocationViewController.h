@@ -21,16 +21,21 @@
 @property (nonatomic, retain)IBOutlet UIButton *videosButton;
 @property (nonatomic, retain)IBOutlet UIButton *photosButton;
 @property (nonatomic, retain)IBOutlet UIButton *makeRequestButton;
+@property (nonatomic, retain)IBOutlet UIButton *flagButton;
 @property (nonatomic, retain)IBOutlet UILabel *videoCountLabel;
 @property (nonatomic, retain)IBOutlet UILabel *photoCountLabel;
+@property (nonatomic, retain)IBOutlet UIButton *bookmarkButton;
 @property (nonatomic, retain)IBOutlet TCImageView *locationLatestImageView;
 @property (nonatomic, retain)IBOutlet UIButton *notificationSettingsButton;
 @property (nonatomic, retain)IBOutlet UILabel *notificationSettingLabel;
+@property (nonatomic) int rowIndex;
 
 - (IBAction)makeRequestButtonTapped:(id)sender;
 - (IBAction)toggleButtonTapped:(id)sender;
 - (IBAction)shareButtonTapped:(id)sender;
 - (IBAction)enlargeButtonTapped:(id)sender;
+- (IBAction)flagButtonTapped:(id)sender;
 - (IBAction)notificationSettingsButtonTapped:(id)sender;
+- (IBAction)bookmarkButtonTapped:(id)sender;
 
 @end

@@ -79,6 +79,11 @@
 	[self.tableView addGestureRecognizer:pinchRecognizer];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -96,7 +101,8 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return _contentList.count;
+    //return _contentList.count;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -113,7 +119,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    NSString *CellIdentifier = [NSString stringWithFormat:@"Cell%d%d",indexPath.section, indexPath.row];
     MMResultCell *cell = (MMResultCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     cell = [[MMResultCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
@@ -132,6 +138,13 @@
     cell.flagButton.tag = indexPath.row;
     cell.shareButton.tag = indexPath.row;
     cell.toggleOverlayButton.tag = indexPath.row;
+    cell.enlargeButton.tag = indexPath.row;
+    if ([[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", indexPath.row]]) {
+        [cell.flagButton setBackgroundColor:[UIColor blueColor]];
+    }
+    else {
+        [cell.flagButton setBackgroundColor:[UIColor clearColor]];
+    }
     
     if ([[_cellToggleOnState valueForKey:[NSString stringWithFormat:@"%d", indexPath.row]]isEqualToNumber:[NSNumber numberWithBool:YES]]) {
         [cell.overlayBGImageView setAlpha:1];
@@ -325,11 +338,21 @@
     
 }
 - (void)flagButtonTapped:(id)sender {
+    MMResultCell *cell = (MMResultCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", [sender tag]]]) {
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:[NSString stringWithFormat:@"row%dFlagged", [sender tag]]];
+        [cell.flagButton setBackgroundColor:[UIColor blueColor]];
+    }
+    else {
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:[NSString stringWithFormat:@"row%dFlagged", [sender tag]]];
+        [cell.flagButton setBackgroundColor:[UIColor clearColor]];
+    }
     
 }
 - (void)enlargeButtonTapped:(id)sender {
     MMFullScreenImageViewController *fullScreenVC = [[MMFullScreenImageViewController alloc]initWithNibName:@"MMFullScreenImageViewController" bundle:nil];
     fullScreenVC.imageToDisplay = [UIImage imageNamed:@"monkey.jpg"];
+    fullScreenVC.rowIndex = [sender tag];
     UINavigationController *fullScreenNavC = [[UINavigationController alloc]initWithRootViewController:fullScreenVC];
     fullScreenNavC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self.navigationController presentViewController:fullScreenNavC animated:YES completion:NULL];
@@ -392,6 +415,7 @@
         [UIView setAnimationsEnabled:animationsEnabled];
     }
 }
+
 
 
 @end

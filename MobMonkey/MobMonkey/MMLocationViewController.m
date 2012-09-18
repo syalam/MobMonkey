@@ -48,7 +48,20 @@
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
     [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
-    
+    if ([[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]]) {
+        [self.flagButton setBackgroundColor:[UIColor blueColor]];
+    }
+    else {
+        [self.flagButton setBackgroundColor:[UIColor clearColor]];
+    }
+
+    if ([[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dBookmarked", self.rowIndex]]) {
+        [self.bookmarkButton setTitle:@"Bookmark" forState:UIControlStateNormal];
+    }
+    else {
+        [self.bookmarkButton setTitle:@"Unbookmark" forState:UIControlStateNormal];
+    }
+
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
     self.navigationItem.leftBarButtonItem = backButton;
 }
@@ -185,9 +198,34 @@
 - (void)enlargeButtonTapped:(id)sender {
     MMFullScreenImageViewController *fullScreenVC = [[MMFullScreenImageViewController alloc]initWithNibName:@"MMFullScreenImageViewController" bundle:nil];
     fullScreenVC.imageToDisplay = _locationLatestImageView.image;
+    fullScreenVC.rowIndex = self.rowIndex;
     UINavigationController *fullScreenNavC = [[UINavigationController alloc]initWithRootViewController:fullScreenVC];
     fullScreenNavC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self.navigationController presentViewController:fullScreenNavC animated:YES completion:NULL];
+}
+
+- (IBAction)flagButtonTapped:(id)sender {
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]]) {
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]];
+        [self.flagButton setBackgroundColor:[UIColor blueColor]];
+    }
+    else {
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]];
+        [self.flagButton setBackgroundColor:[UIColor clearColor]];
+    }
+    
+}
+
+- (IBAction)bookmarkButtonTapped:(id)sender {
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dBookmarked", self.rowIndex]]) {
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:[NSString stringWithFormat:@"row%dBookmarked", self.rowIndex]];
+        [self.bookmarkButton setTitle:@"Bookmark" forState:UIControlStateNormal];
+    }
+    else {
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:[NSString stringWithFormat:@"row%dBookmarked", self.rowIndex]];
+        [self.bookmarkButton setTitle:@"Unbookmark" forState:UIControlStateNormal];
+    }
+
 }
 
 #pragma mark - Action Sheet Delegate Methods

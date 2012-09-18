@@ -20,6 +20,7 @@
 @property (nonatomic, retain)IBOutlet UIButton *dislikeButton;
 @property (nonatomic, retain)IBOutlet UIButton *flagButton;
 @property (nonatomic, retain)IBOutlet UIButton *shareButton;
+@property (nonatomic) int rowIndex;
 
 
 - (IBAction)overlayToggleButtonTapped:(id)sender;
