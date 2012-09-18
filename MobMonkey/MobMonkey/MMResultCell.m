@@ -34,6 +34,7 @@
         _flagButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         _enlargeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         _shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        
 
         [_likeButton setFrame:CGRectMake(20, 0, 38, 38)];
         [_dislikeButton setFrame:CGRectMake(_likeButton.frame.origin.x + _likeButton.frame.size.width + 15, _likeButton.frame.origin.y, _likeButton.frame.size.width, _likeButton.frame.size.height)];

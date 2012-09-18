@@ -36,7 +36,7 @@
     
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
     
-    [_saveButton setHidden:YES];
+    //[_saveButton setHidden:YES];
 
     CGRect textFieldRect = CGRectMake(10, 10, 250, 30);
     
@@ -79,7 +79,7 @@
         [_signUpButton setHidden:YES];
         [_facebookButton setHidden:YES];
         [_twitterButton setHidden:YES];
-        [_saveButton setHidden:NO];
+        //[_saveButton setHidden:NO];
     }
     
     //Add custom back button to the nav bar
@@ -261,9 +261,9 @@
     [twitter fetchData];
 }
 
-- (IBAction)saveButtonTapped:(id)sender {
+/*- (IBAction)saveButtonTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
-}
+}*/
 
 - (void)chooseDateButtonTapped:(id)sender {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

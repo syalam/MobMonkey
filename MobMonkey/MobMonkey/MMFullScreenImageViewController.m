@@ -33,6 +33,13 @@
     
     [overlayButtonView setAlpha:0];
     imageView.image = _imageToDisplay;
+    if ([[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]]) {
+        [self.flagButton setBackgroundColor:[UIColor blueColor]];
+    }
+    else {
+        [self.flagButton setBackgroundColor:[UIColor clearColor]];
+    }
+
     
     // Do any additional setup after loading the view from its nib.
 }
@@ -75,7 +82,15 @@
     
 }
 - (IBAction)flagButtonTapped:(id)sender {
-    
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]]) {
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]];
+        [self.flagButton setBackgroundColor:[UIColor blueColor]];
+    }
+    else {
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]];
+        [self.flagButton setBackgroundColor:[UIColor clearColor]];
+    }
+
 }
 - (IBAction)shareButtonTapped:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", nil];
