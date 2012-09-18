@@ -12,7 +12,7 @@
     
 @end
 
-@interface MMFilterViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource> {
+@interface MMFilterViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
     IBOutlet UISegmentedControl *segmentedControl;
     IBOutlet UIPickerView *pickerView;
     
@@ -22,6 +22,8 @@
 }
 
 - (IBAction)segmentedControlSelected:(id)sender;
+
+@property(nonatomic, retain) NSMutableArray *contentList;
 @property(nonatomic,assign) id<MMFilterViewDelegate> delegate;
 
 

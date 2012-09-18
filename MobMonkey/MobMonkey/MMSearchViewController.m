@@ -36,13 +36,37 @@
 
     //self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     
-    _filterNavBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_filterNavBarButton setFrame:CGRectMake(0, 0, 52, 30)];
-    [_filterNavBarButton setBackgroundImage:[UIImage imageNamed:@"FilterBtn~iphone"] forState:UIControlStateNormal];
-    [_filterNavBarButton addTarget:self action:@selector(filterButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *filterButton = [[UIBarButtonItem alloc]initWithCustomView:_filterNavBarButton];
-    self.navigationItem.leftBarButtonItem = filterButton;
+    if (_showSearchResults) {
+        //Add custom back button to the nav bar
+        UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+        [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+        
+        UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+        self.navigationItem.leftBarButtonItem = backButton;
+
+        
+        NSMutableArray *resultArray = [[NSMutableArray alloc]init];
+        for (int i = 0; i < 20; i++) {
+            [resultArray addObject:@""];
+        }
+        [self setContentList:resultArray];
+        [self.tableView reloadData];
+    }
+    else {
+        _showCategories = YES;
+        
+        _filterNavBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_filterNavBarButton setFrame:CGRectMake(0, 0, 52, 30)];
+        [_filterNavBarButton setBackgroundImage:[UIImage imageNamed:@"FilterBtn~iphone"] forState:UIControlStateNormal];
+        [_filterNavBarButton addTarget:self action:@selector(filterButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIBarButtonItem *filterButton = [[UIBarButtonItem alloc]initWithCustomView:_filterNavBarButton];
+        self.navigationItem.leftBarButtonItem = filterButton;
+
+        
+        [self setContentList:[[MMAPI sharedAPI]retrieveCategories]];
+    }
     
     _mapNavBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_mapNavBarButton setFrame:CGRectMake(0, 0, 33, 30)];
@@ -51,11 +75,6 @@
     
     UIBarButtonItem *mapButton = [[UIBarButtonItem alloc]initWithCustomView:_mapNavBarButton];
     self.navigationItem.rightBarButtonItem = mapButton;
-    
-    _cellToggleOnState = [[NSMutableDictionary alloc]initWithCapacity:1];
-    
-    _showCategories = YES;
-    [self setContentList:[[MMAPI sharedAPI]retrieveCategories]];
 }
 
 - (void)viewDidUnload
@@ -99,21 +118,16 @@
         id contentForThisRow = [sectionArray objectAtIndex:indexPath.row];
         
         MMCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (!cell) {
-            cell = [[MMCategoryCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        }
+        cell = [[MMCategoryCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.mmCategoryCellImageView.image = [UIImage imageNamed:@"monkey.jpg"];
         cell.mmCategoryTitleLabel.text = contentForThisRow;
         
         return cell;
     }
     else {
-        MMSearchCell *cell = (MMSearchCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (!cell) {
-            cell = [[MMSearchCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            cell.delegate = self;
-        }
-        cell.mmSearchCellMMEnabledIndicator.image = nil;
+        MMSearchCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        cell = [[MMSearchCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.delegate = self;
         
         // Configure the cell...
         //FOR TAP THRU SHOW MM ENABLED FOR EVERY OTHER CELL
@@ -175,7 +189,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (_showCategories) {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        NSArray *sectionArray = [_contentList objectAtIndex:indexPath.section];
+        id contentForThisRow = [sectionArray objectAtIndex:indexPath.row];
         
+        MMSearchViewController *svc = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
+        svc.showSearchResults = YES;
+        svc.title = contentForThisRow;
+        [self.navigationController pushViewController:svc animated:YES];
     }
     else {
         MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
@@ -212,16 +233,12 @@
      NSLog(@"%@", @"uploadVideo Tapped");
 }
 
-#pragma mark - Bar Button Action Methods
+#pragma mark - NavBar Button Action Methods
 - (void)filterButtonClicked:(id)sender {
-    MMCategoryViewController *categoryVC = [[MMCategoryViewController alloc]initWithNibName:@"MMCategoryViewController" bundle:nil];
-    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:categoryVC];
-    [self.navigationController presentViewController:navC animated:YES completion:NULL];
-    
-    /*MMFilterViewController *fvc = [[MMFilterViewController alloc]initWithNibName:@"MMFilterViewController" bundle:nil];
+    MMFilterViewController *fvc = [[MMFilterViewController alloc]initWithNibName:@"MMFilterViewController" bundle:nil];
     fvc.delegate = self;
     UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:fvc];
-    [self.navigationController presentViewController:navc animated:YES completion:NULL];*/
+    [self.navigationController presentViewController:navc animated:YES completion:NULL];
 }
 
 - (void)mapButtonClicked:(id)sender {
@@ -230,6 +247,10 @@
     [self.navigationController presentViewController:nvc animated:YES completion:NULL];
 }
 
+
+- (void)backButtonTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 #pragma mark - UITextField delegate methods
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

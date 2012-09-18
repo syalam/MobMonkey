@@ -196,7 +196,7 @@
 }
 
 - (IBAction)shareButtonTapped:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Notification Settings", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", nil];
     [actionSheet showFromTabBar:self.tabBarController.tabBar];
 }
 
@@ -241,12 +241,6 @@
             break;
         case 1:
             
-            break;
-        case 2: {
-            MMNotificationSettingsViewController *notificationSettingsVC = [[MMNotificationSettingsViewController alloc]initWithNibName:@"MMNotificationSettingsViewController" bundle:nil];
-            UINavigationController *notificationSettingsNavC = [[UINavigationController alloc]initWithRootViewController:notificationSettingsVC];
-            [self.navigationController presentViewController:notificationSettingsNavC animated:YES completion:NULL];
-        }
             break;
         default:
             break;

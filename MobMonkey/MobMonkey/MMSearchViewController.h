@@ -12,9 +12,7 @@
 #import "MMSearchCell.h"
 #import "MMCategoryCell.h"
 
-@interface MMSearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMSearchCellDelegate> {
-    NSMutableDictionary* _cellToggleOnState;
-    BOOL _showCategories;
+@interface MMSearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMSearchCellDelegate, MMFilterViewDelegate> {
 }
 
 
@@ -26,5 +24,7 @@
 @property (nonatomic, retain) UIButton *filterNavBarButton;
 @property (nonatomic, retain) UIButton *mapNavBarButton;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic) BOOL showCategories;
+@property (nonatomic) BOOL showSearchResults;
 
 @end

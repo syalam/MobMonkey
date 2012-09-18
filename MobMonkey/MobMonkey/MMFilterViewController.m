@@ -32,17 +32,19 @@
     
     self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     
-    
-    pickerArray = [[NSMutableArray alloc]initWithObjects:@"Food & Beverage", @"Shopping", @"legal & financial", @"business & professional services", @"real estate & home improvement", @"education", @"travel & tourism", @"community & government",
-                   @"health & medicine", @"personal care & services", @"automotive", @"arts, entertainment, & nightlife", 
-                   @"sports & recreation", nil];
-    
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonClicked:)];
     self.navigationItem.leftBarButtonItem = cancelButton;
     
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithTitle:@"Search" style:UIBarButtonItemStyleDone target:self action:@selector(searchButtonClicked:)];
     self.navigationItem.rightBarButtonItem = searchButton;
     prefs = [NSUserDefaults standardUserDefaults];
+    
+    NSMutableArray *tableContent = [NSMutableArray arrayWithObjects:@"MobMonkey User Image", @"MobMonkey User Video", @"MobMonkey Location Video", @"MobMonkey Location Live Streaming Video", nil];
+    [self setContentList:tableContent];
+    
+    if ([prefs integerForKey:@"savedSegmentValue"]) {
+        segmentedControl.selectedSegmentIndex = [prefs integerForKey:@"savedSegmentValue"];
+    }
 }
 
 - (void)viewDidUnload
@@ -72,55 +74,34 @@
 - (IBAction)segmentedControlSelected:(id)sender {
     [prefs setInteger:segmentedControl.selectedSegmentIndex forKey:@"savedSegmentValue"];
     [prefs synchronize];
-    
-    switch (segmentedControl.selectedSegmentIndex) {
-        case 0:
-            rangeSelection = @"5 blocks";
-            [prefs setDouble:10.0 forKey:@"filteredRadius"];
-            [prefs synchronize];
-            break;
-        case 1:
-            rangeSelection = @"1 mi";
-            [prefs setDouble:1609.0 forKey:@"filteredRadius"];
-            [prefs synchronize];
-            break;
-        case 2:
-            rangeSelection = @"5 mi";
-            [prefs setDouble:8046.0 forKey:@"filteredRadius"];
-            [prefs synchronize];
-            break;
-        case 3:
-            rangeSelection = @"10 mi";
-            [prefs setDouble:16093.0 forKey:@"filteredRadius"];
-            [prefs synchronize];
-            
-        default:
-            break;
-    }
 }
 
-#pragma mark UIPickerView Delegate Methods
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView;
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    // Return the number of sections.
     return 1;
 }
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    [prefs setValue:[pickerArray objectAtIndex:row] forKey:@"filteredCategory"];
-    [prefs setInteger:row forKey:@"savedPickerValue"];
-    [prefs synchronize];
+    return _contentList.count;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [pickerArray count];
+    id contentForThisRow = [_contentList objectAtIndex:indexPath.row];
+    
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    
+    cell.textLabel.text = contentForThisRow;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    return cell;
 }
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component;
-{
-    return [pickerArray objectAtIndex:row];
-}
-
 
 @end
