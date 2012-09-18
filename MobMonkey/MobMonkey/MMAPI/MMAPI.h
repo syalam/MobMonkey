@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <FacebookSDK/FacebookSDK.h>
 #import "AFJSONRequestOperation.h"
 
 @protocol MMAPIDelegate
@@ -63,8 +64,6 @@
 */
 -(void)signInUser:(NSDictionary*)params;
 
-
-
 /**
  sends media request
  @param media type is a string object to determine whether this is a video or photo request
@@ -82,6 +81,12 @@
  
 */
 -(void)requestMedia:(NSString*)mediaType params:(NSMutableDictionary*)params;
+
+/**
+ facebook sign in/sign up
+*/
+-(void)facebookSignIn;
+
 
 @property (nonatomic, assign)id<MMAPIDelegate> delegate;
 

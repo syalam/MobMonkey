@@ -240,10 +240,9 @@
             [params setObject:@"01238jkl123iu33bb93aa621864be0a927de9672cb13af16b0e9512398uiu123oiu" forKey:@"deviceId"];
         }
         [params setObject:@"iOS" forKey:@"deviceType"];
-        
-        MMAPI *mobMonkeyApi = [MMAPI alloc];
-        mobMonkeyApi.delegate = self;
-        [mobMonkeyApi signUpNewUser:params];
+
+        [MMAPI sharedAPI].delegate = self;
+        [[MMAPI sharedAPI]signUpNewUser:params];
     }
 }
 
@@ -252,20 +251,8 @@
 }
 
 - (IBAction)facebookButtonTapped:(id)sender {
-    [FBSession openActiveSessionWithPermissions:nil allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-        if (session.isOpen) {
-            FBRequest *me = [FBRequest requestForMe];
-            [me startWithCompletionHandler: ^(FBRequestConnection *connection,
-                                              NSDictionary<FBGraphUser> *my,
-                                              NSError *error) {
-                [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
-            }];
-        }
-        else {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to log you in. Please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-            [alert show];
-        }
-    }];
+    [MMAPI sharedAPI].delegate = self;
+    [[MMAPI sharedAPI] facebookSignIn];
 }
 
 - (IBAction)twitterButtonTapped:(id)sender {

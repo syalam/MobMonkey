@@ -73,6 +73,26 @@
         }
     }];
 }
-    
+
+#pragma mark - Facebook sign in/sign up
+-(void)facebookSignIn {
+    [FBSession openActiveSessionWithPermissions:nil allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        if (session.isOpen) {
+            FBRequest *me = [FBRequest requestForMe];
+            [me startWithCompletionHandler: ^(FBRequestConnection *connection,
+                                              NSDictionary<FBGraphUser> *my,
+                                              NSError *error) {
+                if (!error) {
+                    NSLog(@"%@", @"logged in");
+                }
+                else {
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to log you in. Please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+                    [alert show];
+                }
+                
+            }];
+        }
+    }];
+}
 
 @end
