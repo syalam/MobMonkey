@@ -13,8 +13,8 @@
 @protocol MMAPIDelegate
 
 @optional
-- (void)mmAPICallSuccessful:(NSDictionary*)response;
-- (void)mmAPICallFailed:(AFHTTPRequestOperation*)operation;
+- (void)MMAPICallSuccessful:(NSDictionary*)response;
+- (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation;
 
 
 @end

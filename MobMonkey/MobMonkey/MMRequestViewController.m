@@ -380,13 +380,13 @@
 }
 
 #pragma mark - MMAPI delegate methods
-- (void)mmAPICallSuccessful:(NSDictionary*)response {
+- (void)MMAPICallSuccessful:(NSDictionary*)response {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Your request has been sent" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
     NSLog(@"%@", response);
 }
-- (void)mmAPICallFailed:(AFHTTPRequestOperation*)operation {
+- (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
     NSString *responseString = operation.responseString;
     NSLog(@"%@", responseString);
 }

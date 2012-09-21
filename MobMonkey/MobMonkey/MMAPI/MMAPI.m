@@ -30,15 +30,15 @@
     [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
     [[MMHTTPClient sharedClient] postPath:@"signup/user" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON){
         NSLog(@"%@", JSON);
-        [_delegate mmAPICallSuccessful:JSON];
+        [_delegate MMAPICallSuccessful:JSON];
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         int statusCode = operation.response.statusCode;
         NSLog(@"%d", statusCode);
         if (statusCode == 200 || statusCode == 201) {
-            [_delegate mmAPICallSuccessful:[NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil]];
+            [_delegate MMAPICallSuccessful:[NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil]];
         }
         else {
-            [_delegate mmAPICallFailed:operation];
+            [_delegate MMAPICallFailed:operation];
         }
     }];
 }
@@ -48,9 +48,9 @@
     [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
     [[MMHTTPClient sharedClient] postPath:@"signin/user" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"%@", JSON);
-        [_delegate mmAPICallSuccessful:JSON];
+        [_delegate MMAPICallSuccessful:JSON];
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_delegate mmAPICallFailed:operation];
+        [_delegate MMAPICallFailed:operation];
     }];
 }
 
@@ -63,7 +63,7 @@
                                               NSError *error) {
                 if (!error) {
                     NSLog(@"%@", @"logged in");
-                    //TODO: send FB token to server
+                    //TODO: send FB token to server call
                 }
                 else {
                     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to log you in. Please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
@@ -81,9 +81,9 @@
     [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
     [[MMHTTPClient sharedClient] postPath:@"signup/user/oauth/facebook" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"%@", JSON);
-        [_delegate mmAPICallSuccessful:JSON];
+        [_delegate MMAPICallSuccessful:JSON];
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_delegate mmAPICallFailed:operation];
+        [_delegate MMAPICallFailed:operation];
     }];
 }
 
@@ -98,16 +98,16 @@
     [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
     [[MMHTTPClient sharedClient] postPath:[NSString stringWithFormat:@"requestmedia/%@", mediaType] parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"%@", JSON);
-        [_delegate mmAPICallSuccessful:JSON];
+        [_delegate MMAPICallSuccessful:JSON];
     }failure:^(AFHTTPRequestOperation *operation, id JSON) {
         int statusCode = operation.response.statusCode;
         if (statusCode == 200 || statusCode == 201) {
             id response = operation.responseString;
             NSLog(@"%@", response);
-            [_delegate mmAPICallSuccessful:response];
+            [_delegate MMAPICallSuccessful:response];
         }
         else {
-            [_delegate mmAPICallFailed:operation];
+            [_delegate MMAPICallFailed:operation];
         }
     }];
 }
@@ -120,16 +120,16 @@
     [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
     [[MMHTTPClient sharedClient] postPath:[NSString stringWithFormat:@"media/%@", mediaType] parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"%@", JSON);
-        [_delegate mmAPICallSuccessful:JSON];
+        [_delegate MMAPICallSuccessful:JSON];
     }failure:^(AFHTTPRequestOperation *operation, id JSON) {
         int statusCode = operation.response.statusCode;
         if (statusCode == 200 || statusCode == 201) {
             id response = operation.responseString;
             NSLog(@"%@", response);
-            [_delegate mmAPICallSuccessful:response];
+            [_delegate MMAPICallSuccessful:response];
         }
         else {
-            [_delegate mmAPICallFailed:operation];
+            [_delegate MMAPICallFailed:operation];
         }
     }];
 }
@@ -151,9 +151,9 @@
     [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
     [[MMHTTPClient sharedClient] postPath:@"/location" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"%@", JSON);
-        [_delegate mmAPICallSuccessful:JSON];
+        [_delegate MMAPICallSuccessful:JSON];
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_delegate mmAPICallFailed:operation];
+        [_delegate MMAPICallFailed:operation];
     }];
 }
 
@@ -166,9 +166,9 @@
     [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
     [[MMHTTPClient sharedClient] getPath:@"/inbox/openrequests" parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"%@", JSON);
-        [_delegate mmAPICallSuccessful:JSON];
+        [_delegate MMAPICallSuccessful:JSON];
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_delegate mmAPICallFailed:operation];
+        [_delegate MMAPICallFailed:operation];
     }];
 }
 
@@ -180,9 +180,9 @@
     [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
     [[MMHTTPClient sharedClient] getPath:@"/inbox/assignedrequests" parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"%@", JSON);
-        [_delegate mmAPICallSuccessful:JSON];
+        [_delegate MMAPICallSuccessful:JSON];
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_delegate mmAPICallFailed:operation];
+        [_delegate MMAPICallFailed:operation];
     }];
 }
 
