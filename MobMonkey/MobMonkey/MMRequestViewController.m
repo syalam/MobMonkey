@@ -77,6 +77,7 @@
     if (messageText) {
         [params setObject:messageText forKey:@"message"];
     }
+    
     [params setObject:@"12345" forKey:@"providerId"];
     [params setObject:@"6789" forKey:@"locationId"];
     if (selectedDuration) {
@@ -84,7 +85,11 @@
     }
     if (selectedScheduleDate) {
         NSLog(@"%@", selectedScheduleDate);
-        [params setObject:[NSNumber numberWithDouble:selectedScheduleDate.timeIntervalSince1970] forKey:@"scheduleDate"];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+        NSString *dateString = [dateFormatter stringFromDate:selectedScheduleDate];
+        NSLog(@"%@", dateString);
+        [params setObject:dateString forKey:@"scheduleDate"];
     }
     [params setObject:[NSNumber numberWithDouble:34.830256] forKey:@"latitude"];
     [params setObject:[NSNumber numberWithDouble:-111.812674] forKey:@"longitude"];
