@@ -55,17 +55,22 @@
  */
 -(void)signUpNewUser:(NSDictionary*)params;
 
+///---------------------------------------------
+/// @name Signing in an existing user
+///---------------------------------------------
 /**
  Signs in a user
  @param params Dictionary object containing captured sign in information:
  eMailAddress
  password
-
 */
 -(void)signInUser:(NSDictionary*)params;
 
+///---------------------------------------------
+/// @name Sends a media request to the server
+///---------------------------------------------
 /**
- sends media request
+ Sends media request
  @param media type is a string object to determine whether this is a video or photo request
  @param params dictionary object containing captured request information
  message
@@ -78,21 +83,30 @@
  latitude
  longitude
  radiusInYards
- 
 */
 -(void)requestMedia:(NSString*)mediaType params:(NSMutableDictionary*)params;
 
+///---------------------------------------------
+/// @name Sign's a user in with Facebook
+///---------------------------------------------
 /**
  facebook sign in/sign up
 */
 -(void)facebookSignIn;
 
-
+///---------------------------------------------
+/// @name Fetches a list of categories from the server
+///---------------------------------------------
 /**
  Retrieve list of categories from the server
  
 */
--(NSMutableArray *)retrieveCategories;
+-(NSMutableArray *)categories;
+
+-(void)openRequests;
+-(void)assignedRequests;
+-(void)addNewLocation:(NSDictionary*)params;
+
 
 
 @property (nonatomic, assign)id<MMAPIDelegate> delegate;
