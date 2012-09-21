@@ -11,6 +11,8 @@
 #import "SVProgressHUD.h"
 
 @implementation MMAPI
+
+#pragma mark - Singleton Method
 + (MMAPI *)sharedAPI {
     static MMAPI *_sharedAPI = nil;
     static dispatch_once_t onceToken;
@@ -21,6 +23,7 @@
     return _sharedAPI;
 }
 
+#pragma mark - Sign Up/Sign In Methods
 -(void)signUpNewUser:(NSDictionary*)params {
     NSLog(@"%@", params);
     [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:@"aba0007c-ebee-42db-bd52-7c9f02e3d371"];
@@ -51,6 +54,41 @@
     }];
 }
 
+-(void)facebookSignIn {
+    [FBSession openActiveSessionWithPermissions:nil allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        if (session.isOpen) {
+            FBRequest *me = [FBRequest requestForMe];
+            [me startWithCompletionHandler: ^(FBRequestConnection *connection,
+                                              NSDictionary<FBGraphUser> *my,
+                                              NSError *error) {
+                if (!error) {
+                    NSLog(@"%@", @"logged in");
+                    //TODO: send FB token to server
+                }
+                else {
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to log you in. Please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+                    [alert show];
+                }
+                
+            }];
+        }
+    }];
+}
+
+-(void)signUpWithFacebook:(NSDictionary*)params
+{
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:@"aba0007c-ebee-42db-bd52-7c9f02e3d371"];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [[MMHTTPClient sharedClient] postPath:@"signup/user/oauth/facebook" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSLog(@"%@", JSON);
+        [_delegate mmAPICallSuccessful:JSON];
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_delegate mmAPICallFailed:operation];
+    }];
+}
+
+#pragma mark - Request Media Methods
+
 -(void)requestMedia:(NSString*)mediaType params:(NSMutableDictionary*)params {
     NSLog(@"%@", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]);
     NSLog(@"%@", [[NSUserDefaults standardUserDefaults]valueForKey:@"password"]);
@@ -74,25 +112,10 @@
     }];
 }
 
-#pragma mark - Facebook sign in/sign up
--(void)facebookSignIn {
-    [FBSession openActiveSessionWithPermissions:nil allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-        if (session.isOpen) {
-            FBRequest *me = [FBRequest requestForMe];
-            [me startWithCompletionHandler: ^(FBRequestConnection *connection,
-                                              NSDictionary<FBGraphUser> *my,
-                                              NSError *error) {
-                if (!error) {
-                    NSLog(@"%@", @"logged in");
-                }
-                else {
-                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to log you in. Please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-                    [alert show];
-                }
-                
-            }];
-        }
-    }];
+//TODO: fulfill request
+-(void)fulfillRequestWithParams:(NSMutableDictionary*)params
+{
+    
 }
 
 #pragma mark - Retrieve categories
@@ -105,4 +128,16 @@
     return categoriesArray;
 }
 
+#pragma mark - Add Location
+-(void)addNewLocation:(NSDictionary*)params
+{
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:@"aba0007c-ebee-42db-bd52-7c9f02e3d371"];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [[MMHTTPClient sharedClient] postPath:@"/location" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSLog(@"%@", JSON);
+        [_delegate mmAPICallSuccessful:JSON];
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_delegate mmAPICallFailed:operation];
+    }];
+}
 @end
