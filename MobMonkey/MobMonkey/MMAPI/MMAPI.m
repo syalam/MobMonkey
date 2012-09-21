@@ -140,4 +140,34 @@
         [_delegate mmAPICallFailed:operation];
     }];
 }
+
+#pragma mark - Inbox 
+-(void)openRequests
+{
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:@"aba0007c-ebee-42db-bd52-7c9f02e3d371"];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
+    [[MMHTTPClient sharedClient] getPath:@"/inbox/openrequests" parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSLog(@"%@", JSON);
+        [_delegate mmAPICallSuccessful:JSON];
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_delegate mmAPICallFailed:operation];
+    }];
+}
+
+-(void)assignedRequests
+{
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:@"aba0007c-ebee-42db-bd52-7c9f02e3d371"];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
+    [[MMHTTPClient sharedClient] getPath:@"/inbox/assignedrequests" parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSLog(@"%@", JSON);
+        [_delegate mmAPICallSuccessful:JSON];
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_delegate mmAPICallFailed:operation];
+    }];
+}
+
 @end
