@@ -75,7 +75,7 @@
     }];
 }
 
--(void)signInWithFacebook:(NSDictionary*)params
+-(void)signUpWithFacebook:(NSDictionary*)params
 {
     [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:@"aba0007c-ebee-42db-bd52-7c9f02e3d371"];
     [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
@@ -85,7 +85,6 @@
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_delegate mmAPICallFailed:operation];
     }];
-
 }
 
 #pragma mark - Request Media Methods
@@ -113,6 +112,7 @@
     }];
 }
 
+//TODO: fulfill request
 -(void)fulfillRequestWithParams:(NSMutableDictionary*)params
 {
     
@@ -128,4 +128,16 @@
     return categoriesArray;
 }
 
+#pragma mark - Add Location
+-(void)addNewLocation:(NSDictionary*)params
+{
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:@"aba0007c-ebee-42db-bd52-7c9f02e3d371"];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [[MMHTTPClient sharedClient] postPath:@"/location" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSLog(@"%@", JSON);
+        [_delegate mmAPICallSuccessful:JSON];
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_delegate mmAPICallFailed:operation];
+    }];
+}
 @end
