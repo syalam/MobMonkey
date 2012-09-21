@@ -99,12 +99,32 @@
 ///---------------------------------------------
 /**
  Retrieve list of categories from the server
- 
+ @return An array of categories
 */
 -(NSMutableArray *)categories;
 
+///---------------------------------------------
+/// @name Fetches a list of open requests from the server
+///---------------------------------------------
+/**
+ Retrieve list of open requests from the server
+ */
 -(void)openRequests;
+
+///---------------------------------------------
+/// @name Fetches a list of assigned requests from the server
+///---------------------------------------------
+/**
+ Retrieve list of assigned requests from the server
+ */
 -(void)assignedRequests;
+
+///---------------------------------------------
+/// @name Adds a new location to the system
+///---------------------------------------------
+/**
+ Adds a new location to the system
+ */
 -(void)addNewLocation:(NSDictionary*)params;
 
 
