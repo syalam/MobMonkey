@@ -197,7 +197,7 @@
 }
 
 #pragma mark MMAPIDelegate Methods
-- (void)mmAPICallSuccessful:(NSDictionary*)response {
+- (void)MMAPICallSuccessful:(NSDictionary*)response {
     NSLog(@"%@", response);
     [[NSUserDefaults standardUserDefaults]setObject:emailTextField.text forKey:@"userName"];
     [[NSUserDefaults standardUserDefaults]setObject:passwordTextField.text forKey:@"password"];
@@ -205,7 +205,7 @@
     
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
-- (void)mmAPICallFailed:(AFHTTPRequestOperation*)operation {
+- (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
     NSString *responseString = operation.responseString;
     NSLog(@"%@", responseString);
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:responseString delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];

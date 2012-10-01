@@ -71,7 +71,7 @@
         self.navigationItem.leftBarButtonItem = filterButton;
 
         
-        [self setContentList:[[MMAPI sharedAPI]retrieveCategories]];
+        [self setContentList:[[MMAPI sharedAPI]categories]];
     }
     
     _mapNavBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
