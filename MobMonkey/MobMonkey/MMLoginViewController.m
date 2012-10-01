@@ -206,8 +206,8 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 - (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
-    NSString *responseString = operation.responseString;
-    NSLog(@"%@", responseString);
+    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+    NSString *responseString = [response valueForKey:@"description"];
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:responseString delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
 }

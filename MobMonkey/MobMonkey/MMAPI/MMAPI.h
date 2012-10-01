@@ -10,6 +10,12 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "AFJSONRequestOperation.h"
 
+
+typedef enum apiCall {
+    kAPICallOpenRequests,
+    kAPICallAssignedRequests,
+}apiCall;
+
 @protocol MMAPIDelegate
 
 @optional
@@ -127,6 +133,14 @@
  */
 -(void)addNewLocation:(NSDictionary*)params;
 
+
+///---------------------------------------------
+/// @name Send user's coordinates to the server to "check in"
+///---------------------------------------------
+/**
+ Checks in a user
+ */
+-(void)checkUserIn:(NSDictionary*)params;
 
 
 @property (nonatomic, assign)id<MMAPIDelegate> delegate;

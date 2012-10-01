@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMAPI.h"
 
-@interface MMInboxViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface MMInboxViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMAPIDelegate> {
+    int currentAPICall;
+}
 
 @property (nonatomic, retain)UIImageView *mmTitleImageView;
 @property (nonatomic, retain)IBOutlet UITableView *tableView;

@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Reyaad Sidique. All rights reserved.
 //
 
+#import "SVProgressHUD.h"
 #import "MMClientSDK.h"
 #import "MMInboxViewController.h"
 #import "MMSetTitleImage.h"
@@ -29,7 +30,6 @@
 {
     [super viewDidLoad];
     
-    NSMutableArray *tableContent;
     if (_categorySelected) {
         //Add custom back button to the nav bar
         UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
@@ -39,14 +39,14 @@
         UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
         self.navigationItem.leftBarButtonItem = backButton;
         
-        tableContent = [[NSMutableArray alloc]init];
     }
     else {
         [_screenBackground setImage:nil];
         [self.view setBackgroundColor:[UIColor whiteColor]];
-        tableContent = [NSMutableArray arrayWithObjects:@"Open requests", @"Answered requests", @"Requests from other users", nil];
+        NSMutableArray *tableContent = [NSMutableArray arrayWithObjects:@"Open requests", @"Answered requests", @"Requests from other users", nil];
+        [self setContentList:tableContent];
     }
-    [self setContentList:tableContent];
+    
 }
 
 - (void)viewDidUnload
@@ -139,13 +139,48 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:[_contentList objectAtIndex:indexPath.row]];
+    if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
+        [SVProgressHUD show];
+        [MMAPI sharedAPI].delegate = self;
+        switch (indexPath.row) {
+            case 0:
+                currentAPICall = kAPICallOpenRequests;
+                [[MMAPI sharedAPI]openRequests];
+                break;
+            case 1:
+                
+                break;
+            case 2:
+                currentAPICall = kAPICallAssignedRequests;
+                [[MMAPI sharedAPI]assignedRequests];
+                break;
+            default:
+                break;
+        }
+    }
+    else {
+        [[MMClientSDK sharedSDK]signInScreen:self];
+    }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - UInavbar action methods
 - (void)backButtonTapped:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - MMAPI Delegate Methods
+- (void)MMAPICallSuccessful:(NSDictionary*)response {
+    [SVProgressHUD dismiss];
+    NSLog(@"%@", response);
+}
+
+- (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
+    [SVProgressHUD dismiss];
+    NSLog(@"%d", operation.response.statusCode);
+    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+    NSLog(@"%@", response);
 }
 
 @end

@@ -131,6 +131,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
         [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%f", newLocation.coordinate.latitude] forKey:@"latitude"];
         [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%f", newLocation.coordinate.longitude] forKey:@"longitude"];
         [[NSUserDefaults standardUserDefaults]synchronize];
+        NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+        [params setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"] forKey:@"latitude"];
+        [params setObject:[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"] forKey:@"longitude"];
+        
+        [MMAPI sharedAPI].delegate = self;
+        [[MMAPI sharedAPI]checkUserIn:params];
     }
 }
 
@@ -158,5 +164,14 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
 {
 }
 */
+
+#pragma mark - MMAPI Delegate Methods
+- (void)MMAPICallSuccessful:(NSDictionary*)response {
+    NSLog(@"%@", response);
+}
+- (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
+    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+    NSLog(@"%@", response);
+}
 
 @end
