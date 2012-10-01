@@ -173,6 +173,7 @@
 		F77BD34A15F52AA100E76CA5 /* MMMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F77BD34615F52AA100E76CA5 /* MMMapViewController.xib */; };
 		F77BD35015F5321400E76CA5 /* MMLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD34F15F5321400E76CA5 /* MMLocationAnnotation.m */; };
 		F77BD35115F5321400E76CA5 /* MMLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD34F15F5321400E76CA5 /* MMLocationAnnotation.m */; };
+		F77D3E51161A1ED2000A818F /* MMClientSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = F77D3E50161A1ED2000A818F /* MMClientSDK.m */; };
 		F792DA4815FF4C8000F5CD85 /* MMSocialNetworksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F792DA4615FF4C8000F5CD85 /* MMSocialNetworksViewController.m */; };
 		F792DA4915FF4C8000F5CD85 /* MMSocialNetworksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F792DA4715FF4C8000F5CD85 /* MMSocialNetworksViewController.xib */; };
 		F792DA4D15FF4DB300F5CD85 /* MMSocialNetworksCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F792DA4C15FF4DB300F5CD85 /* MMSocialNetworksCell.m */; };
@@ -485,6 +486,8 @@
 		F77BD34C15F52D0900E76CA5 /* MMMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMapViewController.h; sourceTree = "<group>"; };
 		F77BD34E15F5321400E76CA5 /* MMLocationAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationAnnotation.h; sourceTree = "<group>"; };
 		F77BD34F15F5321400E76CA5 /* MMLocationAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationAnnotation.m; sourceTree = "<group>"; };
+		F77D3E4F161A1ED2000A818F /* MMClientSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMClientSDK.h; sourceTree = "<group>"; };
+		F77D3E50161A1ED2000A818F /* MMClientSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMClientSDK.m; sourceTree = "<group>"; };
 		F792DA4515FF4C8000F5CD85 /* MMSocialNetworksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSocialNetworksViewController.h; sourceTree = "<group>"; };
 		F792DA4615FF4C8000F5CD85 /* MMSocialNetworksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSocialNetworksViewController.m; sourceTree = "<group>"; };
 		F792DA4715FF4C8000F5CD85 /* MMSocialNetworksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSocialNetworksViewController.xib; sourceTree = "<group>"; };
@@ -785,6 +788,7 @@
 		F734A59A15F12A570090E85A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F77D3E4D161A1EB7000A818F /* MMClientSDK */,
 				F7E7568E15FE3A7F005C8D7C /* Twitter Accounts */,
 				F747F11215F43A48002E5567 /* TCImageView */,
 				F79B505315F3F8000004BE01 /* Set Title ImageView */,
@@ -1141,6 +1145,15 @@
 				F77BD34F15F5321400E76CA5 /* MMLocationAnnotation.m */,
 			);
 			name = "Location Annotation";
+			sourceTree = "<group>";
+		};
+		F77D3E4D161A1EB7000A818F /* MMClientSDK */ = {
+			isa = PBXGroup;
+			children = (
+				F77D3E4F161A1ED2000A818F /* MMClientSDK.h */,
+				F77D3E50161A1ED2000A818F /* MMClientSDK.m */,
+			);
+			name = MMClientSDK;
 			sourceTree = "<group>";
 		};
 		F792DA4415FF4C6500F5CD85 /* Social Networks */ = {
@@ -1679,6 +1692,7 @@
 				F71B9B351602A163003BED33 /* MMHTTPClient.m in Sources */,
 				F71BD704160877D9004E1ADB /* MMSearchCell.m in Sources */,
 				F71BD708160896C5004E1ADB /* MMCategoryCell.m in Sources */,
+				F77D3E51161A1ED2000A818F /* MMClientSDK.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

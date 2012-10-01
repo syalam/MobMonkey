@@ -10,6 +10,7 @@
 #import "MMSignUpViewController.h"
 #import "MMSetTitleImage.h"
 #import "SVProgressHUD.h"
+#import "MMClientSDK.h"
 
 
 @interface MMLoginViewController ()
@@ -181,9 +182,8 @@
 }
 
 - (IBAction)signUpButtonClicked:(id)sender {
-    MMSignUpViewController *myInfoVc = [[MMSignUpViewController alloc]initWithNibName:@"MMSignUpViewController" bundle:nil];
-    myInfoVc.title = @"Sign Up";
-    [self.navigationController pushViewController:myInfoVc animated:YES];
+    //show the sign up screen
+    [[MMClientSDK sharedSDK]signUpScreen:self];
 }
 
 - (void)backButtonTapped:(id)sender {

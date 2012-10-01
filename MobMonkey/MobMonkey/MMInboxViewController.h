@@ -13,5 +13,7 @@
 @property (nonatomic, retain)UIImageView *mmTitleImageView;
 @property (nonatomic, retain)IBOutlet UITableView *tableView;
 @property (nonatomic, retain)IBOutlet UIImageView *screenBackground;
+@property (nonatomic, retain)NSMutableArray *contentList;
+@property (nonatomic)BOOL categorySelected;
 
 @end

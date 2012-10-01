@@ -12,6 +12,7 @@
 #import "MMCategoryViewController.h"
 #import "MMSocialNetworksViewController.h"
 #import "MMSetTitleImage.h"
+#import "MMClientSDK.h"
 
 @interface MMSettingsViewController ()
 
@@ -198,6 +199,7 @@
 
 #pragma mark - UINavBar Methods
 - (IBAction)signInButtonTapped:(id)sender {
+    //if user name exists, the user is signed in. On this button tap, the user should be signed out
     if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userName"];
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"password"];
@@ -205,10 +207,10 @@
         
         [_signInButton setTitle:@"Sign In" forState:UIControlStateNormal];
     }
-    MMLoginViewController *signInVc = [[MMLoginViewController alloc]initWithNibName:@"MMLoginViewController" bundle:nil];
-    signInVc.title = @"Sign In";
-    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:signInVc];
-    [self.navigationController presentViewController:navC animated:YES completion:NULL];
+    //otherwise allow the user to sign in but calling the sign in screen
+    else {
+        [[MMClientSDK sharedSDK]signInScreen:self];
+    }
 }
 
 @end

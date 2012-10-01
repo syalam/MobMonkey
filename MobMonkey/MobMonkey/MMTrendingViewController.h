@@ -20,9 +20,7 @@
 
 @property (nonatomic, retain)NSMutableArray *sectionInfoArray;
 @property (nonatomic, retain)NSMutableArray *contentList;
-@property (nonatomic, strong) NSIndexPath* pinchedIndexPath;
-@property (nonatomic, assign) NSInteger openSectionIndex;
-@property (nonatomic, assign) CGFloat initialPinchHeight;
+@property (nonatomic)BOOL sectionSelected;
 
 
 @end

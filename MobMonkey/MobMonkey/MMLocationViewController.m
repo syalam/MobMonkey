@@ -13,6 +13,7 @@
 #import "MMSetTitleImage.h"
 #import "MMLoginViewController.h"
 #import "MMMapViewController.h"
+#import "MMClientSDK.h"
 
 @interface MMLocationViewController ()
 
@@ -53,6 +54,10 @@
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
     [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    self.navigationItem.leftBarButtonItem = backButton;
+    
     if ([[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]]) {
         [self.flagButton setBackgroundColor:[UIColor blueColor]];
     }
@@ -67,8 +72,7 @@
         [self.bookmarkButton setTitle:@"Unbookmark" forState:UIControlStateNormal];
     }
 
-    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
-    self.navigationItem.leftBarButtonItem = backButton;
+    
 }
 
 - (void)viewDidUnload
@@ -168,9 +172,7 @@
         [self.navigationController presentViewController:requestNavC animated:YES completion:NULL];
     }
     else {
-        MMLoginViewController *loginVC = [[MMLoginViewController alloc]initWithNibName:@"MMLoginViewController" bundle:nil];
-        UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:loginVC];
-        [self.navigationController presentViewController:navC animated:YES completion:NULL];
+        [[MMClientSDK sharedSDK]signInScreen:self];
     }
 }
 
@@ -230,7 +232,6 @@
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:[NSString stringWithFormat:@"row%dBookmarked", self.rowIndex]];
         [self.bookmarkButton setTitle:@"Unbookmark" forState:UIControlStateNormal];
     }
-
 }
 
 #pragma mark - Action Sheet Delegate Methods

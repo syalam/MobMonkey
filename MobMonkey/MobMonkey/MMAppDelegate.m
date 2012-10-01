@@ -19,6 +19,11 @@
     //initialize testflight SDK
     //[TestFlight takeOff:@"e6432d80aed42a955243c8d93a493dea_MTAwODk2MjAxMi0wNi0yMyAxODoxNzoxOC45NjMzMjY"];
     
+    
+    //REMOVE ME: Hardcode the partner ID
+    [[NSUserDefaults standardUserDefaults]setObject:@"aba0007c-ebee-42db-bd52-7c9f02e3d371" forKey:@"mmPartnerId"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    
     [FBProfilePictureView class];
     
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
@@ -36,23 +41,20 @@
     UIViewController *inboxVC = [[MMInboxViewController alloc] initWithNibName:@"MMInboxViewController" bundle:nil];
     UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithNibName:@"MMTrendingViewController" bundle:nil];
     UIViewController *searchVC = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
-    UIViewController *bookmarksVC = [[MMTrendingViewController alloc]initWithNibName:@"MMTrendingViewController" bundle:nil];
     UIViewController *settingsVC = [[MMSettingsViewController alloc]initWithNibName:@"MMSettingsViewController" bundle:nil];
     
     UINavigationController *inboxNavC = [[UINavigationController alloc]initWithRootViewController:inboxVC];
     UINavigationController *trendingNavC = [[UINavigationController alloc]initWithRootViewController:trendingVC];
     UINavigationController *searchNavC = [[UINavigationController alloc]initWithRootViewController:searchVC];
-    UINavigationController *bookmarksNavC = [[UINavigationController alloc]initWithRootViewController:bookmarksVC];
     UINavigationController *settingsNavC = [[UINavigationController alloc]initWithRootViewController:settingsVC];
     
     inboxVC.title = @"Inbox";
     trendingVC.title = @"Trending";
     searchVC.title = @"Search";
-    bookmarksVC.title = @"Bookmarks";
     settingsVC.title = @"Settings";
     
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = @[inboxNavC, searchNavC, trendingNavC, bookmarksNavC, settingsNavC];
+    self.tabBarController.viewControllers = @[inboxNavC, searchNavC, trendingNavC, settingsNavC];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;

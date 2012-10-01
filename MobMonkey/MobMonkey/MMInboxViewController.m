@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Reyaad Sidique. All rights reserved.
 //
 
+#import "MMClientSDK.h"
 #import "MMInboxViewController.h"
 #import "MMSetTitleImage.h"
 
@@ -28,13 +29,24 @@
 {
     [super viewDidLoad];
     
-    //self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    NSMutableArray *tableContent;
+    if (_categorySelected) {
+        //Add custom back button to the nav bar
+        UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+        [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+        
+        UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+        self.navigationItem.leftBarButtonItem = backButton;
+        
+        tableContent = [[NSMutableArray alloc]init];
+    }
+    else {
+        [_screenBackground setImage:nil];
+        [self.view setBackgroundColor:[UIColor whiteColor]];
+        tableContent = [NSMutableArray arrayWithObjects:@"Open requests", @"Answered requests", @"Requests from other users", nil];
+    }
+    [self setContentList:tableContent];
 }
 
 - (void)viewDidUnload
@@ -54,13 +66,13 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 0;
+    return _contentList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -68,7 +80,18 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    // Configure the cell...
+    if (!cell) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    if (_categorySelected) {
+        [cell.textLabel setTextColor:[UIColor whiteColor]];
+    }
+    else {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        [cell.textLabel setTextColor:[UIColor blackColor]];
+    }
+    cell.textLabel.text = [_contentList objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -116,13 +139,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:[_contentList objectAtIndex:indexPath.row]];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - UInavbar action methods
+- (void)backButtonTapped:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
