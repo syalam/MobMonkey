@@ -91,6 +91,7 @@
 		F734A63215F16B740090E85A /* MMSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A63015F16B720090E85A /* MMSettingsViewController.m */; };
 		F734A63315F16B740090E85A /* MMSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F734A63115F16B730090E85A /* MMSettingsViewController.xib */; };
 		F734A64015F17A5C0090E85A /* GetRelativeTime.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A63F15F17A5C0090E85A /* GetRelativeTime.m */; };
+		F73847DF161B84D2008AA874 /* PhoneNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F73847DE161B84D2008AA874 /* PhoneNumberFormatter.m */; };
 		F745180015F918980049277C /* MMNotificationSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F74517FE15F918980049277C /* MMNotificationSettingsViewController.m */; };
 		F745180115F918980049277C /* MMNotificationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F74517FF15F918980049277C /* MMNotificationSettingsViewController.xib */; };
 		F745181815F9F3AA0049277C /* MMFullScreenImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F745181615F9F3AA0049277C /* MMFullScreenImageViewController.m */; };
@@ -398,6 +399,8 @@
 		F734A63115F16B730090E85A /* MMSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSettingsViewController.xib; sourceTree = "<group>"; };
 		F734A63E15F17A5C0090E85A /* GetRelativeTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetRelativeTime.h; sourceTree = "<group>"; };
 		F734A63F15F17A5C0090E85A /* GetRelativeTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetRelativeTime.m; sourceTree = "<group>"; };
+		F73847DD161B84D2008AA874 /* PhoneNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneNumberFormatter.h; sourceTree = "<group>"; };
+		F73847DE161B84D2008AA874 /* PhoneNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneNumberFormatter.m; sourceTree = "<group>"; };
 		F74517FD15F918980049277C /* MMNotificationSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMNotificationSettingsViewController.h; sourceTree = "<group>"; };
 		F74517FE15F918980049277C /* MMNotificationSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMNotificationSettingsViewController.m; sourceTree = "<group>"; };
 		F74517FF15F918980049277C /* MMNotificationSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMNotificationSettingsViewController.xib; sourceTree = "<group>"; };
@@ -792,6 +795,7 @@
 		F734A59A15F12A570090E85A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F73847E1161B84EA008AA874 /* Phone Number Formatter */,
 				F77D3E4D161A1EB7000A818F /* MMClientSDK */,
 				F7E7568E15FE3A7F005C8D7C /* Twitter Accounts */,
 				F747F11215F43A48002E5567 /* TCImageView */,
@@ -951,6 +955,15 @@
 				F734A63F15F17A5C0090E85A /* GetRelativeTime.m */,
 			);
 			name = "Calc Time Ago";
+			sourceTree = "<group>";
+		};
+		F73847E1161B84EA008AA874 /* Phone Number Formatter */ = {
+			isa = PBXGroup;
+			children = (
+				F73847DD161B84D2008AA874 /* PhoneNumberFormatter.h */,
+				F73847DE161B84D2008AA874 /* PhoneNumberFormatter.m */,
+			);
+			name = "Phone Number Formatter";
 			sourceTree = "<group>";
 		};
 		F74517FB15F918600049277C /* Notification Settings */ = {
@@ -1707,6 +1720,7 @@
 				F71BD708160896C5004E1ADB /* MMCategoryCell.m in Sources */,
 				F77D3E51161A1ED2000A818F /* MMClientSDK.m in Sources */,
 				F77D3E5E161A9F6C000A818F /* MMInboxCell.m in Sources */,
+				F73847DF161B84D2008AA874 /* PhoneNumberFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

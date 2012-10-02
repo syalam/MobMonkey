@@ -14,6 +14,7 @@
 #import "MMLoginViewController.h"
 #import "MMMapViewController.h"
 #import "MMClientSDK.h"
+#import "PhoneNumberFormatter.h"
 
 @interface MMLocationViewController ()
 
@@ -117,7 +118,7 @@
     
     switch (indexPath.row) {
         case 0:
-            cell.textLabel.text = @"4808675309";
+            cell.textLabel.text = [[PhoneNumberFormatter alloc]stringForObjectValue:@"4808675309"];
             break;
         case 1:
             cell.textLabel.numberOfLines = 2;

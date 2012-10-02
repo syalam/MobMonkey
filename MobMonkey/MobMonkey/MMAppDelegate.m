@@ -39,22 +39,27 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     UIViewController *inboxVC = [[MMInboxViewController alloc] initWithNibName:@"MMInboxViewController" bundle:nil];
-    UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithNibName:@"MMTrendingViewController" bundle:nil];
     UIViewController *searchVC = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
+    UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithNibName:@"MMTrendingViewController" bundle:nil];
+    MMTrendingViewController *bookmarksVC = [[MMTrendingViewController alloc]initWithNibName:@"MMTrendingViewController" bundle:nil];
     UIViewController *settingsVC = [[MMSettingsViewController alloc]initWithNibName:@"MMSettingsViewController" bundle:nil];
     
     UINavigationController *inboxNavC = [[UINavigationController alloc]initWithRootViewController:inboxVC];
-    UINavigationController *trendingNavC = [[UINavigationController alloc]initWithRootViewController:trendingVC];
     UINavigationController *searchNavC = [[UINavigationController alloc]initWithRootViewController:searchVC];
+    UINavigationController *trendingNavC = [[UINavigationController alloc]initWithRootViewController:trendingVC];
+    UINavigationController *bookmarksNavC = [[UINavigationController alloc]initWithRootViewController:bookmarksVC];
     UINavigationController *settingsNavC = [[UINavigationController alloc]initWithRootViewController:settingsVC];
     
     inboxVC.title = @"Inbox";
-    trendingVC.title = @"Trending";
     searchVC.title = @"Search";
+    trendingVC.title = @"Trending";
+    bookmarksVC.title = @"Bookmarks";
     settingsVC.title = @"Settings";
     
+    bookmarksVC.sectionSelected = YES;
+    
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = @[inboxNavC, searchNavC, trendingNavC, settingsNavC];
+    self.tabBarController.viewControllers = @[inboxNavC, searchNavC, trendingNavC, bookmarksNavC, settingsNavC];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;
