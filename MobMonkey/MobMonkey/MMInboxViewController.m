@@ -10,6 +10,11 @@
 #import "MMClientSDK.h"
 #import "MMInboxViewController.h"
 #import "MMSetTitleImage.h"
+#import "MMInboxCell.h"
+
+#define FONT_SIZE 14.0f
+#define CELL_CONTENT_WIDTH 180.0f
+#define CELL_CONTENT_MARGIN 10.0f
 
 @interface MMInboxViewController ()
 
@@ -39,6 +44,7 @@
         UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
         self.navigationItem.leftBarButtonItem = backButton;
         
+        NSLog(@"%@", _contentList);
     }
     else {
         [_screenBackground setImage:nil];
@@ -78,22 +84,52 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
     if (_categorySelected) {
-        [cell.textLabel setTextColor:[UIColor whiteColor]];
+        MMInboxCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (!cell) {
+            cell = [[MMInboxCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
+        if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestDate"]isKindOfClass:[NSNull class]]) {
+            NSTimeInterval requestDate = [[[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestDate"]doubleValue];
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+            [dateFormatter setDateFormat:@"HH:mm"];
+            NSString *dateString = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:requestDate]];
+            cell.timestampLabel.text = dateString;
+        }
+        
+        if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"]isKindOfClass:[NSNull class]]) {
+            cell.locationNameLabel.text = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"];
+        }
+        if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"message"]isKindOfClass:[NSNull class]]) {
+            cell.messageLabel.text = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"message"];
+            [cell.messageLabel sizeToFit];
+        }
+        if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isKindOfClass:[NSNull class]]) {
+            NSString *mediaType;
+            if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 1) {
+                mediaType = @"Image";
+            }
+            else {
+                mediaType = @"Video";
+            }
+            cell.requestTypeLabel.text = mediaType;
+        }
+        
+        return cell;
     }
     else {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        if (!cell) {
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         [cell.textLabel setTextColor:[UIColor blackColor]];
+        cell.textLabel.text = [_contentList objectAtIndex:indexPath.row];
+        return cell;
     }
-    cell.textLabel.text = [_contentList objectAtIndex:indexPath.row];
     
-    return cell;
+    
 }
 
 /*
@@ -139,30 +175,56 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
-        [SVProgressHUD show];
-        [MMAPI sharedAPI].delegate = self;
-        switch (indexPath.row) {
-            case 0:
-                currentAPICall = kAPICallOpenRequests;
-                [[MMAPI sharedAPI]openRequests];
-                break;
-            case 1:
-                
-                break;
-            case 2:
-                currentAPICall = kAPICallAssignedRequests;
-                [[MMAPI sharedAPI]assignedRequests];
-                break;
-            default:
-                break;
-        }
+    if (_categorySelected) {
+        
     }
     else {
-        [[MMClientSDK sharedSDK]signInScreen:self];
+        if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
+            [SVProgressHUD show];
+            [MMAPI sharedAPI].delegate = self;
+            switch (indexPath.row) {
+                case 0:
+                    currentAPICall = kAPICallOpenRequests;
+                    [[MMAPI sharedAPI]openRequests];
+                    break;
+                case 1:
+                    
+                    break;
+                case 2:
+                    currentAPICall = kAPICallAssignedRequests;
+                    [[MMAPI sharedAPI]assignedRequests];
+                    break;
+                default:
+                    break;
+            }
+        }
+        else {
+            [[MMClientSDK sharedSDK]signInScreen:self];
+        }
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat cellHeight;
+
+    if (_categorySelected) {
+        NSString *message = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"message"];
+        CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
+        
+        CGSize size = [message sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+        
+        CGFloat height = MAX(size.height, 44.0f);
+        
+        cellHeight = height + (CELL_CONTENT_MARGIN * 2) + 50;
+    }
+    else {
+        return 45;
+    }
+    
+    
+    return cellHeight;
 }
 
 #pragma mark - UInavbar action methods
@@ -171,9 +233,18 @@
 }
 
 #pragma mark - MMAPI Delegate Methods
-- (void)MMAPICallSuccessful:(NSDictionary*)response {
+- (void)MMAPICallSuccessful:(id)response {
     [SVProgressHUD dismiss];
     NSLog(@"%@", response);
+    switch (currentAPICall) {
+        case kAPICallAssignedRequests:
+            [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Assigned Requests" inboxItems:response];
+            break;
+        case kAPICallOpenRequests:
+            [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Requests From Other Users" inboxItems:response];
+        default:
+            break;
+    }
 }
 
 - (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {

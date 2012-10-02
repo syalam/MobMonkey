@@ -91,8 +91,10 @@
         NSLog(@"%@", dateString);
         [params setObject:dateString forKey:@"scheduleDate"];
     }
-    [params setObject:[NSNumber numberWithDouble:34.830256] forKey:@"latitude"];
-    [params setObject:[NSNumber numberWithDouble:-111.812674] forKey:@"longitude"];
+    double latitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue];
+    double longitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue];
+    [params setObject:[NSNumber numberWithDouble:latitude] forKey:@"latitude"];
+    [params setObject:[NSNumber numberWithDouble:longitude] forKey:@"longitude"];
     [sendRequestApiCall requestMedia:@"image" params:params];
 }
 
@@ -380,7 +382,7 @@
 }
 
 #pragma mark - MMAPI delegate methods
-- (void)MMAPICallSuccessful:(NSDictionary*)response {
+- (void)MMAPICallSuccessful:(id)response {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Your request has been sent" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];

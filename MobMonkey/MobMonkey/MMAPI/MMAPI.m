@@ -164,7 +164,7 @@
     [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
     [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
     [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
-    [[MMHTTPClient sharedClient] getPath:@"/inbox/openrequests" parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[MMHTTPClient sharedClient] getPath:@"inbox/openrequests" parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"%@", JSON);
         [_delegate MMAPICallSuccessful:JSON];
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -178,7 +178,7 @@
     [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
     [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
     [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
-    [[MMHTTPClient sharedClient] getPath:@"/inbox/assignedrequests" parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[MMHTTPClient sharedClient] getPath:@"inbox/assignedrequests" parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"%@", JSON);
         [_delegate MMAPICallSuccessful:JSON];
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {

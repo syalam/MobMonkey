@@ -40,10 +40,11 @@
     [presentingViewController.navigationController pushViewController:myInfoVc animated:YES];
 }
 
-- (void)inboxScreen:(UIViewController*)presentingViewController selectedCategory:(NSString*)selectedCategory {
+- (void)inboxScreen:(UIViewController*)presentingViewController selectedCategory:(NSString*)selectedCategory inboxItems:(NSArray*)inboxItems {
     MMInboxViewController *inboxVC = [[MMInboxViewController alloc]initWithNibName:@"MMInboxViewController" bundle:nil];
     inboxVC.title = selectedCategory;
     inboxVC.categorySelected = YES;
+    inboxVC.contentList = [inboxItems mutableCopy];
     [presentingViewController.navigationController pushViewController:inboxVC animated:YES];
 }
 

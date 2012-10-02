@@ -15,7 +15,7 @@
 - (void)signInScreen:(UIViewController*)presentingViewController;
 - (void)signUpScreen:(UIViewController*)presentingViewController;
 
-- (void)inboxScreen:(UIViewController*)presentingViewController selectedCategory:(NSString*)selectedCategory;
+- (void)inboxScreen:(UIViewController*)presentingViewController selectedCategory:(NSString*)selectedCategory inboxItems:(NSArray*)inboxItems;
 - (void)trendingScreen:(UIViewController*)presentingViewController selectedCategory:(NSString*)selectedCategory;
 - (void)locationScreen:(UIViewController*)presentingViewController;
 

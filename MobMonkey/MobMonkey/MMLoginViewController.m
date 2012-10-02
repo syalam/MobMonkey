@@ -197,7 +197,7 @@
 }
 
 #pragma mark MMAPIDelegate Methods
-- (void)MMAPICallSuccessful:(NSDictionary*)response {
+- (void)MMAPICallSuccessful:(id)response {
     NSLog(@"%@", response);
     [[NSUserDefaults standardUserDefaults]setObject:emailTextField.text forKey:@"userName"];
     [[NSUserDefaults standardUserDefaults]setObject:passwordTextField.text forKey:@"password"];

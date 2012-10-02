@@ -354,7 +354,7 @@
 }
 
 #pragma mark - MMAPI Delegate Methods
-- (void)MMAPICallSuccessful:(NSDictionary*)response {
+- (void)MMAPICallSuccessful:(id)response {
     [[NSUserDefaults standardUserDefaults]setObject:_emailTextField.text forKey:@"userName"];
     [[NSUserDefaults standardUserDefaults]setObject:_passwordTextField.text forKey:@"password"];
     [[NSUserDefaults standardUserDefaults]synchronize];

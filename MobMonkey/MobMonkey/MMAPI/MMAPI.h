@@ -19,7 +19,7 @@ typedef enum apiCall {
 @protocol MMAPIDelegate
 
 @optional
-- (void)MMAPICallSuccessful:(NSDictionary*)response;
+- (void)MMAPICallSuccessful:(id)response;
 - (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation;
 
 
