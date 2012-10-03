@@ -62,9 +62,13 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (NSUInteger)supportedInterfaceOrientations
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return UIInterfaceOrientationPortrait;
+}
+
+-(BOOL) shouldAutorotate {
+    return YES;
 }
 
 #pragma mark - Table view data source

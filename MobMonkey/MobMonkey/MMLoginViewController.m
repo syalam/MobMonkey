@@ -12,7 +12,6 @@
 #import "SVProgressHUD.h"
 #import "MMClientSDK.h"
 
-
 @interface MMLoginViewController ()
 
 @end

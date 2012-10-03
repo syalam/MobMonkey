@@ -43,21 +43,21 @@
 						<string key="NSFrameSize">{480, 320}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="247589697"/>
+						<reference key="NSNextKeyView" ref="353631966"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="IBUIContentMode">1</int>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
-					<object class="IBUIWebView" id="247589697">
+					<object class="IBUIWebView" id="353631966">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{480, 320}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSNextKeyView" ref="934881223"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<object class="NSColor" key="IBUIBackgroundColor" id="557902380">
+						<object class="NSColor" key="IBUIBackgroundColor" id="82728776">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MAA</bytes>
 						</object>
@@ -117,7 +117,7 @@
 									<int key="type">2</int>
 									<double key="pointSize">15</double>
 								</object>
-								<object class="NSFont" key="IBUIFont" id="1007136040">
+								<object class="NSFont" key="IBUIFont" id="144552477">
 									<string key="NSName">Helvetica-Bold</string>
 									<double key="NSSize">15</double>
 									<int key="NSfFlags">16</int>
@@ -146,7 +146,7 @@
 									<string key="NSResourceName">ThumbUp~iphone.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="154887710"/>
-								<reference key="IBUIFont" ref="1007136040"/>
+								<reference key="IBUIFont" ref="144552477"/>
 							</object>
 							<object class="IBUIButton" id="227173784">
 								<reference key="NSNextResponder" ref="934881223"/>
@@ -154,6 +154,7 @@
 								<string key="NSFrame">{{10, 259}, {38, 38}}</string>
 								<reference key="NSSuperview" ref="934881223"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -170,7 +171,7 @@
 									<string key="NSResourceName">PopupBtn~iphone.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="154887710"/>
-								<reference key="IBUIFont" ref="1007136040"/>
+								<reference key="IBUIFont" ref="144552477"/>
 							</object>
 							<object class="IBUIButton" id="567892847">
 								<reference key="NSNextResponder" ref="934881223"/>
@@ -193,7 +194,7 @@
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="500154954"/>
 								<reference key="IBUIFontDescription" ref="154887710"/>
-								<reference key="IBUIFont" ref="1007136040"/>
+								<reference key="IBUIFont" ref="144552477"/>
 							</object>
 							<object class="IBUIButton" id="949462393">
 								<reference key="NSNextResponder" ref="934881223"/>
@@ -216,7 +217,7 @@
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="500154954"/>
 								<reference key="IBUIFontDescription" ref="154887710"/>
-								<reference key="IBUIFont" ref="1007136040"/>
+								<reference key="IBUIFont" ref="144552477"/>
 							</object>
 						</array>
 						<string key="NSFrame">{{409, 0}, {71, 320}}</string>
@@ -235,7 +236,7 @@
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="150300924"/>
-				<reference key="IBUIBackgroundColor" ref="557902380"/>
+				<reference key="IBUIBackgroundColor" ref="82728776"/>
 				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
 					<int key="IBUIInterfaceOrientation">3</int>
 					<int key="interfaceOrientation">3</int>
@@ -313,7 +314,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">webView</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="247589697"/>
+						<reference key="destination" ref="353631966"/>
 					</object>
 					<int key="connectionID">30</int>
 				</object>
@@ -377,7 +378,7 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="150300924"/>
 							<reference ref="934881223"/>
-							<reference ref="247589697"/>
+							<reference ref="353631966"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -442,7 +443,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">29</int>
-						<reference key="object" ref="247589697"/>
+						<reference key="object" ref="353631966"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</array>
@@ -573,10 +574,10 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="PopupBtn~iphone.png">{38, 38}</string>
-			<string key="ThumbDown~iphone.png">{18, 25}</string>
-			<string key="ThumbUp~iphone.png">{18, 25}</string>
-			<string key="ThumbsBG~iphone.png">{77, 38}</string>
+			<string key="PopupBtn~iphone.png">{16, 16}</string>
+			<string key="ThumbDown~iphone.png">{16, 16}</string>
+			<string key="ThumbUp~iphone.png">{16, 16}</string>
+			<string key="ThumbsBG~iphone.png">{16, 16}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1926</string>
 	</data>
