@@ -32,14 +32,21 @@
     
     
     [overlayButtonView setAlpha:0];
-    imageView.image = _imageToDisplay;
+    /*imageView.image = _imageToDisplay;
     if ([[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]]) {
         [self.flagButton setBackgroundColor:[UIColor blueColor]];
     }
     else {
-        [self.flagButton setBackgroundColor:[UIColor clearColor]];
-    }
+       [self.flagButton setBackgroundColor:[UIColor clearColor]];
+    }*/
+    
+    [webView loadData:UIImageJPEGRepresentation(_imageToDisplay, 1) MIMEType:@"image/jpeg" textEncodingName:nil baseURL:nil];
+    
 
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(overlayToggleButtonTapped:)];
+    tapGesture.delegate = self;
+    tapGesture.numberOfTapsRequired = 1;
+    [webView addGestureRecognizer:tapGesture];
     
     // Do any additional setup after loading the view from its nib.
 }
@@ -96,6 +103,12 @@
     UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", nil];
     [actionSheet showInView:self.view];
 
+}
+
+#pragma mark - UIGestureRecognizer Delegate methods
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    
+    return YES;
 }
 
 @end

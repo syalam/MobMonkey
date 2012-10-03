@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMFullScreenImageViewController : UIViewController <UIActionSheetDelegate> {
+@interface MMFullScreenImageViewController : UIViewController <UIActionSheetDelegate, UIGestureRecognizerDelegate> {
     IBOutlet UIImageView *imageView;
+    IBOutlet UIWebView *webView;
     IBOutlet UIView *overlayButtonView;
     IBOutlet UIButton *overlayToggleButton;
 }

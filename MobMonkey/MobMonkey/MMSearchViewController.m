@@ -274,4 +274,20 @@
     return YES;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField.text.length == 1) {
+        [self setContentList:[[MMAPI sharedAPI]categories]];
+        _showCategories = YES;
+        [self.tableView reloadData];
+    }
+    
+    return YES;
+}
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    [self setContentList:[[MMAPI sharedAPI]categories]];
+    _showCategories = YES;
+    [self.tableView reloadData];
+    return YES;
+}
+
 @end
