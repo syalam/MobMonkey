@@ -120,7 +120,6 @@
 		F7384889161C05B5008AA874 /* greyArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7384852161C05B5008AA874 /* greyArrow@2x.png */; };
 		F738488A161C05B5008AA874 /* lightGrayBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = F7384853161C05B5008AA874 /* lightGrayBtn.png */; };
 		F738488B161C05B5008AA874 /* lightGrayBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7384854161C05B5008AA874 /* lightGrayBtn@2x.png */; };
-		F738488C161C05B5008AA874 /* locationFullBg.png in Resources */ = {isa = PBXBuildFile; fileRef = F7384855161C05B5008AA874 /* locationFullBg.png */; };
 		F738488D161C05B5008AA874 /* makeRequestBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = F7384856161C05B5008AA874 /* makeRequestBtn.png */; };
 		F738488E161C05B5008AA874 /* makeRequestBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7384857161C05B5008AA874 /* makeRequestBtn@2x.png */; };
 		F738488F161C05B5008AA874 /* mapPin.png in Resources */ = {isa = PBXBuildFile; fileRef = F7384858161C05B5008AA874 /* mapPin.png */; };
@@ -147,6 +146,8 @@
 		F73848A4161C05B5008AA874 /* video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F738486D161C05B5008AA874 /* video@2x.png */; };
 		F73848A5161C05B5008AA874 /* videoCam.png in Resources */ = {isa = PBXBuildFile; fileRef = F738486E161C05B5008AA874 /* videoCam.png */; };
 		F73848A6161C05B5008AA874 /* videoCam@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F738486F161C05B5008AA874 /* videoCam@2x.png */; };
+		F73848A9161CB9B0008AA874 /* locationFullBg.png in Resources */ = {isa = PBXBuildFile; fileRef = F73848A7161CB9AC008AA874 /* locationFullBg.png */; };
+		F73848AA161CB9B0008AA874 /* locationFullBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F73848A8161CB9AE008AA874 /* locationFullBg@2x.png */; };
 		F745180015F918980049277C /* MMNotificationSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F74517FE15F918980049277C /* MMNotificationSettingsViewController.m */; };
 		F745180115F918980049277C /* MMNotificationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F74517FF15F918980049277C /* MMNotificationSettingsViewController.xib */; };
 		F745181815F9F3AA0049277C /* MMFullScreenImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F745181615F9F3AA0049277C /* MMFullScreenImageViewController.m */; };
@@ -456,7 +457,6 @@
 		F7384852161C05B5008AA874 /* greyArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greyArrow@2x.png"; sourceTree = "<group>"; };
 		F7384853161C05B5008AA874 /* lightGrayBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightGrayBtn.png; sourceTree = "<group>"; };
 		F7384854161C05B5008AA874 /* lightGrayBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lightGrayBtn@2x.png"; sourceTree = "<group>"; };
-		F7384855161C05B5008AA874 /* locationFullBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = locationFullBg.png; sourceTree = "<group>"; };
 		F7384856161C05B5008AA874 /* makeRequestBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = makeRequestBtn.png; sourceTree = "<group>"; };
 		F7384857161C05B5008AA874 /* makeRequestBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "makeRequestBtn@2x.png"; sourceTree = "<group>"; };
 		F7384858161C05B5008AA874 /* mapPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapPin.png; sourceTree = "<group>"; };
@@ -483,6 +483,8 @@
 		F738486D161C05B5008AA874 /* video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video@2x.png"; sourceTree = "<group>"; };
 		F738486E161C05B5008AA874 /* videoCam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoCam.png; sourceTree = "<group>"; };
 		F738486F161C05B5008AA874 /* videoCam@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "videoCam@2x.png"; sourceTree = "<group>"; };
+		F73848A7161CB9AC008AA874 /* locationFullBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = locationFullBg.png; sourceTree = "<group>"; };
+		F73848A8161CB9AE008AA874 /* locationFullBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "locationFullBg@2x.png"; sourceTree = "<group>"; };
 		F74517FD15F918980049277C /* MMNotificationSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMNotificationSettingsViewController.h; sourceTree = "<group>"; };
 		F74517FE15F918980049277C /* MMNotificationSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMNotificationSettingsViewController.m; sourceTree = "<group>"; };
 		F74517FF15F918980049277C /* MMNotificationSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMNotificationSettingsViewController.xib; sourceTree = "<group>"; };
@@ -1091,7 +1093,8 @@
 				F7384852161C05B5008AA874 /* greyArrow@2x.png */,
 				F7384853161C05B5008AA874 /* lightGrayBtn.png */,
 				F7384854161C05B5008AA874 /* lightGrayBtn@2x.png */,
-				F7384855161C05B5008AA874 /* locationFullBg.png */,
+				F73848A7161CB9AC008AA874 /* locationFullBg.png */,
+				F73848A8161CB9AE008AA874 /* locationFullBg@2x.png */,
 				F7384856161C05B5008AA874 /* makeRequestBtn.png */,
 				F7384857161C05B5008AA874 /* makeRequestBtn@2x.png */,
 				F7384858161C05B5008AA874 /* mapPin.png */,
@@ -1720,7 +1723,6 @@
 				F7384889161C05B5008AA874 /* greyArrow@2x.png in Resources */,
 				F738488A161C05B5008AA874 /* lightGrayBtn.png in Resources */,
 				F738488B161C05B5008AA874 /* lightGrayBtn@2x.png in Resources */,
-				F738488C161C05B5008AA874 /* locationFullBg.png in Resources */,
 				F738488D161C05B5008AA874 /* makeRequestBtn.png in Resources */,
 				F738488E161C05B5008AA874 /* makeRequestBtn@2x.png in Resources */,
 				F738488F161C05B5008AA874 /* mapPin.png in Resources */,
@@ -1747,6 +1749,8 @@
 				F73848A4161C05B5008AA874 /* video@2x.png in Resources */,
 				F73848A5161C05B5008AA874 /* videoCam.png in Resources */,
 				F73848A6161C05B5008AA874 /* videoCam@2x.png in Resources */,
+				F73848A9161CB9B0008AA874 /* locationFullBg.png in Resources */,
+				F73848AA161CB9B0008AA874 /* locationFullBg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

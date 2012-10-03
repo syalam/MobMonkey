@@ -62,14 +62,14 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+/*- (NSUInteger)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationPortrait;
 }
 
 -(BOOL) shouldAutorotate {
     return YES;
-}
+}*/
 
 #pragma mark - Table view data source
 
@@ -96,7 +96,7 @@
         if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestDate"]isKindOfClass:[NSNull class]]) {
             NSTimeInterval requestDate = [[[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestDate"]doubleValue];
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-            [dateFormatter setDateFormat:@"HH:mm"];
+            [dateFormatter setDateFormat:@"h:mm a"];
             NSString *dateString = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:requestDate]];
             cell.timestampLabel.text = dateString;
         }
@@ -214,19 +214,23 @@
     CGFloat cellHeight;
 
     if (_categorySelected) {
-        NSString *message = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"message"];
-        CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
-        
-        CGSize size = [message sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
-        
-        CGFloat height = MAX(size.height, 44.0f);
-        
-        cellHeight = height + (CELL_CONTENT_MARGIN * 2) + 50;
+        if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"message"]isKindOfClass:[NSNull class]]) {
+            NSString *message = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"message"];
+            CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
+            
+            CGSize size = [message sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+            
+            CGFloat height = MAX(size.height, 44.0f);
+            
+            cellHeight = height + (CELL_CONTENT_MARGIN * 2) + 50;
+        }
+        else {
+            cellHeight = 100;
+        }
     }
     else {
-        return 45;
+        cellHeight = 45;
     }
-    
     
     return cellHeight;
 }

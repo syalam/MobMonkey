@@ -44,11 +44,9 @@
     //set background color
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
     
-    [_overlayButtonView setAlpha:0];
-    
     
     //set location name label text and font
-    _locationNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15];
+    _locationNameLabel.textColor = [UIColor colorWithRed:.8941 green:.4509 blue:.1725 alpha:1];
     _locationNameLabel.text = self.title;
     
     //Add custom back button to the nav bar
@@ -66,14 +64,12 @@
         [self.flagButton setBackgroundColor:[UIColor clearColor]];
     }
 
-    if ([[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dBookmarked", self.rowIndex]]) {
-        [self.bookmarkButton setTitle:@"Bookmark" forState:UIControlStateNormal];
-    }
-    else {
-        [self.bookmarkButton setTitle:@"Unbookmark" forState:UIControlStateNormal];
-    }
+    [_notificationSettingImageView setHidden:YES];
+    [_notificationSettingLabel setHidden:YES];
 
-    
+    //TAPTHRU CODE. REMOVE ME
+    _phoneNumberLabel.text = @"480-867-5309";
+    _addressLabel.text = @"2 Infinite Loop\nCupertino, CA 95014";
 }
 
 - (void)viewDidUnload
@@ -115,9 +111,13 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    UIImageView *cellBGImageView = [[UIImageView alloc]init];
     
     switch (indexPath.row) {
         case 0:
+            [cell setFrame:CGRectMake(0, 0, 303, 44)];
+            cellBGImageView.image = [UIImage imageNamed:@"roundedRectSmall"];
+            [cell.contentView addSubview:cellBGImageView];
             cell.textLabel.text = [[PhoneNumberFormatter alloc]stringForObjectValue:@"4808675309"];
             break;
         case 1:
@@ -177,19 +177,17 @@
     }
 }
 
-- (IBAction)toggleButtonTapped:(id)sender {
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    [UIView beginAnimations:nil context:context];
-    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-    [UIView setAnimationDuration: 0.3];
-    [UIView setAnimationDelegate: self];
-    if (_overlayButtonView.alpha == 0) {
-        [_overlayButtonView setAlpha:1];
-    }
-    else {
-        [_overlayButtonView setAlpha:0];
-    }
-    [UIView commitAnimations];
+- (IBAction)phoneNumberButtonTapped:(id)sender {
+    NSString *urlString = [NSString stringWithFormat:@"tel:%@", _phoneNumberLabel.text];
+    NSString *escaped = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"%@", escaped);
+    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:escaped]];
+}
+- (IBAction)addressButtonTapped:(id)sender {
+    MMMapViewController *mmmVc = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
+    //TAPTHRU CODE. REPLACE WITH ADDRESS COMING BACK FROM API
+    mmmVc.address = @"2 Infinite Loop, Cupertino, CA 95014";
+    [self.navigationController pushViewController:mmmVc animated:YES];
 }
 
 - (IBAction)notificationSettingsButtonTapped:(id)sender {
@@ -213,14 +211,14 @@
 }
 
 - (IBAction)flagButtonTapped:(id)sender {
-    if (![[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]]) {
+    /*if (![[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]]) {
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]];
         [self.flagButton setBackgroundColor:[UIColor blueColor]];
     }
     else {
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]];
         [self.flagButton setBackgroundColor:[UIColor clearColor]];
-    }
+    }*/
     
 }
 
@@ -251,7 +249,8 @@
 
 #pragma mark - MMNotificationSettings delegate methods
 - (void)selectedSetting:(id)selectedNotificationSetting {
-    
+    [_notificationSettingLabel setHidden:NO];
+    [_notificationSettingImageView setHidden:NO];
 }
 
 @end

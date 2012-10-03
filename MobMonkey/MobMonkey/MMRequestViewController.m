@@ -78,8 +78,8 @@
         [params setObject:messageText forKey:@"message"];
     }
     
-    [params setObject:@"12345" forKey:@"providerId"];
-    [params setObject:@"6789" forKey:@"locationId"];
+    //[params setObject:@"12345" forKey:@"providerId"];
+    //[params setObject:@"6789" forKey:@"locationId"];
     if (selectedDuration) {
         [params setObject:selectedDuration forKey:@"duration"];
     }

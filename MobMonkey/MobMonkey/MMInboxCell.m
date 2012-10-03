@@ -25,6 +25,13 @@
         [_messageLabel setBackgroundColor:[UIColor clearColor]];
         [_timestampLabel setBackgroundColor:[UIColor clearColor]];
         
+        UIColor *textColor = [UIColor whiteColor];
+        
+        [_locationNameLabel setTextColor:textColor];
+        [_requestTypeLabel setTextColor:textColor];
+        [_messageLabel setTextColor:textColor];
+        [_timestampLabel setTextColor:textColor];
+        
         [_messageLabel setNumberOfLines:0];
         [_messageLabel setLineBreakMode:NSLineBreakByWordWrapping];
         
