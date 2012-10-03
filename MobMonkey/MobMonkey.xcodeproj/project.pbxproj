@@ -192,6 +192,8 @@
 		F747F15F15F4740B002E5567 /* MMSignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F15D15F4740B002E5567 /* MMSignUpViewController.xib */; };
 		F747F16315F4742D002E5567 /* MMLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F16115F4742C002E5567 /* MMLoginViewController.m */; };
 		F747F16415F4742D002E5567 /* MMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F16215F4742C002E5567 /* MMLoginViewController.xib */; };
+		F7716D4C161CF60B00578A90 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716D49161CF60B00578A90 /* NSData+Base64.m */; };
+		F7716D4D161CF60B00578A90 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716D4B161CF60B00578A90 /* NSString+Base64.m */; };
 		F77BD33F15F5252F00E76CA5 /* MMFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD33D15F5252F00E76CA5 /* MMFilterViewController.m */; };
 		F77BD34015F5252F00E76CA5 /* MMFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD33D15F5252F00E76CA5 /* MMFilterViewController.m */; };
 		F77BD34115F5252F00E76CA5 /* MMFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F77BD33E15F5252F00E76CA5 /* MMFilterViewController.xib */; };
@@ -538,6 +540,10 @@
 		F747F16015F4742B002E5567 /* MMLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLoginViewController.h; sourceTree = "<group>"; };
 		F747F16115F4742C002E5567 /* MMLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLoginViewController.m; sourceTree = "<group>"; };
 		F747F16215F4742C002E5567 /* MMLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLoginViewController.xib; sourceTree = "<group>"; };
+		F7716D48161CF60B00578A90 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		F7716D49161CF60B00578A90 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		F7716D4A161CF60B00578A90 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
+		F7716D4B161CF60B00578A90 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
 		F77BD33D15F5252F00E76CA5 /* MMFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMFilterViewController.m; sourceTree = "<group>"; };
 		F77BD33E15F5252F00E76CA5 /* MMFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMFilterViewController.xib; sourceTree = "<group>"; };
 		F77BD34315F5254900E76CA5 /* MMFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMFilterViewController.h; sourceTree = "<group>"; };
@@ -851,6 +857,7 @@
 		F734A59A15F12A570090E85A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F7716D47161CF60B00578A90 /* Base64 */,
 				F73847E1161B84EA008AA874 /* Phone Number Formatter */,
 				F77D3E4D161A1EB7000A818F /* MMClientSDK */,
 				F7E7568E15FE3A7F005C8D7C /* Twitter Accounts */,
@@ -1216,6 +1223,17 @@
 				F747F16615F47445002E5567 /* Sign up */,
 			);
 			name = Authentication;
+			sourceTree = "<group>";
+		};
+		F7716D47161CF60B00578A90 /* Base64 */ = {
+			isa = PBXGroup;
+			children = (
+				F7716D48161CF60B00578A90 /* NSData+Base64.h */,
+				F7716D49161CF60B00578A90 /* NSData+Base64.m */,
+				F7716D4A161CF60B00578A90 /* NSString+Base64.h */,
+				F7716D4B161CF60B00578A90 /* NSString+Base64.m */,
+			);
+			path = Base64;
 			sourceTree = "<group>";
 		};
 		F77BD33815F523E800E76CA5 /* Search Filter */ = {
@@ -1833,6 +1851,8 @@
 				F77D3E51161A1ED2000A818F /* MMClientSDK.m in Sources */,
 				F77D3E5E161A9F6C000A818F /* MMInboxCell.m in Sources */,
 				F73847DF161B84D2008AA874 /* PhoneNumberFormatter.m in Sources */,
+				F7716D4C161CF60B00578A90 /* NSData+Base64.m in Sources */,
+				F7716D4D161CF60B00578A90 /* NSString+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

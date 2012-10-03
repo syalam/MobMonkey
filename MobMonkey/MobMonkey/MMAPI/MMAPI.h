@@ -142,6 +142,14 @@ typedef enum apiCall {
  */
 -(void)checkUserIn:(NSDictionary*)params;
 
+///---------------------------------------------
+/// @name Responds to a request for an image
+///---------------------------------------------
+/**
+ Responds to a request for an image
+ */
+-(void)respondToImageRequest:(NSDictionary*)params;
+
 
 @property (nonatomic, assign)id<MMAPIDelegate> delegate;
 

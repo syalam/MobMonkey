@@ -78,8 +78,8 @@
         [params setObject:messageText forKey:@"message"];
     }
     
-    //[params setObject:@"12345" forKey:@"providerId"];
-    //[params setObject:@"6789" forKey:@"locationId"];
+    [params setObject:@"12345" forKey:@"providerId"];
+    [params setObject:@"6789" forKey:@"locationId"];
     if (selectedDuration) {
         [params setObject:selectedDuration forKey:@"duration"];
     }
@@ -91,10 +91,10 @@
         NSLog(@"%@", dateString);
         [params setObject:dateString forKey:@"scheduleDate"];
     }
-    double latitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue];
+    /*double latitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue];
     double longitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue];
     [params setObject:[NSNumber numberWithDouble:latitude] forKey:@"latitude"];
-    [params setObject:[NSNumber numberWithDouble:longitude] forKey:@"longitude"];
+    [params setObject:[NSNumber numberWithDouble:longitude] forKey:@"longitude"];*/
     [sendRequestApiCall requestMedia:@"image" params:params];
 }
 

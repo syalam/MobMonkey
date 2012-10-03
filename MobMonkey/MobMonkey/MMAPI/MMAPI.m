@@ -8,6 +8,7 @@
 
 #import "MMAPI.h"
 #import "MMHTTPClient.h"
+#import "NSData+Base64.h"
 #import "SVProgressHUD.h"
 
 @implementation MMAPI
@@ -186,7 +187,20 @@
     }];
 }
 
+-(void)respondToImageRequest:(NSDictionary*)params {
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [[MMHTTPClient sharedClient] postPath:@"/location" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSLog(@"%@", JSON);
+        [_delegate MMAPICallSuccessful:JSON];
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_delegate MMAPICallFailed:operation];
+    }];
+}
+
+#pragma mark - User Checkin
 -(void)checkUserIn:(NSDictionary*)params {
+    
     [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
     [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
@@ -198,5 +212,7 @@
         [_delegate MMAPICallFailed:operation];
     }];
 }
+
+
 
 @end
