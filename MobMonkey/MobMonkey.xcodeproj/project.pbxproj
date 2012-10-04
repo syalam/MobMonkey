@@ -229,6 +229,7 @@
 		F7716DBC161D848D00578A90 /* videoIcn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716DA0161D848D00578A90 /* videoIcn@2x.png */; };
 		F7716DC1161D865D00578A90 /* MMMakeRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716DBF161D865D00578A90 /* MMMakeRequestViewController.m */; };
 		F7716DC2161D865D00578A90 /* MMMakeRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7716DC0161D865D00578A90 /* MMMakeRequestViewController.xib */; };
+		F7716DCD161E1A8600578A90 /* MMUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716DCC161E1A8500578A90 /* MMUtilities.m */; };
 		F77BD34715F52AA100E76CA5 /* MMMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD34515F52AA100E76CA5 /* MMMapViewController.m */; };
 		F77BD34815F52AA100E76CA5 /* MMMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD34515F52AA100E76CA5 /* MMMapViewController.m */; };
 		F77BD34915F52AA100E76CA5 /* MMMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F77BD34615F52AA100E76CA5 /* MMMapViewController.xib */; };
@@ -615,6 +616,8 @@
 		F7716DBE161D865D00578A90 /* MMMakeRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMakeRequestViewController.h; sourceTree = "<group>"; };
 		F7716DBF161D865D00578A90 /* MMMakeRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMakeRequestViewController.m; sourceTree = "<group>"; };
 		F7716DC0161D865D00578A90 /* MMMakeRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMMakeRequestViewController.xib; sourceTree = "<group>"; };
+		F7716DCB161E1A8500578A90 /* MMUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMUtilities.h; sourceTree = "<group>"; };
+		F7716DCC161E1A8500578A90 /* MMUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMUtilities.m; sourceTree = "<group>"; };
 		F77BD34515F52AA100E76CA5 /* MMMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMapViewController.m; sourceTree = "<group>"; };
 		F77BD34615F52AA100E76CA5 /* MMMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMMapViewController.xib; sourceTree = "<group>"; };
 		F77BD34C15F52D0900E76CA5 /* MMMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMapViewController.h; sourceTree = "<group>"; };
@@ -930,6 +933,7 @@
 		F734A59A15F12A570090E85A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F7716DCE161E1A8E00578A90 /* Utility Class */,
 				F7716D47161CF60B00578A90 /* Base64 */,
 				F73847E1161B84EA008AA874 /* Phone Number Formatter */,
 				F77D3E4D161A1EB7000A818F /* MMClientSDK */,
@@ -1356,6 +1360,15 @@
 				F7716DC0161D865D00578A90 /* MMMakeRequestViewController.xib */,
 			);
 			name = "Make Request VC";
+			sourceTree = "<group>";
+		};
+		F7716DCE161E1A8E00578A90 /* Utility Class */ = {
+			isa = PBXGroup;
+			children = (
+				F7716DCB161E1A8500578A90 /* MMUtilities.h */,
+				F7716DCC161E1A8500578A90 /* MMUtilities.m */,
+			);
+			name = "Utility Class";
 			sourceTree = "<group>";
 		};
 		F77BD33815F523E800E76CA5 /* Search Filter */ = {
@@ -2006,6 +2019,7 @@
 				F7716D4D161CF60B00578A90 /* NSString+Base64.m in Sources */,
 				F7716D6C161D56F900578A90 /* MMFilterViewController.m in Sources */,
 				F7716DC1161D865D00578A90 /* MMMakeRequestViewController.m in Sources */,
+				F7716DCD161E1A8600578A90 /* MMUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,9 @@
 #import "MMSetTitleImage.h"
 #import "MMMapViewController.h"
 #import "MMCategoryViewController.h"
+#import "MMUtilities.h"
+#import "MMClientSDK.h"
+#import "SVProgressHUD.h"
 
 @interface MMSearchViewController ()
 
@@ -106,7 +109,12 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return _contentList.count;
+    if (_showCategories) {
+        return _contentList.count;
+    }
+    else {
+        return 1;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -117,7 +125,7 @@
         return sectionArray.count;
     }
     else {
-        return 1;
+        return _contentList.count;
     }
 }
 
@@ -142,6 +150,7 @@
         return cell;
     }
     else {
+        id contentForThisRow = [_contentList objectAtIndex:indexPath.row];
         MMSearchCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         cell = [[MMSearchCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.delegate = self;
@@ -151,9 +160,10 @@
         if (indexPath.section % 2 > 0) {
             cell.mmSearchCellMMEnabledIndicator.image = [UIImage imageNamed:@"monkey.jpg"];
         }
-        cell.mmSearchCellLocationNameLabel.text = @"Nando's";
-        cell.mmSearchCellAddressLabel.text = @"750 W. Baseline Rd. Tempe, AZ 85283";
-        cell.mmSearchCellDistanceLabel.text = @"15 miles";
+        cell.mmSearchCellLocationNameLabel.text = [contentForThisRow valueForKey:@"name"];
+        cell.mmSearchCellAddressLabel.text = [NSString stringWithFormat:@"%@, %@, %@ %@", [contentForThisRow valueForKey:@"streetAddress"], [contentForThisRow valueForKey:@"locality"], [contentForThisRow valueForKey:@"region"], [contentForThisRow valueForKey:@"postcode"]];
+        float distance = [[MMUtilities sharedUtilities]calculateDistance:[contentForThisRow valueForKey:@"latitude"] longitude:[contentForThisRow valueForKey:@"longitude"]];
+        cell.mmSearchCellDistanceLabel.text = [NSString stringWithFormat:@"%.2f miles", distance];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -218,10 +228,7 @@
         [self.navigationController pushViewController:svc animated:YES];*/
     }
     else {
-        MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
-        //REPLACE WITH REAL LOCATION NAME
-        locationVC.title = @"Nandos";
-        [self.navigationController pushViewController:locationVC animated:YES];
+        [[MMClientSDK sharedSDK]locationScreen:self locationDetail:[_contentList objectAtIndex:indexPath.row]];
     }
 }
 
@@ -299,11 +306,20 @@
     if (filters) {
         [params setObject:[filters valueForKey:@"radius"] forKey:@"radiusInYards"];
     }
-    currentAPICall = kAPICallGlobSearch;
+    else {
+        [params setObject:[NSNumber numberWithInt:200] forKey:@"radiusInYards"];
+    }
+    
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:params
+                                                       options:NSJSONWritingPrettyPrinted error:nil];
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+    
+    NSLog(@"%@", jsonObject);
+    
+    [SVProgressHUD showWithStatus:@"Searching"];
+    currentAPICall = kAPICallLocationSearch;
     [MMAPI sharedAPI].delegate = self;
     [[MMAPI sharedAPI]searchForLocation:params];
-    
-    _showCategories = NO;
     
     [textField resignFirstResponder];
     return YES;
@@ -340,6 +356,7 @@
 
 #pragma mark - MMAPI Delegate Methods
 - (void)MMAPICallSuccessful:(id)response {
+    [SVProgressHUD dismiss];
     switch (currentAPICall) {
         case kAPICallGetCategoryList: {
             categories = response;
@@ -348,8 +365,11 @@
             [self.tableView reloadData];
         }
             break;
-        case kAPICallGlobSearch:
+        case kAPICallLocationSearch:
             NSLog(@"%@", response);
+            _showCategories = NO;
+            searchResult = response;
+            [self setContentList:[searchResult mutableCopy]];
             [self.tableView reloadData];
             [tapGesture setEnabled:NO];
             break;
@@ -358,6 +378,7 @@
     }
 }
 - (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
+    [SVProgressHUD dismiss];
     NSString *responseString = operation.responseString;
     int responseCode = operation.response.statusCode;
     NSLog(@"Status Code:%d, Response:%@", responseCode, responseString);

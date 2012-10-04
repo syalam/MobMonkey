@@ -353,7 +353,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="Background~iphone.png">{16, 16}</string>
+			<string key="Background~iphone.png">{320, 480}</string>
 			<string key="SearchBG~iphone.png">{320, 82}</string>
 			<string key="SearchCategory~iphone.png">{312, 30}</string>
 		</dictionary>

@@ -13,6 +13,8 @@
 
 @interface MMLocationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MMNotificationSettingsDelegate>
 
+@property (nonatomic, retain)NSDictionary* contentList;
+
 @property (nonatomic, readonly)IBOutlet UIScrollView *scrollView;
 
 @property (nonatomic, retain)IBOutlet UIView *overlayButtonView;

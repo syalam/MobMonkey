@@ -19,6 +19,7 @@
     UITapGestureRecognizer *tapGesture;
     int currentAPICall;
     NSArray *categories;
+    NSArray *searchResult;
 }
 
 

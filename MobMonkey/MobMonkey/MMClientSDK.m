@@ -55,10 +55,9 @@
     [presentingViewController.navigationController pushViewController:trendingVC animated:YES];
 }
 
-- (void)locationScreen:(UIViewController*)presentingViewController {
+- (void)locationScreen:(UIViewController*)presentingViewController locationDetail:(NSDictionary*)locationDetail {
     MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
-    //REPLACE WITH REAL LOCATION NAME;
-    locationVC.title = @"Nando's";
+    locationVC.contentList = locationDetail;
     [presentingViewController.navigationController pushViewController:locationVC animated:YES];
 }
 

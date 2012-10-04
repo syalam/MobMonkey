@@ -47,7 +47,6 @@
     
     //set location name label text and font
     _locationNameLabel.textColor = [UIColor colorWithRed:.8941 green:.4509 blue:.1725 alpha:1];
-    _locationNameLabel.text = self.title;
     
     //Add custom back button to the nav bar
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
@@ -66,10 +65,9 @@
 
     [_notificationSettingImageView setHidden:YES];
     [_notificationSettingLabel setHidden:YES];
-
-    //TAPTHRU CODE. REMOVE ME
-    _phoneNumberLabel.text = @"480-867-5309";
-    _addressLabel.text = @"2 Infinite Loop\nCupertino, CA 95014";
+    
+    //Set location detail items to display
+    [self setLocationDetailItems];
 }
 
 - (void)viewDidUnload
@@ -185,8 +183,7 @@
 }
 - (IBAction)addressButtonTapped:(id)sender {
     MMMapViewController *mmmVc = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
-    //TAPTHRU CODE. REPLACE WITH ADDRESS COMING BACK FROM API
-    mmmVc.address = @"2 Infinite Loop, Cupertino, CA 95014";
+    mmmVc.address = [NSString stringWithFormat:@"%@ %@, %@ %@", [_contentList valueForKey:@"streetAddress"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];
     [self.navigationController pushViewController:mmmVc animated:YES];
 }
 
@@ -251,6 +248,13 @@
 - (void)selectedSetting:(id)selectedNotificationSetting {
     [_notificationSettingLabel setHidden:NO];
     [_notificationSettingImageView setHidden:NO];
+}
+
+#pragma mark - Helper Methods
+- (void)setLocationDetailItems {
+    _locationNameLabel.text = [_contentList valueForKey:@"name"];
+    _phoneNumberLabel.text = [_contentList valueForKey:@"phoneNumber"];
+    _addressLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", [_contentList valueForKey:@"streetAddress"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];
 }
 
 @end

@@ -16,7 +16,7 @@ typedef enum apiCall {
     kAPICallAssignedRequests,
     kAPICallFulfillRequest,
     kAPICallGetCategoryList,
-    kAPICallGlobSearch,
+    kAPICallLocationSearch,
 }apiCall;
 
 @protocol MMAPIDelegate

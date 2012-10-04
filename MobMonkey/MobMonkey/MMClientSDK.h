@@ -17,6 +17,6 @@
 
 - (void)inboxScreen:(UIViewController*)presentingViewController selectedCategory:(NSString*)selectedCategory inboxItems:(NSArray*)inboxItems;
 - (void)trendingScreen:(UIViewController*)presentingViewController selectedCategory:(NSString*)selectedCategory;
-- (void)locationScreen:(UIViewController*)presentingViewController;
+- (void)locationScreen:(UIViewController*)presentingViewController locationDetail:(NSDictionary*)locationDetail;
 
 @end

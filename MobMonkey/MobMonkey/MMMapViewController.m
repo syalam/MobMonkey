@@ -37,13 +37,18 @@
     
     radiusPickerItemsArray = [[NSMutableArray alloc]initWithObjects:@"5 blocks", @"1 mile", @"5 miles", @"10 miles", nil];
     
-    UIButton *searchNavButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    //TODO: RE-ADD SEARCH BAR
+    
+    //TEMPORARILY REMOVE ME
+    /*UIButton *searchNavButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [searchNavButton setFrame:CGRectMake(0, 0, 60, 30)];
     [searchNavButton addTarget:self action:@selector(searchButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [searchNavButton setBackgroundImage:[UIImage imageNamed:@"NavSearchBtn~iphone"] forState:UIControlStateNormal];
     
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithCustomView:searchNavButton];
-    self.navigationItem.rightBarButtonItem = searchButton;
+    self.navigationItem.rightBarButtonItem = searchButton;*/
+
     
     //Add custom back button to the nav bar
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
