@@ -167,7 +167,7 @@
 #pragma mark - IBAction Methods
 - (IBAction)makeRequestButtonTapped:(id)sender {
     if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
-        MMRequestViewController *requestVC = [[MMRequestViewController alloc]initWithNibName:@"MMRequestViewController" bundle:nil];
+        MMMakeRequestViewController *requestVC = [[MMMakeRequestViewController alloc]initWithNibName:@"MMMakeRequestViewController" bundle:nil];
         requestVC.title = @"Make a Request";
         UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
         [self.navigationController presentViewController:requestNavC animated:YES completion:NULL];
@@ -202,12 +202,12 @@
 }
 
 - (void)enlargeButtonTapped:(id)sender {
-    MMFullScreenImageViewController *fullScreenVC = [[MMFullScreenImageViewController alloc]initWithNibName:@"MMFullScreenImageViewController" bundle:nil];
+   /* MMFullScreenImageViewController *fullScreenVC = [[MMFullScreenImageViewController alloc]initWithNibName:@"MMFullScreenImageViewController" bundle:nil];
     fullScreenVC.imageToDisplay = _locationLatestImageView.image;
     fullScreenVC.rowIndex = self.rowIndex;
     UINavigationController *fullScreenNavC = [[UINavigationController alloc]initWithRootViewController:fullScreenVC];
     fullScreenNavC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self.navigationController presentViewController:fullScreenNavC animated:YES completion:NULL];
+    [self.navigationController presentViewController:fullScreenNavC animated:YES completion:NULL];*/
 }
 
 - (IBAction)flagButtonTapped:(id)sender {

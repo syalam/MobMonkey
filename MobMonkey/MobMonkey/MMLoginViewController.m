@@ -165,9 +165,9 @@
         [params setObject:emailTextField.text forKey:@"eMailAddress"];
         [params setObject:passwordTextField.text forKey:@"password"];
         
-        MMAPI *mmAPI = [[MMAPI alloc]init];
-        mmAPI.delegate = self;
-        [mmAPI signInUser:params];
+        [SVProgressHUD showWithStatus:@"Signing In"];
+        [MMAPI sharedAPI].delegate = self;
+        [[MMAPI sharedAPI] signInUser:params];
     }
 }
 
@@ -198,6 +198,7 @@
 #pragma mark MMAPIDelegate Methods
 - (void)MMAPICallSuccessful:(id)response {
     NSLog(@"%@", response);
+    [SVProgressHUD dismissWithSuccess:@"Signed In"];
     [[NSUserDefaults standardUserDefaults]setObject:emailTextField.text forKey:@"userName"];
     [[NSUserDefaults standardUserDefaults]setObject:passwordTextField.text forKey:@"password"];
     [[NSUserDefaults standardUserDefaults]synchronize];
@@ -207,8 +208,8 @@
 - (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
     NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
     NSString *responseString = [response valueForKey:@"description"];
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:responseString delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    [alert show];
+    
+    [SVProgressHUD dismissWithError:responseString];
 }
 
 @end

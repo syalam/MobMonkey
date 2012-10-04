@@ -208,7 +208,7 @@
     }
     else {
         if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
-            [SVProgressHUD show];
+            //[SVProgressHUD show];
             [MMAPI sharedAPI].delegate = self;
             switch (indexPath.row) {
                 case 0:

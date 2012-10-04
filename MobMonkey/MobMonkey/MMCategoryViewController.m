@@ -29,10 +29,6 @@
 {
     [super viewDidLoad];
     
-    [MMAPI sharedAPI].delegate = self;
-    [[MMAPI sharedAPI]categories];
-    
-    
     selectedItemsDictionary = [[NSMutableDictionary alloc]initWithCapacity:1];
     
     
@@ -43,6 +39,10 @@
     
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    [MMAPI sharedAPI].delegate = self;
+    [[MMAPI sharedAPI]categories];
+
 }
 
 - (void)viewDidUnload

@@ -81,6 +81,10 @@
         [_mapView setRegion:region animated:YES];
         [_mapView regionThatFits:region];
     }
+    
+    //DEMO CODE. REMOVE ME
+    [addLocationButton setHidden:YES];
+    [radiusButton setHidden:YES];
 }
 
 

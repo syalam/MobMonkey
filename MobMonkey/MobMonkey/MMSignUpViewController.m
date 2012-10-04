@@ -240,7 +240,7 @@
             [params setObject:@"01238jkl123iu33bb93aa621864be0a927de9672cb13af16b0e9512398uiu123oiu" forKey:@"deviceId"];
         }
         [params setObject:@"iOS" forKey:@"deviceType"];
-
+        [SVProgressHUD showWithStatus:@"Signing Up"];
         [MMAPI sharedAPI].delegate = self;
         [[MMAPI sharedAPI]signUpNewUser:params];
     }
@@ -355,12 +355,14 @@
 
 #pragma mark - MMAPI Delegate Methods
 - (void)MMAPICallSuccessful:(id)response {
+    [SVProgressHUD dismissWithSuccess:@"Sign Up Successful"];
     [[NSUserDefaults standardUserDefaults]setObject:_emailTextField.text forKey:@"userName"];
     [[NSUserDefaults standardUserDefaults]setObject:_passwordTextField.text forKey:@"password"];
     [[NSUserDefaults standardUserDefaults]synchronize];
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 - (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
+    [SVProgressHUD dismissWithError:@"Sign Up Failed"];
     NSString *responseString = operation.responseString;
     NSLog(@"%@", responseString);
 }
