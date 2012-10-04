@@ -77,10 +77,10 @@
     if (messageText) {
         [params setObject:messageText forKey:@"message"];
     }
-    
-    [params setObject:@"12345" forKey:@"providerId"];
-    [params setObject:@"6789" forKey:@"locationId"];
+    [params setObject:@"222e736f-c7fa-4c40-b78e-d99243441fae" forKey:@"providerId"];
+    [params setObject:@"eeb203e7-a4f0-4318-be8b-b00f613c7e37" forKey:@"locationId"];
     if (selectedDuration) {
+        NSLog(@"%@", selectedDuration);
         [params setObject:selectedDuration forKey:@"duration"];
     }
     if (selectedScheduleDate) {
@@ -91,10 +91,9 @@
         NSLog(@"%@", dateString);
         [params setObject:dateString forKey:@"scheduleDate"];
     }
-    /*double latitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue];
-    double longitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue];
-    [params setObject:[NSNumber numberWithDouble:latitude] forKey:@"latitude"];
-    [params setObject:[NSNumber numberWithDouble:longitude] forKey:@"longitude"];*/
+    [params setObject:[NSNumber numberWithInt:1000] forKey:@"radiusInYards"];
+    [params setObject:[NSNumber numberWithBool:NO] forKey:@"recurring"];
+    
     [sendRequestApiCall requestMedia:@"image" params:params];
 }
 

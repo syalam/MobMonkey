@@ -14,6 +14,7 @@
 typedef enum apiCall {
     kAPICallOpenRequests,
     kAPICallAssignedRequests,
+    kAPICallFulfillRequest,
 }apiCall;
 
 @protocol MMAPIDelegate
@@ -143,12 +144,13 @@ typedef enum apiCall {
 -(void)checkUserIn:(NSDictionary*)params;
 
 ///---------------------------------------------
-/// @name Responds to a request for an image
+/// @name fulfills a request for a video or image
 ///---------------------------------------------
 /**
- Responds to a request for an image
+ Fulfills a request
  */
--(void)respondToImageRequest:(NSDictionary*)params;
+-(void)fulfillRequest:(NSString*)mediaType params:(NSMutableDictionary*)params;
+
 
 
 @property (nonatomic, assign)id<MMAPIDelegate> delegate;

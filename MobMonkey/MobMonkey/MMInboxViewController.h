@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MobileCoreServices/UTCoreTypes.h>
 #import "MMAPI.h"
 
-@interface MMInboxViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMAPIDelegate> {
+@interface MMInboxViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMAPIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
     int currentAPICall;
+    NSString *selectedRequestId;
 }
 
 @property (nonatomic, retain)UIImageView *mmTitleImageView;

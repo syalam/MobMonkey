@@ -11,6 +11,7 @@
 #import "MMInboxViewController.h"
 #import "MMSetTitleImage.h"
 #import "MMInboxCell.h"
+#import "NSData+Base64.h"
 
 #define FONT_SIZE 14.0f
 #define CELL_CONTENT_WIDTH 180.0f
@@ -49,7 +50,7 @@
     else {
         [_screenBackground setImage:nil];
         [self.view setBackgroundColor:[UIColor whiteColor]];
-        NSMutableArray *tableContent = [NSMutableArray arrayWithObjects:@"Open requests", @"Answered requests", @"Requests from other users", nil];
+        NSMutableArray *tableContent = [NSMutableArray arrayWithObjects:@"Open Requests", @"Answered Requests", @"Assigned Requests", nil];
         [self setContentList:tableContent];
     }
     
@@ -180,7 +181,30 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (_categorySelected) {
-        
+        if ([self.title isEqualToString:@"Assigned Requests"]) {
+            selectedRequestId = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestId"];
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                UIImagePickerController* picker = [[UIImagePickerController alloc] init];
+                picker.delegate = self;
+                picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                picker.showsCameraControls = YES;
+                
+                if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 1) {
+                    picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+                    picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+                }
+                else {
+                    [picker setVideoMaximumDuration:10];
+                    picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
+                    picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+                }
+                [self presentViewController:picker animated:YES completion:nil];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Unable to take a video using this device" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+        }
     }
     else {
         if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
@@ -240,6 +264,46 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark - UIImagePickerController Delegate Methods
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [SVProgressHUD showWithStatus:@"Saving"];
+    NSString *mediaRequested;
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    [params setObject:selectedRequestId forKey:@"requestId"];
+    [params setObject:[NSNumber numberWithInt:0] forKey:@"requestType"];
+    
+    NSData *dataObj;
+    NSString *fileType = [info objectForKey: UIImagePickerControllerMediaType];
+    if (CFStringCompare ((__bridge CFStringRef) fileType, kUTTypeImage, 0)
+        == kCFCompareEqualTo) {
+        mediaRequested = @"image";
+        UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+        image = [self imageWithImage:image scaledToSize:CGSizeMake(image.size.width * .15, image.size.height * .15)];
+        dataObj = UIImagePNGRepresentation(image);
+        
+        [params setObject:[dataObj base64EncodedString] forKey:@"mediaData"];
+    }
+    else if (CFStringCompare ((__bridge CFStringRef) fileType, kUTTypeMovie, 0)
+             == kCFCompareEqualTo) {
+        mediaRequested = @"video";
+        NSString *moviePath = [[info objectForKey:UIImagePickerControllerMediaURL] path];
+        dataObj = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:moviePath]];
+    }
+    currentAPICall = kAPICallFulfillRequest;
+    [MMAPI sharedAPI].delegate = self;
+    [[MMAPI sharedAPI]fulfillRequest:mediaRequested params:params];
+    
+    [picker dismissModalViewControllerAnimated:YES];
+}
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
 #pragma mark - MMAPI Delegate Methods
 - (void)MMAPICallSuccessful:(id)response {
     [SVProgressHUD dismiss];
@@ -249,7 +313,11 @@
             [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Assigned Requests" inboxItems:response];
             break;
         case kAPICallOpenRequests:
-            [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Requests From Other Users" inboxItems:response];
+            [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Open Requests" inboxItems:response];
+            break;
+        case kAPICallFulfillRequest:
+            [self.navigationController popViewControllerAnimated:YES];
+            break;
         default:
             break;
     }

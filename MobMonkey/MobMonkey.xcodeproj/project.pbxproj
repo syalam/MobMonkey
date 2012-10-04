@@ -194,6 +194,7 @@
 		F747F16415F4742D002E5567 /* MMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F16215F4742C002E5567 /* MMLoginViewController.xib */; };
 		F7716D4C161CF60B00578A90 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716D49161CF60B00578A90 /* NSData+Base64.m */; };
 		F7716D4D161CF60B00578A90 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716D4B161CF60B00578A90 /* NSString+Base64.m */; };
+		F7716D5A161D11BF00578A90 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7716D59161D11BF00578A90 /* MobileCoreServices.framework */; };
 		F77BD33F15F5252F00E76CA5 /* MMFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD33D15F5252F00E76CA5 /* MMFilterViewController.m */; };
 		F77BD34015F5252F00E76CA5 /* MMFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD33D15F5252F00E76CA5 /* MMFilterViewController.m */; };
 		F77BD34115F5252F00E76CA5 /* MMFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F77BD33E15F5252F00E76CA5 /* MMFilterViewController.xib */; };
@@ -544,6 +545,10 @@
 		F7716D49161CF60B00578A90 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		F7716D4A161CF60B00578A90 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
 		F7716D4B161CF60B00578A90 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
+		F7716D53161D10D900578A90 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		F7716D55161D114A00578A90 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		F7716D57161D115C00578A90 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		F7716D59161D11BF00578A90 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		F77BD33D15F5252F00E76CA5 /* MMFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMFilterViewController.m; sourceTree = "<group>"; };
 		F77BD33E15F5252F00E76CA5 /* MMFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMFilterViewController.xib; sourceTree = "<group>"; };
 		F77BD34315F5254900E76CA5 /* MMFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMFilterViewController.h; sourceTree = "<group>"; };
@@ -668,6 +673,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7716D5A161D11BF00578A90 /* MobileCoreServices.framework in Frameworks */,
 				F71B9B241601F683003BED33 /* QuartzCore.framework in Frameworks */,
 				F7E7568615FE38F9005C8D7C /* Accounts.framework in Frameworks */,
 				F7E7568415FE06DA005C8D7C /* Twitter.framework in Frameworks */,
@@ -741,6 +747,7 @@
 		F734A52815F11C3E0090E85A = {
 			isa = PBXGroup;
 			children = (
+				F7716D59161D11BF00578A90 /* MobileCoreServices.framework */,
 				F734A53D15F11C3E0090E85A /* MobMonkey */,
 				F734A56915F11C3E0090E85A /* MobMonkeyTests */,
 				F734A53615F11C3E0090E85A /* Frameworks */,
@@ -760,6 +767,9 @@
 		F734A53615F11C3E0090E85A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F7716D57161D115C00578A90 /* AVFoundation.framework */,
+				F7716D55161D114A00578A90 /* MediaPlayer.framework */,
+				F7716D53161D10D900578A90 /* CoreMedia.framework */,
 				F71B9B231601F683003BED33 /* QuartzCore.framework */,
 				F7E7568515FE38F8005C8D7C /* Accounts.framework */,
 				F7E7568315FE06DA005C8D7C /* Twitter.framework */,
