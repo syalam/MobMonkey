@@ -63,7 +63,7 @@
         [self.flagButton setBackgroundColor:[UIColor clearColor]];
     }
 
-    [_notificationSettingImageView setHidden:YES];
+    [_notificationSettingView setHidden:YES];
     [_notificationSettingLabel setHidden:YES];
     
     //Set location detail items to display
@@ -230,6 +230,10 @@
     }
 }
 
+- (IBAction)clearNotificationSettingButtonTapped:(id)sender {
+    [_notificationSettingView setHidden:YES];
+}
+
 #pragma mark - Action Sheet Delegate Methods
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     switch (buttonIndex) {
@@ -247,7 +251,7 @@
 #pragma mark - MMNotificationSettings delegate methods
 - (void)selectedSetting:(id)selectedNotificationSetting {
     [_notificationSettingLabel setHidden:NO];
-    [_notificationSettingImageView setHidden:NO];
+    [_notificationSettingView setHidden:NO];
 }
 
 #pragma mark - Helper Methods

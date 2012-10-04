@@ -31,7 +31,7 @@
 @property (nonatomic, retain)IBOutlet UIButton *addressButton;
 
 @property (nonatomic, retain)IBOutlet TCImageView *locationLatestImageView;
-@property (nonatomic, retain)IBOutlet UIImageView *notificationSettingImageView;
+@property (nonatomic, retain)IBOutlet UIView *notificationSettingView;
 
 @property (nonatomic, retain)IBOutlet UILabel *locationNameLabel;
 @property (nonatomic, retain)IBOutlet UILabel *videoCountLabel;
@@ -50,5 +50,6 @@
 - (IBAction)bookmarkButtonTapped:(id)sender;
 - (IBAction)phoneNumberButtonTapped:(id)sender;
 - (IBAction)addressButtonTapped:(id)sender;
+- (IBAction)clearNotificationSettingButtonTapped:(id)sender;
 
 @end
