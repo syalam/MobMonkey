@@ -63,7 +63,7 @@
 								<string key="NSFrame">{{11, 48}, {303, 205}}</string>
 								<reference key="NSSuperview" ref="1061276062"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="1040427647"/>
+								<reference key="NSNextKeyView" ref="982051202"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -204,7 +204,7 @@
 								<string key="NSFrame">{{251, 20}, {54, 21}}</string>
 								<reference key="NSSuperview" ref="1061276062"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="982051202"/>
+								<reference key="NSNextKeyView" ref="576035235"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -571,6 +571,7 @@
 								<string key="NSFrame">{{47, 599}, {296, 21}}</string>
 								<reference key="NSSuperview" ref="1061276062"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -704,7 +705,7 @@
 								<string key="NSFrame">{{47, 428}, {249, 21}}</string>
 								<reference key="NSSuperview" ref="1061276062"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="25399088"/>
+								<reference key="NSNextKeyView" ref="481870315"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -737,7 +738,7 @@
 							<object class="IBUIButton" id="25399088">
 								<reference key="NSNextResponder" ref="1061276062"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{9, 460}, {303, 63}}</string>
+								<string key="NSFrame">{{9, 458}, {303, 63}}</string>
 								<reference key="NSSuperview" ref="1061276062"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="525611142"/>
@@ -763,7 +764,7 @@
 							<object class="IBUIImageView" id="525611142">
 								<reference key="NSNextResponder" ref="1061276062"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 484}, {12, 16}}</string>
+								<string key="NSFrame">{{20, 482}, {12, 16}}</string>
 								<reference key="NSSuperview" ref="1061276062"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="581543505"/>
@@ -778,7 +779,7 @@
 							<object class="IBUILabel" id="581543505">
 								<reference key="NSNextResponder" ref="1061276062"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{47, 460}, {231, 63}}</string>
+								<string key="NSFrame">{{47, 458}, {231, 63}}</string>
 								<reference key="NSSuperview" ref="1061276062"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="528826298"/>
@@ -802,7 +803,7 @@
 							<object class="IBUIImageView" id="528826298">
 								<reference key="NSNextResponder" ref="1061276062"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{282, 484}, {10, 14}}</string>
+								<string key="NSFrame">{{282, 482}, {10, 14}}</string>
 								<reference key="NSSuperview" ref="1061276062"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="696955274"/>
@@ -826,11 +827,23 @@
 									<string key="NSResourceName">elipse.png</string>
 								</object>
 							</object>
+							<object class="IBUIImageView" id="481870315">
+								<reference key="NSNextResponder" ref="1061276062"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{6, 459}, {312, 1}}</string>
+								<reference key="NSSuperview" ref="1061276062"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="25399088"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<reference key="IBUIImage" ref="411626450"/>
+							</object>
 						</array>
 						<string key="NSFrameSize">{320, 460}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="576035235"/>
+						<reference key="NSNextKeyView" ref="1040427647"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIAutoresizesSubviews">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -1147,6 +1160,7 @@
 							<reference ref="528826298"/>
 							<reference ref="955931081"/>
 							<reference ref="626153303"/>
+							<reference ref="481870315"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -1343,6 +1357,11 @@
 						<reference key="object" ref="955931081"/>
 						<reference key="parent" ref="1061276062"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">98</int>
+						<reference key="object" ref="481870315"/>
+						<reference key="parent" ref="1061276062"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1390,12 +1409,13 @@
 				<string key="87.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="88.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="95.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="98.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">97</int>
+			<int key="maxID">98</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

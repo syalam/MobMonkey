@@ -13,7 +13,6 @@
 #import "MMSetTitleImage.h"
 #import "MMMapViewController.h"
 #import "MMCategoryViewController.h"
-#import "MMAPI.h"
 
 @interface MMSearchViewController ()
 
@@ -69,9 +68,10 @@
         
         UIBarButtonItem *filterButton = [[UIBarButtonItem alloc]initWithCustomView:_filterNavBarButton];
         self.navigationItem.leftBarButtonItem = filterButton;
-
         
-        [self setContentList:[[MMAPI sharedAPI]categories]];
+        currentAPICall = kAPICallGetCategoryList;
+        [MMAPI sharedAPI].delegate = self;
+        [[MMAPI sharedAPI]categories];
     }
     
     _mapNavBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -81,6 +81,12 @@
     
     UIBarButtonItem *mapButton = [[UIBarButtonItem alloc]initWithCustomView:_mapNavBarButton];
     self.navigationItem.rightBarButtonItem = mapButton;
+    
+    tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(screenTapped:)];
+    tapGesture.numberOfTapsRequired = 1;
+    tapGesture.delegate = self;
+    [self.view addGestureRecognizer:tapGesture];
+    [tapGesture setEnabled:NO];
 }
 
 - (void)viewDidUnload
@@ -126,7 +132,12 @@
         MMCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         cell = [[MMCategoryCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.mmCategoryCellImageView.image = [UIImage imageNamed:@"monkey.jpg"];
-        cell.mmCategoryTitleLabel.text = contentForThisRow;
+        if (indexPath.section == 0) {
+            cell.mmCategoryTitleLabel.text = [contentForThisRow valueForKey:@"name"];
+        }
+        else {
+            cell.mmCategoryTitleLabel.text = contentForThisRow;
+        }
         
         return cell;
     }
@@ -198,11 +209,13 @@
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
         NSArray *sectionArray = [_contentList objectAtIndex:indexPath.section];
         id contentForThisRow = [sectionArray objectAtIndex:indexPath.row];
+        NSLog(@"%@", contentForThisRow);
         
-        MMSearchViewController *svc = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
+        
+        /*MMSearchViewController *svc = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
         svc.showSearchResults = YES;
         svc.title = contentForThisRow;
-        [self.navigationController pushViewController:svc animated:YES];
+        [self.navigationController pushViewController:svc animated:YES];*/
     }
     else {
         MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
@@ -243,6 +256,7 @@
 - (void)filterButtonClicked:(id)sender {
     MMFilterViewController *fvc = [[MMFilterViewController alloc]initWithNibName:@"MMFilterViewController" bundle:nil];
     fvc.delegate = self;
+    fvc.title = @"Filter";
     UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:fvc];
     [self.navigationController presentViewController:navc animated:YES completion:NULL];
 }
@@ -258,17 +272,38 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark - Gesture recognizer methods
+- (void)screenTapped:(id)sender {
+    [_searchTextField resignFirstResponder];
+    [tapGesture setEnabled:NO];
+}
+
 #pragma mark - UITextField delegate methods
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [tapGesture setEnabled:YES];
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     //TAP THROUGH CODE. DELETE WHEN COMMUNICATING WITH SERVER
-    _contentList = [[NSMutableArray alloc]initWithCapacity:1];
+    /*_contentList = [[NSMutableArray alloc]initWithCapacity:1];
     for (int i = 0; i < 20; i++) {
         [_contentList addObject:@""];
+    }*/
+    
+    double latitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue];
+    double longitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue];
+    NSLog(@"%f, %f", latitude, longitude);
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    [params setObject:[NSNumber numberWithDouble:latitude]forKey:@"latitude"];
+    [params setObject:[NSNumber numberWithDouble:longitude]forKey:@"longitude"];
+    if (filters) {
+        [params setObject:[filters valueForKey:@"radius"] forKey:@"radiusInYards"];
     }
+    currentAPICall = kAPICallGlobSearch;
+    [MMAPI sharedAPI].delegate = self;
+    [[MMAPI sharedAPI]searchForLocation:params];
     
     _showCategories = NO;
-    
-    [self.tableView reloadData];
     
     [textField resignFirstResponder];
     return YES;
@@ -276,18 +311,56 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if (textField.text.length == 1) {
-        [self setContentList:[[MMAPI sharedAPI]categories]];
+        [self setCategoriesList];
         _showCategories = YES;
         [self.tableView reloadData];
     }
-    
     return YES;
 }
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
-    [self setContentList:[[MMAPI sharedAPI]categories]];
+    [self setCategoriesList];
     _showCategories = YES;
     [self.tableView reloadData];
+    [textField resignFirstResponder];
     return YES;
+}
+
+#pragma mark - Search Filter Delegate
+- (void)selectedFilters:(id)selectedFilters {
+    filters = selectedFilters;
+}
+
+#pragma mark - Helper Methods
+- (void)setCategoriesList {
+    NSArray *sectionOneArray = categories;
+    NSArray *sectionTwoArray = [[NSMutableArray alloc]initWithObjects:@"History", @"My Locations", @"Events", @"Locations of Interest", nil];
+    
+    [self setContentList:[NSArray arrayWithObjects:sectionOneArray, sectionTwoArray, nil]];
+}
+
+#pragma mark - MMAPI Delegate Methods
+- (void)MMAPICallSuccessful:(id)response {
+    switch (currentAPICall) {
+        case kAPICallGetCategoryList: {
+            categories = response;
+            NSLog(@"%@", categories);
+            [self setCategoriesList];
+            [self.tableView reloadData];
+        }
+            break;
+        case kAPICallGlobSearch:
+            NSLog(@"%@", response);
+            [self.tableView reloadData];
+            [tapGesture setEnabled:NO];
+            break;
+        default:
+            break;
+    }
+}
+- (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
+    NSString *responseString = operation.responseString;
+    int responseCode = operation.response.statusCode;
+    NSLog(@"Status Code:%d, Response:%@", responseCode, responseString);
 }
 
 @end

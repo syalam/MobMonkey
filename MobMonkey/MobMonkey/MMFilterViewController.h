@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol MMFilterViewDelegate <NSObject>
+@protocol MMFilterViewDelegate
+
+- (void)selectedFilters:(id)selectedFilters;
     
 @end
 
@@ -19,10 +21,13 @@
     NSString *rangeSelection;
     NSMutableArray *pickerArray;
     NSUserDefaults* prefs;
+    NSNumber *selectedRadius;
+    NSString *selectedFilter;
 }
 
 - (IBAction)segmentedControlSelected:(id)sender;
 
+@property(nonatomic, retain) IBOutlet UITableView *tableView;
 @property(nonatomic, retain) NSMutableArray *contentList;
 @property(nonatomic,assign) id<MMFilterViewDelegate> delegate;
 

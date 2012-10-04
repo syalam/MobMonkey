@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMAPI.h"
 
-@interface MMCategoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+@interface MMCategoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMAPIDelegate> {
     NSMutableDictionary *selectedItemsDictionary;
+    NSArray *categoriesArray;
 }
 
 @property (nonatomic, retain)IBOutlet UITableView *tableView;

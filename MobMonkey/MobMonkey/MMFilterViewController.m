@@ -8,13 +8,14 @@
 
 #import "MMFilterViewController.h"
 #import "MMSetTitleImage.h"
+#import "MMAPI.h"
+#import "MMCategoryCell.h"
 
 @interface MMFilterViewController ()
 
 @end
 
 @implementation MMFilterViewController
-@synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,18 +29,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Filter/Search";
     
-    self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonClicked:)];
-    self.navigationItem.leftBarButtonItem = cancelButton;
+    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+    [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
     
-    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithTitle:@"Search" style:UIBarButtonItemStyleDone target:self action:@selector(searchButtonClicked:)];
-    self.navigationItem.rightBarButtonItem = searchButton;
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    self.navigationItem.leftBarButtonItem = backButton;
+    
     prefs = [NSUserDefaults standardUserDefaults];
     
-    NSMutableArray *tableContent = [NSMutableArray arrayWithObjects:@"MobMonkey User Image", @"MobMonkey User Video", @"MobMonkey Location Video", @"MobMonkey Location Live Streaming Video", nil];
+    NSMutableArray *sectionOneContent = [[NSMutableArray alloc]initWithObjects:@"", nil];
+    NSMutableArray *sectionTwoContent = [NSMutableArray arrayWithObjects:@"MobMonkey User Image", @"MobMonkey User Video", @"MobMonkey Location Video", @"MobMonkey Location Live Streaming Video", nil];
+    NSMutableArray *tableContent = [[NSMutableArray alloc]initWithObjects:sectionOneContent, sectionTwoContent, nil];
     [self setContentList:tableContent];
     
     if ([prefs integerForKey:@"savedSegmentValue"]) {
@@ -65,15 +68,35 @@
 }
 
 #pragma mark - UIBarButtonItem Action Methods
-- (void)cancelButtonClicked:(id)sender {
+- (void)backButtonTapped:(id)sender {
+    [_delegate selectedFilters:[NSDictionary dictionaryWithObjectsAndKeys:selectedRadius, @"radius", nil]];
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 
 #pragma mark - IBAction Methods
 - (IBAction)segmentedControlSelected:(id)sender {
-    [prefs setInteger:segmentedControl.selectedSegmentIndex forKey:@"savedSegmentValue"];
-    [prefs synchronize];
+    switch (segmentedControl.selectedSegmentIndex) {
+        case 0:
+            selectedRadius = [NSNumber numberWithInt:880];
+            break;
+        case 1:
+            selectedRadius = [NSNumber numberWithInt:1760];
+            break;
+        case 2:
+            selectedRadius = [NSNumber numberWithInt:8800];
+            break;
+        case 3:
+            selectedRadius = [NSNumber numberWithInt:17600];
+            break;
+        case 4:
+            selectedRadius = [NSNumber numberWithInt:35200];
+            break;            
+        default:
+            break;
+    }
+    [[NSUserDefaults standardUserDefaults]setObject:selectedRadius forKey:@"savedSegmentValue"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
 #pragma mark - Table view data source
@@ -81,27 +104,71 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    return _contentList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _contentList.count;
+    NSArray *sectionContent = [_contentList objectAtIndex:section];
+    return sectionContent.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id contentForThisRow = [_contentList objectAtIndex:indexPath.row];
+    NSArray *sectionContent = [_contentList objectAtIndex:indexPath.section];
+    id contentForThisRow = [sectionContent objectAtIndex:indexPath.row];
     
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (indexPath.section == 0) {
+        MMCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        cell = [[MMCategoryCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.mmCategoryCellImageView.image = [UIImage imageNamed:@"monkey.jpg"];
+        cell.mmCategoryTitleLabel.text = contentForThisRow;
+        
+        return cell;
+    }
+    else {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
+        cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
+        cell.textLabel.numberOfLines = 2;
+        cell.textLabel.text = contentForThisRow;
+        return cell;
+    }
+}
+
+#pragma mark - UITablview delegate
+- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return 44;
+    }
+    else {
+        return 60;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.row) {
+        case 0:
+            selectedFilter = @"mmUserImage";
+            break;
+        case 1:
+            selectedFilter = @"mmUserVideo";
+            break;
+        case 3:
+            selectedFilter = @"mmLocationVideo";
+            break;
+        case 4:
+            selectedFilter = @"mmLocationLiveStream";
+            break;
+        default:
+            break;
+    }
     
-    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    
-    cell.textLabel.text = contentForThisRow;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
-    return cell;
 }
 
 @end

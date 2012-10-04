@@ -135,13 +135,21 @@
 }
 
 #pragma mark - Retrieve categories
--(NSMutableArray *)categories {
-    NSMutableArray *sectionOneArray = [[NSMutableArray alloc]initWithObjects:@"Health Clubs", @"Coffee Shops", @"Nightclubs", @"Pubs/Bars", @"Restaurants", @"Supermarkets", @"Cinemas", @"Dog Parks", @"Beaches", @"Hotels", @"Stadiums", @"Conferences" , @"Middle Schools & High Schools", nil];
+-(void)categories {
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
+    [[MMHTTPClient sharedClient] getPath:@"category" parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSLog(@"%@", JSON);
+        [_delegate MMAPICallSuccessful:JSON];
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_delegate MMAPICallFailed:operation];
+    }];
     
-    NSMutableArray *sectionTwoArray = [[NSMutableArray alloc]initWithObjects:@"History", @"My Locations", @"Events", @"Locations of Interest", nil];
+    /*NSMutableArray *categoriesArray = [[NSMutableArray alloc]initWithObjects:@"Health Clubs", @"Coffee Shops", @"Nightclubs", @"Pubs/Bars", @"Restaurants", @"Supermarkets", @"Cinemas", @"Dog Parks", @"Beaches", @"Hotels", @"Stadiums", @"Conferences" , @"Middle Schools & High Schools", nil];
     
-    NSMutableArray *categoriesArray = [NSMutableArray arrayWithObjects:sectionOneArray, sectionTwoArray, nil];
-    return categoriesArray;
+    return categoriesArray;*/
 }
 
 #pragma mark - Add Location
@@ -188,7 +196,6 @@
 
 #pragma mark - User Checkin
 -(void)checkUserIn:(NSDictionary*)params {
-    
     [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
     [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
@@ -201,6 +208,31 @@
     }];
 }
 
+#pragma mark - Search
+- (void)globSearchForLocation:(NSDictionary*)params {
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
+    [[MMHTTPClient sharedClient] postPath:@"search/location/glob" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSLog(@"%@", JSON);
+        [_delegate MMAPICallSuccessful:JSON];
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_delegate MMAPICallFailed:operation];
+    }];
+}
 
+- (void)searchForLocation:(NSDictionary*)params {
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
+    [[MMHTTPClient sharedClient] postPath:@"search/location" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSLog(@"%@", JSON);
+        [_delegate MMAPICallSuccessful:JSON];
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_delegate MMAPICallFailed:operation];
+    }];
+}
 
 @end

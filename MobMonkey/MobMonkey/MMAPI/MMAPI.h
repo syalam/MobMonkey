@@ -15,6 +15,8 @@ typedef enum apiCall {
     kAPICallOpenRequests,
     kAPICallAssignedRequests,
     kAPICallFulfillRequest,
+    kAPICallGetCategoryList,
+    kAPICallGlobSearch,
 }apiCall;
 
 @protocol MMAPIDelegate
@@ -108,7 +110,7 @@ typedef enum apiCall {
  Retrieve list of categories from the server
  @return An array of categories
 */
--(NSMutableArray *)categories;
+-(void)categories;
 
 ///---------------------------------------------
 /// @name Fetches a list of open requests from the server
@@ -151,6 +153,22 @@ typedef enum apiCall {
  */
 -(void)fulfillRequest:(NSString*)mediaType params:(NSMutableDictionary*)params;
 
+///---------------------------------------------
+/// @name Glob search for a location
+///---------------------------------------------
+/**
+Glob search for a location
+ */
+- (void)globSearchForLocation:(NSDictionary*)params;
+
+
+///---------------------------------------------
+/// @name search for a location
+///---------------------------------------------
+/**
+ search for a location
+ */
+- (void)searchForLocation:(NSDictionary*)params;
 
 
 @property (nonatomic, assign)id<MMAPIDelegate> delegate;

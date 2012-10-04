@@ -195,10 +195,8 @@
 		F7716D4C161CF60B00578A90 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716D49161CF60B00578A90 /* NSData+Base64.m */; };
 		F7716D4D161CF60B00578A90 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716D4B161CF60B00578A90 /* NSString+Base64.m */; };
 		F7716D5A161D11BF00578A90 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7716D59161D11BF00578A90 /* MobileCoreServices.framework */; };
-		F77BD33F15F5252F00E76CA5 /* MMFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD33D15F5252F00E76CA5 /* MMFilterViewController.m */; };
-		F77BD34015F5252F00E76CA5 /* MMFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD33D15F5252F00E76CA5 /* MMFilterViewController.m */; };
-		F77BD34115F5252F00E76CA5 /* MMFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F77BD33E15F5252F00E76CA5 /* MMFilterViewController.xib */; };
-		F77BD34215F5252F00E76CA5 /* MMFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F77BD33E15F5252F00E76CA5 /* MMFilterViewController.xib */; };
+		F7716D6C161D56F900578A90 /* MMFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716D6A161D56F900578A90 /* MMFilterViewController.m */; };
+		F7716D6D161D56F900578A90 /* MMFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7716D6B161D56F900578A90 /* MMFilterViewController.xib */; };
 		F77BD34715F52AA100E76CA5 /* MMMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD34515F52AA100E76CA5 /* MMMapViewController.m */; };
 		F77BD34815F52AA100E76CA5 /* MMMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD34515F52AA100E76CA5 /* MMMapViewController.m */; };
 		F77BD34915F52AA100E76CA5 /* MMMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F77BD34615F52AA100E76CA5 /* MMMapViewController.xib */; };
@@ -549,9 +547,9 @@
 		F7716D55161D114A00578A90 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		F7716D57161D115C00578A90 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		F7716D59161D11BF00578A90 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		F77BD33D15F5252F00E76CA5 /* MMFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMFilterViewController.m; sourceTree = "<group>"; };
-		F77BD33E15F5252F00E76CA5 /* MMFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMFilterViewController.xib; sourceTree = "<group>"; };
-		F77BD34315F5254900E76CA5 /* MMFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMFilterViewController.h; sourceTree = "<group>"; };
+		F7716D69161D56F900578A90 /* MMFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMFilterViewController.h; sourceTree = "<group>"; };
+		F7716D6A161D56F900578A90 /* MMFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMFilterViewController.m; sourceTree = "<group>"; };
+		F7716D6B161D56F900578A90 /* MMFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMFilterViewController.xib; sourceTree = "<group>"; };
 		F77BD34515F52AA100E76CA5 /* MMMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMapViewController.m; sourceTree = "<group>"; };
 		F77BD34615F52AA100E76CA5 /* MMMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMMapViewController.xib; sourceTree = "<group>"; };
 		F77BD34C15F52D0900E76CA5 /* MMMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMapViewController.h; sourceTree = "<group>"; };
@@ -1249,9 +1247,9 @@
 		F77BD33815F523E800E76CA5 /* Search Filter */ = {
 			isa = PBXGroup;
 			children = (
-				F77BD34315F5254900E76CA5 /* MMFilterViewController.h */,
-				F77BD33D15F5252F00E76CA5 /* MMFilterViewController.m */,
-				F77BD33E15F5252F00E76CA5 /* MMFilterViewController.xib */,
+				F7716D69161D56F900578A90 /* MMFilterViewController.h */,
+				F7716D6A161D56F900578A90 /* MMFilterViewController.m */,
+				F7716D6B161D56F900578A90 /* MMFilterViewController.xib */,
 			);
 			name = "Search Filter";
 			sourceTree = "<group>";
@@ -1715,7 +1713,6 @@
 				F747F15A15F46338002E5567 /* MMPresetMessagesViewController.xib in Resources */,
 				F747F15F15F4740B002E5567 /* MMSignUpViewController.xib in Resources */,
 				F747F16415F4742D002E5567 /* MMLoginViewController.xib in Resources */,
-				F77BD34115F5252F00E76CA5 /* MMFilterViewController.xib in Resources */,
 				F77BD34915F52AA100E76CA5 /* MMMapViewController.xib in Resources */,
 				F745180115F918980049277C /* MMNotificationSettingsViewController.xib in Resources */,
 				F745181915F9F3AA0049277C /* MMFullScreenImageViewController.xib in Resources */,
@@ -1779,6 +1776,7 @@
 				F73848A6161C05B5008AA874 /* videoCam@2x.png in Resources */,
 				F73848A9161CB9B0008AA874 /* locationFullBg.png in Resources */,
 				F73848AA161CB9B0008AA874 /* locationFullBg@2x.png in Resources */,
+				F7716D6D161D56F900578A90 /* MMFilterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1787,7 +1785,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F734A56E15F11C3E0090E85A /* InfoPlist.strings in Resources */,
-				F77BD34215F5252F00E76CA5 /* MMFilterViewController.xib in Resources */,
 				F77BD34A15F52AA100E76CA5 /* MMMapViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1842,7 +1839,6 @@
 				F747F15915F46338002E5567 /* MMPresetMessagesViewController.m in Sources */,
 				F747F15E15F4740B002E5567 /* MMSignUpViewController.m in Sources */,
 				F747F16315F4742D002E5567 /* MMLoginViewController.m in Sources */,
-				F77BD33F15F5252F00E76CA5 /* MMFilterViewController.m in Sources */,
 				F77BD34715F52AA100E76CA5 /* MMMapViewController.m in Sources */,
 				F77BD35015F5321400E76CA5 /* MMLocationAnnotation.m in Sources */,
 				F745180015F918980049277C /* MMNotificationSettingsViewController.m in Sources */,
@@ -1863,6 +1859,7 @@
 				F73847DF161B84D2008AA874 /* PhoneNumberFormatter.m in Sources */,
 				F7716D4C161CF60B00578A90 /* NSData+Base64.m in Sources */,
 				F7716D4D161CF60B00578A90 /* NSString+Base64.m in Sources */,
+				F7716D6C161D56F900578A90 /* MMFilterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1871,7 +1868,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F734A57115F11C3E0090E85A /* MobMonkeyTests.m in Sources */,
-				F77BD34015F5252F00E76CA5 /* MMFilterViewController.m in Sources */,
 				F77BD34815F52AA100E76CA5 /* MMMapViewController.m in Sources */,
 				F77BD35115F5321400E76CA5 /* MMLocationAnnotation.m in Sources */,
 			);

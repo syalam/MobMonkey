@@ -19,7 +19,7 @@
         _mmCategoryTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(45, 7, 280, 30)];
         
         //configure label
-        [_mmCategoryTitleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:17]];
+        [_mmCategoryTitleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:14]];
         [_mmCategoryTitleLabel setBackgroundColor:[UIColor clearColor]];
         
         //add items to the cell's content view

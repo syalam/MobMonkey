@@ -7,6 +7,8 @@
 //
 
 #import "MMCategoryViewController.h"
+#import "MMCategoryCell.h"
+
 
 @interface MMCategoryViewController ()
 
@@ -27,15 +29,9 @@
 {
     [super viewDidLoad];
     
+    [MMAPI sharedAPI].delegate = self;
+    [[MMAPI sharedAPI]categories];
     
-    NSMutableArray *sectionOneArray = [[NSMutableArray alloc]initWithObjects:@"Set Notifications", nil];
-    NSMutableArray *sectionTwoArray = [[NSMutableArray alloc]initWithObjects:@"Health Clubs", @"Coffee Shops", @"Nightclubs", @"Pubs/Bars", @"Restaurants", @"Supermarkets", @"Cinemas", @"Dog Parks", @"Beaches", @"Hotels", @"Stadiums", @"Conferences" , @"Middle Schools & High Schools", nil];
-    
-    NSMutableArray *sectionThreeArray = [[NSMutableArray alloc]initWithObjects:@"History", @"My Locations", @"Events", @"Locations of Interest", nil];
-    
-    NSMutableArray *tableContentArray = [NSMutableArray arrayWithObjects:sectionOneArray, sectionTwoArray, sectionThreeArray, nil];
-    
-    [self setContentList:tableContentArray];
     
     selectedItemsDictionary = [[NSMutableDictionary alloc]initWithCapacity:1];
     
@@ -80,19 +76,27 @@
     id contentForThisRow = [sectionContent objectAtIndex:indexPath.row];
     
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    MMCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[MMCategoryCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.textLabel.text = nil;
+    cell.mmCategoryCellImageView.image = [UIImage imageNamed:@"monkey.jpg"];
     
-    cell.textLabel.text = contentForThisRow;
+    if (indexPath.section == 1) {
+        cell.mmCategoryTitleLabel.text = [contentForThisRow valueForKey:@"name"];
+    }
+    else {
+        cell.mmCategoryTitleLabel.text = contentForThisRow;
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
     if ([selectedItemsDictionary objectForKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
-    
+
     return cell;
 }
 
@@ -139,14 +143,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([selectedItemsDictionary objectForKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]]) {
-        [selectedItemsDictionary removeObjectForKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]];
-        [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+    if (indexPath.section == 1) {
+        if ([selectedItemsDictionary objectForKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]]) {
+            [selectedItemsDictionary removeObjectForKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]];
+            [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+        }
+        else {
+            [selectedItemsDictionary setObject:@"YES" forKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]];
+            [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+        }
     }
-    else {
-        [selectedItemsDictionary setObject:@"YES" forKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]];
-        [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
-    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -169,10 +176,32 @@
     return 7;
 }
 
+#pragma mark - Helper Methods
+- (void)setTableContent {
+    NSMutableArray *sectionOneArray = [[NSMutableArray alloc]initWithObjects:@"Set Notifications", nil];
+    NSMutableArray *sectionTwoArray = [categoriesArray mutableCopy];
+    
+    NSMutableArray *sectionThreeArray = [[NSMutableArray alloc]initWithObjects:@"History", @"My Locations", @"Events", @"Locations of Interest", nil];
+    
+    NSMutableArray *tableContentArray = [NSMutableArray arrayWithObjects:sectionOneArray, sectionTwoArray, sectionThreeArray, nil];
+    
+    [self setContentList:tableContentArray];
+    [self.tableView reloadData];
+}
+
 
 #pragma mark - UINav Bar Action Methods
 - (void)backButtonTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - MMAPI Delegate Methods
+- (void)MMAPICallSuccessful:(id)response {
+    categoriesArray = response;
+    [self setTableContent];
+}
+- (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
+    
 }
 
 @end

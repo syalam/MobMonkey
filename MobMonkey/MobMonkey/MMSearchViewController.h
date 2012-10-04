@@ -11,9 +11,14 @@
 #import "MMFilterViewController.h"
 #import "MMSearchCell.h"
 #import "MMCategoryCell.h"
+#import "MMAPI.h"
 
-@interface MMSearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMSearchCellDelegate, MMFilterViewDelegate> {
+@interface MMSearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMSearchCellDelegate, MMFilterViewDelegate, UIGestureRecognizerDelegate, MMAPIDelegate> {
     IBOutlet UIView *headerView;
+    NSDictionary *filters;
+    UITapGestureRecognizer *tapGesture;
+    int currentAPICall;
+    NSArray *categories;
 }
 
 
