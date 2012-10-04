@@ -31,6 +31,22 @@
     [scheduleView setHidden:YES];
     [scrollView setContentSize:CGSizeMake(320, 550)];
     tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismissKeyBoard:)];
+    tapGesture.numberOfTapsRequired = 1;
+    [self.view addGestureRecognizer:tapGesture];
+    [tapGesture setEnabled:NO];
+    
+    //Add custom back button to the nav bar
+    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+    [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    self.navigationItem.leftBarButtonItem = backButton;
+    
+    //Defualt to photo request
+    videoSelected = NO;
+    [photoButton setImage:[UIImage imageNamed:@"selectedRectRed"] forState:UIControlStateNormal];
+    [videoButton setImage:[UIImage imageNamed:@"deselectedRectRed"] forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,13 +58,15 @@
 #pragma mark - IBAction Methods
 - (IBAction)videoButtonTapped:(id)sender {
     videoSelected = YES;
-    [videoButton setBackgroundImage:[UIImage imageNamed:@"selectedRectRed"] forState:UIControlStateNormal];
-    [photoButton setBackgroundImage:[UIImage imageNamed:@"deselectedRectRed"] forState:UIControlStateNormal];
+    [requestButtonLabel setText:@"Send The Video Request!"];
+    [videoButton setImage:[UIImage imageNamed:@"selectedRectRed"] forState:UIControlStateNormal];
+    [photoButton setImage:[UIImage imageNamed:@"deselectedRectRed"] forState:UIControlStateNormal];
 }
 - (IBAction)photoButtonTapped:(id)sender {
     videoSelected = NO;
-    [photoButton setBackgroundImage:[UIImage imageNamed:@"selectedRectRed"] forState:UIControlStateNormal];
-    [videoButton setBackgroundImage:[UIImage imageNamed:@"deselectedRectRed"] forState:UIControlStateNormal];
+    [requestButtonLabel setText:@"Send The Photo Request!"];
+    [photoButton setImage:[UIImage imageNamed:@"selectedRectRed"] forState:UIControlStateNormal];
+    [videoButton setImage:[UIImage imageNamed:@"deselectedRectRed"] forState:UIControlStateNormal];
 }
 - (IBAction)addMessageButtonTapped:(id)sender {
     MMPresetMessagesViewController *presetMessagesVC = [[MMPresetMessagesViewController alloc]initWithNibName:@"MMPresetMessagesViewController" bundle:nil];
@@ -150,6 +168,15 @@
     [[MMAPI sharedAPI]requestMedia:@"image" params:params];
 }
 
+- (void)backButtonTapped:(id)sender {
+    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)dismissKeyBoard:(id)sender {
+    [messagTextView resignFirstResponder];
+    [tapGesture setEnabled:NO];
+}
+
 #pragma mark - MMAPI Delegate Methods
 - (void)MMAPICallSuccessful:(id)response {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Your request has been sent" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -184,6 +211,21 @@
     scheduleLabel.text = [NSString stringWithFormat:@"%@",dateString];
     [secondSectionView setFrame:CGRectMake(secondSectionView.frame.origin.x, secondSectionView.frame.origin.y, secondSectionView.frame.size.width, secondSectionView.frame.size.height + 44)];
     [sendRequestButtonView setFrame:CGRectMake(sendRequestButtonView.frame.origin.x, sendRequestButtonView.frame.origin.y + sendRequestButtonView.frame.size.height - 20, sendRequestButtonView.frame.size.width, sendRequestButtonView.frame.size.height)];
+}
+
+#pragma mark - UITextView Delegate Methods
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    [tapGesture setEnabled:YES];
+}
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if([text isEqualToString:@"\n"]) {
+        [tapGesture setEnabled:NO];
+        [textView resignFirstResponder];
+        return NO;
+    }
+    
+    return YES;
 }
 
 @end

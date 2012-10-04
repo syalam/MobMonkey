@@ -230,6 +230,10 @@
 		F7716DC1161D865D00578A90 /* MMMakeRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716DBF161D865D00578A90 /* MMMakeRequestViewController.m */; };
 		F7716DC2161D865D00578A90 /* MMMakeRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7716DC0161D865D00578A90 /* MMMakeRequestViewController.xib */; };
 		F7716DCD161E1A8600578A90 /* MMUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716DCC161E1A8500578A90 /* MMUtilities.m */; };
+		F7716DD3161E4A4D00578A90 /* bookmarkBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716DCF161E4A4C00578A90 /* bookmarkBtn.png */; };
+		F7716DD4161E4A4D00578A90 /* bookmarkBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716DD0161E4A4C00578A90 /* bookmarkBtn@2x.png */; };
+		F7716DD5161E4A4D00578A90 /* whiteRect.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716DD1161E4A4C00578A90 /* whiteRect.png */; };
+		F7716DD6161E4A4D00578A90 /* whiteRect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716DD2161E4A4D00578A90 /* whiteRect@2x.png */; };
 		F77BD34715F52AA100E76CA5 /* MMMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD34515F52AA100E76CA5 /* MMMapViewController.m */; };
 		F77BD34815F52AA100E76CA5 /* MMMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD34515F52AA100E76CA5 /* MMMapViewController.m */; };
 		F77BD34915F52AA100E76CA5 /* MMMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F77BD34615F52AA100E76CA5 /* MMMapViewController.xib */; };
@@ -618,6 +622,10 @@
 		F7716DC0161D865D00578A90 /* MMMakeRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMMakeRequestViewController.xib; sourceTree = "<group>"; };
 		F7716DCB161E1A8500578A90 /* MMUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMUtilities.h; sourceTree = "<group>"; };
 		F7716DCC161E1A8500578A90 /* MMUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMUtilities.m; sourceTree = "<group>"; };
+		F7716DCF161E4A4C00578A90 /* bookmarkBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookmarkBtn.png; sourceTree = "<group>"; };
+		F7716DD0161E4A4C00578A90 /* bookmarkBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookmarkBtn@2x.png"; sourceTree = "<group>"; };
+		F7716DD1161E4A4C00578A90 /* whiteRect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteRect.png; sourceTree = "<group>"; };
+		F7716DD2161E4A4D00578A90 /* whiteRect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteRect@2x.png"; sourceTree = "<group>"; };
 		F77BD34515F52AA100E76CA5 /* MMMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMapViewController.m; sourceTree = "<group>"; };
 		F77BD34615F52AA100E76CA5 /* MMMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMMapViewController.xib; sourceTree = "<group>"; };
 		F77BD34C15F52D0900E76CA5 /* MMMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMapViewController.h; sourceTree = "<group>"; };
@@ -1152,6 +1160,10 @@
 		F747F0C915F42475002E5567 /* Location */ = {
 			isa = PBXGroup;
 			children = (
+				F7716DCF161E4A4C00578A90 /* bookmarkBtn.png */,
+				F7716DD0161E4A4C00578A90 /* bookmarkBtn@2x.png */,
+				F7716DD1161E4A4C00578A90 /* whiteRect.png */,
+				F7716DD2161E4A4D00578A90 /* whiteRect@2x.png */,
 				F7384839161C05B5008AA874 /* alarmClock.png */,
 				F738483A161C05B5008AA874 /* alarmClock@2x.png */,
 				F738483B161C05B5008AA874 /* camera1.png */,
@@ -1935,6 +1947,10 @@
 				F7716DBB161D848D00578A90 /* videoIcn.png in Resources */,
 				F7716DBC161D848D00578A90 /* videoIcn@2x.png in Resources */,
 				F7716DC2161D865D00578A90 /* MMMakeRequestViewController.xib in Resources */,
+				F7716DD3161E4A4D00578A90 /* bookmarkBtn.png in Resources */,
+				F7716DD4161E4A4D00578A90 /* bookmarkBtn@2x.png in Resources */,
+				F7716DD5161E4A4D00578A90 /* whiteRect.png in Resources */,
+				F7716DD6161E4A4D00578A90 /* whiteRect@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

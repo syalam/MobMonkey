@@ -12,7 +12,7 @@
 #import "MMScheduleRequestViewController.h"
 #import "MMMakeRequestViewController.h"
 
-@interface MMMakeRequestViewController : UIViewController <MMAPIDelegate, MMPresetMessageDelegate, MMScheduleRequestDelegate, UIGestureRecognizerDelegate> {
+@interface MMMakeRequestViewController : UIViewController <MMAPIDelegate, MMPresetMessageDelegate, MMScheduleRequestDelegate, UIGestureRecognizerDelegate, UITextViewDelegate> {
     IBOutlet UIScrollView *scrollView;
     IBOutlet UIButton *videoButton;
     IBOutlet UIButton *photoButton;
@@ -33,6 +33,7 @@
     IBOutlet UILabel *scheduleLabel;
     IBOutlet UIView *sendRequestButtonView;
     IBOutlet UIButton *sendRequestButton;
+    IBOutlet UILabel *requestButtonLabel;
     
     NSNumber *selectedDuration;
     NSDate *selectedScheduleDate;
