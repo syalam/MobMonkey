@@ -277,8 +277,10 @@
     NSLog(@"%@", response);
     
     mediaArray = response;
-    [_locationLatestImageView reloadWithUrl:[[mediaArray objectAtIndex:mediaArray.count - 1]valueForKey:@"mediaURL"]];
-    _photoCountLabel.text = [NSString stringWithFormat:@"%d", mediaArray.count];
+    if (mediaArray.count > 0) {
+        [_locationLatestImageView reloadWithUrl:[[mediaArray objectAtIndex:mediaArray.count - 1]valueForKey:@"mediaURL"]];
+        _photoCountLabel.text = [NSString stringWithFormat:@"%d", mediaArray.count];
+    }
 }
 
 - (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
