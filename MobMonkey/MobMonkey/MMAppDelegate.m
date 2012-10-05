@@ -58,6 +58,31 @@
     
     bookmarksVC.sectionSelected = YES;
     
+    UITabBarItem *inboxBarItem = [[UITabBarItem alloc]initWithTitle:@"Inbox" image:nil tag:0];
+    [inboxBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tabBtn1Selected"] withFinishedUnselectedImage:[UIImage imageNamed:@"tabBtn1"]];
+    [inboxBarItem setTitlePositionAdjustment:UIOffsetMake(0, 100)];
+    [inboxNavC setTabBarItem:inboxBarItem];
+    
+    UITabBarItem *searchBarItem = [[UITabBarItem alloc]initWithTitle:@"Search" image:nil tag:0];
+    [searchBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tabBtn2Selected"] withFinishedUnselectedImage:[UIImage imageNamed:@"tabBtn2"]];
+    [searchBarItem setTitlePositionAdjustment:UIOffsetMake(0, 100)];
+    [searchNavC setTabBarItem:searchBarItem];
+    
+    UITabBarItem *trendingBarItem = [[UITabBarItem alloc]initWithTitle:@"Trending" image:nil tag:0];
+    [trendingBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tabBtn3Selected"] withFinishedUnselectedImage:[UIImage imageNamed:@"tabBtn3"]];
+    [trendingBarItem setTitlePositionAdjustment:UIOffsetMake(0, 100)];
+    [trendingNavC setTabBarItem:trendingBarItem];
+    
+    UITabBarItem *bookmarksBarItem = [[UITabBarItem alloc]initWithTitle:@"Bookmarks" image:nil tag:0];
+    [bookmarksBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tabBtn4Selected"] withFinishedUnselectedImage:[UIImage imageNamed:@"tabBtn4"]];
+    [bookmarksBarItem setTitlePositionAdjustment:UIOffsetMake(0, 100)];
+    [bookmarksNavC setTabBarItem:bookmarksBarItem];
+    
+    UITabBarItem *settingsBarItem = [[UITabBarItem alloc]initWithTitle:@"Settings" image:nil tag:0];
+    [settingsBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tabBtn5Selected"] withFinishedUnselectedImage:[UIImage imageNamed:@"tabBtn5"]];
+    [settingsBarItem setTitlePositionAdjustment:UIOffsetMake(0, 100)];
+    [settingsNavC setTabBarItem:settingsBarItem];
+    
     self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.viewControllers = @[inboxNavC, searchNavC, trendingNavC, bookmarksNavC, settingsNavC];
     self.window.rootViewController = self.tabBarController;

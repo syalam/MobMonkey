@@ -56,6 +56,15 @@
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
     self.navigationItem.leftBarButtonItem = backButton;
     
+    
+    //Add custom bookmark button to the nav bar
+    UIButton *bookmarkNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+    [bookmarkNavbutton addTarget:self action:@selector(bookmarkButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [bookmarkNavbutton setBackgroundImage:[UIImage imageNamed:@"bookmarkBtn"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem* bookmarkButton = [[UIBarButtonItem alloc]initWithCustomView:bookmarkNavbutton];
+    self.navigationItem.rightBarButtonItem = bookmarkButton;
+    
     if ([[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]]) {
         [self.flagButton setBackgroundColor:[UIColor blueColor]];
     }
@@ -221,14 +230,14 @@
 }
 
 - (IBAction)bookmarkButtonTapped:(id)sender {
-    if (![[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dBookmarked", self.rowIndex]]) {
+    /*if (![[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dBookmarked", self.rowIndex]]) {
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:[NSString stringWithFormat:@"row%dBookmarked", self.rowIndex]];
         [self.bookmarkButton setTitle:@"Bookmark" forState:UIControlStateNormal];
     }
     else {
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:[NSString stringWithFormat:@"row%dBookmarked", self.rowIndex]];
         [self.bookmarkButton setTitle:@"Unbookmark" forState:UIControlStateNormal];
-    }
+    }*/
 }
 
 - (IBAction)clearNotificationSettingButtonTapped:(id)sender {
