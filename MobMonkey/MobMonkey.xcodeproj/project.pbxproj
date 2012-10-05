@@ -204,6 +204,8 @@
 		F757D895161EA12A00674D9E /* timeBtnDeselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F757D889161EA12A00674D9E /* timeBtnDeselected@2x.png */; };
 		F757D896161EA12A00674D9E /* timeBtnSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = F757D88A161EA12A00674D9E /* timeBtnSelected.png */; };
 		F757D897161EA12A00674D9E /* timeBtnSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F757D88B161EA12A00674D9E /* timeBtnSelected@2x.png */; };
+		F76DFE52161EAEDC00B5683F /* MMInboxFullScreenImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F76DFE50161EAEDC00B5683F /* MMInboxFullScreenImageViewController.m */; };
+		F76DFE53161EAEDC00B5683F /* MMInboxFullScreenImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F76DFE51161EAEDC00B5683F /* MMInboxFullScreenImageViewController.xib */; };
 		F7716D4C161CF60B00578A90 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716D49161CF60B00578A90 /* NSData+Base64.m */; };
 		F7716D4D161CF60B00578A90 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716D4B161CF60B00578A90 /* NSString+Base64.m */; };
 		F7716D5A161D11BF00578A90 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7716D59161D11BF00578A90 /* MobileCoreServices.framework */; };
@@ -594,6 +596,9 @@
 		F757D889161EA12A00674D9E /* timeBtnDeselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeBtnDeselected@2x.png"; sourceTree = "<group>"; };
 		F757D88A161EA12A00674D9E /* timeBtnSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeBtnSelected.png; sourceTree = "<group>"; };
 		F757D88B161EA12A00674D9E /* timeBtnSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeBtnSelected@2x.png"; sourceTree = "<group>"; };
+		F76DFE4F161EAEDC00B5683F /* MMInboxFullScreenImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInboxFullScreenImageViewController.h; sourceTree = "<group>"; };
+		F76DFE50161EAEDC00B5683F /* MMInboxFullScreenImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMInboxFullScreenImageViewController.m; sourceTree = "<group>"; };
+		F76DFE51161EAEDC00B5683F /* MMInboxFullScreenImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMInboxFullScreenImageViewController.xib; sourceTree = "<group>"; };
 		F7716D48161CF60B00578A90 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		F7716D49161CF60B00578A90 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		F7716D4A161CF60B00578A90 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
@@ -942,6 +947,7 @@
 		F734A58515F123070090E85A /* Inbox */ = {
 			isa = PBXGroup;
 			children = (
+				F76DFE48161EADE500B5683F /* Full Screen Image */,
 				F77D3E5B161A9F5B000A818F /* Inbox Cell */,
 				F734A58015F122FF0090E85A /* MMInboxViewController.h */,
 				F734A58115F122FF0090E85A /* MMInboxViewController.m */,
@@ -1328,6 +1334,16 @@
 				F747F16615F47445002E5567 /* Sign up */,
 			);
 			name = Authentication;
+			sourceTree = "<group>";
+		};
+		F76DFE48161EADE500B5683F /* Full Screen Image */ = {
+			isa = PBXGroup;
+			children = (
+				F76DFE4F161EAEDC00B5683F /* MMInboxFullScreenImageViewController.h */,
+				F76DFE50161EAEDC00B5683F /* MMInboxFullScreenImageViewController.m */,
+				F76DFE51161EAEDC00B5683F /* MMInboxFullScreenImageViewController.xib */,
+			);
+			name = "Full Screen Image";
 			sourceTree = "<group>";
 		};
 		F7716D47161CF60B00578A90 /* Base64 */ = {
@@ -1975,6 +1991,7 @@
 				F757D895161EA12A00674D9E /* timeBtnDeselected@2x.png in Resources */,
 				F757D896161EA12A00674D9E /* timeBtnSelected.png in Resources */,
 				F757D897161EA12A00674D9E /* timeBtnSelected@2x.png in Resources */,
+				F76DFE53161EAEDC00B5683F /* MMInboxFullScreenImageViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2060,6 +2077,7 @@
 				F7716D6C161D56F900578A90 /* MMFilterViewController.m in Sources */,
 				F7716DC1161D865D00578A90 /* MMMakeRequestViewController.m in Sources */,
 				F7716DCD161E1A8600578A90 /* MMUtilities.m in Sources */,
+				F76DFE52161EAEDC00B5683F /* MMInboxFullScreenImageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

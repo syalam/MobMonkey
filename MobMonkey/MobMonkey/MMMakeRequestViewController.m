@@ -45,8 +45,8 @@
     
     //Defualt to photo request
     videoSelected = NO;
-    [photoButton setImage:[UIImage imageNamed:@"selectedRectRed"] forState:UIControlStateNormal];
-    [videoButton setImage:[UIImage imageNamed:@"deselectedRectRed"] forState:UIControlStateNormal];
+    [photoButton setImage:[UIImage imageNamed:@"redPictureBtnDeselected"] forState:UIControlStateNormal];
+    [videoButton setImage:[UIImage imageNamed:@"redVideoBtnDeselected"] forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,14 +59,14 @@
 - (IBAction)videoButtonTapped:(id)sender {
     videoSelected = YES;
     [requestButtonLabel setText:@"Send The Video Request!"];
-    [videoButton setImage:[UIImage imageNamed:@"selectedRectRed"] forState:UIControlStateNormal];
-    [photoButton setImage:[UIImage imageNamed:@"deselectedRectRed"] forState:UIControlStateNormal];
+    [videoButton setImage:[UIImage imageNamed:@"redVideoBtnSelected"] forState:UIControlStateNormal];
+    [photoButton setImage:[UIImage imageNamed:@"redPictureBtnDeselected"] forState:UIControlStateNormal];
 }
 - (IBAction)photoButtonTapped:(id)sender {
     videoSelected = NO;
     [requestButtonLabel setText:@"Send The Photo Request!"];
-    [photoButton setImage:[UIImage imageNamed:@"selectedRectRed"] forState:UIControlStateNormal];
-    [videoButton setImage:[UIImage imageNamed:@"deselectedRectRed"] forState:UIControlStateNormal];
+    [photoButton setImage:[UIImage imageNamed:@"redPictureBtnSelected"] forState:UIControlStateNormal];
+    [videoButton setImage:[UIImage imageNamed:@"redVideoBtnDeselected"] forState:UIControlStateNormal];
 }
 - (IBAction)addMessageButtonTapped:(id)sender {
     MMPresetMessagesViewController *presetMessagesVC = [[MMPresetMessagesViewController alloc]initWithNibName:@"MMPresetMessagesViewController" bundle:nil];
@@ -75,6 +75,8 @@
     [self.navigationController pushViewController:presetMessagesVC animated:YES];
 }
 - (IBAction)clearMessageButtonTapped:(id)sender {
+    [messagTextView resignFirstResponder];
+    [tapGesture setEnabled:NO];
     CGContextRef context = UIGraphicsGetCurrentContext();
     [UIView beginAnimations:nil context:context];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
@@ -194,8 +196,8 @@
         messagTextView.text = messageString;
         
         [messageView setHidden:NO];
-        [secondSectionView setFrame:CGRectMake(secondSectionView.frame.origin.x, secondSectionView.frame.origin.y + 35, secondSectionView.frame.size.width, secondSectionView.frame.size.height)];
-        [sendRequestButtonView setFrame:CGRectMake(sendRequestButtonView.frame.origin.x, sendRequestButtonView.frame.origin.y + sendRequestButtonView.frame.size.height - 30, sendRequestButtonView.frame.size.width, sendRequestButtonView.frame.size.height)];
+        [secondSectionView setFrame:CGRectMake(secondSectionView.frame.origin.x, secondSectionView.frame.origin.y + 70, secondSectionView.frame.size.width, secondSectionView.frame.size.height)];
+        [sendRequestButtonView setFrame:CGRectMake(sendRequestButtonView.frame.origin.x, sendRequestButtonView.frame.origin.y + sendRequestButtonView.frame.size.height, sendRequestButtonView.frame.size.width, sendRequestButtonView.frame.size.height)];
     }
 }
 

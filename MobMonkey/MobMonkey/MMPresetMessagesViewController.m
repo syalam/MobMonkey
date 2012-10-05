@@ -154,7 +154,7 @@
     // Navigation logic may go here. Create and push another view controller.
     MMMakeRequestCell *textViewCell = (MMMakeRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     textViewCell.mmRequestMessageTextView.text = [_contentList objectAtIndex:indexPath.row];
-    [_delegate presetMessageSelected:[_contentList objectAtIndex:indexPath.row]];
+    //[_delegate presetMessageSelected:[_contentList objectAtIndex:indexPath.row]];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     

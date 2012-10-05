@@ -363,6 +363,7 @@
             [[NSUserDefaults standardUserDefaults]setObject:_passwordTextField.text forKey:@"password"];
             [[NSUserDefaults standardUserDefaults]synchronize];
             
+            currentAPICall = kAPICallCheckin;
             NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
             [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
             [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
@@ -383,6 +384,9 @@
     [SVProgressHUD dismissWithError:@"Sign Up Failed"];
     NSString *responseString = operation.responseString;
     NSLog(@"%@", responseString);
+    if (currentAPICall == kAPICallCheckin) {
+        [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+    }
 }
 
 @end

@@ -12,6 +12,7 @@
 #import "MMSetTitleImage.h"
 #import "MMInboxCell.h"
 #import "NSData+Base64.h"
+#import "MMInboxFullScreenImageViewController.h"
 
 #define FONT_SIZE 14.0f
 #define CELL_CONTENT_WIDTH 180.0f
@@ -203,6 +204,11 @@
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Unable to take a video using this device" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
             }
+        }
+        else if ([self.title isEqualToString:@"Answered Requests"]) {
+            MMInboxFullScreenImageViewController *fsvc = [[MMInboxFullScreenImageViewController alloc]initWithNibName:@"MMInboxFullScreenImageViewController" bundle:nil];
+            fsvc.imageUrl = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaUrl"];
+            [self.navigationController pushViewController:fsvc animated:YES];
         }
     }
     else {
