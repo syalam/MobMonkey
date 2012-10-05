@@ -57,6 +57,7 @@
     settingsVC.title = @"Settings";
     
     bookmarksVC.sectionSelected = YES;
+    bookmarksVC.bookmarkTab = YES;
     
     UITabBarItem *inboxBarItem = [[UITabBarItem alloc]initWithTitle:@"Inbox" image:nil tag:0];
     [inboxBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tabBtn1Selected"] withFinishedUnselectedImage:[UIImage imageNamed:@"tabBtn1"]];

@@ -21,6 +21,7 @@
 @property (nonatomic, retain)NSMutableArray *sectionInfoArray;
 @property (nonatomic, retain)NSMutableArray *contentList;
 @property (nonatomic)BOOL sectionSelected;
+@property (nonatomic)BOOL bookmarkTab;
 
 
 @end

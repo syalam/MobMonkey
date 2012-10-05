@@ -176,6 +176,13 @@
 }
 
 #pragma mark - IBAction Methods
+- (IBAction)photoMediaButtonTapped:(id)sender {
+    [[MMClientSDK sharedSDK]locationMediaScreen:self locationMediaContent:mediaArray locationName:self.title];
+}
+- (IBAction)videoMediaButtonTapped:(id)sender {
+    
+}
+
 - (IBAction)makeRequestButtonTapped:(id)sender {
     if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
         [[MMClientSDK sharedSDK]makeARequestScreen:self locationDetail:_contentList];

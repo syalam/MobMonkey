@@ -841,7 +841,6 @@
 										<string key="NSFrame">{{270, 16}, {13, 14}}</string>
 										<reference key="NSSuperview" ref="1073183022"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -1068,6 +1067,15 @@
 						<reference key="destination" ref="1073183022"/>
 					</object>
 					<int key="connectionID">101</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">photoMediaButtonTapped:</string>
+						<reference key="source" ref="748446115"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">103</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1468,7 +1476,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">102</int>
+			<int key="maxID">103</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1484,7 +1492,9 @@
 						<string key="makeRequestButtonTapped:">id</string>
 						<string key="notificationSettingsButtonTapped:">id</string>
 						<string key="phoneNumberButtonTapped:">id</string>
+						<string key="photoMediaButtonTapped:">id</string>
 						<string key="shareButtonTapped:">id</string>
+						<string key="videoMediaButtonTapped:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="addressButtonTapped:">
@@ -1519,8 +1529,16 @@
 							<string key="name">phoneNumberButtonTapped:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="photoMediaButtonTapped:">
+							<string key="name">photoMediaButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="shareButtonTapped:">
 							<string key="name">shareButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="videoMediaButtonTapped:">
+							<string key="name">videoMediaButtonTapped:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

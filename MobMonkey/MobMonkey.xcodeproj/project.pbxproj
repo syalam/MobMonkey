@@ -226,6 +226,9 @@
 		F76DFE87161F4DCA00B5683F /* tabBtn5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F76DFE73161F4DCA00B5683F /* tabBtn5@2x.png */; };
 		F76DFE88161F4DCA00B5683F /* tabBtn5Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = F76DFE74161F4DCA00B5683F /* tabBtn5Selected.png */; };
 		F76DFE89161F4DCA00B5683F /* tabBtn5Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F76DFE75161F4DCA00B5683F /* tabBtn5Selected@2x.png */; };
+		F76DFE91161F540D00B5683F /* MMLocationMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F76DFE8F161F540D00B5683F /* MMLocationMediaViewController.m */; };
+		F76DFE92161F540D00B5683F /* MMLocationMediaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F76DFE90161F540D00B5683F /* MMLocationMediaViewController.xib */; };
+		F76DFE96161F543100B5683F /* MMLocationMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F76DFE95161F543100B5683F /* MMLocationMediaCell.m */; };
 		F7716D4C161CF60B00578A90 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716D49161CF60B00578A90 /* NSData+Base64.m */; };
 		F7716D4D161CF60B00578A90 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716D4B161CF60B00578A90 /* NSString+Base64.m */; };
 		F7716D5A161D11BF00578A90 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7716D59161D11BF00578A90 /* MobileCoreServices.framework */; };
@@ -639,6 +642,11 @@
 		F76DFE73161F4DCA00B5683F /* tabBtn5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabBtn5@2x.png"; sourceTree = "<group>"; };
 		F76DFE74161F4DCA00B5683F /* tabBtn5Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabBtn5Selected.png; sourceTree = "<group>"; };
 		F76DFE75161F4DCA00B5683F /* tabBtn5Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabBtn5Selected@2x.png"; sourceTree = "<group>"; };
+		F76DFE8E161F540D00B5683F /* MMLocationMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationMediaViewController.h; sourceTree = "<group>"; };
+		F76DFE8F161F540D00B5683F /* MMLocationMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationMediaViewController.m; sourceTree = "<group>"; };
+		F76DFE90161F540D00B5683F /* MMLocationMediaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLocationMediaViewController.xib; sourceTree = "<group>"; };
+		F76DFE94161F543100B5683F /* MMLocationMediaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationMediaCell.h; sourceTree = "<group>"; };
+		F76DFE95161F543100B5683F /* MMLocationMediaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationMediaCell.m; sourceTree = "<group>"; };
 		F7716D48161CF60B00578A90 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		F7716D49161CF60B00578A90 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		F7716D4A161CF60B00578A90 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
@@ -999,10 +1007,11 @@
 		F734A59A15F12A570090E85A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F77D3E4D161A1EB7000A818F /* MMClientSDK */,
+				F734A59F15F12AAF0090E85A /* MMAPI */,
 				F7716DCE161E1A8E00578A90 /* Utility Class */,
 				F7716D47161CF60B00578A90 /* Base64 */,
 				F73847E1161B84EA008AA874 /* Phone Number Formatter */,
-				F77D3E4D161A1EB7000A818F /* MMClientSDK */,
 				F7E7568E15FE3A7F005C8D7C /* Twitter Accounts */,
 				F747F11215F43A48002E5567 /* TCImageView */,
 				F79B505315F3F8000004BE01 /* Set Title ImageView */,
@@ -1010,7 +1019,6 @@
 				F734A5C915F12AF70090E85A /* SVProgressHUD */,
 				F734A5A415F12AC00090E85A /* AFNetworking */,
 				F734A59C15F12AAF0090E85A /* MM HTTPClient */,
-				F734A59F15F12AAF0090E85A /* MMAPI */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1212,6 +1220,7 @@
 				F747F10615F426F8002E5567 /* MMLocationViewController.h */,
 				F747F10715F426F8002E5567 /* MMLocationViewController.m */,
 				F747F10815F426F8002E5567 /* MMLocationViewController.xib */,
+				F76DFE93161F541200B5683F /* LocationMedia */,
 			);
 			name = Location;
 			sourceTree = "<group>";
@@ -1412,6 +1421,26 @@
 				F76DFE75161F4DCA00B5683F /* tabBtn5Selected@2x.png */,
 			);
 			path = tabBarItems;
+			sourceTree = "<group>";
+		};
+		F76DFE93161F541200B5683F /* LocationMedia */ = {
+			isa = PBXGroup;
+			children = (
+				F76DFE97161F543600B5683F /* LocationMedia Cell */,
+				F76DFE8E161F540D00B5683F /* MMLocationMediaViewController.h */,
+				F76DFE8F161F540D00B5683F /* MMLocationMediaViewController.m */,
+				F76DFE90161F540D00B5683F /* MMLocationMediaViewController.xib */,
+			);
+			name = LocationMedia;
+			sourceTree = "<group>";
+		};
+		F76DFE97161F543600B5683F /* LocationMedia Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F76DFE94161F543100B5683F /* MMLocationMediaCell.h */,
+				F76DFE95161F543100B5683F /* MMLocationMediaCell.m */,
+			);
+			name = "LocationMedia Cell";
 			sourceTree = "<group>";
 		};
 		F7716D47161CF60B00578A90 /* Base64 */ = {
@@ -2080,6 +2109,7 @@
 				F76DFE87161F4DCA00B5683F /* tabBtn5@2x.png in Resources */,
 				F76DFE88161F4DCA00B5683F /* tabBtn5Selected.png in Resources */,
 				F76DFE89161F4DCA00B5683F /* tabBtn5Selected@2x.png in Resources */,
+				F76DFE92161F540D00B5683F /* MMLocationMediaViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2166,6 +2196,8 @@
 				F7716DC1161D865D00578A90 /* MMMakeRequestViewController.m in Sources */,
 				F7716DCD161E1A8600578A90 /* MMUtilities.m in Sources */,
 				F76DFE52161EAEDC00B5683F /* MMInboxFullScreenImageViewController.m in Sources */,
+				F76DFE91161F540D00B5683F /* MMLocationMediaViewController.m in Sources */,
+				F76DFE96161F543100B5683F /* MMLocationMediaCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

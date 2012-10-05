@@ -94,13 +94,13 @@
         MMInboxCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         cell = [[MMInboxCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 
-        if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestDate"]isKindOfClass:[NSNull class]]) {
+        /*if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestDate"]isKindOfClass:[NSNull class]]) {
             NSTimeInterval requestDate = [[[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestDate"]doubleValue];
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
             [dateFormatter setDateFormat:@"h:mm a"];
             NSString *dateString = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:requestDate]];
             cell.timestampLabel.text = dateString;
-        }
+        }*/
         
         if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"]isKindOfClass:[NSNull class]]) {
             cell.locationNameLabel.text = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"];
@@ -206,10 +206,7 @@
             }
         }
         else if ([self.title isEqualToString:@"Answered Requests"]) {
-            MMInboxFullScreenImageViewController *fsvc = [[MMInboxFullScreenImageViewController alloc]initWithNibName:@"MMInboxFullScreenImageViewController" bundle:nil];
-            fsvc.title = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"];
-            fsvc.imageUrl = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaUrl"];
-            [self.navigationController pushViewController:fsvc animated:YES];
+            [[MMClientSDK sharedSDK]inboxFullScreenImageScreen:self imageUrl:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaUrl"] locationName:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"]];
         }
     }
     else {

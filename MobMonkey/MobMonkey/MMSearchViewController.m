@@ -72,6 +72,7 @@
         UIBarButtonItem *filterButton = [[UIBarButtonItem alloc]initWithCustomView:_filterNavBarButton];
         self.navigationItem.leftBarButtonItem = filterButton;
         
+        [SVProgressHUD showWithStatus:@"Loading Categories"];
         currentAPICall = kAPICallGetCategoryList;
         [MMAPI sharedAPI].delegate = self;
         [[MMAPI sharedAPI]categories];

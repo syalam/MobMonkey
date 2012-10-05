@@ -13,6 +13,8 @@
 #import "MMInboxViewController.h"
 #import "MMLocationViewController.h"
 #import "MMMakeRequestViewController.h"
+#import "MMLocationMediaViewController.h"
+#import "MMInboxFullScreenImageViewController.h"
 
 @implementation MMClientSDK
 
@@ -49,6 +51,13 @@
     [presentingViewController.navigationController pushViewController:inboxVC animated:YES];
 }
 
+- (void)inboxFullScreenImageScreen:(UIViewController*)presentingViewController imageUrl:(NSString*)imageUrl locationName:(NSString*)locationName {
+    MMInboxFullScreenImageViewController *fsvc = [[MMInboxFullScreenImageViewController alloc]initWithNibName:@"MMInboxFullScreenImageViewController" bundle:nil];
+    fsvc.title = locationName;
+    fsvc.imageUrl = imageUrl;
+    [presentingViewController.navigationController pushViewController:fsvc animated:YES];
+}
+
 - (void)trendingScreen:(UIViewController*)presentingViewController selectedCategory:(NSString*)selectedCategory {
     MMTrendingViewController *trendingVC = [[MMTrendingViewController alloc]initWithNibName:@"MMTrendingViewController" bundle:nil];
     trendingVC.sectionSelected = YES;
@@ -68,6 +77,14 @@
     requestVC.contentList = locationDetail;
     UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
     [presentingViewController.navigationController presentViewController:requestNavC animated:YES completion:NULL];
+}
+
+- (void)locationMediaScreen:(UIViewController*)presentingViewController locationMediaContent:(NSArray*)locationMediaContent locationName:(NSString*)locationName {
+    MMLocationMediaViewController *lmvc = [[MMLocationMediaViewController alloc]initWithNibName:@"MMLocationMediaViewController" bundle:nil];
+    lmvc.contentList = locationMediaContent;
+    lmvc.title = locationName;
+    UINavigationController *locationMediaNavC = [[UINavigationController alloc]initWithRootViewController:lmvc];
+    [presentingViewController.navigationController presentViewController:locationMediaNavC animated:YES completion:NULL];
 }
 
 @end
