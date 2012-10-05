@@ -10,8 +10,11 @@
 #import "TCImageView.h"
 #import "MMNotificationSettingsViewController.h"
 #import "MMMakeRequestViewController.h"
+#import "MMAPI.h"
 
-@interface MMLocationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MMNotificationSettingsDelegate>
+@interface MMLocationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MMNotificationSettingsDelegate, MMAPIDelegate> {
+    NSArray *mediaArray;
+}
 
 @property (nonatomic, retain)NSDictionary* contentList;
 

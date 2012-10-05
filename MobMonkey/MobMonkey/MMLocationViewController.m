@@ -66,6 +66,10 @@
     [_notificationSettingView setHidden:YES];
     [_notificationSettingLabel setHidden:YES];
     
+    //Get Counts of photos and videos for this location
+    [self fetchMediaCounts];
+    [_locationLatestImageView setCaching:YES];
+    
     //Set location detail items to display
     [self setLocationDetailItems];
 }
@@ -257,6 +261,30 @@
     _locationNameLabel.text = self.title;
     _phoneNumberLabel.text = [_contentList valueForKey:@"phoneNumber"];
     _addressLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", [_contentList valueForKey:@"streetAddress"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];
+}
+
+- (void)fetchMediaCounts {
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    [params setObject:[_contentList valueForKey:@"providerId"] forKey:@"providerId"];
+    [params setObject:[_contentList valueForKey:@"locationId"] forKey:@"locationId"];
+    
+    [MMAPI sharedAPI].delegate = self;
+    [[MMAPI sharedAPI]fetchMediaCountsForLocation:params];
+}
+
+#pragma mark - MMAPI Delegate Methods
+- (void)MMAPICallSuccessful:(id)response {
+    NSLog(@"%@", response);
+    
+    mediaArray = response;
+    [_locationLatestImageView reloadWithUrl:[[mediaArray objectAtIndex:mediaArray.count - 1]valueForKey:@"mediaURL"]];
+    _photoCountLabel.text = [NSString stringWithFormat:@"%d", mediaArray.count];
+}
+
+- (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
+    NSLog(@"%d", operation.response.statusCode);
+    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+    NSLog(@"%@", response);
 }
 
 @end

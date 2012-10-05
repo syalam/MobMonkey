@@ -247,6 +247,7 @@
 								<reference key="NSNextKeyView" ref="406744489"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIClipsSubviews">YES</bool>
+								<int key="IBUIContentMode">2</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
@@ -852,7 +853,6 @@
 										<string key="NSFrame">{{270, 16}, {13, 14}}</string>
 										<reference key="NSSuperview" ref="1073183022"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -888,7 +888,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
 						</array>
-						<string key="NSFrameSize">{320, 460}</string>
+						<string key="NSFrame">{{0, 7}, {320, 460}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="576035235"/>
@@ -1671,7 +1671,7 @@
 			<string key="darkGrayBtn.png">{101, 69}</string>
 			<string key="divider.png">{312, 1}</string>
 			<string key="elipse.png">{15, 15}</string>
-			<string key="error.png">{21, 21}</string>
+			<string key="error.png">{28, 28}</string>
 			<string key="errorSmall.png">{13, 13}</string>
 			<string key="expand.png">{20, 20}</string>
 			<string key="flag.png">{17, 20}</string>

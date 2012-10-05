@@ -207,6 +207,7 @@
         }
         else if ([self.title isEqualToString:@"Answered Requests"]) {
             MMInboxFullScreenImageViewController *fsvc = [[MMInboxFullScreenImageViewController alloc]initWithNibName:@"MMInboxFullScreenImageViewController" bundle:nil];
+            fsvc.title = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"];
             fsvc.imageUrl = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaUrl"];
             [self.navigationController pushViewController:fsvc animated:YES];
         }
