@@ -135,12 +135,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
         [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%f", newLocation.coordinate.longitude] forKey:@"longitude"];
         [[NSUserDefaults standardUserDefaults]synchronize];
         NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-        //[params setObject:[NSNumber numberWithDouble:newLocation.coordinate.latitude] forKey:@"latitude"];
-        //[params setObject:[NSNumber numberWithDouble:newLocation.coordinate.longitude] forKey:@"longitude"];
+        [params setObject:[NSNumber numberWithDouble:newLocation.coordinate.latitude] forKey:@"latitude"];
+        [params setObject:[NSNumber numberWithDouble:newLocation.coordinate.longitude] forKey:@"longitude"];
         
         //TEST CODE. REMOVE ME
-        [params setObject:[NSNumber numberWithDouble:33.49829] forKey:@"latitude"];
-        [params setObject:[NSNumber numberWithDouble:-111.927526] forKey:@"longitude"];
+        /*[params setObject:[NSNumber numberWithDouble:33.49829] forKey:@"latitude"];
+        [params setObject:[NSNumber numberWithDouble:-111.927526] forKey:@"longitude"];*/
         
         
         [MMAPI sharedAPI].delegate = self;

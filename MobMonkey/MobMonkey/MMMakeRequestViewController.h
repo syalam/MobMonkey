@@ -53,4 +53,7 @@
 - (IBAction)clearScheduleButtonTapped:(id)sender;
 - (IBAction)sendRequestButtonTapped:(id)sender;
 
+
+@property (nonatomic, retain)NSDictionary *contentList;
+
 @end

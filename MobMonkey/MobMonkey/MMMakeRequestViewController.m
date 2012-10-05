@@ -146,9 +146,8 @@
     if (messagTextView.text && ![messagTextView.text isEqualToString:@""]) {
         [params setObject:messagTextView.text forKey:@"message"];
     }
-    //HARDCODE PROVIDER ID AND LOCATION ID UNTIL WE CAN GET VALID DATA FROM SERVER
-    [params setObject:@"222e736f-c7fa-4c40-b78e-d99243441fae" forKey:@"providerId"];
-    [params setObject:@"eeb203e7-a4f0-4318-be8b-b00f613c7e37" forKey:@"locationId"];
+    [params setObject:[_contentList valueForKey:@"providerId"] forKey:@"providerId"];
+    [params setObject:[_contentList valueForKey:@"locationId"] forKey:@"locationId"];
     if (selectedDuration) {
         NSLog(@"%@", selectedDuration);
         [params setObject:selectedDuration forKey:@"duration"];
@@ -161,7 +160,7 @@
         NSLog(@"%@", dateString);
         [params setObject:dateString forKey:@"scheduleDate"];
     }
-    [params setObject:[NSNumber numberWithInt:1000] forKey:@"radiusInYards"];
+    [params setObject:[NSNumber numberWithInt:1760] forKey:@"radiusInYards"];
     [params setObject:[NSNumber numberWithBool:NO] forKey:@"recurring"];
     
     [MMAPI sharedAPI].delegate = self;
@@ -218,7 +217,6 @@
     [tapGesture setEnabled:YES];
 }
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    
     if([text isEqualToString:@"\n"]) {
         [tapGesture setEnabled:NO];
         [textView resignFirstResponder];

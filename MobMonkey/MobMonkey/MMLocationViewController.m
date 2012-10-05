@@ -165,10 +165,7 @@
 #pragma mark - IBAction Methods
 - (IBAction)makeRequestButtonTapped:(id)sender {
     if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
-        MMMakeRequestViewController *requestVC = [[MMMakeRequestViewController alloc]initWithNibName:@"MMMakeRequestViewController" bundle:nil];
-        requestVC.title = @"Make a Request";
-        UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
-        [self.navigationController presentViewController:requestNavC animated:YES completion:NULL];
+        [[MMClientSDK sharedSDK]makeARequestScreen:self locationDetail:_contentList];
     }
     else {
         [[MMClientSDK sharedSDK]signInScreen:self];
@@ -256,7 +253,8 @@
 
 #pragma mark - Helper Methods
 - (void)setLocationDetailItems {
-    _locationNameLabel.text = [_contentList valueForKey:@"name"];
+    self.title = [_contentList valueForKey:@"name"];
+    _locationNameLabel.text = self.title;
     _phoneNumberLabel.text = [_contentList valueForKey:@"phoneNumber"];
     _addressLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", [_contentList valueForKey:@"streetAddress"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];
 }

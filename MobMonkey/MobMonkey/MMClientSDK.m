@@ -12,6 +12,7 @@
 #import "MMTrendingViewController.h"
 #import "MMInboxViewController.h"
 #import "MMLocationViewController.h"
+#import "MMMakeRequestViewController.h"
 
 @implementation MMClientSDK
 
@@ -59,6 +60,14 @@
     MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
     locationVC.contentList = locationDetail;
     [presentingViewController.navigationController pushViewController:locationVC animated:YES];
+}
+
+- (void)makeARequestScreen:(UIViewController*)presentingViewController locationDetail:(NSDictionary*)locationDetail {
+    MMMakeRequestViewController *requestVC = [[MMMakeRequestViewController alloc]initWithNibName:@"MMMakeRequestViewController" bundle:nil];
+    requestVC.title = @"Make a Request";
+    requestVC.contentList = locationDetail;
+    UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
+    [presentingViewController.navigationController presentViewController:requestNavC animated:YES completion:NULL];
 }
 
 @end
