@@ -14,9 +14,12 @@
 typedef enum apiCall {
     kAPICallOpenRequests,
     kAPICallAssignedRequests,
+    kAPICallFulfilledRequests,
     kAPICallFulfillRequest,
     kAPICallGetCategoryList,
     kAPICallLocationSearch,
+    kAPICallSignUp,
+    kAPICallCheckin,
 }apiCall;
 
 @protocol MMAPIDelegate
@@ -129,6 +132,14 @@ typedef enum apiCall {
 -(void)assignedRequests;
 
 ///---------------------------------------------
+/// @name Fetches a list of fulfilled requests from the server
+///---------------------------------------------
+/**
+ Retrieve list of fulfilled requests from the server
+ */
+- (void)fulfilledRequests;
+
+///---------------------------------------------
 /// @name Adds a new location to the system
 ///---------------------------------------------
 /**
@@ -172,5 +183,14 @@ Glob search for a location
 
 
 @property (nonatomic, assign)id<MMAPIDelegate> delegate;
+
+
+///---------------------------------------------
+/// @name Fetches media counts for a location
+///---------------------------------------------
+/**
+Fetches media counts for a location
+ */
+- (void)fetchMediaCountsForLocation:(NSDictionary*)params;
 
 @end

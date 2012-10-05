@@ -240,6 +240,7 @@
             [params setObject:@"01238jkl123iu33bb93aa621864be0a927de9672cb13af16b0e9512398uiu123oiu" forKey:@"deviceId"];
         }
         [params setObject:@"iOS" forKey:@"deviceType"];
+        currentAPICall = kAPICallSignUp;
         [SVProgressHUD showWithStatus:@"Signing Up"];
         [MMAPI sharedAPI].delegate = self;
         [[MMAPI sharedAPI]signUpNewUser:params];
@@ -355,11 +356,28 @@
 
 #pragma mark - MMAPI Delegate Methods
 - (void)MMAPICallSuccessful:(id)response {
-    [SVProgressHUD dismissWithSuccess:@"Sign Up Successful"];
-    [[NSUserDefaults standardUserDefaults]setObject:_emailTextField.text forKey:@"userName"];
-    [[NSUserDefaults standardUserDefaults]setObject:_passwordTextField.text forKey:@"password"];
-    [[NSUserDefaults standardUserDefaults]synchronize];
-    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+    switch (currentAPICall) {
+        case kAPICallSignUp: {
+            [SVProgressHUD dismissWithSuccess:@"Sign Up Successful"];
+            [[NSUserDefaults standardUserDefaults]setObject:_emailTextField.text forKey:@"userName"];
+            [[NSUserDefaults standardUserDefaults]setObject:_passwordTextField.text forKey:@"password"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            
+            NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+            [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
+            [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
+            [MMAPI sharedAPI].delegate = self;
+            [[MMAPI sharedAPI]checkUserIn:params];
+        }
+            break;
+        case kAPICallCheckin:
+            [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+            break;
+        default:
+            break;
+    }
+    
+    
 }
 - (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
     [SVProgressHUD dismissWithError:@"Sign Up Failed"];

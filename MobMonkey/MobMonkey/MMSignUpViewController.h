@@ -16,6 +16,7 @@
 @interface MMSignUpViewController : UITableViewController <UIActionSheetDelegate, UITextFieldDelegate, TwitterAccountsDelegate, MMAPIDelegate> {
     UIActionSheet *birthdayActionSheet;
     UIDatePicker *datePicker;
+    int currentAPICall;
 }
 
 - (IBAction)signUpButtonTapped:(id)sender;

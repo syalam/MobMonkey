@@ -160,7 +160,7 @@
         NSLog(@"%@", dateString);
         [params setObject:dateString forKey:@"scheduleDate"];
     }
-    [params setObject:[NSNumber numberWithInt:1760] forKey:@"radiusInYards"];
+    [params setObject:[NSNumber numberWithInt:100000] forKey:@"radiusInYards"];
     [params setObject:[NSNumber numberWithBool:NO] forKey:@"recurring"];
     
     [MMAPI sharedAPI].delegate = self;

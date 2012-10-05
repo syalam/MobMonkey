@@ -192,6 +192,18 @@
 		F747F15F15F4740B002E5567 /* MMSignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F15D15F4740B002E5567 /* MMSignUpViewController.xib */; };
 		F747F16315F4742D002E5567 /* MMLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F16115F4742C002E5567 /* MMLoginViewController.m */; };
 		F747F16415F4742D002E5567 /* MMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F16215F4742C002E5567 /* MMLoginViewController.xib */; };
+		F757D88C161EA12A00674D9E /* redPictureBtnDeselected.png in Resources */ = {isa = PBXBuildFile; fileRef = F757D880161EA12A00674D9E /* redPictureBtnDeselected.png */; };
+		F757D88D161EA12A00674D9E /* redPictureBtnDeselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F757D881161EA12A00674D9E /* redPictureBtnDeselected@2x.png */; };
+		F757D88E161EA12A00674D9E /* redPictureBtnSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = F757D882161EA12A00674D9E /* redPictureBtnSelected.png */; };
+		F757D88F161EA12A00674D9E /* redPictureBtnSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F757D883161EA12A00674D9E /* redPictureBtnSelected@2x.png */; };
+		F757D890161EA12A00674D9E /* redVideoBtnDeselected.png in Resources */ = {isa = PBXBuildFile; fileRef = F757D884161EA12A00674D9E /* redVideoBtnDeselected.png */; };
+		F757D891161EA12A00674D9E /* redVideoBtnDeselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F757D885161EA12A00674D9E /* redVideoBtnDeselected@2x.png */; };
+		F757D892161EA12A00674D9E /* redVideoBtnSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = F757D886161EA12A00674D9E /* redVideoBtnSelected.png */; };
+		F757D893161EA12A00674D9E /* redVideoBtnSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F757D887161EA12A00674D9E /* redVideoBtnSelected@2x.png */; };
+		F757D894161EA12A00674D9E /* timeBtnDeselected.png in Resources */ = {isa = PBXBuildFile; fileRef = F757D888161EA12A00674D9E /* timeBtnDeselected.png */; };
+		F757D895161EA12A00674D9E /* timeBtnDeselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F757D889161EA12A00674D9E /* timeBtnDeselected@2x.png */; };
+		F757D896161EA12A00674D9E /* timeBtnSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = F757D88A161EA12A00674D9E /* timeBtnSelected.png */; };
+		F757D897161EA12A00674D9E /* timeBtnSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F757D88B161EA12A00674D9E /* timeBtnSelected@2x.png */; };
 		F7716D4C161CF60B00578A90 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716D49161CF60B00578A90 /* NSData+Base64.m */; };
 		F7716D4D161CF60B00578A90 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716D4B161CF60B00578A90 /* NSString+Base64.m */; };
 		F7716D5A161D11BF00578A90 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7716D59161D11BF00578A90 /* MobileCoreServices.framework */; };
@@ -219,12 +231,6 @@
 		F7716DB2161D848D00578A90 /* RoundedRectLarge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716D96161D848D00578A90 /* RoundedRectLarge@2x.png */; };
 		F7716DB3161D848D00578A90 /* roundedRectSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716D97161D848D00578A90 /* roundedRectSmall.png */; };
 		F7716DB4161D848D00578A90 /* roundedRectSmall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716D98161D848D00578A90 /* roundedRectSmall@2x.png */; };
-		F7716DB5161D848D00578A90 /* selectedRectRed.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716D99161D848D00578A90 /* selectedRectRed.png */; };
-		F7716DB6161D848D00578A90 /* selectedRectRed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716D9A161D848D00578A90 /* selectedRectRed@2x.png */; };
-		F7716DB7161D848D00578A90 /* timeBtnDeselected.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716D9B161D848D00578A90 /* timeBtnDeselected.png */; };
-		F7716DB8161D848D00578A90 /* timeBtnDeselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716D9C161D848D00578A90 /* timeBtnDeselected@2x.png */; };
-		F7716DB9161D848D00578A90 /* timeBtnSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716D9D161D848D00578A90 /* timeBtnSelected.png */; };
-		F7716DBA161D848D00578A90 /* timeBtnSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716D9E161D848D00578A90 /* timeBtnSelected@2x.png */; };
 		F7716DBB161D848D00578A90 /* videoIcn.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716D9F161D848D00578A90 /* videoIcn.png */; };
 		F7716DBC161D848D00578A90 /* videoIcn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716DA0161D848D00578A90 /* videoIcn@2x.png */; };
 		F7716DC1161D865D00578A90 /* MMMakeRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716DBF161D865D00578A90 /* MMMakeRequestViewController.m */; };
@@ -576,6 +582,18 @@
 		F747F16015F4742B002E5567 /* MMLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLoginViewController.h; sourceTree = "<group>"; };
 		F747F16115F4742C002E5567 /* MMLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLoginViewController.m; sourceTree = "<group>"; };
 		F747F16215F4742C002E5567 /* MMLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLoginViewController.xib; sourceTree = "<group>"; };
+		F757D880161EA12A00674D9E /* redPictureBtnDeselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redPictureBtnDeselected.png; sourceTree = "<group>"; };
+		F757D881161EA12A00674D9E /* redPictureBtnDeselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redPictureBtnDeselected@2x.png"; sourceTree = "<group>"; };
+		F757D882161EA12A00674D9E /* redPictureBtnSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redPictureBtnSelected.png; sourceTree = "<group>"; };
+		F757D883161EA12A00674D9E /* redPictureBtnSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redPictureBtnSelected@2x.png"; sourceTree = "<group>"; };
+		F757D884161EA12A00674D9E /* redVideoBtnDeselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redVideoBtnDeselected.png; sourceTree = "<group>"; };
+		F757D885161EA12A00674D9E /* redVideoBtnDeselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redVideoBtnDeselected@2x.png"; sourceTree = "<group>"; };
+		F757D886161EA12A00674D9E /* redVideoBtnSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redVideoBtnSelected.png; sourceTree = "<group>"; };
+		F757D887161EA12A00674D9E /* redVideoBtnSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redVideoBtnSelected@2x.png"; sourceTree = "<group>"; };
+		F757D888161EA12A00674D9E /* timeBtnDeselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeBtnDeselected.png; sourceTree = "<group>"; };
+		F757D889161EA12A00674D9E /* timeBtnDeselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeBtnDeselected@2x.png"; sourceTree = "<group>"; };
+		F757D88A161EA12A00674D9E /* timeBtnSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeBtnSelected.png; sourceTree = "<group>"; };
+		F757D88B161EA12A00674D9E /* timeBtnSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeBtnSelected@2x.png"; sourceTree = "<group>"; };
 		F7716D48161CF60B00578A90 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		F7716D49161CF60B00578A90 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		F7716D4A161CF60B00578A90 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
@@ -609,12 +627,6 @@
 		F7716D96161D848D00578A90 /* RoundedRectLarge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RoundedRectLarge@2x.png"; sourceTree = "<group>"; };
 		F7716D97161D848D00578A90 /* roundedRectSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = roundedRectSmall.png; sourceTree = "<group>"; };
 		F7716D98161D848D00578A90 /* roundedRectSmall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "roundedRectSmall@2x.png"; sourceTree = "<group>"; };
-		F7716D99161D848D00578A90 /* selectedRectRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedRectRed.png; sourceTree = "<group>"; };
-		F7716D9A161D848D00578A90 /* selectedRectRed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "selectedRectRed@2x.png"; sourceTree = "<group>"; };
-		F7716D9B161D848D00578A90 /* timeBtnDeselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeBtnDeselected.png; sourceTree = "<group>"; };
-		F7716D9C161D848D00578A90 /* timeBtnDeselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeBtnDeselected@2x.png"; sourceTree = "<group>"; };
-		F7716D9D161D848D00578A90 /* timeBtnSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeBtnSelected.png; sourceTree = "<group>"; };
-		F7716D9E161D848D00578A90 /* timeBtnSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeBtnSelected@2x.png"; sourceTree = "<group>"; };
 		F7716D9F161D848D00578A90 /* videoIcn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoIcn.png; sourceTree = "<group>"; };
 		F7716DA0161D848D00578A90 /* videoIcn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "videoIcn@2x.png"; sourceTree = "<group>"; };
 		F7716DBE161D865D00578A90 /* MMMakeRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMakeRequestViewController.h; sourceTree = "<group>"; };
@@ -821,7 +833,6 @@
 		F734A52815F11C3E0090E85A = {
 			isa = PBXGroup;
 			children = (
-				F7716D59161D11BF00578A90 /* MobileCoreServices.framework */,
 				F734A53D15F11C3E0090E85A /* MobMonkey */,
 				F734A56915F11C3E0090E85A /* MobMonkeyTests */,
 				F734A53615F11C3E0090E85A /* Frameworks */,
@@ -841,6 +852,7 @@
 		F734A53615F11C3E0090E85A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F7716D59161D11BF00578A90 /* MobileCoreServices.framework */,
 				F7716D57161D115C00578A90 /* AVFoundation.framework */,
 				F7716D55161D114A00578A90 /* MediaPlayer.framework */,
 				F7716D53161D10D900578A90 /* CoreMedia.framework */,
@@ -1332,6 +1344,18 @@
 		F7716D84161D848D00578A90 /* make request */ = {
 			isa = PBXGroup;
 			children = (
+				F757D880161EA12A00674D9E /* redPictureBtnDeselected.png */,
+				F757D881161EA12A00674D9E /* redPictureBtnDeselected@2x.png */,
+				F757D882161EA12A00674D9E /* redPictureBtnSelected.png */,
+				F757D883161EA12A00674D9E /* redPictureBtnSelected@2x.png */,
+				F757D884161EA12A00674D9E /* redVideoBtnDeselected.png */,
+				F757D885161EA12A00674D9E /* redVideoBtnDeselected@2x.png */,
+				F757D886161EA12A00674D9E /* redVideoBtnSelected.png */,
+				F757D887161EA12A00674D9E /* redVideoBtnSelected@2x.png */,
+				F757D888161EA12A00674D9E /* timeBtnDeselected.png */,
+				F757D889161EA12A00674D9E /* timeBtnDeselected@2x.png */,
+				F757D88A161EA12A00674D9E /* timeBtnSelected.png */,
+				F757D88B161EA12A00674D9E /* timeBtnSelected@2x.png */,
 				F7716D85161D848D00578A90 /* calendarIcn.png */,
 				F7716D86161D848D00578A90 /* calendarIcn@2x.png */,
 				F7716D87161D848D00578A90 /* clipboardIcn.png */,
@@ -1352,12 +1376,6 @@
 				F7716D96161D848D00578A90 /* RoundedRectLarge@2x.png */,
 				F7716D97161D848D00578A90 /* roundedRectSmall.png */,
 				F7716D98161D848D00578A90 /* roundedRectSmall@2x.png */,
-				F7716D99161D848D00578A90 /* selectedRectRed.png */,
-				F7716D9A161D848D00578A90 /* selectedRectRed@2x.png */,
-				F7716D9B161D848D00578A90 /* timeBtnDeselected.png */,
-				F7716D9C161D848D00578A90 /* timeBtnDeselected@2x.png */,
-				F7716D9D161D848D00578A90 /* timeBtnSelected.png */,
-				F7716D9E161D848D00578A90 /* timeBtnSelected@2x.png */,
 				F7716D9F161D848D00578A90 /* videoIcn.png */,
 				F7716DA0161D848D00578A90 /* videoIcn@2x.png */,
 			);
@@ -1938,12 +1956,6 @@
 				F7716DB2161D848D00578A90 /* RoundedRectLarge@2x.png in Resources */,
 				F7716DB3161D848D00578A90 /* roundedRectSmall.png in Resources */,
 				F7716DB4161D848D00578A90 /* roundedRectSmall@2x.png in Resources */,
-				F7716DB5161D848D00578A90 /* selectedRectRed.png in Resources */,
-				F7716DB6161D848D00578A90 /* selectedRectRed@2x.png in Resources */,
-				F7716DB7161D848D00578A90 /* timeBtnDeselected.png in Resources */,
-				F7716DB8161D848D00578A90 /* timeBtnDeselected@2x.png in Resources */,
-				F7716DB9161D848D00578A90 /* timeBtnSelected.png in Resources */,
-				F7716DBA161D848D00578A90 /* timeBtnSelected@2x.png in Resources */,
 				F7716DBB161D848D00578A90 /* videoIcn.png in Resources */,
 				F7716DBC161D848D00578A90 /* videoIcn@2x.png in Resources */,
 				F7716DC2161D865D00578A90 /* MMMakeRequestViewController.xib in Resources */,
@@ -1951,6 +1963,18 @@
 				F7716DD4161E4A4D00578A90 /* bookmarkBtn@2x.png in Resources */,
 				F7716DD5161E4A4D00578A90 /* whiteRect.png in Resources */,
 				F7716DD6161E4A4D00578A90 /* whiteRect@2x.png in Resources */,
+				F757D88C161EA12A00674D9E /* redPictureBtnDeselected.png in Resources */,
+				F757D88D161EA12A00674D9E /* redPictureBtnDeselected@2x.png in Resources */,
+				F757D88E161EA12A00674D9E /* redPictureBtnSelected.png in Resources */,
+				F757D88F161EA12A00674D9E /* redPictureBtnSelected@2x.png in Resources */,
+				F757D890161EA12A00674D9E /* redVideoBtnDeselected.png in Resources */,
+				F757D891161EA12A00674D9E /* redVideoBtnDeselected@2x.png in Resources */,
+				F757D892161EA12A00674D9E /* redVideoBtnSelected.png in Resources */,
+				F757D893161EA12A00674D9E /* redVideoBtnSelected@2x.png in Resources */,
+				F757D894161EA12A00674D9E /* timeBtnDeselected.png in Resources */,
+				F757D895161EA12A00674D9E /* timeBtnDeselected@2x.png in Resources */,
+				F757D896161EA12A00674D9E /* timeBtnSelected.png in Resources */,
+				F757D897161EA12A00674D9E /* timeBtnSelected@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

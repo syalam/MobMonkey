@@ -134,6 +134,27 @@
     }];
 }
 
+- (void)fetchMediaCountsForLocation:(NSDictionary*)params {
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
+    [[MMHTTPClient sharedClient] postPath:@"search/media/image" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSLog(@"%@", JSON);
+        [_delegate MMAPICallSuccessful:JSON];
+    }failure:^(AFHTTPRequestOperation *operation, id JSON) {
+        int statusCode = operation.response.statusCode;
+        if (statusCode == 200 || statusCode == 201) {
+            id response = operation.responseString;
+            NSLog(@"%@", response);
+            [_delegate MMAPICallSuccessful:response];
+        }
+        else {
+            [_delegate MMAPICallFailed:operation];
+        }
+    }];
+}
+
 #pragma mark - Retrieve categories
 -(void)categories {
     [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
@@ -187,6 +208,19 @@
     [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
     [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
     [[MMHTTPClient sharedClient] getPath:@"inbox/assignedrequests" parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSLog(@"%@", JSON);
+        [_delegate MMAPICallSuccessful:JSON];
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_delegate MMAPICallFailed:operation];
+    }];
+}
+
+- (void)fulfilledRequests {
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+    [[MMHTTPClient sharedClient]setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
+    [[MMHTTPClient sharedClient] getPath:@"inbox/fulfilledrequests" parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"%@", JSON);
         [_delegate MMAPICallSuccessful:JSON];
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {

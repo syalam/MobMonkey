@@ -85,6 +85,11 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
+    [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
+    [MMAPI sharedAPI].delegate = self;
+    [[MMAPI sharedAPI]checkUserIn:params];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -137,6 +142,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
         NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
         [params setObject:[NSNumber numberWithDouble:newLocation.coordinate.latitude] forKey:@"latitude"];
         [params setObject:[NSNumber numberWithDouble:newLocation.coordinate.longitude] forKey:@"longitude"];
+        
+        NSLog(@"%@, %@", [[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"], [[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]);
         
         //TEST CODE. REMOVE ME
         /*[params setObject:[NSNumber numberWithDouble:33.49829] forKey:@"latitude"];

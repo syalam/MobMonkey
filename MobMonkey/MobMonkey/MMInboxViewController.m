@@ -91,9 +91,8 @@
     static NSString *CellIdentifier = @"Cell";
     if (_categorySelected) {
         MMInboxCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (!cell) {
-            cell = [[MMInboxCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        }
+        cell = [[MMInboxCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+
         if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestDate"]isKindOfClass:[NSNull class]]) {
             NSTimeInterval requestDate = [[[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestDate"]doubleValue];
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
@@ -216,7 +215,8 @@
                     [[MMAPI sharedAPI]openRequests];
                     break;
                 case 1:
-                    
+                    currentAPICall = kAPICallFulfilledRequests;
+                    [[MMAPI sharedAPI]fulfilledRequests];
                     break;
                 case 2:
                     currentAPICall = kAPICallAssignedRequests;
@@ -314,6 +314,9 @@
             break;
         case kAPICallOpenRequests:
             [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Open Requests" inboxItems:response];
+            break;
+        case kAPICallFulfilledRequests:
+            [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Answered Requests" inboxItems:response];
             break;
         case kAPICallFulfillRequest:
             [self.navigationController popViewControllerAnimated:YES];

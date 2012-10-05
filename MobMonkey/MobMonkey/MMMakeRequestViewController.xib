@@ -61,17 +61,16 @@
 							<object class="IBUIButton" id="65230189">
 								<reference key="NSNextResponder" ref="111116378"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{9, 9}, {152, 67}}</string>
+								<string key="NSFrame">{{9, 9}, {151, 64}}</string>
 								<reference key="NSSuperview" ref="111116378"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="400374231"/>
+								<reference key="NSNextKeyView" ref="60820859"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<string key="IBUINormalTitle">Button</string>
 								<object class="NSColor" key="IBUIHighlightedTitleColor" id="966216394">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
@@ -84,9 +83,9 @@
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC41AA</bytes>
 								</object>
-								<object class="NSCustomResource" key="IBUINormalImage" id="1035316799">
+								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">deselectedRectRed.png</string>
+									<string key="NSResourceName">redVideoBtnDeselected.png</string>
 								</object>
 								<object class="IBUIFontDescription" key="IBUIFontDescription" id="116272042">
 									<int key="type">2</int>
@@ -101,7 +100,7 @@
 							<object class="IBUIButton" id="60820859">
 								<reference key="NSNextResponder" ref="111116378"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{159, 9}, {152, 67}}</string>
+								<string key="NSFrame">{{160, 9}, {151, 64}}</string>
 								<reference key="NSSuperview" ref="111116378"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="310821451"/>
@@ -118,24 +117,12 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="544115902"/>
-								<reference key="IBUINormalImage" ref="1035316799"/>
+								<object class="NSCustomResource" key="IBUINormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">redPictureBtnDeselected.png</string>
+								</object>
 								<reference key="IBUIFontDescription" ref="116272042"/>
 								<reference key="IBUIFont" ref="932000837"/>
-							</object>
-							<object class="IBUIImageView" id="400374231">
-								<reference key="NSNextResponder" ref="111116378"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{59, 20}, {52, 53}}</string>
-								<reference key="NSSuperview" ref="111116378"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="60820859"/>
-								<string key="NSReuseIdentifierKey">_NS:9</string>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<object class="NSCustomResource" key="IBUIImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">videoIcn.png</string>
-								</object>
 							</object>
 							<object class="IBUIImageView" id="310821451">
 								<reference key="NSNextResponder" ref="111116378"/>
@@ -765,7 +752,10 @@
 											<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 										</object>
 										<reference key="IBUINormalTitleShadowColor" ref="544115902"/>
-										<reference key="IBUINormalBackgroundImage" ref="1035316799"/>
+										<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+											<string key="NSClassName">NSImage</string>
+											<string key="NSResourceName">deselectedRectRed.png</string>
+										</object>
 										<reference key="IBUIFontDescription" ref="116272042"/>
 										<reference key="IBUIFont" ref="932000837"/>
 									</object>
@@ -1192,7 +1182,6 @@
 							<reference ref="65230189"/>
 							<reference ref="1073714726"/>
 							<reference ref="415188214"/>
-							<reference ref="400374231"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -1204,11 +1193,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">15</int>
 						<reference key="object" ref="60820859"/>
-						<reference key="parent" ref="111116378"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">52</int>
-						<reference key="object" ref="400374231"/>
 						<reference key="parent" ref="111116378"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -1437,7 +1421,6 @@
 				<string key="500.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="509.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="517.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="52.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="537.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="554.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="61.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1640,10 +1623,11 @@
 			<string key="makeRequestBg.png">{320, 458}</string>
 			<string key="pencilIcn.png">{15, 15}</string>
 			<string key="pictureIcn.png">{32, 28}</string>
+			<string key="redPictureBtnDeselected.png">{151, 64}</string>
+			<string key="redVideoBtnDeselected.png">{151, 64}</string>
 			<string key="roundedRectLarge.png">{303, 62}</string>
 			<string key="roundedRectSmall.png">{303, 44}</string>
 			<string key="timeBtnDeselected.png">{75, 46}</string>
-			<string key="videoIcn.png">{60, 59}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1926</string>
 	</data>

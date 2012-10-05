@@ -303,7 +303,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
     [params setObject:[NSNumber numberWithDouble:latitude]forKey:@"latitude"];
     [params setObject:[NSNumber numberWithDouble:longitude]forKey:@"longitude"];
-    if (filters) {
+    if ([filters valueForKey:@"radius"]) {
         [params setObject:[filters valueForKey:@"radius"] forKey:@"radiusInYards"];
     }
     else {
