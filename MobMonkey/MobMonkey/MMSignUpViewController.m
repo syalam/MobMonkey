@@ -197,7 +197,7 @@
         errorMessageText = @"Please enter your email address.";
     }
     else if (!_passwordTextField.text || [_passwordTextField.text isEqualToString:@""] || ![_passwordTextField.text isEqualToString:_confirmPasswordTextField.text]) {
-        errorMessageText = @"The passwords you have entered do no match. Please re-enter your password.";
+        errorMessageText = @"The passwords you have entered do not match. Please re-enter your password.";
     }
     else if (!_birthdayTextField.text || [_birthdayTextField.text isEqualToString:@""]) {
         errorMessageText = @"Please enter your birthday.";
@@ -312,6 +312,8 @@
     CGRect pickerFrame = CGRectMake(0, 40, 0, 0);
     datePicker = [[UIDatePicker alloc] initWithFrame:pickerFrame];
     datePicker.datePickerMode = UIDatePickerModeDate;
+    NSDate *minusTwentyYears = [NSDate dateWithTimeIntervalSinceNow:-(60*60*24*365.25*20)];
+    [datePicker setDate:minusTwentyYears];
     
     [birthdayActionSheet addSubview:datePicker];
     
