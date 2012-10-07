@@ -39,7 +39,7 @@
     //self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     
     //setup scrollview size
-    [_scrollView setContentSize:CGSizeMake(320, 740)];
+    [_scrollView setContentSize:CGSizeMake(320, 815)];
     
     //set background color
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
@@ -57,14 +57,6 @@
     self.navigationItem.leftBarButtonItem = backButton;
     
     
-    //Add custom bookmark button to the nav bar
-    UIButton *bookmarkNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
-    [bookmarkNavbutton addTarget:self action:@selector(bookmarkButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [bookmarkNavbutton setBackgroundImage:[UIImage imageNamed:@"bookmarkBtn"] forState:UIControlStateNormal];
-    
-    UIBarButtonItem* bookmarkButton = [[UIBarButtonItem alloc]initWithCustomView:bookmarkNavbutton];
-    self.navigationItem.rightBarButtonItem = bookmarkButton;
-    
     if ([[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]]) {
         [self.flagButton setBackgroundColor:[UIColor blueColor]];
     }
@@ -81,6 +73,9 @@
     
     //Set location detail items to display
     [self setLocationDetailItems];
+    
+    //initialize variables
+    uiAdjustedForNotificationSetting = NO;
 }
 
 - (void)viewDidUnload
@@ -248,7 +243,15 @@
 }
 
 - (IBAction)clearNotificationSettingButtonTapped:(id)sender {
+    uiAdjustedForNotificationSetting = NO;
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    [UIView setAnimationDuration: 0.5];
+    [UIView setAnimationDelegate: self];
     [_notificationSettingView setHidden:YES];
+    [_bookmarkView setFrame:CGRectMake(_bookmarkView.frame.origin.x, _bookmarkView.frame.origin.y - 46, _bookmarkView.frame.size.width, _bookmarkView.frame.size.height)];
+    [UIView commitAnimations];
 }
 
 #pragma mark - Action Sheet Delegate Methods
@@ -269,6 +272,11 @@
 - (void)selectedSetting:(id)selectedNotificationSetting {
     [_notificationSettingLabel setHidden:NO];
     [_notificationSettingView setHidden:NO];
+    
+    if (!uiAdjustedForNotificationSetting) {
+        uiAdjustedForNotificationSetting = YES;
+        [_bookmarkView setFrame:CGRectMake(_bookmarkView.frame.origin.x, _bookmarkView.frame.origin.y + 46, _bookmarkView.frame.size.width, _bookmarkView.frame.size.height)];
+    }
 }
 
 #pragma mark - Helper Methods

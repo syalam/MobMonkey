@@ -10,6 +10,7 @@
 
 @interface MMInboxCell : UITableViewCell
 
+@property (nonatomic, retain)UIImageView *backgroundImageView;
 @property (nonatomic, retain)UILabel *locationNameLabel;
 @property (nonatomic, retain)UILabel *requestTypeLabel;
 @property (nonatomic, retain)UILabel *messageLabel;

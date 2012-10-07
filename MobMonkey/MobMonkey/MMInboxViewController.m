@@ -53,8 +53,10 @@
         [self.view setBackgroundColor:[UIColor whiteColor]];
         NSMutableArray *tableContent = [NSMutableArray arrayWithObjects:@"Open Requests", @"Answered Requests", @"Assigned Requests", nil];
         [self setContentList:tableContent];
+        
+        [SVProgressHUD showWithStatus:@"Updating"];
+        [self performSelector:@selector(fetchInboxContent) withObject:nil afterDelay:2];
     }
-    
 }
 
 - (void)viewDidUnload
@@ -119,6 +121,11 @@
             }
             cell.requestTypeLabel.text = mediaType;
         }
+        cell.clipsToBounds = YES;
+        [cell.backgroundImageView setFrame:CGRectMake(0, 0, cell.frame.size.width, 400)];
+        
+        //cell.backgroundImageView.contentMode = UIViewContentModeScaleToFill;
+        //cell.backgroundImageView.image = [UIImage imageNamed:@"roundedRectLarge"];
         
         return cell;
     }
@@ -211,20 +218,16 @@
     }
     else {
         if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
-            //[SVProgressHUD show];
             [MMAPI sharedAPI].delegate = self;
             switch (indexPath.row) {
                 case 0:
-                    currentAPICall = kAPICallOpenRequests;
-                    [[MMAPI sharedAPI]openRequests];
+                    [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Open Requests" inboxItems:openRequestsArray];
                     break;
                 case 1:
-                    currentAPICall = kAPICallFulfilledRequests;
-                    [[MMAPI sharedAPI]fulfilledRequests];
+                    [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Answered Requests" inboxItems:fulfilledRequestsArray];
                     break;
                 case 2:
-                    currentAPICall = kAPICallAssignedRequests;
-                    [[MMAPI sharedAPI]assignedRequests];
+                    [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Assigned Requests" inboxItems:assignedRequestsArray];
                     break;
                 default:
                     break;
@@ -266,6 +269,17 @@
 #pragma mark - UInavbar action methods
 - (void)backButtonTapped:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - Helper Methods
+- (void)fetchInboxContent {
+    [MMAPI sharedAPI].delegate = self;
+    
+    currentAPICall = kAPICallOpenRequests;
+    
+    [[MMAPI sharedAPI]openRequests];
+    [[MMAPI sharedAPI]fulfilledRequests];
+    [[MMAPI sharedAPI]assignedRequests];
 }
 
 #pragma mark - UIImagePickerController Delegate Methods
@@ -314,13 +328,15 @@
     NSLog(@"%@", response);
     switch (currentAPICall) {
         case kAPICallAssignedRequests:
-            [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Assigned Requests" inboxItems:response];
+            assignedRequestsArray = response;
             break;
         case kAPICallOpenRequests:
-            [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Open Requests" inboxItems:response];
+            openRequestsArray = response;
+            currentAPICall = kAPICallFulfilledRequests;
             break;
         case kAPICallFulfilledRequests:
-            [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Answered Requests" inboxItems:response];
+            fulfilledRequestsArray = response;
+            currentAPICall = kAPICallAssignedRequests;
             break;
         case kAPICallFulfillRequest:
             [self.navigationController popViewControllerAnimated:YES];
@@ -331,10 +347,9 @@
 }
 
 - (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
-    [SVProgressHUD dismiss];
     NSLog(@"%d", operation.response.statusCode);
     NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
-    NSLog(@"%@", response);
+    [SVProgressHUD dismissWithError:[response valueForKey:@"description"]];
 }
 
 @end

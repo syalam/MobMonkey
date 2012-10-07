@@ -13,6 +13,11 @@
 @interface MMInboxViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMAPIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
     int currentAPICall;
     NSString *selectedRequestId;
+    
+    NSArray *openRequestsArray;
+    NSArray *fulfilledRequestsArray;
+    NSArray *assignedRequestsArray;
+    
 }
 
 @property (nonatomic, retain)UIImageView *mmTitleImageView;

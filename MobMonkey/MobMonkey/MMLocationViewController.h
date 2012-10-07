@@ -14,6 +14,8 @@
 
 @interface MMLocationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MMNotificationSettingsDelegate, MMAPIDelegate> {
     NSArray *mediaArray;
+    
+    BOOL uiAdjustedForNotificationSetting;
 }
 
 @property (nonatomic, retain)NSDictionary* contentList;
@@ -34,7 +36,9 @@
 @property (nonatomic, retain)IBOutlet UIButton *addressButton;
 
 @property (nonatomic, retain)IBOutlet TCImageView *locationLatestImageView;
+
 @property (nonatomic, retain)IBOutlet UIView *notificationSettingView;
+@property (nonatomic, retain)IBOutlet UIView *bookmarkView;
 
 @property (nonatomic, retain)IBOutlet UILabel *locationNameLabel;
 @property (nonatomic, retain)IBOutlet UILabel *videoCountLabel;

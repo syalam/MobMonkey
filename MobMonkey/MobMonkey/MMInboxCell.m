@@ -15,6 +15,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        _backgroundImageView = [[UIImageView alloc]init];
         _locationNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 5, 300, 20)];
         _requestTypeLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 35, 300, 20)];
         _messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 55, 300, 20)];
@@ -25,7 +26,10 @@
         [_messageLabel setBackgroundColor:[UIColor clearColor]];
         [_timestampLabel setBackgroundColor:[UIColor clearColor]];
         
-        UIColor *textColor = [UIColor whiteColor];
+        
+        UIColor *textColor = [UIColor darkGrayColor];
+        
+        _backgroundImageView.image = [UIImage imageNamed:@"roundedRectLarge"];
         
         [_locationNameLabel setTextColor:textColor];
         [_requestTypeLabel setTextColor:textColor];
@@ -35,6 +39,7 @@
         [_messageLabel setNumberOfLines:0];
         [_messageLabel setLineBreakMode:NSLineBreakByWordWrapping];
         
+        [self.contentView addSubview:_backgroundImageView];
         [self.contentView addSubview:_locationNameLabel];
         [self.contentView addSubview:_requestTypeLabel];
         [self.contentView addSubview:_messageLabel];
