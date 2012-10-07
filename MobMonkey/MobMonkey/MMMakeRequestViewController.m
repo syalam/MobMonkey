@@ -45,12 +45,12 @@
     
     //Defualt to photo request
     videoSelected = NO;
-    //set default duration to 15 minutes
-    selectedDuration = [NSNumber numberWithInt:15];
-    [fifteenMinButton setImage:[UIImage imageNamed:@"timeBtnSelected"] forState:UIControlStateNormal];
-    [segmentOneLabel setTextColor:[UIColor whiteColor]];
+    //set default duration to 30 minutes
+    selectedDuration = [NSNumber numberWithInt:30];
+    [thirtyMinButton setImage:[UIImage imageNamed:@"timeBtnSelected"] forState:UIControlStateNormal];
+    [segmentTwoLabel setTextColor:[UIColor whiteColor]];
     
-    [photoButton setImage:[UIImage imageNamed:@"redPictureBtnDeselected"] forState:UIControlStateNormal];
+    [photoButton setImage:[UIImage imageNamed:@"redPictureBtnSelected"] forState:UIControlStateNormal];
     [videoButton setImage:[UIImage imageNamed:@"redVideoBtnDeselected"] forState:UIControlStateNormal];
 }
 
