@@ -52,6 +52,9 @@
     
     [photoButton setImage:[UIImage imageNamed:@"redPictureBtnSelected"] forState:UIControlStateNormal];
     [videoButton setImage:[UIImage imageNamed:@"redVideoBtnDeselected"] forState:UIControlStateNormal];
+    
+    //Initialize variable
+    uiAdjustedForMessage =  NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,7 +83,8 @@
     [self.navigationController pushViewController:presetMessagesVC animated:YES];
 }
 - (IBAction)clearMessageButtonTapped:(id)sender {
-    [messagTextView resignFirstResponder];
+    uiAdjustedForMessage = NO;
+    [messageLabel resignFirstResponder];
     [tapGesture setEnabled:NO];
     CGContextRef context = UIGraphicsGetCurrentContext();
     [UIView beginAnimations:nil context:context];
@@ -150,8 +154,8 @@
 }
 - (IBAction)sendRequestButtonTapped:(id)sender {
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-    if (messagTextView.text && ![messagTextView.text isEqualToString:@""]) {
-        [params setObject:messagTextView.text forKey:@"message"];
+    if (messageLabel.text && ![messageLabel.text isEqualToString:@""]) {
+        [params setObject:messageLabel.text forKey:@"message"];
     }
     [params setObject:[_contentList valueForKey:@"providerId"] forKey:@"providerId"];
     [params setObject:[_contentList valueForKey:@"locationId"] forKey:@"locationId"];
@@ -179,7 +183,7 @@
 }
 
 - (void)dismissKeyBoard:(id)sender {
-    [messagTextView resignFirstResponder];
+    [messageLabel resignFirstResponder];
     [tapGesture setEnabled:NO];
 }
 
@@ -198,11 +202,14 @@
 - (void)presetMessageSelected:(id)message {
     NSString *messageString = message;
     if (messageString.length > 0) {
-        messagTextView.text = messageString;
+        messageLabel.text = messageString;
         
         [messageView setHidden:NO];
-        [secondSectionView setFrame:CGRectMake(secondSectionView.frame.origin.x, secondSectionView.frame.origin.y + 70, secondSectionView.frame.size.width, secondSectionView.frame.size.height)];
-        [sendRequestButtonView setFrame:CGRectMake(sendRequestButtonView.frame.origin.x, sendRequestButtonView.frame.origin.y + sendRequestButtonView.frame.size.height, sendRequestButtonView.frame.size.width, sendRequestButtonView.frame.size.height)];
+        if (!uiAdjustedForMessage) {
+            uiAdjustedForMessage = YES;
+            [secondSectionView setFrame:CGRectMake(secondSectionView.frame.origin.x, secondSectionView.frame.origin.y + 70, secondSectionView.frame.size.width, secondSectionView.frame.size.height)];
+            [sendRequestButtonView setFrame:CGRectMake(sendRequestButtonView.frame.origin.x, sendRequestButtonView.frame.origin.y + sendRequestButtonView.frame.size.height, sendRequestButtonView.frame.size.width, sendRequestButtonView.frame.size.height)];
+        }
     }
 }
 

@@ -18,7 +18,7 @@
     IBOutlet UIButton *photoButton;
     IBOutlet UIButton *addMessageButton;
     IBOutlet UIView *messageView;
-    IBOutlet UITextView *messagTextView;
+    IBOutlet UILabel *messageLabel;
     IBOutlet UIView *secondSectionView;
     IBOutlet UIButton *fifteenMinButton;
     IBOutlet UIButton *thirtyMinButton;
@@ -40,6 +40,7 @@
     
     BOOL videoSelected;
     BOOL scheduleRequestDateSelected;
+    BOOL uiAdjustedForMessage;
     
     UITapGestureRecognizer *tapGesture;
 }
