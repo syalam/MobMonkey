@@ -95,14 +95,14 @@
     if (_categorySelected) {
         MMInboxCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         cell = [[MMInboxCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-
+        
         /*if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestDate"]isKindOfClass:[NSNull class]]) {
-            NSTimeInterval requestDate = [[[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestDate"]doubleValue];
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-            [dateFormatter setDateFormat:@"h:mm a"];
-            NSString *dateString = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:requestDate]];
-            cell.timestampLabel.text = dateString;
-        }*/
+         NSTimeInterval requestDate = [[[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestDate"]doubleValue];
+         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+         [dateFormatter setDateFormat:@"h:mm a"];
+         NSString *dateString = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:requestDate]];
+         cell.timestampLabel.text = dateString;
+         }*/
         
         if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"]isKindOfClass:[NSNull class]]) {
             cell.locationNameLabel.text = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"];
@@ -120,14 +120,12 @@
                 mediaType = @"Video";
             }
             cell.requestTypeLabel.text = mediaType;
+
+            cell.clipsToBounds = YES;
+            [cell.backgroundImageView setFrame:CGRectMake(0, 0, cell.frame.size.width, 400)];
+            
+            return cell;
         }
-        cell.clipsToBounds = YES;
-        [cell.backgroundImageView setFrame:CGRectMake(0, 0, cell.frame.size.width, 400)];
-        
-        //cell.backgroundImageView.contentMode = UIViewContentModeScaleToFill;
-        //cell.backgroundImageView.image = [UIImage imageNamed:@"roundedRectLarge"];
-        
-        return cell;
     }
     else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -140,8 +138,6 @@
         cell.textLabel.text = [_contentList objectAtIndex:indexPath.row];
         return cell;
     }
-    
-    
 }
 
 /*
@@ -224,7 +220,8 @@
                     [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Open Requests" inboxItems:openRequestsArray];
                     break;
                 case 1:
-                    [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Answered Requests" inboxItems:fulfilledRequestsArray];
+                    [[MMClientSDK sharedSDK]answeredRequestsScreen:self answeredItemsToDisplay:fulfilledRequestsArray];
+                    //[[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Answered Requests" inboxItems:fulfilledRequestsArray];
                     break;
                 case 2:
                     [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Assigned Requests" inboxItems:assignedRequestsArray];
@@ -278,8 +275,6 @@
     currentAPICall = kAPICallOpenRequests;
     
     [[MMAPI sharedAPI]openRequests];
-    [[MMAPI sharedAPI]fulfilledRequests];
-    [[MMAPI sharedAPI]assignedRequests];
 }
 
 #pragma mark - UIImagePickerController Delegate Methods
@@ -333,10 +328,12 @@
         case kAPICallOpenRequests:
             openRequestsArray = response;
             currentAPICall = kAPICallFulfilledRequests;
+            [[MMAPI sharedAPI]fulfilledRequests];
             break;
         case kAPICallFulfilledRequests:
             fulfilledRequestsArray = response;
             currentAPICall = kAPICallAssignedRequests;
+            [[MMAPI sharedAPI]assignedRequests];
             break;
         case kAPICallFulfillRequest:
             [self.navigationController popViewControllerAnimated:YES];

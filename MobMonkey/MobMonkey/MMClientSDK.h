@@ -16,6 +16,7 @@
 - (void)signUpScreen:(UIViewController*)presentingViewController;
 
 - (void)inboxScreen:(UIViewController*)presentingViewController selectedCategory:(NSString*)selectedCategory inboxItems:(NSArray*)inboxItems;
+- (void)answeredRequestsScreen:(UIViewController*)presentingViewController answeredItemsToDisplay:(NSArray*)answeredItemsToDisplay;
 - (void)inboxFullScreenImageScreen:(UIViewController*)presentingViewController imageUrl:(NSString*)imageUrl locationName:(NSString*)locationName;
 - (void)trendingScreen:(UIViewController*)presentingViewController selectedCategory:(NSString*)selectedCategory;
 - (void)locationScreen:(UIViewController*)presentingViewController locationDetail:(NSDictionary*)locationDetail;

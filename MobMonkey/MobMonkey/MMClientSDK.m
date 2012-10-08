@@ -15,6 +15,7 @@
 #import "MMMakeRequestViewController.h"
 #import "MMLocationMediaViewController.h"
 #import "MMInboxFullScreenImageViewController.h"
+#import "MMAnsweredRequestsViewController.h"
 
 @implementation MMClientSDK
 
@@ -49,6 +50,13 @@
     inboxVC.categorySelected = YES;
     inboxVC.contentList = [inboxItems mutableCopy];
     [presentingViewController.navigationController pushViewController:inboxVC animated:YES];
+}
+
+- (void)answeredRequestsScreen:(UIViewController*)presentingViewController answeredItemsToDisplay:(NSArray*)answeredItemsToDisplay {
+    MMAnsweredRequestsViewController *answeredVc = [[MMAnsweredRequestsViewController alloc]initWithNibName:@"MMAnsweredRequestsViewController" bundle:nil];
+    answeredVc.contentList = answeredItemsToDisplay;
+    answeredVc.title = @"Answered Requests";
+    [presentingViewController.navigationController pushViewController:answeredVc animated:YES];
 }
 
 - (void)inboxFullScreenImageScreen:(UIViewController*)presentingViewController imageUrl:(NSString*)imageUrl locationName:(NSString*)locationName {
