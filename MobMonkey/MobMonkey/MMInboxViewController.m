@@ -67,14 +67,15 @@
     // e.g. self.myOutlet = nil;
 }
 
-/*- (NSUInteger)supportedInterfaceOrientations
+- (NSUInteger)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationPortrait;
+    return UIInterfaceOrientationMaskPortrait;
 }
 
--(BOOL) shouldAutorotate {
-    return YES;
-}*/
+-(BOOL)shouldAutorotate
+{
+    return NO;
+}
 
 #pragma mark - Table view data source
 

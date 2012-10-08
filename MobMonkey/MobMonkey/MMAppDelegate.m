@@ -11,6 +11,7 @@
 #import "MMInboxViewController.h"
 #import "MMSearchViewController.h"
 #import "MMSettingsViewController.h"
+#import "MMTabBarViewController.h"
 
 @implementation MMAppDelegate
 
@@ -84,7 +85,8 @@
     [settingsBarItem setTitlePositionAdjustment:UIOffsetMake(0, 100)];
     [settingsNavC setTabBarItem:settingsBarItem];
     
-    self.tabBarController = [[UITabBarController alloc] init];
+    //self.tabBarController = [[MMTabBarViewController alloc]init];
+    self.tabBarController = [[UITabBarController alloc]init];
     self.tabBarController.viewControllers = @[inboxNavC, searchNavC, trendingNavC, bookmarksNavC, settingsNavC];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];

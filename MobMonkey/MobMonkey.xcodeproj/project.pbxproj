@@ -368,6 +368,8 @@
 		F79B505115F3F45E0004BE01 /* logo@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B504F15F3F45D0004BE01 /* logo@2x~iphone.png */; };
 		F79B505215F3F45E0004BE01 /* logo~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B505015F3F45E0004BE01 /* logo~iphone.png */; };
 		F79B505615F3F81F0004BE01 /* MMSetTitleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F79B505515F3F81F0004BE01 /* MMSetTitleImage.m */; };
+		F7D41BA816234B4E00DBA87D /* MMTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D41BA616234B4E00DBA87D /* MMTabBarViewController.m */; };
+		F7D41BA916234B4E00DBA87D /* MMTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7D41BA716234B4E00DBA87D /* MMTabBarViewController.xib */; };
 		F7E7564215FC9D26005C8D7C /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E7564115FC9D26005C8D7C /* FacebookSDK.framework */; };
 		F7E7564515FC9D9E005C8D7C /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F7E7564415FC9D9E005C8D7C /* FacebookSDKResources.bundle */; };
 		F7E7568415FE06DA005C8D7C /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E7568315FE06DA005C8D7C /* Twitter.framework */; };
@@ -806,6 +808,9 @@
 		F79B505015F3F45E0004BE01 /* logo~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo~iphone.png"; sourceTree = "<group>"; };
 		F79B505415F3F81F0004BE01 /* MMSetTitleImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSetTitleImage.h; sourceTree = "<group>"; };
 		F79B505515F3F81F0004BE01 /* MMSetTitleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSetTitleImage.m; sourceTree = "<group>"; };
+		F7D41BA516234B4E00DBA87D /* MMTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTabBarViewController.h; sourceTree = "<group>"; };
+		F7D41BA616234B4E00DBA87D /* MMTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTabBarViewController.m; sourceTree = "<group>"; };
+		F7D41BA716234B4E00DBA87D /* MMTabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMTabBarViewController.xib; sourceTree = "<group>"; };
 		F7E7564115FC9D26005C8D7C /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		F7E7564415FC9D9E005C8D7C /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKResources.bundle; sourceTree = "<group>"; };
 		F7E7568315FE06DA005C8D7C /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -980,6 +985,7 @@
 				F734A59A15F12A570090E85A /* Helpers */,
 				F734A54615F11C3E0090E85A /* MMAppDelegate.h */,
 				F734A54715F11C3E0090E85A /* MMAppDelegate.m */,
+				F7D41BA41623477300DBA87D /* TabBar Controller */,
 				F734A54C15F11C3E0090E85A /* first.png */,
 				F734A54E15F11C3E0090E85A /* first@2x.png */,
 				F734A55315F11C3E0090E85A /* second.png */,
@@ -1766,6 +1772,16 @@
 			name = "Set Title ImageView";
 			sourceTree = "<group>";
 		};
+		F7D41BA41623477300DBA87D /* TabBar Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F7D41BA516234B4E00DBA87D /* MMTabBarViewController.h */,
+				F7D41BA616234B4E00DBA87D /* MMTabBarViewController.m */,
+				F7D41BA716234B4E00DBA87D /* MMTabBarViewController.xib */,
+			);
+			name = "TabBar Controller";
+			sourceTree = "<group>";
+		};
 		F7E7568E15FE3A7F005C8D7C /* Twitter Accounts */ = {
 			isa = PBXGroup;
 			children = (
@@ -2152,6 +2168,7 @@
 				F71991F816226418003C6A65 /* MMAnsweredRequestsViewController.xib in Resources */,
 				F71991FB16226771003C6A65 /* ThumbsBG@2x~iphone.png in Resources */,
 				F71991FC16226771003C6A65 /* ThumbsBG~iphone.png in Resources */,
+				F7D41BA916234B4E00DBA87D /* MMTabBarViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2242,6 +2259,7 @@
 				F71991EF16225F14003C6A65 /* MMAnsweredRequestCell.m in Sources */,
 				F71991F716226418003C6A65 /* MMAnsweredRequestsViewController.m in Sources */,
 				F71992001622A0D7003C6A65 /* MMInboxCategoryCell.m in Sources */,
+				F7D41BA816234B4E00DBA87D /* MMTabBarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
