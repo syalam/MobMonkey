@@ -15,8 +15,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        _responseImageView = [[TCImageView alloc]initWithFrame:CGRectMake(5, 5, 310, 310)];
-        _overlayImageView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 270, 310, 44)];
+        _responseImageView = [[TCImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 310)];
+        _overlayImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 265, 320, 44)];
         _expandImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_expandImageButton setFrame:_responseImageView.frame];
         

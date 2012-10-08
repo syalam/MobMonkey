@@ -31,7 +31,7 @@
     [[UIApplication sharedApplication]setStatusBarHidden:YES];
     
     
-    [overlayButtonView setAlpha:0];
+    [overlayButtonView setAlpha:1];
     /*imageView.image = _imageToDisplay;
     if ([[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]]) {
         [self.flagButton setBackgroundColor:[UIColor blueColor]];
@@ -47,10 +47,10 @@
     [webView loadData:UIImageJPEGRepresentation(_imageToDisplay, 1) MIMEType:@"image/jpeg" textEncodingName:nil baseURL:nil];
     
 
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(overlayToggleButtonTapped:)];
+    /*UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(overlayToggleButtonTapped:)];
     tapGesture.delegate = self;
     tapGesture.numberOfTapsRequired = 1;
-    [webView addGestureRecognizer:tapGesture];
+    [webView addGestureRecognizer:tapGesture];*/
     
     // Do any additional setup after loading the view from its nib.
 }
@@ -113,7 +113,7 @@
 
 }
 - (IBAction)shareButtonTapped:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Flag for Review", nil];
     [actionSheet showInView:self.view];
 
 }
