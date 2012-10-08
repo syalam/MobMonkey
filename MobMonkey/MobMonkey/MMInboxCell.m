@@ -16,10 +16,10 @@
     if (self) {
         // Initialization code
         _backgroundImageView = [[UIImageView alloc]init];
-        _locationNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 5, 300, 20)];
-        _requestTypeLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 35, 300, 20)];
-        _messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 55, 300, 20)];
-        _timestampLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 75, 300, 15)];
+        _locationNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 5, 286, 20)];
+        _requestTypeLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 35, 286, 20)];
+        _messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 55, 286, 20)];
+        _timestampLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 75, 286, 15)];
         
         [_locationNameLabel setBackgroundColor:[UIColor clearColor]];
         [_requestTypeLabel setBackgroundColor:[UIColor clearColor]];

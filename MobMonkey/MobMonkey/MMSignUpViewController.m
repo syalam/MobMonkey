@@ -383,9 +383,13 @@
     
 }
 - (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
-    [SVProgressHUD dismissWithError:@"Sign Up Failed"];
-    NSString *responseString = operation.responseString;
-    NSLog(@"%@", responseString);
+    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+    if ([response valueForKey:@"description"]) {
+        NSString *responseString = [response valueForKey:@"description"];
+        
+        [SVProgressHUD dismissWithError:responseString];
+    }
+    
     if (currentAPICall == kAPICallCheckin) {
         [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
     }

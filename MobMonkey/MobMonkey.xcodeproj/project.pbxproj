@@ -165,8 +165,6 @@
 		F747F10C15F42B5A002E5567 /* monkey.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F747F10B15F42B5A002E5567 /* monkey.jpg */; };
 		F747F10E15F4376A002E5567 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F747F10D15F4376A002E5567 /* MapKit.framework */; };
 		F747F11115F4382B002E5567 /* TCImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F11015F4382B002E5567 /* TCImageView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F747F11715F449A3002E5567 /* MMRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F11515F449A3002E5567 /* MMRequestViewController.m */; };
-		F747F11815F449A3002E5567 /* MMRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F11615F449A3002E5567 /* MMRequestViewController.xib */; };
 		F747F13315F4509C002E5567 /* AddItBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F11A15F4509C002E5567 /* AddItBtn@2x~iphone.png */; };
 		F747F13415F4509C002E5567 /* AddItBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F11B15F4509C002E5567 /* AddItBtn~iphone.png */; };
 		F747F13515F4509C002E5567 /* CancelBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F11C15F4509C002E5567 /* CancelBtn@2x~iphone.png */; };
@@ -585,9 +583,6 @@
 		F747F10D15F4376A002E5567 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F747F10F15F4382B002E5567 /* TCImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCImageView.h; sourceTree = "<group>"; };
 		F747F11015F4382B002E5567 /* TCImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCImageView.m; sourceTree = "<group>"; };
-		F747F11415F449A3002E5567 /* MMRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequestViewController.h; sourceTree = "<group>"; };
-		F747F11515F449A3002E5567 /* MMRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMRequestViewController.m; sourceTree = "<group>"; };
-		F747F11615F449A3002E5567 /* MMRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMRequestViewController.xib; sourceTree = "<group>"; };
 		F747F11A15F4509C002E5567 /* AddItBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddItBtn@2x~iphone.png"; sourceTree = "<group>"; };
 		F747F11B15F4509C002E5567 /* AddItBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddItBtn~iphone.png"; sourceTree = "<group>"; };
 		F747F11C15F4509C002E5567 /* CancelBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CancelBtn@2x~iphone.png"; sourceTree = "<group>"; };
@@ -1356,9 +1351,6 @@
 				F792DA5A15FF72A300F5CD85 /* Make Request Cell */,
 				F747F15015F462A1002E5567 /* Attach Message */,
 				F745182315FA55510049277C /* Schedule A Request */,
-				F747F11415F449A3002E5567 /* MMRequestViewController.h */,
-				F747F11515F449A3002E5567 /* MMRequestViewController.m */,
-				F747F11615F449A3002E5567 /* MMRequestViewController.xib */,
 			);
 			name = "Make Request";
 			sourceTree = "<group>";
@@ -2002,7 +1994,6 @@
 				F79B505215F3F45E0004BE01 /* logo~iphone.png in Resources */,
 				F747F10A15F426F8002E5567 /* MMLocationViewController.xib in Resources */,
 				F747F10C15F42B5A002E5567 /* monkey.jpg in Resources */,
-				F747F11815F449A3002E5567 /* MMRequestViewController.xib in Resources */,
 				F747F13315F4509C002E5567 /* AddItBtn@2x~iphone.png in Resources */,
 				F747F13415F4509C002E5567 /* AddItBtn~iphone.png in Resources */,
 				F747F13515F4509C002E5567 /* CancelBtn@2x~iphone.png in Resources */,
@@ -2219,7 +2210,6 @@
 				F79B505615F3F81F0004BE01 /* MMSetTitleImage.m in Sources */,
 				F747F10915F426F8002E5567 /* MMLocationViewController.m in Sources */,
 				F747F11115F4382B002E5567 /* TCImageView.m in Sources */,
-				F747F11715F449A3002E5567 /* MMRequestViewController.m in Sources */,
 				F747F15915F46338002E5567 /* MMPresetMessagesViewController.m in Sources */,
 				F747F15E15F4740B002E5567 /* MMSignUpViewController.m in Sources */,
 				F747F16315F4742D002E5567 /* MMLoginViewController.m in Sources */,

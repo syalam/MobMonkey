@@ -7,7 +7,6 @@
 //
 
 #import "MMLocationViewController.h"
-#import "MMRequestViewController.h"
 #import "MMNotificationSettingsViewController.h"
 #import "MMFullScreenImageViewController.h"
 #import "MMSetTitleImage.h"

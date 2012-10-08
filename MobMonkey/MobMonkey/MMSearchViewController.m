@@ -379,10 +379,12 @@
     }
 }
 - (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
-    [SVProgressHUD dismiss];
-    NSString *responseString = operation.responseString;
-    int responseCode = operation.response.statusCode;
-    NSLog(@"Status Code:%d, Response:%@", responseCode, responseString);
+    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+    if ([response valueForKey:@"description"]) {
+        NSString *responseString = [response valueForKey:@"description"];
+        
+        [SVProgressHUD dismissWithError:responseString];
+    }
 }
 
 @end

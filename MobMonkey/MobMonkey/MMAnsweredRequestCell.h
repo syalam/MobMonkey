@@ -20,6 +20,7 @@
 @interface MMAnsweredRequestCell : UITableViewCell
 
 @property (nonatomic, retain) TCImageView *responseImageView;
+@property (nonatomic, retain) UIImageView *overlayImageView;
 @property (nonatomic, retain) UIButton *actionButton;
 @property (nonatomic, retain) UIButton *acceptButton;
 @property (nonatomic, retain) UIButton *rejectButton;

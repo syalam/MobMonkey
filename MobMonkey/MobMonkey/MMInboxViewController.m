@@ -123,7 +123,7 @@
             cell.requestTypeLabel.text = mediaType;
 
             cell.clipsToBounds = YES;
-            [cell.backgroundImageView setFrame:CGRectMake(0, 0, cell.frame.size.width, 400)];
+            [cell.backgroundImageView setFrame:CGRectMake(0, 0, 286, 400)];
         }
         return cell;
     }
@@ -355,9 +355,12 @@
 }
 
 - (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
-    NSLog(@"%d", operation.response.statusCode);
     NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
-    [SVProgressHUD dismissWithError:[response valueForKey:@"description"]];
+    if ([response valueForKey:@"description"]) {
+        NSString *responseString = [response valueForKey:@"description"];
+        
+        [SVProgressHUD dismissWithError:responseString];
+    }
 }
 
 @end
