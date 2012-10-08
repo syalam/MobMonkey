@@ -44,11 +44,11 @@
     [presentingViewController.navigationController pushViewController:myInfoVc animated:YES];
 }
 
-- (void)inboxScreen:(UIViewController*)presentingViewController selectedCategory:(NSString*)selectedCategory inboxItems:(NSArray*)inboxItems {
+- (void)inboxScreen:(UIViewController*)presentingViewController selectedCategory:(NSString*)selectedCategory currentAPICall:(int)currentAPICall {
     MMInboxViewController *inboxVC = [[MMInboxViewController alloc]initWithNibName:@"MMInboxViewController" bundle:nil];
     inboxVC.title = selectedCategory;
     inboxVC.categorySelected = YES;
-    inboxVC.contentList = [inboxItems mutableCopy];
+    inboxVC.currentAPICall = currentAPICall;
     [presentingViewController.navigationController pushViewController:inboxVC animated:YES];
 }
 

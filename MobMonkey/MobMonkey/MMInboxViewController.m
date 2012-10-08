@@ -45,8 +45,9 @@
         
         UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
         self.navigationItem.leftBarButtonItem = backButton;
-        
-        NSLog(@"%@", _contentList);
+
+        [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Loading %@", self.title]];
+        [self fetchInboxContent];
     }
     else {
         [_screenBackground setImage:nil];
@@ -55,6 +56,7 @@
         [self setContentList:tableContent];
         
         [SVProgressHUD showWithStatus:@"Updating"];
+        _currentAPICall = kAPICallFulfilledRequests;
         [self performSelector:@selector(fetchInboxContent) withObject:nil afterDelay:2];
     }
 }
@@ -123,9 +125,8 @@
 
             cell.clipsToBounds = YES;
             [cell.backgroundImageView setFrame:CGRectMake(0, 0, cell.frame.size.width, 400)];
-            
-            return cell;
         }
+        return cell;
     }
     else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -208,23 +209,19 @@
                 [alert show];
             }
         }
-        else if ([self.title isEqualToString:@"Answered Requests"]) {
-            [[MMClientSDK sharedSDK]inboxFullScreenImageScreen:self imageUrl:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaUrl"] locationName:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"]];
-        }
     }
     else {
         if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
             [MMAPI sharedAPI].delegate = self;
             switch (indexPath.row) {
                 case 0:
-                    [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Open Requests" inboxItems:openRequestsArray];
+                    [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Open Requests" currentAPICall:kAPICallOpenRequests];
                     break;
                 case 1:
                     [[MMClientSDK sharedSDK]answeredRequestsScreen:self answeredItemsToDisplay:fulfilledRequestsArray];
-                    //[[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Answered Requests" inboxItems:fulfilledRequestsArray];
                     break;
                 case 2:
-                    [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Assigned Requests" inboxItems:assignedRequestsArray];
+                    [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Assigned Requests" currentAPICall:kAPICallAssignedRequests];
                     break;
                 default:
                     break;
@@ -271,10 +268,17 @@
 #pragma mark - Helper Methods
 - (void)fetchInboxContent {
     [MMAPI sharedAPI].delegate = self;
-    
-    currentAPICall = kAPICallOpenRequests;
-    
-    [[MMAPI sharedAPI]openRequests];
+    switch (_currentAPICall) {
+        case kAPICallOpenRequests:
+            [[MMAPI sharedAPI]openRequests];
+            break;
+        case kAPICallAssignedRequests:
+            [[MMAPI sharedAPI]assignedRequests];
+        case kAPICallFulfilledRequests:
+            [[MMAPI sharedAPI]fulfilledRequests];
+        default:
+            break;
+    }
 }
 
 #pragma mark - UIImagePickerController Delegate Methods
@@ -302,7 +306,7 @@
         NSString *moviePath = [[info objectForKey:UIImagePickerControllerMediaURL] path];
         dataObj = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:moviePath]];
     }
-    currentAPICall = kAPICallFulfillRequest;
+    _currentAPICall = kAPICallFulfillRequest;
     [MMAPI sharedAPI].delegate = self;
     [[MMAPI sharedAPI]fulfillRequest:mediaRequested params:params];
     
@@ -321,24 +325,16 @@
 - (void)MMAPICallSuccessful:(id)response {
     [SVProgressHUD dismiss];
     NSLog(@"%@", response);
-    switch (currentAPICall) {
-        case kAPICallAssignedRequests:
-            assignedRequestsArray = response;
-            break;
-        case kAPICallOpenRequests:
-            openRequestsArray = response;
-            currentAPICall = kAPICallFulfilledRequests;
-            [[MMAPI sharedAPI]fulfilledRequests];
-            break;
-        case kAPICallFulfilledRequests:
-            fulfilledRequestsArray = response;
-            currentAPICall = kAPICallAssignedRequests;
-            [[MMAPI sharedAPI]assignedRequests];
-            break;
+    switch (_currentAPICall) {
         case kAPICallFulfillRequest:
             [self.navigationController popViewControllerAnimated:YES];
             break;
+        case kAPICallFulfilledRequests:
+            fulfilledRequestsArray = response;
+            break;
         default:
+            [self setContentList:response];
+            [self.tableView reloadData];
             break;
     }
 }

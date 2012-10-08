@@ -17,7 +17,7 @@
         // Initialization code
         _mmCategoryCellBackgroundImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 300, 44)];
         _mmCategoryCellImageView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, 35, 35)];
-        _mmCategoryTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(45, 7, 280, 30)];
+        _mmCategoryTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(45, 7, 250, 30)];
         
         //configure label
         [_mmCategoryTitleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:14]];

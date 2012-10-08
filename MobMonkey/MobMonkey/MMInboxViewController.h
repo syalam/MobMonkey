@@ -11,7 +11,6 @@
 #import "MMAPI.h"
 
 @interface MMInboxViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMAPIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
-    int currentAPICall;
     NSString *selectedRequestId;
     
     NSArray *openRequestsArray;
@@ -25,5 +24,6 @@
 @property (nonatomic, retain)IBOutlet UIImageView *screenBackground;
 @property (nonatomic, retain)NSMutableArray *contentList;
 @property (nonatomic)BOOL categorySelected;
+@property (nonatomic)int currentAPICall;
 
 @end
