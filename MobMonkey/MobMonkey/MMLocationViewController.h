@@ -12,8 +12,10 @@
 #import "MMMakeRequestViewController.h"
 #import "MMAPI.h"
 
-@interface MMLocationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MMNotificationSettingsDelegate, MMAPIDelegate> {
+@interface MMLocationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MMNotificationSettingsDelegate, MMAPIDelegate, UIGestureRecognizerDelegate> {
     NSArray *mediaArray;
+    
+    UITapGestureRecognizer *expandImageGesture;
     
     BOOL uiAdjustedForNotificationSetting;
 }

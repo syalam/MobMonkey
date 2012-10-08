@@ -75,6 +75,12 @@
     
     //initialize variables
     uiAdjustedForNotificationSetting = NO;
+    
+    //initialize gesture recognizer
+    expandImageGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(enlargeButtonTapped:)];
+    expandImageGesture.numberOfTapsRequired = 1;
+    
+    [_locationLatestImageView addGestureRecognizer:expandImageGesture];
 }
 
 - (void)viewDidUnload
@@ -210,6 +216,11 @@
 }
 
 - (void)enlargeButtonTapped:(id)sender {
+    //will only expand image if an image is available
+    if (mediaArray.count > 0) {
+        [[MMClientSDK sharedSDK]inboxFullScreenImageScreen:self imageUrl:[[mediaArray objectAtIndex:mediaArray.count - 1]valueForKey:@"mediaURL"] locationName:self.title];
+    }
+    
    /* MMFullScreenImageViewController *fullScreenVC = [[MMFullScreenImageViewController alloc]initWithNibName:@"MMFullScreenImageViewController" bundle:nil];
     fullScreenVC.imageToDisplay = _locationLatestImageView.image;
     fullScreenVC.rowIndex = self.rowIndex;

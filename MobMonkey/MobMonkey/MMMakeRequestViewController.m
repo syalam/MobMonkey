@@ -7,6 +7,7 @@
 //
 
 #import "MMMakeRequestViewController.h"
+#import "SVProgressHUD.h"
 
 @interface MMMakeRequestViewController ()
 
