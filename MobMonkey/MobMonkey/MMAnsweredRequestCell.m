@@ -19,6 +19,7 @@
         
         [_responseImageView setContentMode:UIViewContentModeScaleAspectFill];
         [_responseImageView setClipsToBounds:YES];
+        [_responseImageView setCaching:YES];
         
         _actionButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _acceptButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
