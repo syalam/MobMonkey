@@ -13,6 +13,7 @@
 #import "MMInboxCell.h"
 #import "NSData+Base64.h"
 #import "MMInboxFullScreenImageViewController.h"
+#import "MMInboxCategoryCell.h"
 
 #define FONT_SIZE 14.0f
 #define CELL_CONTENT_WIDTH 180.0f
@@ -50,8 +51,6 @@
         [self fetchInboxContent];
     }
     else {
-        [_screenBackground setImage:nil];
-        [self.view setBackgroundColor:[UIColor whiteColor]];
         NSMutableArray *tableContent = [NSMutableArray arrayWithObjects:@"Open Requests", @"Answered Requests", @"Assigned Requests", nil];
         [self setContentList:tableContent];
         
@@ -129,14 +128,29 @@
         return cell;
     }
     else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        MMInboxCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
         if (!cell) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell = [[MMInboxCategoryCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        [cell.textLabel setTextColor:[UIColor blackColor]];
-        cell.textLabel.text = [_contentList objectAtIndex:indexPath.row];
+        cell.categoryTitleLabel.text = [_contentList objectAtIndex:indexPath.row];
+        
+        switch (indexPath.row) {
+            case 0:
+                
+                break;
+            case 1:
+                NSLog(@"%d", fulfilledRequestsArray.count);
+                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%d", fulfilledRequestsArray.count];
+                break;
+            case 2:
+            
+                break;
+            default:
+                break;
+        }
+        
         return cell;
     }
 }
@@ -331,6 +345,7 @@
             break;
         case kAPICallFulfilledRequests:
             fulfilledRequestsArray = response;
+            [self.tableView reloadData];
             break;
         default:
             [self setContentList:response];

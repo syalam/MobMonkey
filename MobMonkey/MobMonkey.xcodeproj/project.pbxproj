@@ -12,6 +12,7 @@
 		F71991F816226418003C6A65 /* MMAnsweredRequestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F71991F616226418003C6A65 /* MMAnsweredRequestsViewController.xib */; };
 		F71991FB16226771003C6A65 /* ThumbsBG@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F71991F916226771003C6A65 /* ThumbsBG@2x~iphone.png */; };
 		F71991FC16226771003C6A65 /* ThumbsBG~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F71991FA16226771003C6A65 /* ThumbsBG~iphone.png */; };
+		F71992001622A0D7003C6A65 /* MMInboxCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F71991FF1622A0D7003C6A65 /* MMInboxCategoryCell.m */; };
 		F71B9B241601F683003BED33 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71B9B231601F683003BED33 /* QuartzCore.framework */; };
 		F71B9B291602517E003BED33 /* SectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F71B9B261602517E003BED33 /* SectionHeaderView.m */; };
 		F71B9B2A1602517E003BED33 /* SectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F71B9B281602517E003BED33 /* SectionInfo.m */; };
@@ -396,6 +397,8 @@
 		F71991F616226418003C6A65 /* MMAnsweredRequestsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMAnsweredRequestsViewController.xib; sourceTree = "<group>"; };
 		F71991F916226771003C6A65 /* ThumbsBG@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ThumbsBG@2x~iphone.png"; sourceTree = "<group>"; };
 		F71991FA16226771003C6A65 /* ThumbsBG~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ThumbsBG~iphone.png"; sourceTree = "<group>"; };
+		F71991FE1622A0D7003C6A65 /* MMInboxCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInboxCategoryCell.h; sourceTree = "<group>"; };
+		F71991FF1622A0D7003C6A65 /* MMInboxCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMInboxCategoryCell.m; sourceTree = "<group>"; };
 		F71B9B231601F683003BED33 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F71B9B251602517E003BED33 /* SectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderView.h; sourceTree = "<group>"; };
 		F71B9B261602517E003BED33 /* SectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderView.m; sourceTree = "<group>"; };
@@ -870,6 +873,15 @@
 			name = "Answered Requests";
 			sourceTree = "<group>";
 		};
+		F71991FD1622A0B8003C6A65 /* Inbox Category Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F71991FE1622A0D7003C6A65 /* MMInboxCategoryCell.h */,
+				F71991FF1622A0D7003C6A65 /* MMInboxCategoryCell.m */,
+			);
+			name = "Inbox Category Cell";
+			sourceTree = "<group>";
+		};
 		F71B9B1D1601ED0A003BED33 /* Section Header View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1027,6 +1039,7 @@
 		F734A58515F123070090E85A /* Inbox */ = {
 			isa = PBXGroup;
 			children = (
+				F71991FD1622A0B8003C6A65 /* Inbox Category Cell */,
 				F71991F0162263E5003C6A65 /* Answered Requests */,
 				F76DFE48161EADE500B5683F /* Full Screen Image */,
 				F77D3E5B161A9F5B000A818F /* Inbox Cell */,
@@ -2238,6 +2251,7 @@
 				F76DFE96161F543100B5683F /* MMLocationMediaCell.m in Sources */,
 				F71991EF16225F14003C6A65 /* MMAnsweredRequestCell.m in Sources */,
 				F71991F716226418003C6A65 /* MMAnsweredRequestsViewController.m in Sources */,
+				F71992001622A0D7003C6A65 /* MMInboxCategoryCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
