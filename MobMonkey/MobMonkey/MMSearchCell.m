@@ -17,10 +17,11 @@
         // Inititialize main elements
         CGFloat labelXSize = 280;
         
+        _mmSearchCellBackgroundImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 300, 140)];
         _mmSearchCellMMEnabledIndicator = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, 10, 10)];
-        _mmSearchCellLocationNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 5, labelXSize, 30)];
-        _mmSearchCellAddressLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 30, labelXSize, 30)];
-        _mmSearchCellDistanceLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 55, labelXSize, 30)];
+        _mmSearchCellLocationNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, labelXSize, 30)];
+        _mmSearchCellAddressLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 30, labelXSize, 30)];
+        _mmSearchCellDistanceLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 55, labelXSize, 30)];
         _mmSearchCellButtonView = [[UIView alloc]initWithFrame:CGRectMake(0, 85, 300, 50)];
         
         //initialize buttonview subviews
@@ -29,6 +30,11 @@
         _mmSearchCellViewLiveFeedButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         _mmSearchCellUploadPhotoButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         _mmSearchCellUploadVideoButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        
+        
+        //set cell background image
+        _mmSearchCellBackgroundImageView.image = [UIImage imageNamed:@"roundedRectLarge"];
+        _mmSearchCellBackgroundImageView.clipsToBounds = YES;
         
         //set button frames
         CGFloat buttonXCoordinate = 5;
@@ -72,9 +78,13 @@
         _mmSearchCellAddressLabel.backgroundColor = [UIColor clearColor];
         _mmSearchCellDistanceLabel.backgroundColor = [UIColor clearColor];
         
-        _mmSearchCellLocationNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:17];
-        _mmSearchCellAddressLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
-        _mmSearchCellDistanceLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
+        _mmSearchCellLocationNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17];
+        _mmSearchCellAddressLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+        _mmSearchCellDistanceLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+        
+        _mmSearchCellLocationNameLabel.textColor = [UIColor darkGrayColor];
+        _mmSearchCellAddressLabel.textColor = [UIColor darkGrayColor];
+        _mmSearchCellDistanceLabel.textColor = [UIColor darkGrayColor];
         
         //Add targets for button selectors
         [_mmSearchCellViewUploadedVideoButton addTarget:self action:@selector(mmSearchCellViewUploadedVideoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -84,6 +94,7 @@
         [_mmSearchCellUploadVideoButton addTarget:self action:@selector(mmSearchCellUploadVideoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         
         //add all elements to cell's content view as a subview
+        [self.contentView addSubview:_mmSearchCellBackgroundImageView];
         [self.contentView addSubview:_mmSearchCellMMEnabledIndicator];
         [self.contentView addSubview:_mmSearchCellLocationNameLabel];
         [self.contentView addSubview:_mmSearchCellAddressLabel];

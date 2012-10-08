@@ -15,14 +15,21 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        _mmCategoryCellBackgroundImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 300, 44)];
         _mmCategoryCellImageView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, 35, 35)];
         _mmCategoryTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(45, 7, 280, 30)];
         
         //configure label
         [_mmCategoryTitleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:14]];
         [_mmCategoryTitleLabel setBackgroundColor:[UIColor clearColor]];
+        [_mmCategoryTitleLabel setTextColor:[UIColor darkGrayColor]];
+        
+        //set cell background image
+        _mmCategoryCellBackgroundImageView.image = [UIImage imageNamed:@"roundedRectLarge"];
+        _mmCategoryCellBackgroundImageView.clipsToBounds = YES;
         
         //add items to the cell's content view
+        [self.contentView addSubview:_mmCategoryCellBackgroundImageView];
         [self.contentView addSubview:_mmCategoryCellImageView];
         [self.contentView addSubview:_mmCategoryTitleLabel];
     }

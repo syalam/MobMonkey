@@ -10,6 +10,7 @@
 
 @interface MMCategoryCell : UITableViewCell
 
+@property (nonatomic, retain) UIImageView *mmCategoryCellBackgroundImageView;
 @property (nonatomic, retain) UIImageView *mmCategoryCellImageView;
 @property (nonatomic, retain) UILabel *mmCategoryTitleLabel;
 

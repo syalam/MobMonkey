@@ -21,6 +21,7 @@
 
 @interface MMSearchCell : UITableViewCell
 
+@property (nonatomic, retain) UIImageView *mmSearchCellBackgroundImageView;
 @property (nonatomic, retain) UIImageView *mmSearchCellMMEnabledIndicator;
 @property (nonatomic, retain) UILabel *mmSearchCellLocationNameLabel;
 @property (nonatomic, retain) UILabel *mmSearchCellAddressLabel;

@@ -26,7 +26,7 @@
         _rejectButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         
         [_actionButton setFrame:CGRectMake(270, 270, 27, 20)];
-        [_acceptButton setFrame:CGRectMake(15, 320, 140, 30)];
+        [_acceptButton setFrame:CGRectMake(10, 320, 140, 30)];
         [_rejectButton setFrame:CGRectMake(170, 320, 140, 30)];
         
         [_actionButton addTarget:self action:@selector(actionButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
