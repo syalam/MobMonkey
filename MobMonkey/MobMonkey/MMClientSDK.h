@@ -17,7 +17,7 @@
 
 - (void)inboxScreen:(UIViewController*)presentingViewController selectedCategory:(NSString*)selectedCategory currentAPICall:(int)currentAPICall;
 - (void)answeredRequestsScreen:(UIViewController*)presentingViewController answeredItemsToDisplay:(NSArray*)answeredItemsToDisplay;
-- (void)inboxFullScreenImageScreen:(UIViewController*)presentingViewController imageUrl:(NSString*)imageUrl locationName:(NSString*)locationName;
+- (void)inboxFullScreenImageScreen:(UIViewController*)presentingViewController imageToDisplay:(UIImage*)imageToDisplay locationName:(NSString*)locationName;
 - (void)trendingScreen:(UIViewController*)presentingViewController selectedCategory:(NSString*)selectedCategory;
 - (void)locationScreen:(UIViewController*)presentingViewController locationDetail:(NSDictionary*)locationDetail;
 - (void)makeARequestScreen:(UIViewController*)presentingViewController locationDetail:(NSDictionary*)locationDetail;

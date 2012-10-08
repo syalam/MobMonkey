@@ -112,7 +112,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [[MMClientSDK sharedSDK]inboxFullScreenImageScreen:self imageUrl:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaURL"] locationName:self.title];
+    
+    MMLocationMediaCell *cell = (MMLocationMediaCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+    UIImage *imageToDisplay = cell.locationImageView.image;
+    
+    [[MMClientSDK sharedSDK]inboxFullScreenImageScreen:self imageToDisplay:imageToDisplay locationName:self.title];
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -17,15 +17,14 @@
         // Initialization code
         _responseImageView = [[TCImageView alloc]initWithFrame:CGRectMake(5, 5, 310, 310)];
         _overlayImageView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 270, 310, 44)];
+        _expandImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_expandImageButton setFrame:_responseImageView.frame];
         
-        _expandImage = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageTapped:)];
-        _expandImage.numberOfTapsRequired = 1;
         
         [_responseImageView setContentMode:UIViewContentModeScaleAspectFill];
         [_responseImageView setClipsToBounds:YES];
         [_responseImageView setCaching:YES];
         [_responseImageView setUserInteractionEnabled:YES];
-        [_responseImageView addGestureRecognizer:_expandImage];
         
         
         [_overlayImageView setImage:[UIImage imageNamed:@"ThumbsBG~iphone"]];
@@ -38,6 +37,7 @@
         [_acceptButton setFrame:CGRectMake(10, 320, 140, 30)];
         [_rejectButton setFrame:CGRectMake(170, 320, 140, 30)];
         
+        [_expandImageButton addTarget:self action:@selector(expandImageButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [_actionButton addTarget:self action:@selector(actionButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [_acceptButton addTarget:self action:@selector(acceptButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [_rejectButton addTarget:self action:@selector(rejectButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -47,8 +47,8 @@
         [_rejectButton setTitle:@"Reject" forState:UIControlStateNormal];
         
         
-        
         [self.contentView addSubview:_responseImageView];
+        [self.contentView addSubview:_expandImageButton];
         [self.contentView addSubview:_overlayImageView];
         [self.contentView addSubview:_actionButton];
         [self.contentView addSubview:_acceptButton];
@@ -62,6 +62,10 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)expandImageButtonTapped:(id)sender {
+    [_delegate expandImageButtonTapped:sender];
 }
 
 - (void)actionButtonTapped:(id)sender {

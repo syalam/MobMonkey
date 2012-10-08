@@ -28,6 +28,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [imageWebView sizeToFit];
+    [imageWebView setContentMode:UIViewContentModeScaleAspectFit];
     [imageWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_imageUrl]]];
     
     //Add custom back button to the nav bar

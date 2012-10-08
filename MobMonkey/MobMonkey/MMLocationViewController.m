@@ -211,45 +211,23 @@
 }
 
 - (IBAction)shareButtonTapped:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Flag for Review", nil];
     [actionSheet showFromTabBar:self.tabBarController.tabBar];
 }
 
 - (void)enlargeButtonTapped:(id)sender {
     //will only expand image if an image is available
     if (mediaArray.count > 0) {
-        [[MMClientSDK sharedSDK]inboxFullScreenImageScreen:self imageUrl:[[mediaArray objectAtIndex:mediaArray.count - 1]valueForKey:@"mediaURL"] locationName:self.title];
+        [[MMClientSDK sharedSDK]inboxFullScreenImageScreen:self imageToDisplay:_locationLatestImageView.image locationName:self.title];
     }
-    
-   /* MMFullScreenImageViewController *fullScreenVC = [[MMFullScreenImageViewController alloc]initWithNibName:@"MMFullScreenImageViewController" bundle:nil];
-    fullScreenVC.imageToDisplay = _locationLatestImageView.image;
-    fullScreenVC.rowIndex = self.rowIndex;
-    UINavigationController *fullScreenNavC = [[UINavigationController alloc]initWithRootViewController:fullScreenVC];
-    fullScreenNavC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self.navigationController presentViewController:fullScreenNavC animated:YES completion:NULL];*/
 }
 
 - (IBAction)flagButtonTapped:(id)sender {
-    /*if (![[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]]) {
-        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]];
-        [self.flagButton setBackgroundColor:[UIColor blueColor]];
-    }
-    else {
-        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]];
-        [self.flagButton setBackgroundColor:[UIColor clearColor]];
-    }*/
-    
+        
 }
 
 - (IBAction)bookmarkButtonTapped:(id)sender {
-    /*if (![[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dBookmarked", self.rowIndex]]) {
-        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:[NSString stringWithFormat:@"row%dBookmarked", self.rowIndex]];
-        [self.bookmarkButton setTitle:@"Bookmark" forState:UIControlStateNormal];
-    }
-    else {
-        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:[NSString stringWithFormat:@"row%dBookmarked", self.rowIndex]];
-        [self.bookmarkButton setTitle:@"Unbookmark" forState:UIControlStateNormal];
-    }*/
+   
 }
 
 - (IBAction)clearNotificationSettingButtonTapped:(id)sender {

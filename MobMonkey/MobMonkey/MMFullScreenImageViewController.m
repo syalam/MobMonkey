@@ -40,6 +40,10 @@
        [self.flagButton setBackgroundColor:[UIColor clearColor]];
     }*/
     
+    
+    webView.scalesPageToFit = YES;
+    webView.contentMode = UIViewContentModeScaleAspectFill;
+    webView.scrollView.contentSize = CGSizeMake(320, _imageToDisplay.size.height);
     [webView loadData:UIImageJPEGRepresentation(_imageToDisplay, 1) MIMEType:@"image/jpeg" textEncodingName:nil baseURL:nil];
     
 
@@ -63,14 +67,14 @@
     return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }*/
 
-- (NSUInteger)supportedInterfaceOrientations
+/*- (NSUInteger)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskLandscape;
 }
 
 -(BOOL) shouldAutorotate {
     return YES;
-}
+}*/
 
 #pragma mark - IBAction Methods
 - (IBAction)overlayToggleButtonTapped:(id)sender {

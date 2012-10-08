@@ -7,6 +7,7 @@
 //
 
 #import "MMAnsweredRequestsViewController.h"
+#import "MMClientSDK.h"
 
 @interface MMAnsweredRequestsViewController ()
 
@@ -77,6 +78,7 @@
     cell.delegate = self;
     
     [cell.responseImageView reloadWithUrl:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaUrl"]];
+    cell.expandImageButton.tag = indexPath.row;
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -158,8 +160,11 @@
     
 }
 
-- (void)imageTapped:(id)sender {
+- (void)expandImageButtonTapped:(id)sender {
+    MMAnsweredRequestCell *cell = (MMAnsweredRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
+    UIImage *imageToDisplay = cell.responseImageView.image;
     
+    [[MMClientSDK sharedSDK]inboxFullScreenImageScreen:self imageToDisplay:imageToDisplay locationName:self.title];
 }
 
 @end

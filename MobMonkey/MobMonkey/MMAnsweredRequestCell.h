@@ -11,6 +11,7 @@
 
 @protocol MMAnsweredRequestCellDelegate
 
+- (void)expandImageButtonTapped:(id)sender;
 - (void)actionButtonTapped:(id)sender;
 - (void)acceptButtonTapped:(id)sender;
 - (void)rejectButtonTapped:(id)sender;
@@ -21,11 +22,11 @@
 @interface MMAnsweredRequestCell : UITableViewCell <UIGestureRecognizerDelegate>
 
 @property (nonatomic, retain) TCImageView *responseImageView;
+@property (nonatomic, retain) UIButton *expandImageButton;
 @property (nonatomic, retain) UIImageView *overlayImageView;
 @property (nonatomic, retain) UIButton *actionButton;
 @property (nonatomic, retain) UIButton *acceptButton;
 @property (nonatomic, retain) UIButton *rejectButton;
-@property (nonatomic, retain) UITapGestureRecognizer *expandImage;
 @property (nonatomic, assign) id <MMAnsweredRequestCellDelegate> delegate;
 
 

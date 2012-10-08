@@ -16,6 +16,7 @@
 #import "MMLocationMediaViewController.h"
 #import "MMInboxFullScreenImageViewController.h"
 #import "MMAnsweredRequestsViewController.h"
+#import "MMFullScreenImageViewController.h"
 
 @implementation MMClientSDK
 
@@ -59,11 +60,15 @@
     [presentingViewController.navigationController pushViewController:answeredVc animated:YES];
 }
 
-- (void)inboxFullScreenImageScreen:(UIViewController*)presentingViewController imageUrl:(NSString*)imageUrl locationName:(NSString*)locationName {
-    MMInboxFullScreenImageViewController *fsvc = [[MMInboxFullScreenImageViewController alloc]initWithNibName:@"MMInboxFullScreenImageViewController" bundle:nil];
+- (void)inboxFullScreenImageScreen:(UIViewController*)presentingViewController imageToDisplay:(UIImage*)imageToDisplay locationName:(NSString*)locationName {
+    MMFullScreenImageViewController *fsvc = [[MMFullScreenImageViewController alloc]initWithNibName:@"MMFullScreenImageViewController" bundle:nil];
     fsvc.title = locationName;
-    fsvc.imageUrl = imageUrl;
-    [presentingViewController.navigationController pushViewController:fsvc animated:YES];
+    fsvc.imageToDisplay = imageToDisplay;
+    
+    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:fsvc];
+    navC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    
+    [presentingViewController.navigationController presentViewController:navC animated:YES completion:NULL];
 }
 
 - (void)trendingScreen:(UIViewController*)presentingViewController selectedCategory:(NSString*)selectedCategory {
