@@ -18,9 +18,15 @@
         _responseImageView = [[TCImageView alloc]initWithFrame:CGRectMake(5, 5, 310, 310)];
         _overlayImageView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 270, 310, 44)];
         
+        _expandImage = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageTapped:)];
+        _expandImage.numberOfTapsRequired = 1;
+        
         [_responseImageView setContentMode:UIViewContentModeScaleAspectFill];
         [_responseImageView setClipsToBounds:YES];
         [_responseImageView setCaching:YES];
+        [_responseImageView setUserInteractionEnabled:YES];
+        [_responseImageView addGestureRecognizer:_expandImage];
+        
         
         [_overlayImageView setImage:[UIImage imageNamed:@"ThumbsBG~iphone"]];
         
@@ -39,6 +45,8 @@
         [_actionButton setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
         [_acceptButton setTitle:@"Accept" forState:UIControlStateNormal];
         [_rejectButton setTitle:@"Reject" forState:UIControlStateNormal];
+        
+        
         
         [self.contentView addSubview:_responseImageView];
         [self.contentView addSubview:_overlayImageView];
@@ -66,6 +74,10 @@
 
 - (void)rejectButtonTapped:(id)sender {
     [_delegate rejectButtonTapped:sender];
+}
+
+- (void)imageTapped:(id)sender {
+    [_delegate imageTapped:sender];
 }
 
 @end

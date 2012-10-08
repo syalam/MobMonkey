@@ -153,4 +153,8 @@
     
 }
 
+- (void)imageTapped:(id)sender {
+    
+}
+
 @end
