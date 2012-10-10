@@ -17,10 +17,10 @@
 @interface MMNotificationSettingsViewController : UIViewController 
 
 
-@property (nonatomic, retain)IBOutlet UIImageView *screenBackground;
-@property (nonatomic, retain)IBOutlet UIPickerView *pickerView;
-@property (nonatomic, retain)NSMutableArray *contentList;
-@property (nonatomic, retain)NSString *selectedItem;
-@property (nonatomic, retain)id<MMNotificationSettingsDelegate> delegate;
+@property (nonatomic, weak) IBOutlet UIImageView *screenBackground;
+@property (nonatomic, weak) IBOutlet UIPickerView *pickerView;
+@property (nonatomic, retain) NSMutableArray *contentList;
+@property (nonatomic, retain) NSString *selectedItem;
+@property (nonatomic, retain) id<MMNotificationSettingsDelegate> delegate;
 
 @end

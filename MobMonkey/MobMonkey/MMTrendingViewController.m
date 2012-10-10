@@ -108,9 +108,11 @@
     NSString *CellIdentifier = [NSString stringWithFormat:@"Cell%d%d",indexPath.section, indexPath.row];
     if (_sectionSelected) {
         MMResultCell *cell = (MMResultCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        cell = [[MMResultCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        if (!cell) {
+            cell = [[MMResultCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell.delegate = self;
+        }
         
-        cell.delegate = self;
         
         // Configure the cell...
         

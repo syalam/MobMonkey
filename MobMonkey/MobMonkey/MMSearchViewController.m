@@ -143,13 +143,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    
+    static NSString *SearchCellIdentifier = @"SearchCell";
     if (_showCategories) {
         NSArray *sectionArray = [_contentList objectAtIndex:indexPath.section];
         id contentForThisRow = [sectionArray objectAtIndex:indexPath.row];
         
         MMCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        cell = [[MMCategoryCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        if (!cell) {
+            cell = [[MMCategoryCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
         cell.mmCategoryCellImageView.image = [UIImage imageNamed:@"monkey.jpg"];
         if (indexPath.section == 0) {
             cell.mmCategoryTitleLabel.text = [contentForThisRow valueForKey:@"name"];
@@ -162,9 +164,11 @@
     }
     else {
         id contentForThisRow = [_contentList objectAtIndex:indexPath.row];
-        MMSearchCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        cell = [[MMSearchCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.delegate = self;
+        MMSearchCell *cell = [tableView dequeueReusableCellWithIdentifier:SearchCellIdentifier];
+        if (!cell) {
+            cell = [[MMSearchCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SearchCellIdentifier];
+            cell.delegate = self;
+        }
         
         // Configure the cell...
         //FOR TAP THRU SHOW MM ENABLED FOR EVERY OTHER CELL

@@ -10,20 +10,11 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "MMAPI.h"
 
-@interface MMInboxViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMAPIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
-    NSString *selectedRequestId;
-    
-    NSArray *openRequestsArray;
-    NSArray *fulfilledRequestsArray;
-    NSArray *assignedRequestsArray;
-    
-}
+@interface MMInboxViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMAPIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
-@property (nonatomic, retain)UIImageView *mmTitleImageView;
-@property (nonatomic, retain)IBOutlet UITableView *tableView;
-@property (nonatomic, retain)IBOutlet UIImageView *screenBackground;
-@property (nonatomic, retain)NSMutableArray *contentList;
-@property (nonatomic)BOOL categorySelected;
-@property (nonatomic)int currentAPICall;
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet UIImageView *screenBackground;
+@property (nonatomic) BOOL categorySelected;
+@property (nonatomic) NSInteger currentAPICall;
 
 @end
