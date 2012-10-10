@@ -1006,6 +1006,7 @@
 			children = (
 				F77D3E4D161A1EB7000A818F /* MMClientSDK */,
 				F734A59F15F12AAF0090E85A /* MMAPI */,
+				F734A59C15F12AAF0090E85A /* MM HTTPClient */,
 				F7716DCE161E1A8E00578A90 /* Utility Class */,
 				F7716D47161CF60B00578A90 /* Base64 */,
 				F73847E1161B84EA008AA874 /* Phone Number Formatter */,
@@ -1015,7 +1016,6 @@
 				F734A64115F17A610090E85A /* Calc Time Ago */,
 				F734A5C915F12AF70090E85A /* SVProgressHUD */,
 				F734A5A415F12AC00090E85A /* AFNetworking */,
-				F734A59C15F12AAF0090E85A /* MM HTTPClient */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
