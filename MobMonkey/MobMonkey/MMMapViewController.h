@@ -10,8 +10,8 @@
 #import <MapKit/MapKit.h>
 
 @interface MMMapViewController : UIViewController <UIActionSheetDelegate, UIPickerViewDataSource, UIPickerViewDelegate, MKMapViewDelegate, UISearchBarDelegate> {
-    IBOutlet UIButton *radiusButton;
-    IBOutlet UIButton *addLocationButton;
+    __weak IBOutlet UIButton *radiusButton;
+    __weak IBOutlet UIButton *addLocationButton;
     
     UIActionSheet *radiusActionSheet;
     UIPickerView *radiusPicker;
@@ -28,8 +28,8 @@
 - (IBAction)radiusButtonClicked:(id)sender;
 - (IBAction)addLocationButtonClicked:(id)sender;
 
-@property (strong, nonatomic) IBOutlet MKMapView *mapView;
-@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, retain) NSString* address;
 
 @end

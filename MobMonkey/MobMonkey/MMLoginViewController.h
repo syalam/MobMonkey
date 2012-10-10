@@ -9,23 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "MMAPI.h"
 
-@interface MMLoginViewController : UITableViewController <MMAPIDelegate> {
-    UITextField *emailTextField;
-    UITextField *passwordTextField;
-    
-    IBOutlet UIButton *loginButton;
-    IBOutlet UIButton *signUpButton;
-    IBOutlet UIButton *facebookButton;
-    IBOutlet UIButton *twitterButton;
-}
+@interface MMLoginViewController : UITableViewController <MMAPIDelegate> 
 
 - (IBAction)loginButtonClicked:(id)sender;
 - (IBAction)signUpButtonClicked:(id)sender;
 - (IBAction)facebookButtonTapped:(id)sender;
 - (IBAction)twitterButtonTapped:(id)sender;
-
-- (void)showAlertView:(NSString*)message;
-
-@property (nonatomic, retain) NSMutableArray *contentList;
 
 @end

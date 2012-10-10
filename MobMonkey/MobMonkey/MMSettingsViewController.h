@@ -14,10 +14,10 @@
     UILabel *notificationsCountLabel;
 }
 
-@property (nonatomic, retain)NSMutableArray *contentList;
-@property (nonatomic, retain)IBOutlet UIImageView *screenBackground;
-@property (nonatomic, retain)IBOutlet UITableView *tableView;
-@property (nonatomic, retain)IBOutlet UIButton *signInButton;
+@property (nonatomic, retain) NSMutableArray *contentList;
+@property (nonatomic, weak) IBOutlet UIImageView *screenBackground;
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet UIButton *signInButton;
 
 - (IBAction)signInButtonTapped:(id)sender;
 

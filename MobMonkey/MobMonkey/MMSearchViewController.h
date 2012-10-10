@@ -14,7 +14,7 @@
 #import "MMAPI.h"
 
 @interface MMSearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMSearchCellDelegate, MMFilterViewDelegate, UIGestureRecognizerDelegate, MMAPIDelegate> {
-    IBOutlet UIView *headerView;
+    __weak IBOutlet UIView *headerView;
     NSDictionary *filters;
     UITapGestureRecognizer *tapGesture;
     int currentAPICall;
@@ -24,13 +24,13 @@
 
 
 @property (nonatomic, retain) NSMutableArray *contentList;
-@property (nonatomic, retain) IBOutlet UIImageView *screenBackground;
-@property (nonatomic, retain) IBOutlet UIImageView *searchBackgroundImageView;
-@property (nonatomic, retain) IBOutlet UIImageView *searchTextFieldBackgroundImageView;
-@property (nonatomic, retain) IBOutlet UITextField *searchTextField;
+@property (nonatomic, weak) IBOutlet UIImageView *screenBackground;
+@property (nonatomic, weak) IBOutlet UIImageView *searchBackgroundImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *searchTextFieldBackgroundImageView;
+@property (nonatomic, weak) IBOutlet UITextField *searchTextField;
 @property (nonatomic, retain) UIButton *filterNavBarButton;
 @property (nonatomic, retain) UIButton *mapNavBarButton;
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic) BOOL showCategories;
 @property (nonatomic) BOOL showSearchResults;
 

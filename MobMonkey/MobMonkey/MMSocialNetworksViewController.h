@@ -12,7 +12,7 @@
 @interface MMSocialNetworksViewController : UIViewController <MMSocialNetworksCellDelegate, UITableViewDataSource, UITableViewDelegate>
 
 
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) NSArray *contentList;
 
 

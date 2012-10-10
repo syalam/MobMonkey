@@ -13,27 +13,27 @@
 #import "MMMakeRequestViewController.h"
 
 @interface MMMakeRequestViewController : UIViewController <MMAPIDelegate, MMPresetMessageDelegate, MMScheduleRequestDelegate, UIGestureRecognizerDelegate, UITextViewDelegate> {
-    IBOutlet UIScrollView *scrollView;
-    IBOutlet UIButton *videoButton;
-    IBOutlet UIButton *photoButton;
-    IBOutlet UIButton *addMessageButton;
-    IBOutlet UIView *messageView;
-    IBOutlet UILabel *messageLabel;
-    IBOutlet UIView *secondSectionView;
-    IBOutlet UIButton *fifteenMinButton;
-    IBOutlet UIButton *thirtyMinButton;
-    IBOutlet UIButton *oneHrButton;
-    IBOutlet UIButton *threeHrButton;
-    IBOutlet UILabel *segmentOneLabel;
-    IBOutlet UILabel *segmentTwoLabel;
-    IBOutlet UILabel *segmentThreeLabel;
-    IBOutlet UILabel *segmentFourLabel;
-    IBOutlet UIButton *scheduleButton;
-    IBOutlet UIView *scheduleView;
-    IBOutlet UILabel *scheduleLabel;
-    IBOutlet UIView *sendRequestButtonView;
-    IBOutlet UIButton *sendRequestButton;
-    IBOutlet UILabel *requestButtonLabel;
+    __weak IBOutlet UIScrollView *scrollView;
+    __weak IBOutlet UIButton *videoButton;
+    __weak IBOutlet UIButton *photoButton;
+    __weak IBOutlet UIButton *addMessageButton;
+    __weak IBOutlet UIView *messageView;
+    __weak IBOutlet UILabel *messageLabel;
+    __weak IBOutlet UIView *secondSectionView;
+    __weak IBOutlet UIButton *fifteenMinButton;
+    __weak IBOutlet UIButton *thirtyMinButton;
+    __weak IBOutlet UIButton *oneHrButton;
+    __weak IBOutlet UIButton *threeHrButton;
+    __weak IBOutlet UILabel *segmentOneLabel;
+    __weak IBOutlet UILabel *segmentTwoLabel;
+    __weak IBOutlet UILabel *segmentThreeLabel;
+    __weak IBOutlet UILabel *segmentFourLabel;
+    __weak IBOutlet UIButton *scheduleButton;
+    __weak IBOutlet UIView *scheduleView;
+    __weak IBOutlet UILabel *scheduleLabel;
+    __weak IBOutlet UIView *sendRequestButtonView;
+    __weak IBOutlet UIButton *sendRequestButton;
+    __weak IBOutlet UILabel *requestButtonLabel;
     
     NSNumber *selectedDuration;
     NSDate *selectedScheduleDate;

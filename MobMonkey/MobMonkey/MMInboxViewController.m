@@ -19,7 +19,15 @@
 #define CELL_CONTENT_WIDTH 180.0f
 #define CELL_CONTENT_MARGIN 10.0f
 
-@interface MMInboxViewController ()
+@interface MMInboxViewController () {
+    NSString *selectedRequestId;
+    NSArray *openRequestsArray;
+    NSArray *fulfilledRequestsArray;
+    NSArray *assignedRequestsArray;
+}
+
+@property (nonatomic, retain) UIImageView *mmTitleImageView;
+@property (nonatomic, retain) NSMutableArray *contentList;
 
 @end
 
@@ -49,15 +57,14 @@
 
         [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Loading %@", self.title]];
         [self fetchInboxContent];
+        return;
     }
-    else {
-        NSMutableArray *tableContent = [NSMutableArray arrayWithObjects:@"Open Requests", @"Answered Requests", @"Assigned Requests", nil];
-        [self setContentList:tableContent];
-        
-        [SVProgressHUD showWithStatus:@"Updating"];
-        _currentAPICall = kAPICallFulfilledRequests;
-        [self performSelector:@selector(fetchInboxContent) withObject:nil afterDelay:2];
-    }
+    NSMutableArray *tableContent = [NSMutableArray arrayWithObjects:@"Open Requests", @"Answered Requests", @"Assigned Requests", nil];
+    [self setContentList:tableContent];
+    
+    [SVProgressHUD showWithStatus:@"Updating"];
+    _currentAPICall = kAPICallFulfilledRequests;
+    [self performSelector:@selector(fetchInboxContent) withObject:nil afterDelay:2];
 }
 
 - (void)viewDidUnload
@@ -93,11 +100,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *InboxCellIdentifier = @"InboxCell";
+    static NSString *InboxCategoryCellIdentifier = @"InboxCategoryCell";
     if (_categorySelected) {
-        MMInboxCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        cell = [[MMInboxCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        
+        MMInboxCell *cell = [tableView dequeueReusableCellWithIdentifier:InboxCellIdentifier];
+        if (!cell) {
+             cell = [[MMInboxCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:InboxCellIdentifier];
+        }
         /*if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestDate"]isKindOfClass:[NSNull class]]) {
          NSTimeInterval requestDate = [[[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestDate"]doubleValue];
          NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
@@ -128,32 +137,30 @@
         }
         return cell;
     }
-    else {
-        MMInboxCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        
-        if (!cell) {
-            cell = [[MMInboxCategoryCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        }
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.categoryTitleLabel.text = [_contentList objectAtIndex:indexPath.row];
-        
-        switch (indexPath.row) {
-            case 0:
-                
-                break;
-            case 1:
-                NSLog(@"%d", fulfilledRequestsArray.count);
-                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%d", fulfilledRequestsArray.count];
-                break;
-            case 2:
-            
-                break;
-            default:
-                break;
-        }
-        
-        return cell;
+    MMInboxCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:InboxCategoryCellIdentifier];
+    
+    if (!cell) {
+        cell = [[MMInboxCategoryCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:InboxCategoryCellIdentifier];
     }
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.categoryTitleLabel.text = [_contentList objectAtIndex:indexPath.row];
+    
+    switch (indexPath.row) {
+        case 0:
+            
+            break;
+        case 1:
+            NSLog(@"%d", fulfilledRequestsArray.count);
+            cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%d", fulfilledRequestsArray.count];
+            break;
+        case 2:
+        
+            break;
+        default:
+            break;
+    }
+    
+    return cell;
 }
 
 /*

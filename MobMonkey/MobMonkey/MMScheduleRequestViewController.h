@@ -18,9 +18,9 @@
     
 }
 
-@property (nonatomic, retain) IBOutlet UIDatePicker *datePicker;
-@property (nonatomic, retain) IBOutlet UIButton *scheduleItButton;
-@property (nonatomic, retain) IBOutlet UISwitch *recurringSwitch;
+@property (nonatomic, weak) IBOutlet UIDatePicker *datePicker;
+@property (nonatomic, weak) IBOutlet UIButton *scheduleItButton;
+@property (nonatomic, weak) IBOutlet UISwitch *recurringSwitch;
 @property (nonatomic, assign) id<MMScheduleRequestDelegate> delegate;
 
 
