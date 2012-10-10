@@ -33,11 +33,23 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     return self;
 }
 
+- (void)getPath:(NSString *)path
+     parameters:(NSDictionary *)parameters
+           data:(NSData*)data
+        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    NSURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters data:data];
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
+    [self enqueueHTTPRequestOperation:operation];
+}
+
+
 - (void)postPath:(NSString *)path
       parameters:(NSDictionary *)parameters
             data:(NSData*)data
          success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
     NSURLRequest *request = [self requestWithMethod:@"POST" path:path     parameters:parameters data:data];
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
@@ -48,9 +60,20 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
      parameters:(NSDictionary *)parameters
            data:(NSData*)data
         success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
     NSURLRequest *request = [self requestWithMethod:@"PUT" path:path parameters:parameters data:data];
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
+    [self enqueueHTTPRequestOperation:operation];
+}
+
+- (void)deletePath:(NSString *)path
+     parameters:(NSDictionary *)parameters
+           data:(NSData*)data
+        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    NSURLRequest *request = [self requestWithMethod:@"DELETE" path:path parameters:parameters data:data];
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
     [self enqueueHTTPRequestOperation:operation];
 }
