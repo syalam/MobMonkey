@@ -68,7 +68,7 @@
                     //TODO: send FB token to server call
                 }
                 else {
-                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to log you in. Please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+                    UIAlertView *alert = [[[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to log you in. Please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil] autorelease];
                     [alert show];
                 }
                 
