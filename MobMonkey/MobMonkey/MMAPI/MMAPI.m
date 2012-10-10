@@ -270,7 +270,20 @@
 }
 
 #pragma mark - Bookmarks
-+ (void)createBookmarkWithLocationID:(NSString *)locationID providerID:(NSString *)providerID success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
++ (void)getBookmarksOnSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    MMHTTPClient *httpclient = [MMHTTPClient sharedClient];
+    [httpclient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
+    [httpclient setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [httpclient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+    [httpclient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
+    [httpclient getPath:@"bookmarks" parameters:nil success:success failure:failure];
+}
+
++ (void)createBookmarkWithLocationID:(NSString *)locationID
+                          providerID:(NSString *)providerID
+                             success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     MMHTTPClient *httpclient = [MMHTTPClient sharedClient];
     [httpclient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [httpclient setDefaultHeader:@"Content-Type" value:@"application/json"];
@@ -278,4 +291,17 @@
     [httpclient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
     [httpclient postPath:@"bookmarks" parameters:@{ @"locationId" : locationID , @"providerId" : providerID } success:success failure:failure];
 }
+
++ (void)deleteBookmarkWithLocationID:(NSString *)locationID
+                          providerID:(NSString *)providerID
+                             success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    MMHTTPClient *httpclient = [MMHTTPClient sharedClient];
+    [httpclient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
+    [httpclient setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [httpclient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+    [httpclient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
+    [httpclient deletePath:@"bookmarks" parameters:@{ @"locationId" : locationID , @"providerId" : providerID } success:success failure:failure];
+}
+
 @end

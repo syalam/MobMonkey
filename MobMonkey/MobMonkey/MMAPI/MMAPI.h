@@ -193,6 +193,16 @@ Fetches media counts for a location
  */
 - (void)fetchMediaCountsForLocation:(NSDictionary*)params;
 
+
+///---------------------------------------------
+/// @name Fetches Bookmarks
+///---------------------------------------------
+/**
+ Fetches Bookmarks
+ */
++ (void)getBookmarksOnSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 ///---------------------------------------------
 /// @name Creates a Bookmark
 ///---------------------------------------------
@@ -200,6 +210,17 @@ Fetches media counts for a location
  Creates a Bookmark
  */
 + (void)createBookmarkWithLocationID:(NSString *)locationID
+                          providerID:(NSString *)providerID
+                             success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+///---------------------------------------------
+/// @name Delete a Bookmark
+///---------------------------------------------
+/**
+ Delete a Bookmark
+ */
++ (void)deleteBookmarkWithLocationID:(NSString *)locationID
                           providerID:(NSString *)providerID
                              success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
