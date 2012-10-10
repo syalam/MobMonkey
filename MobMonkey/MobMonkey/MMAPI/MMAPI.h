@@ -193,4 +193,15 @@ Fetches media counts for a location
  */
 - (void)fetchMediaCountsForLocation:(NSDictionary*)params;
 
+///---------------------------------------------
+/// @name Creates a Bookmark
+///---------------------------------------------
+/**
+ Creates a Bookmark
+ */
++ (void)createBookmarkWithLocationID:(NSString *)locationID
+                          providerID:(NSString *)providerID
+                             success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 @end
