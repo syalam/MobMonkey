@@ -15,11 +15,12 @@
     __weak IBOutlet UIButton *overlayToggleButton;
 }
 
-@property (nonatomic, retain)IBOutlet UIButton *closeButton;
-@property (nonatomic, retain)IBOutlet UIButton *likeButton;
-@property (nonatomic, retain)IBOutlet UIButton *dislikeButton;
-@property (nonatomic, retain)IBOutlet UIButton *flagButton;
-@property (nonatomic, retain)IBOutlet UIButton *shareButton;
+@property (nonatomic, weak) IBOutlet UIButton *closeButton;
+@property (nonatomic, weak) IBOutlet UIButton *likeButton;
+@property (nonatomic, weak) IBOutlet UIButton *dislikeButton;
+@property (nonatomic, weak) IBOutlet UIButton *flagButton;
+@property (nonatomic, weak) IBOutlet UIButton *shareButton;
+@property (nonatomic, retain) UIImage *imageToDisplay;
 
 - (IBAction)overlayToggleButtonTapped:(id)sender;
 - (IBAction)closeButtonTapped:(id)sender;

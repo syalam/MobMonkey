@@ -10,10 +10,7 @@
 
 @interface MMFullScreenImageViewController ()
 
-
-@property (nonatomic, retain) UIImage *imageToDisplay;
 @property (nonatomic) NSInteger rowIndex;
-
 
 @end
 
