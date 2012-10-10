@@ -10,18 +10,14 @@
 
 @interface MMFullScreenImageViewController ()
 
+
+@property (nonatomic, retain) UIImage *imageToDisplay;
+@property (nonatomic) NSInteger rowIndex;
+
+
 @end
 
 @implementation MMFullScreenImageViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {

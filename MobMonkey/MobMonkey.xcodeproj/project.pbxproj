@@ -927,7 +927,6 @@
 				F734A54C15F11C3E0090E85A /* first.png */,
 				F734A54E15F11C3E0090E85A /* first@2x.png */,
 				F745181415F9F3890049277C /* Full Screen Image */,
-				F734A59A15F12A570090E85A /* Helpers */,
 				F734A58515F123070090E85A /* Inbox */,
 				F747F0C815F42433002E5567 /* Location */,
 				F747F11315F44992002E5567 /* Make Request */,
@@ -938,9 +937,10 @@
 				F734A55315F11C3E0090E85A /* second.png */,
 				F734A55515F11C3E0090E85A /* second@2x.png */,
 				F734A63415F16B7D0090E85A /* Settings */,
-				F734A53E15F11C3E0090E85A /* Supporting Files */,
 				F7D41BA41623477300DBA87D /* TabBar Controller */,
 				F734A57A15F1224E0090E85A /* Trending */,
+				F734A59A15F12A570090E85A /* Helpers */,
+				F734A53E15F11C3E0090E85A /* Supporting Files */,
 			);
 			path = MobMonkey;
 			sourceTree = "<group>";
