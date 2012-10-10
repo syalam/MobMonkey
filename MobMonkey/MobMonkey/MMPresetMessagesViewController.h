@@ -19,8 +19,8 @@
     UITapGestureRecognizer *dismissKeyboard;
 }
 
-@property (nonatomic, retain) IBOutlet UIImageView *screenBackground;
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet UIImageView *screenBackground;
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray *contentList;
 @property (nonatomic, retain) id<MMPresetMessageDelegate> delegate;
 

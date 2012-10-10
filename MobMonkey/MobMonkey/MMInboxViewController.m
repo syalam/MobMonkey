@@ -57,15 +57,14 @@
 
         [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Loading %@", self.title]];
         [self fetchInboxContent];
+        return;
     }
-    else {
-        NSMutableArray *tableContent = [NSMutableArray arrayWithObjects:@"Open Requests", @"Answered Requests", @"Assigned Requests", nil];
-        [self setContentList:tableContent];
-        
-        [SVProgressHUD showWithStatus:@"Updating"];
-        _currentAPICall = kAPICallFulfilledRequests;
-        [self performSelector:@selector(fetchInboxContent) withObject:nil afterDelay:2];
-    }
+    NSMutableArray *tableContent = [NSMutableArray arrayWithObjects:@"Open Requests", @"Answered Requests", @"Assigned Requests", nil];
+    [self setContentList:tableContent];
+    
+    [SVProgressHUD showWithStatus:@"Updating"];
+    _currentAPICall = kAPICallFulfilledRequests;
+    [self performSelector:@selector(fetchInboxContent) withObject:nil afterDelay:2];
 }
 
 - (void)viewDidUnload
@@ -101,9 +100,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    static NSString *InboxCellIdentifier = @"InboxCell";
+    static NSString *InboxCategoryCellIdentifier = @"InboxCategoryCell";
     if (_categorySelected) {
-        static NSString *InboxCellIdentifier = @"InboxCell";
         MMInboxCell *cell = [tableView dequeueReusableCellWithIdentifier:InboxCellIdentifier];
         if (!cell) {
              cell = [[MMInboxCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:InboxCellIdentifier];
@@ -138,7 +137,6 @@
         }
         return cell;
     }
-    static NSString *InboxCategoryCellIdentifier = @"InboxCategoryCell";
     MMInboxCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:InboxCategoryCellIdentifier];
     
     if (!cell) {

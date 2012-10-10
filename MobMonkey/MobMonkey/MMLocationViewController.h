@@ -22,32 +22,32 @@
 
 @property (nonatomic, retain)NSDictionary* contentList;
 
-@property (nonatomic, readonly)IBOutlet UIScrollView *scrollView;
+@property (nonatomic, weak, readonly)IBOutlet UIScrollView *scrollView;
 
-@property (nonatomic, retain)IBOutlet UIView *overlayButtonView;
+@property (nonatomic, weak) IBOutlet UIView *overlayButtonView;
 
-@property (nonatomic, retain)IBOutlet UIButton *likeButton;
-@property (nonatomic, retain)IBOutlet UIButton *dislikeButton;
-@property (nonatomic, retain)IBOutlet UIButton *videosButton;
-@property (nonatomic, retain)IBOutlet UIButton *photosButton;
-@property (nonatomic, retain)IBOutlet UIButton *makeRequestButton;
-@property (nonatomic, retain)IBOutlet UIButton *flagButton;
-@property (nonatomic, retain)IBOutlet UIButton *bookmarkButton;
-@property (nonatomic, retain)IBOutlet UIButton *notificationSettingsButton;
-@property (nonatomic, retain)IBOutlet UIButton *phoneNumberButton;
-@property (nonatomic, retain)IBOutlet UIButton *addressButton;
+@property (nonatomic, weak) IBOutlet UIButton *likeButton;
+@property (nonatomic, weak) IBOutlet UIButton *dislikeButton;
+@property (nonatomic, weak) IBOutlet UIButton *videosButton;
+@property (nonatomic, weak) IBOutlet UIButton *photosButton;
+@property (nonatomic, weak) IBOutlet UIButton *makeRequestButton;
+@property (nonatomic, weak) IBOutlet UIButton *flagButton;
+@property (nonatomic, weak) IBOutlet UIButton *bookmarkButton;
+@property (nonatomic, weak) IBOutlet UIButton *notificationSettingsButton;
+@property (nonatomic, weak) IBOutlet UIButton *phoneNumberButton;
+@property (nonatomic, weak) IBOutlet UIButton *addressButton;
 
-@property (nonatomic, retain)IBOutlet TCImageView *locationLatestImageView;
+@property (nonatomic, weak) IBOutlet TCImageView *locationLatestImageView;
 
-@property (nonatomic, retain)IBOutlet UIView *notificationSettingView;
-@property (nonatomic, retain)IBOutlet UIView *bookmarkView;
+@property (nonatomic, weak) IBOutlet UIView *notificationSettingView;
+@property (nonatomic, weak) IBOutlet UIView *bookmarkView;
 
-@property (nonatomic, retain)IBOutlet UILabel *locationNameLabel;
-@property (nonatomic, retain)IBOutlet UILabel *videoCountLabel;
-@property (nonatomic, retain)IBOutlet UILabel *photoCountLabel;
-@property (nonatomic, retain)IBOutlet UILabel *phoneNumberLabel;
-@property (nonatomic, retain)IBOutlet UILabel *addressLabel;
-@property (nonatomic, retain)IBOutlet UILabel *notificationSettingLabel;
+@property (nonatomic, weak) IBOutlet UILabel *locationNameLabel;
+@property (nonatomic, weak) IBOutlet UILabel *videoCountLabel;
+@property (nonatomic, weak) IBOutlet UILabel *photoCountLabel;
+@property (nonatomic, weak) IBOutlet UILabel *phoneNumberLabel;
+@property (nonatomic, weak) IBOutlet UILabel *addressLabel;
+@property (nonatomic, weak) IBOutlet UILabel *notificationSettingLabel;
 
 @property (nonatomic) int rowIndex;
 
