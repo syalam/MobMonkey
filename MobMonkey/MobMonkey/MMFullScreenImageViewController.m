@@ -34,10 +34,10 @@
     }*/
     
     
-    webView.scalesPageToFit = YES;
-    webView.contentMode = UIViewContentModeScaleAspectFill;
-    webView.scrollView.contentSize = CGSizeMake(320, _imageToDisplay.size.height);
-    [webView loadData:UIImageJPEGRepresentation(_imageToDisplay, 1) MIMEType:@"image/jpeg" textEncodingName:nil baseURL:nil];
+//    webView.scalesPageToFit = YES;
+//    webView.contentMode = UIViewContentModeScaleAspectFill;
+//    webView.scrollView.contentSize = CGSizeMake(320, _imageToDisplay.size.height);
+//    [webView loadData:UIImageJPEGRepresentation(_imageToDisplay, 1) MIMEType:@"image/jpeg" textEncodingName:nil baseURL:nil];
     
 
     /*UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(overlayToggleButtonTapped:)];
@@ -55,10 +55,16 @@
     // e.g. self.myOutlet = nil;
 }
 
-/*- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)viewWillAppear:(BOOL)animated
 {
-    return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
-}*/
+    [super viewWillAppear:animated];
+    [imageView setImage:_imageToDisplay];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
 
 /*- (NSUInteger)supportedInterfaceOrientations
 {
