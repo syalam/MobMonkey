@@ -70,8 +70,6 @@
 					<string key="IBUIColorCocoaTouchKeyPath">darkTextColor</string>
 				</object>
 				<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
-				<bool key="IBUIAllowsSelection">NO</bool>
-				<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
 				<float key="IBUIRowHeight">84</float>
 				<float key="IBUISectionHeaderHeight">22</float>
 				<float key="IBUISectionFooterHeight">22</float>
