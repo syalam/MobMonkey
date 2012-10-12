@@ -43,7 +43,7 @@
     [_mapNavBarButton setFrame:CGRectMake(0, 0, 33, 30)];
     [_mapNavBarButton setBackgroundImage:[UIImage imageNamed:@"GlobeBtn~iphone"] forState:UIControlStateNormal];
     [_mapNavBarButton addTarget:self action:@selector(mapButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [self setContentList:[NSMutableArray array]];
     UIBarButtonItem *mapButton = [[UIBarButtonItem alloc]initWithCustomView:_mapNavBarButton];
     self.navigationItem.rightBarButtonItem = mapButton;
     
@@ -66,9 +66,9 @@
     [super viewDidAppear:animated];
     if (_showSearchResults) {
         //hide search textfield
-        [headerView setFrame:CGRectMake(0, 0, 320, 0)];
-        [headerView setClipsToBounds:YES];
-        self.tableView.tableHeaderView = headerView;
+//        [headerView setFrame:CGRectMake(0, 0, 320, 0)];
+//        [headerView setClipsToBounds:YES];
+//        self.tableView.tableHeaderView = headerView;
         
         
         //Add custom back button to the nav bar
@@ -79,12 +79,6 @@
         UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
         self.navigationItem.leftBarButtonItem = backButton;
         
-        
-        NSMutableArray *resultArray = [[NSMutableArray alloc]init];
-        for (int i = 0; i < 20; i++) {
-            [resultArray addObject:@""];
-        }
-        [self setContentList:resultArray];
         [self.tableView reloadData];
     }
     else {
@@ -339,6 +333,7 @@
         case kAPICallLocationSearch:
             NSLog(@"%@", response);
             _showCategories = NO;
+            _showSearchResults = YES;
             searchResult = response;
             [self setContentList:[searchResult mutableCopy]];
             [self.tableView reloadData];
