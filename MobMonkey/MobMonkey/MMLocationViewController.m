@@ -230,6 +230,11 @@
 }
 
 - (IBAction)bookmarkButtonTapped:(id)sender {
+    [MMAPI createBookmarkWithLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"WAHOO!");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Awww!");
+    }];
    
 }
 

@@ -42,6 +42,7 @@
 						<string key="NSFrameSize">{320, 480}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="934881223"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="IBUIContentMode">1</int>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -110,6 +111,7 @@
 								<string key="NSFrame">{{141, 20}, {18, 25}}</string>
 								<reference key="NSSuperview" ref="934881223"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="227173784"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -134,6 +136,7 @@
 								<string key="NSFrame">{{268, 14}, {38, 38}}</string>
 								<reference key="NSSuperview" ref="934881223"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
