@@ -87,7 +87,7 @@
     
     //self.tabBarController = [[MMTabBarViewController alloc]init];
     self.tabBarController = [[UITabBarController alloc]init];
-    self.tabBarController.viewControllers = @[inboxNavC, searchNavC, trendingNavC, bookmarksNavC, settingsNavC];
+    self.tabBarController.viewControllers = @[ inboxNavC, searchNavC, trendingNavC, bookmarksNavC, settingsNavC];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;
@@ -117,7 +117,7 @@
     [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
     [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
     [MMAPI sharedAPI].delegate = self;
-    [[MMAPI sharedAPI]checkUserIn:params];
+    [[MMAPI sharedAPI] checkUserIn:params];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -134,8 +134,7 @@
     [_locationManager startMonitoringSignificantLocationChanges];
 }
 
-- (void)application:(UIApplication *)application
-didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
 {
     NSString* tokenString = [[[[newDeviceToken description]
                                stringByReplacingOccurrencesOfString: @"<" withString: @""]

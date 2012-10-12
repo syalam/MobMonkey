@@ -46,6 +46,18 @@
 {
     [super viewDidLoad];
     
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     if (_categorySelected) {
         //Add custom back button to the nav bar
         UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
@@ -54,7 +66,7 @@
         
         UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
         self.navigationItem.leftBarButtonItem = backButton;
-
+        
         [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Loading %@", self.title]];
         [self fetchInboxContent];
         return;
@@ -65,13 +77,6 @@
     [SVProgressHUD showWithStatus:@"Updating"];
     _currentAPICall = kAPICallFulfilledRequests;
     [self performSelector:@selector(fetchInboxContent) withObject:nil afterDelay:2];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (NSUInteger)supportedInterfaceOrientations

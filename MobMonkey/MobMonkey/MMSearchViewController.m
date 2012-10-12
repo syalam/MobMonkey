@@ -38,6 +38,31 @@
 
     //self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     
+    _mapNavBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_mapNavBarButton setFrame:CGRectMake(0, 0, 33, 30)];
+    [_mapNavBarButton setBackgroundImage:[UIImage imageNamed:@"GlobeBtn~iphone"] forState:UIControlStateNormal];
+    [_mapNavBarButton addTarget:self action:@selector(mapButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *mapButton = [[UIBarButtonItem alloc]initWithCustomView:_mapNavBarButton];
+    self.navigationItem.rightBarButtonItem = mapButton;
+    
+    tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(screenTapped:)];
+    tapGesture.numberOfTapsRequired = 1;
+    tapGesture.delegate = self;
+    [self.view addGestureRecognizer:tapGesture];
+    [tapGesture setEnabled:NO];
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     if (_showSearchResults) {
         //hide search textfield
         [headerView setFrame:CGRectMake(0, 0, 320, 0)];
@@ -52,7 +77,7 @@
         
         UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
         self.navigationItem.leftBarButtonItem = backButton;
-
+        
         
         NSMutableArray *resultArray = [[NSMutableArray alloc]init];
         for (int i = 0; i < 20; i++) {
@@ -77,27 +102,6 @@
         [MMAPI sharedAPI].delegate = self;
         [[MMAPI sharedAPI]categories];
     }
-    
-    _mapNavBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_mapNavBarButton setFrame:CGRectMake(0, 0, 33, 30)];
-    [_mapNavBarButton setBackgroundImage:[UIImage imageNamed:@"GlobeBtn~iphone"] forState:UIControlStateNormal];
-    [_mapNavBarButton addTarget:self action:@selector(mapButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *mapButton = [[UIBarButtonItem alloc]initWithCustomView:_mapNavBarButton];
-    self.navigationItem.rightBarButtonItem = mapButton;
-    
-    tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(screenTapped:)];
-    tapGesture.numberOfTapsRequired = 1;
-    tapGesture.delegate = self;
-    [self.view addGestureRecognizer:tapGesture];
-    [tapGesture setEnabled:NO];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -186,45 +190,6 @@
         return cell;
     }
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
