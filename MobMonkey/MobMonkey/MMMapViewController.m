@@ -10,6 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "MMLocationAnnotation.h"
 #import "MMSetTitleImage.h"
+#import "MMClientSDK.h"
 
 @interface MMMapViewController ()
 
@@ -36,6 +37,29 @@
     self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     
     radiusPickerItemsArray = [[NSMutableArray alloc]initWithObjects:@"5 blocks", @"1 mile", @"5 miles", @"10 miles", nil];
+    
+    if (_contentList) {
+        for (int i = 0; i < _contentList.count; i++) {
+            CLLocationCoordinate2D coordinate;
+            coordinate.latitude = [[[_contentList objectAtIndex:i]valueForKey:@"latitude"]floatValue];
+            coordinate.longitude = [[[_contentList objectAtIndex:i]valueForKey:@"longitude"]floatValue];
+            MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc]initWithName:[[_contentList objectAtIndex:i]valueForKey:@"name"]address:[[_contentList objectAtIndex:i]valueForKey:@"streetAddress"] coordinate:coordinate arrayIndex:i];
+            [_mapView addAnnotation:(id)annotation];
+        }
+        
+        MKMapRect zoomRect = MKMapRectNull;
+        for (id <MKAnnotation> annotation in _mapView.annotations)
+        {
+            MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+            MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
+            if (MKMapRectIsNull(zoomRect)) {
+                zoomRect = pointRect;
+            } else {
+                zoomRect = MKMapRectUnion(zoomRect, pointRect);
+            }
+        }
+        [_mapView setVisibleMapRect:zoomRect animated:YES];
+    }
     
     
     //TODO: RE-ADD SEARCH BAR
@@ -67,7 +91,7 @@
     lpgr.minimumPressDuration = 2.0; //user needs to press for 2 seconds
     [self.mapView addGestureRecognizer:lpgr];
     
-    if (_address) {
+    /*if (_address) {
         CLLocationCoordinate2D addressCoordinate = [self getLocationFromAddressString:_address];
         MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc]initWithName:nil address:_address coordinate:addressCoordinate];
         
@@ -80,12 +104,12 @@
         region.span = span;
         region.center = addressCoordinate;
         NSLog(@"Latitude:%f, Longitude:%f", addressCoordinate.latitude, addressCoordinate.longitude);
-        
+     
         [_mapView addAnnotation:(id)annotation];
         
         [_mapView setRegion:region animated:YES];
         [_mapView regionThatFits:region];
-    }
+    }*/
     
     //DEMO CODE. REMOVE ME
     [addLocationButton setHidden:YES];
@@ -219,6 +243,7 @@
     
     static NSString *identifier = @"MMLocation";   
     if ([annotation isKindOfClass:[MMLocationAnnotation class]]) {
+        MMLocationAnnotation *myAnnotation = (MMLocationAnnotation*)annotation;
         
         MKPinAnnotationView *annotationView = (MKPinAnnotationView *) [self.mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
         if (annotationView == nil) {
@@ -231,6 +256,12 @@
         
         annotationView.enabled = YES;
         annotationView.canShowCallout = YES;
+        UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        infoButton.tag = [myAnnotation arrayIndex];
+
+        [infoButton addTarget:self action:@selector(infoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        annotationView.rightCalloutAccessoryView = infoButton;
+        
         
         return annotationView;
     }
@@ -255,6 +286,10 @@
     MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc] init];
     annotation.coordinate = touchMapCoordinate;
     [self.mapView addAnnotation:(id)annotation];
+}
+
+- (void)infoButtonTapped:(id)sender {
+    [[MMClientSDK sharedSDK]locationScreen:self locationDetail:[_contentList objectAtIndex:[sender tag]]];
 }
 
 #pragma mark - UISearchBar Delegate Methods

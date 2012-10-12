@@ -238,6 +238,9 @@
 
 - (void)mapButtonClicked:(id)sender {
     MMMapViewController *mvc = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
+    if (searchResult) {
+        mvc.contentList = searchResult;
+    }
     UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:mvc];
     [self.navigationController presentViewController:nvc animated:YES completion:NULL];
 }

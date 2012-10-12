@@ -22,12 +22,13 @@
     return self;
 }
 
-- (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate;
+- (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate arrayIndex:(int)arrayIndex;
 {
     if ((self = [super init])) {
         _name = [name copy];
         _address = [address copy];
         _coordinate = coordinate;
+        _arrayIndex = arrayIndex;
     }
     return self;
 }
