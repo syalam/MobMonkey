@@ -15,9 +15,9 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        _mmCategoryCellBackgroundImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 300, 44)];
-        _mmCategoryCellImageView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, 35, 35)];
-        _mmCategoryTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(45, 7, 250, 30)];
+        _mmCategoryCellBackgroundImageView = [[UIImageView alloc]initWithFrame:CGRectZero];
+        _mmCategoryCellImageView = [[UIImageView alloc]initWithFrame:CGRectZero];
+        _mmCategoryTitleLabel = [[UILabel alloc]initWithFrame:CGRectZero];
         
         //configure label
         [_mmCategoryTitleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:14]];
@@ -25,7 +25,7 @@
         [_mmCategoryTitleLabel setTextColor:[UIColor darkGrayColor]];
         
         //set cell background image
-        _mmCategoryCellBackgroundImageView.image = [UIImage imageNamed:@"roundedRectLarge"];
+        _mmCategoryCellBackgroundImageView.image = [[UIImage imageNamed:@"roundedRectLarge"] resizableImageWithCapInsets:UIEdgeInsetsMake(4.0, 4.0, 4.0, 4.0)];
         _mmCategoryCellBackgroundImageView.clipsToBounds = YES;
         
         //add items to the cell's content view
@@ -41,6 +41,18 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)layoutSubviews
+{
+    CGRect frame = self.bounds;
+    _mmCategoryCellBackgroundImageView.frame = frame;
+    
+    frame = CGRectMake(5, 5, 35, 35);
+    _mmCategoryCellImageView.frame = frame;
+    
+    frame = CGRectMake(45, 7, 250, 30);
+    _mmCategoryTitleLabel.frame = frame;
 }
 
 @end
