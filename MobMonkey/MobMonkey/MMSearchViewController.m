@@ -16,6 +16,7 @@
 #import "MMUtilities.h"
 #import "MMClientSDK.h"
 #import "SVProgressHUD.h"
+#import "MMLocationListCell.h"
 
 @interface MMSearchViewController ()
 
@@ -167,25 +168,12 @@
         return cell;
     }
     else {
-        id contentForThisRow = [_contentList objectAtIndex:indexPath.row];
-        MMSearchCell *cell = [tableView dequeueReusableCellWithIdentifier:SearchCellIdentifier];
-        if (!cell) {
-            cell = [[MMSearchCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SearchCellIdentifier];
-            cell.delegate = self;
+        MMLocationListCell *cell = [tableView dequeueReusableCellWithIdentifier:SearchCellIdentifier];
+        if (cell == nil) {
+            cell = [[MMLocationListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
         
-        // Configure the cell...
-        //FOR TAP THRU SHOW MM ENABLED FOR EVERY OTHER CELL
-        if (indexPath.section % 2 > 0) {
-            cell.mmSearchCellMMEnabledIndicator.image = [UIImage imageNamed:@"monkey.jpg"];
-        }
-        cell.mmSearchCellLocationNameLabel.text = [contentForThisRow valueForKey:@"name"];
-        cell.mmSearchCellAddressLabel.text = [NSString stringWithFormat:@"%@, %@, %@ %@", [contentForThisRow valueForKey:@"streetAddress"], [contentForThisRow valueForKey:@"locality"], [contentForThisRow valueForKey:@"region"], [contentForThisRow valueForKey:@"postcode"]];
-        float distance = [[MMUtilities sharedUtilities]calculateDistance:[contentForThisRow valueForKey:@"latitude"] longitude:[contentForThisRow valueForKey:@"longitude"]];
-        cell.mmSearchCellDistanceLabel.text = [NSString stringWithFormat:@"%.2f miles", distance];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.location = [_contentList objectAtIndex:indexPath.row];
         
         return cell;
     }
@@ -217,7 +205,7 @@
         return 44;
     }
     else {
-        return 140;
+        return 84;
     }
 }
 
