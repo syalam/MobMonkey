@@ -16,6 +16,7 @@
 @property (strong, nonatomic) UILabel *addressLabel;
 @property (strong, nonatomic) UILabel *distanceLabel;
 @property (strong, nonatomic) UIView *mediaIconsView;
+@property (strong, nonatomic) UIImageView *customBackgroundView;
 
 
 @end
@@ -27,10 +28,11 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.backgroundColor = [UIColor colorWithHex:@"D4D4D4" alpha:1.0];
-        self.contentView.backgroundColor = self.backgroundColor;
-        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
+        self.backgroundColor = [UIColor colorWithHex:@"D4D4D4" alpha:0.0];
+        //self.contentView.backgroundColor = self.backgroundColor;
+        //self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        _customBackgroundView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _customBackgroundView.image = [[UIImage imageNamed:@"searchTableViewCellBg"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 3.0, 0.0, 3.0)];
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.backgroundColor = self.backgroundColor;
         _nameLabel.font = [UIFont boldSystemFontOfSize:18.0];
@@ -47,10 +49,11 @@
         _mediaIconsView = [[UIView alloc] initWithFrame:CGRectZero];
         _mediaIconsView.backgroundColor = self.backgroundColor;
         
-        [self.contentView addSubview:_nameLabel];
-        [self.contentView addSubview:_addressLabel];
-        [self.contentView addSubview:_distanceLabel];
-        [self.contentView addSubview:_mediaIconsView];
+        [self.contentView addSubview:_customBackgroundView];
+        [self.customBackgroundView addSubview:_nameLabel];
+        [self.customBackgroundView addSubview:_addressLabel];
+        [self.customBackgroundView addSubview:_distanceLabel];
+        [self.customBackgroundView addSubview:_mediaIconsView];
         
     }
     return self;
@@ -91,17 +94,23 @@
     CGRect bounds = [[self contentView] bounds];
     CGFloat height = bounds.size.height;
     CGFloat width = bounds.size.width;
+    
+    self.customBackgroundView.frame = CGRectMake(inset, inset, width - inset * 2.0, height - inset);
+    
+    height = self.customBackgroundView.bounds.size.height;
+    width = self.customBackgroundView.bounds.size.width;
+    inset = 5.0;
     CGRect frame = CGRectMake(inset, inset, width - inset * 2.0, 22.0);
     self.nameLabel.frame = frame;
     
     CGSize distLabelFrameSize = self.distanceLabel.frame.size;
-    frame = CGRectMake(width - distLabelFrameSize.width - inset, CGRectGetMaxY(frame) - distLabelFrameSize.height, distLabelFrameSize.width, distLabelFrameSize.height);
+    frame = CGRectMake(width - distLabelFrameSize.width - inset*4, CGRectGetMaxY(frame) - distLabelFrameSize.height, distLabelFrameSize.width, distLabelFrameSize.height);
     self.distanceLabel.frame = frame;
     
-    frame = CGRectMake(inset, height - 30.0 - inset, width - inset * 2.0, 30.0);
+    frame = CGRectMake(inset, height - 40.0 - inset, width - inset * 2.0, 30.0);
     self.addressLabel.frame = frame;
     
-    frame = CGRectMake(width - 96.0 - inset, height - 16.0 - inset, 96.0, 16.0);
+    frame = CGRectMake(width - 96.0 - inset * 4, height - 26.0 - inset, 96.0, 16.0);
     self.mediaIconsView.frame = frame;
 }
 

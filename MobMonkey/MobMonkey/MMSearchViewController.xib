@@ -43,7 +43,7 @@
 						<string key="NSFrame">{{-8, 0}, {333, 469}}</string>
 						<reference key="NSSuperview" ref="595116611"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="873029372"/>
+						<reference key="NSNextKeyView" ref="521670296"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -92,6 +92,7 @@
 								<string key="NSFrame">{{34, 9}, {266, 29}}</string>
 								<reference key="NSSuperview" ref="521670296"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="873029372"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -145,7 +146,6 @@
 						<string key="NSFrame">{{0, 44}, {320, 416}}</string>
 						<reference key="NSSuperview" ref="595116611"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="521670296"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">2</int>
 							<bytes key="NSRGB">MC44NjI3NDUxNjU4IDAuODYyNzQ1MTY1OCAwLjg2Mjc0NTE2NTgAA</bytes>
@@ -157,7 +157,6 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<bool key="IBUIShowsVerticalScrollIndicator">NO</bool>
 						<bool key="IBUIBouncesZoom">NO</bool>
-						<int key="IBUISeparatorStyle">1</int>
 						<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
 						<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
 						<float key="IBUIRowHeight">44</float>
