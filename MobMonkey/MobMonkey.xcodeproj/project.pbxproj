@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37D261571627DAD60093938A /* MMBookmarksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D261551627DAD60093938A /* MMBookmarksViewController.m */; };
+		37D261581627DAD60093938A /* MMBookmarksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37D261561627DAD60093938A /* MMBookmarksViewController.xib */; };
+		37D2615E1627DD230093938A /* MMLocationListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D2615D1627DD230093938A /* MMLocationListCell.m */; };
+		37D261641627EA6F0093938A /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D261631627EA6F0093938A /* UIColor+Additions.m */; };
+		37D261671627F1BC0093938A /* icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D261661627F1BC0093938A /* icons.png */; };
+		37D261691627F31A0093938A /* icons@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D261681627F31A0093938A /* icons@2x.png */; };
 		F71991EF16225F14003C6A65 /* MMAnsweredRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F71991EE16225F14003C6A65 /* MMAnsweredRequestCell.m */; };
 		F71991F716226418003C6A65 /* MMAnsweredRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F71991F516226418003C6A65 /* MMAnsweredRequestsViewController.m */; };
 		F71991F816226418003C6A65 /* MMAnsweredRequestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F71991F616226418003C6A65 /* MMAnsweredRequestsViewController.xib */; };
@@ -365,6 +371,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		37D261541627DAD60093938A /* MMBookmarksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMBookmarksViewController.h; sourceTree = "<group>"; };
+		37D261551627DAD60093938A /* MMBookmarksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMBookmarksViewController.m; sourceTree = "<group>"; };
+		37D261561627DAD60093938A /* MMBookmarksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMBookmarksViewController.xib; sourceTree = "<group>"; };
+		37D2615C1627DD230093938A /* MMLocationListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationListCell.h; sourceTree = "<group>"; };
+		37D2615D1627DD230093938A /* MMLocationListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationListCell.m; sourceTree = "<group>"; };
+		37D261621627EA6F0093938A /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
+		37D261631627EA6F0093938A /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
+		37D261661627F1BC0093938A /* icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icons.png; sourceTree = "<group>"; };
+		37D261681627F31A0093938A /* icons@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons@2x.png"; sourceTree = "<group>"; };
 		F71991ED16225F14003C6A65 /* MMAnsweredRequestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAnsweredRequestCell.h; sourceTree = "<group>"; };
 		F71991EE16225F14003C6A65 /* MMAnsweredRequestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAnsweredRequestCell.m; sourceTree = "<group>"; };
 		F71991F416226418003C6A65 /* MMAnsweredRequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAnsweredRequestsViewController.h; sourceTree = "<group>"; };
@@ -806,8 +821,29 @@
 		37D260F41627CDC80093938A /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
+				37D261541627DAD60093938A /* MMBookmarksViewController.h */,
+				37D261551627DAD60093938A /* MMBookmarksViewController.m */,
+				37D261561627DAD60093938A /* MMBookmarksViewController.xib */,
 			);
 			name = Bookmarks;
+			sourceTree = "<group>";
+		};
+		37D261591627DC0B0093938A /* LocationListCell */ = {
+			isa = PBXGroup;
+			children = (
+				37D2615C1627DD230093938A /* MMLocationListCell.h */,
+				37D2615D1627DD230093938A /* MMLocationListCell.m */,
+			);
+			name = LocationListCell;
+			sourceTree = "<group>";
+		};
+		37D261651627EA740093938A /* UIColor Additions */ = {
+			isa = PBXGroup;
+			children = (
+				37D261621627EA6F0093938A /* UIColor+Additions.h */,
+				37D261631627EA6F0093938A /* UIColor+Additions.m */,
+			);
+			name = "UIColor Additions";
 			sourceTree = "<group>";
 		};
 		F71991EB16225EDE003C6A65 /* Answered Request Cell */ = {
@@ -928,6 +964,8 @@
 		F734A53D15F11C3E0090E85A /* MobMonkey */ = {
 			isa = PBXGroup;
 			children = (
+				37D261661627F1BC0093938A /* icons.png */,
+				37D261681627F31A0093938A /* icons@2x.png */,
 				F734A54615F11C3E0090E85A /* MMAppDelegate.h */,
 				F734A54715F11C3E0090E85A /* MMAppDelegate.m */,
 				F747F16715F47450002E5567 /* Authentication */,
@@ -937,6 +975,7 @@
 				F745181415F9F3890049277C /* Full Screen Image */,
 				F734A58515F123070090E85A /* Inbox */,
 				F747F0C815F42433002E5567 /* Location */,
+				37D261591627DC0B0093938A /* LocationListCell */,
 				F747F11315F44992002E5567 /* Make Request */,
 				F77BD34B15F52AA800E76CA5 /* Map View */,
 				F74517FB15F918600049277C /* Notification Settings */,
@@ -1024,6 +1063,7 @@
 				F734A64115F17A610090E85A /* Calc Time Ago */,
 				F734A5C915F12AF70090E85A /* SVProgressHUD */,
 				F734A5A415F12AC00090E85A /* AFNetworking */,
+				37D261651627EA740093938A /* UIColor Additions */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -2077,6 +2117,9 @@
 				F71991FB16226771003C6A65 /* ThumbsBG@2x~iphone.png in Resources */,
 				F71991FC16226771003C6A65 /* ThumbsBG~iphone.png in Resources */,
 				F7D41BA916234B4E00DBA87D /* MMTabBarViewController.xib in Resources */,
+				37D261581627DAD60093938A /* MMBookmarksViewController.xib in Resources */,
+				37D261671627F1BC0093938A /* icons.png in Resources */,
+				37D261691627F31A0093938A /* icons@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2168,6 +2211,9 @@
 				F71991F716226418003C6A65 /* MMAnsweredRequestsViewController.m in Sources */,
 				F71992001622A0D7003C6A65 /* MMInboxCategoryCell.m in Sources */,
 				F7D41BA816234B4E00DBA87D /* MMTabBarViewController.m in Sources */,
+				37D261571627DAD60093938A /* MMBookmarksViewController.m in Sources */,
+				37D2615E1627DD230093938A /* MMLocationListCell.m in Sources */,
+				37D261641627EA6F0093938A /* UIColor+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

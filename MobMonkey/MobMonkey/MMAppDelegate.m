@@ -7,6 +7,7 @@
 //
 
 #import "MMAppDelegate.h"
+#import "MMBookmarksViewController.h"
 #import "MMTrendingViewController.h"
 #import "MMInboxViewController.h"
 #import "MMSearchViewController.h"
@@ -42,7 +43,7 @@
     UIViewController *inboxVC = [[MMInboxViewController alloc] initWithNibName:@"MMInboxViewController" bundle:nil];
     UIViewController *searchVC = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
     UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithNibName:@"MMTrendingViewController" bundle:nil];
-    MMTrendingViewController *bookmarksVC = [[MMTrendingViewController alloc]initWithNibName:@"MMTrendingViewController" bundle:nil];
+    UIViewController *bookmarksVC = [[MMBookmarksViewController alloc]initWithNibName:@"MMBookmarksViewController" bundle:nil];
     UIViewController *settingsVC = [[MMSettingsViewController alloc]initWithNibName:@"MMSettingsViewController" bundle:nil];
     
     UINavigationController *inboxNavC = [[UINavigationController alloc]initWithRootViewController:inboxVC];
@@ -57,8 +58,8 @@
     bookmarksVC.title = @"Bookmarks";
     settingsVC.title = @"Settings";
     
-    bookmarksVC.sectionSelected = YES;
-    bookmarksVC.bookmarkTab = YES;
+//    bookmarksVC.sectionSelected = YES;
+//    bookmarksVC.bookmarkTab = YES;
     
     UITabBarItem *inboxBarItem = [[UITabBarItem alloc]initWithTitle:@"Inbox" image:nil tag:0];
     [inboxBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tabBtn1Selected"] withFinishedUnselectedImage:[UIImage imageNamed:@"tabBtn1"]];
