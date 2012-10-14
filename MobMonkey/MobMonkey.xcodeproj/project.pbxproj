@@ -37,6 +37,8 @@
 		379AFD2F162B23A90013AC31 /* timeIcnOverlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 379AFD11162B23A90013AC31 /* timeIcnOverlay@2x.png */; };
 		379AFD30162B23A90013AC31 /* videoBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 379AFD12162B23A90013AC31 /* videoBg.png */; };
 		379AFD31162B23A90013AC31 /* videoBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 379AFD13162B23A90013AC31 /* videoBg@2x.png */; };
+		379AFD82162B5B470013AC31 /* separator-gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 379AFD80162B5B440013AC31 /* separator-gradient.png */; };
+		379AFD83162B5B470013AC31 /* separator-gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 379AFD81162B5B460013AC31 /* separator-gradient@2x.png */; };
 		37D261571627DAD60093938A /* MMBookmarksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D261551627DAD60093938A /* MMBookmarksViewController.m */; };
 		37D261581627DAD60093938A /* MMBookmarksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37D261561627DAD60093938A /* MMBookmarksViewController.xib */; };
 		37D2615E1627DD230093938A /* MMLocationListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D2615D1627DD230093938A /* MMLocationListCell.m */; };
@@ -443,6 +445,8 @@
 		379AFD11162B23A90013AC31 /* timeIcnOverlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeIcnOverlay@2x.png"; sourceTree = "<group>"; };
 		379AFD12162B23A90013AC31 /* videoBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoBg.png; sourceTree = "<group>"; };
 		379AFD13162B23A90013AC31 /* videoBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "videoBg@2x.png"; sourceTree = "<group>"; };
+		379AFD80162B5B440013AC31 /* separator-gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "separator-gradient.png"; sourceTree = "<group>"; };
+		379AFD81162B5B460013AC31 /* separator-gradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "separator-gradient@2x.png"; sourceTree = "<group>"; };
 		37D261541627DAD60093938A /* MMBookmarksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMBookmarksViewController.h; sourceTree = "<group>"; };
 		37D261551627DAD60093938A /* MMBookmarksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMBookmarksViewController.m; sourceTree = "<group>"; };
 		37D261561627DAD60093938A /* MMBookmarksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMBookmarksViewController.xib; sourceTree = "<group>"; };
@@ -905,6 +909,8 @@
 		379AFCF5162B23A90013AC31 /* location-full slices */ = {
 			isa = PBXGroup;
 			children = (
+				379AFD80162B5B440013AC31 /* separator-gradient.png */,
+				379AFD81162B5B460013AC31 /* separator-gradient@2x.png */,
 				379AFCF6162B23A90013AC31 /* grayPictureBtn.png */,
 				379AFCF7162B23A90013AC31 /* grayPictureBtn@2x.png */,
 				379AFCF8162B23A90013AC31 /* grayVideoBtn.png */,
@@ -2304,6 +2310,8 @@
 				379AFD2F162B23A90013AC31 /* timeIcnOverlay@2x.png in Resources */,
 				379AFD30162B23A90013AC31 /* videoBg.png in Resources */,
 				379AFD31162B23A90013AC31 /* videoBg@2x.png in Resources */,
+				379AFD82162B5B470013AC31 /* separator-gradient.png in Resources */,
+				379AFD83162B5B470013AC31 /* separator-gradient@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
