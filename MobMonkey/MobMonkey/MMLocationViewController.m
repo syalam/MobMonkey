@@ -107,11 +107,11 @@
     // Return the number of sections.
     tableView.backgroundView = nil;
     tableView.backgroundColor = [UIColor clearColor];
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return section == 0 ? 3 : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -128,6 +128,11 @@
     cell.backgroundView = nil;
     cell.backgroundColor = [UIColor colorWithRed:grey green:grey blue:grey alpha:1.0];
     cell.textLabel.font = [UIFont systemFontOfSize:17.0];
+    if (indexPath.section == 1) {
+        cell.textLabel.text = @"Bookmark Location";
+        //cell.imageView.image = [UIImage imageNamed:@"alarmClock"];
+        return cell;
+    }
     switch (indexPath.row) {
         case 0:
             cell.textLabel.text = [[PhoneNumberFormatter alloc]stringForObjectValue:@"4808675309"];
