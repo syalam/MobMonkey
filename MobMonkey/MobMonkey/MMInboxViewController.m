@@ -142,13 +142,19 @@
         }
         return cell;
     }
-    MMInboxCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:InboxCategoryCellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:InboxCategoryCellIdentifier];
     
     if (!cell) {
-        cell = [[MMInboxCategoryCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:InboxCategoryCellIdentifier];
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:InboxCategoryCellIdentifier];
+        CGFloat grey = 220.0/255.0;
+        cell.backgroundView = nil;
+        cell.backgroundColor = [UIColor colorWithRed:grey green:grey blue:grey alpha:1.0];
+        cell.detailTextLabel.textColor = [UIColor blackColor];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:17.0];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.categoryTitleLabel.text = [_contentList objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = [_contentList objectAtIndex:indexPath.row];
     
     switch (indexPath.row) {
         case 0:
@@ -156,7 +162,7 @@
             break;
         case 1:
             NSLog(@"%d", fulfilledRequestsArray.count);
-            cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%d", fulfilledRequestsArray.count];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", fulfilledRequestsArray.count];
             break;
         case 2:
         
