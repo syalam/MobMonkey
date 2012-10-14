@@ -105,11 +105,13 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
+    tableView.backgroundView = nil;
+    tableView.backgroundColor = [UIColor clearColor];
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -122,24 +124,31 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    UIImageView *cellBGImageView = [[UIImageView alloc]init];
-    
+    CGFloat grey = 220.0/255.0;
+    cell.backgroundView = nil;
+    cell.backgroundColor = [UIColor colorWithRed:grey green:grey blue:grey alpha:1.0];
+    cell.textLabel.font = [UIFont systemFontOfSize:17.0];
     switch (indexPath.row) {
         case 0:
-            [cell setFrame:CGRectMake(0, 0, 303, 44)];
-            cellBGImageView.image = [UIImage imageNamed:@"roundedRectSmall"];
-            [cell.contentView addSubview:cellBGImageView];
             cell.textLabel.text = [[PhoneNumberFormatter alloc]stringForObjectValue:@"4808675309"];
+            cell.imageView.image = [UIImage imageNamed:@"telephone"];
             break;
         case 1:
             cell.textLabel.numberOfLines = 2;
             cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
             cell.textLabel.text = @"750 W. Baseline Rd.\nTempe, AZ 85283";
+            cell.imageView.image = [UIImage imageNamed:@"mapPin"];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            break;
+            
+        case 2:
+            cell.textLabel.text = @"Add Notifications";
+            cell.imageView.image = [UIImage imageNamed:@"alarmClock"];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
         default:
             break;
     }
-    
     return cell;
 }
 
@@ -150,7 +159,7 @@
             NSString *urlString = @"tel:4808675309";
             NSString *escaped = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             NSLog(@"%@", escaped);
-            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:escaped]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:escaped]];
         }
             break;
         case 1: {
@@ -185,10 +194,10 @@
 
 - (IBAction)makeRequestButtonTapped:(id)sender {
     if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
-        [[MMClientSDK sharedSDK]makeARequestScreen:self locationDetail:_contentList];
+        [[MMClientSDK sharedSDK] makeARequestScreen:self locationDetail:_contentList];
     }
     else {
-        [[MMClientSDK sharedSDK]signInScreen:self];
+        [[MMClientSDK sharedSDK] signInScreen:self];
     }
 }
 
