@@ -164,6 +164,8 @@
 #pragma mark - UITableView Delegate Methods
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
+        UITableViewCell* bookmarkCell = [tableView cellForRowAtIndexPath:indexPath];
+        bookmarkCell.textLabel.text = @"Unbookmark";
         [self bookmarkButtonTapped:nil];
         return;
     }
