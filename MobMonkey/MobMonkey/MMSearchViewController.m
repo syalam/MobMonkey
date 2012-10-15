@@ -120,7 +120,7 @@
 {
     // Return the number of sections.
     if (_showCategories) {
-        return _contentList.count;
+        return 2;// _contentList.count;
     }
     else {
         return 1;
@@ -131,7 +131,10 @@
 {
     // Return the number of rows in the section.
     if (_showCategories) {
-        NSArray *sectionArray = [_contentList objectAtIndex:section];
+        if (section == 0) {
+            return 1;
+        }
+        NSArray *sectionArray = [_contentList objectAtIndex:0];
         return sectionArray.count;
     }
     else {
@@ -144,19 +147,39 @@
     static NSString *CellIdentifier = @"Cell";
     static NSString *SearchCellIdentifier = @"SearchCell";
     if (_showCategories) {
-        NSArray *sectionArray = [_contentList objectAtIndex:indexPath.section];
+        NSArray *sectionArray = [_contentList objectAtIndex:0];
         id contentForThisRow = [sectionArray objectAtIndex:indexPath.row];
         
-        MMCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//        MMCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//        if (!cell) {
+//            cell = [[MMCategoryCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+//        }
+//        cell.mmCategoryCellImageView.image = [UIImage imageNamed:@"monkey.jpg"];
+//        if (indexPath.section == 0) {
+//            cell.mmCategoryTitleLabel.text = [contentForThisRow valueForKey:@"name"];
+//        }
+//        else {
+//            cell.mmCategoryTitleLabel.text = contentForThisRow;
+//        }
+//        
+//        return cell;
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell"];
+        
         if (!cell) {
-            cell = [[MMCategoryCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CategoryCell"];
+            CGFloat grey = 220.0/255.0;
+            cell.backgroundView = nil;
+            cell.backgroundColor = [UIColor colorWithRed:grey green:grey blue:grey alpha:1.0];
+            cell.detailTextLabel.textColor = [UIColor blackColor];
+            cell.detailTextLabel.font = [UIFont systemFontOfSize:17.0];
+            cell.imageView.image = [UIImage imageNamed:@"picture"];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
-        cell.mmCategoryCellImageView.image = [UIImage imageNamed:@"monkey.jpg"];
         if (indexPath.section == 0) {
-            cell.mmCategoryTitleLabel.text = [contentForThisRow valueForKey:@"name"];
-        }
-        else {
-            cell.mmCategoryTitleLabel.text = contentForThisRow;
+            cell.textLabel.text = @"All Categories";
+        } else {
+            cell.textLabel.text = [contentForThisRow valueForKey:@"name"];
         }
         
         return cell;
