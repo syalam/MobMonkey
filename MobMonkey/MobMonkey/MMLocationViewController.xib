@@ -266,7 +266,7 @@
 											<string key="NSClassName">NSImage</string>
 											<string key="NSResourceName">location-liveVideoIcn.png</string>
 										</object>
-										<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="591302752">
+										<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="254315813">
 											<string key="NSClassName">NSImage</string>
 											<string key="NSResourceName">grayBtn.png</string>
 										</object>
@@ -296,7 +296,7 @@
 											<string key="NSClassName">NSImage</string>
 											<string key="NSResourceName">location-videoIcn.png</string>
 										</object>
-										<reference key="IBUINormalBackgroundImage" ref="591302752"/>
+										<reference key="IBUINormalBackgroundImage" ref="254315813"/>
 										<reference key="IBUIFontDescription" ref="442090195"/>
 										<reference key="IBUIFont" ref="911206451"/>
 									</object>
@@ -323,7 +323,7 @@
 											<string key="NSClassName">NSImage</string>
 											<string key="NSResourceName">location-pictureIcn.png</string>
 										</object>
-										<reference key="IBUINormalBackgroundImage" ref="591302752"/>
+										<reference key="IBUINormalBackgroundImage" ref="254315813"/>
 										<reference key="IBUIFontDescription" ref="442090195"/>
 										<reference key="IBUIFont" ref="911206451"/>
 									</object>
@@ -577,7 +577,7 @@
 				</object>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
-			<object class="IBUITapGestureRecognizer" id="560192675"/>
+			<object class="IBUITapGestureRecognizer" id="913003275"/>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<array class="NSMutableArray" key="connectionRecords">
@@ -606,10 +606,26 @@
 					<int key="connectionID">133</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">photoCountLabel</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="953375229"/>
+					</object>
+					<int key="connectionID">155</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">videoCountLabel</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="358939092"/>
+					</object>
+					<int key="connectionID">157</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
 						<string key="label">gestureRecognizers</string>
 						<reference key="source" ref="276660228"/>
-						<reference key="destination" ref="560192675"/>
+						<reference key="destination" ref="913003275"/>
 						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
 						<bool key="addsContentToExistingCollection">YES</bool>
 					</object>
@@ -623,6 +639,33 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">147</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">photoMediaButtonTapped:</string>
+						<reference key="source" ref="948030739"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">154</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">photoMediaButtonTapped:</string>
+						<reference key="source" ref="223722627"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">152</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">photoMediaButtonTapped:</string>
+						<reference key="source" ref="500856463"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">153</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -652,7 +695,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">enlargeButtonTapped:</string>
-						<reference key="source" ref="560192675"/>
+						<reference key="source" ref="913003275"/>
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">151</int>
@@ -829,7 +872,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">149</int>
-						<reference key="object" ref="560192675"/>
+						<reference key="object" ref="913003275"/>
 						<reference key="parent" ref="0"/>
 					</object>
 				</array>
@@ -868,7 +911,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">151</int>
+			<int key="maxID">157</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
