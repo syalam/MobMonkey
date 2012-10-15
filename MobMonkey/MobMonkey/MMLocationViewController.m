@@ -129,7 +129,7 @@
     cell.backgroundColor = [UIColor colorWithRed:grey green:grey blue:grey alpha:1.0];
     cell.textLabel.font = [UIFont systemFontOfSize:17.0];
     if (indexPath.section == 1) {
-        cell.textLabel.text = @"Bookmark Location";
+        cell.textLabel.text = @"Bookmark";
         cell.imageView.image = [UIImage imageNamed:@"bookmark"];
         return cell;
     }
