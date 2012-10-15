@@ -102,7 +102,7 @@
 								<string key="NSFrame">{{160, 9}, {151, 64}}</string>
 								<reference key="NSSuperview" ref="111116378"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="310821451"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -122,21 +122,6 @@
 								</object>
 								<reference key="IBUIFontDescription" ref="116272042"/>
 								<reference key="IBUIFont" ref="932000837"/>
-							</object>
-							<object class="IBUIImageView" id="310821451">
-								<reference key="NSNextResponder" ref="111116378"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{219, 28}, {32, 28}}</string>
-								<reference key="NSSuperview" ref="111116378"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="883633782"/>
-								<string key="NSReuseIdentifierKey">_NS:9</string>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<object class="NSCustomResource" key="IBUIImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">pictureIcn.png</string>
-								</object>
 							</object>
 							<object class="IBUIButton" id="883633782">
 								<reference key="NSNextResponder" ref="111116378"/>
@@ -1149,7 +1134,6 @@
 							<reference ref="653414481"/>
 							<reference ref="776631436"/>
 							<reference ref="883633782"/>
-							<reference ref="310821451"/>
 							<reference ref="60820859"/>
 							<reference ref="65230189"/>
 							<reference ref="1073714726"/>
@@ -1165,11 +1149,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">15</int>
 						<reference key="object" ref="60820859"/>
-						<reference key="parent" ref="111116378"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">61</int>
-						<reference key="object" ref="310821451"/>
 						<reference key="parent" ref="111116378"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -1388,7 +1367,6 @@
 				<string key="517.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="537.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="554.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="61.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="627.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="646.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="73.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1588,7 +1566,6 @@
 			<string key="greyArrow.png">{10, 14}</string>
 			<string key="makeRequestBg.png">{320, 458}</string>
 			<string key="pencilIcn.png">{15, 15}</string>
-			<string key="pictureIcn.png">{32, 28}</string>
 			<string key="redPictureBtnDeselected.png">{151, 64}</string>
 			<string key="redVideoBtnDeselected.png">{151, 64}</string>
 			<string key="roundedRectLarge.png">{303, 62}</string>
