@@ -163,6 +163,10 @@
 
 #pragma mark - UITableView Delegate Methods
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 1) {
+        [self bookmarkButtonTapped:nil];
+        return;
+    }
     switch (indexPath.row) {
         case 0: {
             NSString *telNumber = [@"tel:" stringByAppendingString:[[[tableView cellForRowAtIndexPath:indexPath] textLabel] text]];
@@ -176,7 +180,9 @@
             mmmVc.address = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
             [self.navigationController pushViewController:mmmVc animated:YES];
         }
-            
+        case 2: {
+            [self notificationSettingsButtonTapped:nil];
+        }
         default:
             break;
     }
