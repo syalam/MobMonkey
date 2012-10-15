@@ -224,12 +224,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_sectionSelected) {
-        //[[MMClientSDK sharedSDK]locationScreen:self];
-    }
-    else {
-        [[MMClientSDK sharedSDK] trendingScreen:self selectedCategory:[_contentList objectAtIndex:indexPath.row]];
-    }
+//    if (_sectionSelected) {
+//        //[[MMClientSDK sharedSDK]locationScreen:self];
+//    }
+//    else {
+//        [[MMClientSDK sharedSDK] trendingScreen:self selectedCategory:[_contentList objectAtIndex:indexPath.row]];
+//    }
 }
 
 
