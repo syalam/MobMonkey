@@ -67,13 +67,13 @@
 #pragma mark - IBAction Methods
 - (IBAction)videoButtonTapped:(id)sender {
     videoSelected = YES;
-    [requestButtonLabel setText:@"Send The Video Request!"];
+    [requestButtonLabel setText:@"Send Video Request!"];
     [videoButton setImage:[UIImage imageNamed:@"redVideoBtnSelected"] forState:UIControlStateNormal];
     [photoButton setImage:[UIImage imageNamed:@"redPictureBtnDeselected"] forState:UIControlStateNormal];
 }
 - (IBAction)photoButtonTapped:(id)sender {
     videoSelected = NO;
-    [requestButtonLabel setText:@"Send The Photo Request!"];
+    [requestButtonLabel setText:@"Send Photo Request!"];
     [photoButton setImage:[UIImage imageNamed:@"redPictureBtnSelected"] forState:UIControlStateNormal];
     [videoButton setImage:[UIImage imageNamed:@"redVideoBtnDeselected"] forState:UIControlStateNormal];
 }
