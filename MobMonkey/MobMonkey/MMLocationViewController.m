@@ -135,13 +135,17 @@
     }
     switch (indexPath.row) {
         case 0:
-            cell.textLabel.text = [[PhoneNumberFormatter alloc]stringForObjectValue:@"4808675309"];
+            cell.textLabel.text = [[PhoneNumberFormatter alloc] stringForObjectValue:[_contentList valueForKey:@"phoneNumber"]];
             cell.imageView.image = [UIImage imageNamed:@"telephone"];
             break;
         case 1:
             cell.textLabel.numberOfLines = 2;
             cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
-            cell.textLabel.text = @"750 W. Baseline Rd.\nTempe, AZ 85283";
+            cell.textLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@",
+                                   [_contentList valueForKey:@"streetAddress"],
+                                   [_contentList valueForKey:@"locality"],
+                                   [_contentList valueForKey:@"region"],
+                                   [_contentList valueForKey:@"postcode"]];
             cell.imageView.image = [UIImage imageNamed:@"mapPin"];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
@@ -161,15 +165,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 0: {
-            NSString *urlString = @"tel:4808675309";
-            NSString *escaped = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            NSLog(@"%@", escaped);
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:escaped]];
+            NSString *telNumber = [@"tel:" stringByAppendingString:[[[tableView cellForRowAtIndexPath:indexPath] textLabel] text]];
+            telNumber = [telNumber stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSLog(@"%@", telNumber);
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telNumber]];
         }
             break;
         case 1: {
             MMMapViewController *mmmVc = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
-            mmmVc.address = @"750 W. Baseline Rd. Tempe, AZ 85283";
+            mmmVc.address = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
             [self.navigationController pushViewController:mmmVc animated:YES];
         }
             
