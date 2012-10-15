@@ -37,8 +37,6 @@
     [super viewDidLoad];
     
     //set background color
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
-    
     _cellToggleOnState = [[NSMutableDictionary alloc]initWithCapacity:1];
     
     NSMutableArray *sectionContent;
@@ -60,8 +58,6 @@
         }
     }
     else {
-        [self.view setBackgroundColor:[UIColor whiteColor]];
-        [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
         sectionContent = [NSMutableArray arrayWithObjects:@"Bookmarks", @"My Interests", @"Top Viewed", @"Near Me", nil];
     }
     
@@ -150,15 +146,17 @@
     }
     else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        
+    
         if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+            CGFloat grey = 220.0/255.0;
+            cell.backgroundView = nil;
+            cell.backgroundColor = [UIColor colorWithRed:grey green:grey blue:grey alpha:1.0];
+            cell.detailTextLabel.textColor = [UIColor blackColor];
+            cell.detailTextLabel.font = [UIFont systemFontOfSize:17.0];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
-        cell.textLabel.text = @"";
-        
         cell.textLabel.text = [_contentList objectAtIndex:indexPath.row];
-        
         return cell;
     }
 }
@@ -230,7 +228,7 @@
         //[[MMClientSDK sharedSDK]locationScreen:self];
     }
     else {
-        [[MMClientSDK sharedSDK]trendingScreen:self selectedCategory:[_contentList objectAtIndex:indexPath.row]];
+        [[MMClientSDK sharedSDK] trendingScreen:self selectedCategory:[_contentList objectAtIndex:indexPath.row]];
     }
 }
 
