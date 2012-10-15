@@ -13,6 +13,15 @@
 
 @end
 
+enum AcceptRejectCellViewTag {
+    LocationNameTag = 10,
+    MediaViewTag,
+    TimeAgoTag,
+    ShareButtonTag,
+    AcceptButtonTag,
+    RejectButtonTag
+};
+
 @implementation MMAnsweredRequestsViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -67,23 +76,44 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return _contentList.count;
+    return 2;//_contentList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    MMAnsweredRequestCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    MMAnsweredRequestCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    if (!cell) {
+//        cell = [[MMAnsweredRequestCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+//        cell.delegate = self;
+//    }
+//    [cell.responseImageView reloadWithUrl:[[_contentList objectAtIndex:indexPath.row] valueForKey:@"mediaUrl"]];
+//    cell.expandImageButton.tag = indexPath.row;
+//    
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    
+//    // Configure the cell...
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
-        cell = [[MMAnsweredRequestCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.delegate = self;
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[self acceptRejectCell]];
+        cell = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     }
-    [cell.responseImageView reloadWithUrl:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaUrl"]];
-    cell.expandImageButton.tag = indexPath.row;
+    UIButton *shareButton = (UIButton *)[cell viewWithTag:ShareButtonTag];
+    [shareButton addTarget:self action:@selector(actionButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    UIButton *acceptButton = (UIButton *)[cell viewWithTag:AcceptButtonTag];
+    [acceptButton addTarget:self action:@selector(acceptButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
-    // Configure the cell...
+    UIButton *rejectButon = (UIButton *)[cell viewWithTag:RejectButtonTag];
+    [rejectButon addTarget:self action:@selector(rejectButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    UILabel *nameLabel = (UILabel *)[cell viewWithTag:LocationNameTag];
+    UIView  *mediaView = [cell viewWithTag:MediaViewTag];
+    UILabel *timeAgoLabel = (UILabel *)[cell viewWithTag:TimeAgoTag];
+    
+    
+    //NSDictionary *location = [_contentList objectAtIndex:indexPath.row];
+    nameLabel.text = @"A Location"; //[location valueForKey:@"name"];
+    
     
     return cell;
 }
@@ -116,10 +146,12 @@
     [actionSheet showFromTabBar:self.tabBarController.tabBar];
 }
 - (void)acceptButtonTapped:(id)sender {
-    
+    int row = [[self.tableView indexPathForCell:(UITableViewCell *)[[[sender superview] superview] superview]] row];
+    NSLog(@"Accept Button Tapped for Row: %d", row);
 }
 - (void)rejectButtonTapped:(id)sender {
-    
+    int row = [[self.tableView indexPathForCell:(UITableViewCell *)[[[sender superview] superview] superview]] row];
+    NSLog(@"Reject Button Tapped for Row: %d", row);
 }
 
 - (void)expandImageButtonTapped:(id)sender {
@@ -129,4 +161,8 @@
     [[MMClientSDK sharedSDK]inboxFullScreenImageScreen:self imageToDisplay:imageToDisplay locationName:self.title];
 }
 
+- (void)viewDidUnload {
+    [self setAcceptRejectCell:nil];
+    [super viewDidUnload];
+}
 @end

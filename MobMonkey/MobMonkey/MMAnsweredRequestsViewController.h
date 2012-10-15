@@ -12,5 +12,6 @@
 @interface MMAnsweredRequestsViewController : UITableViewController <MMAnsweredRequestCellDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, retain) NSArray *contentList;
+@property (strong, nonatomic) IBOutlet UITableViewCell *acceptRejectCell;
 
 @end
