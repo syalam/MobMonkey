@@ -130,7 +130,7 @@
     cell.textLabel.font = [UIFont systemFontOfSize:17.0];
     if (indexPath.section == 1) {
         cell.textLabel.text = @"Bookmark Location";
-        //cell.imageView.image = [UIImage imageNamed:@"alarmClock"];
+        cell.imageView.image = [UIImage imageNamed:@"bookmark"];
         return cell;
     }
     switch (indexPath.row) {

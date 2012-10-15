@@ -39,6 +39,8 @@
 		379AFD31162B23A90013AC31 /* videoBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 379AFD13162B23A90013AC31 /* videoBg@2x.png */; };
 		379AFD82162B5B470013AC31 /* separator-gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 379AFD80162B5B440013AC31 /* separator-gradient.png */; };
 		379AFD83162B5B470013AC31 /* separator-gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 379AFD81162B5B460013AC31 /* separator-gradient@2x.png */; };
+		379AFD86162B90910013AC31 /* bookmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 379AFD84162B908F0013AC31 /* bookmark.png */; };
+		379AFD87162B90910013AC31 /* bookmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 379AFD85162B90900013AC31 /* bookmark@2x.png */; };
 		37D261571627DAD60093938A /* MMBookmarksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D261551627DAD60093938A /* MMBookmarksViewController.m */; };
 		37D261581627DAD60093938A /* MMBookmarksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37D261561627DAD60093938A /* MMBookmarksViewController.xib */; };
 		37D2615E1627DD230093938A /* MMLocationListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D2615D1627DD230093938A /* MMLocationListCell.m */; };
@@ -447,6 +449,8 @@
 		379AFD13162B23A90013AC31 /* videoBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "videoBg@2x.png"; sourceTree = "<group>"; };
 		379AFD80162B5B440013AC31 /* separator-gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "separator-gradient.png"; sourceTree = "<group>"; };
 		379AFD81162B5B460013AC31 /* separator-gradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "separator-gradient@2x.png"; sourceTree = "<group>"; };
+		379AFD84162B908F0013AC31 /* bookmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookmark.png; sourceTree = "<group>"; };
+		379AFD85162B90900013AC31 /* bookmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookmark@2x.png"; sourceTree = "<group>"; };
 		37D261541627DAD60093938A /* MMBookmarksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMBookmarksViewController.h; sourceTree = "<group>"; };
 		37D261551627DAD60093938A /* MMBookmarksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMBookmarksViewController.m; sourceTree = "<group>"; };
 		37D261561627DAD60093938A /* MMBookmarksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMBookmarksViewController.xib; sourceTree = "<group>"; };
@@ -1422,6 +1426,8 @@
 		F747F0C915F42475002E5567 /* Location */ = {
 			isa = PBXGroup;
 			children = (
+				379AFD84162B908F0013AC31 /* bookmark.png */,
+				379AFD85162B90900013AC31 /* bookmark@2x.png */,
 				F7716DCF161E4A4C00578A90 /* bookmarkBtn.png */,
 				F7716DD0161E4A4C00578A90 /* bookmarkBtn@2x.png */,
 				F7716DD1161E4A4C00578A90 /* whiteRect.png */,
@@ -2312,6 +2318,8 @@
 				379AFD31162B23A90013AC31 /* videoBg@2x.png in Resources */,
 				379AFD82162B5B470013AC31 /* separator-gradient.png in Resources */,
 				379AFD83162B5B470013AC31 /* separator-gradient@2x.png in Resources */,
+				379AFD86162B90910013AC31 /* bookmark.png in Resources */,
+				379AFD87162B90910013AC31 /* bookmark@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -37,6 +37,7 @@
         _nameLabel.backgroundColor = self.backgroundColor;
         _nameLabel.font = [UIFont boldSystemFontOfSize:18.0];
         _nameLabel.textColor = [UIColor colorWithHex:@"DF561B" alpha:1.0];
+        [_nameLabel setLineBreakMode:NSLineBreakByTruncatingTail];
         _addressLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _addressLabel.backgroundColor = self.backgroundColor;
         _addressLabel.numberOfLines = 2;
@@ -45,7 +46,7 @@
         _distanceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _distanceLabel.backgroundColor = self.backgroundColor;
         _distanceLabel.font = [UIFont boldSystemFontOfSize:14.0];
-        _distanceLabel.textColor = [UIColor colorWithHex:@"686868" alpha:1.0];
+        _distanceLabel.textColor = [UIColor colorWithHex:@"686868" alpha:1.0];        
         _mediaIconsView = [[UIView alloc] initWithFrame:CGRectZero];
         _mediaIconsView.backgroundColor = self.backgroundColor;
         
@@ -102,10 +103,14 @@
     inset = 5.0;
     CGRect frame = CGRectMake(inset, inset, width - inset * 2.0, 22.0);
     self.nameLabel.frame = frame;
-    
+       
     CGSize distLabelFrameSize = self.distanceLabel.frame.size;
     frame = CGRectMake(width - distLabelFrameSize.width - inset*4, CGRectGetMaxY(frame) - distLabelFrameSize.height, distLabelFrameSize.width, distLabelFrameSize.height);
     self.distanceLabel.frame = frame;
+    
+    frame = self.nameLabel.frame;
+    frame.size.width = CGRectGetMinX(self.distanceLabel.frame) - inset * 2;
+    self.nameLabel.frame = frame;
     
     frame = CGRectMake(inset, height - 40.0 - inset, width - inset * 2.0, 30.0);
     self.addressLabel.frame = frame;
