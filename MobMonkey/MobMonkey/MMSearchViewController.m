@@ -222,7 +222,7 @@
         return 44;
     }
     else {
-        return 94;
+        return 74;
     }
 }
 
