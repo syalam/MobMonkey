@@ -108,12 +108,11 @@
     }
     self.searchResultsViewController.locations = @[];
     [self.searchResultsViewController.tableView reloadData];
-    NSString *searchString = nil;
     NSString *cat = nil;
     if (category) {
         cat = category;
     } else {
-        searchString = self.searchBar.text;
+        self.searchResultsViewController.searchString = self.searchBar.text;
     }
     
     [self.navigationController pushViewController:self.searchResultsViewController animated:YES];

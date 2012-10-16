@@ -41,13 +41,14 @@
     double longitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue];
     NSLog(@"%f, %f", latitude, longitude);
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-    [params setObject:[NSNumber numberWithDouble:latitude]forKey:@"latitude"];
-    [params setObject:[NSNumber numberWithDouble:longitude]forKey:@"longitude"];
+    [params setValue:self.searchString forKey:@"name"];
+    [params setValue:[NSNumber numberWithDouble:latitude]forKey:@"latitude"];
+    [params setValue:[NSNumber numberWithDouble:longitude]forKey:@"longitude"];
 //    if ([filters valueForKey:@"radius"]) {
 //        [params setObject:[filters valueForKey:@"radius"] forKey:@"radiusInYards"];
 //    }
 //    else {
-        [params setObject:[NSNumber numberWithInt:200] forKey:@"radiusInYards"];
+        [params setValue:[NSNumber numberWithInt:200] forKey:@"radiusInYards"];
 //    }
     
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:params
