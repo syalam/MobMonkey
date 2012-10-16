@@ -114,6 +114,7 @@ typedef enum apiCall {
  @return An array of categories
 */
 -(void)categories;
++ (void)getCategoriesOnSuccess:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
 
 ///---------------------------------------------
 /// @name Fetches a list of open requests from the server
@@ -180,6 +181,9 @@ Glob search for a location
  search for a location
  */
 - (void)searchForLocation:(NSDictionary*)params;
++ (void)searchForLocation:(NSDictionary*)params
+                  success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                  failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 
 @property (nonatomic, assign)id<MMAPIDelegate> delegate;
