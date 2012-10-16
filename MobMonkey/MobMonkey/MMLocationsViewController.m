@@ -76,7 +76,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     [[MMClientSDK sharedSDK]locationScreen:self locationDetail:[self.locations objectAtIndex:indexPath.section]];
+     [[MMClientSDK sharedSDK] locationScreen:self locationDetail:[[self.locations objectAtIndex:indexPath.section] mutableCopy]];
 }
 
 @end

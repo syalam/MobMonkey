@@ -85,6 +85,7 @@
 
 - (void)viewDidUnload
 {
+    [self setTableView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -128,6 +129,9 @@
     cell.textLabel.font = [UIFont systemFontOfSize:17.0];
     if (indexPath.section == 1) {
         cell.textLabel.text = @"Bookmark";
+        if ([[_contentList valueForKey:@"bookmark"] boolValue]) {
+            cell.textLabel.text = @"Remove Bookmark";
+        }
         cell.imageView.image = [UIImage imageNamed:@"bookmark"];
         return cell;
     }
@@ -163,7 +167,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
         UITableViewCell* bookmarkCell = [tableView cellForRowAtIndexPath:indexPath];
-        bookmarkCell.textLabel.text = @"Unbookmark";
         [self bookmarkButtonTapped:nil];
         return;
     }
@@ -254,12 +257,21 @@
 }
 
 - (IBAction)bookmarkButtonTapped:(id)sender {
+    if ([[_contentList valueForKey:@"bookmark"] boolValue]) {
+        [MMAPI deleteBookmarkWithLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [_contentList setValue:[NSNumber numberWithBool:NO] forKey:@"bookmark"];
+            [self.tableView reloadData];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Could not remove! %@", [error description]);
+        }];
+        return;
+    }
     [MMAPI createBookmarkWithLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"WAHOO!");
+        [_contentList setValue:[NSNumber numberWithBool:YES] forKey:@"bookmark"];
+        [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Awww!");
     }];
-   
 }
 
 - (IBAction)clearNotificationSettingButtonTapped:(id)sender {

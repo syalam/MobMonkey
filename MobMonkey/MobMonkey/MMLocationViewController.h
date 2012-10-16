@@ -20,7 +20,7 @@
     BOOL uiAdjustedForNotificationSetting;
 }
 
-@property (nonatomic, retain)NSDictionary* contentList;
+@property (nonatomic, retain)NSMutableDictionary* contentList;
 
 @property (nonatomic, weak, readonly)IBOutlet UIScrollView *scrollView;
 
@@ -48,6 +48,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *phoneNumberLabel;
 @property (nonatomic, weak) IBOutlet UILabel *addressLabel;
 @property (nonatomic, weak) IBOutlet UILabel *notificationSettingLabel;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic) int rowIndex;
 
