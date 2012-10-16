@@ -221,7 +221,7 @@
     }
     //otherwise allow the user to sign in but calling the sign in screen
     else {
-        [[MMClientSDK sharedSDK]signInScreen:self];
+        [[MMClientSDK sharedSDK] signInScreen:self];
     }
 }
 
