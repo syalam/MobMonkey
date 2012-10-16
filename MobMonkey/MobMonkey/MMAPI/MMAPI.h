@@ -20,7 +20,13 @@ typedef enum apiCall {
     kAPICallLocationSearch,
     kAPICallSignUp,
     kAPICallCheckin,
-}apiCall;
+} apiCall;
+
+typedef enum OAuthProvider {
+    OAuthProviderNone,
+    OAuthProviderFacebook,
+    OAuthProviderTwitter
+} OAuthProvider;
 
 @protocol MMAPIDelegate
 
@@ -77,6 +83,11 @@ typedef enum apiCall {
  password
 */
 -(void)signInUser:(NSDictionary*)params;
++ (void)signInWithEmail:(NSString *)email
+               password:(NSString *)password
+               provider:(OAuthProvider)provider
+                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 ///---------------------------------------------
 /// @name Sends a media request to the server

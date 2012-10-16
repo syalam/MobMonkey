@@ -28,6 +28,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     
     // Accept HTTP Header; see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
 	[self setDefaultHeader:@"Accept" value:@"application/json"];
+    [self setDefaultHeader:@"MobMonkey-partnerId" value:kBMHTTPClientApplicationID];
     [self setParameterEncoding:AFJSONParameterEncoding];
     
     return self;

@@ -87,6 +87,7 @@
 		379EA064162CF02C00A1BD2E /* MMSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 379EA062162CF02C00A1BD2E /* MMSearchViewController.xib */; };
 		379EA06C162D227500A1BD2E /* MMLocationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 379EA06A162D227500A1BD2E /* MMLocationsViewController.m */; };
 		379EA06D162D227500A1BD2E /* MMLocationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 379EA06B162D227500A1BD2E /* MMLocationsViewController.xib */; };
+		379EA070162DADA000A1BD2E /* MMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 379EA06F162DAD9100A1BD2E /* MMConstants.m */; };
 		37D261571627DAD60093938A /* MMBookmarksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D261551627DAD60093938A /* MMBookmarksViewController.m */; };
 		37D261581627DAD60093938A /* MMBookmarksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37D261561627DAD60093938A /* MMBookmarksViewController.xib */; };
 		37D2615E1627DD230093938A /* MMLocationListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D2615D1627DD230093938A /* MMLocationListCell.m */; };
@@ -532,6 +533,8 @@
 		379EA069162D227500A1BD2E /* MMLocationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationsViewController.h; sourceTree = "<group>"; };
 		379EA06A162D227500A1BD2E /* MMLocationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationsViewController.m; sourceTree = "<group>"; };
 		379EA06B162D227500A1BD2E /* MMLocationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLocationsViewController.xib; sourceTree = "<group>"; };
+		379EA06E162DAD8500A1BD2E /* MMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMConstants.h; sourceTree = "<group>"; };
+		379EA06F162DAD9100A1BD2E /* MMConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMConstants.m; sourceTree = "<group>"; };
 		37D261541627DAD60093938A /* MMBookmarksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMBookmarksViewController.h; sourceTree = "<group>"; };
 		37D261551627DAD60093938A /* MMBookmarksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMBookmarksViewController.m; sourceTree = "<group>"; };
 		37D261561627DAD60093938A /* MMBookmarksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMBookmarksViewController.xib; sourceTree = "<group>"; };
@@ -1233,6 +1236,8 @@
 				371273EF162BC61B000557D1 /* tabs */,
 				37D261661627F1BC0093938A /* icons.png */,
 				37D261681627F31A0093938A /* icons@2x.png */,
+				379EA06E162DAD8500A1BD2E /* MMConstants.h */,
+				379EA06F162DAD9100A1BD2E /* MMConstants.m */,
 				F734A54615F11C3E0090E85A /* MMAppDelegate.h */,
 				F734A54715F11C3E0090E85A /* MMAppDelegate.m */,
 				F747F16715F47450002E5567 /* Authentication */,
@@ -2560,6 +2565,7 @@
 				37D261641627EA6F0093938A /* UIColor+Additions.m in Sources */,
 				379EA063162CF02C00A1BD2E /* MMSearchViewController.m in Sources */,
 				379EA06C162D227500A1BD2E /* MMLocationsViewController.m in Sources */,
+				379EA070162DADA000A1BD2E /* MMConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -118,13 +118,21 @@
         [alert show];
     }
     else {
-        NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
         [params setObject:emailTextField.text forKey:@"eMailAddress"];
         [params setObject:passwordTextField.text forKey:@"password"];
         
         [SVProgressHUD showWithStatus:@"Signing In"];
-        [MMAPI sharedAPI].delegate = self;
-        [[MMAPI sharedAPI] signInUser:params];
+        [MMAPI signInWithEmail:emailTextField.text password:passwordTextField.text provider:OAuthProviderNone success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [SVProgressHUD dismissWithSuccess:@"Signed In"];
+            [[NSUserDefaults standardUserDefaults]setObject:emailTextField.text forKey:@"userName"];
+            [[NSUserDefaults standardUserDefaults]setObject:passwordTextField.text forKey:@"password"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            
+            [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [SVProgressHUD dismissWithError:@"Could not log in"];
+        }];
     }
 }
 
