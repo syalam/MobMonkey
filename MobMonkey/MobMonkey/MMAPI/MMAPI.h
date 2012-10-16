@@ -114,6 +114,7 @@ typedef enum apiCall {
  @return An array of categories
 */
 -(void)categories;
++ (void)getCategoriesOnSuccess:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
 
 ///---------------------------------------------
 /// @name Fetches a list of open requests from the server
