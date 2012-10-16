@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MMAnsweredRequestCell.h"
 
-@interface MMAnsweredRequestsViewController : UITableViewController <MMAnsweredRequestCellDelegate, UIActionSheetDelegate>
+@interface MMAnsweredRequestsViewController : UITableViewController <UIActionSheetDelegate>
 
 @property (nonatomic, retain) NSArray *contentList;
 @property (strong, nonatomic) IBOutlet UITableViewCell *acceptRejectCell;

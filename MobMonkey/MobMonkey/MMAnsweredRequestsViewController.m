@@ -37,13 +37,6 @@ enum AcceptRejectCellViewTag {
 {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    //Add custom back button to the nav bar
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
     [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
@@ -76,23 +69,12 @@ enum AcceptRejectCellViewTag {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 2;//_contentList.count;
+    return _contentList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-//    MMAnsweredRequestCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    if (!cell) {
-//        cell = [[MMAnsweredRequestCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-//        cell.delegate = self;
-//    }
-//    [cell.responseImageView reloadWithUrl:[[_contentList objectAtIndex:indexPath.row] valueForKey:@"mediaUrl"]];
-//    cell.expandImageButton.tag = indexPath.row;
-//    
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    
-//    // Configure the cell...
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[self acceptRejectCell]];
@@ -111,8 +93,8 @@ enum AcceptRejectCellViewTag {
     UILabel *timeAgoLabel = (UILabel *)[cell viewWithTag:TimeAgoTag];
     
     
-    //NSDictionary *location = [_contentList objectAtIndex:indexPath.row];
-    nameLabel.text = @"A Location"; //[location valueForKey:@"name"];
+    NSDictionary *location = [_contentList objectAtIndex:indexPath.row];
+    nameLabel.text = [location valueForKey:@"name"];
     
     
     return cell;
@@ -155,10 +137,10 @@ enum AcceptRejectCellViewTag {
 }
 
 - (void)expandImageButtonTapped:(id)sender {
-    MMAnsweredRequestCell *cell = (MMAnsweredRequestCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
-    UIImage *imageToDisplay = cell.responseImageView.image;
+    UITableViewCell *cell = (UITableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
+    //UIImage *imageToDisplay = cell.image;
     
-    [[MMClientSDK sharedSDK]inboxFullScreenImageScreen:self imageToDisplay:imageToDisplay locationName:self.title];
+    //[[MMClientSDK sharedSDK]inboxFullScreenImageScreen:self imageToDisplay:imageToDisplay locationName:self.title];
 }
 
 - (void)viewDidUnload {

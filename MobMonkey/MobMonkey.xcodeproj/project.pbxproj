@@ -101,7 +101,6 @@
 		37D261801628AC370093938A /* searchScreenBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D261741628AC370093938A /* searchScreenBg@2x.png */; };
 		37D261811628AC370093938A /* searchTableViewCellBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D261751628AC370093938A /* searchTableViewCellBg.png */; };
 		37D261821628AC370093938A /* searchTableViewCellBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D261761628AC370093938A /* searchTableViewCellBg@2x.png */; };
-		F71991EF16225F14003C6A65 /* MMAnsweredRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F71991EE16225F14003C6A65 /* MMAnsweredRequestCell.m */; };
 		F71991F716226418003C6A65 /* MMAnsweredRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F71991F516226418003C6A65 /* MMAnsweredRequestsViewController.m */; };
 		F71991F816226418003C6A65 /* MMAnsweredRequestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F71991F616226418003C6A65 /* MMAnsweredRequestsViewController.xib */; };
 		F71991FB16226771003C6A65 /* ThumbsBG@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F71991F916226771003C6A65 /* ThumbsBG@2x~iphone.png */; };
@@ -550,8 +549,6 @@
 		37D261741628AC370093938A /* searchScreenBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchScreenBg@2x.png"; sourceTree = "<group>"; };
 		37D261751628AC370093938A /* searchTableViewCellBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchTableViewCellBg.png; sourceTree = "<group>"; };
 		37D261761628AC370093938A /* searchTableViewCellBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchTableViewCellBg@2x.png"; sourceTree = "<group>"; };
-		F71991ED16225F14003C6A65 /* MMAnsweredRequestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAnsweredRequestCell.h; sourceTree = "<group>"; };
-		F71991EE16225F14003C6A65 /* MMAnsweredRequestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAnsweredRequestCell.m; sourceTree = "<group>"; };
 		F71991F416226418003C6A65 /* MMAnsweredRequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAnsweredRequestsViewController.h; sourceTree = "<group>"; };
 		F71991F516226418003C6A65 /* MMAnsweredRequestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAnsweredRequestsViewController.m; sourceTree = "<group>"; };
 		F71991F616226418003C6A65 /* MMAnsweredRequestsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMAnsweredRequestsViewController.xib; sourceTree = "<group>"; };
@@ -1124,20 +1121,10 @@
 			path = "search slices";
 			sourceTree = "<group>";
 		};
-		F71991EB16225EDE003C6A65 /* Answered Request Cell */ = {
-			isa = PBXGroup;
-			children = (
-				F71991ED16225F14003C6A65 /* MMAnsweredRequestCell.h */,
-				F71991EE16225F14003C6A65 /* MMAnsweredRequestCell.m */,
-			);
-			name = "Answered Request Cell";
-			sourceTree = "<group>";
-		};
 		F71991F0162263E5003C6A65 /* Answered Requests */ = {
 			isa = PBXGroup;
 			children = (
 				37486092162CCA6200C8F2BE /* accept-reject slices */,
-				F71991EB16225EDE003C6A65 /* Answered Request Cell */,
 				F71991F416226418003C6A65 /* MMAnsweredRequestsViewController.h */,
 				F71991F516226418003C6A65 /* MMAnsweredRequestsViewController.m */,
 				F71991F616226418003C6A65 /* MMAnsweredRequestsViewController.xib */,
@@ -2567,7 +2554,6 @@
 				F76DFE52161EAEDC00B5683F /* MMInboxFullScreenImageViewController.m in Sources */,
 				F76DFE91161F540D00B5683F /* MMLocationMediaViewController.m in Sources */,
 				F76DFE96161F543100B5683F /* MMLocationMediaCell.m in Sources */,
-				F71991EF16225F14003C6A65 /* MMAnsweredRequestCell.m in Sources */,
 				F71991F716226418003C6A65 /* MMAnsweredRequestsViewController.m in Sources */,
 				F71992001622A0D7003C6A65 /* MMInboxCategoryCell.m in Sources */,
 				F7D41BA816234B4E00DBA87D /* MMTabBarViewController.m in Sources */,
