@@ -118,10 +118,6 @@
 		F734A54215F11C3E0090E85A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F734A54015F11C3E0090E85A /* InfoPlist.strings */; };
 		F734A54415F11C3E0090E85A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A54315F11C3E0090E85A /* main.m */; };
 		F734A54815F11C3E0090E85A /* MMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A54715F11C3E0090E85A /* MMAppDelegate.m */; };
-		F734A54D15F11C3E0090E85A /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = F734A54C15F11C3E0090E85A /* first.png */; };
-		F734A54F15F11C3E0090E85A /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F734A54E15F11C3E0090E85A /* first@2x.png */; };
-		F734A55415F11C3E0090E85A /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = F734A55315F11C3E0090E85A /* second.png */; };
-		F734A55615F11C3E0090E85A /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F734A55515F11C3E0090E85A /* second@2x.png */; };
 		F734A56415F11C3E0090E85A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A56315F11C3E0090E85A /* SenTestingKit.framework */; };
 		F734A56515F11C3E0090E85A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53715F11C3E0090E85A /* UIKit.framework */; };
 		F734A56615F11C3E0090E85A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53915F11C3E0090E85A /* Foundation.framework */; };
@@ -577,10 +573,6 @@
 		F734A54515F11C3E0090E85A /* MobMonkey-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobMonkey-Prefix.pch"; sourceTree = "<group>"; };
 		F734A54615F11C3E0090E85A /* MMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMAppDelegate.h; sourceTree = "<group>"; };
 		F734A54715F11C3E0090E85A /* MMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMAppDelegate.m; sourceTree = "<group>"; };
-		F734A54C15F11C3E0090E85A /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
-		F734A54E15F11C3E0090E85A /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
-		F734A55315F11C3E0090E85A /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
-		F734A55515F11C3E0090E85A /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
 		F734A56215F11C3E0090E85A /* MobMonkeyTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MobMonkeyTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F734A56315F11C3E0090E85A /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		F734A56B15F11C3E0090E85A /* MobMonkeyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MobMonkeyTests-Info.plist"; sourceTree = "<group>"; };
@@ -1236,8 +1228,6 @@
 				F734A54615F11C3E0090E85A /* MMAppDelegate.h */,
 				F734A54715F11C3E0090E85A /* MMAppDelegate.m */,
 				F747F16715F47450002E5567 /* Authentication */,
-				F734A54C15F11C3E0090E85A /* first.png */,
-				F734A54E15F11C3E0090E85A /* first@2x.png */,
 				37D260F41627CDC80093938A /* Bookmarks */,
 				F745181415F9F3890049277C /* Full Screen Image */,
 				F734A58515F123070090E85A /* Inbox */,
@@ -1248,8 +1238,6 @@
 				F74517FB15F918600049277C /* Notification Settings */,
 				F734A62E15F1482F0090E85A /* Result Cell */,
 				F79B4FA015F3EE470004BE01 /* Search */,
-				F734A55315F11C3E0090E85A /* second.png */,
-				F734A55515F11C3E0090E85A /* second@2x.png */,
 				F734A63415F16B7D0090E85A /* Settings */,
 				F7D41BA41623477300DBA87D /* TabBar Controller */,
 				F734A57A15F1224E0090E85A /* Trending */,
@@ -2112,10 +2100,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F734A54215F11C3E0090E85A /* InfoPlist.strings in Resources */,
-				F734A54D15F11C3E0090E85A /* first.png in Resources */,
-				F734A54F15F11C3E0090E85A /* first@2x.png in Resources */,
-				F734A55415F11C3E0090E85A /* second.png in Resources */,
-				F734A55615F11C3E0090E85A /* second@2x.png in Resources */,
 				F734A57F15F1226C0090E85A /* MMTrendingViewController.xib in Resources */,
 				F734A58415F122FF0090E85A /* MMInboxViewController.xib in Resources */,
 				F734A5C815F12AF10090E85A /* SVProgressHUD.bundle in Resources */,
