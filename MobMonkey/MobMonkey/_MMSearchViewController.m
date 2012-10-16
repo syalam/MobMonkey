@@ -370,7 +370,6 @@
     NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
     if ([response valueForKey:@"description"]) {
         NSString *responseString = [response valueForKey:@"description"];
-        
         [SVProgressHUD dismissWithError:responseString];
     }
 }
