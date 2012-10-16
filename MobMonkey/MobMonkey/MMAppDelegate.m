@@ -61,12 +61,10 @@
 //    bookmarksVC.sectionSelected = YES;
 //    bookmarksVC.bookmarkTab = YES;
     
-    //self.tabBarController = [[MMTabBarViewController alloc]init];
-    self.tabBarController = [[UITabBarController alloc]init];
+    self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.viewControllers = @[ trendingNavC, inboxNavC, searchNavC, bookmarksNavC, settingsNavC];
     [self.tabBarController.tabBar setBackgroundImage:[[UIImage imageNamed:@"tabbar-background"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 2.0, 0.0, 2.0)]];
     [self.tabBarController.tabBar setSelectionIndicatorImage:[[UIImage imageNamed:@"selected-tab-background"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)]];
-    //[self.tabBarController.tabBar setShadowImage:nil];
     
     
     CGFloat inset = 5.0;

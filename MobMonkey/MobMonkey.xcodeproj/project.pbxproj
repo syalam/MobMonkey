@@ -85,6 +85,8 @@
 		379AFD87162B90910013AC31 /* bookmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 379AFD85162B90900013AC31 /* bookmark@2x.png */; };
 		379EA063162CF02C00A1BD2E /* MMSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 379EA061162CF02C00A1BD2E /* MMSearchViewController.m */; };
 		379EA064162CF02C00A1BD2E /* MMSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 379EA062162CF02C00A1BD2E /* MMSearchViewController.xib */; };
+		379EA06C162D227500A1BD2E /* MMLocationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 379EA06A162D227500A1BD2E /* MMLocationsViewController.m */; };
+		379EA06D162D227500A1BD2E /* MMLocationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 379EA06B162D227500A1BD2E /* MMLocationsViewController.xib */; };
 		37D261571627DAD60093938A /* MMBookmarksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D261551627DAD60093938A /* MMBookmarksViewController.m */; };
 		37D261581627DAD60093938A /* MMBookmarksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37D261561627DAD60093938A /* MMBookmarksViewController.xib */; };
 		37D2615E1627DD230093938A /* MMLocationListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D2615D1627DD230093938A /* MMLocationListCell.m */; };
@@ -527,6 +529,9 @@
 		379EA060162CF02C00A1BD2E /* MMSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSearchViewController.h; sourceTree = "<group>"; };
 		379EA061162CF02C00A1BD2E /* MMSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSearchViewController.m; sourceTree = "<group>"; };
 		379EA062162CF02C00A1BD2E /* MMSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSearchViewController.xib; sourceTree = "<group>"; };
+		379EA069162D227500A1BD2E /* MMLocationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationsViewController.h; sourceTree = "<group>"; };
+		379EA06A162D227500A1BD2E /* MMLocationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationsViewController.m; sourceTree = "<group>"; };
+		379EA06B162D227500A1BD2E /* MMLocationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLocationsViewController.xib; sourceTree = "<group>"; };
 		37D261541627DAD60093938A /* MMBookmarksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMBookmarksViewController.h; sourceTree = "<group>"; };
 		37D261551627DAD60093938A /* MMBookmarksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMBookmarksViewController.m; sourceTree = "<group>"; };
 		37D261561627DAD60093938A /* MMBookmarksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMBookmarksViewController.xib; sourceTree = "<group>"; };
@@ -1235,7 +1240,6 @@
 				F745181415F9F3890049277C /* Full Screen Image */,
 				F734A58515F123070090E85A /* Inbox */,
 				F747F0C815F42433002E5567 /* Location */,
-				37D261591627DC0B0093938A /* LocationListCell */,
 				F747F11315F44992002E5567 /* Make Request */,
 				F77BD34B15F52AA800E76CA5 /* Map View */,
 				F74517FB15F918600049277C /* Notification Settings */,
@@ -1521,6 +1525,10 @@
 				F747F10715F426F8002E5567 /* MMLocationViewController.m */,
 				F747F10815F426F8002E5567 /* MMLocationViewController.xib */,
 				F76DFE93161F541200B5683F /* LocationMedia */,
+				37D261591627DC0B0093938A /* LocationListCell */,
+				379EA069162D227500A1BD2E /* MMLocationsViewController.h */,
+				379EA06A162D227500A1BD2E /* MMLocationsViewController.m */,
+				379EA06B162D227500A1BD2E /* MMLocationsViewController.xib */,
 			);
 			name = Location;
 			sourceTree = "<group>";
@@ -2457,6 +2465,7 @@
 				3748609D162CCA6200C8F2BE /* rejectBtn.png in Resources */,
 				3748609E162CCA6200C8F2BE /* rejectBtn@2x.png in Resources */,
 				379EA064162CF02C00A1BD2E /* MMSearchViewController.xib in Resources */,
+				379EA06D162D227500A1BD2E /* MMLocationsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2550,6 +2559,7 @@
 				37D2615E1627DD230093938A /* MMLocationListCell.m in Sources */,
 				37D261641627EA6F0093938A /* UIColor+Additions.m in Sources */,
 				379EA063162CF02C00A1BD2E /* MMSearchViewController.m in Sources */,
+				379EA06C162D227500A1BD2E /* MMLocationsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
