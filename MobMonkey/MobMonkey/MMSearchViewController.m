@@ -108,12 +108,36 @@
     }
     self.searchResultsViewController.locations = @[];
     [self.searchResultsViewController.tableView reloadData];
-    NSString *cat = nil;
-    if (category) {
-        cat = category;
-    } else {
-        self.searchResultsViewController.searchString = self.searchBar.text;
-    }
+    self.searchResultsViewController.isSearching = YES;
+    
+    double latitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue];
+    double longitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue];
+    NSLog(@"%f, %f", latitude, longitude);
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    [params setValue:self.searchBar.text forKey:@"name"];
+    [params setValue:[NSNumber numberWithDouble:latitude]forKey:@"latitude"];
+    [params setValue:[NSNumber numberWithDouble:longitude]forKey:@"longitude"];
+    //    if ([filters valueForKey:@"radius"]) {
+    //        [params setObject:[filters valueForKey:@"radius"] forKey:@"radiusInYards"];
+    //    }
+    //    else {
+    [params setValue:[NSNumber numberWithInt:200] forKey:@"radiusInYards"];
+    //    }
+    
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:params
+                                                       options:NSJSONWritingPrettyPrinted error:nil];
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+    
+    NSLog(@"%@", jsonObject);
+    [MMAPI searchForLocation:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        self.searchResultsViewController.isSearching = NO;
+        [SVProgressHUD dismiss];
+        self.searchResultsViewController.locations = responseObject;
+        [self.searchResultsViewController.tableView reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD dismissWithError:[error description]];
+    }];
+
     
     [self.navigationController pushViewController:self.searchResultsViewController animated:YES];
 }

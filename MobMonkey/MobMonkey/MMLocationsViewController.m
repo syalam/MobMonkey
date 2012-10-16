@@ -8,7 +8,6 @@
 
 #import "MMLocationsViewController.h"
 #import "MMLocationListCell.h"
-#import "SVProgressHUD.h"
 
 @interface MMLocationsViewController ()
 
@@ -37,35 +36,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    double latitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue];
-    double longitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue];
-    NSLog(@"%f, %f", latitude, longitude);
-    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-    [params setValue:self.searchString forKey:@"name"];
-    [params setValue:[NSNumber numberWithDouble:latitude]forKey:@"latitude"];
-    [params setValue:[NSNumber numberWithDouble:longitude]forKey:@"longitude"];
-//    if ([filters valueForKey:@"radius"]) {
-//        [params setObject:[filters valueForKey:@"radius"] forKey:@"radiusInYards"];
-//    }
-//    else {
-        [params setValue:[NSNumber numberWithInt:200] forKey:@"radiusInYards"];
-//    }
-    
-    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:params
-                                                       options:NSJSONWritingPrettyPrinted error:nil];
-    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
-    
-    NSLog(@"%@", jsonObject);
-    [SVProgressHUD showWithStatus:@"Searching"];
-    [MMAPI searchForLocation:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (!self.view.isHidden) {
-            [SVProgressHUD dismiss];
-            self.locations = responseObject;
-            [self.tableView reloadData];
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD dismissWithError:[error description]];
-    }];
+    if (self.isSearching) {
+        [SVProgressHUD showWithStatus:@"Searching"];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
