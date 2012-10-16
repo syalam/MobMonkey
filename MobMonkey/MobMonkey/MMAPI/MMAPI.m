@@ -10,7 +10,17 @@
 #import "MMHTTPClient.h"
 #import "SVProgressHUD.h"
 
+
+static NSString * const kBMHTTPClientBaseURLString = @"http://api.mobmonkey.com/rest/";
+static NSString * const kBMHTTPClientApplicationID = @"29C851C2-CF6F-11E1-A0EC-4CE76188709B";
+static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE33-4DE76188709B";
+
 @implementation MMAPI
+
++ (NSURL *)baseURL
+{
+    return [NSURL URLWithString:kBMHTTPClientBaseURLString];
+}
 
 #pragma mark - Singleton Method
 + (MMAPI *)sharedAPI {
@@ -46,7 +56,7 @@
 
 -(void)signInUser:(NSDictionary*)params {
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
-    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
+    //[httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
     [httpClient  postPath:@"signin/user" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"%@", JSON);
@@ -54,6 +64,19 @@
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_delegate MMAPICallFailed:operation];
     }];
+}
+
++ (void)signInWithEmail:(NSString *)email
+               password:(NSString *)password
+               provider:(OAuthProvider)provider
+                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    MMHTTPClient *httpClient = [[MMHTTPClient alloc] initWithBaseURL:[self baseURL]];
+    [httpClient setDefaultHeader:@"MobMonkey-user" value:email];
+    [httpClient setDefaultHeader:@"MobMonkey-auth" value:password];
+    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"]];
+    [httpClient postPath:@"signin/iOS/12341234123123123123123123123123" parameters:nil success:success failure:failure];
 }
 
 -(void)facebookSignIn {
@@ -330,7 +353,7 @@
                           providerID:(NSString *)providerID
                              success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+    MMHTTPClient *httpClient = [[MMHTTPClient alloc] initWithBaseURL:[self baseURL]];
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
     [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
