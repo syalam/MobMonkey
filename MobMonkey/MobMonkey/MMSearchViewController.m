@@ -102,14 +102,20 @@
 
 - (void)showSearchResultsForCategory:(NSString *)category
 {
+    [self.searchBar resignFirstResponder];
     if (!self.searchResultsViewController) {
-        self.searchResultsViewController = [[MMLocationsViewController alloc] initWithNibName:nil bundle:nil];
+        self.searchResultsViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
     }
+    self.searchResultsViewController.locations = @[];
+    [self.searchResultsViewController.tableView reloadData];
+    NSString *searchString = nil;
+    NSString *cat = nil;
     if (category) {
-        self.searchResultsViewController.category = category;
+        cat = category;
     } else {
-        self.searchResultsViewController.searchString = self.searchBar.text;
+        searchString = self.searchBar.text;
     }
+    
     [self.navigationController pushViewController:self.searchResultsViewController animated:YES];
 }
 

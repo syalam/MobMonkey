@@ -11,7 +11,7 @@
 @interface MMLocationsViewController : UITableViewController
 
 @property (strong, nonatomic) NSArray *locations;
-@property (strong, nonatomic) NSString *searchString;
 @property (strong, nonatomic) NSString *category;
+@property (strong, nonatomic) NSString *searchString;
 
 @end
