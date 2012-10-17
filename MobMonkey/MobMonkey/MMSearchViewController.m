@@ -8,6 +8,7 @@
 
 #import "MMSearchViewController.h"
 #import "MMLocationsViewController.h"
+#import "MMFilterViewController.h"
 
 @interface MMSearchViewController ()
 
@@ -97,7 +98,11 @@
 
 - (void)showFilterView:(id)sender
 {
-    
+    MMFilterViewController *fvc = [[MMFilterViewController alloc]initWithNibName:@"MMFilterViewController" bundle:nil];
+    fvc.delegate = (id <MMFilterViewDelegate>)self;
+    fvc.title = @"Filter";
+    UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:fvc];
+    [self.navigationController presentViewController:navc animated:YES completion:NULL];
 }
 
 - (void)showSearchResultsForCategory:(NSString *)category
@@ -117,12 +122,12 @@
     [params setValue:self.searchBar.text forKey:@"name"];
     [params setValue:[NSNumber numberWithDouble:latitude]forKey:@"latitude"];
     [params setValue:[NSNumber numberWithDouble:longitude]forKey:@"longitude"];
-    //    if ([filters valueForKey:@"radius"]) {
-    //        [params setObject:[filters valueForKey:@"radius"] forKey:@"radiusInYards"];
-    //    }
-    //    else {
+    if ([self.filters valueForKey:@"radius"]) {
+        [params setObject:[self.filters valueForKey:@"radius"] forKey:@"radiusInYards"];
+    }
+    else {
     [params setValue:[NSNumber numberWithInt:200] forKey:@"radiusInYards"];
-    //    }
+    }
     
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:params
                                                        options:NSJSONWritingPrettyPrinted error:nil];

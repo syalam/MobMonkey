@@ -11,4 +11,6 @@
 @interface MMSearchViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) NSDictionary *filters;
+
 @end

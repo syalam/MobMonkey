@@ -69,7 +69,7 @@
 
 #pragma mark - UIBarButtonItem Action Methods
 - (void)backButtonTapped:(id)sender {
-    [_delegate selectedFilters:[NSDictionary dictionaryWithObjectsAndKeys:selectedRadius, @"radius", nil]];
+    [_delegate setFilters:[NSDictionary dictionaryWithObjectsAndKeys:selectedRadius, @"radius", nil]];
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 

@@ -10,7 +10,7 @@
 
 @protocol MMFilterViewDelegate
 
-- (void)selectedFilters:(id)selectedFilters;
+- (void)setFilters:(NSDictionary *)filters;
     
 @end
 
