@@ -91,7 +91,6 @@
 		379EA06D162D227500A1BD2E /* MMLocationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 379EA06B162D227500A1BD2E /* MMLocationsViewController.xib */; };
 		379EA070162DADA000A1BD2E /* MMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 379EA06F162DAD9100A1BD2E /* MMConstants.m */; };
 		37D261571627DAD60093938A /* MMBookmarksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D261551627DAD60093938A /* MMBookmarksViewController.m */; };
-		37D261581627DAD60093938A /* MMBookmarksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37D261561627DAD60093938A /* MMBookmarksViewController.xib */; };
 		37D2615E1627DD230093938A /* MMLocationListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D2615D1627DD230093938A /* MMLocationListCell.m */; };
 		37D261641627EA6F0093938A /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D261631627EA6F0093938A /* UIColor+Additions.m */; };
 		37D261671627F1BC0093938A /* icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D261661627F1BC0093938A /* icons.png */; };
@@ -541,7 +540,6 @@
 		379EA06F162DAD9100A1BD2E /* MMConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMConstants.m; sourceTree = "<group>"; };
 		37D261541627DAD60093938A /* MMBookmarksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMBookmarksViewController.h; sourceTree = "<group>"; };
 		37D261551627DAD60093938A /* MMBookmarksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMBookmarksViewController.m; sourceTree = "<group>"; };
-		37D261561627DAD60093938A /* MMBookmarksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMBookmarksViewController.xib; sourceTree = "<group>"; };
 		37D2615C1627DD230093938A /* MMLocationListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationListCell.h; sourceTree = "<group>"; };
 		37D2615D1627DD230093938A /* MMLocationListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationListCell.m; sourceTree = "<group>"; };
 		37D261621627EA6F0093938A /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
@@ -1088,7 +1086,6 @@
 			children = (
 				37D261541627DAD60093938A /* MMBookmarksViewController.h */,
 				37D261551627DAD60093938A /* MMBookmarksViewController.m */,
-				37D261561627DAD60093938A /* MMBookmarksViewController.xib */,
 			);
 			name = Bookmarks;
 			sourceTree = "<group>";
@@ -2384,7 +2381,6 @@
 				F71991FB16226771003C6A65 /* ThumbsBG@2x~iphone.png in Resources */,
 				F71991FC16226771003C6A65 /* ThumbsBG~iphone.png in Resources */,
 				F7D41BA916234B4E00DBA87D /* MMTabBarViewController.xib in Resources */,
-				37D261581627DAD60093938A /* MMBookmarksViewController.xib in Resources */,
 				37D261671627F1BC0093938A /* icons.png in Resources */,
 				37D261691627F31A0093938A /* icons@2x.png in Resources */,
 				37D261771628AC370093938A /* cellCameraBtn.png in Resources */,
