@@ -133,7 +133,6 @@
         self.searchResultsViewController.isSearching = NO;
         [SVProgressHUD dismiss];
         self.searchResultsViewController.locations = responseObject;
-        [self.searchResultsViewController.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD dismissWithError:[error description]];
     }];

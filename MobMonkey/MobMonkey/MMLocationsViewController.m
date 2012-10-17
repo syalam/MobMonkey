@@ -8,8 +8,13 @@
 
 #import "MMLocationsViewController.h"
 #import "MMLocationListCell.h"
+#import "MMLocationAnnotation.h"
 
 @interface MMLocationsViewController ()
+
+- (void)flipView:(id)sender;
+- (void)reloadMapView;
+- (void)infoButtonTapped:(id)sender;
 
 @end
 
@@ -24,7 +29,13 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    UIBarButtonItem *flipViewButton = [[UIBarButtonItem alloc] initWithTitle:@"Map"
+                                                                       style:UIBarButtonItemStyleBordered
+                                                                      target:self
+                                                                      action:@selector(flipView:)];
+    self.navigationItem.rightBarButtonItem = flipViewButton;
     self.locations = @[];
+    self.mapView.showsUserLocation = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,6 +56,24 @@
 {
     [super viewWillDisappear:animated];
     [SVProgressHUD dismiss];
+}
+
+- (void)flipView:(id)sender
+{
+    if ([self.mapView isHidden]) {
+        [UIView transitionFromView:self.tableView toView:self.mapView duration:0.4 options:UIViewAnimationOptionTransitionFlipFromLeft | UIViewAnimationOptionShowHideTransitionViews completion:nil];
+        [sender setTitle:@"List"];
+        return;
+    }
+    [UIView transitionFromView:self.mapView toView:self.tableView duration:0.4 options:UIViewAnimationOptionTransitionFlipFromRight | UIViewAnimationOptionShowHideTransitionViews completion:nil];
+    [sender setTitle:@"Map"];
+}
+
+- (void)setLocations:(NSArray *)locations
+{
+    _locations = locations;
+    [self.tableView reloadData];
+    [self reloadMapView];
 }
 
 #pragma mark - Table view data source
@@ -77,6 +106,74 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
      [[MMClientSDK sharedSDK] locationScreen:self locationDetail:[[self.locations objectAtIndex:indexPath.section] mutableCopy]];
+}
+
+- (void)viewDidUnload {
+    [self setTableView:nil];
+    [self setMapView:nil];
+    [super viewDidUnload];
+}
+
+#pragma mark - Manage map view
+
+- (void)reloadMapView
+{
+    [self.mapView removeAnnotations:self.mapView.annotations];
+    for (NSMutableDictionary *location in self.locations) {
+        CLLocationCoordinate2D coordinate;
+        coordinate.latitude = [[location valueForKey:@"latitude"] floatValue];
+        coordinate.longitude = [[location valueForKey:@"longitude"] floatValue];
+        MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc] initWithName:[location valueForKey:@"name"] address:[location valueForKey:@"streetAddress"] coordinate:coordinate arrayIndex:[self.locations indexOfObject:location]];
+        [self.mapView addAnnotation:(id)annotation];
+    }
+    
+    MKMapRect zoomRect = MKMapRectNull;
+    for (id <MKAnnotation> annotation in self.mapView.annotations)
+    {
+        MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
+        if (MKMapRectIsNull(zoomRect)) {
+            zoomRect = pointRect;
+        } else {
+            zoomRect = MKMapRectUnion(zoomRect, pointRect);
+        }
+    }
+    [self.mapView setVisibleMapRect:zoomRect animated:YES];
+}
+
+- (void)infoButtonTapped:(id)sender {
+    [[MMClientSDK sharedSDK] locationScreen:self locationDetail:[self.locations objectAtIndex:[sender tag]]];
+}
+
+#pragma mark - MapView Delegate Methods
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    
+    static NSString *identifier = @"MMLocation";
+    if ([annotation isKindOfClass:[MMLocationAnnotation class]]) {
+        MMLocationAnnotation *myAnnotation = (MMLocationAnnotation*)annotation;
+        
+        MKPinAnnotationView *annotationView = (MKPinAnnotationView *) [self.mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+        if (annotationView == nil) {
+            annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
+            annotationView.animatesDrop = YES;
+            
+        } else {
+            annotationView.annotation = annotation;
+        }
+        
+        annotationView.enabled = YES;
+        annotationView.canShowCallout = YES;
+        UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        infoButton.tag = [myAnnotation arrayIndex];
+        
+        [infoButton addTarget:self action:@selector(infoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        annotationView.rightCalloutAccessoryView = infoButton;
+        
+        
+        return annotationView;
+    }
+    
+    return nil;
 }
 
 @end
