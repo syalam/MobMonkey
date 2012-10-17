@@ -121,12 +121,13 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        CGFloat grey = 220.0/255.0;
+        cell.backgroundView = nil;
+        cell.backgroundColor = [UIColor colorWithRed:grey green:grey blue:grey alpha:1.0];
+        cell.textLabel.font = [UIFont systemFontOfSize:17.0];
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    CGFloat grey = 220.0/255.0;
-    cell.backgroundView = nil;
-    cell.backgroundColor = [UIColor colorWithRed:grey green:grey blue:grey alpha:1.0];
-    cell.textLabel.font = [UIFont systemFontOfSize:17.0];
+    
     if (indexPath.section == 1) {
         cell.textLabel.text = @"Bookmark";
         if ([[_contentList valueForKey:@"bookmark"] boolValue]) {
@@ -166,7 +167,6 @@
 #pragma mark - UITableView Delegate Methods
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
-        UITableViewCell* bookmarkCell = [tableView cellForRowAtIndexPath:indexPath];
         [self bookmarkButtonTapped:nil];
         return;
     }
@@ -258,19 +258,21 @@
 
 - (IBAction)bookmarkButtonTapped:(id)sender {
     if ([[_contentList valueForKey:@"bookmark"] boolValue]) {
-        [MMAPI deleteBookmarkWithLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [_contentList setValue:[NSNumber numberWithBool:NO] forKey:@"bookmark"];
-            [self.tableView reloadData];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_contentList setValue:[NSNumber numberWithBool:NO] forKey:@"bookmark"];
+        [self.tableView reloadData];
+        [MMAPI deleteBookmarkWithLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(id responseObject) {
+            NSLog(@"Removed bookmark");
+        } failure:^(NSError *error) {
             NSLog(@"Could not remove! %@", [error description]);
         }];
         return;
     }
+    [_contentList setValue:[NSNumber numberWithBool:YES] forKey:@"bookmark"];
+    [self.tableView reloadData];
     [MMAPI createBookmarkWithLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [_contentList setValue:[NSNumber numberWithBool:YES] forKey:@"bookmark"];
-        [self.tableView reloadData];
+        NSLog(@"Added Bookmark!");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Awww!");
+        NSLog(@"Could not add Bookmark!");
     }];
 }
 
