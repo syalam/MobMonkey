@@ -9,7 +9,7 @@
 #import "MMFilterViewController.h"
 #import "MMSetTitleImage.h"
 #import "MMAPI.h"
-#import "MMCategoryCell.h"
+#import "MMTableViewCell.h"
 
 @interface MMFilterViewController ()
 
@@ -120,17 +120,20 @@
     
     static NSString *CellIdentifier = @"Cell";
     if (indexPath.section == 0) {
-        MMCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        cell = [[MMCategoryCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.mmCategoryCellImageView.image = [UIImage imageNamed:@"monkey.jpg"];
-        cell.mmCategoryTitleLabel.text = contentForThisRow;
+        MMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (!cell) {
+            cell = [[MMTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
+        
+        cell.image = [UIImage imageNamed:@"monkey.jpg"];
+        cell.textLabel.text = contentForThisRow;
         
         return cell;
     }
     else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        MMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[MMTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
