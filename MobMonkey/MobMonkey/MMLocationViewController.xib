@@ -373,6 +373,7 @@
 												<string key="NSFrameSize">{310, 7}</string>
 												<reference key="NSSuperview" ref="529737559"/>
 												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="IBUIUserInteractionEnabled">NO</bool>
 												<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -1133,7 +1134,7 @@
 			<string key="makeRequestButtonBlank.png">{307, 61}</string>
 			<string key="makeRequestNotificationBg.png">{20, 20}</string>
 			<string key="monkey.jpg">{600, 450}</string>
-			<string key="moreBtnOverlay.png">{42, 33}</string>
+			<string key="moreBtnOverlay.png">{60, 48}</string>
 			<string key="separator-gradient.png">{1, 7}</string>
 			<string key="timeIcnOverlay.png">{15, 15}</string>
 		</dictionary>
