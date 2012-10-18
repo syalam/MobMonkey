@@ -14,7 +14,6 @@
 @interface MMBookmarksViewController ()
 
 @property (strong, nonatomic) MMLocationsViewController *locationsViewController;
-@property (strong, nonatomic) NSMutableArray *bookmarks;
 
 @end
 
@@ -37,7 +36,17 @@
 {
     [MMAPI getBookmarksOnSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Response: %@", [responseObject description]);
-        self.locations = [responseObject mutableCopy];
+        
+        //  Monkey hack until API is fixed
+        NSMutableArray *locations = [NSMutableArray array];
+        NSMutableDictionary *mutableLocation;
+        for (NSDictionary *location in responseObject) {
+            mutableLocation = [location mutableCopy];
+            [mutableLocation setValue:[NSNumber numberWithBool:YES] forKey:@"bookmark"];
+            [locations addObject:mutableLocation];
+        }
+        self.locations = locations;
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Awe! Couldn't get bookmarks.");
     }];
