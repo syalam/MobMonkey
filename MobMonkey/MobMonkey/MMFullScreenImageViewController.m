@@ -123,4 +123,9 @@
     return YES;
 }
 
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return imageView;
+}
+
 @end
