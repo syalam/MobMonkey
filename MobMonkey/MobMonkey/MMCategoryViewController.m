@@ -40,9 +40,12 @@
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    [MMAPI sharedAPI].delegate = self;
-    [[MMAPI sharedAPI]categories];
-
+    [MMAPI getCategoriesOnSuccess:^(AFHTTPRequestOperation *operation, id response) {
+        categoriesArray = response;
+        [self setTableContent];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        //
+    }];
 }
 
 - (void)viewDidUnload
@@ -193,15 +196,6 @@
 #pragma mark - UINav Bar Action Methods
 - (void)backButtonTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-#pragma mark - MMAPI Delegate Methods
-- (void)MMAPICallSuccessful:(id)response {
-    categoriesArray = response;
-    [self setTableContent];
-}
-- (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
-    
 }
 
 @end

@@ -108,7 +108,7 @@
 											<object class="IBUILabel" id="453619314">
 												<reference key="NSNextResponder" ref="938469843"/>
 												<int key="NSvFlags">292</int>
-												<string key="NSFrame">{{12, 5}, {219, 21}}</string>
+												<string key="NSFrame">{{12, 13}, {219, 21}}</string>
 												<reference key="NSSuperview" ref="938469843"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="657927599"/>
@@ -131,21 +131,21 @@
 												</object>
 												<string key="IBUIShadowOffset">{0, 1}</string>
 												<int key="IBUIBaselineAdjustment">0</int>
-												<object class="IBUIFontDescription" key="IBUIFontDescription" id="126269676">
+												<float key="IBUIMinimumFontSize">14</float>
+												<object class="IBUIFontDescription" key="IBUIFontDescription">
 													<int key="type">2</int>
-													<double key="pointSize">12</double>
+													<double key="pointSize">17</double>
 												</object>
-												<object class="NSFont" key="IBUIFont" id="214567896">
+												<object class="NSFont" key="IBUIFont">
 													<string key="NSName">Helvetica-Bold</string>
-													<double key="NSSize">12</double>
+													<double key="NSSize">17</double>
 													<int key="NSfFlags">16</int>
 												</object>
-												<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 											</object>
 											<object class="IBUIButton" id="657927599">
 												<reference key="NSNextResponder" ref="938469843"/>
 												<int key="NSvFlags">292</int>
-												<string key="NSFrame">{{258, 0}, {32, 32}}</string>
+												<string key="NSFrame">{{239, 0}, {51, 48}}</string>
 												<reference key="NSSuperview" ref="938469843"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="948030739"/>
@@ -178,7 +178,7 @@
 												</object>
 											</object>
 										</array>
-										<string key="NSFrame">{{5, 242}, {300, 32}}</string>
+										<string key="NSFrame">{{5, 226}, {300, 48}}</string>
 										<reference key="NSSuperview" ref="821810327"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="453619314"/>
@@ -228,8 +228,15 @@
 												<reference key="IBUIShadowColor" ref="876798432"/>
 												<int key="IBUIBaselineAdjustment">0</int>
 												<float key="IBUIMinimumFontSize">8</float>
-												<reference key="IBUIFontDescription" ref="126269676"/>
-												<reference key="IBUIFont" ref="214567896"/>
+												<object class="IBUIFontDescription" key="IBUIFontDescription">
+													<int key="type">2</int>
+													<double key="pointSize">12</double>
+												</object>
+												<object class="NSFont" key="IBUIFont">
+													<string key="NSName">Helvetica-Bold</string>
+													<double key="NSSize">12</double>
+													<int key="NSfFlags">16</int>
+												</object>
 											</object>
 										</array>
 										<string key="NSFrame">{{218, 62}, {72, 16}}</string>
@@ -264,7 +271,7 @@
 										<reference key="IBUINormalTitleShadowColor" ref="94117035"/>
 										<object class="NSCustomResource" key="IBUINormalImage">
 											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">location-liveVideoIcn.png</string>
+											<string key="NSResourceName">location-liveVideoIcnOff.png</string>
 										</object>
 										<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="254315813">
 											<string key="NSClassName">NSImage</string>
@@ -366,6 +373,7 @@
 												<string key="NSFrameSize">{310, 7}</string>
 												<reference key="NSSuperview" ref="529737559"/>
 												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="IBUIUserInteractionEnabled">NO</bool>
 												<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -782,8 +790,8 @@
 						<int key="objectID">119</int>
 						<reference key="object" ref="938469843"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="453619314"/>
 							<reference ref="657927599"/>
+							<reference ref="453619314"/>
 						</array>
 						<reference key="parent" ref="821810327"/>
 						<string key="objectName">Media Toolbar View</string>
@@ -1012,6 +1020,7 @@
 						<string key="photoCountLabel">UILabel</string>
 						<string key="photosButton">UIButton</string>
 						<string key="scrollView">UIScrollView</string>
+						<string key="tableView">UITableView</string>
 						<string key="videoCountLabel">UILabel</string>
 						<string key="videosButton">UIButton</string>
 					</dictionary>
@@ -1092,6 +1101,10 @@
 							<string key="name">scrollView</string>
 							<string key="candidateClassName">UIScrollView</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="tableView">
+							<string key="name">tableView</string>
+							<string key="candidateClassName">UITableView</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="videoCountLabel">
 							<string key="name">videoCountLabel</string>
 							<string key="candidateClassName">UILabel</string>
@@ -1122,13 +1135,13 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="grayBtn.png">{100, 68}</string>
-			<string key="location-liveVideoIcn.png">{39, 38}</string>
+			<string key="location-liveVideoIcnOff.png">{39, 34}</string>
 			<string key="location-pictureIcn.png">{34, 33}</string>
 			<string key="location-videoIcn.png">{34, 33}</string>
 			<string key="makeRequestButtonBlank.png">{307, 61}</string>
 			<string key="makeRequestNotificationBg.png">{20, 20}</string>
 			<string key="monkey.jpg">{600, 450}</string>
-			<string key="moreBtnOverlay.png">{28, 22}</string>
+			<string key="moreBtnOverlay.png">{42, 33}</string>
 			<string key="separator-gradient.png">{1, 7}</string>
 			<string key="timeIcnOverlay.png">{15, 15}</string>
 		</dictionary>

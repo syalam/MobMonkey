@@ -36,6 +36,10 @@
     self.navigationItem.rightBarButtonItem = flipViewButton;
     self.locations = @[];
     self.mapView.showsUserLocation = YES;
+    [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:226.0/255.0
+                                                                          green:112.0/225.0
+                                                                           blue:36.0/255.0
+                                                                          alpha:1.0]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,12 +84,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.locations.count;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return self.locations.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -96,7 +100,7 @@
         cell = [[MMLocationListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    cell.location = [self.locations objectAtIndex:indexPath.section];
+    cell.location = [self.locations objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -105,7 +109,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     [[MMClientSDK sharedSDK] locationScreen:self locationDetail:[[self.locations objectAtIndex:indexPath.section] mutableCopy]];
+     [[MMClientSDK sharedSDK] locationScreen:self locationDetail:[[self.locations objectAtIndex:indexPath.row] mutableCopy]];
 }
 
 - (void)viewDidUnload {

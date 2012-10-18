@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 Reyaad Sidique. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "MMLocationsViewController.h"
 
-@interface MMBookmarksViewController : UITableViewController
+@interface MMBookmarksViewController : MMLocationsViewController
 
 @end

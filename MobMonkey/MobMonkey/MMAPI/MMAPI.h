@@ -82,7 +82,6 @@ typedef enum OAuthProvider {
  eMailAddress
  password
 */
--(void)signInUser:(NSDictionary*)params;
 + (void)signInWithEmail:(NSString *)email
                password:(NSString *)password
                provider:(OAuthProvider)provider
@@ -124,7 +123,6 @@ typedef enum OAuthProvider {
  Retrieve list of categories from the server
  @return An array of categories
 */
--(void)categories;
 + (void)getCategoriesOnSuccess:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
 
 ///---------------------------------------------
@@ -191,7 +189,6 @@ Glob search for a location
 /**
  search for a location
  */
-- (void)searchForLocation:(NSDictionary*)params;
 + (void)searchForLocation:(NSDictionary*)params
                   success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
