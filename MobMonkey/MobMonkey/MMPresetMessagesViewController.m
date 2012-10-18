@@ -8,6 +8,8 @@
 
 #import "MMPresetMessagesViewController.h"
 #import "MMSetTitleImage.h"
+#import "MMTableViewCell.h"
+#import "MMMakeRequestCell.h"
 
 @interface MMPresetMessagesViewController ()
 
@@ -77,24 +79,26 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    MMMakeRequestCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (!cell) {
-        cell = [[MMMakeRequestCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.delegate = self;
-    }
+    static NSString *TextCellIdentifier = @"TextCell";
+   
     
     if (indexPath.section == 0) {
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell.mmRequestMessageTextView setHidden:NO];
-        [cell.mmRequestClearTextButton setHidden:NO];
+        MMMakeRequestCell *cell = [tableView dequeueReusableCellWithIdentifier:TextCellIdentifier];
+        if (!cell) {
+            cell = [[MMMakeRequestCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TextCellIdentifier];
+            cell.delegate = self;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.mmRequestMessageTextView setHidden:NO];
+            [cell.mmRequestClearTextButton setHidden:NO];
+        }
+        return cell;
     }
-    else {
+    MMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[MMTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.textLabel.font = [UIFont fontWithName:@"HeleveticaNeue" size:13];
-        cell.textLabel.textColor = [UIColor whiteColor];
-        
-        cell.textLabel.text = [_contentList objectAtIndex:indexPath.row];
     }
-    
+    cell.textLabel.text = [_contentList objectAtIndex:indexPath.row];
     return cell;
 }
 
