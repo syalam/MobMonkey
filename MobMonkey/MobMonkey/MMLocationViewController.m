@@ -48,12 +48,12 @@
     _locationNameLabel.textColor = [UIColor colorWithRed:.8941 green:.4509 blue:.1725 alpha:1];
     
     //Add custom back button to the nav bar
-    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
-    [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
-    
-    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
-    self.navigationItem.leftBarButtonItem = backButton;
+//    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+//    [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+//    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+//    
+//    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+//    self.navigationItem.leftBarButtonItem = backButton;
     
     
     if ([[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]]) {
@@ -179,12 +179,14 @@
         }
             break;
         case 1: {
-            MMMapViewController *mmmVc = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
+            MMMapViewController *mmmVc = [[MMMapViewController alloc] initWithNibName:@"MMMapViewController" bundle:nil];
             mmmVc.address = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
             [self.navigationController pushViewController:mmmVc animated:YES];
+            break;
         }
         case 2: {
             [self notificationSettingsButtonTapped:nil];
+            break;
         }
         default:
             break;
