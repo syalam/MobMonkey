@@ -373,7 +373,6 @@
 												<string key="NSFrameSize">{310, 7}</string>
 												<reference key="NSSuperview" ref="529737559"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="IBUIUserInteractionEnabled">NO</bool>
 												<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -533,7 +532,7 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="719947288"/>
 								<string key="NSReuseIdentifierKey">_NS:10</string>
-								<object class="NSColor" key="IBUIBackgroundColor">
+								<object class="NSColor" key="IBUIBackgroundColor" id="166342075">
 									<int key="NSColorSpace">2</int>
 									<bytes key="NSRGB">MC45MTc2NDcwNTg4IDAuOTE3NjQ3MDU4OCAwLjkxNzY0NzA1ODgAA</bytes>
 								</object>
@@ -545,7 +544,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="821810327"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<reference key="IBUIBackgroundColor" ref="876798432"/>
+						<reference key="IBUIBackgroundColor" ref="166342075"/>
 						<bool key="IBUIAutoresizesSubviews">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -564,13 +563,7 @@
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1061276062"/>
-				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MQA</bytes>
-					<object class="NSColorSpace" key="NSCustomColorSpace">
-						<int key="NSID">2</int>
-					</object>
-				</object>
+				<reference key="IBUIBackgroundColor" ref="166342075"/>
 				<bool key="IBUIAutoresizesSubviews">NO</bool>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<object class="IBUIScreenMetrics" key="IBUISimulatedDestinationMetrics">
@@ -760,6 +753,11 @@
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
+						<int key="objectID">149</int>
+						<reference key="object" ref="913003275"/>
+						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
 						<int key="objectID">132</int>
 						<reference key="object" ref="821810327"/>
 						<array class="NSMutableArray" key="children">
@@ -781,9 +779,95 @@
 						<reference key="parent" ref="1061276062"/>
 					</object>
 					<object class="IBObjectRecord">
+						<int key="objectID">129</int>
+						<reference key="object" ref="500856463"/>
+						<reference key="parent" ref="821810327"/>
+						<string key="objectName">VideoButton</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">128</int>
+						<reference key="object" ref="223722627"/>
+						<reference key="parent" ref="821810327"/>
+						<string key="objectName">Picture Button</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">121</int>
+						<reference key="object" ref="719947288"/>
+						<reference key="parent" ref="821810327"/>
+						<string key="objectName">Location Name</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">144</int>
+						<reference key="object" ref="358939092"/>
+						<reference key="parent" ref="821810327"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">141</int>
+						<reference key="object" ref="151036183"/>
+						<reference key="parent" ref="821810327"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">140</int>
+						<reference key="object" ref="953375229"/>
+						<reference key="parent" ref="821810327"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">138</int>
+						<reference key="object" ref="766281738"/>
+						<reference key="parent" ref="821810327"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">137</int>
+						<reference key="object" ref="93320877"/>
+						<reference key="parent" ref="821810327"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">127</int>
+						<reference key="object" ref="948030739"/>
+						<reference key="parent" ref="821810327"/>
+						<string key="objectName">Video Camera Button</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">120</int>
+						<reference key="object" ref="907497415"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="2053439"/>
+							<reference ref="509561929"/>
+						</array>
+						<reference key="parent" ref="821810327"/>
+						<string key="objectName">Time View</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">123</int>
+						<reference key="object" ref="509561929"/>
+						<reference key="parent" ref="907497415"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">124</int>
+						<reference key="object" ref="2053439"/>
+						<reference key="parent" ref="907497415"/>
+					</object>
+					<object class="IBObjectRecord">
 						<int key="objectID">118</int>
 						<reference key="object" ref="276660228"/>
-						<array class="NSMutableArray" key="children"/>
+						<reference key="parent" ref="821810327"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">131</int>
+						<reference key="object" ref="529737559"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="712187116"/>
+						</array>
+						<reference key="parent" ref="821810327"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">146</int>
+						<reference key="object" ref="712187116"/>
+						<reference key="parent" ref="529737559"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">130</int>
+						<reference key="object" ref="2751920"/>
 						<reference key="parent" ref="821810327"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -797,106 +881,14 @@
 						<string key="objectName">Media Toolbar View</string>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">126</int>
-						<reference key="object" ref="453619314"/>
-						<reference key="parent" ref="938469843"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">125</int>
 						<reference key="object" ref="657927599"/>
 						<reference key="parent" ref="938469843"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">120</int>
-						<reference key="object" ref="907497415"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="2053439"/>
-							<reference ref="509561929"/>
-						</array>
-						<reference key="parent" ref="821810327"/>
-						<string key="objectName">Time View</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">124</int>
-						<reference key="object" ref="2053439"/>
-						<reference key="parent" ref="907497415"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">123</int>
-						<reference key="object" ref="509561929"/>
-						<reference key="parent" ref="907497415"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">121</int>
-						<reference key="object" ref="719947288"/>
-						<reference key="parent" ref="821810327"/>
-						<string key="objectName">Location Name</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">127</int>
-						<reference key="object" ref="948030739"/>
-						<reference key="parent" ref="821810327"/>
-						<string key="objectName">Video Camera Button</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">129</int>
-						<reference key="object" ref="500856463"/>
-						<reference key="parent" ref="821810327"/>
-						<string key="objectName">VideoButton</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">128</int>
-						<reference key="object" ref="223722627"/>
-						<reference key="parent" ref="821810327"/>
-						<string key="objectName">Picture Button</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">130</int>
-						<reference key="object" ref="2751920"/>
-						<reference key="parent" ref="821810327"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">131</int>
-						<reference key="object" ref="529737559"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="712187116"/>
-						</array>
-						<reference key="parent" ref="821810327"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">137</int>
-						<reference key="object" ref="93320877"/>
-						<reference key="parent" ref="821810327"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">138</int>
-						<reference key="object" ref="766281738"/>
-						<reference key="parent" ref="821810327"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">140</int>
-						<reference key="object" ref="953375229"/>
-						<reference key="parent" ref="821810327"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">141</int>
-						<reference key="object" ref="151036183"/>
-						<reference key="parent" ref="821810327"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">144</int>
-						<reference key="object" ref="358939092"/>
-						<reference key="parent" ref="821810327"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">146</int>
-						<reference key="object" ref="712187116"/>
-						<reference key="parent" ref="529737559"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">149</int>
-						<reference key="object" ref="913003275"/>
-						<reference key="parent" ref="0"/>
+						<int key="objectID">126</int>
+						<reference key="object" ref="453619314"/>
+						<reference key="parent" ref="938469843"/>
 					</object>
 				</array>
 			</object>
