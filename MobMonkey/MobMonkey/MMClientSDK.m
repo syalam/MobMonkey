@@ -18,6 +18,8 @@
 #import "MMAnsweredRequestsViewController.h"
 #import "MMFullScreenImageViewController.h"
 
+#import "MMRequestViewController.h"
+
 @implementation MMClientSDK
 
 #pragma mark - Singleton Method
@@ -84,12 +86,21 @@
     [presentingViewController.navigationController pushViewController:locationVC animated:YES];
 }
 
+//- (void)makeARequestScreen:(UIViewController*)presentingViewController locationDetail:(NSDictionary*)locationDetail {
+//    MMMakeRequestViewController *requestVC = [[MMMakeRequestViewController alloc]initWithNibName:@"MMMakeRequestViewController" bundle:nil];
+//    requestVC.title = @"Make a Request";
+//    requestVC.contentList = locationDetail;
+//    UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
+//    [presentingViewController.navigationController presentViewController:requestNavC animated:YES completion:NULL];
+//}
+
 - (void)makeARequestScreen:(UIViewController*)presentingViewController locationDetail:(NSDictionary*)locationDetail {
-    MMMakeRequestViewController *requestVC = [[MMMakeRequestViewController alloc]initWithNibName:@"MMMakeRequestViewController" bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Request" bundle:nil];
+    MMRequestViewController *requestVC = [storyboard instantiateInitialViewController];
     requestVC.title = @"Make a Request";
     requestVC.contentList = locationDetail;
-    UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
-    [presentingViewController.navigationController presentViewController:requestNavC animated:YES completion:NULL];
+    //UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
+    [presentingViewController.navigationController presentViewController:requestVC animated:YES completion:NULL];
 }
 
 - (void)locationMediaScreen:(UIViewController*)presentingViewController locationMediaContent:(NSArray*)locationMediaContent locationName:(NSString*)locationName {
