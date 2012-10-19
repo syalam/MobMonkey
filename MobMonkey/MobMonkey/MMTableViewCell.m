@@ -22,6 +22,18 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        CGFloat grey = 220.0/255.0;
+        self.backgroundView = nil;
+        self.backgroundColor = [UIColor colorWithRed:grey green:grey blue:grey alpha:1.0];
+    }
+    return self;
+}
+
 /**
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
