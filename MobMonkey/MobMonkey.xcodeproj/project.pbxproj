@@ -412,8 +412,8 @@
 		F79B503615F3EEC50004BE01 /* Radius~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FE415F3EEC50004BE01 /* Radius~iphone.png */; };
 		F79B503715F3EEC50004BE01 /* Search_Map.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FE515F3EEC50004BE01 /* Search_Map.png */; };
 		F79B503815F3EEC50004BE01 /* Search.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FE615F3EEC50004BE01 /* Search.png */; };
-		F79B503915F3EEC50004BE01 /* SearchBar@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FE715F3EEC50004BE01 /* SearchBar@2x~iphone.png */; };
-		F79B503A15F3EEC50004BE01 /* SearchBar~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FE815F3EEC50004BE01 /* SearchBar~iphone.png */; };
+		F79B503915F3EEC50004BE01 /* SearchBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FE715F3EEC50004BE01 /* SearchBar@2x.png */; };
+		F79B503A15F3EEC50004BE01 /* SearchBar.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FE815F3EEC50004BE01 /* SearchBar.png */; };
 		F79B503B15F3EEC50004BE01 /* SearchBG@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FE915F3EEC50004BE01 /* SearchBG@2x~iphone.png */; };
 		F79B503C15F3EEC50004BE01 /* SearchBG~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FEA15F3EEC50004BE01 /* SearchBG~iphone.png */; };
 		F79B503D15F3EEC50004BE01 /* SearchCategory@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FEB15F3EEC50004BE01 /* SearchCategory@2x~iphone.png */; };
@@ -925,8 +925,8 @@
 		F79B4FE415F3EEC50004BE01 /* Radius~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Radius~iphone.png"; sourceTree = "<group>"; };
 		F79B4FE515F3EEC50004BE01 /* Search_Map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Search_Map.png; sourceTree = "<group>"; };
 		F79B4FE615F3EEC50004BE01 /* Search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Search.png; sourceTree = "<group>"; };
-		F79B4FE715F3EEC50004BE01 /* SearchBar@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SearchBar@2x~iphone.png"; sourceTree = "<group>"; };
-		F79B4FE815F3EEC50004BE01 /* SearchBar~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SearchBar~iphone.png"; sourceTree = "<group>"; };
+		F79B4FE715F3EEC50004BE01 /* SearchBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SearchBar@2x.png"; sourceTree = "<group>"; };
+		F79B4FE815F3EEC50004BE01 /* SearchBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SearchBar.png; sourceTree = "<group>"; };
 		F79B4FE915F3EEC50004BE01 /* SearchBG@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SearchBG@2x~iphone.png"; sourceTree = "<group>"; };
 		F79B4FEA15F3EEC50004BE01 /* SearchBG~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SearchBG~iphone.png"; sourceTree = "<group>"; };
 		F79B4FEB15F3EEC50004BE01 /* SearchCategory@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SearchCategory@2x~iphone.png"; sourceTree = "<group>"; };
@@ -1959,8 +1959,8 @@
 				F79B4FC215F3EEC50004BE01 /* Search by Distance */,
 				F79B4FD615F3EEC50004BE01 /* Search Map */,
 				F79B4FE615F3EEC50004BE01 /* Search.png */,
-				F79B4FE715F3EEC50004BE01 /* SearchBar@2x~iphone.png */,
-				F79B4FE815F3EEC50004BE01 /* SearchBar~iphone.png */,
+				F79B4FE715F3EEC50004BE01 /* SearchBar@2x.png */,
+				F79B4FE815F3EEC50004BE01 /* SearchBar.png */,
 				F79B4FE915F3EEC50004BE01 /* SearchBG@2x~iphone.png */,
 				F79B4FEA15F3EEC50004BE01 /* SearchBG~iphone.png */,
 				F79B4FEB15F3EEC50004BE01 /* SearchCategory@2x~iphone.png */,
@@ -2223,8 +2223,8 @@
 				F79B503615F3EEC50004BE01 /* Radius~iphone.png in Resources */,
 				F79B503715F3EEC50004BE01 /* Search_Map.png in Resources */,
 				F79B503815F3EEC50004BE01 /* Search.png in Resources */,
-				F79B503915F3EEC50004BE01 /* SearchBar@2x~iphone.png in Resources */,
-				F79B503A15F3EEC50004BE01 /* SearchBar~iphone.png in Resources */,
+				F79B503915F3EEC50004BE01 /* SearchBar@2x.png in Resources */,
+				F79B503A15F3EEC50004BE01 /* SearchBar.png in Resources */,
 				F79B503B15F3EEC50004BE01 /* SearchBG@2x~iphone.png in Resources */,
 				F79B503C15F3EEC50004BE01 /* SearchBG~iphone.png in Resources */,
 				F79B503D15F3EEC50004BE01 /* SearchCategory@2x~iphone.png in Resources */,
