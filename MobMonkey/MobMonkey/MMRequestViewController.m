@@ -101,7 +101,7 @@ enum RequestDurationLengths {
     [self.requestInfo setValue:[NSNumber numberWithBool:NO] forKey:@"recurring"];
     
     [[MMAPI sharedAPI] requestMedia:@"image" params:self.requestInfo];
-
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)changeMediaRequestType:(id)sender
