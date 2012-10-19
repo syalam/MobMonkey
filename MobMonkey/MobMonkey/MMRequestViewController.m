@@ -27,6 +27,10 @@
     CGRect frame = self.mediaSegmentedControl.frame;
     frame.size.height = 64;
     self.mediaSegmentedControl.frame = frame;
+    [self.mediaSegmentedControl setBackgroundImage:[UIImage imageNamed:@"deselectedRectRed"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    UIImage *divider = [UIImage imageNamed:@"separator-gradient"];
+    [self.mediaSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.mediaSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
 }
 
 - (void)didReceiveMemoryWarning
