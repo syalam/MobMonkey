@@ -294,7 +294,7 @@
 }
 
 - (void)createGenderActionSheet {
-    UIActionSheet *genderActionSheet = [[UIActionSheet alloc]initWithTitle:@"Gender" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Male", @"Female", nil];
+    UIActionSheet *genderActionSheet = [[UIActionSheet alloc]initWithTitle:@"Gender" delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Cancel" otherButtonTitles:@"Male", @"Female", nil];
     if ([self.title isEqualToString:@"My Info"]) {
         [genderActionSheet showInView:self.tabBarController.tabBar];
     }
