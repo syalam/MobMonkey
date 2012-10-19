@@ -11,7 +11,6 @@
 @interface MMRequestViewController : UITableViewController
 
 @property (nonatomic, retain)NSDictionary *contentList;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *mediaSegmentedControl;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *requestLengthSegmentedControl;
+
 
 @end

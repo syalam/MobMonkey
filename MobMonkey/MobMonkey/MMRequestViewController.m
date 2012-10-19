@@ -11,6 +11,11 @@
 
 @interface MMRequestViewController ()
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *mediaTypeSegmentedControl;
+
+- (IBAction)changeRequestDuration:(id)sender;
+- (IBAction)changeMediaRequestType:(id)sender;
+
 @end
 
 @implementation MMRequestViewController
@@ -19,18 +24,13 @@
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    CGRect frame = self.mediaSegmentedControl.frame;
+    CGRect frame = self.mediaTypeSegmentedControl.frame;
     frame.size.height = 64;
-    self.mediaSegmentedControl.frame = frame;
-    [self.mediaSegmentedControl setBackgroundImage:[UIImage imageNamed:@"deselectedRectRed"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    self.mediaTypeSegmentedControl.frame = frame;
+    [self.mediaTypeSegmentedControl setBackgroundImage:[UIImage imageNamed:@"deselectedRectRed"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     UIImage *divider = [UIImage imageNamed:@"separator-gradient"];
-    [self.mediaSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.mediaSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    [self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,24 +50,29 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return section == 0 ? 2 : 1;
+    if (section == 1) {
+        return 3;
+    }
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MMTableViewCell *cell = nil;
+    UIButton *removeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [removeButton setBackgroundImage:[UIImage imageNamed:@"errorSmall"] forState:UIControlStateNormal];
+    [removeButton setFrame:CGRectMake(0, 0, 13.0, 13.0)];
     switch (indexPath.section) {
         case 0:
+            cell = [tableView dequeueReusableCellWithIdentifier:@"AddMessageCell"];
+            break;
+        case 1:
             if (indexPath.row == 0) {
-                cell = [tableView dequeueReusableCellWithIdentifier:@"AddMessageCell"];
+                cell = [tableView dequeueReusableCellWithIdentifier:@"ScheduleRequestCell"];
                 break;
             }
             cell = [tableView dequeueReusableCellWithIdentifier:@"ScheduledRequestCell"];
-            break;
-        case 1:
-            cell = [tableView dequeueReusableCellWithIdentifier:@"ScheduleCell"];
+            [cell setAccessoryView:removeButton];
             break;
         default:
             break;
@@ -132,8 +137,11 @@
 }
 
 - (void)viewDidUnload {
-    [self setMediaSegmentedControl:nil];
-    [self setRequestLengthSegmentedControl:nil];
+    [self setMediaTypeSegmentedControl:nil];
     [super viewDidUnload];
+}
+- (IBAction)changeMediaRequestType:(id)sender {
+}
+- (IBAction)changeRequestDuration:(id)sender {
 }
 @end
