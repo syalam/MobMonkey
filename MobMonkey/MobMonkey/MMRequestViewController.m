@@ -96,6 +96,9 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+    if (indexPath.section == 0) {
+        [self performSegueWithIdentifier:@"MessageSegue" sender:nil];
+    }
 }
 
 - (void)viewDidUnload {
