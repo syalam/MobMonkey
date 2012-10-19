@@ -40,10 +40,6 @@
 {
     [super viewDidLoad];
 
-//    _filterNavBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [_filterNavBarButton setFrame:CGRectMake(0, 0, 52, 30)];
-//    [_filterNavBarButton setBackgroundImage:[UIImage imageNamed:@"FilterBtn~iphone"] forState:UIControlStateNormal];
-//    [_filterNavBarButton addTarget:self action:@selector(filterButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.searchBar.backgroundImage = [UIImage imageNamed:@"SearchBG~iphone.png"];
     UIBarButtonItem *filterButton = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStyleBordered target:self action:@selector(showFilterView:)];
     self.navigationItem.leftBarButtonItem = filterButton;
@@ -189,6 +185,7 @@
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:SearchTermCellIdentifier];
             cell.textLabel.textColor = [UIColor grayColor];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.imageView.image = [UIImage imageNamed:@"searchIcon"];
         }
         cell.textLabel.text = [NSString stringWithFormat:@"Search “%@”", self.savedSearchTerm];
         return cell;
