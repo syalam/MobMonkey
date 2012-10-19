@@ -7,6 +7,7 @@
 //
 
 #import "MMRequestMessageViewController.h"
+#import "MMRequestViewController.h"
 
 @interface MMRequestMessageViewController ()
 
@@ -38,6 +39,18 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.textFieldBackground.image = [self.textFieldBackground.image resizableImageWithCapInsets:UIEdgeInsetsMake(15, 156, 15, 156)];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.textView.text = [self.requestInfo valueForKey:@"message"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.requestInfo setValue:self.textView.text forKey:@"message"];
 }
 
 - (void)didReceiveMemoryWarning

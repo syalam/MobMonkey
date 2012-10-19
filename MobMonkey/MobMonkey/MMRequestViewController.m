@@ -8,13 +8,30 @@
 
 #import "MMRequestViewController.h"
 #import "MMTableViewCell.h"
+#import "MMRequestMessageViewController.h"
+#import "MMRequestScheduleViewController.h"
+
+enum RequestDurationLengths {
+    RequestDuration15Min = 0,
+    RequestDuration30Min,
+    RequestDuration60Min,
+    RequestDuration180Min
+    } RequestDurationLengths;
 
 @interface MMRequestViewController ()
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *mediaTypeSegmentedControl;
+@property (strong, nonatomic) NSMutableDictionary *requestInfo;
+@property (strong, nonatomic) NSString *message;
+@property (strong, nonatomic) NSNumber *duration;
+@property (strong, nonatomic) NSDate *scheduledDate;
+@property (weak, nonatomic) IBOutlet MMTableViewCell *messageCell;
+@property (weak, nonatomic) IBOutlet MMTableViewCell *scheduleCell;
 
 - (IBAction)changeRequestDuration:(id)sender;
 - (IBAction)changeMediaRequestType:(id)sender;
+- (IBAction)sendRequest:(id)sender;
+- (IBAction)cancelRequest:(id)sender;
 
 @end
 
@@ -31,6 +48,89 @@
     UIImage *divider = [UIImage imageNamed:@"separator-gradient"];
     [self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    self.requestInfo = [NSMutableDictionary dictionary];
+    [self.requestInfo setValue:[NSDate date] forKey:@"scheduleDate"];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if ([self.requestInfo valueForKey:@"message"] && [[self.requestInfo valueForKey:@"message"] length] > 0) {
+        self.messageCell.textLabel.text = @"Edit Message";
+        self.messageCell.detailTextLabel.text = [self.requestInfo valueForKey:@"message"];
+    } else {
+        self.messageCell.textLabel.text = @"Add Message";
+        self.messageCell.detailTextLabel.text = @"";
+    }
+    self.scheduleCell.detailTextLabel.text = [[self.requestInfo valueForKey:@"scheduleDate"] description];
+    [self.tableView reloadData];
+}
+
+- (void)viewDidUnload {
+    [self setMediaTypeSegmentedControl:nil];
+    [self setMessageCell:nil];
+    [self setScheduleCell:nil];
+    [super viewDidUnload];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"MessageSegue"]) {
+        MMRequestMessageViewController *messageVC = (MMRequestMessageViewController *)segue.destinationViewController;
+        messageVC.requestInfo = self.requestInfo;
+        return;
+    }
+    if ([segue.identifier isEqualToString:@"ScheduleSegue"]) {
+        MMRequestScheduleViewController *messageVC = (MMRequestScheduleViewController *)segue.destinationViewController;
+        messageVC.requestInfo = self.requestInfo;
+        return;
+    }
+}
+
+- (IBAction)sendRequest:(id)sender
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+    NSString *dateString = [dateFormatter stringFromDate:[self.requestInfo valueForKey:@"scheduleDate"]];
+    
+    [self.requestInfo setValue:dateString forKey:@"scheduleDate"];
+    [self.requestInfo setValue:[_contentList valueForKey:@"providerId"] forKey:@"providerId"];
+    [self.requestInfo setValue:[_contentList valueForKey:@"locationId"] forKey:@"locationId"];
+    [self.requestInfo setValue:self.duration forKey:@"duration"];
+    [self.requestInfo setValue:[NSNumber numberWithInt:100000] forKey:@"radiusInYards"];
+    [self.requestInfo setValue:[NSNumber numberWithBool:NO] forKey:@"recurring"];
+    
+    [[MMAPI sharedAPI] requestMedia:@"image" params:self.requestInfo];
+
+}
+
+- (IBAction)changeMediaRequestType:(id)sender
+{
+}
+
+- (IBAction)changeRequestDuration:(id)sender
+{
+    switch ([sender selectedSegmentIndex]) {
+        case RequestDuration15Min:
+            self.duration = @15;
+            break;
+        case RequestDuration30Min:
+            self.duration = @30;
+            break;
+        case RequestDuration60Min:
+            self.duration = @60;
+            break;
+        case RequestDuration180Min:
+            self.duration = @180;
+            break;
+        default:
+            break;
+    }
+}
+
+- (IBAction)cancelRequest:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,74 +139,4 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 2;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if (section == 1) {
-        return 2;
-    }
-    return 1;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    MMTableViewCell *cell = nil;
-    UIButton *removeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [removeButton setBackgroundImage:[UIImage imageNamed:@"errorSmall"] forState:UIControlStateNormal];
-    [removeButton setFrame:CGRectMake(0, 0, 13.0, 13.0)];
-    switch (indexPath.section) {
-        case 0:
-            cell = [tableView dequeueReusableCellWithIdentifier:@"AddMessageCell"];
-            break;
-        case 1:
-            if (indexPath.row == 0) {
-                cell = [tableView dequeueReusableCellWithIdentifier:@"ScheduleRequestCell"];
-                break;
-            }
-            cell = [tableView dequeueReusableCellWithIdentifier:@"ScheduledRequestCell"];
-            [cell setAccessoryView:removeButton];
-            break;
-        default:
-            break;
-    }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    CGFloat grey = 220.0/255.0;
-    cell.backgroundView = nil;
-    cell.backgroundColor = [UIColor colorWithRed:grey green:grey blue:grey alpha:1.0];
-    return cell;
-}
-
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-    if (indexPath.section == 0) {
-        [self performSegueWithIdentifier:@"MessageSegue" sender:nil];
-    }
-}
-
-- (void)viewDidUnload {
-    [self setMediaTypeSegmentedControl:nil];
-    [super viewDidUnload];
-}
-- (IBAction)changeMediaRequestType:(id)sender {
-}
-- (IBAction)changeRequestDuration:(id)sender {
-}
 @end

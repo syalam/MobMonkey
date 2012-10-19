@@ -14,6 +14,7 @@
 #import "MMMapViewController.h"
 #import "MMClientSDK.h"
 #import "PhoneNumberFormatter.h"
+#import "MMRequestViewController.h"
 
 @interface MMLocationViewController ()
 
@@ -214,7 +215,10 @@
 
 - (IBAction)makeRequestButtonTapped:(id)sender {
     if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
-        [[MMClientSDK sharedSDK] makeARequestScreen:self locationDetail:_contentList];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Request" bundle:nil];
+        //UINavigationController *navVC = [storyboard instantiateInitialViewController];
+        MMRequestViewController *requestVC = [storyboard instantiateInitialViewController];
+        [self.navigationController pushViewController:requestVC animated:YES];
     }
     else {
         [[MMClientSDK sharedSDK] signInScreen:self];

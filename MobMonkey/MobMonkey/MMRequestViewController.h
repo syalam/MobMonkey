@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class MMTableViewCell;
+
 @interface MMRequestViewController : UITableViewController
 
 @property (nonatomic, retain)NSDictionary *contentList;
-
 
 @end
