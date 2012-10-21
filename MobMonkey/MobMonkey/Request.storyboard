@@ -35,10 +35,10 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xUV-7m-42u">
-                                    <rect key="frame" x="10" y="80" width="300" height="57"/>
+                                    <rect key="frame" x="8" y="74" width="304" height="68"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     <fontDescription key="fontDescription" type="boldSystem" size="button"/>
-                                    <state key="normal" title="Request Photo" backgroundImage="deselectedRectRed.png">
+                                    <state key="normal" title="Send Video Request" backgroundImage="deselectedRectRed.png">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -167,6 +167,7 @@
                     <connections>
                         <outlet property="mediaTypeSegmentedControl" destination="L3i-al-tzs" id="cWC-if-ZWN"/>
                         <outlet property="messageCell" destination="k0y-9X-gc6" id="coz-oH-qz2"/>
+                        <outlet property="requestButton" destination="xUV-7m-42u" id="A6C-AX-UT1"/>
                         <outlet property="scheduleCell" destination="etU-0T-P5b" id="VcN-h3-OCc"/>
                     </connections>
                 </tableViewController>

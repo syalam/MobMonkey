@@ -27,6 +27,7 @@ enum RequestDurationLengths {
 @property (strong, nonatomic) NSDate *scheduledDate;
 @property (weak, nonatomic) IBOutlet MMTableViewCell *messageCell;
 @property (weak, nonatomic) IBOutlet MMTableViewCell *scheduleCell;
+@property (weak, nonatomic) IBOutlet UIButton *requestButton;
 
 - (IBAction)changeRequestDuration:(id)sender;
 - (IBAction)changeMediaRequestType:(id)sender;
@@ -70,6 +71,7 @@ enum RequestDurationLengths {
     [self setMediaTypeSegmentedControl:nil];
     [self setMessageCell:nil];
     [self setScheduleCell:nil];
+    [self setRequestButton:nil];
     [super viewDidUnload];
 }
 
@@ -106,6 +108,11 @@ enum RequestDurationLengths {
 
 - (IBAction)changeMediaRequestType:(id)sender
 {
+    if ([sender selectedSegmentIndex]) {
+        [self.requestButton setTitle:@"Send Photo Request" forState:UIControlStateNormal];
+        return;
+    }
+    [self.requestButton setTitle:@"Send Video Request" forState:UIControlStateNormal];
 }
 
 - (IBAction)changeRequestDuration:(id)sender
