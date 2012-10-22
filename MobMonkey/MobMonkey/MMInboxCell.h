@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMInboxCell : UITableViewCell
+@interface MMInboxCell : MMTableViewCell
 
 @property (nonatomic, retain)UIImageView *backgroundImageView;
 @property (nonatomic, retain)UILabel *locationNameLabel;
