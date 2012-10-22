@@ -40,6 +40,9 @@
                                                                           green:112.0/225.0
                                                                            blue:36.0/255.0
                                                                           alpha:1.0]];
+    
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc] initWithTitle:@"⬅" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backButton;
 }
 
 - (void)didReceiveMemoryWarning

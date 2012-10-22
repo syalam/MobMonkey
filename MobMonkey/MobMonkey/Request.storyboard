@@ -361,7 +361,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <class className="MMRequestScheduleViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MMRequestScheduleViewController.h"/>
             <relationships>
-                <relationship kind="action" name="changeScheduledDate:"/>
                 <relationship kind="action" name="setSchedule:"/>
                 <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
             </relationships>

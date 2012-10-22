@@ -10,19 +10,12 @@
 #import "MMClientSDK.h"
 
 @interface MMLocationMediaViewController ()
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
 @implementation MMLocationMediaViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -34,6 +27,11 @@
     [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
     
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    
+    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Live Camera", @"Photos", @"Videos"]];
+    [segmentedControl setTintColor:[UIColor colorWithRed:230.0/255.0 green:113.0/255.0 blue:34.0/255.0 alpha:1.0]];
+    [segmentedControl setSegmentedControlStyle:UISegmentedControlStyleBar];
+    self.navigationItem.titleView = segmentedControl;
     self.navigationItem.leftBarButtonItem = backButton;
 }
 
@@ -91,4 +89,8 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 
+- (void)viewDidUnload {
+    [self setTableView:nil];
+    [super viewDidUnload];
+}
 @end

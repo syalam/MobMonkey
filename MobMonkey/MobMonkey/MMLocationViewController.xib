@@ -145,7 +145,7 @@
 											<object class="IBUIButton" id="657927599">
 												<reference key="NSNextResponder" ref="938469843"/>
 												<int key="NSvFlags">292</int>
-												<string key="NSFrame">{{239, 0}, {51, 48}}</string>
+												<string key="NSFrame">{{239, 3}, {53, 42}}</string>
 												<reference key="NSSuperview" ref="938469843"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="948030739"/>
@@ -875,8 +875,8 @@
 						<int key="objectID">119</int>
 						<reference key="object" ref="938469843"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="657927599"/>
 							<reference ref="453619314"/>
+							<reference ref="657927599"/>
 						</array>
 						<reference key="parent" ref="821810327"/>
 						<string key="objectName">Media Toolbar View</string>
@@ -1134,7 +1134,7 @@
 			<string key="makeRequestButtonBlank.png">{307, 61}</string>
 			<string key="makeRequestNotificationBg.png">{20, 20}</string>
 			<string key="monkey.jpg">{600, 450}</string>
-			<string key="moreBtnOverlay.png">{60, 48}</string>
+			<string key="moreBtnOverlay.png">{55, 44}</string>
 			<string key="separator-gradient.png">{1, 7}</string>
 			<string key="timeIcnOverlay.png">{15, 15}</string>
 		</dictionary>

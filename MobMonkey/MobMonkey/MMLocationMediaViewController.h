@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MMLocationMediaCell.h"
 
-@interface MMLocationMediaViewController : UITableViewController
+@interface MMLocationMediaViewController : UIViewController <UITabBarControllerDelegate, UITableViewDataSource>
 
 @property (nonatomic, retain) NSArray *contentList;
 
