@@ -9,7 +9,6 @@
 #import "MMCategoryViewController.h"
 #import "MMCategoryCell.h"
 
-
 @interface MMCategoryViewController ()
 
 @end
@@ -79,20 +78,20 @@
     id contentForThisRow = [sectionContent objectAtIndex:indexPath.row];
     
     static NSString *CellIdentifier = @"Cell";
-    MMCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    MMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[MMCategoryCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[MMTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.textLabel.text = nil;
-    cell.mmCategoryCellImageView.image = [UIImage imageNamed:@"monkey.jpg"];
+    cell.imageView.image = [UIImage imageNamed:@"monkey.jpg"];
     
     if (indexPath.section == 1) {
-        cell.mmCategoryTitleLabel.text = [contentForThisRow valueForKey:@"name"];
+        cell.textLabel.text = [contentForThisRow valueForKey:@"name"];
     }
     else {
-        cell.mmCategoryTitleLabel.text = contentForThisRow;
+        cell.textLabel.text = contentForThisRow;
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
