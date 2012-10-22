@@ -96,12 +96,12 @@
 
 - (void)makeARequestScreen:(UIViewController*)presentingViewController locationDetail:(NSDictionary*)locationDetail {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Request" bundle:nil];
-    //UINavigationController *navVC = [storyboard instantiateInitialViewController];
-    MMRequestViewController *requestVC = [storyboard instantiateInitialViewController];
+    UINavigationController *navVC = [storyboard instantiateInitialViewController];
+    MMRequestViewController *requestVC = navVC.viewControllers[0];
     requestVC.title = @"Make a Request";
     requestVC.contentList = locationDetail;
     //UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
-    [presentingViewController.navigationController presentViewController:requestVC animated:YES completion:NULL];
+    [presentingViewController presentViewController:navVC animated:YES completion:NULL];
 }
 
 - (void)locationMediaScreen:(UIViewController*)presentingViewController locationMediaContent:(NSArray*)locationMediaContent locationName:(NSString*)locationName {

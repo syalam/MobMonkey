@@ -140,8 +140,8 @@
             }
             cell.requestTypeLabel.text = mediaType;
 
-            cell.clipsToBounds = YES;
-            [cell.backgroundImageView setFrame:CGRectMake(0, 0, 286, 400)];
+//            cell.clipsToBounds = YES;
+//            [cell.backgroundImageView setFrame:CGRectMake(0, 0, 286, 400)];
         }
         return cell;
     }

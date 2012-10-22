@@ -209,9 +209,10 @@
 - (IBAction)makeRequestButtonTapped:(id)sender {
     if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Request" bundle:nil];
-        //UINavigationController *navVC = [storyboard instantiateInitialViewController];
-        MMRequestViewController *requestVC = [storyboard instantiateInitialViewController];
-        [self.navigationController pushViewController:requestVC animated:YES];
+        UINavigationController *navVC = [storyboard instantiateInitialViewController];
+        MMRequestViewController *requestVC = (MMRequestViewController *)navVC.viewControllers[0];
+        [requestVC setContentList:self.contentList];
+        [self.navigationController presentViewController:navVC animated:YES completion:nil];
     }
     else {
         [[MMClientSDK sharedSDK] signInScreen:self];
@@ -335,8 +336,8 @@
     
     mediaArray = response;
     if (mediaArray.count > 0) {
-        [_locationLatestImageView reloadWithUrl:[[mediaArray objectAtIndex:mediaArray.count - 1]valueForKey:@"mediaURL"]];
-        _photoCountLabel.text = [NSString stringWithFormat:@"%d", mediaArray.count];
+//        [_locationLatestImageView reloadWithUrl:[[mediaArray objectAtIndex:mediaArray.count - 1]valueForKey:@"mediaURL"]];
+//        _photoCountLabel.text = [NSString stringWithFormat:@"%d", mediaArray.count];
     }
 }
 

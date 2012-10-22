@@ -29,7 +29,7 @@
         
         UIColor *textColor = [UIColor darkGrayColor];
         
-        _backgroundImageView.image = [UIImage imageNamed:@"roundedRectLarge"];
+        //_backgroundImageView.image = [UIImage imageNamed:@"roundedRectLarge"];
         
         [_locationNameLabel setTextColor:textColor];
         [_requestTypeLabel setTextColor:textColor];
@@ -39,7 +39,7 @@
         [_messageLabel setNumberOfLines:0];
         [_messageLabel setLineBreakMode:NSLineBreakByWordWrapping];
         
-        [self.contentView addSubview:_backgroundImageView];
+        //[self.contentView addSubview:_backgroundImageView];
         [self.contentView addSubview:_locationNameLabel];
         [self.contentView addSubview:_requestTypeLabel];
         [self.contentView addSubview:_messageLabel];

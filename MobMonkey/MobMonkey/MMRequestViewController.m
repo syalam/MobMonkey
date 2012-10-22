@@ -34,6 +34,7 @@ enum RequestDurationLengths {
 - (IBAction)changeMediaRequestType:(id)sender;
 - (IBAction)sendRequest:(id)sender;
 - (IBAction)cancelRequest:(id)sender;
+- (void)dismissRequestViewController;
 
 @end
 
@@ -43,6 +44,13 @@ enum RequestDurationLengths {
 {
     [super viewDidLoad];
 
+    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+    [backNavbutton addTarget:self action:@selector(dismissRequestViewController) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    self.navigationItem.leftBarButtonItem = backButton;
+    
     CGRect frame = self.mediaTypeSegmentedControl.frame;
     frame.size.height = 64;
     self.mediaTypeSegmentedControl.frame = frame;
@@ -102,6 +110,11 @@ enum RequestDurationLengths {
     }
 }
 
+- (void)dismissRequestViewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (IBAction)sendRequest:(id)sender
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
@@ -116,7 +129,7 @@ enum RequestDurationLengths {
     [self.requestInfo setValue:[NSNumber numberWithBool:NO] forKey:@"recurring"];
     
     [[MMAPI sharedAPI] requestMedia:@"image" params:self.requestInfo];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)changeMediaRequestType:(id)sender
