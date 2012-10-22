@@ -80,9 +80,9 @@
     [presentingViewController.navigationController pushViewController:trendingVC animated:YES];
 }
 
-- (void)locationScreen:(UIViewController*)presentingViewController locationDetail:(NSDictionary*)locationDetail {
+- (void)locationScreen:(UIViewController*)presentingViewController locationDetail:(NSMutableDictionary*)locationDetail {
     MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
-    locationVC.contentList = [locationDetail mutableCopy];
+    locationVC.contentList = locationDetail;
     [presentingViewController.navigationController pushViewController:locationVC animated:YES];
 }
 

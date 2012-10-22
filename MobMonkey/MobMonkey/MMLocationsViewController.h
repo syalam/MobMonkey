@@ -11,7 +11,7 @@
 
 @interface MMLocationsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) NSArray *locations;
+@property (strong, nonatomic) NSMutableArray *locations;
 @property (assign, nonatomic) BOOL isSearching;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;

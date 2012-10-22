@@ -34,7 +34,7 @@
                                                                       target:self
                                                                       action:@selector(flipView:)];
     self.navigationItem.rightBarButtonItem = flipViewButton;
-    self.locations = @[];
+    self.locations = [NSMutableArray array];
     self.mapView.showsUserLocation = YES;
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:226.0/255.0
                                                                           green:112.0/225.0
@@ -54,6 +54,7 @@
     if (self.isSearching) {
         [SVProgressHUD showWithStatus:@"Searching"];
     }
+    [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -73,7 +74,7 @@
     [sender setTitle:@"Map"];
 }
 
-- (void)setLocations:(NSArray *)locations
+- (void)setLocations:(NSMutableArray *)locations
 {
     _locations = locations;
     [self.tableView reloadData];
@@ -109,7 +110,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     [[MMClientSDK sharedSDK] locationScreen:self locationDetail:[[self.locations objectAtIndex:indexPath.row] mutableCopy]];
+     [[MMClientSDK sharedSDK] locationScreen:self locationDetail:[self.locations objectAtIndex:indexPath.row]];
 }
 
 - (void)viewDidUnload {

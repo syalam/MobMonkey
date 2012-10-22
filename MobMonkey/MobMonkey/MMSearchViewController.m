@@ -107,7 +107,7 @@
     if (!self.searchResultsViewController) {
         self.searchResultsViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
     }
-    self.searchResultsViewController.locations = @[];
+    self.searchResultsViewController.locations = [NSMutableArray array];
     [self.searchResultsViewController.tableView reloadData];
     self.searchResultsViewController.isSearching = YES;
     
@@ -133,6 +133,12 @@
     [MMAPI searchForLocation:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.searchResultsViewController.isSearching = NO;
         [SVProgressHUD dismiss];
+        
+        // A hack because of AFNetworking
+        NSData *data = [NSJSONSerialization dataWithJSONObject:responseObject options:0 error:nil];
+        responseObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        
+        // End of hack
         self.searchResultsViewController.locations = responseObject;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD dismissWithError:[error description]];
