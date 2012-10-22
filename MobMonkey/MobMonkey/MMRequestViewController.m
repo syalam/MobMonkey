@@ -63,7 +63,10 @@ enum RequestDurationLengths {
         self.messageCell.textLabel.text = @"Add Message";
         self.messageCell.detailTextLabel.text = @"";
     }
-    self.scheduleCell.detailTextLabel.text = [[self.requestInfo valueForKey:@"scheduleDate"] description];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@" hh:mm a 'on' MM/dd/yyy"];
+    NSString* dateString = [dateFormatter stringFromDate:[self.requestInfo valueForKey:@"scheduleDate"]];
+    self.scheduleCell.detailTextLabel.text = dateString;
     [self.tableView reloadData];
 }
 
