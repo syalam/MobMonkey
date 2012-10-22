@@ -35,7 +35,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xUV-7m-42u">
-                                    <rect key="frame" x="8" y="74" width="304" height="68"/>
+                                    <rect key="frame" x="8" y="80" width="304" height="68"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                                     <state key="normal" title="Send Video Request" backgroundImage="deselectedRectRed.png">
@@ -155,6 +155,7 @@
                         <outlet property="messageCell" destination="k0y-9X-gc6" id="coz-oH-qz2"/>
                         <outlet property="requestButton" destination="xUV-7m-42u" id="A6C-AX-UT1"/>
                         <outlet property="scheduleCell" destination="etU-0T-P5b" id="VcN-h3-OCc"/>
+                        <outlet property="stayActiveLengthSegmentedCell" destination="mB6-aP-9HP" id="hW8-lK-Ru4"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ISO-Ie-8Dm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -251,9 +252,6 @@ AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
 </data>
                             </timeZone>
-                            <connections>
-                                <action selector="changeScheduledDate:" destination="yPh-jr-8GY" eventType="valueChanged" id="Ahi-xY-Dti"/>
-                            </connections>
                         </datePicker>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Vfn-iI-BhB">
                             <rect key="frame" x="0.0" y="282" width="320" height="107"/>
@@ -281,7 +279,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <action selector="cancelRequest:" destination="hl6-g5-Sg9" eventType="touchUpInside" id="oqp-mI-MNU"/>
+                                        <action selector="setSchedule:" destination="yPh-jr-8GY" eventType="touchUpInside" id="PQo-Ad-apO"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -364,6 +362,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MMRequestScheduleViewController.h"/>
             <relationships>
                 <relationship kind="action" name="changeScheduledDate:"/>
+                <relationship kind="action" name="setSchedule:"/>
                 <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
             </relationships>
         </class>
@@ -378,6 +377,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 <relationship kind="outlet" name="messageCell" candidateClass="MMTableViewCell"/>
                 <relationship kind="outlet" name="requestButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="scheduleCell" candidateClass="MMTableViewCell"/>
+                <relationship kind="outlet" name="stayActiveLengthSegmentedCell" candidateClass="UISegmentedControl"/>
             </relationships>
         </class>
         <class className="MMTableViewCell" superclassName="UITableViewCell">

@@ -12,7 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 
-- (IBAction)changeScheduledDate:(id)sender;
+- (IBAction)setSchedule:(id)sender;
 
 @end
 
@@ -41,9 +41,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)changeScheduledDate:(id)sender
+- (IBAction)setSchedule:(id)sender
 {
-    [self.requestInfo setValue:[sender date] forKey:@"scheduleDate"];
+    [self.requestInfo setValue:[self.datePicker date] forKey:@"scheduleDate"];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)viewDidUnload {
     [self setDatePicker:nil];

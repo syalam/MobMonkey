@@ -21,6 +21,7 @@ enum RequestDurationLengths {
 @interface MMRequestViewController ()
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *mediaTypeSegmentedControl;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *stayActiveLengthSegmentedCell;
 @property (strong, nonatomic) NSMutableDictionary *requestInfo;
 @property (strong, nonatomic) NSString *message;
 @property (strong, nonatomic) NSNumber *duration;
@@ -49,6 +50,14 @@ enum RequestDurationLengths {
     UIImage *divider = [UIImage imageNamed:@"separator-gradient"];
     [self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    
+    UIImage *selectedSegement = [[UIImage imageNamed:@"timeBtnSelected"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
+    UIImage *deselectedSegement = [[UIImage imageNamed:@"timeBtnDeselected"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
+    [self.stayActiveLengthSegmentedCell setBackgroundImage:deselectedSegement forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.stayActiveLengthSegmentedCell setBackgroundImage:selectedSegement forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    [self.stayActiveLengthSegmentedCell setDividerImage:divider forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.stayActiveLengthSegmentedCell setDividerImage:divider forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    
     self.requestInfo = [NSMutableDictionary dictionary];
     [self.requestInfo setValue:[NSDate date] forKey:@"scheduleDate"];
 }
@@ -75,6 +84,7 @@ enum RequestDurationLengths {
     [self setMessageCell:nil];
     [self setScheduleCell:nil];
     [self setRequestButton:nil];
+    [self setStayActiveLengthSegmentedCell:nil];
     [super viewDidUnload];
 }
 
