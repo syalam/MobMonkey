@@ -59,12 +59,16 @@ enum RequestDurationLengths {
     [self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
     
-    UIImage *selectedSegement = [[UIImage imageNamed:@"timeBtnSelected"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
+    /*UIImage *selectedSegement = [[UIImage imageNamed:@"timeBtnSelected"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
     UIImage *deselectedSegement = [[UIImage imageNamed:@"timeBtnDeselected"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
     [self.stayActiveLengthSegmentedCell setBackgroundImage:deselectedSegement forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [self.stayActiveLengthSegmentedCell setBackgroundImage:selectedSegement forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
     [self.stayActiveLengthSegmentedCell setDividerImage:divider forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.stayActiveLengthSegmentedCell setDividerImage:divider forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    [self.stayActiveLengthSegmentedCell setDividerImage:divider forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];*/
+    
+    self.mediaTypeSegmentedControl.selectedSegmentIndex = 1;
+    [self changeMediaRequestType:self.mediaTypeSegmentedControl];
+    self.stayActiveLengthSegmentedCell.selectedSegmentIndex = 1;
     
     self.requestInfo = [NSMutableDictionary dictionary];
     [self.requestInfo setValue:[NSDate date] forKey:@"scheduleDate"];
