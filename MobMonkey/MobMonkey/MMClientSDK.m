@@ -98,7 +98,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Request" bundle:nil];
     UINavigationController *navVC = [storyboard instantiateInitialViewController];
     MMRequestViewController *requestVC = navVC.viewControllers[0];
-    requestVC.title = @"Make a Request";
+    requestVC.title = @"Make Request";
     requestVC.contentList = locationDetail;
     //UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
     [presentingViewController presentViewController:navVC animated:YES completion:NULL];
