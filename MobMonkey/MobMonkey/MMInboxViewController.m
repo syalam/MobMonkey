@@ -74,8 +74,7 @@
         [self fetchInboxContent];
         return;
     }
-    NSMutableArray *tableContent = [NSMutableArray arrayWithObjects:@"Open Requests", @"Answered Requests", @"Assigned Requests", nil];
-    [self setContentList:tableContent];
+    [self setContentList:[@[@"Open Requests", @"Answered Requests", @"Assigned Requests", @"Notifications"] mutableCopy]];
     
     [SVProgressHUD showWithStatus:@"Updating"];
     _currentAPICall = kAPICallFulfilledRequests;
