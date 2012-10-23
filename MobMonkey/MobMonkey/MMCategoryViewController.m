@@ -87,7 +87,7 @@
     cell.textLabel.text = nil;
     cell.imageView.image = [UIImage imageNamed:@"monkey.jpg"];
     
-    if (indexPath.section == 1) {
+    if (indexPath.section == 0) {
         cell.textLabel.text = [contentForThisRow valueForKey:@"name"];
     }
     else {
@@ -180,12 +180,11 @@
 
 #pragma mark - Helper Methods
 - (void)setTableContent {
-    NSMutableArray *sectionOneArray = [[NSMutableArray alloc]initWithObjects:@"Set Notifications", nil];
     NSMutableArray *sectionTwoArray = [categoriesArray mutableCopy];
     
     NSMutableArray *sectionThreeArray = [[NSMutableArray alloc]initWithObjects:@"History", @"My Locations", @"Events", @"Locations of Interest", nil];
     
-    NSMutableArray *tableContentArray = [NSMutableArray arrayWithObjects:sectionOneArray, sectionTwoArray, sectionThreeArray, nil];
+    NSMutableArray *tableContentArray = [NSMutableArray arrayWithObjects:sectionTwoArray, sectionThreeArray, nil];
     
     [self setContentList:tableContentArray];
     [self.tableView reloadData];
