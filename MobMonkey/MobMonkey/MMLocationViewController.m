@@ -116,9 +116,6 @@
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        CGFloat grey = 220.0/255.0;
-        cell.backgroundView = nil;
-        cell.backgroundColor = [UIColor colorWithRed:grey green:grey blue:grey alpha:1.0];
         cell.textLabel.font = [UIFont systemFontOfSize:17.0];
     }
     

@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMLocationListCell : UITableViewCell
+
+@interface MMLocationListCell : MMTableViewCell
 
 @property (strong, nonatomic) NSDictionary *location;
 

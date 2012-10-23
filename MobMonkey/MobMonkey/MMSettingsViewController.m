@@ -104,9 +104,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        CGFloat grey = 220.0/255.0;
-        cell.backgroundView = nil;
-        cell.backgroundColor = [UIColor colorWithRed:grey green:grey blue:grey alpha:1.0];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     cell.textLabel.text = contentForThisRow;

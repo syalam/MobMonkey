@@ -28,34 +28,26 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        CGFloat grey = 220.0/255.0;
-        self.backgroundView = nil;
-        self.backgroundColor = [UIColor colorWithRed:grey green:grey blue:grey alpha:1.0];
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        //_customBackgroundView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        //_customBackgroundView.image = [[UIImage imageNamed:@"searchTableViewCellBg"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 3.0, 0.0, 3.0)];
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _nameLabel.backgroundColor = self.backgroundColor;
         _nameLabel.font = [UIFont boldSystemFontOfSize:18.0];
         _nameLabel.textColor = [UIColor colorWithHex:@"DF561B" alpha:1.0];
         [_nameLabel setLineBreakMode:NSLineBreakByTruncatingTail];
         _addressLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _addressLabel.backgroundColor = self.backgroundColor;
         _addressLabel.numberOfLines = 2;
         _addressLabel.font = [UIFont systemFontOfSize:12.0];
         _addressLabel.textColor = [UIColor colorWithHex:@"333333" alpha:1.0];
         _distanceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _distanceLabel.backgroundColor = self.backgroundColor;
         _distanceLabel.font = [UIFont boldSystemFontOfSize:14.0];
         _distanceLabel.textColor = [UIColor colorWithHex:@"686868" alpha:1.0];        
         _mediaIconsView = [[UIView alloc] initWithFrame:CGRectZero];
-        _mediaIconsView.backgroundColor = self.backgroundColor;
         
-        //[self.contentView addSubview:_customBackgroundView];
         [self.contentView addSubview:_nameLabel];
         [self.contentView addSubview:_addressLabel];
         [self.contentView addSubview:_distanceLabel];
         [self.contentView addSubview:_mediaIconsView];
+        self.backgroundView = nil;
+        self.backgroundColor = [UIColor whiteColor];
         
     }
     return self;

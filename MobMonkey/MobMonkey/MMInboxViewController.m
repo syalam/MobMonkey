@@ -149,9 +149,6 @@
     
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:InboxCategoryCellIdentifier];
-        CGFloat grey = 220.0/255.0;
-        cell.backgroundView = nil;
-        cell.backgroundColor = [UIColor colorWithRed:grey green:grey blue:grey alpha:1.0];
         cell.detailTextLabel.textColor = [UIColor blackColor];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:17.0];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
