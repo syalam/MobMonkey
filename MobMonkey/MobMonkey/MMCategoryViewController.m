@@ -11,6 +11,8 @@
 
 @interface MMCategoryViewController ()
 
+- (void)notificationSwitchChangedValue:(id)sender;
+
 @end
 
 @implementation MMCategoryViewController
@@ -28,7 +30,7 @@
 {
     [super viewDidLoad];
     
-    selectedItemsDictionary = [[NSMutableDictionary alloc]initWithCapacity:1];
+    selectedItemsDictionary = [[NSMutableDictionary alloc] initWithCapacity:1];
     
     
     //Add custom back button to the nav bar
@@ -82,10 +84,14 @@
     if (cell == nil) {
         cell = [[MMTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        UISwitch *notificationSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+        [notificationSwitch setOnTintColor:[UIColor colorWithRed:230.0/255.0 green:113.0/255.0 blue:34.0/255.0 alpha:1.0]];
+        [notificationSwitch addTarget:self action:@selector(notificationSwitchChangedValue:) forControlEvents:UIControlEventValueChanged];
+        [notificationSwitch sizeToFit];
+        cell.accessoryView = notificationSwitch;
     }
-    cell.accessoryType = UITableViewCellAccessoryNone;
     cell.textLabel.text = nil;
-    cell.imageView.image = [UIImage imageNamed:@"monkey.jpg"];
+    cell.imageView.image = [UIImage imageNamed:@"picture"];
     
     if (indexPath.section == 0) {
         cell.textLabel.text = [contentForThisRow valueForKey:@"name"];
@@ -95,8 +101,10 @@
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    if ([selectedItemsDictionary objectForKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]]) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    if ([selectedItemsDictionary valueForKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]]) {
+        [(UISwitch *)[cell accessoryView] setOn:YES];
+    } else {
+        [(UISwitch *)[cell accessoryView] setOn:NO];
     }
 
     return cell;
@@ -155,6 +163,12 @@
 #pragma mark - UINav Bar Action Methods
 - (void)backButtonTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)notificationSwitchChangedValue:(id)sender
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[[[sender superview] superview] superview]];
+    [selectedItemsDictionary setValue:[NSNumber numberWithBool:[(UISwitch *)sender isOn]] forKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]];
 }
 
 @end
