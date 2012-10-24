@@ -52,7 +52,7 @@
 
 @property (nonatomic) int rowIndex;
 
-- (IBAction)photoMediaButtonTapped:(id)sender;
+- (IBAction)mediaButtonTapped:(id)sender;
 - (IBAction)videoMediaButtonTapped:(id)sender;
 - (IBAction)makeRequestButtonTapped:(id)sender;
 - (IBAction)shareButtonTapped:(id)sender;

@@ -9,8 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "MMLocationMediaCell.h"
 
+
+typedef enum {
+    MMLiveCameraMediaType,
+    MMVideoMediaType,
+    MMPhotoMediaType
+} MobMonkeyMediaType;
+
 @interface MMLocationMediaViewController : UIViewController <UITabBarControllerDelegate, UITableViewDataSource>
 
-@property (nonatomic, retain) NSArray *contentList;
+@property (nonatomic, strong) NSArray *contentList;
+@property (assign, nonatomic) MobMonkeyMediaType mediaType;
 
 @end

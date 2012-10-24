@@ -290,6 +290,7 @@
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<reference key="IBUIBackgroundColor" ref="871031602"/>
 										<bool key="IBUIOpaque">NO</bool>
+										<int key="IBUITag">1</int>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
 										<int key="IBUIContentVerticalAlignment">0</int>
@@ -317,6 +318,7 @@
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<reference key="IBUIBackgroundColor" ref="871031602"/>
 										<bool key="IBUIOpaque">NO</bool>
+										<int key="IBUITag">2</int>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
 										<int key="IBUIContentVerticalAlignment">0</int>
@@ -658,30 +660,30 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">photoMediaButtonTapped:</string>
+						<string key="label">mediaButtonTapped:</string>
 						<reference key="source" ref="948030739"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">154</int>
+					<int key="connectionID">159</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">photoMediaButtonTapped:</string>
+						<string key="label">mediaButtonTapped:</string>
 						<reference key="source" ref="223722627"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">152</int>
+					<int key="connectionID">161</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">photoMediaButtonTapped:</string>
+						<string key="label">mediaButtonTapped:</string>
 						<reference key="source" ref="500856463"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">153</int>
+					<int key="connectionID">160</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -926,7 +928,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">158</int>
+			<int key="maxID">161</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -940,9 +942,9 @@
 						<string key="enlargeButtonTapped:">id</string>
 						<string key="flagButtonTapped:">id</string>
 						<string key="makeRequestButtonTapped:">id</string>
+						<string key="mediaButtonTapped:">id</string>
 						<string key="notificationSettingsButtonTapped:">id</string>
 						<string key="phoneNumberButtonTapped:">id</string>
-						<string key="photoMediaButtonTapped:">id</string>
 						<string key="shareButtonTapped:">id</string>
 						<string key="videoMediaButtonTapped:">id</string>
 					</dictionary>
@@ -971,16 +973,16 @@
 							<string key="name">makeRequestButtonTapped:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="mediaButtonTapped:">
+							<string key="name">mediaButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="notificationSettingsButtonTapped:">
 							<string key="name">notificationSettingsButtonTapped:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="phoneNumberButtonTapped:">
 							<string key="name">phoneNumberButtonTapped:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="photoMediaButtonTapped:">
-							<string key="name">photoMediaButtonTapped:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="shareButtonTapped:">

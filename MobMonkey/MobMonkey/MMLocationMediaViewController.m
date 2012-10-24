@@ -11,6 +11,7 @@
 
 @interface MMLocationMediaViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) UISegmentedControl *segmentedControl;
 
 @end
 
@@ -28,11 +29,16 @@
     
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
     
-    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Live Camera", @"Photos", @"Videos"]];
-    [segmentedControl setTintColor:[UIColor colorWithRed:230.0/255.0 green:113.0/255.0 blue:34.0/255.0 alpha:1.0]];
-    [segmentedControl setSegmentedControlStyle:UISegmentedControlStyleBar];
-    self.navigationItem.titleView = segmentedControl;
+    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Live Camera", @"Videos", @"Photos"]];
+    [self.segmentedControl setTintColor:[UIColor colorWithRed:230.0/255.0 green:113.0/255.0 blue:34.0/255.0 alpha:1.0]];
+    [self.segmentedControl setSegmentedControlStyle:UISegmentedControlStyleBar];
+    self.navigationItem.titleView = self.segmentedControl;
     self.navigationItem.leftBarButtonItem = backButton;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.segmentedControl setSelectedSegmentIndex:self.mediaType];
 }
 
 - (void)didReceiveMemoryWarning

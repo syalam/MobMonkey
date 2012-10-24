@@ -15,6 +15,7 @@
 #import "MMClientSDK.h"
 #import "PhoneNumberFormatter.h"
 #import "MMRequestViewController.h"
+#import "MMLocationMediaViewController.h"
 
 @interface MMLocationViewController ()
 
@@ -195,9 +196,21 @@
     }
 }
 
+//MMLocationMediaViewController *lmvc = [[MMLocationMediaViewController alloc]initWithNibName:@"MMLocationMediaViewController" bundle:nil];
+//lmvc.contentList = locationMediaContent;
+//lmvc.title = locationName;
+//UINavigationController *locationMediaNavC = [[UINavigationController alloc]initWithRootViewController:lmvc];
+//[presentingViewController.navigationController presentViewController:locationMediaNavC animated:YES completion:NULL];
+
 #pragma mark - IBAction Methods
-- (IBAction)photoMediaButtonTapped:(id)sender {
-    [[MMClientSDK sharedSDK]locationMediaScreen:self locationMediaContent:mediaArray locationName:self.title];
+- (IBAction)mediaButtonTapped:(id)sender
+{
+    MMLocationMediaViewController *lmvc = [[MMLocationMediaViewController alloc] initWithNibName:@"MMLocationMediaViewController" bundle:nil];
+    lmvc.contentList = mediaArray;
+    lmvc.title = self.title;
+    lmvc.mediaType = [sender tag];
+    UINavigationController *locationMediaNavC = [[UINavigationController alloc]initWithRootViewController:lmvc];
+    [self presentViewController:locationMediaNavC animated:YES completion:NULL];
 }
 - (IBAction)videoMediaButtonTapped:(id)sender {
     
