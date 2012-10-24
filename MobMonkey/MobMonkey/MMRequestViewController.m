@@ -26,8 +26,6 @@ enum RequestDurationLengths {
 @property (strong, nonatomic) NSString *message;
 @property (strong, nonatomic) NSNumber *duration;
 @property (strong, nonatomic) NSDate *scheduledDate;
-@property (weak, nonatomic) IBOutlet MMTableViewCell *messageCell;
-@property (weak, nonatomic) IBOutlet MMTableViewCell *scheduleCell;
 @property (weak, nonatomic) IBOutlet UIButton *requestButton;
 
 - (IBAction)changeRequestDuration:(id)sender;
@@ -71,33 +69,19 @@ enum RequestDurationLengths {
     self.stayActiveLengthSegmentedCell.selectedSegmentIndex = 1;
     
     self.requestInfo = [NSMutableDictionary dictionary];
-    [self.requestInfo setValue:[NSDate date] forKey:@"scheduleDate"];
+}
+
+- (void)viewDidUnload {
+    [self setMediaTypeSegmentedControl:nil];
+    [self setRequestButton:nil];
+    [self setStayActiveLengthSegmentedCell:nil];
+    [super viewDidUnload];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if ([self.requestInfo valueForKey:@"message"] && [[self.requestInfo valueForKey:@"message"] length] > 0) {
-        self.messageCell.textLabel.text = @"Edit Message";
-        self.messageCell.detailTextLabel.text = [self.requestInfo valueForKey:@"message"];
-    } else {
-        self.messageCell.textLabel.text = @"Add Message";
-        self.messageCell.detailTextLabel.text = @"";
-    }
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@" hh:mm a 'on' MM/dd/yyy"];
-    NSString* dateString = [dateFormatter stringFromDate:[self.requestInfo valueForKey:@"scheduleDate"]];
-    self.scheduleCell.detailTextLabel.text = dateString;
     [self.tableView reloadData];
-}
-
-- (void)viewDidUnload {
-    [self setMediaTypeSegmentedControl:nil];
-    [self setMessageCell:nil];
-    [self setScheduleCell:nil];
-    [self setRequestButton:nil];
-    [self setStayActiveLengthSegmentedCell:nil];
-    [super viewDidUnload];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -174,6 +158,89 @@ enum RequestDurationLengths {
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Table View Delegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+//    if ([self.requestInfo valueForKey:@"message"] && [[self.requestInfo valueForKey:@"message"] length] > 0) {
+//        self.messageCell.textLabel.text = @"Edit Message";
+//        self.messageCell.detailTextLabel.text = [self.requestInfo valueForKey:@"message"];
+//    } else {
+//        self.messageCell.textLabel.text = @"Add Message";
+//        self.messageCell.detailTextLabel.text = @"";
+//    }
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter setDateFormat:@" hh:mm a 'on' MM/dd/yyy"];
+//    NSString* dateString = [dateFormatter stringFromDate:[self.requestInfo valueForKey:@"scheduleDate"]];
+//    self.scheduleCell.detailTextLabel.text = dateString;
+//    [self.tableView reloadData];
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return ([self.requestInfo valueForKey:@"message"] && [[self.requestInfo valueForKey:@"message"] length] > 0) ? 2 : 1;
+    }
+    return [self.requestInfo valueForKey:@"scheduleDate"] ? 2 : 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell;
+    UIButton *removeButton;
+    switch (indexPath.row) {
+        case 0:
+            if (indexPath.section == 0)
+                cell = [self.tableView dequeueReusableCellWithIdentifier:@"AddMessageCell"];
+            else
+                cell = [self.tableView dequeueReusableCellWithIdentifier:@"ScheduleRequestCell"];
+            break;
+        case 1:
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
+            removeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            removeButton.frame = CGRectMake(0, 0, 13.0, 13.0);
+            [removeButton setBackgroundImage:[UIImage imageNamed:@"errorSmall"] forState:UIControlStateNormal];
+            [removeButton addTarget:self action:@selector(remove:) forControlEvents:UIControlEventTouchDown];
+            cell.accessoryView = removeButton;
+            
+            if (indexPath.section == 0) {
+                cell.accessoryView.tag = 10;
+                cell.imageView.image = [UIImage imageNamed:@"clipboardIcn"];
+                cell.textLabel.numberOfLines = 3;
+                cell.textLabel.text = [self.requestInfo valueForKey:@"message"];
+            } else {
+                cell.accessoryView.tag = 20;
+                cell.imageView.image = [UIImage imageNamed:@"calendarIcn"];
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@" hh:mm a 'on' MM/dd/yyy"];
+                NSString* dateString = [dateFormatter stringFromDate:[self.requestInfo valueForKey:@"scheduleDate"]];
+                cell.textLabel.text = dateString;
+            }
+        default:
+            break;
+    }
+    return cell;
+}
+
+#pragma mark - Table view delegate
+
+- (void)remove:(id)sender
+{
+    NSIndexPath *indexPath;
+    if ([sender tag] == 10) {
+        [self.requestInfo setValue:nil forKey:@"message"];
+        indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+    } else {
+        [self.requestInfo setValue:nil forKey:@"scheduleDate"];
+        indexPath = [NSIndexPath indexPathForRow:1 inSection:1];
+    }
+    [self.tableView beginUpdates];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+    [self.tableView endUpdates];
 }
 
 @end

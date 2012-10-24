@@ -32,7 +32,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.datePicker setDate:[self.requestInfo valueForKey:@"scheduleDate"] animated:NO];
+    if ([self.requestInfo valueForKey:@"scheduleDate"]) {
+        [self.datePicker setDate:[self.requestInfo valueForKey:@"scheduleDate"] animated:NO];
+    }
 }
 
 - (void)didReceiveMemoryWarning
