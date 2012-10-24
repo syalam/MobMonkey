@@ -75,7 +75,10 @@
         self.categories = responseObject;
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        //
+        NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+        if ([[response valueForKey:@"status"] isEqualToString:@"Unauthorized"]) {
+            [[MMClientSDK sharedSDK] signInScreen:self];
+        }
     }];
 }
 

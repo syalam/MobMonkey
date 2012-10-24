@@ -48,7 +48,10 @@
         self.locations = locations;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Awe! Couldn't get bookmarks.");
+        NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+        if ([[response valueForKey:@"status"] isEqualToString:@"Unauthorized"]) {
+            [[MMClientSDK sharedSDK] signInScreen:self];
+        }
     }];
 }
 

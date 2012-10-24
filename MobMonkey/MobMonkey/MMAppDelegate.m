@@ -178,7 +178,7 @@
         
         
         [MMAPI sharedAPI].delegate = self;
-        [[MMAPI sharedAPI]checkUserIn:params];
+        [[MMAPI sharedAPI] checkUserIn:params];
     }
 }
 
@@ -213,7 +213,9 @@
 }
 - (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
     NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
-    NSLog(@"%@", response);
+    if ([[response valueForKey:@"status"] isEqualToString:@"Unauthorized"]) {
+       // [[MMClientSDK sharedSDK] signInScreen:self.window.rootViewController];
+    }
 }
 
 @end

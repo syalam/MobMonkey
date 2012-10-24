@@ -28,9 +28,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
-    
     //self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     self.title = @"Sign In";
     
