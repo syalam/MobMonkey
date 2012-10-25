@@ -62,10 +62,7 @@
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<string key="IBUIText">Location</string>
-										<object class="NSColor" key="IBUITextColor">
-											<int key="NSColorSpace">2</int>
-											<bytes key="NSRGB">MC44MTU2ODYzNDUxIDAuMzY4NjI3NDU4OCAwLjEyNTQ5MDIwMzUAA</bytes>
-										</object>
+										<nil key="IBUITextColor"/>
 										<nil key="IBUIHighlightedColor"/>
 										<object class="NSColor" key="IBUIShadowColor" id="876798432">
 											<int key="NSColorSpace">3</int>
