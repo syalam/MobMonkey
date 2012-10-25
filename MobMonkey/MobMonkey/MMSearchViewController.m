@@ -113,6 +113,11 @@
     self.searchResultsViewController.locations = [NSMutableArray array];
     [self.searchResultsViewController.tableView reloadData];
     self.searchResultsViewController.isSearching = YES;
+    if (category) {
+        self.searchResultsViewController.title = category;
+    } else {
+        self.searchResultsViewController.title = [NSString stringWithFormat:@"“%@”", self.searchBar.text];
+    }
     
     double latitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue];
     double longitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue];
@@ -227,7 +232,6 @@
         [self showSearchResultsForCategory:nil];
         return;
     }
-    
     [self showSearchResultsForCategory:[[[tableView cellForRowAtIndexPath:indexPath] textLabel] text]];
 }
 
