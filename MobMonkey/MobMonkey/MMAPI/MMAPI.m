@@ -34,22 +34,21 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 }
 
 #pragma mark - Sign Up/Sign In Methods
--(void)signUpNewUser:(NSDictionary*)params {
++ (void)signUpNewUser:(NSDictionary*)params
+              success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSLog(@"%@", params);
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
-    [httpClient  postPath:@"signup/user" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON){
-        NSLog(@"%@", JSON);
-        [_delegate MMAPICallSuccessful:JSON];
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    [httpClient  postPath:@"signup/user" parameters:params success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         int statusCode = operation.response.statusCode;
         NSLog(@"%d", statusCode);
         if (statusCode == 200 || statusCode == 201) {
-            [_delegate MMAPICallSuccessful:[NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil]];
+            success(operation, [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil]);
         }
         else {
-            [_delegate MMAPICallFailed:operation];
+            failure(operation, error);
         }
     }];
 }
@@ -67,7 +66,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient postPath:@"signin/iOS/12341234123123123123123123123123" parameters:nil success:success failure:failure];
 }
 
--(void)facebookSignIn {
++ (void)facebookSignIn {
     [FBSession openActiveSessionWithPermissions:nil allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
         if (session.isOpen) {
             FBRequest *me = [FBRequest requestForMe];

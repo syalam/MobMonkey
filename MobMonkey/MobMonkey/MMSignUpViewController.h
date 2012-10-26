@@ -13,7 +13,7 @@
 #import "MMAPI.h"
 #import "TwitterAccounts.h"
 
-@interface MMSignUpViewController : UITableViewController <UIActionSheetDelegate, UITextFieldDelegate, TwitterAccountsDelegate, MMAPIDelegate> {
+@interface MMSignUpViewController : UITableViewController <UIActionSheetDelegate, UITextFieldDelegate, TwitterAccountsDelegate> {
 }
 
 - (IBAction)signUpButtonTapped:(id)sender;

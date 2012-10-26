@@ -15,9 +15,8 @@
 @interface MMSignUpViewController () {
     UIActionSheet *birthdayActionSheet;
     UIDatePicker *datePicker;
-    NSInteger currentAPICall;
-
 }
+
 @property (nonatomic, retain) NSMutableArray *contentList;
 @property (nonatomic, retain) UITextField *firstNameTextField;
 @property (nonatomic, retain) UITextField *lastNameTextField;
@@ -204,10 +203,38 @@
             [params setObject:@"01238jkl123iu33bb93aa621864be0a927de9672cb13af16b0e9512398uiu123oiu" forKey:@"deviceId"];
         }
         [params setObject:@"iOS" forKey:@"deviceType"];
-        currentAPICall = kAPICallSignUp;
         [SVProgressHUD showWithStatus:@"Signing Up"];
-        [MMAPI sharedAPI].delegate = self;
-        [[MMAPI sharedAPI]signUpNewUser:params];
+        [MMAPI signUpNewUser:params
+                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        [SVProgressHUD dismissWithSuccess:@"Sign Up Successful"];
+                        [[NSUserDefaults standardUserDefaults]setObject:_emailTextField.text forKey:@"userName"];
+                        [[NSUserDefaults standardUserDefaults]setObject:_passwordTextField.text forKey:@"password"];
+                        [[NSUserDefaults standardUserDefaults]synchronize];
+                        
+                        NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+                        [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
+                        [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
+                        [MMAPI checkUserIn:params
+                                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                       [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+                                   }
+                                   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                        NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+                                        if ([response valueForKey:@"description"]) {
+                                            NSString *responseString = [response valueForKey:@"description"];
+                                            
+                                            [SVProgressHUD dismissWithError:responseString];
+                                        }
+                            [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+                        }];
+                     }
+                     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+                         if ([response valueForKey:@"description"]) {
+                             NSString *responseString = [response valueForKey:@"description"];
+                             [SVProgressHUD dismissWithError:responseString];
+                         }
+                     }];
     }
 }
 
@@ -216,8 +243,7 @@
 }
 
 - (IBAction)facebookButtonTapped:(id)sender {
-    [MMAPI sharedAPI].delegate = self;
-    [[MMAPI sharedAPI] facebookSignIn];
+    [MMAPI facebookSignIn];
 }
 
 - (IBAction)twitterButtonTapped:(id)sender {
@@ -318,45 +344,6 @@
 #pragma mark - Twitter Accounts delegate
 - (void)showAccounts:(UIActionSheet*)accounts {
     [accounts showInView:self.view];
-}
-
-#pragma mark - MMAPI Delegate Methods
-- (void)MMAPICallSuccessful:(id)response {
-    switch (currentAPICall) {
-        case kAPICallSignUp: {
-            [SVProgressHUD dismissWithSuccess:@"Sign Up Successful"];
-            [[NSUserDefaults standardUserDefaults]setObject:_emailTextField.text forKey:@"userName"];
-            [[NSUserDefaults standardUserDefaults]setObject:_passwordTextField.text forKey:@"password"];
-            [[NSUserDefaults standardUserDefaults]synchronize];
-            
-            currentAPICall = kAPICallCheckin;
-            NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-            [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
-            [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
-            [MMAPI sharedAPI].delegate = self;
-            [[MMAPI sharedAPI]checkUserIn:params];
-        }
-            break;
-        case kAPICallCheckin:
-            [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
-            break;
-        default:
-            break;
-    }
-    
-    
-}
-- (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
-    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
-    if ([response valueForKey:@"description"]) {
-        NSString *responseString = [response valueForKey:@"description"];
-        
-        [SVProgressHUD dismissWithError:responseString];
-    }
-    
-    if (currentAPICall == kAPICallCheckin) {
-        [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
-    }
 }
 
 @end

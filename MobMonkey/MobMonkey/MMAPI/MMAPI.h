@@ -71,7 +71,9 @@ typedef enum OAuthProvider {
  state (optional)
  tos - YES/NO
  */
--(void)signUpNewUser:(NSDictionary*)params;
++ (void)signUpNewUser:(NSDictionary*)params
+              success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 ///---------------------------------------------
 /// @name Signing in an existing user
@@ -114,7 +116,7 @@ typedef enum OAuthProvider {
 /**
  facebook sign in/sign up
 */
--(void)facebookSignIn;
++ (void)facebookSignIn;
 
 ///---------------------------------------------
 /// @name Fetches a list of categories from the server

@@ -134,8 +134,7 @@
 }
 
 - (IBAction)facebookButtonTapped:(id)sender {
-    [MMAPI sharedAPI].delegate = self;
-    [[MMAPI sharedAPI]facebookSignIn];
+    [MMAPI facebookSignIn];
 }
 
 - (IBAction)twitterButtonTapped:(id)sender {
