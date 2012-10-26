@@ -178,7 +178,9 @@ typedef enum OAuthProvider {
 /**
  Fulfills a request
  */
--(void)fulfillRequest:(NSString*)mediaType params:(NSMutableDictionary*)params;
++ (void)fulfillRequest:(NSString*)mediaType params:(NSMutableDictionary*)params
+               success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 
 ///---------------------------------------------

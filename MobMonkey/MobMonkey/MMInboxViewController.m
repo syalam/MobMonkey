@@ -338,9 +338,19 @@
         NSString *moviePath = [[info objectForKey:UIImagePickerControllerMediaURL] path];
         dataObj = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:moviePath]];
     }
-    _currentAPICall = kAPICallFulfillRequest;
-    [MMAPI sharedAPI].delegate = self;
-    [[MMAPI sharedAPI]fulfillRequest:mediaRequested params:params];
+    [MMAPI fulfillRequest:mediaRequested
+                   params:params
+                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                      [SVProgressHUD dismiss];
+                      [self.navigationController popViewControllerAnimated:YES];
+                  }
+                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                      [SVProgressHUD dismiss];
+                      NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+                      if ([[response valueForKey:@"status"] isEqualToString:@"Unauthorized"]) {
+                          [[MMClientSDK sharedSDK] signInScreen:self];
+                      }
+                  }];
     
     [picker dismissModalViewControllerAnimated:YES];
 }
@@ -375,10 +385,6 @@
 - (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
     [SVProgressHUD dismiss];
     NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
-//    if ([response valueForKey:@"description"]) {
-//        NSString *responseString = [response valueForKey:@"description"];
-//        [SVProgressHUD  dismissWithError:responseString];
-//    }
     if ([[response valueForKey:@"status"] isEqualToString:@"Unauthorized"]) {
         [[MMClientSDK sharedSDK] signInScreen:self];
     }
