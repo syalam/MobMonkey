@@ -164,7 +164,9 @@ typedef enum OAuthProvider {
 /**
  Checks in a user
  */
--(void)checkUserIn:(NSDictionary*)params;
++ (void)checkUserIn:(NSDictionary*)params
+            success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+            failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 ///---------------------------------------------
 /// @name fulfills a request for a video or image
@@ -173,14 +175,6 @@ typedef enum OAuthProvider {
  Fulfills a request
  */
 -(void)fulfillRequest:(NSString*)mediaType params:(NSMutableDictionary*)params;
-
-///---------------------------------------------
-/// @name Glob search for a location
-///---------------------------------------------
-/**
-Glob search for a location
- */
-- (void)globSearchForLocation:(NSDictionary*)params;
 
 
 ///---------------------------------------------

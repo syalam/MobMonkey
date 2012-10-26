@@ -11,7 +11,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "MMAPI.h"
 
-@interface MMAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, CLLocationManagerDelegate, MMAPIDelegate> {
+@interface MMAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, CLLocationManagerDelegate> {
     CLLocationManager *_locationManager;
 }
 

@@ -247,35 +247,18 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 }
 
 #pragma mark - User Checkin
--(void)checkUserIn:(NSDictionary*)params {
++ (void)checkUserIn:(NSDictionary*)params
+           success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
     [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
     [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
-    [httpClient  postPath:@"checkin" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
-        NSLog(@"%@", JSON);
-        [_delegate MMAPICallSuccessful:JSON];
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_delegate MMAPICallFailed:operation];
-    }];
+    [httpClient  postPath:@"checkin" parameters:params success:success failure:failure];
 }
 
 #pragma mark - Search
-- (void)globSearchForLocation:(NSDictionary*)params {
-    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
-    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
-    [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
-    [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
-    [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
-    [httpClient  postPath:@"search/location/glob" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
-        NSLog(@"%@", JSON);
-        [_delegate MMAPICallSuccessful:JSON];
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_delegate MMAPICallFailed:operation];
-    }];
-}
-
 + (void)searchForLocation:(NSDictionary*)params
                   success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
@@ -310,19 +293,6 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient postPath:@"bookmarks" parameters:@{ @"locationId" : locationID , @"providerId" : providerID } success:success failure:failure];
 }
 
-/**
-+ (void)deleteBookmarkWithLocationID:(NSString *)locationID
-                          providerID:(NSString *)providerID
-                             success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [[MMHTTPClient alloc] initWithBaseURL:[self baseURL]];
-    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
-    [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
-    [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
-    [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
-    [httpClient deletePath:@"bookmarks" parameters:@{ @"locationId" : locationID , @"providerId" : providerID } success:success failure:failure];
-}
- */
 + (void)deleteBookmarkWithLocationID:(NSString *)locationID
                           providerID:(NSString *)providerID
                              success:(void (^)(id responseObject))success

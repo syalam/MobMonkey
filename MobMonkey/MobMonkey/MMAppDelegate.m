@@ -116,8 +116,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
     [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
     [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
-    [MMAPI sharedAPI].delegate = self;
-    [[MMAPI sharedAPI] checkUserIn:params];
+    [MMAPI checkUserIn:params success:nil failure:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -171,14 +170,7 @@
         [params setObject:[NSNumber numberWithDouble:newLocation.coordinate.longitude] forKey:@"longitude"];
         
         NSLog(@"%@, %@", [[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"], [[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]);
-        
-        //TEST CODE. REMOVE ME
-        /*[params setObject:[NSNumber numberWithDouble:33.49829] forKey:@"latitude"];
-        [params setObject:[NSNumber numberWithDouble:-111.927526] forKey:@"longitude"];*/
-        
-        
-        [MMAPI sharedAPI].delegate = self;
-        [[MMAPI sharedAPI] checkUserIn:params];
+        [MMAPI checkUserIn:params success:nil failure:nil];
     }
 }
 
@@ -193,29 +185,5 @@
     return [FBSession.activeSession handleOpenURL:url];
 }
 
-/*
-// Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
-{
-}
-*/
-
-/*
-// Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed
-{
-}
-*/
-
-#pragma mark - MMAPI Delegate Methods
-- (void)MMAPICallSuccessful:(id)response {
-    NSLog(@"%@", response);
-}
-- (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
-    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
-    if ([[response valueForKey:@"status"] isEqualToString:@"Unauthorized"]) {
-       // [[MMClientSDK sharedSDK] signInScreen:self.window.rootViewController];
-    }
-}
 
 @end
