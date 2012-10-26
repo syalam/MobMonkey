@@ -87,19 +87,6 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     }];
 }
 
--(void)signUpWithFacebook:(NSDictionary*)params
-{
-    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
-    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
-    [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
-    [httpClient  postPath:@"signup/user/oauth/facebook" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
-        NSLog(@"%@", JSON);
-        [_delegate MMAPICallSuccessful:JSON];
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_delegate MMAPICallFailed:operation];
-    }];
-}
-
 #pragma mark - Request Media Methods
 
 -(void)requestMedia:(NSString*)mediaType params:(NSMutableDictionary*)params {
