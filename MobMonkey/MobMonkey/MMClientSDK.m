@@ -12,7 +12,6 @@
 #import "MMTrendingViewController.h"
 #import "MMInboxViewController.h"
 #import "MMLocationViewController.h"
-#import "MMMakeRequestViewController.h"
 #import "MMLocationMediaViewController.h"
 #import "MMInboxFullScreenImageViewController.h"
 #import "MMAnsweredRequestsViewController.h"

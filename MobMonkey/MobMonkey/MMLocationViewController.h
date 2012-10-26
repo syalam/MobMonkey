@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "TCImageView.h"
 #import "MMNotificationSettingsViewController.h"
-#import "MMMakeRequestViewController.h"
 #import "MMAPI.h"
 
 @interface MMLocationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MMNotificationSettingsDelegate, MMAPIDelegate, UIGestureRecognizerDelegate> {

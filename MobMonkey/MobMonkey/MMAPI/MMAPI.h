@@ -108,7 +108,9 @@ typedef enum OAuthProvider {
  longitude
  radiusInYards
 */
--(void)requestMedia:(NSString*)mediaType params:(NSMutableDictionary*)params;
++ (void)requestMedia:(NSString*)mediaType params:(NSMutableDictionary*)params
+             success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 ///---------------------------------------------
 /// @name Sign's a user in with Facebook

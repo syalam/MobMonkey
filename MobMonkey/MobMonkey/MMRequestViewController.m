@@ -57,12 +57,6 @@ enum RequestDurationLengths {
     [self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
     
-    /*UIImage *selectedSegement = [[UIImage imageNamed:@"timeBtnSelected"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
-    UIImage *deselectedSegement = [[UIImage imageNamed:@"timeBtnDeselected"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
-    [self.stayActiveLengthSegmentedCell setBackgroundImage:deselectedSegement forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.stayActiveLengthSegmentedCell setBackgroundImage:selectedSegement forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-    [self.stayActiveLengthSegmentedCell setDividerImage:divider forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.stayActiveLengthSegmentedCell setDividerImage:divider forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];*/
     
     self.mediaTypeSegmentedControl.selectedSegmentIndex = 1;
     [self changeMediaRequestType:self.mediaTypeSegmentedControl];
@@ -116,7 +110,7 @@ enum RequestDurationLengths {
     [self.requestInfo setValue:[NSNumber numberWithInt:100000] forKey:@"radiusInYards"];
     [self.requestInfo setValue:[NSNumber numberWithBool:NO] forKey:@"recurring"];
     
-    [[MMAPI sharedAPI] requestMedia:@"image" params:self.requestInfo];
+    [MMAPI requestMedia:@"image" params:self.requestInfo success:nil failure:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -166,19 +160,6 @@ enum RequestDurationLengths {
 {
     return 2;
 }
-
-//    if ([self.requestInfo valueForKey:@"message"] && [[self.requestInfo valueForKey:@"message"] length] > 0) {
-//        self.messageCell.textLabel.text = @"Edit Message";
-//        self.messageCell.detailTextLabel.text = [self.requestInfo valueForKey:@"message"];
-//    } else {
-//        self.messageCell.textLabel.text = @"Add Message";
-//        self.messageCell.detailTextLabel.text = @"";
-//    }
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//    [dateFormatter setDateFormat:@" hh:mm a 'on' MM/dd/yyy"];
-//    NSString* dateString = [dateFormatter stringFromDate:[self.requestInfo valueForKey:@"scheduleDate"]];
-//    self.scheduleCell.detailTextLabel.text = dateString;
-//    [self.tableView reloadData];
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

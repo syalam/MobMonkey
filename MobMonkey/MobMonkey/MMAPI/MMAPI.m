@@ -41,16 +41,19 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
-    [httpClient  postPath:@"signup/user" parameters:params success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        int statusCode = operation.response.statusCode;
-        NSLog(@"%d", statusCode);
-        if (statusCode == 200 || statusCode == 201) {
-            success(operation, [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil]);
-        }
-        else {
-            failure(operation, error);
-        }
-    }];
+    [httpClient  postPath:@"signup/user"
+               parameters:params
+                  success:success
+                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                      int statusCode = operation.response.statusCode;
+                      NSLog(@"%d", statusCode);
+                      if (statusCode == 200 || statusCode == 201) {
+                          success(operation, [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil]);
+                      }
+                      else {
+                          failure(operation, error);
+                      }
+                   }];
 }
 
 + (void)signInWithEmail:(NSString *)email
@@ -89,7 +92,9 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 
 #pragma mark - Request Media Methods
 
--(void)requestMedia:(NSString*)mediaType params:(NSMutableDictionary*)params {
++ (void)requestMedia:(NSString*)mediaType params:(NSMutableDictionary*)params
+             success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSLog(@"%@", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]);
     NSLog(@"%@", [[NSUserDefaults standardUserDefaults]valueForKey:@"password"]);
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
@@ -97,20 +102,19 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
     [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
     [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
-    [httpClient  postPath:[NSString stringWithFormat:@"requestmedia/%@", mediaType] parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
-        NSLog(@"%@", JSON);
-        [_delegate MMAPICallSuccessful:JSON];
-    }failure:^(AFHTTPRequestOperation *operation, id JSON) {
-        int statusCode = operation.response.statusCode;
-        if (statusCode == 200 || statusCode == 201) {
-            id response = operation.responseString;
-            NSLog(@"%@", response);
-            [_delegate MMAPICallSuccessful:response];
-        }
-        else {
-            [_delegate MMAPICallFailed:operation];
-        }
-    }];
+    [httpClient  postPath:[NSString stringWithFormat:@"requestmedia/%@", mediaType]
+               parameters:params
+                  success:success
+                  failure:^(AFHTTPRequestOperation *operation, id json) {
+                      int statusCode = operation.response.statusCode;
+                      if (statusCode == 200 || statusCode == 201) {
+                          id response = operation.responseString;
+                          NSLog(@"%@", response);
+                          success(operation, json);
+                      } else {
+                          failure(operation, json);
+                      }
+                  }];
 }
 
 -(void)fulfillRequest:(NSString*)mediaType params:(NSMutableDictionary*)params

@@ -252,8 +252,6 @@
 		F745180115F918980049277C /* MMNotificationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F74517FF15F918980049277C /* MMNotificationSettingsViewController.xib */; };
 		F745181815F9F3AA0049277C /* MMFullScreenImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F745181615F9F3AA0049277C /* MMFullScreenImageViewController.m */; };
 		F745181915F9F3AA0049277C /* MMFullScreenImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F745181715F9F3AA0049277C /* MMFullScreenImageViewController.xib */; };
-		F745182115FA54F20049277C /* MMScheduleRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F745181F15FA54F20049277C /* MMScheduleRequestViewController.m */; };
-		F745182215FA54F20049277C /* MMScheduleRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F745182015FA54F20049277C /* MMScheduleRequestViewController.xib */; };
 		F747F10915F426F8002E5567 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F10715F426F8002E5567 /* MMLocationViewController.m */; };
 		F747F10A15F426F8002E5567 /* MMLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F10815F426F8002E5567 /* MMLocationViewController.xib */; };
 		F747F10C15F42B5A002E5567 /* monkey.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F747F10B15F42B5A002E5567 /* monkey.jpg */; };
@@ -284,8 +282,6 @@
 		F747F14915F4509C002E5567 /* PostBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F13015F4509C002E5567 /* PostBtn~iphone.png */; };
 		F747F14A15F4509C002E5567 /* TimeBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F13115F4509C002E5567 /* TimeBtn@2x~iphone.png */; };
 		F747F14B15F4509C002E5567 /* TimeBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F747F13215F4509C002E5567 /* TimeBtn~iphone.png */; };
-		F747F15915F46338002E5567 /* MMPresetMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F15715F46338002E5567 /* MMPresetMessagesViewController.m */; };
-		F747F15A15F46338002E5567 /* MMPresetMessagesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F15815F46338002E5567 /* MMPresetMessagesViewController.xib */; };
 		F747F15E15F4740B002E5567 /* MMSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F15C15F4740A002E5567 /* MMSignUpViewController.m */; };
 		F747F15F15F4740B002E5567 /* MMSignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F15D15F4740B002E5567 /* MMSignUpViewController.xib */; };
 		F747F16315F4742D002E5567 /* MMLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F16115F4742C002E5567 /* MMLoginViewController.m */; };
@@ -356,8 +352,6 @@
 		F7716DB4161D848D00578A90 /* roundedRectSmall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716D98161D848D00578A90 /* roundedRectSmall@2x.png */; };
 		F7716DBB161D848D00578A90 /* videoIcn.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716D9F161D848D00578A90 /* videoIcn.png */; };
 		F7716DBC161D848D00578A90 /* videoIcn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716DA0161D848D00578A90 /* videoIcn@2x.png */; };
-		F7716DC1161D865D00578A90 /* MMMakeRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716DBF161D865D00578A90 /* MMMakeRequestViewController.m */; };
-		F7716DC2161D865D00578A90 /* MMMakeRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7716DC0161D865D00578A90 /* MMMakeRequestViewController.xib */; };
 		F7716DCD161E1A8600578A90 /* MMUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716DCC161E1A8500578A90 /* MMUtilities.m */; };
 		F7716DD3161E4A4D00578A90 /* bookmarkBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716DCF161E4A4C00578A90 /* bookmarkBtn.png */; };
 		F7716DD4161E4A4D00578A90 /* bookmarkBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716DD0161E4A4C00578A90 /* bookmarkBtn@2x.png */; };
@@ -374,7 +368,6 @@
 		F792DA4815FF4C8000F5CD85 /* MMSocialNetworksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F792DA4615FF4C8000F5CD85 /* MMSocialNetworksViewController.m */; };
 		F792DA4915FF4C8000F5CD85 /* MMSocialNetworksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F792DA4715FF4C8000F5CD85 /* MMSocialNetworksViewController.xib */; };
 		F792DA4D15FF4DB300F5CD85 /* MMSocialNetworksCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F792DA4C15FF4DB300F5CD85 /* MMSocialNetworksCell.m */; };
-		F792DA5D15FF72BA00F5CD85 /* MMMakeRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F792DA5C15FF72BA00F5CD85 /* MMMakeRequestCell.m */; };
 		F79B4FFD15F3EEC50004BE01 /* AddLocation@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FA915F3EEC50004BE01 /* AddLocation@2x~iphone.png */; };
 		F79B4FFE15F3EEC50004BE01 /* AddLocation~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FAA15F3EEC50004BE01 /* AddLocation~iphone.png */; };
 		F79B500915F3EEC50004BE01 /* Search_Map_Add_Location.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B4FB515F3EEC50004BE01 /* Search_Map_Add_Location.png */; };
@@ -747,9 +740,6 @@
 		F745181515F9F3AA0049277C /* MMFullScreenImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMFullScreenImageViewController.h; sourceTree = "<group>"; };
 		F745181615F9F3AA0049277C /* MMFullScreenImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMFullScreenImageViewController.m; sourceTree = "<group>"; };
 		F745181715F9F3AA0049277C /* MMFullScreenImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMFullScreenImageViewController.xib; sourceTree = "<group>"; };
-		F745181E15FA54F20049277C /* MMScheduleRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMScheduleRequestViewController.h; sourceTree = "<group>"; };
-		F745181F15FA54F20049277C /* MMScheduleRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMScheduleRequestViewController.m; sourceTree = "<group>"; };
-		F745182015FA54F20049277C /* MMScheduleRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMScheduleRequestViewController.xib; sourceTree = "<group>"; };
 		F747F10615F426F8002E5567 /* MMLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationViewController.h; sourceTree = "<group>"; };
 		F747F10715F426F8002E5567 /* MMLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationViewController.m; sourceTree = "<group>"; };
 		F747F10815F426F8002E5567 /* MMLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLocationViewController.xib; sourceTree = "<group>"; };
@@ -782,9 +772,6 @@
 		F747F13015F4509C002E5567 /* PostBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PostBtn~iphone.png"; sourceTree = "<group>"; };
 		F747F13115F4509C002E5567 /* TimeBtn@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeBtn@2x~iphone.png"; sourceTree = "<group>"; };
 		F747F13215F4509C002E5567 /* TimeBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimeBtn~iphone.png"; sourceTree = "<group>"; };
-		F747F15615F46338002E5567 /* MMPresetMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPresetMessagesViewController.h; sourceTree = "<group>"; };
-		F747F15715F46338002E5567 /* MMPresetMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPresetMessagesViewController.m; sourceTree = "<group>"; };
-		F747F15815F46338002E5567 /* MMPresetMessagesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMPresetMessagesViewController.xib; sourceTree = "<group>"; };
 		F747F15B15F4740A002E5567 /* MMSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSignUpViewController.h; sourceTree = "<group>"; };
 		F747F15C15F4740A002E5567 /* MMSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSignUpViewController.m; sourceTree = "<group>"; };
 		F747F15D15F4740B002E5567 /* MMSignUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSignUpViewController.xib; sourceTree = "<group>"; };
@@ -866,9 +853,6 @@
 		F7716D98161D848D00578A90 /* roundedRectSmall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "roundedRectSmall@2x.png"; sourceTree = "<group>"; };
 		F7716D9F161D848D00578A90 /* videoIcn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoIcn.png; sourceTree = "<group>"; };
 		F7716DA0161D848D00578A90 /* videoIcn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "videoIcn@2x.png"; sourceTree = "<group>"; };
-		F7716DBE161D865D00578A90 /* MMMakeRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMakeRequestViewController.h; sourceTree = "<group>"; };
-		F7716DBF161D865D00578A90 /* MMMakeRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMakeRequestViewController.m; sourceTree = "<group>"; };
-		F7716DC0161D865D00578A90 /* MMMakeRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMMakeRequestViewController.xib; sourceTree = "<group>"; };
 		F7716DCB161E1A8500578A90 /* MMUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMUtilities.h; sourceTree = "<group>"; };
 		F7716DCC161E1A8500578A90 /* MMUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMUtilities.m; sourceTree = "<group>"; };
 		F7716DCF161E4A4C00578A90 /* bookmarkBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookmarkBtn.png; sourceTree = "<group>"; };
@@ -889,8 +873,6 @@
 		F792DA4715FF4C8000F5CD85 /* MMSocialNetworksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSocialNetworksViewController.xib; sourceTree = "<group>"; };
 		F792DA4B15FF4DB300F5CD85 /* MMSocialNetworksCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSocialNetworksCell.h; sourceTree = "<group>"; };
 		F792DA4C15FF4DB300F5CD85 /* MMSocialNetworksCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSocialNetworksCell.m; sourceTree = "<group>"; };
-		F792DA5B15FF72BA00F5CD85 /* MMMakeRequestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMakeRequestCell.h; sourceTree = "<group>"; };
-		F792DA5C15FF72BA00F5CD85 /* MMMakeRequestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMakeRequestCell.m; sourceTree = "<group>"; };
 		F79B4FA215F3EE5A0004BE01 /* _MMSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _MMSearchViewController.h; sourceTree = "<group>"; };
 		F79B4FA315F3EE5A0004BE01 /* _MMSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _MMSearchViewController.m; sourceTree = "<group>"; };
 		F79B4FA415F3EE5A0004BE01 /* _MMSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = _MMSearchViewController.xib; sourceTree = "<group>"; };
@@ -1545,16 +1527,6 @@
 			name = "Full Screen Image";
 			sourceTree = "<group>";
 		};
-		F745182315FA55510049277C /* Schedule A Request */ = {
-			isa = PBXGroup;
-			children = (
-				F745181E15FA54F20049277C /* MMScheduleRequestViewController.h */,
-				F745181F15FA54F20049277C /* MMScheduleRequestViewController.m */,
-				F745182015FA54F20049277C /* MMScheduleRequestViewController.xib */,
-			);
-			name = "Schedule A Request";
-			sourceTree = "<group>";
-		};
 		F747F0C815F42433002E5567 /* Location */ = {
 			isa = PBXGroup;
 			children = (
@@ -1657,10 +1629,6 @@
 				3794488D1631C166001D4D21 /* MMRequestMessageViewController.m */,
 				37944894163209BC001D4D21 /* MMRequestScheduleViewController.h */,
 				37944895163209BC001D4D21 /* MMRequestScheduleViewController.m */,
-				F7716DBD161D863B00578A90 /* Make Request VC */,
-				F792DA5A15FF72A300F5CD85 /* Make Request Cell */,
-				F747F15015F462A1002E5567 /* Attach Message */,
-				F745182315FA55510049277C /* Schedule A Request */,
 			);
 			name = "Make Request";
 			sourceTree = "<group>";
@@ -1695,16 +1663,6 @@
 				F747F13215F4509C002E5567 /* TimeBtn~iphone.png */,
 			);
 			path = "Notification and Location Modal Views";
-			sourceTree = "<group>";
-		};
-		F747F15015F462A1002E5567 /* Attach Message */ = {
-			isa = PBXGroup;
-			children = (
-				F747F15615F46338002E5567 /* MMPresetMessagesViewController.h */,
-				F747F15715F46338002E5567 /* MMPresetMessagesViewController.m */,
-				F747F15815F46338002E5567 /* MMPresetMessagesViewController.xib */,
-			);
-			name = "Attach Message";
 			sourceTree = "<group>";
 		};
 		F747F16515F47439002E5567 /* Sign in */ = {
@@ -1845,16 +1803,6 @@
 			path = "make request";
 			sourceTree = "<group>";
 		};
-		F7716DBD161D863B00578A90 /* Make Request VC */ = {
-			isa = PBXGroup;
-			children = (
-				F7716DBE161D865D00578A90 /* MMMakeRequestViewController.h */,
-				F7716DBF161D865D00578A90 /* MMMakeRequestViewController.m */,
-				F7716DC0161D865D00578A90 /* MMMakeRequestViewController.xib */,
-			);
-			name = "Make Request VC";
-			sourceTree = "<group>";
-		};
 		F7716DCE161E1A8E00578A90 /* Utility Class */ = {
 			isa = PBXGroup;
 			children = (
@@ -1930,15 +1878,6 @@
 				F792DA4C15FF4DB300F5CD85 /* MMSocialNetworksCell.m */,
 			);
 			name = "Social Networks Cell";
-			sourceTree = "<group>";
-		};
-		F792DA5A15FF72A300F5CD85 /* Make Request Cell */ = {
-			isa = PBXGroup;
-			children = (
-				F792DA5B15FF72BA00F5CD85 /* MMMakeRequestCell.h */,
-				F792DA5C15FF72BA00F5CD85 /* MMMakeRequestCell.m */,
-			);
-			name = "Make Request Cell";
 			sourceTree = "<group>";
 		};
 		F79B4FA015F3EE470004BE01 /* Search */ = {
@@ -2286,13 +2225,11 @@
 				F747F14915F4509C002E5567 /* PostBtn~iphone.png in Resources */,
 				F747F14A15F4509C002E5567 /* TimeBtn@2x~iphone.png in Resources */,
 				F747F14B15F4509C002E5567 /* TimeBtn~iphone.png in Resources */,
-				F747F15A15F46338002E5567 /* MMPresetMessagesViewController.xib in Resources */,
 				F747F15F15F4740B002E5567 /* MMSignUpViewController.xib in Resources */,
 				F747F16415F4742D002E5567 /* MMLoginViewController.xib in Resources */,
 				F77BD34915F52AA100E76CA5 /* MMMapViewController.xib in Resources */,
 				F745180115F918980049277C /* MMNotificationSettingsViewController.xib in Resources */,
 				F745181915F9F3AA0049277C /* MMFullScreenImageViewController.xib in Resources */,
-				F745182215FA54F20049277C /* MMScheduleRequestViewController.xib in Resources */,
 				F7E7564515FC9D9E005C8D7C /* FacebookSDKResources.bundle in Resources */,
 				F7E7569815FE8EE7005C8D7C /* MMCategoryViewController.xib in Resources */,
 				F792DA4915FF4C8000F5CD85 /* MMSocialNetworksViewController.xib in Resources */,
@@ -2375,7 +2312,6 @@
 				F7716DB4161D848D00578A90 /* roundedRectSmall@2x.png in Resources */,
 				F7716DBB161D848D00578A90 /* videoIcn.png in Resources */,
 				F7716DBC161D848D00578A90 /* videoIcn@2x.png in Resources */,
-				F7716DC2161D865D00578A90 /* MMMakeRequestViewController.xib in Resources */,
 				F7716DD3161E4A4D00578A90 /* bookmarkBtn.png in Resources */,
 				F7716DD4161E4A4D00578A90 /* bookmarkBtn@2x.png in Resources */,
 				F7716DD5161E4A4D00578A90 /* whiteRect.png in Resources */,
@@ -2572,19 +2508,16 @@
 				F79B505615F3F81F0004BE01 /* MMSetTitleImage.m in Sources */,
 				F747F10915F426F8002E5567 /* MMLocationViewController.m in Sources */,
 				F747F11115F4382B002E5567 /* TCImageView.m in Sources */,
-				F747F15915F46338002E5567 /* MMPresetMessagesViewController.m in Sources */,
 				F747F15E15F4740B002E5567 /* MMSignUpViewController.m in Sources */,
 				F747F16315F4742D002E5567 /* MMLoginViewController.m in Sources */,
 				F77BD34715F52AA100E76CA5 /* MMMapViewController.m in Sources */,
 				F77BD35015F5321400E76CA5 /* MMLocationAnnotation.m in Sources */,
 				F745180015F918980049277C /* MMNotificationSettingsViewController.m in Sources */,
 				F745181815F9F3AA0049277C /* MMFullScreenImageViewController.m in Sources */,
-				F745182115FA54F20049277C /* MMScheduleRequestViewController.m in Sources */,
 				F7E7568D15FE3A7A005C8D7C /* TwitterAccounts.m in Sources */,
 				F7E7569715FE8EE7005C8D7C /* MMCategoryViewController.m in Sources */,
 				F792DA4815FF4C8000F5CD85 /* MMSocialNetworksViewController.m in Sources */,
 				F792DA4D15FF4DB300F5CD85 /* MMSocialNetworksCell.m in Sources */,
-				F792DA5D15FF72BA00F5CD85 /* MMMakeRequestCell.m in Sources */,
 				F71B9B291602517E003BED33 /* SectionHeaderView.m in Sources */,
 				F71B9B2A1602517E003BED33 /* SectionInfo.m in Sources */,
 				F71B9B351602A163003BED33 /* MMHTTPClient.m in Sources */,
@@ -2596,7 +2529,6 @@
 				F7716D4C161CF60B00578A90 /* NSData+Base64.m in Sources */,
 				F7716D4D161CF60B00578A90 /* NSString+Base64.m in Sources */,
 				F7716D6C161D56F900578A90 /* MMFilterViewController.m in Sources */,
-				F7716DC1161D865D00578A90 /* MMMakeRequestViewController.m in Sources */,
 				F7716DCD161E1A8600578A90 /* MMUtilities.m in Sources */,
 				F76DFE52161EAEDC00B5683F /* MMInboxFullScreenImageViewController.m in Sources */,
 				F76DFE91161F540D00B5683F /* MMLocationMediaViewController.m in Sources */,

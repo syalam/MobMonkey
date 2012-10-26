@@ -17,7 +17,6 @@
 }
 
 - (IBAction)signUpButtonTapped:(id)sender;
-- (IBAction)signInButtonClicked:(id)sender;
 - (IBAction)facebookButtonTapped:(id)sender;
 - (IBAction)twitterButtonTapped:(id)sender;
 
