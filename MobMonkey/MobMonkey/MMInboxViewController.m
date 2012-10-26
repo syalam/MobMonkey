@@ -298,23 +298,35 @@
 }
 
 #pragma mark - Helper Methods
-- (void)fetchInboxContent {
-    [MMAPI sharedAPI].delegate = self;
-    switch (_currentAPICall) {
-        case kAPICallOpenRequests:
-            [[MMAPI sharedAPI]openRequests];
-            break;
-        case kAPICallAssignedRequests:
-            [[MMAPI sharedAPI]assignedRequests];
-        case kAPICallFulfilledRequests:
-            [[MMAPI sharedAPI]fulfilledRequests];
-        default:
-            break;
+- (id)failureBlock
+{
+    id _failureBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD dismiss];
+        NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+        if ([[response valueForKey:@"status"] isEqualToString:@"Unauthorized"]) {
+            [[MMClientSDK sharedSDK] signInScreen:self];
+        }
+    };
+    return _failureBlock;
+}
+
+- (void)fetchInboxContent {    
+    if (_currentAPICall == kAPICallOpenRequests) {
+        [[MMAPI sharedAPI]openRequests];
+    } else if (_currentAPICall == kAPICallAssignedRequests) {
+        [[MMAPI sharedAPI]assignedRequests];
+    } else if (_currentAPICall == kAPICallFulfilledRequests) {
+        [MMAPI fulfilledRequestsOnSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [SVProgressHUD dismiss];
+            fulfilledRequestsArray = responseObject;
+            [self.tableView reloadData];
+        } failure:[self failureBlock]];
     }
 }
 
 #pragma mark - UIImagePickerController Delegate Methods
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
     [SVProgressHUD showWithStatus:@"Saving"];
     NSString *mediaRequested;
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
@@ -344,13 +356,7 @@
                       [SVProgressHUD dismiss];
                       [self.navigationController popViewControllerAnimated:YES];
                   }
-                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                      [SVProgressHUD dismiss];
-                      NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
-                      if ([[response valueForKey:@"status"] isEqualToString:@"Unauthorized"]) {
-                          [[MMClientSDK sharedSDK] signInScreen:self];
-                      }
-                  }];
+                  failure:[self failureBlock]];
     
     [picker dismissModalViewControllerAnimated:YES];
 }

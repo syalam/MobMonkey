@@ -151,7 +151,8 @@ typedef enum OAuthProvider {
 /**
  Retrieve list of fulfilled requests from the server
  */
-- (void)fulfilledRequests;
++ (void)fulfilledRequestsOnSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 ///---------------------------------------------
 /// @name Adds a new location to the system
