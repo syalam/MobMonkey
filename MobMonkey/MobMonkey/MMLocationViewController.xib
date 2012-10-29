@@ -409,7 +409,7 @@
 										<string key="NSFrame">{{292, 288}, {12, 12}}</string>
 										<reference key="NSSuperview" ref="821810327"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="283792089"/>
+										<reference key="NSNextKeyView" ref="49251601"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -504,6 +504,21 @@
 										<reference key="IBUIFontDescription" ref="356737166"/>
 										<reference key="IBUIFont" ref="103362038"/>
 										<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+									</object>
+									<object class="IBUIImageView" id="49251601">
+										<reference key="NSNextResponder" ref="821810327"/>
+										<int key="NSvFlags">292</int>
+										<string key="NSFrame">{{30, 369}, {38, 38}}</string>
+										<reference key="NSSuperview" ref="821810327"/>
+										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="283792089"/>
+										<string key="NSReuseIdentifierKey">_NS:9</string>
+										<bool key="IBUIUserInteractionEnabled">NO</bool>
+										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+										<object class="NSCustomResource" key="IBUIImage">
+											<string key="NSClassName">NSImage</string>
+											<string key="NSResourceName">peopleIcon.png</string>
+										</object>
 									</object>
 								</array>
 								<string key="NSFrame">{{0, 5}, {320, 867}}</string>
@@ -753,6 +768,7 @@
 							<reference ref="151036183"/>
 							<reference ref="358939092"/>
 							<reference ref="283792089"/>
+							<reference ref="49251601"/>
 						</array>
 						<reference key="parent" ref="1061276062"/>
 					</object>
@@ -863,6 +879,11 @@
 						<reference key="object" ref="283792089"/>
 						<reference key="parent" ref="821810327"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">163</int>
+						<reference key="object" ref="49251601"/>
+						<reference key="parent" ref="821810327"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -892,13 +913,14 @@
 				<string key="146.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="149.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="162.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="163.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">162</int>
+			<int key="maxID">163</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1105,6 +1127,7 @@
 			<string key="makeRequestButtonBlank.png">{307, 61}</string>
 			<string key="monkey.jpg">{600, 450}</string>
 			<string key="moreBtnOverlay.png">{55, 44}</string>
+			<string key="peopleIcon.png">{38, 38}</string>
 			<string key="separator-gradient.png">{1, 7}</string>
 			<string key="timeIcnOverlay.png">{15, 15}</string>
 		</dictionary>

@@ -129,7 +129,7 @@
             break;
         case 2: {
             MMCategoryViewController *categoryVC = [[MMCategoryViewController alloc]initWithNibName:@"MMCategoryViewController" bundle:nil];
-            categoryVC.title = @"Category Notifications";
+            categoryVC.title = @"My Interests";
             [self.navigationController pushViewController:categoryVC animated:YES];
         }
             break;
