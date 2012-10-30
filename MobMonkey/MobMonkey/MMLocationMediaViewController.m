@@ -24,16 +24,16 @@
 
     //Add custom back button to the nav bar
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
-    [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
     [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
     
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    self.navigationItem.leftBarButtonItem = backButton;
     
     self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Live Camera", @"Videos", @"Photos"]];
     [self.segmentedControl setTintColor:[UIColor colorWithRed:230.0/255.0 green:113.0/255.0 blue:34.0/255.0 alpha:1.0]];
     [self.segmentedControl setSegmentedControlStyle:UISegmentedControlStyleBar];
     self.navigationItem.titleView = self.segmentedControl;
-    self.navigationItem.leftBarButtonItem = backButton;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -90,10 +90,6 @@
     return 130;
 }
 
-#pragma mark - UINavBar Action Methods
-- (void)backButtonTapped:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
-}
 
 - (void)viewDidUnload {
     [self setTableView:nil];

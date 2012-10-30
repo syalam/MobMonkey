@@ -38,15 +38,16 @@ enum AcceptRejectCellViewTag {
     [super viewDidLoad];
     
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
-    [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
     [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
     
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
     self.navigationItem.leftBarButtonItem = backButton;
-    [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:226.0/255.0
+
+    /*[self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:226.0/255.0
                                                                           green:112.0/225.0
                                                                            blue:36.0/255.0
-                                                                          alpha:1.0]];
+                                                                          alpha:1.0]];*/
     NSLog(@"%@", _contentList);
 }
 
@@ -121,9 +122,6 @@ enum AcceptRejectCellViewTag {
 }
 
 #pragma mark - UINavBar Action Methods
-- (void)backButtonTapped:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 #pragma mark - MMAnsweredRequestCell delegate
 - (void)actionButtonTapped:(id)sender {
