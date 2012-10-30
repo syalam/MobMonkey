@@ -41,6 +41,15 @@
     [super viewDidLoad];
 
     self.searchBar.backgroundImage = [UIImage imageNamed:@"SearchBG~iphone.png"];
+    UIImage *customButtonImage = [[UIImage imageNamed:@"navBarButtonBlank"]
+                            resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
+    UIButton *customButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    customButton.bounds = CGRectMake(0, 0, 52, 31);
+    [customButton setBackgroundImage:customButtonImage forState:UIControlStateNormal];
+    [customButton setTitle:@"Filter" forState:UIControlStateNormal];
+    [customButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+    [customButton.titleLabel setShadowColor:[UIColor darkGrayColor]];
+     [customButton.titleLabel setShadowOffset:CGSizeApplyAffineTransform(<#CGSize size#>, <#CGAffineTransform t#>)]
     UIBarButtonItem *filterButton = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStyleBordered target:self action:@selector(showFilterView:)];
     self.navigationItem.leftBarButtonItem = filterButton;
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:226.0/255.0
