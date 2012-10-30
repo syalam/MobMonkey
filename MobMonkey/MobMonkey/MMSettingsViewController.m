@@ -39,7 +39,7 @@
     selectionDictionary = [[NSMutableDictionary alloc]init];
     
     
-    NSArray *sectionOneArray = [NSArray arrayWithObjects:@"My Info", @"Social Networks", @"Category Notifications", nil];
+    NSArray *sectionOneArray = [NSArray arrayWithObjects:@"My Info", @"Social Networks", @"My Interests", nil];
     
     NSArray *tableContentsArray = [NSArray arrayWithObjects:sectionOneArray, nil];
     

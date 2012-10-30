@@ -14,7 +14,7 @@
     NSArray *categoriesArray;
 }
 
-@property (nonatomic, retain)IBOutlet UITableView *tableView;
-@property (nonatomic, retain)NSMutableArray *contentList;
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, retain) NSMutableArray *contentList;
 
 @end

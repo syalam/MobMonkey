@@ -11,18 +11,24 @@
 
 @interface MMCategoryViewController ()
 
-- (void)notificationSwitchChangedValue:(id)sender;
-
 @end
 
 @implementation MMCategoryViewController
+
+static NSString *const SelectedInterestsKey = @"selectedInterests";
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.title = @"My Interests";
-    selectedItemsDictionary = [[NSMutableDictionary alloc] initWithCapacity:1];
     
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    
+    if (![userDefaults valueForKey:@"selectedInterests"]) {
+        [userDefaults setValue:[[NSMutableDictionary alloc] initWithCapacity:1] forKey:SelectedInterestsKey];
+    }
+    selectedItemsDictionary = [[userDefaults valueForKey:SelectedInterestsKey] mutableCopy];
     
     //Add custom back button to the nav bar
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
@@ -56,46 +62,34 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _contentList.count;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSMutableArray *sectionContent = [_contentList objectAtIndex:section];
-    return sectionContent.count;
+    return self.contentList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *sectionContent = [_contentList objectAtIndex:indexPath.section];
-    id contentForThisRow = [sectionContent objectAtIndex:indexPath.row];
+    NSDictionary *favorite = [_contentList objectAtIndex:indexPath.row];
     
     static NSString *CellIdentifier = @"Cell";
     MMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[MMTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        UISwitch *notificationSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-        [notificationSwitch setOnTintColor:[UIColor colorWithRed:230.0/255.0 green:113.0/255.0 blue:34.0/255.0 alpha:1.0]];
-        [notificationSwitch addTarget:self action:@selector(notificationSwitchChangedValue:) forControlEvents:UIControlEventValueChanged];
-        [notificationSwitch sizeToFit];
-        cell.accessoryView = notificationSwitch;
+        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
     }
     cell.textLabel.text = nil;
     cell.imageView.image = [UIImage imageNamed:@"picture"];
     
     if (indexPath.section == 0) {
-        cell.textLabel.text = [contentForThisRow valueForKey:@"name"];
-    }
-    else {
-        cell.textLabel.text = contentForThisRow;
-        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.text = [favorite valueForKey:@"name"];
     }
     if ([selectedItemsDictionary valueForKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]]) {
-        [(UISwitch *)[cell accessoryView] setOn:YES];
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
-        [(UISwitch *)[cell accessoryView] setOn:NO];
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
 
     return cell;
@@ -105,16 +99,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1) {
-        if ([selectedItemsDictionary objectForKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]]) {
-            [selectedItemsDictionary removeObjectForKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]];
+    if (indexPath.section == 0) {
+        if ([selectedItemsDictionary valueForKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]]) {
+            [selectedItemsDictionary setValue:nil forKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]];
             [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
         }
         else {
-            [selectedItemsDictionary setObject:@"YES" forKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]];
+            [selectedItemsDictionary setValue:@"YES" forKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]];
             [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
         }
     }
+    [[NSUserDefaults standardUserDefaults] setValue:selectedItemsDictionary forKey:SelectedInterestsKey];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -140,13 +135,7 @@
 
 #pragma mark - Helper Methods
 - (void)setTableContent {
-    NSMutableArray *sectionTwoArray = [categoriesArray mutableCopy];
-    
-    NSMutableArray *sectionThreeArray = [[NSMutableArray alloc]initWithObjects:@"History", @"My Locations", @"Events", @"Locations of Interest", nil];
-    
-    NSMutableArray *tableContentArray = [NSMutableArray arrayWithObjects:sectionTwoArray, sectionThreeArray, nil];
-    
-    [self setContentList:tableContentArray];
+    [self setContentList:[categoriesArray mutableCopy]];
     [self.tableView reloadData];
 }
 
@@ -154,12 +143,6 @@
 #pragma mark - UINav Bar Action Methods
 - (void)backButtonTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)notificationSwitchChangedValue:(id)sender
-{
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[[[sender superview] superview] superview]];
-    [selectedItemsDictionary setValue:[NSNumber numberWithBool:[(UISwitch *)sender isOn]] forKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]];
 }
 
 @end
