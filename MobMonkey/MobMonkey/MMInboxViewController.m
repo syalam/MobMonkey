@@ -58,10 +58,8 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [SVProgressHUD show];
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     if (_categorySelected) {
         //Add custom back button to the nav bar
         UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
@@ -70,8 +68,14 @@
         
         UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
         self.navigationItem.leftBarButtonItem = backButton;
+    }
+}
 
-        
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [SVProgressHUD show];
+    if (_categorySelected) {
         [self fetchInboxContent];
         return;
     }
