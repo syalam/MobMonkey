@@ -74,7 +74,7 @@
 								<string key="NSFrame">{{0, -2}, {320, 70}}</string>
 								<reference key="NSSuperview" ref="934881223"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="949462393"/>
+								<reference key="NSNextKeyView" ref="227173784"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -127,7 +127,7 @@
 								<string key="NSFrame">{{141, 20}, {18, 25}}</string>
 								<reference key="NSSuperview" ref="934881223"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="227173784"/>
+								<reference key="NSNextKeyView" ref="949462393"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -149,9 +149,10 @@
 							<object class="IBUIButton" id="227173784">
 								<reference key="NSNextResponder" ref="934881223"/>
 								<int key="NSvFlags">265</int>
-								<string key="NSFrame">{{268, 14}, {38, 38}}</string>
+								<string key="NSFrame">{{20, 14}, {38, 38}}</string>
 								<reference key="NSSuperview" ref="934881223"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="218101634"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -173,16 +174,14 @@
 							<object class="IBUIButton" id="949462393">
 								<reference key="NSNextResponder" ref="934881223"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{14, 14}, {43, 38}}</string>
+								<string key="NSFrame">{{270, 19}, {30, 30}}</string>
 								<reference key="NSSuperview" ref="934881223"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="218101634"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<int key="IBUIButtonType">1</int>
 								<string key="IBUINormalTitle">Close</string>
 								<reference key="IBUIHighlightedTitleColor" ref="31126332"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
@@ -190,11 +189,15 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="500154954"/>
+								<object class="NSCustomResource" key="IBUINormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">CloseButton.png</string>
+								</object>
 								<reference key="IBUIFontDescription" ref="154887710"/>
 								<reference key="IBUIFont" ref="144552477"/>
 							</object>
 						</array>
-						<string key="NSFrame">{{0, 412}, {320, 68}}</string>
+						<string key="NSFrameSize">{320, 68}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="642821180"/>
@@ -349,6 +352,19 @@
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
+						<int key="objectID">31</int>
+						<reference key="object" ref="389298421"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="150300924"/>
+						</array>
+						<reference key="parent" ref="191373211"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4</int>
+						<reference key="object" ref="150300924"/>
+						<reference key="parent" ref="389298421"/>
+					</object>
+					<object class="IBObjectRecord">
 						<int key="objectID">6</int>
 						<reference key="object" ref="934881223"/>
 						<array class="NSMutableArray" key="children">
@@ -361,13 +377,8 @@
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">8</int>
-						<reference key="object" ref="218101634"/>
-						<reference key="parent" ref="934881223"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">9</int>
-						<reference key="object" ref="322245308"/>
+						<int key="objectID">12</int>
+						<reference key="object" ref="949462393"/>
 						<reference key="parent" ref="934881223"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -376,27 +387,19 @@
 						<reference key="parent" ref="934881223"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">12</int>
-						<reference key="object" ref="949462393"/>
+						<int key="objectID">9</int>
+						<reference key="object" ref="322245308"/>
+						<reference key="parent" ref="934881223"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">8</int>
+						<reference key="object" ref="218101634"/>
 						<reference key="parent" ref="934881223"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">7</int>
 						<reference key="object" ref="642821180"/>
 						<reference key="parent" ref="934881223"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">31</int>
-						<reference key="object" ref="389298421"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="150300924"/>
-						</array>
-						<reference key="parent" ref="191373211"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4</int>
-						<reference key="object" ref="150300924"/>
-						<reference key="parent" ref="389298421"/>
 					</object>
 				</array>
 			</object>
@@ -525,6 +528,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="CloseButton.png">{35, 35}</string>
 			<string key="ThumbDown~iphone.png">{16, 16}</string>
 			<string key="ThumbUp~iphone.png">{16, 16}</string>
 			<string key="ThumbsBG~iphone.png">{77, 38}</string>

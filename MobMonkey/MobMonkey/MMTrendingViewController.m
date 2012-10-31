@@ -45,11 +45,12 @@
         //Add custom back button to the nav bar
         if (!_bookmarkTab) {
             UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
-            [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
             [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
             
             UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
             self.navigationItem.leftBarButtonItem = backButton;
+
         }
         
         sectionContent = [[NSMutableArray alloc]init];
@@ -279,11 +280,6 @@
 - (void)shareButtonTapped:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", nil];
     [actionSheet showFromTabBar:self.tabBarController.tabBar];
-}
-
-#pragma mark - Nav Bar Action Methods
-- (void)backButtonTapped:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
