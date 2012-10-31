@@ -29,11 +29,13 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    UIBarButtonItem *flipViewButton = [[UIBarButtonItem alloc] initWithTitle:@"Map"
-                                                                       style:UIBarButtonItemStyleBordered
-                                                                      target:self
-                                                                      action:@selector(flipView:)];
+    
+    UIButton *customButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 33, 30)];
+    [customButton addTarget:self action:@selector(flipView:) forControlEvents:UIControlEventTouchUpInside];
+    [customButton setImage:[UIImage imageNamed:@"GlobeBtn"] forState:UIControlStateNormal];
+    UIBarButtonItem* flipViewButton = [[UIBarButtonItem alloc]initWithCustomView:customButton];
     self.navigationItem.rightBarButtonItem = flipViewButton;
+    
     self.locations = [NSMutableArray array];
     self.mapView.showsUserLocation = YES;
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:226.0/255.0
