@@ -42,8 +42,10 @@
 @property (nonatomic, weak) IBOutlet UIView *bookmarkView;
 
 @property (nonatomic, weak) IBOutlet UILabel *locationNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *streamingCountLabel;
 @property (nonatomic, weak) IBOutlet UILabel *videoCountLabel;
 @property (nonatomic, weak) IBOutlet UILabel *photoCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *monkeyCountLabel;
 @property (nonatomic, weak) IBOutlet UILabel *phoneNumberLabel;
 @property (nonatomic, weak) IBOutlet UILabel *addressLabel;
 @property (nonatomic, weak) IBOutlet UILabel *notificationSettingLabel;

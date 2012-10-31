@@ -68,7 +68,6 @@
     [_notificationSettingLabel setHidden:YES];
     
     //Get Counts of photos and videos for this location
-    [self fetchMediaCounts];
     [_locationLatestImageView setCaching:YES];
     
     //Set location detail items to display
@@ -87,6 +86,8 @@
 - (void)viewDidUnload
 {
     [self setTableView:nil];
+    [self setStreamingCountLabel:nil];
+    [self setMonkeyCountLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -212,10 +213,10 @@
 - (IBAction)mediaButtonTapped:(id)sender
 {
     MMLocationMediaViewController *lmvc = [[MMLocationMediaViewController alloc] initWithNibName:@"MMLocationMediaViewController" bundle:nil];
-    lmvc.contentList = mediaArray;
+    lmvc.location = self.contentList;
     lmvc.title = self.title;
     lmvc.mediaType = [sender tag];
-    UINavigationController *locationMediaNavC = [[UINavigationController alloc]initWithRootViewController:lmvc];
+    UINavigationController *locationMediaNavC = [[UINavigationController alloc] initWithRootViewController:lmvc];
     [self presentViewController:locationMediaNavC animated:YES completion:NULL];
 }
 - (IBAction)videoMediaButtonTapped:(id)sender {
@@ -335,15 +336,10 @@
     _locationNameLabel.text = self.title;
     _phoneNumberLabel.text = [_contentList valueForKey:@"phoneNumber"];
     _addressLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", [_contentList valueForKey:@"streetAddress"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];
-}
-
-- (void)fetchMediaCounts {
-    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-    [params setObject:[_contentList valueForKey:@"providerId"] forKey:@"providerId"];
-    [params setObject:[_contentList valueForKey:@"locationId"] forKey:@"locationId"];
-    
-    [MMAPI sharedAPI].delegate = self;
-    [[MMAPI sharedAPI]fetchMediaCountsForLocation:params];
+    self.streamingCountLabel.text = [[self.contentList valueForKey:@"livestreaming"] description];
+    self.videoCountLabel.text = [[self.contentList valueForKey:@"videos"] description];
+    self.photoCountLabel.text = [[self.contentList valueForKey:@"images"] description];
+    self.monkeyCountLabel.text = [[self.contentList valueForKey:@"monkeys"] description];
 }
 
 #pragma mark - MMAPI Delegate Methods

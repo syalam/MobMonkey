@@ -406,7 +406,7 @@
 									<object class="IBUILabel" id="953375229">
 										<reference key="NSNextResponder" ref="821810327"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{292, 288}, {12, 12}}</string>
+										<string key="NSFrame">{{277, 288}, {25, 12}}</string>
 										<reference key="NSSuperview" ref="821810327"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="905604328"/>
@@ -422,7 +422,7 @@
 										<reference key="IBUIShadowColor" ref="876798432"/>
 										<string key="IBUIShadowOffset">{0, 1}</string>
 										<int key="IBUIBaselineAdjustment">0</int>
-										<int key="IBUITextAlignment">1</int>
+										<int key="IBUITextAlignment">2</int>
 										<object class="IBUIFontDescription" key="IBUIFontDescription" id="1034021395">
 											<int key="type">2</int>
 											<double key="pointSize">16</double>
@@ -437,7 +437,7 @@
 									<object class="IBUILabel" id="151036183">
 										<reference key="NSNextResponder" ref="821810327"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{189, 288}, {12, 12}}</string>
+										<string key="NSFrame">{{176, 288}, {25, 12}}</string>
 										<reference key="NSSuperview" ref="821810327"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="223722627"/>
@@ -453,7 +453,7 @@
 										<reference key="IBUIShadowColor" ref="876798432"/>
 										<string key="IBUIShadowOffset">{0, 1}</string>
 										<int key="IBUIBaselineAdjustment">0</int>
-										<int key="IBUITextAlignment">1</int>
+										<int key="IBUITextAlignment">2</int>
 										<reference key="IBUIFontDescription" ref="1034021395"/>
 										<reference key="IBUIFont" ref="951674647"/>
 										<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
@@ -461,7 +461,7 @@
 									<object class="IBUILabel" id="358939092">
 										<reference key="NSNextResponder" ref="821810327"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{90, 288}, {12, 12}}</string>
+										<string key="NSFrame">{{75, 288}, {25, 12}}</string>
 										<reference key="NSSuperview" ref="821810327"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="500856463"/>
@@ -477,7 +477,7 @@
 										<reference key="IBUIShadowColor" ref="876798432"/>
 										<string key="IBUIShadowOffset">{0, 1}</string>
 										<int key="IBUIBaselineAdjustment">0</int>
-										<int key="IBUITextAlignment">1</int>
+										<int key="IBUITextAlignment">2</int>
 										<reference key="IBUIFontDescription" ref="1034021395"/>
 										<reference key="IBUIFont" ref="951674647"/>
 										<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
@@ -617,19 +617,35 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">videoCountLabel</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="358939092"/>
-					</object>
-					<int key="connectionID">157</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">tableView</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="529737559"/>
 					</object>
 					<int key="connectionID">158</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">streamingCountLabel</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="358939092"/>
+					</object>
+					<int key="connectionID">164</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">videoCountLabel</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="151036183"/>
+					</object>
+					<int key="connectionID">165</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">monkeyCountLabel</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="283792089"/>
+					</object>
+					<int key="connectionID">166</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
@@ -764,11 +780,11 @@
 							<reference ref="500856463"/>
 							<reference ref="948030739"/>
 							<reference ref="223722627"/>
-							<reference ref="953375229"/>
 							<reference ref="151036183"/>
-							<reference ref="358939092"/>
 							<reference ref="283792089"/>
 							<reference ref="905604328"/>
+							<reference ref="953375229"/>
+							<reference ref="358939092"/>
 						</array>
 						<reference key="parent" ref="1061276062"/>
 					</object>
@@ -920,7 +936,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">163</int>
+			<int key="maxID">166</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1006,6 +1022,7 @@
 						<string key="photoCountLabel">UILabel</string>
 						<string key="photosButton">UIButton</string>
 						<string key="scrollView">UIScrollView</string>
+						<string key="streamingCountLabel">UILabel</string>
 						<string key="tableView">UITableView</string>
 						<string key="videoCountLabel">UILabel</string>
 						<string key="videosButton">UIButton</string>
@@ -1086,6 +1103,10 @@
 						<object class="IBToOneOutletInfo" key="scrollView">
 							<string key="name">scrollView</string>
 							<string key="candidateClassName">UIScrollView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="streamingCountLabel">
+							<string key="name">streamingCountLabel</string>
+							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="tableView">
 							<string key="name">tableView</string>

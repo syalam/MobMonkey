@@ -7,11 +7,15 @@
 //
 
 #import "MMLocationMediaViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
 #import "MMClientSDK.h"
 
 @interface MMLocationMediaViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
+@property (strong, nonatomic) NSArray __block *mediaArray;
+
+- (void)mediaTypeSelected:(id)sender;
 
 @end
 
@@ -36,15 +40,29 @@
     self.navigationItem.titleView = self.segmentedControl;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
     [self.segmentedControl setSelectedSegmentIndex:self.mediaType];
+    [self mediaTypeSelected:self.segmentedControl];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)mediaTypeSelected:(id)sender
+{
+    if ([sender selectedSegmentIndex] == MMLiveCameraMediaType) {
+        [MMAPI getLivestreamingForLocationID:[self.location valueForKey:@"locationId"] providerID:[self.location valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            self.mediaArray = responseObject;
+            [self.tableView reloadData];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Could not add Bookmark!");
+        }];
+    }
 }
 
 #pragma mark - Table view data source
@@ -56,18 +74,18 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _contentList.count;
+    return self.mediaArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    MMLocationMediaCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
-        cell = [[MMLocationMediaCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    [cell.locationImageView reloadWithUrl:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaURL"]];
+    cell.textLabel.text = [[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"mediaURL"];
     
     // Configure the cell...
     
@@ -80,16 +98,11 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    MMLocationMediaCell *cell = (MMLocationMediaCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-    UIImage *imageToDisplay = cell.locationImageView.image;
-    
-    [[MMClientSDK sharedSDK]inboxFullScreenImageScreen:self imageToDisplay:imageToDisplay locationName:self.title];
+    if ([self.segmentedControl selectedSegmentIndex] == MMLiveCameraMediaType) {
+        MPMoviePlayerViewController *vc = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:[[[tableView cellForRowAtIndexPath:indexPath] textLabel] text]]];
+        [self.navigationController presentMoviePlayerViewControllerAnimated:vc];
+    }
 }
-
-- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 130;
-}
-
 
 - (void)viewDidUnload {
     [self setTableView:nil];

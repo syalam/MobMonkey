@@ -105,7 +105,7 @@
 
 - (void)locationMediaScreen:(UIViewController*)presentingViewController locationMediaContent:(NSArray*)locationMediaContent locationName:(NSString*)locationName {
     MMLocationMediaViewController *lmvc = [[MMLocationMediaViewController alloc]initWithNibName:@"MMLocationMediaViewController" bundle:nil];
-    lmvc.contentList = locationMediaContent;
+    //lmvc.contentList = locationMediaContent;
     lmvc.title = locationName;
     UINavigationController *locationMediaNavC = [[UINavigationController alloc]initWithRootViewController:lmvc];
     [presentingViewController.navigationController presentViewController:locationMediaNavC animated:YES completion:NULL];

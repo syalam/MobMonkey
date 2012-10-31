@@ -206,6 +206,17 @@ Fetches media counts for a location
  */
 - (void)fetchMediaCountsForLocation:(NSDictionary*)params;
 
+///---------------------------------------------
+/// @name Fetches livestreaming URLs for a location
+///---------------------------------------------
+/**
+Fetches livestreaming URLs for a location
+ */
++ (void)getLivestreamingForLocationID:(NSString *)locationID
+                           providerID:(NSString *)providerID
+                              success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 
 ///---------------------------------------------
 /// @name Fetches Bookmarks
