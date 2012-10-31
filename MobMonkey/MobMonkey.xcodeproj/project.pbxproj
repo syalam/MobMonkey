@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A6784AD1640C49900A45AC5 /* CloseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A6784AB1640C49900A45AC5 /* CloseButton.png */; };
+		1A6784AE1640C49900A45AC5 /* CloseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A6784AC1640C49900A45AC5 /* CloseButton@2x.png */; };
 		1AC1D4441640545500C8162F /* greenNavBarButtonBlank.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4401640545100C8162F /* greenNavBarButtonBlank.png */; };
 		1AC1D4451640545500C8162F /* greenNavBarButtonBlank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4411640545200C8162F /* greenNavBarButtonBlank@2x.png */; };
 		1AC1D4461640545500C8162F /* navBarButtonBlank.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4421640545300C8162F /* navBarButtonBlank.png */; };
@@ -459,6 +461,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A6784AB1640C49900A45AC5 /* CloseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseButton.png; sourceTree = "<group>"; };
+		1A6784AC1640C49900A45AC5 /* CloseButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CloseButton@2x.png"; sourceTree = "<group>"; };
 		1AC1D4401640545100C8162F /* greenNavBarButtonBlank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenNavBarButtonBlank.png; sourceTree = "<group>"; };
 		1AC1D4411640545200C8162F /* greenNavBarButtonBlank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenNavBarButtonBlank@2x.png"; sourceTree = "<group>"; };
 		1AC1D4421640545300C8162F /* navBarButtonBlank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBarButtonBlank.png; sourceTree = "<group>"; };
@@ -1466,6 +1470,8 @@
 		F734A62D15F146630090E85A /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				1A6784AB1640C49900A45AC5 /* CloseButton.png */,
+				1A6784AC1640C49900A45AC5 /* CloseButton@2x.png */,
 				37E52338163F3E97003AC7E5 /* peopleIcon.png */,
 				37E52339163F3E97003AC7E5 /* peopleIcon@2x.png */,
 				F71991F916226771003C6A65 /* ThumbsBG@2x~iphone.png */,
@@ -2479,6 +2485,8 @@
 				1AC1D4451640545500C8162F /* greenNavBarButtonBlank@2x.png in Resources */,
 				1AC1D4461640545500C8162F /* navBarButtonBlank.png in Resources */,
 				1AC1D4471640545500C8162F /* navBarButtonBlank@2x.png in Resources */,
+				1A6784AD1640C49900A45AC5 /* CloseButton.png in Resources */,
+				1A6784AE1640C49900A45AC5 /* CloseButton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
