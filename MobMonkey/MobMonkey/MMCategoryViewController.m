@@ -85,6 +85,46 @@ static NSString *const SelectedInterestsKey = @"selectedInterests";
     
     if (indexPath.section == 0) {
         cell.textLabel.text = [favorite valueForKey:@"name"];
+        if ([cell.textLabel.text isEqualToString:@"Coffee Shops"]) {
+            cell.imageView.image = [UIImage imageNamed:@"coffeeShopsIcon"];
+        }
+        else if ([cell.textLabel.text isEqualToString:@"Shopping"]) {
+            cell.imageView.image = [UIImage imageNamed:@"supermarketsIcon"];
+        }
+        else if ([cell.textLabel.text isEqualToString:@"Travel & Tourism"]) {
+            cell.imageView.image = [UIImage imageNamed:@"locationsOfInterestIcon"];
+        }
+        else if ([cell.textLabel.text isEqualToString:@"Community & Government"] || [cell.textLabel.text isEqualToString:@"Schools"]) {
+            cell.imageView.image = [UIImage imageNamed:@"schoolsIcon"];
+        }
+        else if ([cell.textLabel.text isEqualToString:@"Lodging"]) {
+            cell.imageView.image = [UIImage imageNamed:@"hotelsIcon"];
+        }
+        else if (!([cell.textLabel.text rangeOfString:@"Arts, Entertainment"].location == NSNotFound)) {
+            cell.imageView.image = [UIImage imageNamed:@"cinemasIcon"];
+        }
+        else if ([cell.textLabel.text isEqualToString:@"Food & Beverage"] || [cell.textLabel.text isEqualToString:@"Restaurants"]) {
+            cell.imageView.image = [UIImage imageNamed:@"restaurantsIcon"];
+        }
+        else if ([cell.textLabel.text isEqualToString:@"Health & Medicine"]) {
+            cell.imageView.image = [UIImage imageNamed:@"healthClubsIcon"];
+        }
+        else if ([cell.textLabel.text isEqualToString:@"Sports & Recreation"]) {
+            cell.imageView.image = [UIImage imageNamed:@"stadiumsIcon"];
+        }
+        else if ([cell.textLabel.text isEqualToString:@"Outdoor Recreation"]) {
+            cell.imageView.image = [UIImage imageNamed:@"dogParksIcon"];
+        }
+        else if ([cell.textLabel.text isEqualToString:@"Education"]) {
+            cell.imageView.image = [UIImage imageNamed:@"conferencesIcon"];
+        }
+        else if ([cell.textLabel.text isEqualToString:@"Art Dealers & Galleries"]) {
+            cell.imageView.image = [UIImage imageNamed:@"nightClubsIcon"];
+        }
+        else if ([cell.textLabel.text isEqualToString:@"Pools & Spas"]) {
+            cell.imageView.image = [UIImage imageNamed:@"beachesIcon"];
+        }
+
     }
     if ([selectedItemsDictionary valueForKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
