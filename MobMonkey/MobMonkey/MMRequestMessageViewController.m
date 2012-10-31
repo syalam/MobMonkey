@@ -42,6 +42,13 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.textFieldBackground.image = [self.textFieldBackground.image resizableImageWithCapInsets:UIEdgeInsetsMake(15, 156, 15, 156)];
     self.savedMessages = [@[@"Do they serve Coke® or Pepsi® here?", @"I want to see a picture of the wings."] mutableCopy];
+    
+    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+    [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    self.navigationItem.leftBarButtonItem = backButton;
 }
 
 - (void)viewWillAppear:(BOOL)animated

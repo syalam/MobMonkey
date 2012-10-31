@@ -43,7 +43,7 @@ enum RequestDurationLengths {
     [super viewDidLoad];
 
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
-    [backNavbutton addTarget:self action:@selector(dismissRequestViewController) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton addTarget:self.navigationController action:@selector(dismissModalViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
     [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
     
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
@@ -90,11 +90,6 @@ enum RequestDurationLengths {
         messageVC.requestInfo = self.requestInfo;
         return;
     }
-}
-
-- (void)dismissRequestViewController
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)sendRequest:(id)sender
