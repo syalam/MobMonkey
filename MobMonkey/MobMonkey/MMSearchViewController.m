@@ -267,7 +267,7 @@
         cell.imageView.image = [UIImage imageNamed:@"conferencesIcon"];
     }
     else if ([cell.textLabel.text isEqualToString:@"Art Dealers & Galleries"]) {
-        cell.imageView.image = [UIImage imageNamed:@"nightClubsIcon"];
+        cell.imageView.image = [UIImage imageNamed:@"nightclubsIcon"];
     }
     else if ([cell.textLabel.text isEqualToString:@"Pools & Spas"]) {
         cell.imageView.image = [UIImage imageNamed:@"beachesIcon"];
