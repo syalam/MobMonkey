@@ -52,8 +52,10 @@
     [customButton.titleLabel setShadowColor:[UIColor darkGrayColor]];
     [customButton.titleLabel setShadowOffset:CGSizeMake(0, -1)];
     [customButton addTarget:self action:@selector(showFilterView:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *filterButton = [[UIBarButtonItem alloc] initWithCustomView:customButton];
+    UIBarButtonItem* filterButton = [[UIBarButtonItem alloc] initWithCustomView:customButton];
     self.navigationItem.leftBarButtonItem = filterButton;
+    
+    
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:226.0/255.0
                                                                         green:112.0/225.0
                                                                          blue:36.0/255.0

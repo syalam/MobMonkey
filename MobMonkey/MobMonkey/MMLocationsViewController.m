@@ -36,6 +36,15 @@
     UIBarButtonItem* flipViewButton = [[UIBarButtonItem alloc]initWithCustomView:customButton];
     self.navigationItem.rightBarButtonItem = flipViewButton;
     
+    if ([self.navigationController viewControllers].count > 1) {
+        UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+        [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+        [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+        
+        UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+        self.navigationItem.leftBarButtonItem = backButton;
+    }
+    
     self.locations = [NSMutableArray array];
     self.mapView.showsUserLocation = YES;
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:226.0/255.0
