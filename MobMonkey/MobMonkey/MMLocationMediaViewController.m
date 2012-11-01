@@ -9,11 +9,13 @@
 #import "MMLocationMediaViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "MMClientSDK.h"
+#import "Reachability.h"
 
 @interface MMLocationMediaViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) NSArray __block *mediaArray;
+@property (strong, nonatomic) MPMoviePlayerViewController *moviePlayerViewController;
 
 - (void)mediaTypeSelected:(id)sender;
 
@@ -97,10 +99,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     if ([self.segmentedControl selectedSegmentIndex] == MMLiveCameraMediaType) {
-        MPMoviePlayerViewController *vc = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:[[[tableView cellForRowAtIndexPath:indexPath] textLabel] text]]];
-        [self.navigationController presentMoviePlayerViewControllerAnimated:vc];
+        NSString *hostName = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
+        Reachability *reachability = [Reachability reachabilityWithHostname:hostName];
+        if ([reachability isReachable]) {
+            self.moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:hostName]];
+            [self.navigationController presentMoviePlayerViewControllerAnimated:self.moviePlayerViewController];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error" message:@"The web cam cannot be reached due to a network error. Please try again later." delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+            [alert show];
+        }
     }
 }
 
