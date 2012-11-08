@@ -13,6 +13,7 @@
 		1AC1D4451640545500C8162F /* greenNavBarButtonBlank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4411640545200C8162F /* greenNavBarButtonBlank@2x.png */; };
 		1AC1D4461640545500C8162F /* navBarButtonBlank.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4421640545300C8162F /* navBarButtonBlank.png */; };
 		1AC1D4471640545500C8162F /* navBarButtonBlank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4431640545400C8162F /* navBarButtonBlank@2x.png */; };
+		370D65071648E7B700D72154 /* NSString+URLParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D65061648E7B700D72154 /* NSString+URLParams.m */; };
 		371273E6162BB356000557D1 /* grayBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 371273DE162BB356000557D1 /* grayBtn.png */; };
 		371273E7162BB356000557D1 /* grayBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 371273DF162BB356000557D1 /* grayBtn@2x.png */; };
 		371273E8162BB356000557D1 /* location-liveVideoIcn.png in Resources */ = {isa = PBXBuildFile; fileRef = 371273E0162BB356000557D1 /* location-liveVideoIcn.png */; };
@@ -477,6 +478,8 @@
 		1AC1D4411640545200C8162F /* greenNavBarButtonBlank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenNavBarButtonBlank@2x.png"; sourceTree = "<group>"; };
 		1AC1D4421640545300C8162F /* navBarButtonBlank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBarButtonBlank.png; sourceTree = "<group>"; };
 		1AC1D4431640545400C8162F /* navBarButtonBlank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBarButtonBlank@2x.png"; sourceTree = "<group>"; };
+		370D65051648E7B700D72154 /* NSString+URLParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLParams.h"; sourceTree = "<group>"; };
+		370D65061648E7B700D72154 /* NSString+URLParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLParams.m"; sourceTree = "<group>"; };
 		371273DE162BB356000557D1 /* grayBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayBtn.png; sourceTree = "<group>"; };
 		371273DF162BB356000557D1 /* grayBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grayBtn@2x.png"; sourceTree = "<group>"; };
 		371273E0162BB356000557D1 /* location-liveVideoIcn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-liveVideoIcn.png"; sourceTree = "<group>"; };
@@ -1027,6 +1030,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		370D65041648E79100D72154 /* NSString URLParams */ = {
+			isa = PBXGroup;
+			children = (
+				370D65051648E7B700D72154 /* NSString+URLParams.h */,
+				370D65061648E7B700D72154 /* NSString+URLParams.m */,
+			);
+			name = "NSString URLParams";
+			sourceTree = "<group>";
+		};
 		371273EF162BC61B000557D1 /* tabs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1402,6 +1414,7 @@
 		F734A59A15F12A570090E85A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				370D65041648E79100D72154 /* NSString URLParams */,
 				37D6AB471644488A0070220D /* TestFlightSDK1 */,
 				F77D3E4D161A1EB7000A818F /* MMClientSDK */,
 				F734A59F15F12AAF0090E85A /* MMAPI */,
@@ -2640,6 +2653,7 @@
 				3794488E1631C166001D4D21 /* MMRequestMessageViewController.m in Sources */,
 				37944896163209BD001D4D21 /* MMRequestScheduleViewController.m in Sources */,
 				37E524A916430341003AC7E5 /* Reachability.m in Sources */,
+				370D65071648E7B700D72154 /* NSString+URLParams.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

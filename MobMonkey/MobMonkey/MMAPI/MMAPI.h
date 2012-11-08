@@ -191,8 +191,8 @@ typedef enum OAuthProvider {
  search for a location
  */
 + (void)searchForLocation:(NSDictionary*)params
-                  success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                  failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+                  success:(void (^)(id responseObject))success
+                  failure:(void (^)( NSError *error))failure;
 
 
 @property (nonatomic, assign)id<MMAPIDelegate> delegate;

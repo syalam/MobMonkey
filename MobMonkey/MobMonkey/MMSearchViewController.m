@@ -21,7 +21,7 @@
 @property (strong, nonatomic) MMLocationsViewController *searchResultsViewController;
 
 - (void)showFilterView:(id)sender;
-- (void)showSearchResultsForCategory:(NSString *)category;
+- (void)showSearchResultsForCategory:(NSDictionary *)category;
 
 @end
 
@@ -117,8 +117,13 @@
     [self.navigationController presentViewController:navc animated:YES completion:NULL];
 }
 
-- (void)showSearchResultsForCategory:(NSString *)category
+- (void)showSearchResultsForCategory:(NSDictionary *)category
 {
+    double latitude, longitude;
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSData* jsonData;
+    id jsonObject;
+    
     [self.searchBar resignFirstResponder];
     if (!self.searchResultsViewController) {
         self.searchResultsViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
@@ -127,15 +132,17 @@
     [self.searchResultsViewController.tableView reloadData];
     self.searchResultsViewController.isSearching = YES;
     if (category) {
-        self.searchResultsViewController.title = category;
+        self.searchResultsViewController.title = category[@"en"];
+        [params setValue:category[@"categoryId"] forKey:@"categoryIds"];
     } else {
         self.searchResultsViewController.title = [NSString stringWithFormat:@"“%@”", self.searchBar.text];
+        [params setValue:@"1" forKey:@"categoryIds"];
     }
     
-    double latitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue];
-    double longitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue];
+    latitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue];
+    longitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue];
     NSLog(@"%f, %f", latitude, longitude);
-    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    
     [params setValue:self.searchBar.text forKey:@"name"];
     [params setValue:[NSNumber numberWithDouble:latitude]forKey:@"latitude"];
     [params setValue:[NSNumber numberWithDouble:longitude]forKey:@"longitude"];
@@ -145,13 +152,11 @@
     else {
     [params setValue:[NSNumber numberWithInt:200] forKey:@"radiusInYards"];
     }
-    
-    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:params
-                                                       options:NSJSONWritingPrettyPrinted error:nil];
-    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+    jsonData = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:nil];
+    jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
     
     NSLog(@"%@", jsonObject);
-    [MMAPI searchForLocation:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MMAPI searchForLocation:params success:^(id responseObject) {
         self.searchResultsViewController.isSearching = NO;
         [SVProgressHUD dismiss];
         
@@ -161,7 +166,7 @@
         
         // End of hack
         self.searchResultsViewController.locations = responseObject;
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         [SVProgressHUD dismissWithError:[error description]];
     }];
 
@@ -179,13 +184,13 @@
         numberOfSections += self.filteredCategories.count > 0;
         return numberOfSections;
     }
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSInteger numberOfRows;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        NSInteger numberOfRows;
         switch (section) {
             case 0:
                 numberOfRows = 1;
@@ -199,7 +204,18 @@
         }
         return numberOfRows;
     }
-    return self.categories.count;
+    switch (section) {
+        case 0:
+            numberOfRows = 1;
+            break;
+        case 1:
+            numberOfRows = self.categories.count;
+            break;
+        default:
+            numberOfRows = 0;
+            break;
+    }
+    return numberOfRows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -225,15 +241,23 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     NSDictionary *category;
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        category = self.filteredCategories[indexPath.row];
-    } else {
-        category = self.categories[indexPath.row];
+    switch (indexPath.section) {
+        case 0:
+            cell.textLabel.text = @"Show All Nearby";
+            break;
+        case 1:
+            if (tableView == self.searchDisplayController.searchResultsTableView) {
+                category = self.filteredCategories[indexPath.row];
+            } else {
+                category = self.categories[indexPath.row];
+            }
+            
+            cell.imageView.image = [UIImage imageNamed:@"picture"];
+            cell.textLabel.text = [category[@"en"] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+            break;
+        default:
+            break;
     }
-    
-    cell.imageView.image = [UIImage imageNamed:@"picture"];
-    cell.textLabel.text = [category valueForKey:@"name"];
-    
     return cell;
 }
 
@@ -241,11 +265,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView && indexPath.section == 0) {
-        [self showSearchResultsForCategory:nil];
-        return;
+    NSDictionary *category = nil;
+    if (indexPath.section == 1) {
+        category = self.categories[indexPath.row];
     }
-    [self showSearchResultsForCategory:[[[tableView cellForRowAtIndexPath:indexPath] textLabel] text]];
+    [self showSearchResultsForCategory:category];
 }
 
 #pragma mark - Search bar delegate

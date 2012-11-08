@@ -55,11 +55,14 @@
 
 - (void)setLocation:(NSDictionary *)location
 {
+    for (UIView *view in _mediaIconsView.subviews) {
+        [view removeFromSuperview];
+    }
     _location = location;
     _nameLabel.text = [_location valueForKey:@"name"];
     [_nameLabel sizeToFit];
     _addressLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@",
-                          [_location valueForKey:@"streetAddress"],
+                          [_location valueForKey:@"address"],
                           [_location valueForKey:@"locality"],
                           [_location valueForKey:@"region"],
                           [_location valueForKey:@"postcode"]];
