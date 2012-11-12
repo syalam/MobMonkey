@@ -75,6 +75,10 @@ typedef enum OAuthProvider {
               success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+
++ (void)getUserOnSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 ///---------------------------------------------
 /// @name Signing in an existing user
 ///---------------------------------------------

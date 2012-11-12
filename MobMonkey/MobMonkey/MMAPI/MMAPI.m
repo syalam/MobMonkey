@@ -57,6 +57,16 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
                    }];
 }
 
++ (void)getUserOnSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
+    [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+    [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
+    [httpClient  getPath:@"signup/user" parameters:nil success:success failure:failure];
+}
+
 + (void)signInWithEmail:(NSString *)email
                password:(NSString *)password
                provider:(OAuthProvider)provider

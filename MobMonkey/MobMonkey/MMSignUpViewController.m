@@ -11,6 +11,7 @@
 #import "MMSetTitleImage.h"
 #import "SVProgressHUD.h"
 #import "AFHTTPRequestOperation.h"
+#import "NSDate+JavaEpochTime.h"
 
 @interface MMSignUpViewController () {
     UIActionSheet *birthdayActionSheet;
@@ -83,6 +84,20 @@
         [_signUpButton setHidden:YES];
         [_facebookButton setHidden:YES];
         [_twitterButton setHidden:YES];
+        
+        [MMAPI getUserOnSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"USER: %@", [responseObject description]);
+            self.firstNameTextField.text = [responseObject valueForKey:@"firstName"];
+            self.lastNameTextField.text = [responseObject valueForKey:@"lastName"];
+            self.emailTextField.text = [responseObject valueForKey:@"eMailAddress"];
+            self.genderTextField.text = [[responseObject valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
+            NSString *birthdate = [NSDateFormatter localizedStringFromDate:[NSDate dateSinceJavaEpochTime:[responseObject valueForKey:@"birthday"]]
+                                                                 dateStyle:NSDateFormatterLongStyle
+                                                                 timeStyle:NSDateFormatterNoStyle];
+            self.birthdayTextField.text = birthdate;
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Could not retrieve user info");
+        }];
     }
     
     //Add custom back button to the nav bar
