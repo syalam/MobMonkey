@@ -45,38 +45,38 @@
 
     CGRect textFieldRect = CGRectMake(10, 10, 250, 30);
     
-    _firstNameTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    _firstNameTextField = [[UITextField alloc] initWithFrame:textFieldRect];
     _firstNameTextField.placeholder = @"First Name";
-    _firstNameTextField.autocorrectionType= UITextAutocorrectionTypeNo;
+    _firstNameTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     
     _lastNameTextField = [[UITextField alloc]initWithFrame:textFieldRect];
     _lastNameTextField.placeholder = @"Last Name";
     _lastNameTextField.autocorrectionType= UITextAutocorrectionTypeNo;
     
-    _emailTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    _emailTextField = [[UITextField alloc] initWithFrame:textFieldRect];
     _emailTextField.placeholder = @"Email Address";
     _emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _emailTextField.autocorrectionType= UITextAutocorrectionTypeNo;
     _emailTextField.keyboardType = UIKeyboardTypeEmailAddress;
     
-    _passwordTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    _passwordTextField = [[UITextField alloc] initWithFrame:textFieldRect];
     _passwordTextField.placeholder = @"Password";
     _passwordTextField.secureTextEntry = YES;
     
-    _confirmPasswordTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    _confirmPasswordTextField = [[UITextField alloc] initWithFrame:textFieldRect];
     _confirmPasswordTextField.placeholder = @"Confirm Password";
     _confirmPasswordTextField.secureTextEntry = YES;
     
-    _birthdayTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    _birthdayTextField = [[UITextField alloc] initWithFrame:textFieldRect];
     _birthdayTextField.placeholder = @"Birthday";
     _birthdayTextField.enabled = NO;
     
-    _genderTextField = [[UITextField alloc]initWithFrame:textFieldRect];
+    _genderTextField = [[UITextField alloc] initWithFrame:textFieldRect];
     _genderTextField.placeholder = @"Gender";
     _genderTextField.enabled = NO;
     
     
-     NSMutableArray *fieldsToDisplay = [[NSMutableArray alloc]initWithObjects:_firstNameTextField, _lastNameTextField, _emailTextField, _passwordTextField, _confirmPasswordTextField, _birthdayTextField, _genderTextField, nil];
+     NSMutableArray *fieldsToDisplay = [[NSMutableArray alloc] initWithObjects:_firstNameTextField, _lastNameTextField, _emailTextField, _passwordTextField, _confirmPasswordTextField, _birthdayTextField, _genderTextField, nil];
     [self setContentList:fieldsToDisplay];
     
     if ([self.title isEqualToString:@"My Info"]) {
@@ -86,11 +86,11 @@
     }
     
     //Add custom back button to the nav bar
-    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+    UIButton *backNavbutton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 39, 30)];
     [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
     [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
     
-    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc] initWithCustomView:backNavbutton];
     self.navigationItem.leftBarButtonItem = backButton;
 
 }
