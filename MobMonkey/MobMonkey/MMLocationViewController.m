@@ -17,6 +17,9 @@
 #import "MMRequestViewController.h"
 #import "MMLocationMediaViewController.h"
 
+#import <MapKit/MapKit.h>
+#import "MMLocationAnnotation.h"
+
 @interface MMLocationViewController ()
 
 @end
@@ -144,7 +147,7 @@
             cell.textLabel.numberOfLines = 2;
             cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
             cell.textLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@",
-                                   [_contentList valueForKey:@"streetAddress"],
+                                   [_contentList valueForKey:@"address"],
                                    [_contentList valueForKey:@"locality"],
                                    [_contentList valueForKey:@"region"],
                                    [_contentList valueForKey:@"postcode"]];
@@ -178,9 +181,26 @@
         }
             break;
         case 1: {
-            MMMapViewController *mmmVc = [[MMMapViewController alloc] initWithNibName:@"MMMapViewController" bundle:nil];
-            mmmVc.address = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
-            [self.navigationController pushViewController:mmmVc animated:YES];
+//            MMMapViewController *mmmVc = [[MMMapViewController alloc] initWithNibName:@"MMMapViewController" bundle:nil];
+//            mmmVc.address = [NSString stringWithFormat:@"%@ %@, %@ %@", [_contentList valueForKey:@"address"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];
+//            [self.navigationController pushViewController:mmmVc animated:YES];
+            UIViewController *mapViewController = [[UIViewController alloc] init];
+            mapViewController.title = [_contentList valueForKey:@"name"];
+            UIView *view = mapViewController.view;
+            MKMapView *mapView = [[MKMapView alloc] initWithFrame:view.frame];
+            [mapView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
+            [view addSubview:mapView];
+            CLLocationCoordinate2D coordinate;
+            coordinate.latitude = [[_contentList valueForKey:@"latitude"] floatValue];
+            coordinate.longitude = [[_contentList valueForKey:@"longitude"] floatValue];
+            MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc] initWithName:[_contentList valueForKey:@"name"] address:[_contentList valueForKey:@"address"] coordinate:coordinate arrayIndex:0];
+            [mapView addAnnotation:(id)annotation];
+            MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+            MKMapRect pointRect = MKMapRectMake(annotationPoint.x - 2500, annotationPoint.y - 2500, 5000, 5000);
+            
+            [mapView setVisibleMapRect:pointRect animated:YES];
+
+            [self.navigationController pushViewController:mapViewController animated:YES];
             break;
         }
         case 2: {
@@ -244,8 +264,19 @@
 }
 - (IBAction)addressButtonTapped:(id)sender {
     MMMapViewController *mmmVc = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
-    mmmVc.address = [NSString stringWithFormat:@"%@ %@, %@ %@", [_contentList valueForKey:@"streetAddress"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];
+    mmmVc.address = [NSString stringWithFormat:@"%@ %@, %@ %@", [_contentList valueForKey:@"address"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];
+    mmmVc.contentList = @[mmmVc.address];
     [self.navigationController pushViewController:mmmVc animated:YES];
+    UIViewController *mapViewController = [[UIViewController alloc] init];
+    UIView *view = mapViewController.view;
+    MKMapView *mapView = [[MKMapView alloc] initWithFrame:view.frame];
+    [mapView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
+    [view addSubview:mapView];
+    CLLocationCoordinate2D coordinate;
+    coordinate.latitude = [[_contentList valueForKey:@"latitude"] floatValue];
+    coordinate.longitude = [[_contentList valueForKey:@"longitude"] floatValue];
+    id annotation = [[MMLocationAnnotation alloc] initWithName:[_contentList valueForKey:@"name"] address:[_contentList valueForKey:@"address"] coordinate:coordinate arrayIndex:0];
+    [mapView addAnnotation:annotation];
 }
 
 - (IBAction)notificationSettingsButtonTapped:(id)sender {

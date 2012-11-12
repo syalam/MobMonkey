@@ -139,11 +139,14 @@
         [params setValue:@"1" forKey:@"categoryIds"];
     }
     
+    if ([self.searchBar.text isEqualToString:@""]) {
+        self.searchResultsViewController.title = @"All Nearby";
+    }
+    [params setValue:self.searchBar.text forKey:@"name"];
     latitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue];
     longitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue];
     NSLog(@"%f, %f", latitude, longitude);
     
-    [params setValue:self.searchBar.text forKey:@"name"];
     [params setValue:[NSNumber numberWithDouble:latitude]forKey:@"latitude"];
     [params setValue:[NSNumber numberWithDouble:longitude]forKey:@"longitude"];
     if ([self.filters valueForKey:@"radius"]) {
