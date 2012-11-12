@@ -58,8 +58,7 @@
 
 - (void)selectMediaType:(id)sender
 {
-    self.mediaArray = @[];
-    [self.tableView reloadData];
+    self.mediaType = [sender selectedSegmentIndex];
     NSArray *mediaTypes = @[@"livestreaming", @"video", @"image"];
     [MMAPI getMediaForLocationID:[self.location valueForKey:@"locationId"] providerID:[self.location valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type LIKE %@", mediaTypes[[sender selectedSegmentIndex]]];
@@ -102,17 +101,22 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if ([self.segmentedControl selectedSegmentIndex] == MMLiveCameraMediaType) {
+    
         NSString *hostName = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
-        Reachability *reachability = [Reachability reachabilityWithHostname:hostName];
-        if ([reachability isReachable]) {
+        //Reachability *reachability = [Reachability reachabilityWithHostname:hostName];
+        //if ([reachability isReachable]) {
+            if ([self.segmentedControl selectedSegmentIndex] != MMPhotoMediaType) {
             self.moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:hostName]];
             [self.navigationController presentMoviePlayerViewControllerAnimated:self.moviePlayerViewController];
-        } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error" message:@"The web cam cannot be reached due to a network error. Please try again later." delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
-            [alert show];
-        }
-    }
+            } else {
+                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:hostName]]];
+                [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:image locationName:self.title];
+            }
+//        } else {
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error" message:@"The media resource cannot be reached due to a network error. Please try again later." delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+//            [alert show];
+//        }
+
 }
 
 - (void)viewDidUnload {

@@ -293,7 +293,7 @@
 - (void)enlargeButtonTapped:(id)sender {
     //will only expand image if an image is available
     if (mediaArray.count > 0) {
-        [[MMClientSDK sharedSDK]inboxFullScreenImageScreen:self imageToDisplay:_locationLatestImageView.image locationName:self.title];
+        [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:_locationLatestImageView.image locationName:self.title];
     }
     else {
         [[MMClientSDK sharedSDK]inboxFullScreenImageScreen:self imageToDisplay:[UIImage imageNamed:@"monkey.jpg"] locationName:self.title];
