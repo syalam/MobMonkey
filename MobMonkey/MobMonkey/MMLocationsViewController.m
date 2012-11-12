@@ -139,7 +139,7 @@
         CLLocationCoordinate2D coordinate;
         coordinate.latitude = [[location valueForKey:@"latitude"] floatValue];
         coordinate.longitude = [[location valueForKey:@"longitude"] floatValue];
-        MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc] initWithName:[location valueForKey:@"name"] address:[location valueForKey:@"streetAddress"] coordinate:coordinate arrayIndex:[self.locations indexOfObject:location]];
+        MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc] initWithName:[location valueForKey:@"name"] address:[location valueForKey:@"address"] coordinate:coordinate arrayIndex:[self.locations indexOfObject:location]];
         [self.mapView addAnnotation:(id)annotation];
     }
     

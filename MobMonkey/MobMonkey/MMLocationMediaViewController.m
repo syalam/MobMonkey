@@ -9,13 +9,15 @@
 #import "MMLocationMediaViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "MMClientSDK.h"
+#import "Reachability.h"
 
 @interface MMLocationMediaViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) NSArray __block *mediaArray;
+@property (strong, nonatomic) MPMoviePlayerViewController *moviePlayerViewController;
 
-- (void)mediaTypeSelected:(id)sender;
+- (void)selectMediaType:(id)sender;
 
 @end
 
@@ -37,6 +39,7 @@
     self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Live Camera", @"Videos", @"Photos"]];
     [self.segmentedControl setTintColor:[UIColor colorWithRed:230.0/255.0 green:113.0/255.0 blue:34.0/255.0 alpha:1.0]];
     [self.segmentedControl setSegmentedControlStyle:UISegmentedControlStyleBar];
+    [self.segmentedControl addTarget:self action:@selector(selectMediaType:) forControlEvents:UIControlEventValueChanged];
     self.navigationItem.titleView = self.segmentedControl;
 }
 
@@ -44,7 +47,7 @@
 {
     [super viewDidAppear:animated];
     [self.segmentedControl setSelectedSegmentIndex:self.mediaType];
-    [self mediaTypeSelected:self.segmentedControl];
+    [self selectMediaType:self.segmentedControl];
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,16 +56,17 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)mediaTypeSelected:(id)sender
+- (void)selectMediaType:(id)sender
 {
-    if ([sender selectedSegmentIndex] == MMLiveCameraMediaType) {
-        [MMAPI getLivestreamingForLocationID:[self.location valueForKey:@"locationId"] providerID:[self.location valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            self.mediaArray = responseObject;
-            [self.tableView reloadData];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Could not add Bookmark!");
-        }];
-    }
+    self.mediaType = [sender selectedSegmentIndex];
+    NSArray *mediaTypes = @[@"livestreaming", @"video", @"image"];
+    [MMAPI getMediaForLocationID:[self.location valueForKey:@"locationId"] providerID:[self.location valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type LIKE %@", mediaTypes[[sender selectedSegmentIndex]]];
+        self.mediaArray = [[responseObject valueForKey:@"media"] filteredArrayUsingPredicate:predicate];
+        [self.tableView reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Could not add Bookmark!");
+    }];
 }
 
 #pragma mark - Table view data source
@@ -98,10 +102,21 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if ([self.segmentedControl selectedSegmentIndex] == MMLiveCameraMediaType) {
-        MPMoviePlayerViewController *vc = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:[[[tableView cellForRowAtIndexPath:indexPath] textLabel] text]]];
-        [self.navigationController presentMoviePlayerViewControllerAnimated:vc];
-    }
+        NSString *hostName = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
+        //Reachability *reachability = [Reachability reachabilityWithHostname:hostName];
+        //if ([reachability isReachable]) {
+            if ([self.segmentedControl selectedSegmentIndex] != MMPhotoMediaType) {
+            self.moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:hostName]];
+            [self.navigationController presentMoviePlayerViewControllerAnimated:self.moviePlayerViewController];
+            } else {
+                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:hostName]]];
+                [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:image locationName:self.title];
+            }
+//        } else {
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error" message:@"The media resource cannot be reached due to a network error. Please try again later." delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+//            [alert show];
+//        }
+
 }
 
 - (void)viewDidUnload {

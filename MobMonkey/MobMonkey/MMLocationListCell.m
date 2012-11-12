@@ -55,11 +55,14 @@
 
 - (void)setLocation:(NSDictionary *)location
 {
+    for (UIView *view in _mediaIconsView.subviews) {
+        [view removeFromSuperview];
+    }
     _location = location;
     _nameLabel.text = [_location valueForKey:@"name"];
     [_nameLabel sizeToFit];
     _addressLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@",
-                          [_location valueForKey:@"streetAddress"],
+                          [_location valueForKey:@"address"],
                           [_location valueForKey:@"locality"],
                           [_location valueForKey:@"region"],
                           [_location valueForKey:@"postcode"]];
@@ -68,10 +71,28 @@
     _distanceLabel.text = [NSString stringWithFormat:@"%.2f miles", distance];
     [_distanceLabel sizeToFit];
     
-    //Temporary
-    UIImage *icons = [UIImage imageNamed:@"icons"];
-    UIImageView *iconView = [[UIImageView alloc] initWithImage:icons];
-    [_mediaIconsView addSubview:iconView];
+    CGFloat xPosition = CGRectGetMaxX(_mediaIconsView.bounds) - 16;
+    UIImageView *imageView;
+    if ([[_location valueForKey:@"images"] compare:@0] == NSOrderedDescending) {
+        imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellPictureBtn"]];
+        imageView.frame = CGRectMake(xPosition, 0, 16.0, 16.0);
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        [_mediaIconsView addSubview:imageView];
+        xPosition -= 20.0;
+    }
+    if ([[_location valueForKey:@"videos"] compare:@0] == NSOrderedDescending) {
+        imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellVideoBtn"]];
+        imageView.frame = CGRectMake(xPosition, 0, 16.0, 16.0);
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        [_mediaIconsView addSubview:imageView];
+        xPosition -= 20.0;
+    }
+    if ([[_location valueForKey:@"livestreaming"] compare:@0] == NSOrderedDescending) {
+        imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellVideoCameraBtn"]];
+        imageView.frame = CGRectMake(xPosition, 1, 16.0, 14.0);
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        [_mediaIconsView addSubview:imageView];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

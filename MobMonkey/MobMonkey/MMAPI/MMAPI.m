@@ -9,6 +9,7 @@
 #import "MMAPI.h"
 #import "MMHTTPClient.h"
 #import "SVProgressHUD.h"
+#import "NSString+URLParams.h"
 
 
 static NSString * const kBMHTTPClientBaseURLString = @"http://api.mobmonkey.com/rest/";
@@ -54,6 +55,16 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
                           failure(operation, error);
                       }
                    }];
+}
+
++ (void)getUserOnSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
+    [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+    [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
+    [httpClient  getPath:@"signup/user" parameters:nil success:success failure:failure];
 }
 
 + (void)signInWithEmail:(NSString *)email
@@ -175,7 +186,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
     [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
     [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
-    [httpClient  getPath:@"category" parameters:nil success:success failure:failure];
+    [httpClient  getPath:@"category?categoryId=1" parameters:nil success:success failure:failure];
 }
 
 #pragma mark - Add Location
@@ -247,28 +258,46 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 
 #pragma mark - Search
 + (void)searchForLocation:(NSDictionary*)params
-                  success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                  failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
-    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
-    [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
-    [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
-    [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
-    [httpClient  postPath:@"search/location" parameters:params success:success failure:failure];
+                  success:(void (^)(id responseObject))success
+                  failure:(void (^)(NSError *error))failure {
+    NSString *urlString = [kBMHTTPClientBaseURLString stringByAppendingString:@"search/location"];
+    //urlString = [urlString stringByAppendingFormat:@"?%@", [NSString URLParameterizedStringFromDictionary:params]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:params options:0 error:nil]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"] forHTTPHeaderField:@"MobMonkey-partnerId"];
+    [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"] forHTTPHeaderField:@"MobMonkey-user"];
+    [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"] forHTTPHeaderField:@"MobMonkey-auth"];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if (error) {
+            failure(error);
+            return;
+        }
+        NSLog(@"Locations: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        success([NSJSONSerialization JSONObjectWithData:data options:0 error:nil]);
+    }];
+    
+//    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+//    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
+//    [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
+//    [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+//    [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
+//    [httpClient  getPath:@"search/location" parameters:params success:success failure:failure];
 }
 
 #pragma marl - Media
-+ (void)getLivestreamingForLocationID:(NSString *)locationID
-                           providerID:(NSString *)providerID
-                              success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
++ (void)getMediaForLocationID:(NSString *)locationID
+                   providerID:(NSString *)providerID
+                      success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
     [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
-    [httpClient postPath:@"search/media/livestreaming" parameters:@{ @"locationId" : locationID , @"providerId" : providerID } success:success failure:failure];
+    [httpClient getPath:@"media" parameters:@{ @"locationId" : locationID , @"providerId" : providerID } success:success failure:failure];
 }
 
 #pragma mark - Bookmarks

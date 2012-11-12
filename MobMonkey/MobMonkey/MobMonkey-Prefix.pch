@@ -16,4 +16,5 @@
     #import "MMClientSDK.h"
     #import "SVProgressHUD.h"
     #import "MMTableViewCell.h"
+    #import "TestFlight.h"
 #endif

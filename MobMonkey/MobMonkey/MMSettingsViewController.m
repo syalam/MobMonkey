@@ -116,7 +116,7 @@
 {
     switch (indexPath.row) {
         case 0: {
-            MMSignUpViewController *myInfoVc = [[MMSignUpViewController alloc]initWithNibName:@"MMSignUpViewController" bundle:nil];
+            MMSignUpViewController *myInfoVc = [[MMSignUpViewController alloc] initWithNibName:@"MMSignUpViewController" bundle:nil];
             myInfoVc.title = @"My Info";
             [self.navigationController pushViewController:myInfoVc animated:YES];
         }
@@ -128,7 +128,7 @@
         }
             break;
         case 2: {
-            MMCategoryViewController *categoryVC = [[MMCategoryViewController alloc]initWithNibName:@"MMCategoryViewController" bundle:nil];
+            MMCategoryViewController *categoryVC = [[MMCategoryViewController alloc] initWithNibName:@"MMCategoryViewController" bundle:nil];
             categoryVC.title = @"My Interests";
             [self.navigationController pushViewController:categoryVC animated:YES];
         }
