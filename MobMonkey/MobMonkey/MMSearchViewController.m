@@ -263,7 +263,6 @@
     }
     
     cell.imageView.image = [UIImage imageNamed:@"picture"];
-    cell.textLabel.text = [category valueForKey:@"name"];
     if ([cell.textLabel.text isEqualToString:@"Coffee Shops"]) {
         cell.imageView.image = [UIImage imageNamed:@"coffeeShopsIcon"];
     }
