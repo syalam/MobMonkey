@@ -84,36 +84,39 @@ static NSString *const SelectedInterestsKey = @"selectedInterests";
     cell.imageView.image = [UIImage imageNamed:@"picture"];
     
     if (indexPath.section == 0) {
-        cell.textLabel.text = [favorite valueForKey:@"name"];
+        cell.textLabel.text = [favorite[@"en"] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+        if ([cell.textLabel.text isEqualToString:@"Show All Nearby"]) {
+            cell.imageView.image = [UIImage imageNamed:@"myLocationsIcon"];
+        }
         if ([cell.textLabel.text isEqualToString:@"Coffee Shops"]) {
             cell.imageView.image = [UIImage imageNamed:@"coffeeShopsIcon"];
         }
-        else if ([cell.textLabel.text isEqualToString:@"Shopping"]) {
+        else if ([cell.textLabel.text isEqualToString:@"Retail"]) {
             cell.imageView.image = [UIImage imageNamed:@"supermarketsIcon"];
         }
-        else if ([cell.textLabel.text isEqualToString:@"Travel & Tourism"]) {
-            cell.imageView.image = [UIImage imageNamed:@"locationsOfInterestIcon"];
+        else if ([cell.textLabel.text isEqualToString:@"Travel"]) {
+            cell.imageView.image = [UIImage imageNamed:@"beachesIcon"];
         }
-        else if ([cell.textLabel.text isEqualToString:@"Community & Government"] || [cell.textLabel.text isEqualToString:@"Schools"]) {
+        else if ([cell.textLabel.text isEqualToString:@"Community and Government"] || [cell.textLabel.text isEqualToString:@"Landmarks"]) {
             cell.imageView.image = [UIImage imageNamed:@"schoolsIcon"];
         }
-        else if ([cell.textLabel.text isEqualToString:@"Lodging"]) {
+        else if ([cell.textLabel.text isEqualToString:@"Services and Supplies"]) {
+            cell.imageView.image = [UIImage imageNamed:@"historyIcon"];
+        }
+        else if (!([cell.textLabel.text rangeOfString:@"Automotive"].location == NSNotFound)) {
+            cell.imageView.image = [UIImage imageNamed:@"editedCinemasIcon"];
+        }
+        else if ([cell.textLabel.text isEqualToString:@"Social"]) {
+            cell.imageView.image = [UIImage imageNamed:@"coffeeShopsIcon"];
+        }
+        else if ([cell.textLabel.text isEqualToString:@"Healthcare"]) {
             cell.imageView.image = [UIImage imageNamed:@"hotelsIcon"];
         }
-        else if (!([cell.textLabel.text rangeOfString:@"Arts, Entertainment"].location == NSNotFound)) {
-            cell.imageView.image = [UIImage imageNamed:@"cinemasIcon"];
-        }
-        else if ([cell.textLabel.text isEqualToString:@"Food & Beverage"] || [cell.textLabel.text isEqualToString:@"Restaurants"]) {
-            cell.imageView.image = [UIImage imageNamed:@"restaurantsIcon"];
-        }
-        else if ([cell.textLabel.text isEqualToString:@"Health & Medicine"]) {
-            cell.imageView.image = [UIImage imageNamed:@"healthClubsIcon"];
-        }
-        else if ([cell.textLabel.text isEqualToString:@"Sports & Recreation"]) {
+        else if ([cell.textLabel.text isEqualToString:@"Sports and Recreation"]) {
             cell.imageView.image = [UIImage imageNamed:@"stadiumsIcon"];
         }
-        else if ([cell.textLabel.text isEqualToString:@"Outdoor Recreation"]) {
-            cell.imageView.image = [UIImage imageNamed:@"dogParksIcon"];
+        else if ([cell.textLabel.text isEqualToString:@"Transportation"]) {
+            cell.imageView.image = [UIImage imageNamed:@"locationsOfInterestIcon"];
         }
         else if ([cell.textLabel.text isEqualToString:@"Education"]) {
             cell.imageView.image = [UIImage imageNamed:@"conferencesIcon"];
