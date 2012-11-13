@@ -40,13 +40,82 @@
     
     prefs = [NSUserDefaults standardUserDefaults];
     
-    NSMutableArray *sectionOneContent = [[NSMutableArray alloc]initWithObjects:@"", nil];
-    NSMutableArray *sectionTwoContent = [NSMutableArray arrayWithObjects:@"MobMonkey User Image", @"MobMonkey User Video", @"MobMonkey Location Video", @"MobMonkey Location Live Streaming Video", nil];
-    NSMutableArray *tableContent = [[NSMutableArray alloc]initWithObjects:sectionOneContent, sectionTwoContent, nil];
-    [self setContentList:tableContent];
-    
     if ([prefs integerForKey:@"savedSegmentValue"]) {
-        segmentedControl.selectedSegmentIndex = [prefs integerForKey:@"savedSegmentValue"];
+        switch ([prefs integerForKey:@"savedSegmentValue"]) {
+            case 880:
+                [halfMileButton setImage:[UIImage imageNamed:@"halfMileFilterOn"] forState:UIControlStateNormal];
+                [oneMileButton setImage:[UIImage imageNamed:@"oneMileFilterOff"] forState:UIControlStateNormal];
+                [fiveMileButton setImage:[UIImage imageNamed:@"fiveMileFilterOff"] forState:UIControlStateNormal];
+                [tenMileButton setImage:[UIImage imageNamed:@"tenMileFilterOff"] forState:UIControlStateNormal];
+                [twentyMileButton setImage:[UIImage imageNamed:@"twentyMileFilterOff"] forState:UIControlStateNormal];
+                break;
+                
+            case 1760:
+                [halfMileButton setImage:[UIImage imageNamed:@"halfMileFilterOff"] forState:UIControlStateNormal];
+                [oneMileButton setImage:[UIImage imageNamed:@"oneMileFilterOn"] forState:UIControlStateNormal];
+                [fiveMileButton setImage:[UIImage imageNamed:@"fiveMileFilterOff"] forState:UIControlStateNormal];
+                [tenMileButton setImage:[UIImage imageNamed:@"tenMileFilterOff"] forState:UIControlStateNormal];
+                [twentyMileButton setImage:[UIImage imageNamed:@"twentyMileFilterOff"] forState:UIControlStateNormal];
+                break;
+                
+            case 8800:
+                [halfMileButton setImage:[UIImage imageNamed:@"halfMileFilterOff"] forState:UIControlStateNormal];
+                [oneMileButton setImage:[UIImage imageNamed:@"oneMileFilterOff"] forState:UIControlStateNormal];
+                [fiveMileButton setImage:[UIImage imageNamed:@"fiveMileFilterOn"] forState:UIControlStateNormal];
+                [tenMileButton setImage:[UIImage imageNamed:@"tenMileFilterOff"] forState:UIControlStateNormal];
+                [twentyMileButton setImage:[UIImage imageNamed:@"twentyMileFilterOff"] forState:UIControlStateNormal];
+                break;
+                
+            case 17600:
+                [halfMileButton setImage:[UIImage imageNamed:@"halfMileFilterOff"] forState:UIControlStateNormal];
+                [oneMileButton setImage:[UIImage imageNamed:@"oneMileFilterOff"] forState:UIControlStateNormal];
+                [fiveMileButton setImage:[UIImage imageNamed:@"fiveMileFilterOff"] forState:UIControlStateNormal];
+                [tenMileButton setImage:[UIImage imageNamed:@"tenMileFilterOn"] forState:UIControlStateNormal];
+                [twentyMileButton setImage:[UIImage imageNamed:@"twentyMileFilterOff"] forState:UIControlStateNormal];
+                break;
+                
+            case 35200:
+                [halfMileButton setImage:[UIImage imageNamed:@"halfMileFilterOff"] forState:UIControlStateNormal];
+                [oneMileButton setImage:[UIImage imageNamed:@"oneMileFilterOff"] forState:UIControlStateNormal];
+                [fiveMileButton setImage:[UIImage imageNamed:@"fiveMileFilterOff"] forState:UIControlStateNormal];
+                [tenMileButton setImage:[UIImage imageNamed:@"tenMileFilterOff"] forState:UIControlStateNormal];
+                [twentyMileButton setImage:[UIImage imageNamed:@"twentyMileFilterOn"] forState:UIControlStateNormal];
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
+    if ([prefs valueForKey:@"savedMediaFilter"]) {
+        NSString *mediaFilter = [prefs valueForKey:@"savedMediaFilter"];
+        
+        if ([mediaFilter isEqualToString:@"mmUserVideo"]) {
+            [videoButton setImage:[UIImage imageNamed:@"videoFilterOn"] forState:UIControlStateNormal];
+            [pictureButton setImage:[UIImage imageNamed:@"pictureFilterOff"] forState:UIControlStateNormal];
+            [liveFeedButton setImage:[UIImage imageNamed:@"liveFeedFilterOff"] forState:UIControlStateNormal];
+            [locationVideoButton setImage:[UIImage imageNamed:@"locationVideoFilterOff"] forState:UIControlStateNormal];
+        }
+        else if ([mediaFilter isEqualToString:@"mmUserImage"]) {
+            [videoButton setImage:[UIImage imageNamed:@"videoFilterOff"] forState:UIControlStateNormal];
+            [pictureButton setImage:[UIImage imageNamed:@"pictureFilterOn"] forState:UIControlStateNormal];
+            [liveFeedButton setImage:[UIImage imageNamed:@"liveFeedFilterOff"] forState:UIControlStateNormal];
+            [locationVideoButton setImage:[UIImage imageNamed:@"locationVideoFilterOff"] forState:UIControlStateNormal];
+        }
+        
+        else if ([mediaFilter isEqualToString:@"mmLocationLiveStream"]) {
+            [videoButton setImage:[UIImage imageNamed:@"videoFilterOff"] forState:UIControlStateNormal];
+            [pictureButton setImage:[UIImage imageNamed:@"pictureFilterOff"] forState:UIControlStateNormal];
+            [liveFeedButton setImage:[UIImage imageNamed:@"liveFeedFilterOn"] forState:UIControlStateNormal];
+            [locationVideoButton setImage:[UIImage imageNamed:@"locationVideoFilterOff"] forState:UIControlStateNormal];
+        }
+        
+        else {
+            [videoButton setImage:[UIImage imageNamed:@"videoFilterOff"] forState:UIControlStateNormal];
+            [pictureButton setImage:[UIImage imageNamed:@"pictureFilterOff"] forState:UIControlStateNormal];
+            [liveFeedButton setImage:[UIImage imageNamed:@"liveFeedFilterOff"] forState:UIControlStateNormal];
+            [locationVideoButton setImage:[UIImage imageNamed:@"locationVideoFilterOn"] forState:UIControlStateNormal];
+        }
     }
 }
 
@@ -58,8 +127,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    segmentedControl.selectedSegmentIndex = [prefs integerForKey:@"savedSegmentValue"];
-    [pickerView selectRow:[prefs integerForKey:@"savedPickerValue"] inComponent:0 animated:NO];
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -75,103 +143,103 @@
 
 
 #pragma mark - IBAction Methods
-- (IBAction)segmentedControlSelected:(id)sender {
-    switch (segmentedControl.selectedSegmentIndex) {
-        case 0:
-            selectedRadius = [NSNumber numberWithInt:880];
-            break;
-        case 1:
-            selectedRadius = [NSNumber numberWithInt:1760];
-            break;
-        case 2:
-            selectedRadius = [NSNumber numberWithInt:8800];
-            break;
-        case 3:
-            selectedRadius = [NSNumber numberWithInt:17600];
-            break;
-        case 4:
-            selectedRadius = [NSNumber numberWithInt:35200];
-            break;            
-        default:
-            break;
-    }
+
+- (IBAction)halfMileButtonClicked:(id)sender {
+    [halfMileButton setImage:[UIImage imageNamed:@"halfMileFilterOn"] forState:UIControlStateNormal];
+    [oneMileButton setImage:[UIImage imageNamed:@"oneMileFilterOff"] forState:UIControlStateNormal];
+    [fiveMileButton setImage:[UIImage imageNamed:@"fiveMileFilterOff"] forState:UIControlStateNormal];
+    [tenMileButton setImage:[UIImage imageNamed:@"tenMileFilterOff"] forState:UIControlStateNormal];
+    [twentyMileButton setImage:[UIImage imageNamed:@"twentyMileFilterOff"] forState:UIControlStateNormal];
+    
+    selectedRadius = [NSNumber numberWithInt:880];
+    [[NSUserDefaults standardUserDefaults]setObject:selectedRadius forKey:@"savedSegmentValue"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+}
+- (IBAction)oneMileButtonClicked:(id)sender {
+    [halfMileButton setImage:[UIImage imageNamed:@"halfMileFilterOff"] forState:UIControlStateNormal];
+    [oneMileButton setImage:[UIImage imageNamed:@"oneMileFilterOn"] forState:UIControlStateNormal];
+    [fiveMileButton setImage:[UIImage imageNamed:@"fiveMileFilterOff"] forState:UIControlStateNormal];
+    [tenMileButton setImage:[UIImage imageNamed:@"tenMileFilterOff"] forState:UIControlStateNormal];
+    [twentyMileButton setImage:[UIImage imageNamed:@"twentyMileFilterOff"] forState:UIControlStateNormal];
+    
+    selectedRadius = [NSNumber numberWithInt:1760];
+    [[NSUserDefaults standardUserDefaults]setObject:selectedRadius forKey:@"savedSegmentValue"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+}
+- (IBAction)fiveMileButtonClicked:(id)sender {
+    [halfMileButton setImage:[UIImage imageNamed:@"halfMileFilterOff"] forState:UIControlStateNormal];
+    [oneMileButton setImage:[UIImage imageNamed:@"oneMileFilterOff"] forState:UIControlStateNormal];
+    [fiveMileButton setImage:[UIImage imageNamed:@"fiveMileFilterOn"] forState:UIControlStateNormal];
+    [tenMileButton setImage:[UIImage imageNamed:@"tenMileFilterOff"] forState:UIControlStateNormal];
+    [twentyMileButton setImage:[UIImage imageNamed:@"twentyMileFilterOff"] forState:UIControlStateNormal];
+    
+    selectedRadius = [NSNumber numberWithInt:8800];
+    [[NSUserDefaults standardUserDefaults]setObject:selectedRadius forKey:@"savedSegmentValue"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+}
+- (IBAction)tenMileButtonClicked:(id)sender {
+    [halfMileButton setImage:[UIImage imageNamed:@"halfMileFilterOff"] forState:UIControlStateNormal];
+    [oneMileButton setImage:[UIImage imageNamed:@"oneMileFilterOff"] forState:UIControlStateNormal];
+    [fiveMileButton setImage:[UIImage imageNamed:@"fiveMileFilterOff"] forState:UIControlStateNormal];
+    [tenMileButton setImage:[UIImage imageNamed:@"tenMileFilterOn"] forState:UIControlStateNormal];
+    [twentyMileButton setImage:[UIImage imageNamed:@"twentyMileFilterOff"] forState:UIControlStateNormal];
+    
+    selectedRadius = [NSNumber numberWithInt:17600];
+    [[NSUserDefaults standardUserDefaults]setObject:selectedRadius forKey:@"savedSegmentValue"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+}
+- (IBAction)twentyMileButtonClicked:(id)sender {
+    [halfMileButton setImage:[UIImage imageNamed:@"halfMileFilterOff"] forState:UIControlStateNormal];
+    [oneMileButton setImage:[UIImage imageNamed:@"oneMileFilterOff"] forState:UIControlStateNormal];
+    [fiveMileButton setImage:[UIImage imageNamed:@"fiveMileFilterOff"] forState:UIControlStateNormal];
+    [tenMileButton setImage:[UIImage imageNamed:@"tenMileFilterOff"] forState:UIControlStateNormal];
+    [twentyMileButton setImage:[UIImage imageNamed:@"twentyMileFilterOn"] forState:UIControlStateNormal];
+    
+    selectedRadius = [NSNumber numberWithInt:35200];
     [[NSUserDefaults standardUserDefaults]setObject:selectedRadius forKey:@"savedSegmentValue"];
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return _contentList.count;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    NSArray *sectionContent = [_contentList objectAtIndex:section];
-    return sectionContent.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSArray *sectionContent = [_contentList objectAtIndex:indexPath.section];
-    id contentForThisRow = [sectionContent objectAtIndex:indexPath.row];
+- (IBAction)videoButtonClicked:(id)sender {
+    [videoButton setImage:[UIImage imageNamed:@"videoFilterOn"] forState:UIControlStateNormal];
+    [pictureButton setImage:[UIImage imageNamed:@"pictureFilterOff"] forState:UIControlStateNormal];
+    [liveFeedButton setImage:[UIImage imageNamed:@"liveFeedFilterOff"] forState:UIControlStateNormal];
+    [locationVideoButton setImage:[UIImage imageNamed:@"locationVideoFilterOff"] forState:UIControlStateNormal];
     
-    static NSString *CellIdentifier = @"Cell";
-    if (indexPath.section == 0) {
-        MMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (!cell) {
-            cell = [[MMTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        }
-        
-        cell.image = [UIImage imageNamed:@"monkey.jpg"];
-        cell.textLabel.text = contentForThisRow;
-        
-        return cell;
-    }
-    else {
-        MMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        
-        cell = [[MMTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
-        cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
-        cell.textLabel.numberOfLines = 2;
-        cell.textLabel.text = contentForThisRow;
-        return cell;
-    }
+    selectedFilter = @"mmUserVideo";
+    [[NSUserDefaults standardUserDefaults]setObject:selectedFilter forKey:@"savedMediaFilter"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
-
-#pragma mark - UITablview delegate
-- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        return 44;
-    }
-    else {
-        return 60;
-    }
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    switch (indexPath.row) {
-        case 0:
-            selectedFilter = @"mmUserImage";
-            break;
-        case 1:
-            selectedFilter = @"mmUserVideo";
-            break;
-        case 3:
-            selectedFilter = @"mmLocationVideo";
-            break;
-        case 4:
-            selectedFilter = @"mmLocationLiveStream";
-            break;
-        default:
-            break;
-    }
+- (IBAction)pictureButtonClicked:(id)sender {
+    [videoButton setImage:[UIImage imageNamed:@"videoFilterOff"] forState:UIControlStateNormal];
+    [pictureButton setImage:[UIImage imageNamed:@"pictureFilterOn"] forState:UIControlStateNormal];
+    [liveFeedButton setImage:[UIImage imageNamed:@"liveFeedFilterOff"] forState:UIControlStateNormal];
+    [locationVideoButton setImage:[UIImage imageNamed:@"locationVideoFilterOff"] forState:UIControlStateNormal];
     
+    selectedFilter = @"mmUserImage";
+    [[NSUserDefaults standardUserDefaults]setObject:selectedFilter forKey:@"savedMediaFilter"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
+- (IBAction)liveFeedButtonClicked:(id)sender {
+    [videoButton setImage:[UIImage imageNamed:@"videoFilterOff"] forState:UIControlStateNormal];
+    [pictureButton setImage:[UIImage imageNamed:@"pictureFilterOff"] forState:UIControlStateNormal];
+    [liveFeedButton setImage:[UIImage imageNamed:@"liveFeedFilterOn"] forState:UIControlStateNormal];
+    [locationVideoButton setImage:[UIImage imageNamed:@"locationVideoFilterOff"] forState:UIControlStateNormal];
+    
+    selectedFilter = @"mmLocationLiveStream";
+    [[NSUserDefaults standardUserDefaults]setObject:selectedFilter forKey:@"savedMediaFilter"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+}
+- (IBAction)locationVideoButtonClicked:(id)sender {
+    [videoButton setImage:[UIImage imageNamed:@"videoFilterOff"] forState:UIControlStateNormal];
+    [pictureButton setImage:[UIImage imageNamed:@"pictureFilterOff"] forState:UIControlStateNormal];
+    [liveFeedButton setImage:[UIImage imageNamed:@"liveFeedFilterOff"] forState:UIControlStateNormal];
+    [locationVideoButton setImage:[UIImage imageNamed:@"locationVideoFilterOn"] forState:UIControlStateNormal];
+    
+    selectedFilter = @"mmLocationVideo";
+    [[NSUserDefaults standardUserDefaults]setObject:selectedFilter forKey:@"savedMediaFilter"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+}
+
 
 @end

@@ -14,18 +14,35 @@
     
 @end
 
-@interface MMFilterViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
-    IBOutlet UISegmentedControl *segmentedControl;
-    IBOutlet UIPickerView *pickerView;
+@interface MMFilterViewController : UIViewController {
+    IBOutlet UIButton *halfMileButton;
+    IBOutlet UIButton *oneMileButton;
+    IBOutlet UIButton *fiveMileButton;
+    IBOutlet UIButton *tenMileButton;
+    IBOutlet UIButton *twentyMileButton;
+    
+    IBOutlet UIButton *videoButton;
+    IBOutlet UIButton *pictureButton;
+    IBOutlet UIButton *liveFeedButton;
+    IBOutlet UIButton *locationVideoButton;
     
     NSString *rangeSelection;
-    NSMutableArray *pickerArray;
     NSUserDefaults* prefs;
     NSNumber *selectedRadius;
     NSString *selectedFilter;
 }
 
-- (IBAction)segmentedControlSelected:(id)sender;
+- (IBAction)halfMileButtonClicked:(id)sender;
+- (IBAction)oneMileButtonClicked:(id)sender;
+- (IBAction)fiveMileButtonClicked:(id)sender;
+- (IBAction)tenMileButtonClicked:(id)sender;
+- (IBAction)twentyMileButtonClicked:(id)sender;
+
+- (IBAction)videoButtonClicked:(id)sender;
+- (IBAction)pictureButtonClicked:(id)sender;
+- (IBAction)liveFeedButtonClicked:(id)sender;
+- (IBAction)locationVideoButtonClicked:(id)sender;
+
 
 @property(nonatomic, retain) IBOutlet UITableView *tableView;
 @property(nonatomic, retain) NSMutableArray *contentList;
