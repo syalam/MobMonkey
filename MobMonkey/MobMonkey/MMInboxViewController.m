@@ -6,9 +6,8 @@
 //  Copyright (c) 2012 Reyaad Sidique. All rights reserved.
 //
 
-#import "SVProgressHUD.h"
-#import "MMClientSDK.h"
 #import "MMInboxViewController.h"
+#import "MMClientSDK.h"
 #import "MMSetTitleImage.h"
 #import "MMInboxCell.h"
 #import "NSData+Base64.h"
@@ -19,13 +18,11 @@
 #define CELL_CONTENT_WIDTH 180.0f
 #define CELL_CONTENT_MARGIN 10.0f
 
-@interface MMInboxViewController () {
-    NSString *selectedRequestId;
-    NSArray *openRequestsArray;
-    NSArray *fulfilledRequestsArray;
-    NSArray *assignedRequestsArray;
-}
+@interface MMInboxViewController ()
 
+@property (strong, nonatomic) NSArray *openRequests;
+@property (strong, nonatomic) NSArray *assignedRequests;
+@property (strong, nonatomic) NSArray *fulfilledRequests;
 @property (nonatomic, retain) UIImageView *mmTitleImageView;
 @property (nonatomic, retain) NSMutableArray *contentList;
 
@@ -74,16 +71,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [SVProgressHUD show];
-    if (_categorySelected) {
-        [self fetchInboxContent];
-        return;
-    }
     [self setContentList:[@[@"Open Requests", @"Answered Requests", @"Assigned Requests", @"Notifications"] mutableCopy]];
-    
-    //[SVProgressHUD showWithStatus:@"Updating"];
-    _currentAPICall = kAPICallFulfilledRequests;
-    [self performSelector:@selector(fetchInboxContent) withObject:nil afterDelay:2];
+    [self.tableView reloadData];
+    [self reloadInbox];
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -94,6 +84,28 @@
 -(BOOL)shouldAutorotate
 {
     return NO;
+}
+
+- (void)reloadInbox
+{
+    [MMAPI getOpenRequestsOnSuccess:^(id responseObject) {
+        self.openRequests = responseObject;
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        //
+    }];
+    [MMAPI getAssignedRequestsOnSuccess:^(id responseObject) {
+        self.assignedRequests = responseObject;
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        //
+    }];
+    [MMAPI getFulfilledRequestsOnSuccess:^(id responseObject) {
+        self.fulfilledRequests = responseObject;
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        //
+    }];
 }
 
 #pragma mark - Table view data source
@@ -112,43 +124,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *InboxCellIdentifier = @"InboxCell";
     static NSString *InboxCategoryCellIdentifier = @"InboxCategoryCell";
-    if (_categorySelected) {
-        MMInboxCell *cell = [tableView dequeueReusableCellWithIdentifier:InboxCellIdentifier];
-        if (!cell) {
-             cell = [[MMInboxCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:InboxCellIdentifier];
-        }
-        /*if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestDate"]isKindOfClass:[NSNull class]]) {
-         NSTimeInterval requestDate = [[[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestDate"]doubleValue];
-         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-         [dateFormatter setDateFormat:@"h:mm a"];
-         NSString *dateString = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:requestDate]];
-         cell.timestampLabel.text = dateString;
-         }*/
-        
-        if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"]isKindOfClass:[NSNull class]]) {
-            cell.locationNameLabel.text = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"];
-        }
-        if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"message"]isKindOfClass:[NSNull class]]) {
-            cell.messageLabel.text = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"message"];
-            [cell.messageLabel sizeToFit];
-        }
-        if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]isKindOfClass:[NSNull class]]) {
-            NSString *mediaType;
-            if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 1) {
-                mediaType = @"Image";
-            }
-            else {
-                mediaType = @"Video";
-            }
-            cell.requestTypeLabel.text = mediaType;
-
-//            cell.clipsToBounds = YES;
-//            [cell.backgroundImageView setFrame:CGRectMake(0, 0, 286, 400)];
-        }
-        return cell;
-    }
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:InboxCategoryCellIdentifier];
     
     if (!cell) {
@@ -162,14 +138,13 @@
     
     switch (indexPath.row) {
         case 0:
-            
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", self.openRequests.count];
             break;
         case 1:
-            NSLog(@"%d", fulfilledRequestsArray.count);
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", fulfilledRequestsArray.count];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", self.fulfilledRequests.count];
             break;
         case 2:
-        
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", self.assignedRequests.count];
             break;
         default:
             break;
@@ -178,76 +153,37 @@
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_categorySelected) {
-        if ([self.title isEqualToString:@"Assigned Requests"]) {
-            selectedRequestId = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestId"];
-            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-                UIImagePickerController* picker = [[UIImagePickerController alloc] init];
-                picker.delegate = self;
-                picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-                picker.showsCameraControls = YES;
-                
-                if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 1) {
-                    picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
-                    picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
-                }
-                else {
-                    [picker setVideoMaximumDuration:10];
-                    picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
-                    picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
-                }
-                [self presentViewController:picker animated:YES completion:nil];
-            }
-            else {
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Unable to take a photo or video using this device" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-            }
-        }
-    }
-    else {
+//    if (_categorySelected) {
+//        if ([self.title isEqualToString:@"Assigned Requests"]) {
+//            selectedRequestId = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestId"];
+//            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+//                UIImagePickerController* picker = [[UIImagePickerController alloc] init];
+//                picker.delegate = self;
+//                picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+//                picker.showsCameraControls = YES;
+//                
+//                if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 1) {
+//                    picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+//                    picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+//                }
+//                else {
+//                    [picker setVideoMaximumDuration:10];
+//                    picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
+//                    picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+//                }
+//                [self presentViewController:picker animated:YES completion:nil];
+//            }
+//            else {
+//                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Unable to take a photo or video using this device" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//                [alert show];
+//            }
+//        }
+//    }
+//    else {
         if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
             [MMAPI sharedAPI].delegate = self;
             switch (indexPath.row) {
@@ -255,7 +191,7 @@
                     [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Open Requests" currentAPICall:kAPICallOpenRequests];
                     break;
                 case 1:
-                    [[MMClientSDK sharedSDK]answeredRequestsScreen:self answeredItemsToDisplay:fulfilledRequestsArray];
+                    [[MMClientSDK sharedSDK]answeredRequestsScreen:self answeredItemsToDisplay:self.fulfilledRequests];
                     break;
                 case 2:
                     [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Assigned Requests" currentAPICall:kAPICallAssignedRequests];
@@ -267,7 +203,7 @@
         else {
             [[MMClientSDK sharedSDK]signInScreen:self];
         }
-    }
+//    }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -301,7 +237,6 @@
 - (id)failureBlock
 {
     id _failureBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD dismiss];
         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
         if ([[response valueForKey:@"status"] isEqualToString:@"Unauthorized"]) {
             [[MMClientSDK sharedSDK] signInScreen:self];
@@ -310,55 +245,39 @@
     return _failureBlock;
 }
 
-- (void)fetchInboxContent {    
-    if (_currentAPICall == kAPICallOpenRequests) {
-        [[MMAPI sharedAPI]openRequests];
-    } else if (_currentAPICall == kAPICallAssignedRequests) {
-        [[MMAPI sharedAPI]assignedRequests];
-    } else if (_currentAPICall == kAPICallFulfilledRequests) {
-        [MMAPI fulfilledRequestsOnSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [SVProgressHUD dismiss];
-            fulfilledRequestsArray = responseObject;
-            [self.tableView reloadData];
-        } failure:[self failureBlock]];
-    }
-}
-
 #pragma mark - UIImagePickerController Delegate Methods
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
-    [SVProgressHUD showWithStatus:@"Saving"];
-    NSString *mediaRequested;
-    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-    [params setObject:selectedRequestId forKey:@"requestId"];
-    [params setObject:[NSNumber numberWithInt:0] forKey:@"requestType"];
-    
-    NSData *dataObj;
-    NSString *fileType = [info objectForKey: UIImagePickerControllerMediaType];
-    if (CFStringCompare ((__bridge CFStringRef) fileType, kUTTypeImage, 0)
-        == kCFCompareEqualTo) {
-        mediaRequested = @"image";
-        UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-        image = [self imageWithImage:image scaledToSize:CGSizeMake(image.size.width * .15, image.size.height * .15)];
-        dataObj = UIImagePNGRepresentation(image);
-        
-        [params setObject:[dataObj base64EncodedString] forKey:@"mediaData"];
-    }
-    else if (CFStringCompare ((__bridge CFStringRef) fileType, kUTTypeMovie, 0)
-             == kCFCompareEqualTo) {
-        mediaRequested = @"video";
-        NSString *moviePath = [[info objectForKey:UIImagePickerControllerMediaURL] path];
-        dataObj = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:moviePath]];
-    }
-    [MMAPI fulfillRequest:mediaRequested
-                   params:params
-                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                      [SVProgressHUD dismiss];
-                      [self.navigationController popViewControllerAnimated:YES];
-                  }
-                  failure:[self failureBlock]];
-    
-    [picker dismissModalViewControllerAnimated:YES];
+//    NSString *mediaRequested;
+//    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+//    [params setObject:selectedRequestId forKey:@"requestId"];
+//    [params setObject:[NSNumber numberWithInt:0] forKey:@"requestType"];
+//    
+//    NSData *dataObj;
+//    NSString *fileType = [info objectForKey: UIImagePickerControllerMediaType];
+//    if (CFStringCompare ((__bridge CFStringRef) fileType, kUTTypeImage, 0)
+//        == kCFCompareEqualTo) {
+//        mediaRequested = @"image";
+//        UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+//        image = [self imageWithImage:image scaledToSize:CGSizeMake(image.size.width * .15, image.size.height * .15)];
+//        dataObj = UIImagePNGRepresentation(image);
+//        
+//        [params setObject:[dataObj base64EncodedString] forKey:@"mediaData"];
+//    }
+//    else if (CFStringCompare ((__bridge CFStringRef) fileType, kUTTypeMovie, 0)
+//             == kCFCompareEqualTo) {
+//        mediaRequested = @"video";
+//        NSString *moviePath = [[info objectForKey:UIImagePickerControllerMediaURL] path];
+//        dataObj = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:moviePath]];
+//    }
+//    [MMAPI fulfillRequest:mediaRequested
+//                   params:params
+//                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//                      [self.navigationController popViewControllerAnimated:YES];
+//                  }
+//                  failure:[self failureBlock]];
+//    
+//    [picker dismissModalViewControllerAnimated:YES];
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
@@ -369,31 +288,5 @@
     return newImage;
 }
 
-#pragma mark - MMAPI Delegate Methods
-- (void)MMAPICallSuccessful:(id)response {
-    [SVProgressHUD dismiss];
-    NSLog(@"%@", response);
-    switch (_currentAPICall) {
-        case kAPICallFulfillRequest:
-            [self.navigationController popViewControllerAnimated:YES];
-            break;
-        case kAPICallFulfilledRequests:
-            fulfilledRequestsArray = response;
-            [self.tableView reloadData];
-            break;
-        default:
-            [self setContentList:response];
-            [self.tableView reloadData];
-            break;
-    }
-}
-
-- (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
-    [SVProgressHUD dismiss];
-    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
-    if ([[response valueForKey:@"status"] isEqualToString:@"Unauthorized"]) {
-        [[MMClientSDK sharedSDK] signInScreen:self];
-    }
-}
 
 @end

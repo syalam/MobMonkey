@@ -139,7 +139,7 @@ typedef enum OAuthProvider {
 /**
  Retrieve list of open requests from the server
  */
--(void)openRequests;
++ (void)getOpenRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
 
 ///---------------------------------------------
 /// @name Fetches a list of assigned requests from the server
@@ -147,7 +147,7 @@ typedef enum OAuthProvider {
 /**
  Retrieve list of assigned requests from the server
  */
--(void)assignedRequests;
++ (void)getAssignedRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
 
 ///---------------------------------------------
 /// @name Fetches a list of fulfilled requests from the server
@@ -155,8 +155,8 @@ typedef enum OAuthProvider {
 /**
  Retrieve list of fulfilled requests from the server
  */
-+ (void)fulfilledRequestsOnSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
++ (void)getFulfilledRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
 
 ///---------------------------------------------
 /// @name Adds a new location to the system
