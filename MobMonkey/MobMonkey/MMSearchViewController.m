@@ -136,19 +136,19 @@
         [params setValue:category[@"categoryId"] forKey:@"categoryIds"];
     } else {
         self.searchResultsViewController.title = [NSString stringWithFormat:@"“%@”", self.searchBar.text];
-        [params setValue:@"1" forKey:@"categoryIds"];
+        [params setValue:@"" forKey:@"categoryIds"];
     }
     
     if ([self.searchBar.text isEqualToString:@""]) {
         self.searchResultsViewController.title = @"All Nearby";
     }
     [params setValue:self.searchBar.text forKey:@"name"];
-    latitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue];
-    longitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue];
+    latitude = [[[NSUserDefaults standardUserDefaults] valueForKey:@"latitude"]doubleValue];
+    longitude = [[[NSUserDefaults standardUserDefaults] valueForKey:@"longitude"]doubleValue];
     NSLog(@"%f, %f", latitude, longitude);
     
-    [params setValue:[NSNumber numberWithDouble:latitude]forKey:@"latitude"];
-    [params setValue:[NSNumber numberWithDouble:longitude]forKey:@"longitude"];
+    [params setValue:[NSNumber numberWithDouble:latitude] forKey:@"latitude"];
+    [params setValue:[NSNumber numberWithDouble:longitude] forKey:@"longitude"];
     if ([self.filters valueForKey:@"radius"]) {
         [params setObject:[self.filters valueForKey:@"radius"] forKey:@"radiusInYards"];
     }
