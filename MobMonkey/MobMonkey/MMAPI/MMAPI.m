@@ -218,7 +218,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
             return;
         }
         NSLog(@"Locations: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        success([NSJSONSerialization JSONObjectWithData:data options:0 error:nil]);
+        success([NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil]);
     }];
 }
 
@@ -236,7 +236,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
             return;
         }
         NSLog(@"Locations: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        success([NSJSONSerialization JSONObjectWithData:data options:0 error:nil]);
+        success([NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil]);
     }];
 }
 
@@ -254,7 +254,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
             return;
         }
         NSLog(@"Locations: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        success([NSJSONSerialization JSONObjectWithData:data options:0 error:nil]);
+        success([NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil]);
     }];
 }
 

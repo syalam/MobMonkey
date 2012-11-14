@@ -13,6 +13,7 @@
 #import "NSData+Base64.h"
 #import "MMInboxFullScreenImageViewController.h"
 #import "MMInboxCategoryCell.h"
+#import "MMLocationsViewController.h"
 
 #define FONT_SIZE 14.0f
 #define CELL_CONTENT_WIDTH 180.0f
@@ -20,11 +21,12 @@
 
 @interface MMInboxViewController ()
 
-@property (strong, nonatomic) NSArray *openRequests;
-@property (strong, nonatomic) NSArray *assignedRequests;
-@property (strong, nonatomic) NSArray *fulfilledRequests;
+@property (strong, nonatomic) NSMutableArray *openRequests;
+@property (strong, nonatomic) NSMutableArray *assignedRequests;
+@property (strong, nonatomic) NSMutableArray *fulfilledRequests;
 @property (nonatomic, retain) UIImageView *mmTitleImageView;
 @property (nonatomic, retain) NSMutableArray *contentList;
+@property (strong, nonatomic) MMLocationsViewController *locationsViewController;
 
 @end
 
@@ -46,6 +48,7 @@
                                                                           green:112.0/225.0
                                                                            blue:36.0/255.0
                                                                           alpha:1.0]];
+    self.locationsViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
 }
 
 - (void)viewDidUnload
@@ -188,15 +191,18 @@
             [MMAPI sharedAPI].delegate = self;
             switch (indexPath.row) {
                 case 0:
-                    [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Open Requests" currentAPICall:kAPICallOpenRequests];
+                    [self.navigationController pushViewController:self.locationsViewController animated:YES];
+                    self.locationsViewController.locations = self.openRequests;
                     break;
                 case 1:
-                    [[MMClientSDK sharedSDK]answeredRequestsScreen:self answeredItemsToDisplay:self.fulfilledRequests];
+                    //[[MMClientSDK sharedSDK]answeredRequestsScreen:self answeredItemsToDisplay:self.fulfilledRequests];
                     break;
                 case 2:
-                    [[MMClientSDK sharedSDK]inboxScreen:self selectedCategory:@"Assigned Requests" currentAPICall:kAPICallAssignedRequests];
+                    [self.navigationController pushViewController:self.locationsViewController animated:YES];
+                    self.locationsViewController.locations = self.fulfilledRequests;
                     break;
                 default:
+                    
                     break;
             }
         }
