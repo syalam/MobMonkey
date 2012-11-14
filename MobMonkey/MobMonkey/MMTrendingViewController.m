@@ -13,8 +13,11 @@
 #import "MMAppDelegate.h"
 #import "SectionInfo.h"
 #import "MMClientSDK.h"
+#import "MMLocationsViewController.h"
 
 @interface MMTrendingViewController ()
+
+@property (strong, nonatomic) MMLocationsViewController *locationsViewController;
 
 @end
 
@@ -222,64 +225,55 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (_sectionSelected) {
-//        //[[MMClientSDK sharedSDK]locationScreen:self];
-//    }
-//    else {
-//        [[MMClientSDK sharedSDK] trendingScreen:self selectedCategory:[_contentList objectAtIndex:indexPath.row]];
-//    }
-}
+    double latitude, longitude;
+    NSMutableDictionary *params = [@{@"timeSpan":@"week"} mutableCopy];
+    [params setValue:@"1" forKey:@"categoryIds"];
 
+    NSData* jsonData;
+    id jsonObject;
+    NSDictionary *favorites = [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedInterests"];
+    NSString *favoritesParams = [[favorites allValues] componentsJoinedByString:@","];
+    [params setValue:@"true" forKey:@"myinterests"];
+    //[params setValue:favoritesParams forKey:@"categoryIds"];
+    switch (indexPath.row) {
+        case 1:
+            [params setValue:@"true" forKey:@"nearby"];
+            break;
+        case 2:
+            [params setValue:@"true" forKey:@"nearby"];
+            break;
+        case 3:
+            [params setValue:@"true" forKey:@"nearby"];
+            break;
+        default:
+            break;
+    }
+    latitude = [[[NSUserDefaults standardUserDefaults] valueForKey:@"latitude"]doubleValue];
+    longitude = [[[NSUserDefaults standardUserDefaults] valueForKey:@"longitude"]doubleValue];
+    NSLog(@"%f, %f", latitude, longitude);
+    
+    [params setValue:[NSNumber numberWithDouble:latitude] forKey:@"latitude"];
+    [params setValue:[NSNumber numberWithDouble:longitude] forKey:@"longitude"];
 
-#pragma mark - MMResultCell Delegate Methods
-- (void)toggleOverlayButtonTapped:(id)sender {
-    MMResultCell *cell = (MMResultCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    [UIView beginAnimations:nil context:context];
-    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-    [UIView setAnimationDuration: 0.3];
-    [UIView setAnimationDelegate: self];
-    if (cell.overlayButtonView.alpha == 0) {
-        [_cellToggleOnState setObject:[NSNumber numberWithBool:YES] forKey:[NSString stringWithFormat:@"%d", [sender tag]]];
-        [cell.overlayBGImageView setAlpha:1];
-        [cell.overlayButtonView setAlpha:1];
-    }
-    else {
-        [_cellToggleOnState setObject:[NSNumber numberWithBool:NO] forKey:[NSString stringWithFormat:@"%d", [sender tag]]];
-        [cell.overlayBGImageView setAlpha:0];
-        [cell.overlayButtonView setAlpha:0];
-    }
-    [UIView commitAnimations];
-}
-- (void)likeButtonTapped:(id)sender {
+    [params setValue:[NSNumber numberWithInt:200] forKey:@"radius"];
+    jsonData = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:nil];
+    jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
     
-}
-- (void)dislikeButtonTapped:(id)sender {
-    
-}
-- (void)flagButtonTapped:(id)sender {
-    MMResultCell *cell = (MMResultCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
-    if (![[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", [sender tag]]]) {
-        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:[NSString stringWithFormat:@"row%dFlagged", [sender tag]]];
-        [cell.flagButton setBackgroundColor:[UIColor blueColor]];
+    NSLog(@"%@", jsonObject);
+    if (!self.locationsViewController) {
+        self.locationsViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
     }
-    else {
-        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:[NSString stringWithFormat:@"row%dFlagged", [sender tag]]];
-        [cell.flagButton setBackgroundColor:[UIColor clearColor]];
-    }
+    self.locationsViewController.locations = [@[] mutableCopy];
+    [MMAPI getTrendingType:(indexPath.row == 0) ? @"bookmarks" : @"topviewed"
+                    params:jsonObject
+                   success:^(id responseObject) {
+                       self.locationsViewController.isSearching = NO;
+                       [SVProgressHUD dismiss];
+                       self.locationsViewController.locations = responseObject;}
+                   failure:^(NSError *error) {
+                       [SVProgressHUD dismissWithError:[error description]];}];
+    self.locationsViewController.title = [[[self.tableView cellForRowAtIndexPath:indexPath] textLabel] text];
+    [self.navigationController pushViewController:self.locationsViewController animated:YES];
+}
     
-}
-- (void)enlargeButtonTapped:(id)sender {
-    /*MMFullScreenImageViewController *fullScreenVC = [[MMFullScreenImageViewController alloc]initWithNibName:@"MMFullScreenImageViewController" bundle:nil];
-    fullScreenVC.imageToDisplay = [UIImage imageNamed:@"monkey.jpg"];
-    fullScreenVC.rowIndex = [sender tag];
-    UINavigationController *fullScreenNavC = [[UINavigationController alloc]initWithRootViewController:fullScreenVC];
-    fullScreenNavC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self.navigationController presentViewController:fullScreenNavC animated:YES completion:NULL];*/
-}
-- (void)shareButtonTapped:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", nil];
-    [actionSheet showFromTabBar:self.tabBarController.tabBar];
-}
-
 @end

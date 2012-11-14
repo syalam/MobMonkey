@@ -25,7 +25,7 @@ static NSString *const SelectedInterestsKey = @"selectedInterests";
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     
-    if (![userDefaults valueForKey:@"selectedInterests"]) {
+    if (![userDefaults valueForKey:SelectedInterestsKey]) {
         [userDefaults setValue:[[NSMutableDictionary alloc] initWithCapacity:1] forKey:SelectedInterestsKey];
     }
     selectedItemsDictionary = [[userDefaults valueForKey:SelectedInterestsKey] mutableCopy];
@@ -148,7 +148,9 @@ static NSString *const SelectedInterestsKey = @"selectedInterests";
             [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
         }
         else {
-            [selectedItemsDictionary setValue:@"YES" forKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]];
+            NSDictionary *favorite = [_contentList objectAtIndex:indexPath.row];
+            
+            [selectedItemsDictionary setValue:[favorite[@"categoryId"] description] forKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]];
             [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
         }
     }

@@ -345,4 +345,28 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     }];
 }
 
++ (void)getTrendingType:(NSString *)type
+                 params:(NSDictionary *)params
+                success:(void (^)(id responseObject))success
+                failure:(void (^)(NSError *error))failure
+{
+    NSString *endpoint = [@"trending/" stringByAppendingString:type];
+    NSString *urlString = [kBMHTTPClientBaseURLString stringByAppendingString:endpoint];
+    urlString = [urlString stringByAppendingFormat:@"?%@", [NSString URLParameterizedStringFromDictionary:params]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    [request setHTTPMethod:@"GET"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"] forHTTPHeaderField:@"MobMonkey-partnerId"];
+    [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"] forHTTPHeaderField:@"MobMonkey-user"];
+    [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"] forHTTPHeaderField:@"MobMonkey-auth"];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if (error) {
+            failure(error);
+            return;
+        }
+        NSLog(@"Locations: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        success([NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil]);
+    }];
+}
+
 @end
