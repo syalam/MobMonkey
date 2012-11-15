@@ -22,7 +22,9 @@
 @interface MMInboxViewController ()
 
 @property (strong, nonatomic) NSMutableArray *openRequests;
+@property (strong, nonatomic) NSMutableArray *locationsInOpenRequests;
 @property (strong, nonatomic) NSMutableArray *assignedRequests;
+@property (strong, nonatomic) NSMutableArray *locationsInAssignedRequests;
 @property (strong, nonatomic) NSMutableArray *fulfilledRequests;
 @property (nonatomic, retain) UIImageView *mmTitleImageView;
 @property (nonatomic, retain) NSMutableArray *contentList;
@@ -97,9 +99,19 @@
     } failure:^(NSError *error) {
         //
     }];
+    [MMAPI getLocationsInOpenRequestsOnSuccess:^(id responseObject) {
+        self.locationsInOpenRequests = responseObject;
+    } failure:^(NSError *error) {
+        //
+    }];
     [MMAPI getAssignedRequestsOnSuccess:^(id responseObject) {
         self.assignedRequests = responseObject;
         [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        //
+    }];
+    [MMAPI getLocationsInAssignedRequestsOnSuccess:^(id responseObject) {
+        self.locationsInAssignedRequests = responseObject;
     } failure:^(NSError *error) {
         //
     }];
@@ -192,14 +204,14 @@
             switch (indexPath.row) {
                 case 0:
                     [self.navigationController pushViewController:self.locationsViewController animated:YES];
-                    self.locationsViewController.locations = self.openRequests;
+                    self.locationsViewController.locations = self.locationsInOpenRequests;
                     break;
                 case 1:
-                    //[[MMClientSDK sharedSDK]answeredRequestsScreen:self answeredItemsToDisplay:self.fulfilledRequests];
+                    [[MMClientSDK sharedSDK] answeredRequestsScreen:self answeredItemsToDisplay:self.fulfilledRequests];
                     break;
                 case 2:
                     [self.navigationController pushViewController:self.locationsViewController animated:YES];
-                    self.locationsViewController.locations = self.fulfilledRequests;
+                    self.locationsViewController.locations = self.locationsInAssignedRequests;
                     break;
                 default:
                     

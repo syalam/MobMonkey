@@ -140,6 +140,7 @@ typedef enum OAuthProvider {
  Retrieve list of open requests from the server
  */
 + (void)getOpenRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
++ (void)getLocationsInOpenRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
 
 ///---------------------------------------------
 /// @name Fetches a list of assigned requests from the server
@@ -148,7 +149,7 @@ typedef enum OAuthProvider {
  Retrieve list of assigned requests from the server
  */
 + (void)getAssignedRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
-
++ (void)getLocationsInAssignedRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
 ///---------------------------------------------
 /// @name Fetches a list of fulfilled requests from the server
 ///---------------------------------------------
