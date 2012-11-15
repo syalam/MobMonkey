@@ -433,6 +433,20 @@
 		F79B505615F3F81F0004BE01 /* MMSetTitleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F79B505515F3F81F0004BE01 /* MMSetTitleImage.m */; };
 		F7D41BA816234B4E00DBA87D /* MMTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D41BA616234B4E00DBA87D /* MMTabBarViewController.m */; };
 		F7D41BA916234B4E00DBA87D /* MMTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7D41BA716234B4E00DBA87D /* MMTabBarViewController.xib */; };
+		F7DB5531165561D900FC8AA9 /* deselectedRectRed.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB552F165561D900FC8AA9 /* deselectedRectRed.png */; };
+		F7DB5532165561D900FC8AA9 /* deselectedRectRed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB5530165561D900FC8AA9 /* deselectedRectRed@2x.png */; };
+		F7DB5536165565C100FC8AA9 /* bookmark.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB5534165565C100FC8AA9 /* bookmark.png */; };
+		F7DB5537165565C100FC8AA9 /* bookmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB5535165565C100FC8AA9 /* bookmark@2x.png */; };
+		F7DB553A165565E000FC8AA9 /* alarmClock.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB5538165565E000FC8AA9 /* alarmClock.png */; };
+		F7DB553B165565E000FC8AA9 /* alarmClock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB5539165565E000FC8AA9 /* alarmClock@2x.png */; };
+		F7DB55401655661600FC8AA9 /* satellite.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB553C1655661600FC8AA9 /* satellite.png */; };
+		F7DB55411655661600FC8AA9 /* satellite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB553D1655661600FC8AA9 /* satellite@2x.png */; };
+		F7DB55421655661600FC8AA9 /* telephone.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB553E1655661600FC8AA9 /* telephone.png */; };
+		F7DB55431655661600FC8AA9 /* telephone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB553F1655661600FC8AA9 /* telephone@2x.png */; };
+		F7DB55461655665D00FC8AA9 /* mapPin.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB55441655665D00FC8AA9 /* mapPin.png */; };
+		F7DB55471655665D00FC8AA9 /* mapPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB55451655665D00FC8AA9 /* mapPin@2x.png */; };
+		F7DB554A1655676B00FC8AA9 /* separator-gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB55481655676B00FC8AA9 /* separator-gradient.png */; };
+		F7DB554B1655676B00FC8AA9 /* separator-gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB55491655676B00FC8AA9 /* separator-gradient@2x.png */; };
 		F7E7564215FC9D26005C8D7C /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E7564115FC9D26005C8D7C /* FacebookSDK.framework */; };
 		F7E7564515FC9D9E005C8D7C /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F7E7564415FC9D9E005C8D7C /* FacebookSDKResources.bundle */; };
 		F7E7568415FE06DA005C8D7C /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E7568315FE06DA005C8D7C /* Twitter.framework */; };
@@ -981,6 +995,20 @@
 		F7D41BA516234B4E00DBA87D /* MMTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTabBarViewController.h; sourceTree = "<group>"; };
 		F7D41BA616234B4E00DBA87D /* MMTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTabBarViewController.m; sourceTree = "<group>"; };
 		F7D41BA716234B4E00DBA87D /* MMTabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMTabBarViewController.xib; sourceTree = "<group>"; };
+		F7DB552F165561D900FC8AA9 /* deselectedRectRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deselectedRectRed.png; sourceTree = "<group>"; };
+		F7DB5530165561D900FC8AA9 /* deselectedRectRed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deselectedRectRed@2x.png"; sourceTree = "<group>"; };
+		F7DB5534165565C100FC8AA9 /* bookmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookmark.png; sourceTree = "<group>"; };
+		F7DB5535165565C100FC8AA9 /* bookmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookmark@2x.png"; sourceTree = "<group>"; };
+		F7DB5538165565E000FC8AA9 /* alarmClock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alarmClock.png; sourceTree = "<group>"; };
+		F7DB5539165565E000FC8AA9 /* alarmClock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alarmClock@2x.png"; sourceTree = "<group>"; };
+		F7DB553C1655661600FC8AA9 /* satellite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = satellite.png; sourceTree = "<group>"; };
+		F7DB553D1655661600FC8AA9 /* satellite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "satellite@2x.png"; sourceTree = "<group>"; };
+		F7DB553E1655661600FC8AA9 /* telephone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = telephone.png; sourceTree = "<group>"; };
+		F7DB553F1655661600FC8AA9 /* telephone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "telephone@2x.png"; sourceTree = "<group>"; };
+		F7DB55441655665D00FC8AA9 /* mapPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapPin.png; sourceTree = "<group>"; };
+		F7DB55451655665D00FC8AA9 /* mapPin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mapPin@2x.png"; sourceTree = "<group>"; };
+		F7DB55481655676B00FC8AA9 /* separator-gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "separator-gradient.png"; sourceTree = "<group>"; };
+		F7DB55491655676B00FC8AA9 /* separator-gradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "separator-gradient@2x.png"; sourceTree = "<group>"; };
 		F7E7564115FC9D26005C8D7C /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		F7E7564415FC9D9E005C8D7C /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKResources.bundle; sourceTree = "<group>"; };
 		F7E7568315FE06DA005C8D7C /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -1580,6 +1608,8 @@
 		F734A62D15F146630090E85A /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				F7DB55481655676B00FC8AA9 /* separator-gradient.png */,
+				F7DB55491655676B00FC8AA9 /* separator-gradient@2x.png */,
 				1A6784AB1640C49900A45AC5 /* CloseButton.png */,
 				1A6784AC1640C49900A45AC5 /* CloseButton@2x.png */,
 				37E52338163F3E97003AC7E5 /* peopleIcon.png */,
@@ -1649,6 +1679,16 @@
 		F738D0D61654CF9B005FC693 /* location-full slices */ = {
 			isa = PBXGroup;
 			children = (
+				F7DB5534165565C100FC8AA9 /* bookmark.png */,
+				F7DB5535165565C100FC8AA9 /* bookmark@2x.png */,
+				F7DB5538165565E000FC8AA9 /* alarmClock.png */,
+				F7DB5539165565E000FC8AA9 /* alarmClock@2x.png */,
+				F7DB55441655665D00FC8AA9 /* mapPin.png */,
+				F7DB55451655665D00FC8AA9 /* mapPin@2x.png */,
+				F7DB553C1655661600FC8AA9 /* satellite.png */,
+				F7DB553D1655661600FC8AA9 /* satellite@2x.png */,
+				F7DB553E1655661600FC8AA9 /* telephone.png */,
+				F7DB553F1655661600FC8AA9 /* telephone@2x.png */,
 				F738D0D71654CF9B005FC693 /* grayPictureBtn.png */,
 				F738D0D81654CF9B005FC693 /* grayPictureBtn@2x.png */,
 				F738D0D91654CF9B005FC693 /* grayVideoBtn.png */,
@@ -1706,6 +1746,8 @@
 		F738D12C1654D455005FC693 /* make-a-request slices */ = {
 			isa = PBXGroup;
 			children = (
+				F7DB552F165561D900FC8AA9 /* deselectedRectRed.png */,
+				F7DB5530165561D900FC8AA9 /* deselectedRectRed@2x.png */,
 				F738D16D1654D670005FC693 /* segmentedControlSeparator.png */,
 				F738D16E1654D670005FC693 /* segmentedControlSeparator@2x.png */,
 				F738D12D1654D456005FC693 /* calendarIcn.png */,
@@ -2574,6 +2616,20 @@
 				F738D16C1654D456005FC693 /* timeBtnSelected@2x.png in Resources */,
 				F738D16F1654D671005FC693 /* segmentedControlSeparator.png in Resources */,
 				F738D1701654D671005FC693 /* segmentedControlSeparator@2x.png in Resources */,
+				F7DB5531165561D900FC8AA9 /* deselectedRectRed.png in Resources */,
+				F7DB5532165561D900FC8AA9 /* deselectedRectRed@2x.png in Resources */,
+				F7DB5536165565C100FC8AA9 /* bookmark.png in Resources */,
+				F7DB5537165565C100FC8AA9 /* bookmark@2x.png in Resources */,
+				F7DB553A165565E000FC8AA9 /* alarmClock.png in Resources */,
+				F7DB553B165565E000FC8AA9 /* alarmClock@2x.png in Resources */,
+				F7DB55401655661600FC8AA9 /* satellite.png in Resources */,
+				F7DB55411655661600FC8AA9 /* satellite@2x.png in Resources */,
+				F7DB55421655661600FC8AA9 /* telephone.png in Resources */,
+				F7DB55431655661600FC8AA9 /* telephone@2x.png in Resources */,
+				F7DB55461655665D00FC8AA9 /* mapPin.png in Resources */,
+				F7DB55471655665D00FC8AA9 /* mapPin@2x.png in Resources */,
+				F7DB554A1655676B00FC8AA9 /* separator-gradient.png in Resources */,
+				F7DB554B1655676B00FC8AA9 /* separator-gradient@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

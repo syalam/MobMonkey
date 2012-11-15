@@ -414,7 +414,7 @@
 												<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 												<object class="NSCustomResource" key="IBUIImage">
 													<string key="NSClassName">NSImage</string>
-													<string key="NSResourceName">divider.png</string>
+													<string key="NSResourceName">separator-gradient.png</string>
 												</object>
 											</object>
 										</array>
@@ -1203,7 +1203,6 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="divider.png">{312, 1}</string>
 			<string key="grayBtn.png">{100, 68}</string>
 			<string key="location-liveVideoIcn.png">{39, 34}</string>
 			<string key="location-pictureIcn.png">{34, 33}</string>
@@ -1211,6 +1210,7 @@
 			<string key="monkey.jpg">{600, 450}</string>
 			<string key="moreBtnOverlay.png">{55, 44}</string>
 			<string key="peopleIcon.png">{38, 38}</string>
+			<string key="separator-gradient.png">{320, 6}</string>
 			<string key="timeIcnOverlay.png">{15, 15}</string>
 			<string key="videoIcn.png">{34, 33}</string>
 		</dictionary>
