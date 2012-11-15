@@ -203,6 +203,7 @@
             [MMAPI sharedAPI].delegate = self;
             switch (indexPath.row) {
                 case 0:
+                    [self.locationsViewController setTitle:@"Open Requests"];
                     [self.navigationController pushViewController:self.locationsViewController animated:YES];
                     self.locationsViewController.locations = self.locationsInOpenRequests;
                     break;
@@ -210,6 +211,7 @@
                     [[MMClientSDK sharedSDK] answeredRequestsScreen:self answeredItemsToDisplay:self.fulfilledRequests];
                     break;
                 case 2:
+                    [self.locationsViewController setTitle:@"Assigned Requests"];
                     [self.navigationController pushViewController:self.locationsViewController animated:YES];
                     self.locationsViewController.locations = self.locationsInAssignedRequests;
                     break;

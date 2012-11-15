@@ -53,7 +53,8 @@ enum RequestDurationLengths {
     frame.size.height = 64;
     self.mediaTypeSegmentedControl.frame = frame;
     [self.mediaTypeSegmentedControl setBackgroundImage:[UIImage imageNamed:@"deselectedRectRed"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    UIImage *divider = [UIImage imageNamed:@"separator-gradient"];
+    //UIImage *divider = [UIImage imageNamed:@"separator-gradient"];
+    UIImage *divider = [UIImage imageNamed:@"segmentedControlSeparator"];
     [self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
     

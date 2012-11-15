@@ -20,7 +20,7 @@
                                     <rect key="frame" x="10" y="10" width="300" height="44"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <segments>
-                                        <segment title="" image="location-videoIcn.png"/>
+                                        <segment title="" image="videoIcn.png"/>
                                         <segment title="" image="location-pictureIcn.png"/>
                                     </segments>
                                     <connections>
@@ -38,7 +38,7 @@
                                     <rect key="frame" x="8" y="80" width="304" height="68"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     <fontDescription key="fontDescription" type="boldSystem" size="button"/>
-                                    <state key="normal" title="Send Video Request" backgroundImage="deselectedRectRed.png">
+                                    <state key="normal" title="Send Video Request" backgroundImage="makeRequestButtonBlank.png">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -337,10 +337,43 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="SearchBar.png" width="312" height="30"/>
         <image name="calendarIcn.png" width="15" height="16"/>
         <image name="clipboardIcn.png" width="12" height="16"/>
-        <image name="deselectedRectRed.png" width="304" height="68"/>
+        <image name="deselectedRectRed.png" width="16" height="16"/>
         <image name="location-pictureIcn.png" width="34" height="33"/>
-        <image name="location-videoIcn.png" width="34" height="33"/>
+        <image name="makeRequestButtonBlank.png" width="307" height="61"/>
+        <image name="videoIcn.png" width="34" height="33"/>
     </resources>
+    <classes>
+        <class className="MMRequestMessageViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMRequestMessageViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="clearText:"/>
+                <relationship kind="outlet" name="textFieldBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="MMRequestScheduleViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMRequestScheduleViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="setSchedule:"/>
+                <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
+            </relationships>
+        </class>
+        <class className="MMRequestViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMRequestViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelRequest:"/>
+                <relationship kind="action" name="changeMediaRequestType:"/>
+                <relationship kind="action" name="changeRequestDuration:"/>
+                <relationship kind="action" name="sendRequest:"/>
+                <relationship kind="outlet" name="mediaTypeSegmentedControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="requestButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="stayActiveLengthSegmentedCell" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="MMTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMTableViewCell.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
