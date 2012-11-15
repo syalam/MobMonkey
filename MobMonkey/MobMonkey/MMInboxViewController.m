@@ -14,6 +14,7 @@
 #import "MMInboxFullScreenImageViewController.h"
 #import "MMInboxCategoryCell.h"
 #import "MMLocationsViewController.h"
+#import "MMInboxDetailViewController.h"
 
 #define FONT_SIZE 14.0f
 #define CELL_CONTENT_WIDTH 180.0f
@@ -200,20 +201,24 @@
 //    }
 //    else {
         if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
-            [MMAPI sharedAPI].delegate = self;
+            MMInboxDetailViewController *inboxDetailVC = [[MMInboxDetailViewController alloc]initWithNibName:@"MMInboxDetailViewController" bundle:nil];
             switch (indexPath.row) {
                 case 0:
-                    [self.locationsViewController setTitle:@"Open Requests"];
+                    inboxDetailVC.title = @"Open Requests";
+                    [self.navigationController pushViewController:inboxDetailVC animated:YES];
+                    /*[self.locationsViewController setTitle:@"Open Requests"];
                     [self.navigationController pushViewController:self.locationsViewController animated:YES];
-                    self.locationsViewController.locations = self.locationsInOpenRequests;
+                    self.locationsViewController.locations = self.locationsInOpenRequests;*/
                     break;
                 case 1:
                     [[MMClientSDK sharedSDK] answeredRequestsScreen:self answeredItemsToDisplay:self.fulfilledRequests];
                     break;
                 case 2:
-                    [self.locationsViewController setTitle:@"Assigned Requests"];
+                    inboxDetailVC.title = @"Assigned Requests";
+                    [self.navigationController pushViewController:inboxDetailVC animated:YES];
+                    /*[self.locationsViewController setTitle:@"Assigned Requests"];
                     [self.navigationController pushViewController:self.locationsViewController animated:YES];
-                    self.locationsViewController.locations = self.locationsInAssignedRequests;
+                    self.locationsViewController.locations = self.locationsInAssignedRequests;*/
                     break;
                 default:
                     

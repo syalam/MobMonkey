@@ -13,4 +13,6 @@
 
 @property (strong, nonatomic) NSDictionary *location;
 
+- (void)setLocation:(NSDictionary *)location;
+
 @end

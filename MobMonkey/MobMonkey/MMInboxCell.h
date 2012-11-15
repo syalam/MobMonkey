@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMUtilities.h"
+#import "UIColor+Additions.h"
 
 @interface MMInboxCell : MMTableViewCell
 
-@property (nonatomic, retain)UIImageView *backgroundImageView;
-@property (nonatomic, retain)UILabel *locationNameLabel;
-@property (nonatomic, retain)UILabel *requestTypeLabel;
-@property (nonatomic, retain)UILabel *messageLabel;
-@property (nonatomic, retain)UILabel *timestampLabel;
+@property (strong, nonatomic) NSDictionary *location;
+
+- (void)setLocation:(NSDictionary *)location;
 
 @end
+

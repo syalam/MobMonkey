@@ -325,6 +325,8 @@
 		F747F15F15F4740B002E5567 /* MMSignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F15D15F4740B002E5567 /* MMSignUpViewController.xib */; };
 		F747F16315F4742D002E5567 /* MMLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F16115F4742C002E5567 /* MMLoginViewController.m */; };
 		F747F16415F4742D002E5567 /* MMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F16215F4742C002E5567 /* MMLoginViewController.xib */; };
+		F75A8738165573F800AF83EA /* MMInboxDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F75A8736165573F800AF83EA /* MMInboxDetailViewController.m */; };
+		F75A8739165573F800AF83EA /* MMInboxDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F75A8737165573F800AF83EA /* MMInboxDetailViewController.xib */; };
 		F76DFE52161EAEDC00B5683F /* MMInboxFullScreenImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F76DFE50161EAEDC00B5683F /* MMInboxFullScreenImageViewController.m */; };
 		F76DFE53161EAEDC00B5683F /* MMInboxFullScreenImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F76DFE51161EAEDC00B5683F /* MMInboxFullScreenImageViewController.xib */; };
 		F76DFE76161F4DCA00B5683F /* tabBtn1.png in Resources */ = {isa = PBXBuildFile; fileRef = F76DFE62161F4DCA00B5683F /* tabBtn1.png */; };
@@ -869,6 +871,9 @@
 		F747F16015F4742B002E5567 /* MMLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLoginViewController.h; sourceTree = "<group>"; };
 		F747F16115F4742C002E5567 /* MMLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLoginViewController.m; sourceTree = "<group>"; };
 		F747F16215F4742C002E5567 /* MMLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLoginViewController.xib; sourceTree = "<group>"; };
+		F75A8735165573F800AF83EA /* MMInboxDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInboxDetailViewController.h; sourceTree = "<group>"; };
+		F75A8736165573F800AF83EA /* MMInboxDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMInboxDetailViewController.m; sourceTree = "<group>"; };
+		F75A8737165573F800AF83EA /* MMInboxDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMInboxDetailViewController.xib; sourceTree = "<group>"; };
 		F76DFE4F161EAEDC00B5683F /* MMInboxFullScreenImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInboxFullScreenImageViewController.h; sourceTree = "<group>"; };
 		F76DFE50161EAEDC00B5683F /* MMInboxFullScreenImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMInboxFullScreenImageViewController.m; sourceTree = "<group>"; };
 		F76DFE51161EAEDC00B5683F /* MMInboxFullScreenImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMInboxFullScreenImageViewController.xib; sourceTree = "<group>"; };
@@ -1474,10 +1479,10 @@
 				F71991FD1622A0B8003C6A65 /* Inbox Category Cell */,
 				F71991F0162263E5003C6A65 /* Answered Requests */,
 				F76DFE48161EADE500B5683F /* Full Screen Image */,
-				F77D3E5B161A9F5B000A818F /* Inbox Cell */,
 				F734A58015F122FF0090E85A /* MMInboxViewController.h */,
 				F734A58115F122FF0090E85A /* MMInboxViewController.m */,
 				F734A58215F122FF0090E85A /* MMInboxViewController.xib */,
+				F75A872E165573BE00AF83EA /* Inbox Detail */,
 			);
 			name = Inbox;
 			sourceTree = "<group>";
@@ -1904,6 +1909,17 @@
 				F747F16615F47445002E5567 /* Sign up */,
 			);
 			name = Authentication;
+			sourceTree = "<group>";
+		};
+		F75A872E165573BE00AF83EA /* Inbox Detail */ = {
+			isa = PBXGroup;
+			children = (
+				F77D3E5B161A9F5B000A818F /* Inbox Cell */,
+				F75A8735165573F800AF83EA /* MMInboxDetailViewController.h */,
+				F75A8736165573F800AF83EA /* MMInboxDetailViewController.m */,
+				F75A8737165573F800AF83EA /* MMInboxDetailViewController.xib */,
+			);
+			name = "Inbox Detail";
 			sourceTree = "<group>";
 		};
 		F76DFE48161EADE500B5683F /* Full Screen Image */ = {
@@ -2630,6 +2646,7 @@
 				F7DB55471655665D00FC8AA9 /* mapPin@2x.png in Resources */,
 				F7DB554A1655676B00FC8AA9 /* separator-gradient.png in Resources */,
 				F7DB554B1655676B00FC8AA9 /* separator-gradient@2x.png in Resources */,
+				F75A8739165573F800AF83EA /* MMInboxDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2728,6 +2745,7 @@
 				37E524A916430341003AC7E5 /* Reachability.m in Sources */,
 				370D65071648E7B700D72154 /* NSString+URLParams.m in Sources */,
 				371D6E981650CBFF006354E2 /* NSDate+JavaEpochTime.m in Sources */,
+				F75A8738165573F800AF83EA /* MMInboxDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

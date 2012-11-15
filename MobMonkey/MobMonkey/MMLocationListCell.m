@@ -31,7 +31,6 @@
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.font = [UIFont boldSystemFontOfSize:18.0];
-        //_nameLabel.textColor = [UIColor colorWithHex:@"DF561B" alpha:1.0];
         [_nameLabel setLineBreakMode:NSLineBreakByTruncatingTail];
         _addressLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _addressLabel.numberOfLines = 2;

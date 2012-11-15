@@ -112,7 +112,8 @@
         cell = [[MMLocationListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    cell.location = [self.locations objectAtIndex:indexPath.row];
+    [cell setLocation:[self.locations objectAtIndex:indexPath.row]];
+    //cell.location = [self.locations objectAtIndex:indexPath.row];
     
     return cell;
 }
