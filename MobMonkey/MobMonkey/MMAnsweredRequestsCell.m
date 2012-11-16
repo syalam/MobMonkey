@@ -25,12 +25,12 @@
         [_moreButton addTarget:self action:@selector(moreButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         
         _acceptButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_acceptButton setFrame:CGRectMake(5, 282, 148, 41)];
+        [_acceptButton setFrame:CGRectMake(10, 282, 148, 41)];
         [_acceptButton setImage:[UIImage imageNamed:@"acceptBtn"] forState:UIControlStateNormal];
         [_acceptButton addTarget:self action:@selector(acceptButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         
         _rejectButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_rejectButton setFrame:CGRectMake(157, 282, 148, 41)];
+        [_rejectButton setFrame:CGRectMake(162, 282, 148, 41)];
         [_rejectButton setImage:[UIImage imageNamed:@"rejectBtn"] forState:UIControlStateNormal];
         [_rejectButton addTarget:self action:@selector(rejectButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         
