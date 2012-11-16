@@ -70,7 +70,15 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.tableView reloadData];
+    
+    if (![[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
+        [[MMClientSDK sharedSDK]signInScreen:self];
+    }
+    else {
+        [self.tableView reloadData];
+    }
+    
+    
 }
 
 - (void)viewDidUnload
@@ -228,52 +236,61 @@
     double latitude, longitude;
     NSMutableDictionary *params = [@{@"timeSpan":@"week"} mutableCopy];
     [params setValue:@"1" forKey:@"categoryIds"];
-
-    NSData* jsonData;
-    id jsonObject;
-    NSDictionary *favorites = [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedInterests"];
-    NSString *favoritesParams = [[favorites allValues] componentsJoinedByString:@","];
-    [params setValue:@"true" forKey:@"myinterests"];
-    //[params setValue:favoritesParams forKey:@"categoryIds"];
+    
+    NSString *type;
+    
+    latitude = [[[NSUserDefaults standardUserDefaults] valueForKey:@"latitude"]doubleValue];
+    longitude = [[[NSUserDefaults standardUserDefaults] valueForKey:@"longitude"]doubleValue];
+    
     switch (indexPath.row) {
-        case 1:
-            [params setValue:@"true" forKey:@"nearby"];
+        case 0:
+            type = @"bookmarks";
+            break;
+        case 1: {
+            NSDictionary *favorites = [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedInterests"];
+            NSString *favoritesParams = [[favorites allValues] componentsJoinedByString:@","];
+            if (![favoritesParams isEqualToString:@""]) {
+                [params setValue:favoritesParams forKey:@"categoryIds"];
+                [params setValue:@"true" forKey:@"myinterests"];
+                type = @"topviewed";
+            }
+            else {
+                type = @"topviewed";
+            }
+        }
             break;
         case 2:
-            [params setValue:@"true" forKey:@"nearby"];
+            type = @"topviewed";
             break;
         case 3:
             [params setValue:@"true" forKey:@"nearby"];
+            [params setValue:[NSNumber numberWithDouble:latitude] forKey:@"latitude"];
+            [params setValue:[NSNumber numberWithDouble:longitude] forKey:@"longitude"];
+            [params setValue:[NSNumber numberWithInt:10000] forKey:@"radius"];
+            type = @"topviewed";
             break;
         default:
             break;
     }
-    latitude = [[[NSUserDefaults standardUserDefaults] valueForKey:@"latitude"]doubleValue];
-    longitude = [[[NSUserDefaults standardUserDefaults] valueForKey:@"longitude"]doubleValue];
-    NSLog(@"%f, %f", latitude, longitude);
-    
-    [params setValue:[NSNumber numberWithDouble:latitude] forKey:@"latitude"];
-    [params setValue:[NSNumber numberWithDouble:longitude] forKey:@"longitude"];
 
-    [params setValue:[NSNumber numberWithInt:200] forKey:@"radius"];
-    jsonData = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:nil];
-    jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
     
-    NSLog(@"%@", jsonObject);
     if (!self.locationsViewController) {
         self.locationsViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
     }
-    self.locationsViewController.locations = [@[] mutableCopy];
-    [MMAPI getTrendingType:(indexPath.row == 0) ? @"bookmarks" : @"topviewed"
-                    params:jsonObject
-                   success:^(id responseObject) {
-                       self.locationsViewController.isSearching = NO;
-                       [SVProgressHUD dismiss];
-                       self.locationsViewController.locations = responseObject;}
-                   failure:^(NSError *error) {
-                       [SVProgressHUD dismissWithError:[error description]];}];
-    self.locationsViewController.title = [[[self.tableView cellForRowAtIndexPath:indexPath] textLabel] text];
     [self.navigationController pushViewController:self.locationsViewController animated:YES];
+    self.locationsViewController.locations = [@[] mutableCopy];
+    self.locationsViewController.title = [_contentList objectAtIndex:indexPath.row];
+    
+    [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Loading %@", [_contentList objectAtIndex:indexPath.row]]];
+    [MMAPI getTrendingType:type params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        self.locationsViewController.isSearching = NO;
+        [SVProgressHUD dismiss];
+        self.locationsViewController.locations = responseObject;
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
+        [SVProgressHUD dismissWithError:@"Unable to load"];
+        [self.locationsViewController.navigationController popViewControllerAnimated:YES];
+    }];
 }
     
 @end

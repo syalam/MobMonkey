@@ -395,7 +395,18 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     }];
 }
 
-+ (void)getTrendingType:(NSString *)type
++ (void)getTrendingType:(NSString *)type params:(NSDictionary *)params
+                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
+    [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+    [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
+    [httpClient getPath:[@"trending/" stringByAppendingString:type] parameters:params success:success failure:failure];
+}
+
+/*+ (void)getTrendingType:(NSString *)type
                  params:(NSDictionary *)params
                 success:(void (^)(id responseObject))success
                 failure:(void (^)(NSError *error))failure
@@ -417,7 +428,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
         NSLog(@"Locations: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         success([NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil]);
     }];
-}
+}*/
 
 #pragma mark - Location
 + (void)getLocationInfo:(NSDictionary *)param

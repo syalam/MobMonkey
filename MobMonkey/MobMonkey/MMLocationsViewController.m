@@ -63,7 +63,10 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (self.isSearching) {
+    if (![[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
+        [[MMClientSDK sharedSDK]signInScreen:self];
+    }
+    else if (self.isSearching) {
         [SVProgressHUD showWithStatus:@"Searching"];
     }
     [self.tableView reloadData];

@@ -63,7 +63,13 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (_categorySelected) {
+    
+    
+    if (![[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
+        [[MMClientSDK sharedSDK]signInScreen:self];
+    }
+    
+    else if (_categorySelected) {
         //Add custom back button to the nav bar
         UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
         [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
@@ -173,62 +179,34 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (_categorySelected) {
-//        if ([self.title isEqualToString:@"Assigned Requests"]) {
-//            selectedRequestId = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestId"];
-//            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-//                UIImagePickerController* picker = [[UIImagePickerController alloc] init];
-//                picker.delegate = self;
-//                picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-//                picker.showsCameraControls = YES;
-//                
-//                if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 1) {
-//                    picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
-//                    picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
-//                }
-//                else {
-//                    [picker setVideoMaximumDuration:10];
-//                    picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
-//                    picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
-//                }
-//                [self presentViewController:picker animated:YES completion:nil];
-//            }
-//            else {
-//                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Unable to take a photo or video using this device" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//                [alert show];
-//            }
-//        }
-//    }
-//    else {
-        if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
-            MMInboxDetailViewController *inboxDetailVC = [[MMInboxDetailViewController alloc]initWithNibName:@"MMInboxDetailViewController" bundle:nil];
-            switch (indexPath.row) {
-                case 0:
-                    inboxDetailVC.title = @"Open Requests";
-                    [self.navigationController pushViewController:inboxDetailVC animated:YES];
-                    /*[self.locationsViewController setTitle:@"Open Requests"];
-                    [self.navigationController pushViewController:self.locationsViewController animated:YES];
-                    self.locationsViewController.locations = self.locationsInOpenRequests;*/
-                    break;
-                case 1:
-                    [[MMClientSDK sharedSDK] answeredRequestsScreen:self answeredItemsToDisplay:self.fulfilledRequests];
-                    break;
-                case 2:
-                    inboxDetailVC.title = @"Assigned Requests";
-                    [self.navigationController pushViewController:inboxDetailVC animated:YES];
-                    /*[self.locationsViewController setTitle:@"Assigned Requests"];
-                    [self.navigationController pushViewController:self.locationsViewController animated:YES];
-                    self.locationsViewController.locations = self.locationsInAssignedRequests;*/
-                    break;
-                default:
-                    
-                    break;
-            }
+    if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
+        MMInboxDetailViewController *inboxDetailVC = [[MMInboxDetailViewController alloc]initWithNibName:@"MMInboxDetailViewController" bundle:nil];
+        switch (indexPath.row) {
+            case 0:
+                inboxDetailVC.title = @"Open Requests";
+                [self.navigationController pushViewController:inboxDetailVC animated:YES];
+                /*[self.locationsViewController setTitle:@"Open Requests"];
+                 [self.navigationController pushViewController:self.locationsViewController animated:YES];
+                 self.locationsViewController.locations = self.locationsInOpenRequests;*/
+                break;
+            case 1:
+                [[MMClientSDK sharedSDK] answeredRequestsScreen:self answeredItemsToDisplay:self.fulfilledRequests];
+                break;
+            case 2:
+                inboxDetailVC.title = @"Assigned Requests";
+                [self.navigationController pushViewController:inboxDetailVC animated:YES];
+                /*[self.locationsViewController setTitle:@"Assigned Requests"];
+                 [self.navigationController pushViewController:self.locationsViewController animated:YES];
+                 self.locationsViewController.locations = self.locationsInAssignedRequests;*/
+                break;
+            default:
+                
+                break;
         }
-        else {
-            [[MMClientSDK sharedSDK]signInScreen:self];
-        }
-//    }
+    }
+    else {
+        [[MMClientSDK sharedSDK]signInScreen:self];
+    }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

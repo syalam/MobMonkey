@@ -57,13 +57,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
-        [_signInButton setTitle:@"Sign Out" forState:UIControlStateNormal];
+    if (![[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
+        [[MMClientSDK sharedSDK]signInScreen:self];
     }
-    else {
-        [_signInButton setTitle:@"Sign In" forState:UIControlStateNormal];
-    }
-    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -174,7 +170,7 @@
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"password"];
         [[NSUserDefaults standardUserDefaults]synchronize];
         
-        [_signInButton setTitle:@"Sign In" forState:UIControlStateNormal];
+        [[MMClientSDK sharedSDK]signInScreen:self];
     }
     //otherwise allow the user to sign in but calling the sign in screen
     else {
