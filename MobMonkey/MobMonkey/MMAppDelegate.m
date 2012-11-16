@@ -119,7 +119,11 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
     [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
     [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
-    [MMAPI checkUserIn:params success:nil failure:nil];
+    [MMAPI checkUserIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", @"Checked In");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
+    }];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

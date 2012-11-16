@@ -14,7 +14,7 @@
     NSString *time;
     
     NSDate *today = [[NSDate alloc]init];
-    NSTimeInterval timeBetween = [today timeIntervalSinceDate:date];
+    NSTimeInterval timeBetween = fabs([today timeIntervalSinceDate:date]);
     int minutes = timeBetween/60;
     int hours = minutes/60;
     int days = hours/24;

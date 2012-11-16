@@ -11,6 +11,7 @@
 
 @protocol MMAnsweredRequestsCellDelegate
 
+-(void)locationNameButtonTapped:(id)sender;
 -(void)moreButtonTapped:(id)sender;
 -(void)acceptButtonTapped:(id)sender;
 -(void)rejectButtonTapped:(id)sender;
@@ -19,6 +20,7 @@
 
 @interface MMAnsweredRequestsCell : UITableViewCell
 
+@property (nonatomic, retain) UIButton *locationNameButton;
 @property (nonatomic, retain) UILabel *locationNameLabel;
 @property (nonatomic, retain) UILabel *timeStampLabel;
 @property (nonatomic, retain) TCImageView *locationImageView;

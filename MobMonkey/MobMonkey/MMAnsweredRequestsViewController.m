@@ -9,6 +9,7 @@
 #import "MMAnsweredRequestsViewController.h"
 #import "MMClientSDK.h"
 #import "GetRelativeTime.h"
+#import "MMLocationViewController.h"
 
 @interface MMAnsweredRequestsViewController ()
 
@@ -76,6 +77,7 @@
     MMAnsweredRequestsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[MMAnsweredRequestsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.delegate = self;
     }
     
     cell.timeStampLabel.text = @"";
@@ -98,6 +100,9 @@
         }
     }
     
+    cell.moreButton.tag = indexPath.row;
+    cell.locationNameButton.tag = indexPath.row;
+    
     
     return cell;
 }
@@ -106,13 +111,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -122,8 +121,18 @@
 #pragma mark - UINavBar Action Methods
 
 #pragma mark - MMAnsweredRequestCell delegate
--(void)moreButtonTapped:(id)sender {
+-(void)locationNameButtonTapped:(id)sender {
+    NSString *locationId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"locationId"];
+    NSString *providerId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"providerId"];
     
+    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+    [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
+    [self.navigationController pushViewController:locationViewController animated:YES];
+}
+
+-(void)moreButtonTapped:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Flag for Review", nil];
+    [actionSheet showFromTabBar:self.tabBarController.tabBar];
 }
 -(void)acceptButtonTapped:(id)sender {
     

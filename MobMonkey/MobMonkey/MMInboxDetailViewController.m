@@ -10,6 +10,7 @@
 #import "SVProgressHUD.h"
 #import "MMInboxCell.h"
 #import "NSData+Base64.h"
+#import "MMLocationViewController.h"
 
 @interface MMInboxDetailViewController ()
 
@@ -123,7 +124,12 @@
 {
     // Navigation logic may go here. Create and push another view controller.
     if ([self.title isEqualToString:@"Open Requests"]) {
+        NSString *locationId = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"locationId"];
+        NSString *providerId = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"providerId"];
         
+        MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+        [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
+        [self.navigationController pushViewController:locationViewController animated:YES];
     }
     else {
         requestId = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestId"];

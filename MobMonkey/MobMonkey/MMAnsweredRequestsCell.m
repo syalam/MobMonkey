@@ -19,6 +19,10 @@
         _timeStampLabel = [[UILabel alloc]initWithFrame:CGRectMake(241, 62, 72, 16)];
         _locationImageView = [[TCImageView alloc]initWithFrame:CGRectMake(10, 49, 300, 225)];
         
+        _locationNameButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_locationNameButton setFrame:_locationNameLabel.frame];
+        [_locationNameButton addTarget:self action:@selector(locationNameButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        
         _moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_moreButton setFrame:CGRectMake(263, 242, 32, 32)];
         [_moreButton setImage:[UIImage imageNamed:@"moreBtnOverlay"] forState:UIControlStateNormal];
@@ -58,6 +62,7 @@
         
         [self.contentView addSubview:backgroundView];
         [self.contentView addSubview:_locationNameLabel];
+        [self.contentView addSubview:_locationNameButton];
         [self.contentView addSubview:_locationImageView];
         [self.contentView addSubview:clockImageView];
         [self.contentView addSubview:_timeStampLabel];
@@ -77,6 +82,9 @@
 }
 
 #pragma mark - IBAction Methods
+-(void)locationNameButtonTapped:(id)sender {
+    [_delegate locationNameButtonTapped:sender];
+}
 -(void)moreButtonTapped:(id)sender {
     [_delegate moreButtonTapped:sender];
 }

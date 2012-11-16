@@ -181,9 +181,6 @@
         }
             break;
         case 1: {
-//            MMMapViewController *mmmVc = [[MMMapViewController alloc] initWithNibName:@"MMMapViewController" bundle:nil];
-//            mmmVc.address = [NSString stringWithFormat:@"%@ %@, %@ %@", [_contentList valueForKey:@"address"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];
-//            [self.navigationController pushViewController:mmmVc animated:YES];
             UIViewController *mapViewController = [[UIViewController alloc] init];
             mapViewController.title = [_contentList valueForKey:@"name"];
             UIView *view = mapViewController.view;
@@ -222,12 +219,6 @@
             break;
     }
 }
-
-//MMLocationMediaViewController *lmvc = [[MMLocationMediaViewController alloc]initWithNibName:@"MMLocationMediaViewController" bundle:nil];
-//lmvc.contentList = locationMediaContent;
-//lmvc.title = locationName;
-//UINavigationController *locationMediaNavC = [[UINavigationController alloc]initWithRootViewController:lmvc];
-//[presentingViewController.navigationController presentViewController:locationMediaNavC animated:YES completion:NULL];
 
 #pragma mark - IBAction Methods
 - (IBAction)mediaButtonTapped:(id)sender
@@ -371,6 +362,36 @@
     self.videoCountLabel.text = [[self.contentList valueForKey:@"videos"] description];
     self.photoCountLabel.text = [[self.contentList valueForKey:@"images"] description];
     self.monkeyCountLabel.text = [[self.contentList valueForKey:@"monkeys"] description];
+}
+
+- (void)loadLocationDataWithLocationId:(NSString*)locationId providerId:(NSString*)providerId {
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            locationId, @"locationId",
+                            providerId, @"providerId", nil];
+    [SVProgressHUD showWithStatus:@"Loading location information"];
+    [MMAPI getLocationInfo:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [SVProgressHUD dismiss];
+        [self setContentList:responseObject];
+        [self setLocationDetailItems];
+        [self fetchLatestMediaForLocation];
+        [self.tableView reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD dismissWithError:@"Unable to load location data"];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+}
+
+- (void)fetchLatestMediaForLocation {
+    [MMAPI getMediaForLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *responseArray = [responseObject valueForKey:@"media"];
+        if (responseArray.count > 0) {
+            NSString *mediaUrl = [[responseArray objectAtIndex:0]valueForKey:@"mediaURL"];
+            [_locationLatestImageView reloadWithUrl:mediaUrl];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Could not load image");
+    }];
+
 }
 
 #pragma mark - MMAPI Delegate Methods

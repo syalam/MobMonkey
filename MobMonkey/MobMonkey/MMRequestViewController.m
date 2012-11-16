@@ -64,6 +64,9 @@ enum RequestDurationLengths {
     self.stayActiveLengthSegmentedCell.selectedSegmentIndex = 1;
     
     self.requestInfo = [NSMutableDictionary dictionary];
+    
+    //initialize duration to 30 minutes
+    self.duration = @30;
 }
 
 - (void)viewDidUnload {

@@ -61,12 +61,15 @@
         [view removeFromSuperview];
     }
     _location = location;
-    _nameLabel.text = [_location valueForKey:@"nameOfLocation"];
-    [_nameLabel sizeToFit];
+    if (![[_location valueForKey:@"nameOfLocation"]isKindOfClass:[NSNull class]]) {
+        _nameLabel.text = [_location valueForKey:@"nameOfLocation"];
+        [_nameLabel sizeToFit];
+    }
     
-    
-    _messageLabel.text = [_location valueForKey:@"message"];
-    [_messageLabel sizeToFit];
+    if (![[_location valueForKey:@"message"]isKindOfClass:[NSNull class]]) {
+        _messageLabel.text = [_location valueForKey:@"message"];
+        [_messageLabel sizeToFit];
+    }
     
     CGFloat distance = [[MMUtilities sharedUtilities] calculateDistance:[_location valueForKey:@"latitude"]
                                                               longitude:[_location valueForKey:@"longitude"]];

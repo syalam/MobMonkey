@@ -65,4 +65,6 @@
 - (IBAction)addressButtonTapped:(id)sender;
 - (IBAction)clearNotificationSettingButtonTapped:(id)sender;
 
+- (void)loadLocationDataWithLocationId:(NSString*)locationId providerId:(NSString*)providerId;
+
 @end
