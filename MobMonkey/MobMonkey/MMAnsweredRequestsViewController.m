@@ -8,19 +8,11 @@
 
 #import "MMAnsweredRequestsViewController.h"
 #import "MMClientSDK.h"
+#import "GetRelativeTime.h"
 
 @interface MMAnsweredRequestsViewController ()
 
 @end
-
-enum AcceptRejectCellViewTag {
-    LocationNameTag = 10,
-    MediaViewTag,
-    TimeAgoTag,
-    ShareButtonTag,
-    AcceptButtonTag,
-    RejectButtonTag
-};
 
 @implementation MMAnsweredRequestsViewController
 
@@ -48,7 +40,9 @@ enum AcceptRejectCellViewTag {
                                                                           green:112.0/225.0
                                                                            blue:36.0/255.0
                                                                           alpha:1.0]];*/
-    NSLog(@"%@", _contentList);
+    
+    
+    [self fetchAnsweredRequests];
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -79,26 +73,30 @@ enum AcceptRejectCellViewTag {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    MMAnsweredRequestsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[self acceptRejectCell]];
-        cell = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        cell = [[MMAnsweredRequestsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    UIButton *shareButton = (UIButton *)[cell viewWithTag:ShareButtonTag];
-    [shareButton addTarget:self action:@selector(actionButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *acceptButton = (UIButton *)[cell viewWithTag:AcceptButtonTag];
-    [acceptButton addTarget:self action:@selector(acceptButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    cell.timeStampLabel.text = @"";
+    cell.locationImageView.image = nil;
+    cell.locationNameLabel.text = @"";
     
-    UIButton *rejectButon = (UIButton *)[cell viewWithTag:RejectButtonTag];
-    [rejectButon addTarget:self action:@selector(rejectButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    UILabel *nameLabel = (UILabel *)[cell viewWithTag:LocationNameTag];
-    UIView  *mediaView = [cell viewWithTag:MediaViewTag];
-    UILabel *timeAgoLabel = (UILabel *)[cell viewWithTag:TimeAgoTag];
-    
-    
-    NSDictionary *location = [_contentList objectAtIndex:indexPath.row];
-    nameLabel.text = [location valueForKey:@"name"];
+    if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"] isKindOfClass:[NSNull class]]) {
+        cell.locationNameLabel.text = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"];
+    }
+    if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"fulfilledDate"] isKindOfClass:[NSNull class]]) {
+        double unixTime = [[[_contentList objectAtIndex:indexPath.row]valueForKey:@"fulfilledDate"] floatValue]/1000;
+        NSDate *dateAnswered = [NSDate dateWithTimeIntervalSince1970:
+                             (NSTimeInterval)unixTime];
+        
+        cell.timeStampLabel.text = [GetRelativeTime getRelativeTime:dateAnswered];
+    }
+    if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaUrl"] isKindOfClass:[NSNull class]]) {
+        if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 1) {
+            [cell.locationImageView reloadWithUrl:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaUrl"]];
+        }
+    }
     
     
     return cell;
@@ -124,28 +122,33 @@ enum AcceptRejectCellViewTag {
 #pragma mark - UINavBar Action Methods
 
 #pragma mark - MMAnsweredRequestCell delegate
-- (void)actionButtonTapped:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Flag for Review", nil];
-    [actionSheet showFromTabBar:self.tabBarController.tabBar];
-}
-- (void)acceptButtonTapped:(id)sender {
-    int row = [[self.tableView indexPathForCell:(UITableViewCell *)[[[sender superview] superview] superview]] row];
-    NSLog(@"Accept Button Tapped for Row: %d", row);
-}
-- (void)rejectButtonTapped:(id)sender {
-    int row = [[self.tableView indexPathForCell:(UITableViewCell *)[[[sender superview] superview] superview]] row];
-    NSLog(@"Reject Button Tapped for Row: %d", row);
-}
-
-- (void)expandImageButtonTapped:(id)sender {
-    UITableViewCell *cell = (UITableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
-    //UIImage *imageToDisplay = cell.image;
+-(void)moreButtonTapped:(id)sender {
     
-    //[[MMClientSDK sharedSDK]inboxFullScreenImageScreen:self imageToDisplay:imageToDisplay locationName:self.title];
+}
+-(void)acceptButtonTapped:(id)sender {
+    
+}
+-(void)rejectButtonTapped:(id)sender {
+    
 }
 
 - (void)viewDidUnload {
     [self setAcceptRejectCell:nil];
     [super viewDidUnload];
 }
+
+
+#pragma mark - Helper Methods
+- (void)fetchAnsweredRequests {
+    [SVProgressHUD showWithStatus:@"Loading Answered Requests"];
+    [MMAPI getFulfilledRequestsOnSuccess:^(id responseObject) {
+        NSLog(@"%@", responseObject);
+        [SVProgressHUD dismiss];
+        [self setContentList:responseObject];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismissWithError:@"Unable to load"];
+    }];
+}
+
 @end

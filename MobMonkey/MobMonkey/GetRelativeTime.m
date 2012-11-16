@@ -10,7 +10,7 @@
 
 @implementation GetRelativeTime
 
-- (NSString*)getRelativeTime:(NSDate*)date {
++ (NSString*)getRelativeTime:(NSDate*)date {
     NSString *time;
     
     NSDate *today = [[NSDate alloc]init];

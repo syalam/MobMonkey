@@ -32,8 +32,6 @@
      UIRemoteNotificationTypeAlert|
      UIRemoteNotificationTypeSound];
     
-    [self initializeLocationManager];
-    
     if ([UINavigationBar respondsToSelector:@selector(appearance)]) {
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar~iphone"] forBarMetrics:UIBarMetricsDefault];
     } 
@@ -113,6 +111,11 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%f", 33.298231] forKey:@"latitude"];
+    [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%f", -111.931412] forKey:@"longitude"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    
+    [self initializeLocationManager];
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
     [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
     [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];

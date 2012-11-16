@@ -10,6 +10,6 @@
 
 @interface GetRelativeTime : NSObject
 
-- (NSString*)getRelativeTime:(NSDate*)date;
++ (NSString*)getRelativeTime:(NSDate*)date;
 
 @end

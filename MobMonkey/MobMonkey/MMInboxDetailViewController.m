@@ -148,7 +148,9 @@
     [SVProgressHUD showWithStatus:@"Fetching Assigned Requests"];
     [MMAPI getAssignedRequestsOnSuccess:^(id responseObject) {
         [SVProgressHUD dismiss];
+        NSLog(@"%@", responseObject);
         [self setContentList:responseObject];
+        [self.tableView reloadData];
     } failure:^(NSError *error) {
         [SVProgressHUD dismissWithError:@"Unable to load assigned requests"];
     }];
@@ -156,6 +158,7 @@
 
 - (id)failureBlock
 {
+    [SVProgressHUD dismissWithError:@"Epic Fail"];
     id _failureBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
         if ([[response valueForKey:@"status"] isEqualToString:@"Unauthorized"]) {
@@ -203,8 +206,9 @@
         mediaRequested = @"image";
         UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
         //image = [self imageWithImage:image scaledToSize:CGSizeMake(image.size.width * .15, image.size.height * .15)];
-        dataObj = UIImagePNGRepresentation(image);
+        dataObj = UIImageJPEGRepresentation(image, 1);
         
+        [params setObject:@"image/jpeg" forKey:@"contentType"];
         [params setObject:[dataObj base64EncodedString] forKey:@"mediaData"];
     }
     else if (CFStringCompare ((__bridge CFStringRef) fileType, kUTTypeMovie, 0)
@@ -213,12 +217,17 @@
         NSString *moviePath = [[info objectForKey:UIImagePickerControllerMediaURL] path];
         dataObj = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:moviePath]];
     }
+    [SVProgressHUD showWithStatus:@"Uploading Picutre"];
     [MMAPI fulfillRequest:mediaRequested
                    params:params
                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                      [SVProgressHUD dismissWithSuccess:@"Success"];
                       [self.navigationController popViewControllerAnimated:YES];
                   }
-                  failure:[self failureBlock]];
+                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                      NSLog(@"%@", operation.responseString);
+                      [SVProgressHUD dismissWithError:@"Epic Fail"];
+                  }];
     
     [picker dismissModalViewControllerAnimated:YES];
 }

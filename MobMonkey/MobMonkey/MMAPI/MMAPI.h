@@ -254,8 +254,25 @@ Fetches livestreaming URLs for a location
                              success:(void (^)(id responseObject))success
                              failure:(void (^)(NSError *error))failure;
 
+///---------------------------------------------
+/// @name Get Trending Type
+///---------------------------------------------
+/**
+ Get Trending Type
+ */
 + (void)getTrendingType:(NSString *)type
                  params:(NSDictionary *)params
                 success:(void (^)(id responseObject))success
                 failure:(void (^)(NSError *error))failure;
+
+///---------------------------------------------
+/// @name Get Location Info
+///---------------------------------------------
+/**
+ Get Location Info
+ */
++ (void)getLocationInfo:(NSDictionary *)param
+                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 @end
