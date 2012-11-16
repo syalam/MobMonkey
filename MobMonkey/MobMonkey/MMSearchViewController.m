@@ -164,8 +164,10 @@
         [SVProgressHUD dismiss];
         
         // A hack because of AFNetworking
-        NSData *data = [NSJSONSerialization dataWithJSONObject:responseObject options:0 error:nil];
-        responseObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        if (responseObject) {
+            NSData *data = [NSJSONSerialization dataWithJSONObject:responseObject options:0 error:nil];
+            responseObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        }
         
         // End of hack
         self.searchResultsViewController.locations = responseObject;

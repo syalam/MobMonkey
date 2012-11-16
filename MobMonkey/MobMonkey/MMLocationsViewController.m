@@ -7,6 +7,7 @@
 //
 
 #import "MMLocationsViewController.h"
+#import "MMLocationViewController.h"
 #import "MMLocationListCell.h"
 #import "MMLocationAnnotation.h"
 
@@ -38,7 +39,7 @@
     
     if ([self.navigationController viewControllers].count > 1) {
         UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
-        [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+        [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
         
         UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
@@ -71,7 +72,11 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [SVProgressHUD dismiss];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    //[SVProgressHUD dismiss];
 }
 
 - (void)flipView:(id)sender
@@ -122,7 +127,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     [[MMClientSDK sharedSDK] locationScreen:self locationDetail:[self.locations objectAtIndex:indexPath.row]];
+    NSString *locationId = [[_locations objectAtIndex:indexPath.row]valueForKey:@"locationId"];
+    NSString *providerId = [[_locations objectAtIndex:indexPath.row]valueForKey:@"providerId"];
+    
+    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+    [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
+    [self.navigationController pushViewController:locationViewController animated:YES];
 }
 
 - (void)viewDidUnload {
@@ -160,6 +170,12 @@
 
 - (void)infoButtonTapped:(id)sender {
     [[MMClientSDK sharedSDK] locationScreen:self locationDetail:[self.locations objectAtIndex:[sender tag]]];
+}
+
+#pragma mark - IBAction Methods
+- (void)backButtonTapped:(id)sender {
+    [SVProgressHUD dismiss];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - MapView Delegate Methods
