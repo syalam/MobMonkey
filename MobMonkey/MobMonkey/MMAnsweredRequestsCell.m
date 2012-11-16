@@ -23,6 +23,10 @@
         [_locationNameButton setFrame:_locationNameLabel.frame];
         [_locationNameButton addTarget:self action:@selector(locationNameButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         
+        _imageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_imageButton setFrame:_locationImageView.frame];
+        [_imageButton addTarget:self action:@selector(imageButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        
         _moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_moreButton setFrame:CGRectMake(263, 242, 32, 32)];
         [_moreButton setImage:[UIImage imageNamed:@"moreBtnOverlay"] forState:UIControlStateNormal];
@@ -64,6 +68,7 @@
         [self.contentView addSubview:_locationNameLabel];
         [self.contentView addSubview:_locationNameButton];
         [self.contentView addSubview:_locationImageView];
+        [self.contentView addSubview:_imageButton];
         [self.contentView addSubview:clockImageView];
         [self.contentView addSubview:_timeStampLabel];
         [self.contentView addSubview:toolbarImageView];
@@ -93,6 +98,9 @@
 }
 -(void)rejectButtonTapped:(id)sender {
     [_delegate rejectButtonTapped:sender];
+}
+-(void)imageButtonTapped:(id)sender {
+    [_delegate imageButtonTapped:sender];
 }
 
 @end

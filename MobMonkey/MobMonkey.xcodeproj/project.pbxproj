@@ -434,6 +434,10 @@
 		F79B505215F3F45E0004BE01 /* logo~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B505015F3F45E0004BE01 /* logo~iphone.png */; };
 		F79B505615F3F81F0004BE01 /* MMSetTitleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F79B505515F3F81F0004BE01 /* MMSetTitleImage.m */; };
 		F7B012DB1655AF2E00BCAC26 /* MMAnsweredRequestsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B012DA1655AF2E00BCAC26 /* MMAnsweredRequestsCell.m */; };
+		F7B012E0165606C500BCAC26 /* homeScreenAppIcon@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F7B012DC165606C500BCAC26 /* homeScreenAppIcon@2x~ipad.png */; };
+		F7B012E1165606C500BCAC26 /* homeScreenAppIcon@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F7B012DD165606C500BCAC26 /* homeScreenAppIcon@2x~iphone.png */; };
+		F7B012E2165606C500BCAC26 /* homeScreenAppIcon~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F7B012DE165606C500BCAC26 /* homeScreenAppIcon~ipad.png */; };
+		F7B012E3165606C500BCAC26 /* homeScreenAppIcon~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F7B012DF165606C500BCAC26 /* homeScreenAppIcon~iphone.png */; };
 		F7D41BA816234B4E00DBA87D /* MMTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D41BA616234B4E00DBA87D /* MMTabBarViewController.m */; };
 		F7D41BA916234B4E00DBA87D /* MMTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7D41BA716234B4E00DBA87D /* MMTabBarViewController.xib */; };
 		F7DB5531165561D900FC8AA9 /* deselectedRectRed.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB552F165561D900FC8AA9 /* deselectedRectRed.png */; };
@@ -1000,6 +1004,10 @@
 		F79B505515F3F81F0004BE01 /* MMSetTitleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSetTitleImage.m; sourceTree = "<group>"; };
 		F7B012D91655AF2E00BCAC26 /* MMAnsweredRequestsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAnsweredRequestsCell.h; sourceTree = "<group>"; };
 		F7B012DA1655AF2E00BCAC26 /* MMAnsweredRequestsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAnsweredRequestsCell.m; sourceTree = "<group>"; };
+		F7B012DC165606C500BCAC26 /* homeScreenAppIcon@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "homeScreenAppIcon@2x~ipad.png"; sourceTree = "<group>"; };
+		F7B012DD165606C500BCAC26 /* homeScreenAppIcon@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "homeScreenAppIcon@2x~iphone.png"; sourceTree = "<group>"; };
+		F7B012DE165606C500BCAC26 /* homeScreenAppIcon~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "homeScreenAppIcon~ipad.png"; sourceTree = "<group>"; };
+		F7B012DF165606C500BCAC26 /* homeScreenAppIcon~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "homeScreenAppIcon~iphone.png"; sourceTree = "<group>"; };
 		F7D41BA516234B4E00DBA87D /* MMTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTabBarViewController.h; sourceTree = "<group>"; };
 		F7D41BA616234B4E00DBA87D /* MMTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTabBarViewController.m; sourceTree = "<group>"; };
 		F7D41BA716234B4E00DBA87D /* MMTabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMTabBarViewController.xib; sourceTree = "<group>"; };
@@ -1617,6 +1625,7 @@
 		F734A62D15F146630090E85A /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				F7B012E4165606CC00BCAC26 /* App Icons */,
 				F7DB55481655676B00FC8AA9 /* separator-gradient.png */,
 				F7DB55491655676B00FC8AA9 /* separator-gradient@2x.png */,
 				1A6784AB1640C49900A45AC5 /* CloseButton.png */,
@@ -2196,6 +2205,17 @@
 			name = AnsweredRequestCell;
 			sourceTree = "<group>";
 		};
+		F7B012E4165606CC00BCAC26 /* App Icons */ = {
+			isa = PBXGroup;
+			children = (
+				F7B012DC165606C500BCAC26 /* homeScreenAppIcon@2x~ipad.png */,
+				F7B012DD165606C500BCAC26 /* homeScreenAppIcon@2x~iphone.png */,
+				F7B012DE165606C500BCAC26 /* homeScreenAppIcon~ipad.png */,
+				F7B012DF165606C500BCAC26 /* homeScreenAppIcon~iphone.png */,
+			);
+			name = "App Icons";
+			sourceTree = "<group>";
+		};
 		F7D41BA41623477300DBA87D /* TabBar Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -2660,6 +2680,10 @@
 				F7DB554A1655676B00FC8AA9 /* separator-gradient.png in Resources */,
 				F7DB554B1655676B00FC8AA9 /* separator-gradient@2x.png in Resources */,
 				F75A8739165573F800AF83EA /* MMInboxDetailViewController.xib in Resources */,
+				F7B012E0165606C500BCAC26 /* homeScreenAppIcon@2x~ipad.png in Resources */,
+				F7B012E1165606C500BCAC26 /* homeScreenAppIcon@2x~iphone.png in Resources */,
+				F7B012E2165606C500BCAC26 /* homeScreenAppIcon~ipad.png in Resources */,
+				F7B012E3165606C500BCAC26 /* homeScreenAppIcon~iphone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

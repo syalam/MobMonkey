@@ -15,6 +15,7 @@
 -(void)moreButtonTapped:(id)sender;
 -(void)acceptButtonTapped:(id)sender;
 -(void)rejectButtonTapped:(id)sender;
+-(void)imageButtonTapped:(id)sender;
 
 @end
 
@@ -24,6 +25,7 @@
 @property (nonatomic, retain) UILabel *locationNameLabel;
 @property (nonatomic, retain) UILabel *timeStampLabel;
 @property (nonatomic, retain) TCImageView *locationImageView;
+@property (nonatomic, retain) UIButton *imageButton;
 @property (nonatomic, retain) UIButton *moreButton;
 @property (nonatomic, retain) UIButton *acceptButton;
 @property (nonatomic, retain) UIButton *rejectButton;

@@ -282,12 +282,8 @@
 }
 
 - (void)enlargeButtonTapped:(id)sender {
-    //will only expand image if an image is available
     if (mediaArray.count > 0) {
         [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:_locationLatestImageView.image locationName:self.title];
-    }
-    else {
-        [[MMClientSDK sharedSDK]inboxFullScreenImageScreen:self imageToDisplay:[UIImage imageNamed:@"monkey.jpg"] locationName:self.title];
     }
 }
 
@@ -383,9 +379,9 @@
 
 - (void)fetchLatestMediaForLocation {
     [MMAPI getMediaForLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *responseArray = [responseObject valueForKey:@"media"];
-        if (responseArray.count > 0) {
-            NSString *mediaUrl = [[responseArray objectAtIndex:0]valueForKey:@"mediaURL"];
+        mediaArray = [responseObject valueForKey:@"media"];
+        if (mediaArray.count > 0) {
+            NSString *mediaUrl = [[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"];
             [_locationLatestImageView reloadWithUrl:mediaUrl];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
