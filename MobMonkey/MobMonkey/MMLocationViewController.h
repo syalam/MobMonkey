@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>
 #import "TCImageView.h"
 #import "MMNotificationSettingsViewController.h"
 #import "MMAPI.h"
@@ -50,6 +51,8 @@
 @property (nonatomic, weak) IBOutlet UILabel *addressLabel;
 @property (nonatomic, weak) IBOutlet UILabel *notificationSettingLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (weak, nonatomic)MPMoviePlayerController *player;
 
 @property (nonatomic) int rowIndex;
 

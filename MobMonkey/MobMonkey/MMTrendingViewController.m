@@ -235,7 +235,6 @@
 {
     double latitude, longitude;
     NSMutableDictionary *params = [@{@"timeSpan":@"week"} mutableCopy];
-    [params setValue:@"1" forKey:@"categoryIds"];
     
     NSString *type;
     

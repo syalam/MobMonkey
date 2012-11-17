@@ -379,6 +379,7 @@
 
 - (void)fetchLatestMediaForLocation {
     [MMAPI getMediaForLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
         mediaArray = [responseObject valueForKey:@"media"];
         if (mediaArray.count > 0) {
             NSString *mediaUrl = [[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"];
