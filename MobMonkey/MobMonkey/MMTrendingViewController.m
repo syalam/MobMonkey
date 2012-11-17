@@ -248,7 +248,7 @@
         case 1: {
             NSDictionary *favorites = [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedInterests"];
             NSString *favoritesParams = [[favorites allValues] componentsJoinedByString:@","];
-            if (![favoritesParams isEqualToString:@""]) {
+            if (favoritesParams && ![favoritesParams isEqualToString:@""]) {
                 [params setValue:favoritesParams forKey:@"categoryIds"];
                 [params setValue:@"true" forKey:@"myinterests"];
                 type = @"topviewed";
