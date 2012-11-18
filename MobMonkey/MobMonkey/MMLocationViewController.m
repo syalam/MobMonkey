@@ -383,7 +383,18 @@
         mediaArray = [responseObject valueForKey:@"media"];
         if (mediaArray.count > 0) {
             NSString *mediaUrl = [[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"];
-            [_locationLatestImageView reloadWithUrl:mediaUrl];
+            if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"image"]) {
+                [_locationLatestImageView reloadWithUrl:mediaUrl];
+            }
+            else {
+                AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]] options:nil];
+                AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+                generate.appliesPreferredTrackTransform = YES;
+                NSError *err = NULL;
+                CMTime time = CMTimeMake(0, 60);
+                CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
+                _locationLatestImageView.image =  [UIImage imageWithCGImage:imgRef];
+            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Could not load image");

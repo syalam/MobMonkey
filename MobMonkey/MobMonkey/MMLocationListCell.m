@@ -58,17 +58,53 @@
         [view removeFromSuperview];
     }
     _location = location;
-    _nameLabel.text = [_location valueForKey:@"name"];
-    [_nameLabel sizeToFit];
-    _addressLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@",
-                          [_location valueForKey:@"address"],
-                          [_location valueForKey:@"locality"],
-                          [_location valueForKey:@"region"],
-                          [_location valueForKey:@"postcode"]];
-    CGFloat distance = [[MMUtilities sharedUtilities] calculateDistance:[_location valueForKey:@"latitude"]
-                                                              longitude:[_location valueForKey:@"longitude"]];
-    _distanceLabel.text = [NSString stringWithFormat:@"%.2f miles", distance];
-    [_distanceLabel sizeToFit];
+    if (![[_location valueForKey:@"name"]isKindOfClass:[NSNull class]]) {
+        _nameLabel.text = [_location valueForKey:@"name"];
+        [_nameLabel sizeToFit];
+    }
+    else {
+        [_nameLabel setHidden:YES];
+    }
+    
+    NSString *addressLabelText;
+    if (![[_location valueForKey:@"address"]isKindOfClass:[NSNull class]]) {
+        addressLabelText = [_location valueForKey:@"address"];
+    }
+    if (![[_location valueForKey:@"locality"]isKindOfClass:[NSNull class]]) {
+        if (addressLabelText) {
+            addressLabelText = [NSString stringWithFormat:@"%@\n%@", addressLabelText, [_location valueForKey:@"locality"]];
+        }
+        else {
+            addressLabelText = [_location valueForKey:@"locality"];
+        }
+    }
+    if (![[_location valueForKey:@"region"]isKindOfClass:[NSNull class]]) {
+        if (addressLabelText) {
+            addressLabelText = [NSString stringWithFormat:@"%@, %@", addressLabelText, [_location valueForKey:@"region"]];
+        }
+        else {
+            addressLabelText = [_location valueForKey:@"region"];
+        }
+    }
+    if (![[_location valueForKey:@"postcode"]isKindOfClass:[NSNull class]]) {
+        if (addressLabelText) {
+            addressLabelText = [NSString stringWithFormat:@"%@, %@", addressLabelText, [_location valueForKey:@"postcode"]];
+        }
+        else {
+            addressLabelText = [_location valueForKey:@"postcode"];
+        }
+    }
+    
+    if (addressLabelText) {
+        _addressLabel.text = addressLabelText;
+    }
+    
+    if (![[_location valueForKey:@"latitude"]isKindOfClass:[NSNull class]] && ![[_location valueForKey:@"longitude"]isKindOfClass:[NSNull class]]) {
+        CGFloat distance = [[MMUtilities sharedUtilities] calculateDistance:[_location valueForKey:@"latitude"]
+                                                                  longitude:[_location valueForKey:@"longitude"]];
+        _distanceLabel.text = [NSString stringWithFormat:@"%.2f miles", distance];
+        [_distanceLabel sizeToFit];
+    }
     
     CGFloat xPosition = CGRectGetMaxX(_mediaIconsView.bounds) - 16;
     UIImageView *imageView;

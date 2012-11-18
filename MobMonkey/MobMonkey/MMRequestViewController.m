@@ -109,7 +109,15 @@ enum RequestDurationLengths {
     [self.requestInfo setValue:[NSNumber numberWithInt:100000] forKey:@"radiusInYards"];
     [self.requestInfo setValue:[NSNumber numberWithBool:NO] forKey:@"recurring"];
     
-    [MMAPI requestMedia:@"image" params:self.requestInfo success:nil failure:nil];
+    NSString *mediaType;
+    if (_mediaTypeSegmentedControl.selectedSegmentIndex == 0) {
+        mediaType = @"video";
+    }
+    else {
+        mediaType = @"image";
+    }
+    
+    [MMAPI requestMedia:mediaType params:self.requestInfo success:nil failure:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

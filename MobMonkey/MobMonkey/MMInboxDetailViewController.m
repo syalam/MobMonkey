@@ -222,8 +222,11 @@
         mediaRequested = @"video";
         NSString *moviePath = [[info objectForKey:UIImagePickerControllerMediaURL] path];
         dataObj = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:moviePath]];
+        
+        [params setObject:@"video/mp4" forKey:@"contentType"];
+        [params setObject:[dataObj base64EncodedString] forKey:@"mediaData"];
     }
-    [SVProgressHUD showWithStatus:@"Uploading Picutre"];
+    [SVProgressHUD showWithStatus:@"Uploading Media"];
     [MMAPI fulfillRequest:mediaRequested
                    params:params
                   success:^(AFHTTPRequestOperation *operation, id responseObject) {

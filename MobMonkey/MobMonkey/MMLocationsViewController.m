@@ -130,12 +130,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *locationId = [[_locations objectAtIndex:indexPath.row]valueForKey:@"locationId"];
-    NSString *providerId = [[_locations objectAtIndex:indexPath.row]valueForKey:@"providerId"];
-    
-    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
-    [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
-    [self.navigationController pushViewController:locationViewController animated:YES];
+    if (![[[_locations objectAtIndex:indexPath.row]valueForKey:@"locationId"] isKindOfClass:[NSNull class]] && ![[[_locations objectAtIndex:indexPath.row]valueForKey:@"providerId"]isKindOfClass:[NSNull class]]) {
+        NSString *locationId = [[_locations objectAtIndex:indexPath.row]valueForKey:@"locationId"];
+        NSString *providerId = [[_locations objectAtIndex:indexPath.row]valueForKey:@"providerId"];
+        
+        MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+        [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
+        [self.navigationController pushViewController:locationViewController animated:YES];
+    }
+    else {
+        [SVProgressHUD show];
+        [SVProgressHUD dismissWithError:@"Unable to load this location"];
+    }
 }
 
 - (void)viewDidUnload {
@@ -150,11 +156,13 @@
 {
     [self.mapView removeAnnotations:self.mapView.annotations];
     for (NSMutableDictionary *location in self.locations) {
-        CLLocationCoordinate2D coordinate;
-        coordinate.latitude = [[location valueForKey:@"latitude"] floatValue];
-        coordinate.longitude = [[location valueForKey:@"longitude"] floatValue];
-        MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc] initWithName:[location valueForKey:@"name"] address:[location valueForKey:@"address"] coordinate:coordinate arrayIndex:[self.locations indexOfObject:location]];
-        [self.mapView addAnnotation:(id)annotation];
+        if (![[location valueForKey:@"latitude"]isKindOfClass:[NSNull class]] && ![[location valueForKey:@"longitude"]isKindOfClass:[NSNull class]]) {
+            CLLocationCoordinate2D coordinate;
+            coordinate.latitude = [[location valueForKey:@"latitude"] floatValue];
+            coordinate.longitude = [[location valueForKey:@"longitude"] floatValue];
+            MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc] initWithName:[location valueForKey:@"name"] address:[location valueForKey:@"address"] coordinate:coordinate arrayIndex:[self.locations indexOfObject:location]];
+            [self.mapView addAnnotation:(id)annotation];
+        }
     }
     
     MKMapRect zoomRect = MKMapRectNull;

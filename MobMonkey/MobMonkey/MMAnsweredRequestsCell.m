@@ -15,7 +15,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        _locationNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 20, 300, 21)];
+        _locationNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 20, 300, 21)];
         _timeStampLabel = [[UILabel alloc]initWithFrame:CGRectMake(241, 62, 72, 16)];
         _locationImageView = [[TCImageView alloc]initWithFrame:CGRectMake(10, 49, 300, 225)];
         

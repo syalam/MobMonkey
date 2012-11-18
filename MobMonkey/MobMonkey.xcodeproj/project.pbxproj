@@ -438,6 +438,8 @@
 		F7B012E1165606C500BCAC26 /* homeScreenAppIcon@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F7B012DD165606C500BCAC26 /* homeScreenAppIcon@2x~iphone.png */; };
 		F7B012E2165606C500BCAC26 /* homeScreenAppIcon~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F7B012DE165606C500BCAC26 /* homeScreenAppIcon~ipad.png */; };
 		F7B012E3165606C500BCAC26 /* homeScreenAppIcon~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F7B012DF165606C500BCAC26 /* homeScreenAppIcon~iphone.png */; };
+		F7B0132D1658C36900BCAC26 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7716D57161D115C00578A90 /* AVFoundation.framework */; };
+		F7B0132F1658C3D500BCAC26 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7716D53161D10D900578A90 /* CoreMedia.framework */; };
 		F7D41BA816234B4E00DBA87D /* MMTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D41BA616234B4E00DBA87D /* MMTabBarViewController.m */; };
 		F7D41BA916234B4E00DBA87D /* MMTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7D41BA716234B4E00DBA87D /* MMTabBarViewController.xib */; };
 		F7DB5531165561D900FC8AA9 /* deselectedRectRed.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB552F165561D900FC8AA9 /* deselectedRectRed.png */; };
@@ -1041,6 +1043,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7B0132F1658C3D500BCAC26 /* CoreMedia.framework in Frameworks */,
+				F7B0132D1658C36900BCAC26 /* AVFoundation.framework in Frameworks */,
 				37D6AB51164448D10070220D /* libz.dylib in Frameworks */,
 				37E524AD16430376003AC7E5 /* SystemConfiguration.framework in Frameworks */,
 				F7716D5A161D11BF00578A90 /* MobileCoreServices.framework in Frameworks */,

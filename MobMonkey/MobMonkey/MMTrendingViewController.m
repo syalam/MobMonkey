@@ -280,10 +280,13 @@
     self.locationsViewController.locations = [@[] mutableCopy];
     self.locationsViewController.title = [_contentList objectAtIndex:indexPath.row];
     
+    NSLog(@"%@", params);
+    
     [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Loading %@", [_contentList objectAtIndex:indexPath.row]]];
     [MMAPI getTrendingType:type params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.locationsViewController.isSearching = NO;
         [SVProgressHUD dismiss];
+        NSLog(@"%@", responseObject);
         self.locationsViewController.locations = responseObject;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", operation.responseString);
