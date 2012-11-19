@@ -115,6 +115,12 @@
     [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%f", -111.931412] forKey:@"longitude"];
     [[NSUserDefaults standardUserDefaults]synchronize];
     
+    [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
+    }];
+    
     [self initializeLocationManager];
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
     [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];

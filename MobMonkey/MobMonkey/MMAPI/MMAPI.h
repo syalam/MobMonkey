@@ -125,13 +125,26 @@ typedef enum OAuthProvider {
 + (void)facebookSignIn;
 
 ///---------------------------------------------
-/// @name Fetches a list of categories from the server
+/// @name Fetches a list of top level categories from the server
 ///---------------------------------------------
 /**
- Retrieve list of categories from the server
+ Retrieve list of top level categories from the server
  @return An array of categories
 */
 + (void)getCategoriesOnSuccess:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
+
+
+///---------------------------------------------
+/// @name Fetches a list of all categories from the server
+///---------------------------------------------
+/**
+ Retrieve list of all categories from the server
+ @return An array of categories
+ */
++ (void)getAllCategories:(NSMutableDictionary*)params
+                 success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 
 ///---------------------------------------------
 /// @name Fetches a list of open requests from the server
