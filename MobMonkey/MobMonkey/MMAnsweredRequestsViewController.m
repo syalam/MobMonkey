@@ -30,6 +30,9 @@
 {
     [super viewDidLoad];
     
+    backgroundQueue = dispatch_queue_create("com.MobMonkey.GenerateThumbnailQueue", NULL);
+    thumbnailCache = [[NSMutableDictionary alloc]init];
+    
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
     [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
     [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
@@ -99,13 +102,9 @@
             [cell.locationImageView reloadWithUrl:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaUrl"]];
         }
         else {
-            AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaUrl"]] options:nil];
-            AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-            generate.appliesPreferredTrackTransform = YES;
-            NSError *err = NULL;
-            CMTime time = CMTimeMake(0, 60);
-            CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
-            cell.locationImageView.image =  [UIImage imageWithCGImage:imgRef];
+            dispatch_async(backgroundQueue, ^(void) {
+                cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row];
+            });
         }
     }
     
@@ -182,6 +181,27 @@
     } failure:^(NSError *error) {
         [SVProgressHUD dismissWithError:@"Unable to load"];
     }];
+}
+
+- (UIImage*)generateThumbnailForVideo:(int)row {
+    UIImage *thumbnailImage;
+    
+    if ([thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]]) {
+        thumbnailImage = [thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]];
+    }
+    else {
+        AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[_contentList objectAtIndex:row]valueForKey:@"mediaUrl"]] options:nil];
+        AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+        generate.appliesPreferredTrackTransform = YES;
+        NSError *err = NULL;
+        CMTime time = CMTimeMake(0, 60);
+        CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
+        
+        thumbnailImage = [UIImage imageWithCGImage:imgRef];
+        [thumbnailCache setValue:thumbnailImage forKey:[NSString stringWithFormat:@"%d", row]];
+    }
+    
+    return thumbnailImage;
 }
 
 @end

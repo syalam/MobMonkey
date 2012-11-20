@@ -9,7 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "MMAnsweredRequestsCell.h"
 
-@interface MMAnsweredRequestsViewController : UITableViewController <UIActionSheetDelegate, MMAnsweredRequestsCellDelegate>
+@interface MMAnsweredRequestsViewController : UITableViewController <UIActionSheetDelegate, MMAnsweredRequestsCellDelegate> {
+    dispatch_queue_t backgroundQueue;
+    
+    NSMutableDictionary *thumbnailCache;
+}
 
 @property (nonatomic, retain) NSArray *contentList;
 @property (strong, nonatomic) IBOutlet UITableViewCell *acceptRejectCell;

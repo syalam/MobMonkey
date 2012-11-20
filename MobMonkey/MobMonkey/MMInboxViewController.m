@@ -239,48 +239,5 @@
     return _failureBlock;
 }
 
-#pragma mark - UIImagePickerController Delegate Methods
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    
-//    NSString *mediaRequested;
-//    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-//    [params setObject:selectedRequestId forKey:@"requestId"];
-//    [params setObject:[NSNumber numberWithInt:0] forKey:@"requestType"];
-//    
-//    NSData *dataObj;
-//    NSString *fileType = [info objectForKey: UIImagePickerControllerMediaType];
-//    if (CFStringCompare ((__bridge CFStringRef) fileType, kUTTypeImage, 0)
-//        == kCFCompareEqualTo) {
-//        mediaRequested = @"image";
-//        UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-//        image = [self imageWithImage:image scaledToSize:CGSizeMake(image.size.width * .15, image.size.height * .15)];
-//        dataObj = UIImagePNGRepresentation(image);
-//        
-//        [params setObject:[dataObj base64EncodedString] forKey:@"mediaData"];
-//    }
-//    else if (CFStringCompare ((__bridge CFStringRef) fileType, kUTTypeMovie, 0)
-//             == kCFCompareEqualTo) {
-//        mediaRequested = @"video";
-//        NSString *moviePath = [[info objectForKey:UIImagePickerControllerMediaURL] path];
-//        dataObj = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:moviePath]];
-//    }
-//    [MMAPI fulfillRequest:mediaRequested
-//                   params:params
-//                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//                      [self.navigationController popViewControllerAnimated:YES];
-//                  }
-//                  failure:[self failureBlock]];
-//    
-//    [picker dismissModalViewControllerAnimated:YES];
-}
-
-- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
-    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}
-
 
 @end
