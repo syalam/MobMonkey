@@ -57,6 +57,7 @@
 - (void)answeredRequestsScreen:(UIViewController*)presentingViewController answeredItemsToDisplay:(NSArray*)answeredItemsToDisplay {
     MMAnsweredRequestsViewController *answeredVc = [[MMAnsweredRequestsViewController alloc]initWithNibName:@"MMAnsweredRequestsViewController" bundle:nil];
     answeredVc.contentList = answeredItemsToDisplay;
+    answeredVc.thumbnailCache = [[NSMutableDictionary alloc]init];
     answeredVc.title = @"Answered Requests";
     [presentingViewController.navigationController pushViewController:answeredVc animated:YES];
 }

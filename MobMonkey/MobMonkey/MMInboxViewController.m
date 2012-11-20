@@ -176,9 +176,6 @@
             case 0:
                 inboxDetailVC.title = @"Open Requests";
                 [self.navigationController pushViewController:inboxDetailVC animated:YES];
-                /*[self.locationsViewController setTitle:@"Open Requests"];
-                 [self.navigationController pushViewController:self.locationsViewController animated:YES];
-                 self.locationsViewController.locations = self.locationsInOpenRequests;*/
                 break;
             case 1:
                 [[MMClientSDK sharedSDK] answeredRequestsScreen:self answeredItemsToDisplay:self.fulfilledRequests];
@@ -186,9 +183,6 @@
             case 2:
                 inboxDetailVC.title = @"Assigned Requests";
                 [self.navigationController pushViewController:inboxDetailVC animated:YES];
-                /*[self.locationsViewController setTitle:@"Assigned Requests"];
-                 [self.navigationController pushViewController:self.locationsViewController animated:YES];
-                 self.locationsViewController.locations = self.locationsInAssignedRequests;*/
                 break;
             default:
                 

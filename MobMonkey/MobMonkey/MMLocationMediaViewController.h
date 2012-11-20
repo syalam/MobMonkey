@@ -16,7 +16,9 @@ typedef enum {
     MMPhotoMediaType
 } MobMonkeyMediaType;
 
-@interface MMLocationMediaViewController : UIViewController <UITabBarControllerDelegate, UITableViewDataSource>
+@interface MMLocationMediaViewController : UIViewController <UITabBarControllerDelegate, UITableViewDataSource> {
+    
+}
 
 @property (nonatomic, strong) NSDictionary *location;
 @property (assign, nonatomic) MobMonkeyMediaType mediaType;

@@ -31,7 +31,6 @@
     [super viewDidLoad];
     
     backgroundQueue = dispatch_queue_create("com.MobMonkey.GenerateThumbnailQueue", NULL);
-    thumbnailCache = [[NSMutableDictionary alloc]init];
     
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
     [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
@@ -186,8 +185,8 @@
 - (UIImage*)generateThumbnailForVideo:(int)row {
     UIImage *thumbnailImage;
     
-    if ([thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]]) {
-        thumbnailImage = [thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]];
+    if ([_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]]) {
+        thumbnailImage = [_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]];
     }
     else {
         AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[_contentList objectAtIndex:row]valueForKey:@"mediaUrl"]] options:nil];
@@ -198,7 +197,7 @@
         CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
         
         thumbnailImage = [UIImage imageWithCGImage:imgRef];
-        [thumbnailCache setValue:thumbnailImage forKey:[NSString stringWithFormat:@"%d", row]];
+        [_thumbnailCache setValue:thumbnailImage forKey:[NSString stringWithFormat:@"%d", row]];
     }
     
     return thumbnailImage;

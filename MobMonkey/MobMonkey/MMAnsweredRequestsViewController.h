@@ -12,10 +12,11 @@
 @interface MMAnsweredRequestsViewController : UITableViewController <UIActionSheetDelegate, MMAnsweredRequestsCellDelegate> {
     dispatch_queue_t backgroundQueue;
     
-    NSMutableDictionary *thumbnailCache;
+   
 }
 
 @property (nonatomic, retain) NSArray *contentList;
 @property (strong, nonatomic) IBOutlet UITableViewCell *acceptRejectCell;
+@property (nonatomic, retain) NSMutableDictionary *thumbnailCache;
 
 @end

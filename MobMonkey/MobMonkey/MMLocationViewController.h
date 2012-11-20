@@ -19,6 +19,8 @@
     UITapGestureRecognizer *expandImageGesture;
     
     BOOL uiAdjustedForNotificationSetting;
+    
+    dispatch_queue_t backgroundQueue;
 }
 
 @property (nonatomic, retain) NSMutableDictionary* contentList;
@@ -38,7 +40,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *phoneNumberButton;
 @property (nonatomic, weak) IBOutlet UIButton *addressButton;
 
-@property (nonatomic, weak) IBOutlet TCImageView *locationLatestImageView;
+@property (nonatomic, retain) IBOutlet TCImageView *locationLatestImageView;
 
 @property (nonatomic, weak) IBOutlet UIView *notificationSettingView;
 @property (nonatomic, weak) IBOutlet UIView *bookmarkView;

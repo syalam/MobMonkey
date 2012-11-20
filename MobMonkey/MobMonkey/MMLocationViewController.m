@@ -40,7 +40,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    //self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
+    backgroundQueue = dispatch_queue_create("com.MobMonkey.GenerateThumbnail", NULL);
     
     //setup scrollview size
     [_scrollView setContentSize:CGSizeMake(320, 815)];
@@ -405,6 +405,9 @@
                 [_locationLatestImageView reloadWithUrl:mediaUrl];
             }
             else {
+                /*dispatch_async(backgroundQueue, ^(void) {
+                    
+                });*/
                 AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]] options:nil];
                 AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
                 generate.appliesPreferredTrackTransform = YES;
@@ -418,23 +421,6 @@
         NSLog(@"Could not load image");
     }];
 
-}
-
-#pragma mark - MMAPI Delegate Methods
-- (void)MMAPICallSuccessful:(id)response {
-    NSLog(@"%@", response);
-    
-    mediaArray = response;
-    if (mediaArray.count > 0) {
-//        [_locationLatestImageView reloadWithUrl:[[mediaArray objectAtIndex:mediaArray.count - 1]valueForKey:@"mediaURL"]];
-//        _photoCountLabel.text = [NSString stringWithFormat:@"%d", mediaArray.count];
-    }
-}
-
-- (void)MMAPICallFailed:(AFHTTPRequestOperation*)operation {
-    NSLog(@"%d", operation.response.statusCode);
-    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
-    NSLog(@"%@", response);
 }
 
 @end
