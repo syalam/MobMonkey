@@ -141,7 +141,13 @@
         self.searchResultsViewController.title = category[@"en"];
         [params setValue:category[@"categoryId"] forKey:@"categoryIds"];
     } else {
-        self.searchResultsViewController.title = [NSString stringWithFormat:@"“%@”", self.searchBar.text];
+        if ([self.searchBar.text length] > 0) {
+            self.searchResultsViewController.title = [NSString stringWithFormat:@"“%@”", self.searchBar.text];
+        }
+        else {
+            self.searchResultsViewController.title = @"All Nearby";
+        }
+        
         [params setValue:@"" forKey:@"categoryIds"];
     }
     
@@ -277,9 +283,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *category = nil;
+
     if (indexPath.section == 1) {
         category = self.categories[indexPath.row];
     }
+
     [self showSearchResultsForCategory:category];
 }
 

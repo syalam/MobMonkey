@@ -98,6 +98,15 @@
         if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 1) {
             [cell.locationImageView reloadWithUrl:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaUrl"]];
         }
+        else {
+            AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaUrl"]] options:nil];
+            AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+            generate.appliesPreferredTrackTransform = YES;
+            NSError *err = NULL;
+            CMTime time = CMTimeMake(0, 60);
+            CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
+            cell.locationImageView.image =  [UIImage imageWithCGImage:imgRef];
+        }
     }
     
     cell.moreButton.tag = indexPath.row;
@@ -142,7 +151,18 @@
 }
 -(void)imageButtonTapped:(id)sender {
     MMAnsweredRequestsCell *cell = (MMAnsweredRequestsCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
-    [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:cell.locationImageView.image locationName:cell.locationNameLabel.text];
+    
+    if ([[[_contentList objectAtIndex:[sender tag]]valueForKey:@"mediaType"]intValue] == 1) {
+        [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:cell.locationImageView.image locationName:cell.locationNameLabel.text];
+    }
+    else {
+        NSURL *url = [NSURL URLWithString:[[_contentList objectAtIndex:[sender tag]]valueForKey:@"mediaUrl"]];
+        NSLog(@"%@", url);
+        MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+        [self.navigationController presentMoviePlayerViewControllerAnimated:player];
+    }
+    
+    
 }
 
 - (void)viewDidUnload {

@@ -124,9 +124,19 @@
         [SVProgressHUD showWithStatus:@"Signing In"];
         [MMAPI signInWithEmail:emailTextField.text password:passwordTextField.text provider:OAuthProviderNone success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [SVProgressHUD dismissWithSuccess:@"Signed In"];
+            NSLog(@"%@", responseObject);
+            
+            
             [[NSUserDefaults standardUserDefaults]setObject:emailTextField.text forKey:@"userName"];
             [[NSUserDefaults standardUserDefaults]setObject:passwordTextField.text forKey:@"password"];
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"subscribedUser"];
             [[NSUserDefaults standardUserDefaults]synchronize];
+            
+            [MMAPI checkUserIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSLog(@"%@", @"Checked In");
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"%@", operation.responseString);
+            }];
             
             [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

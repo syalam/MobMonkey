@@ -152,14 +152,22 @@
 
 - (void)fetchAssignedRequests {
     [SVProgressHUD showWithStatus:@"Fetching Assigned Requests"];
-    [MMAPI getAssignedRequestsOnSuccess:^(id responseObject) {
+    [MMAPI getAssignedRequests:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [SVProgressHUD dismiss];
+        NSLog(@"%@", responseObject);
+        [self setContentList:responseObject];
+        [self.tableView reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD dismissWithError:@"Unable to load assigned requests"];
+    }];
+    /*[MMAPI getAssignedRequestsOnSuccess:^(id responseObject) {
         [SVProgressHUD dismiss];
         NSLog(@"%@", responseObject);
         [self setContentList:responseObject];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         [SVProgressHUD dismissWithError:@"Unable to load assigned requests"];
-    }];
+    }];*/
 }
 
 - (id)failureBlock
@@ -186,9 +194,10 @@
             picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
         }
         else {
-            [picker setVideoMaximumDuration:10];
+            //[picker setVideoMaximumDuration:10];
             picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
             picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+            
         }
         [self presentViewController:picker animated:YES completion:nil];
     }
@@ -222,6 +231,17 @@
         mediaRequested = @"video";
         NSString *moviePath = [[info objectForKey:UIImagePickerControllerMediaURL] path];
         dataObj = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:moviePath]];
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *tempPath = [documentsDirectory stringByAppendingFormat:@"/vid1.mp4"];
+        
+        [dataObj writeToFile:tempPath atomically:NO];
+        
+        dataObj = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:tempPath]];
+        
+        NSLog(@"%@", tempPath);
+        
         
         [params setObject:@"video/mp4" forKey:@"contentType"];
         [params setObject:[dataObj base64EncodedString] forKey:@"mediaData"];

@@ -161,6 +161,11 @@ typedef enum OAuthProvider {
 /**
  Retrieve list of assigned requests from the server
  */
++ (void)getAssignedRequests:(NSMutableDictionary*)params
+                    success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+
 + (void)getAssignedRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
 + (void)getLocationsInAssignedRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
 ///---------------------------------------------

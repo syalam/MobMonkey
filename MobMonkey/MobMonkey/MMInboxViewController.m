@@ -104,29 +104,20 @@
         self.openRequests = responseObject;
         [self.tableView reloadData];
     } failure:^(NSError *error) {
-        //
+        NSLog(@"%@", @"Unable to load open requests");
     }];
-    [MMAPI getLocationsInOpenRequestsOnSuccess:^(id responseObject) {
-        self.locationsInOpenRequests = responseObject;
-    } failure:^(NSError *error) {
-        //
-    }];
-    [MMAPI getAssignedRequestsOnSuccess:^(id responseObject) {
+    [MMAPI getAssignedRequests:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
         self.assignedRequests = responseObject;
         [self.tableView reloadData];
-    } failure:^(NSError *error) {
-        //
-    }];
-    [MMAPI getLocationsInAssignedRequestsOnSuccess:^(id responseObject) {
-        self.locationsInAssignedRequests = responseObject;
-    } failure:^(NSError *error) {
-        //
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
     }];
     [MMAPI getFulfilledRequestsOnSuccess:^(id responseObject) {
         self.fulfilledRequests = responseObject;
         [self.tableView reloadData];
     } failure:^(NSError *error) {
-        //
+        NSLog(@"%@", @"Unable to load fullfilled requests");
     }];
 }
 
