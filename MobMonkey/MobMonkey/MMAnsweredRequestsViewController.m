@@ -110,6 +110,8 @@
     cell.moreButton.tag = indexPath.row;
     cell.locationNameButton.tag = indexPath.row;
     cell.imageButton.tag = indexPath.row;
+    cell.acceptButton.tag = indexPath.row;
+    cell.rejectButton.tag = indexPath.row;
     
     return cell;
 }
@@ -145,7 +147,16 @@
     
 }
 -(void)rejectButtonTapped:(id)sender {
-    
+    NSString *requestId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"requestId"];
+    NSString *providerId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"providerId"];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            requestId, @"requestId",
+                            providerId, @"providerId", nil];
+    [MMAPI rejectMedia:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self fetchAnsweredRequests];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
+    }];
 }
 -(void)imageButtonTapped:(id)sender {
     MMAnsweredRequestsCell *cell = (MMAnsweredRequestsCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];

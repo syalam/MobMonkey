@@ -236,14 +236,13 @@
     double latitude, longitude;
     NSMutableDictionary *params = [@{@"timeSpan":@"week"} mutableCopy];
     
-    NSString *type;
     
     latitude = [[[NSUserDefaults standardUserDefaults] valueForKey:@"latitude"]doubleValue];
     longitude = [[[NSUserDefaults standardUserDefaults] valueForKey:@"longitude"]doubleValue];
     
     switch (indexPath.row) {
         case 0:
-            type = @"bookmarks";
+            [params setValue:@"true" forKey:@"bookmarksonly"];
             break;
         case 1: {
             NSDictionary *favorites = [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedInterests"];
@@ -251,22 +250,14 @@
             if (favoritesParams && ![favoritesParams isEqualToString:@""]) {
                 [params setValue:favoritesParams forKey:@"categoryIds"];
                 [params setValue:@"true" forKey:@"myinterests"];
-                type = @"topviewed";
-            }
-            else {
-                type = @"topviewed";
             }
         }
-            break;
-        case 2:
-            type = @"topviewed";
             break;
         case 3:
             [params setValue:@"true" forKey:@"nearby"];
             [params setValue:[NSNumber numberWithDouble:latitude] forKey:@"latitude"];
             [params setValue:[NSNumber numberWithDouble:longitude] forKey:@"longitude"];
             [params setValue:[NSNumber numberWithInt:10000] forKey:@"radius"];
-            type = @"topviewed";
             break;
         default:
             break;
@@ -283,7 +274,7 @@
     NSLog(@"%@", params);
     
     [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Loading %@", [_contentList objectAtIndex:indexPath.row]]];
-    [MMAPI getTrendingType:type params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MMAPI getTrendingType:@"topviewed" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.locationsViewController.isSearching = NO;
         [SVProgressHUD dismiss];
         NSLog(@"%d", [operation.response statusCode]);

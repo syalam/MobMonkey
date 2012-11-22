@@ -247,6 +247,7 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.imageView.image = [UIImage imageNamed:@"searchIcon"];
         }
+        
         cell.textLabel.text = [NSString stringWithFormat:@"Search “%@”", self.savedSearchTerm];
         return cell;
     }
@@ -258,9 +259,10 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     NSDictionary *category;
+    NSString *categoryName;
     switch (indexPath.section) {
         case 0:
-            cell.textLabel.text = @"Show All Nearby";
+            categoryName = @"Show All Nearby";
             break;
         case 1:
             if (tableView == self.searchDisplayController.searchResultsTableView) {
@@ -270,11 +272,14 @@
             }
             
             cell.imageView.image = [UIImage imageNamed:@"picture"];
-            cell.textLabel.text = [category[@"en"] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+            categoryName = [category[@"en"] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+            
             break;
         default:
             break;
     }
+    cell.textLabel.text = categoryName;
+    cell.imageView.image = [self assignIconToSearchCategoryWithCategoryName:categoryName];
     return cell;
 }
 
@@ -289,6 +294,55 @@
     }
 
     [self showSearchResultsForCategory:category];
+}
+
+#pragma mark - Helper Methods
+- (UIImage*)assignIconToSearchCategoryWithCategoryName:(NSString*)categoryName {
+    UIImage *cellIconImage;
+    cellIconImage = [UIImage imageNamed:@"picture"];
+    if ([categoryName isEqualToString:@"Show All Nearby"]) {
+        cellIconImage = [UIImage imageNamed:@"myLocationsIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Coffee Shops"]) {
+        cellIconImage = [UIImage imageNamed:@"coffeeShopsIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Retail"]) {
+        cellIconImage = [UIImage imageNamed:@"supermarketsIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Travel"]) {
+        cellIconImage = [UIImage imageNamed:@"beachesIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Community and Government"] || [categoryName isEqualToString:@"Landmarks"]) {
+        cellIconImage = [UIImage imageNamed:@"schoolsIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Services and Supplies"]) {
+        cellIconImage = [UIImage imageNamed:@"historyIcon"];
+    }
+    else if (!([categoryName rangeOfString:@"Automotive"].location == NSNotFound)) {
+        cellIconImage = [UIImage imageNamed:@"editedCinemasIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Social"]) {
+        cellIconImage = [UIImage imageNamed:@"coffeeShopsIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Healthcare"]) {
+        cellIconImage = [UIImage imageNamed:@"hotelsIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Sports and Recreation"]) {
+        cellIconImage = [UIImage imageNamed:@"stadiumsIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Transportation"]) {
+        cellIconImage = [UIImage imageNamed:@"locationsOfInterestIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Education"]) {
+        cellIconImage = [UIImage imageNamed:@"conferencesIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Art Dealers & Galleries"]) {
+        cellIconImage = [UIImage imageNamed:@"nightclubsIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Pools & Spas"]) {
+        cellIconImage = [UIImage imageNamed:@"beachesIcon"];
+    }
+    return cellIconImage;
 }
 
 #pragma mark - Search bar delegate
