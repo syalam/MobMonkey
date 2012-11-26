@@ -310,6 +310,7 @@
 }
 
 - (IBAction)bookmarkButtonTapped:(id)sender {
+    _contentList = [_contentList mutableCopy];
     if ([[_contentList valueForKey:@"bookmark"] boolValue]) {
         [_contentList setValue:[NSNumber numberWithBool:NO] forKey:@"bookmark"];
         [self.tableView reloadData];
