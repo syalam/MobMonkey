@@ -26,6 +26,7 @@
     return self;
 }
 
+#pragma mark - View Life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -33,7 +34,7 @@
     backgroundQueue = dispatch_queue_create("com.MobMonkey.GenerateThumbnailQueue", NULL);
     
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
-    [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
     
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
@@ -46,6 +47,11 @@
     
     
     [self fetchAnsweredRequests];
+}
+
+- (void)viewDidUnload {
+    [self setAcceptRejectCell:nil];
+    [super viewDidUnload];
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -96,9 +102,14 @@
         
         cell.timeStampLabel.text = [GetRelativeTime getRelativeTime:dateAnswered];
     }
-    if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaUrl"] isKindOfClass:[NSNull class]]) {
+    if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"media"] isKindOfClass:[NSNull class]]) {
+        if ([[[[[_contentList objectAtIndex:indexPath.row]valueForKey:@"media"]objectAtIndex:0]valueForKey:@"accepted"]intValue] == 1) {
+            [cell.acceptButton setHidden:YES];
+            [cell.rejectButton setHidden:YES];
+        }
+        
         if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 1) {
-            [cell.locationImageView reloadWithUrl:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaUrl"]];
+            [cell.locationImageView reloadWithUrl:[[[[_contentList objectAtIndex:indexPath.row]valueForKey:@"media"]objectAtIndex:0]valueForKey:@"mediaURL"]];
         }
         else {
             dispatch_async(backgroundQueue, ^(void) {
@@ -128,6 +139,10 @@
 }
 
 #pragma mark - UINavBar Action Methods
+- (void)backButtonTapped:(id)sender {
+    [SVProgressHUD dismiss];
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 #pragma mark - MMAnsweredRequestCell delegate
 -(void)locationNameButtonTapped:(id)sender {
@@ -144,14 +159,23 @@
     [actionSheet showFromTabBar:self.tabBarController.tabBar];
 }
 -(void)acceptButtonTapped:(id)sender {
-    
+    NSString *requestId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"requestId"];
+    NSString *mediaId = [[[[_contentList objectAtIndex:[sender tag]]valueForKey:@"media"]objectAtIndex:0]valueForKey:@"mediaId"];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            requestId, @"requestId",
+                            mediaId, @"mediaId", nil];
+    [MMAPI acceptMedia:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self fetchAnsweredRequests];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
+    }];
 }
 -(void)rejectButtonTapped:(id)sender {
     NSString *requestId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"requestId"];
-    NSString *providerId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"providerId"];
+    NSString *mediaId = [[[[_contentList objectAtIndex:[sender tag]]valueForKey:@"media"]objectAtIndex:0]valueForKey:@"mediaId"];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             requestId, @"requestId",
-                            providerId, @"providerId", nil];
+                            mediaId, @"mediaId", nil];
     [MMAPI rejectMedia:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self fetchAnsweredRequests];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -165,18 +189,13 @@
         [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:cell.locationImageView.image locationName:cell.locationNameLabel.text];
     }
     else {
-        NSURL *url = [NSURL URLWithString:[[_contentList objectAtIndex:[sender tag]]valueForKey:@"mediaUrl"]];
+        NSURL *url = [NSURL URLWithString:[[[[_contentList objectAtIndex:[sender tag]]valueForKey:@"media"]objectAtIndex:0]valueForKey:@"mediaURL"]];
         NSLog(@"%@", url);
         MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
         [self.navigationController presentMoviePlayerViewControllerAnimated:player];
     }
     
     
-}
-
-- (void)viewDidUnload {
-    [self setAcceptRejectCell:nil];
-    [super viewDidUnload];
 }
 
 
@@ -200,7 +219,7 @@
         thumbnailImage = [_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]];
     }
     else {
-        AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[_contentList objectAtIndex:row]valueForKey:@"mediaUrl"]] options:nil];
+        AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[[[_contentList objectAtIndex:row]valueForKey:@"media"]objectAtIndex:0]valueForKey:@"mediaURL"]] options:nil];
         AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
         generate.appliesPreferredTrackTransform = YES;
         NSError *err = NULL;

@@ -300,9 +300,25 @@ Fetches livestreaming URLs for a location
  Reject media
  Query parameters need to be passed in the URL:
  RequestId = The unique identifier for a submitted request Example (0f2f91b3-43e0-43a2-a201-f0b5e16c1500)
- ProviderId = The unique identifier for for a media uploaded for the request. Example (222e736f-c7fa-4c40-b78e-d99243441fae is factual's provider ID).
+ mediaId = The unique identifier for for a media uploaded for the request. Example (222e736f-c7fa-4c40-b78e-d99243441fae is factual's provider ID).
  */
 + (void)rejectMedia:(NSDictionary *)params
                 success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+
+///---------------------------------------------
+/// @name Accept Media
+///---------------------------------------------
+/**
+ Accept media
+ Query parameters need to be passed in the URL:
+ RequestId = The unique identifier for a submitted request Example (0f2f91b3-43e0-43a2-a201-f0b5e16c1500)
+ mediaId = The unique identifier for for a media uploaded for the request. Example (222e736f-c7fa-4c40-b78e-d99243441fae is factual's provider ID).
+ */
++ (void)acceptMedia:(NSDictionary *)params
+            success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+            failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+
 @end
