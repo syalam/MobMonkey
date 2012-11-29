@@ -66,6 +66,7 @@
         [_nameLabel sizeToFit];
     }
     
+    _messageLabel.text = @"";
     if (![[_location valueForKey:@"message"]isKindOfClass:[NSNull class]]) {
         _messageLabel.text = [_location valueForKey:@"message"];
         [_messageLabel sizeToFit];

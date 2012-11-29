@@ -220,6 +220,7 @@
         == kCFCompareEqualTo) {
         mediaRequested = @"image";
         UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+        image = [self resizeImage:image];
         //image = [self imageWithImage:image scaledToSize:CGSizeMake(image.size.width * .15, image.size.height * .15)];
         dataObj = UIImageJPEGRepresentation(image, 1);
         
@@ -259,6 +260,27 @@
                   }];
     
     [picker dismissModalViewControllerAnimated:YES];
+}
+
+
+#pragma mark - Helper Methods
+-(UIImage *)resizeImage:(UIImage*)imageToResize
+{
+    CGFloat sourceWidth = imageToResize.size.width;
+    CGFloat sourceHeight = imageToResize.size.height;
+    
+    CGFloat destinationHeight = sourceHeight/3;
+    CGFloat destinationWidth = sourceWidth/3;
+    
+    UIGraphicsBeginImageContext(CGSizeMake(640.0, 480.0));
+    
+    [imageToResize drawInRect:CGRectMake(0.0, 0.0,destinationWidth, destinationHeight)];
+    
+    UIImage * resizedImage =  UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return resizedImage;
 }
 
 @end
