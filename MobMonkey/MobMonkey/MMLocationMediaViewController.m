@@ -27,7 +27,8 @@
 {
     [super viewDidLoad];
     
-
+    backgroundQueue = dispatch_queue_create("com.MobMonkey.GenerateThumbnailQueue", NULL);
+    
     //Add custom back button to the nav bar
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
     [backNavbutton addTarget:self.navigationController action:@selector(dismissModalViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
@@ -41,6 +42,8 @@
     [self.segmentedControl setSegmentedControlStyle:UISegmentedControlStyleBar];
     [self.segmentedControl addTarget:self action:@selector(selectMediaType:) forControlEvents:UIControlEventValueChanged];
     self.navigationItem.titleView = self.segmentedControl;
+    
+    _thumbnailCache = [[NSMutableDictionary alloc]init];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -84,12 +87,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    MMLocationMediaCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[MMLocationMediaCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
-    cell.textLabel.text = [[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"mediaURL"];
+    if ([self.segmentedControl selectedSegmentIndex] == MMPhotoMediaType) {
+        [cell.locationImageView reloadWithUrl:[[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"mediaURL"]];
+    }
+    else {
+        dispatch_async(backgroundQueue, ^(void) {
+            cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row];
+        });
+    }
     
     // Configure the cell...
     
@@ -102,25 +111,41 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-        NSString *hostName = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
-        //Reachability *reachability = [Reachability reachabilityWithHostname:hostName];
-        //if ([reachability isReachable]) {
-            if ([self.segmentedControl selectedSegmentIndex] != MMPhotoMediaType) {
-            self.moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:hostName]];
-            [self.navigationController presentMoviePlayerViewControllerAnimated:self.moviePlayerViewController];
-            } else {
-                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:hostName]]];
-                [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:image locationName:self.title];
-            }
-//        } else {
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error" message:@"The media resource cannot be reached due to a network error. Please try again later." delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
-//            [alert show];
-//        }
-
+    NSString *urlString = [[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"mediaURL"];
+    if ([self.segmentedControl selectedSegmentIndex] != MMPhotoMediaType) {
+        self.moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:urlString]];
+        [self.navigationController presentMoviePlayerViewControllerAnimated:self.moviePlayerViewController];
+    } else {
+        MMLocationMediaCell *cell = (MMLocationMediaCell*)[tableView cellForRowAtIndexPath:indexPath];
+        [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:cell.locationImageView.image locationName:self.title];
+    }
 }
 
 - (void)viewDidUnload {
     [self setTableView:nil];
     [super viewDidUnload];
 }
+
+#pragma mark - Helper Methods
+- (UIImage*)generateThumbnailForVideo:(int)row {
+    UIImage *thumbnailImage;
+    
+    if ([_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]]) {
+        thumbnailImage = [_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]];
+    }
+    else {
+        AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[self.mediaArray objectAtIndex:row] valueForKey:@"mediaURL"]] options:nil];
+        AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+        generate.appliesPreferredTrackTransform = YES;
+        NSError *err = NULL;
+        CMTime time = CMTimeMake(0, 60);
+        CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
+        
+        thumbnailImage = [UIImage imageWithCGImage:imgRef];
+        [_thumbnailCache setValue:thumbnailImage forKey:[NSString stringWithFormat:@"%d", row]];
+    }
+    
+    return thumbnailImage;
+}
+
 @end

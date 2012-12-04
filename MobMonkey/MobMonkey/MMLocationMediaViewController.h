@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
 #import "MMLocationMediaCell.h"
 
 
@@ -17,10 +19,11 @@ typedef enum {
 } MobMonkeyMediaType;
 
 @interface MMLocationMediaViewController : UIViewController <UITabBarControllerDelegate, UITableViewDataSource> {
-    
+    dispatch_queue_t backgroundQueue;
 }
 
 @property (nonatomic, strong) NSDictionary *location;
 @property (assign, nonatomic) MobMonkeyMediaType mediaType;
+@property (nonatomic, retain) NSMutableDictionary *thumbnailCache;
 
 @end
