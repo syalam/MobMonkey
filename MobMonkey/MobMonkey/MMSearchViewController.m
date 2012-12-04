@@ -84,6 +84,8 @@
 {
     [super viewDidAppear:animated];
     
+    [SVProgressHUD dismiss];
+    
     if (![[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
         [[MMClientSDK sharedSDK]signInScreen:self];
     }
@@ -150,10 +152,6 @@
         
         [params setValue:@"" forKey:@"categoryIds"];
     }
-    
-    /*if ([self.searchBar.text isEqualToString:@""]) {
-        self.searchResultsViewController.title = @"All Nearby";
-    }*/
     [params setValue:self.searchBar.text forKey:@"name"];
     latitude = [[[NSUserDefaults standardUserDefaults] valueForKey:@"latitude"]doubleValue];
     longitude = [[[NSUserDefaults standardUserDefaults] valueForKey:@"longitude"]doubleValue];
@@ -175,14 +173,21 @@
         self.searchResultsViewController.isSearching = NO;
         [SVProgressHUD dismiss];
         
-        // A hack because of AFNetworking
-        if (responseObject) {
-            NSData *data = [NSJSONSerialization dataWithJSONObject:responseObject options:0 error:nil];
-            responseObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        NSArray *responseObjectArray = responseObject;
+        if (responseObjectArray.count < 1) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"No locations found" delegate:self.searchResultsViewController cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
         }
-        
-        // End of hack
-        self.searchResultsViewController.locations = responseObject;
+        else {
+            // A hack because of AFNetworking
+            if (responseObject) {
+                NSData *data = [NSJSONSerialization dataWithJSONObject:responseObject options:0 error:nil];
+                responseObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            }
+            
+            // End of hack
+            self.searchResultsViewController.locations = responseObject;
+        }
     } failure:^(NSError *error) {
         [SVProgressHUD dismissWithError:[error description]];
     }];

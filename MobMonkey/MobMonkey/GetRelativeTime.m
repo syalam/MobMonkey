@@ -20,16 +20,16 @@
     int days = hours/24;
     
     if (days >= 1) {
-        time = [NSString stringWithFormat:@"%dd ago", days];
+        time = [NSString stringWithFormat:@"%dd", days];
     }
     else if (hours >= 1) {
-        time = [NSString stringWithFormat:@"%dh ago", hours];
+        time = [NSString stringWithFormat:@"%dh", hours];
     }
     else if (minutes >= 1) {
-        time = [NSString stringWithFormat:@"%dm ago", minutes];
+        time = [NSString stringWithFormat:@"%dm", minutes];
     }
     else {
-        time = [NSString stringWithFormat:@"%.0fs ago", timeBetween];
+        time = [NSString stringWithFormat:@"%.0fs", timeBetween];
     }
     
     NSLog(@"%@", time);

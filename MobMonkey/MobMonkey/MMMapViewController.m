@@ -128,7 +128,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    [SVProgressHUD dismiss];
     //add nav bar view and button
 }
 

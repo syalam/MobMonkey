@@ -64,6 +64,7 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [SVProgressHUD dismiss];
     
     if (![[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
         [[MMClientSDK sharedSDK]signInScreen:self];
@@ -151,13 +152,28 @@
     
     switch (indexPath.row) {
         case 0:
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", self.openRequests.count];
+            if (self.openRequests.count > 0) {
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", self.openRequests.count];
+            }
+            else {
+                cell.detailTextLabel.text = @"";
+            }
             break;
         case 1:
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", self.fulfilledRequests.count];
+            if (self.fulfilledRequests.count > 0) {
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", self.fulfilledRequests.count];
+            }
+            else {
+                cell.detailTextLabel.text = @"";
+            }
             break;
         case 2:
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", self.assignedRequests.count];
+            if (self.assignedRequests.count > 0) {
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", self.assignedRequests.count];
+            }
+            else {
+                cell.detailTextLabel.text = @"";
+            }
             break;
         default:
             break;
@@ -174,15 +190,21 @@
         MMInboxDetailViewController *inboxDetailVC = [[MMInboxDetailViewController alloc]initWithNibName:@"MMInboxDetailViewController" bundle:nil];
         switch (indexPath.row) {
             case 0:
-                inboxDetailVC.title = @"Open Requests";
-                [self.navigationController pushViewController:inboxDetailVC animated:YES];
+                if (self.openRequests.count > 0) {
+                    inboxDetailVC.title = @"Open Requests";
+                    [self.navigationController pushViewController:inboxDetailVC animated:YES];
+                }
                 break;
             case 1:
-                [[MMClientSDK sharedSDK] answeredRequestsScreen:self answeredItemsToDisplay:self.fulfilledRequests];
+                if (self.fulfilledRequests.count > 0) {
+                    [[MMClientSDK sharedSDK] answeredRequestsScreen:self answeredItemsToDisplay:self.fulfilledRequests];
+                }
                 break;
             case 2:
-                inboxDetailVC.title = @"Assigned Requests";
-                [self.navigationController pushViewController:inboxDetailVC animated:YES];
+                if (self.assignedRequests.count > 0) {
+                    inboxDetailVC.title = @"Assigned Requests";
+                    [self.navigationController pushViewController:inboxDetailVC animated:YES];
+                }
                 break;
             default:
                 

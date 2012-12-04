@@ -9,7 +9,6 @@
 #import "MMLocationMediaViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "MMClientSDK.h"
-#import "Reachability.h"
 
 @interface MMLocationMediaViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

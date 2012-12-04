@@ -43,6 +43,12 @@
 
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [SVProgressHUD dismiss];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];

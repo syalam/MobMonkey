@@ -79,6 +79,7 @@ enum RequestDurationLengths {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [SVProgressHUD dismiss];
     [self.tableView reloadData];
 }
 

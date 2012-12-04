@@ -69,6 +69,9 @@
     else if (self.isSearching) {
         [SVProgressHUD showWithStatus:@"Searching"];
     }
+    else {
+        [SVProgressHUD dismiss];
+    }
     [self.tableView reloadData];
 }
 
@@ -218,6 +221,11 @@
     }
     
     return nil;
+}
+
+#pragma mark - UIAlertView Delegate Method
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

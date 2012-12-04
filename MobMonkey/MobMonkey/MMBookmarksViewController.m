@@ -22,6 +22,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [SVProgressHUD dismiss];
     [self getBookmarks];
 }
 

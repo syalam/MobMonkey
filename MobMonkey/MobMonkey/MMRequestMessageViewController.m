@@ -54,6 +54,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [SVProgressHUD dismiss];
     self.textView.text = [self.requestInfo valueForKey:@"message"];
 }
 

@@ -25,27 +25,6 @@
     
     
     [overlayButtonView setAlpha:1];
-    /*imageView.image = _imageToDisplay;
-    if ([[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]]) {
-        [self.flagButton setBackgroundColor:[UIColor blueColor]];
-    }
-    else {
-       [self.flagButton setBackgroundColor:[UIColor clearColor]];
-    }*/
-    
-    
-//    webView.scalesPageToFit = YES;
-//    webView.contentMode = UIViewContentModeScaleAspectFill;
-//    webView.scrollView.contentSize = CGSizeMake(320, _imageToDisplay.size.height);
-//    [webView loadData:UIImageJPEGRepresentation(_imageToDisplay, 1) MIMEType:@"image/jpeg" textEncodingName:nil baseURL:nil];
-    
-
-    /*UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(overlayToggleButtonTapped:)];
-    tapGesture.delegate = self;
-    tapGesture.numberOfTapsRequired = 1;
-    [webView addGestureRecognizer:tapGesture];*/
-    
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewDidUnload
@@ -58,6 +37,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [SVProgressHUD dismiss];
+    
     [imageView setImage:_imageToDisplay];
 }
 
@@ -65,15 +47,6 @@
 {
     return YES;
 }
-
-/*- (NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskLandscape;
-}
-
--(BOOL) shouldAutorotate {
-    return YES;
-}*/
 
 #pragma mark - IBAction Methods
 - (IBAction)overlayToggleButtonTapped:(id)sender {

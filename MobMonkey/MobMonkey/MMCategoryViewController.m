@@ -37,6 +37,12 @@ static NSString *const SelectedInterestsKey = @"selectedInterests";
     
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
     self.navigationItem.leftBarButtonItem = backButton;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [SVProgressHUD dismiss];
     
     [MMAPI getCategoriesOnSuccess:^(AFHTTPRequestOperation *operation, id response) {
         categoriesArray = response;

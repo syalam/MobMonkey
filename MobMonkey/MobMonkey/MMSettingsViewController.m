@@ -57,6 +57,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [SVProgressHUD dismiss];
     if (![[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
         [[MMClientSDK sharedSDK]signInScreen:self];
     }
