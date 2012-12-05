@@ -48,7 +48,7 @@
 
 @interface AdWhirlView : UIView <AdWhirlConfigDelegate,
                                  AWNetworkReachabilityDelegate> {
-  id<AdWhirlDelegate> delegate;
+__unsafe_unretained  id<AdWhirlDelegate> delegate;
   AdWhirlConfig *config;
 
   NSMutableArray *prioritizedAdNetCfgs;
@@ -72,7 +72,7 @@
 
   NSError *lastError;
 
-  AdWhirlConfigStore *configStore;
+__unsafe_unretained  AdWhirlConfigStore *configStore;
 
   AWNetworkReachabilityWrapper *rollOverReachability;
 
