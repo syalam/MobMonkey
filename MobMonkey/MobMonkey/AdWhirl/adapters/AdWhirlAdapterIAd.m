@@ -41,11 +41,11 @@
   kADBannerContentSizeIdentifierPortrait =
       &ADBannerContentSizeIdentifierPortrait != nil ?
           ADBannerContentSizeIdentifierPortrait :
-          ADBannerContentSizeIdentifier320x50;
+          ADBannerContentSizeIdentifierPortrait;
   kADBannerContentSizeIdentifierLandscape =
       &ADBannerContentSizeIdentifierLandscape != nil ?
           ADBannerContentSizeIdentifierLandscape :
-          ADBannerContentSizeIdentifier480x32;
+          ADBannerContentSizeIdentifierLandscape;
   ADBannerView *iAdView;
   if ([ADBannerView instancesRespondToSelector:@selector(initWithAdType:)]) {
     iAdView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
