@@ -139,7 +139,7 @@
 
 #pragma mark - Helper Methods
 - (void)fetchOpenRequests {
-    [SVProgressHUD showWithStatus:@"Fetching Open Requests"];
+    [SVProgressHUD showWithStatus:@"Loading Open Requests"];
     [MMAPI getOpenRequestsOnSuccess:^(id responseObject) {
         [SVProgressHUD dismiss];
         NSLog(@"%@", responseObject);
@@ -151,7 +151,7 @@
 }
 
 - (void)fetchAssignedRequests {
-    [SVProgressHUD showWithStatus:@"Fetching Assigned Requests"];
+    [SVProgressHUD showWithStatus:@"Loading Assigned Requests"];
     [MMAPI getAssignedRequests:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [SVProgressHUD dismiss];
         NSLog(@"%@", responseObject);

@@ -14,7 +14,10 @@
 #import "MMSettingsViewController.h"
 #import "MMTabBarViewController.h"
 
+#import "AdWhirlView.h"
+
 @implementation MMAppDelegate
+@synthesize adBannerView;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -39,17 +42,26 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     UIViewController *inboxVC = [[MMInboxViewController alloc] initWithNibName:@"MMInboxViewController" bundle:nil];
+  
     UIViewController *searchVC = [[MMSearchViewController alloc] initWithNibName:@"MMSearchViewController" bundle:nil];
     UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithNibName:@"MMTrendingViewController" bundle:nil];
     UIViewController *bookmarksVC = [[MMBookmarksViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
     UIViewController *settingsVC = [[MMSettingsViewController alloc] initWithNibName:@"MMSettingsViewController" bundle:nil];
     
     UINavigationController *inboxNavC = [[UINavigationController alloc] initWithRootViewController:inboxVC];
+  [self addBannerToView:[inboxNavC view]];
     UINavigationController *searchNavC = [[UINavigationController alloc] initWithRootViewController:searchVC];
+  [self addBannerToView:[searchNavC view]];
+
     UINavigationController *trendingNavC = [[UINavigationController alloc] initWithRootViewController:trendingVC];
+  [self addBannerToView:[trendingNavC view]];
+
     UINavigationController *bookmarksNavC = [[UINavigationController alloc] initWithRootViewController:bookmarksVC];
+  [self addBannerToView:[bookmarksNavC view]];
+
     UINavigationController *settingsNavC = [[UINavigationController alloc] initWithRootViewController:settingsVC];
-    
+  [self addBannerToView:[settingsNavC view]];
+
     inboxVC.title = @"Inbox";
     searchVC.title = @"Search";
     trendingVC.title = @"Trending";
@@ -87,8 +99,26 @@
     settingsNavC.tabBarItem.title = nil;
     
     self.window.rootViewController = self.tabBarController;
+  
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (void)addBannerToView: (UIView *)view
+{
+ // AdWhirlView *adWhirlView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
+
+  CGRect rect = CGRectMake(0, view.frame.size.height - 100, view.frame.size.width, view.frame.size.height);
+  UIView *containerView = [[UIView alloc] initWithFrame:rect];
+
+  NSLog(@"%@", adBannerView);
+  adBannerView = [[ADBannerView alloc] initWithFrame:rect];
+  adBannerView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
+  containerView = adBannerView;
+//  [containerView addSubview:adBannerView];
+
+  [view addSubview:containerView];
+  //  [view addSubview:adWhirlView];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
