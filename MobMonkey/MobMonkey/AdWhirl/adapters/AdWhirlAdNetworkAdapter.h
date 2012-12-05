@@ -53,8 +53,8 @@ typedef enum {
 @class AdWhirlAdNetworkConfig;
 
 @interface AdWhirlAdNetworkAdapter : NSObject {
-  id<AdWhirlDelegate> adWhirlDelegate;
-  AdWhirlView *adWhirlView;
+__unsafe_unretained id<AdWhirlDelegate> adWhirlDelegate; // TODO / FIXME - this should be factored out to comply with the new ARC requirements
+__unsafe_unretained  AdWhirlView *adWhirlView;
   AdWhirlConfig *adWhirlConfig;
   AdWhirlAdNetworkConfig *networkConfig;
   UIView *adNetworkView;
