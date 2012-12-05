@@ -45,7 +45,6 @@ static void reachabilityCallback(SCNetworkReachabilityRef reachability,
                                                         [host UTF8String]);
     if (reachability_ == nil) {
       AWLogError(@"Error creating SCNetworkReachability");
-      [self release];
       return nil;
     }
     hostname_ = [[NSString alloc] initWithString:host];

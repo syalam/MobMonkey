@@ -28,7 +28,7 @@
 @implementation ARRollerView
 
 + (ARRollerView*)requestRollerViewWithDelegate:(id<ARRollerDelegate>)delegate {
-  return [[[ARRollerView alloc] initWithDelegate:delegate] autorelease];
+  return [[ARRollerView alloc] initWithDelegate:delegate];
 }
 
 - (id)initWithDelegate:(id<ARRollerDelegate>)d {

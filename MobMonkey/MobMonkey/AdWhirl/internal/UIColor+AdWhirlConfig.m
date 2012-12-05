@@ -50,7 +50,6 @@
   }
   g = (CGFloat)temp/255.0;
   if (!awIntVal(&temp, blue)) {
-    [self release];
     return nil;
   }
   b = (CGFloat)temp/255.0;

@@ -65,7 +65,6 @@
     [self.view addSubview:newView];
     newView.delegate = self;
     newView.scalesPageToFit = YES;
-    [newView release];
 	}
   self.toolBar.items = self.loadedButtons;
 }
@@ -78,13 +77,13 @@
   [loadingItems addObjectsFromArray:items];
   [loadingItems removeObjectAtIndex:4];
   self.loadingButtons = loadingItems;
-  [loadingItems release], loadingItems = nil;
+  loadingItems = nil;
 
   NSMutableArray *loadedItems = [[NSMutableArray alloc] init];
   [loadedItems addObjectsFromArray:items];
   [loadedItems removeObjectAtIndex:5];
   self.loadedButtons = loadedItems;
-  [loadedItems release], loadedItems = nil;
+  loadedItems = nil;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -130,20 +129,19 @@
 }
 
 - (void)dealloc {
-  [loadingButtons release], loadingButtons = nil;
-  [loadedButtons release], loadedButtons = nil;
+  loadingButtons = nil;
+  loadedButtons = nil;
 
   // IBOutlets were retained automatically
   webView.delegate = nil;
-  [webView release], webView = nil;
-  [toolBar release], toolBar = nil;
-  [backButton release], backButton = nil;
-  [forwardButton release], forwardButton = nil;
-  [reloadButton release], reloadButton = nil;
-  [stopButton release], stopButton = nil;
-  [linkOutButton release], linkOutButton = nil;
-  [closeButton release], closeButton = nil;
-  [super dealloc];
+  webView = nil;
+  toolBar = nil;
+  backButton = nil;
+  forwardButton = nil;
+  reloadButton = nil;
+  stopButton = nil;
+  linkOutButton = nil;
+  closeButton = nil;
 }
 
 #pragma mark -
@@ -260,7 +258,6 @@
   UIImage* backImage = [[UIImage alloc] initWithCGImage:backImgRef];
   CGImageRelease(backImgRef);
   self.image = backImage;
-  [backImage release];
 }
 
 @end

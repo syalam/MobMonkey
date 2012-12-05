@@ -90,7 +90,7 @@ BOOL awDoubleVal(double *var, id val) {
 
     // default values
     backgroundColor = [[UIColor alloc] initWithRed:0.3 green:0.3 blue:0.3 alpha:1.0];
-    textColor = [[UIColor whiteColor] retain];
+    textColor = [UIColor whiteColor] ;
     refreshInterval = 60;
     locationOn = YES;
     bannerAnimationType = AWBannerAnimationTypeRandom;
@@ -159,13 +159,12 @@ BOOL awDoubleVal(double *var, id val) {
 }
 
 - (void)dealloc {
-  [appKey release], appKey = nil;
-  [configURL release], configURL = nil;
-  [adNetworkConfigs release], adNetworkConfigs = nil;
-  [backgroundColor release], backgroundColor = nil;
-  [textColor release], textColor = nil;
-  [delegates release], delegates = nil;
-  [super dealloc];
+  appKey = nil;
+  configURL = nil;
+  adNetworkConfigs = nil;
+  backgroundColor = nil;
+  textColor = nil;
+  delegates = nil;
 }
 
 #pragma mark parsing methods
@@ -173,12 +172,10 @@ BOOL awDoubleVal(double *var, id val) {
 - (BOOL)parseExtraConfig:(NSDictionary *)configDict error:(NSError **)error {
   id bgColor = [configDict objectForKey:@"background_color_rgb"];
   if (bgColor != nil && [bgColor isKindOfClass:[NSDictionary class]]) {
-    [backgroundColor release];
     backgroundColor = [[UIColor alloc] initWithDict:(NSDictionary *)bgColor];
   }
   id txtColor = [configDict objectForKey:@"text_color_rgb"];
   if (txtColor != nil && [txtColor isKindOfClass:[NSDictionary class]]) {
-    [textColor release];
     textColor = [[UIColor alloc] initWithDict:txtColor];
   }
   id tempVal;
@@ -204,8 +201,8 @@ BOOL awDoubleVal(double *var, id val) {
     }
     else {
       CLLocationManager* locMan = [[CLLocationManager alloc] init];
-      bLocationServiceEnabled = locMan.locationServicesEnabled;
-      [locMan release], locMan = nil;
+      bLocationServiceEnabled = locMan.locationServicesEnabled; // Depricated since iOS 4.0.. how old is this ?
+      locMan = nil;
     }
 
     if (locationOn == YES && bLocationServiceEnabled == NO) {
@@ -246,7 +243,6 @@ BOOL awDoubleVal(double *var, id val) {
       if (error != NULL)
         *error = [AdWhirlError errorWithCode:AdWhirlConfigDataError
                                  description:@"Expected dictionary in config data"];
-      [adNetConfigDicts release];
       return NO;
     }
     NSDictionary *configDict = (NSDictionary *)configObj;
@@ -264,7 +260,6 @@ BOOL awDoubleVal(double *var, id val) {
             NSInteger empty_ration;
             if (awIntVal(&empty_ration, [configDict objectForKey:key]) && empty_ration == 100) {
               adsAreOff = YES;
-              [adNetConfigDicts release];
               return YES;
             }
           }
@@ -275,7 +270,6 @@ BOOL awDoubleVal(double *var, id val) {
               *error = [AdWhirlError errorWithCode:AdWhirlConfigDataError
                                        description:[NSString stringWithFormat:
                                                     @"Expected underscore delimiter in key '%@'", strKey]];
-            [adNetConfigDicts release];
             return NO;
           }
           NSString *networkName = [strKey substringToIndex:underScorePos.location];
@@ -285,7 +279,6 @@ BOOL awDoubleVal(double *var, id val) {
               *error = [AdWhirlError errorWithCode:AdWhirlConfigDataError
                                        description:[NSString stringWithFormat:
                                                     @"Empty ad network name in key '%@'", strKey]];
-            [adNetConfigDicts release];
             return NO;
           }
           if ([valueName length] == 0) {
@@ -293,7 +286,6 @@ BOOL awDoubleVal(double *var, id val) {
               *error = [AdWhirlError errorWithCode:AdWhirlConfigDataError
                                        description:[NSString stringWithFormat:
                                                     @"Empty value name in key '%@'", strKey]];
-            [adNetConfigDicts release];
             return NO;
           }
           if ([networkName compare:@"dontcare"] == NSOrderedSame) {
@@ -303,7 +295,6 @@ BOOL awDoubleVal(double *var, id val) {
           if (adNetConfigDict == nil) {
             adNetConfigDict = [[NSMutableDictionary alloc] init];
             [adNetConfigDicts setObject:adNetConfigDict forKey:networkName];
-            [adNetConfigDict release];
             adNetConfigDict = [adNetConfigDicts objectForKey:networkName];
           }
           NSString *properValueName;
@@ -356,7 +347,6 @@ BOOL awDoubleVal(double *var, id val) {
                forKey:AWAdNetworkConfigKeyCred];
       }
     }
-    [adWhirlNetworkConfigs release];
   }
 
   NSInteger totalWeight = 0;
@@ -441,7 +431,6 @@ BOOL awDoubleVal(double *var, id val) {
     if (adNetConfig != nil) {
       [adNetworkConfigs addObject:adNetConfig];
       totalWeight += adNetConfig.trafficPercentage;
-      [adNetConfig release];
     }
     else {
       AWLogWarn(@"Cannot create ad network config from %@: %@", adNetConfigDict,
@@ -453,7 +442,6 @@ BOOL awDoubleVal(double *var, id val) {
     adsAreOff = YES;
   }
 
-  [adNetConfigDicts release];
   return YES;
 }
 
@@ -490,7 +478,6 @@ BOOL awDoubleVal(double *var, id val) {
       if (adNetConfig != nil) {
         [adNetworkConfigs addObject:adNetConfig];
         totalWeight += adNetConfig.trafficPercentage;
-        [adNetConfig release];
       }
       else {
         AWLogWarn(@"Cannot create ad network config from %@: %@", c,
