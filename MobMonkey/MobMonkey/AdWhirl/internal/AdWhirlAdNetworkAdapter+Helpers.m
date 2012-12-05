@@ -85,8 +85,6 @@
                                                 toDate:today
                                                options:0];
   NSInteger years = [components year];
-  [gregorian release];
-  [today release];
   return years;
 }
 
