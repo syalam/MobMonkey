@@ -127,7 +127,6 @@
   NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:adRequest
                                                           delegate:self];
   self.adConnection = conn;
-  [conn release];
 }
 
 - (void)stopBeingDelegate {
@@ -138,14 +137,13 @@
 }
 
 - (void)dealloc {
-  [locationManager release], locationManager = nil;
-  [adConnection release], adConnection = nil;
-  [adData release], adData = nil;
-  [imageConnection release], imageConnection = nil;
-  [imageData release], imageData = nil;
-  [adView release], adView = nil;
-  [webBrowserController release], webBrowserController = nil;
-  [super dealloc];
+  locationManager = nil;
+  adConnection = nil;
+  adData = nil;
+  imageConnection = nil;
+  imageData = nil;
+  adView = nil;
+  webBrowserController = nil;
 }
 
 

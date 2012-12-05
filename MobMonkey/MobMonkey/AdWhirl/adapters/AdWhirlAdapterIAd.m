@@ -62,7 +62,6 @@
   [iAdView setDelegate:self];
 
   self.adNetworkView = iAdView;
-  [iAdView release];
 }
 
 - (void)stopBeingDelegate {
@@ -100,7 +99,6 @@
 }
 
 - (void)dealloc {
-  [super dealloc];
 }
 
 #pragma mark IAdDelegate methods
