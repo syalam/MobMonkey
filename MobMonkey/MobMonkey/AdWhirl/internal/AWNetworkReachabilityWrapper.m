@@ -32,9 +32,8 @@ static void reachabilityCallback(SCNetworkReachabilityRef reachability,
 
 + (AWNetworkReachabilityWrapper *) reachabilityWithHostname:(NSString *)host
                 callbackDelegate:(id<AWNetworkReachabilityDelegate>)delegate {
-  return [[[AWNetworkReachabilityWrapper alloc] initWithHostname:host
-                                                callbackDelegate:delegate]
-          autorelease];
+  return [[AWNetworkReachabilityWrapper alloc] initWithHostname:host
+                                                callbackDelegate:delegate];
 }
 
 - (id)initWithHostname:(NSString *)host
@@ -51,12 +50,11 @@ static void reachabilityCallback(SCNetworkReachabilityRef reachability,
     self.delegate = delegate;
 
     // set callback
-    SCNetworkReachabilityContext context = {0, self, NULL, NULL, NULL};
+    SCNetworkReachabilityContext context = {0, (__bridge void *)(self), NULL, NULL, NULL}; // TODO / FIXME - kill __bridge and use ARC
     if (!SCNetworkReachabilitySetCallback(reachability_,
                                           &reachabilityCallback,
                                           &context)) {
       AWLogError(@"Error setting SCNetworkReachability callback");
-      [self release];
       return nil;
     }
   }
@@ -78,8 +76,6 @@ static void reachabilityCallback(SCNetworkReachabilityRef reachability,
 - (void)dealloc {
   [self unscheduleFromCurrentRunLoop];
   if (reachability_ != NULL) CFRelease(reachability_);
-  [hostname_ release];
-  [super dealloc];
 }
 
 #pragma mark callback methods
@@ -164,7 +160,7 @@ static void printReachabilityFlags(SCNetworkReachabilityFlags flags)
 void reachabilityCallback(SCNetworkReachabilityRef reachability,
                           SCNetworkReachabilityFlags flags,
                           void* data) {
-  AWNetworkReachabilityWrapper *wrapper = (AWNetworkReachabilityWrapper *)data;
+  AWNetworkReachabilityWrapper *wrapper = (__bridge AWNetworkReachabilityWrapper *)data;
   [wrapper gotCallback:reachability flags:flags];
 }
 

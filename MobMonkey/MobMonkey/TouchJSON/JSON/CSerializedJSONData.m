@@ -44,10 +44,8 @@ return(self);
 
 - (void)dealloc
 {
-[data release];
 data = NULL;
 //
-[super dealloc];
 }
 
 

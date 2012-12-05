@@ -34,7 +34,7 @@
 @interface AWNetworkReachabilityWrapper : NSObject {
   NSString *hostname_;
   SCNetworkReachabilityRef reachability_;
-  id<AWNetworkReachabilityDelegate> delegate_;
+__unsafe_unretained  id<AWNetworkReachabilityDelegate> delegate_;
 }
 
 @property (nonatomic,readonly) NSString *hostname;

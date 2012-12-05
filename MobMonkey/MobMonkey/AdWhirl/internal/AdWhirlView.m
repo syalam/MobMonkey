@@ -83,7 +83,7 @@ NSInteger adNetworkPriorityComparer(id a, id b, void *ctx) {
                        @" viewControllerForPresentingModalView"];
   }
   AdWhirlView *adView
-    = [[[AdWhirlView alloc] initWithDelegate:delegate] autorelease];
+    = [[AdWhirlView alloc] initWithDelegate:delegate];
   [adView startGetConfig];  // errors are communicated via delegate
   return adView;
 }
@@ -123,26 +123,24 @@ NSInteger adNetworkPriorityComparer(id a, id b, void *ctx) {
 - (void)dealloc {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   [rollOverReachability setDelegate:nil];
-  [rollOverReachability release], rollOverReachability = nil;
+  rollOverReachability = nil;
   delegate = nil;
   [config removeDelegate:self];
-  [config release], config = nil;
-  [prioritizedAdNetCfgs release], prioritizedAdNetCfgs = nil;
+  config = nil;
+  prioritizedAdNetCfgs = nil;
   totalPercent = 0.0;
   requesting = NO;
   currAdapter.adWhirlDelegate = nil, currAdapter.adWhirlView = nil;
-  [currAdapter release], currAdapter = nil;
+  currAdapter = nil;
   lastAdapter.adWhirlDelegate = nil, lastAdapter.adWhirlView = nil;
-  [lastAdapter release], lastAdapter = nil;
-  [lastRequestTime release], lastRequestTime = nil;
-  [pendingAdapters release], pendingAdapters = nil;
+  lastAdapter = nil;
+  lastRequestTime = nil;
+  pendingAdapters = nil;
   if (refreshTimer != nil) {
     [refreshTimer invalidate];
-    [refreshTimer release], refreshTimer = nil;
+    refreshTimer = nil;
   }
-  [lastError release], lastError = nil;
-
-  [super dealloc];
+  lastError = nil;
 }
 
 
@@ -232,7 +230,6 @@ static id<AdWhirlDelegate> classAdWhirlDelegateForConfig = nil;
     totalPercent += cfg.trafficPercentage;
   }
   self.prioritizedAdNetCfgs = freshNetCfgs;
-  [freshNetCfgs release];
 
   [self makeAdRequest:YES];
 }
@@ -618,7 +615,6 @@ static BOOL randSeeded = NO;
           break;
       }
 
-      [currAdView retain]; // will be released when animation is done
       AWLogDebug(@"Beginning AdWhirlAdTransition animation"
                  @" currAdView %x incoming %x", currAdView, view);
       [UIView beginAnimations:@"AdWhirlAdTransition" context:currAdView];
@@ -701,9 +697,8 @@ static BOOL randSeeded = NO;
 {
   AWLogDebug(@"animation %@ finished %@ context %x",
              animationID, finished? @"YES":@"NO", context);
-  UIView *adViewToRemove = (UIView *)context;
+  UIView *adViewToRemove = (UIView *)CFBridgingRelease(context);
   [adViewToRemove removeFromSuperview];
-  [adViewToRemove release]; // was retained before beginAnimations
   lastAdapter.adWhirlDelegate = nil, lastAdapter.adWhirlView = nil;
   self.lastAdapter = nil;
   if ([delegate respondsToSelector:@selector(adWhirlDidAnimateToNewAdIn:)]) {
@@ -765,7 +760,7 @@ static BOOL randSeeded = NO;
                  netTypeKey,
                  adapter);
     }
-    [[pendingAdapter retain] autorelease];
+    [pendingAdapter retain];
     [pendingAdapters removeObjectForKey:netTypeKey];
   }
 }
