@@ -109,16 +109,10 @@
  // AdWhirlView *adWhirlView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
 
   CGRect rect = CGRectMake(0, view.frame.size.height - 100, view.frame.size.width, view.frame.size.height);
-  UIView *containerView = [[UIView alloc] initWithFrame:rect];
-
-  NSLog(@"%@", adBannerView);
   adBannerView = [[ADBannerView alloc] initWithFrame:rect];
   adBannerView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
-  containerView = adBannerView;
-//  [containerView addSubview:adBannerView];
 
-  [view addSubview:containerView];
-  //  [view addSubview:adWhirlView];
+  [view addSubview:adBannerView];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
