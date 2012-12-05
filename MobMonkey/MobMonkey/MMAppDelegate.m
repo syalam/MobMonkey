@@ -187,6 +187,14 @@
     }
 }
 
+- (NSString *)adWhirlApplicationKey {
+  return @"e67aceb15fb24045a941523de953b263";
+}
+
+- (UIViewController *)viewControllerForPresentingModalView {
+  return self.window.rootViewController;
+}
+
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSLog(@"%@", [error localizedDescription]);
