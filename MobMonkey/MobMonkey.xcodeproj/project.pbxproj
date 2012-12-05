@@ -126,7 +126,6 @@
 		37E5241316418AD4003AC7E5 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7716D55161D114A00578A90 /* MediaPlayer.framework */; };
 		37E524AD16430376003AC7E5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E524AC16430376003AC7E5 /* SystemConfiguration.framework */; };
 		C73F8A0D166F51EA00DE6BA8 /* AdWhirlAdapterIAd.m in Sources */ = {isa = PBXBuildFile; fileRef = C73F89CB166F51EA00DE6BA8 /* AdWhirlAdapterIAd.m */; };
-		C73F8A12166F51EA00DE6BA8 /* AdWhirlAdapterNexage.m in Sources */ = {isa = PBXBuildFile; fileRef = C73F89D5166F51EA00DE6BA8 /* AdWhirlAdapterNexage.m */; };
 		C73F8A17166F51EA00DE6BA8 /* AdWhirlAdapterCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = C73F89E3166F51EA00DE6BA8 /* AdWhirlAdapterCustom.m */; };
 		C73F8A18166F51EA00DE6BA8 /* AdWhirlAdapterEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C73F89E5166F51EA00DE6BA8 /* AdWhirlAdapterEvent.m */; };
 		C73F8A19166F51EA00DE6BA8 /* AdWhirlAdapterGeneric.m in Sources */ = {isa = PBXBuildFile; fileRef = C73F89E7166F51EA00DE6BA8 /* AdWhirlAdapterGeneric.m */; };
@@ -705,8 +704,6 @@
 		37E524AC16430376003AC7E5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C73F89CA166F51EA00DE6BA8 /* AdWhirlAdapterIAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdWhirlAdapterIAd.h; sourceTree = "<group>"; };
 		C73F89CB166F51EA00DE6BA8 /* AdWhirlAdapterIAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdWhirlAdapterIAd.m; sourceTree = "<group>"; };
-		C73F89D4166F51EA00DE6BA8 /* AdWhirlAdapterNexage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdWhirlAdapterNexage.h; sourceTree = "<group>"; };
-		C73F89D5166F51EA00DE6BA8 /* AdWhirlAdapterNexage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdWhirlAdapterNexage.m; sourceTree = "<group>"; };
 		C73F89DE166F51EA00DE6BA8 /* AdWhirlAdNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdWhirlAdNetworkAdapter.h; sourceTree = "<group>"; };
 		C73F89DF166F51EA00DE6BA8 /* AdWhirlDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdWhirlDelegateProtocol.h; sourceTree = "<group>"; };
 		C73F89E0166F51EA00DE6BA8 /* AdWhirlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdWhirlView.h; sourceTree = "<group>"; };
@@ -1433,8 +1430,6 @@
 			children = (
 				C73F89CA166F51EA00DE6BA8 /* AdWhirlAdapterIAd.h */,
 				C73F89CB166F51EA00DE6BA8 /* AdWhirlAdapterIAd.m */,
-				C73F89D4166F51EA00DE6BA8 /* AdWhirlAdapterNexage.h */,
-				C73F89D5166F51EA00DE6BA8 /* AdWhirlAdapterNexage.m */,
 				C73F89DE166F51EA00DE6BA8 /* AdWhirlAdNetworkAdapter.h */,
 			);
 			path = adapters;
@@ -3049,7 +3044,6 @@
 				F75A8738165573F800AF83EA /* MMInboxDetailViewController.m in Sources */,
 				F7B012DB1655AF2E00BCAC26 /* MMAnsweredRequestsCell.m in Sources */,
 				C73F8A0D166F51EA00DE6BA8 /* AdWhirlAdapterIAd.m in Sources */,
-				C73F8A12166F51EA00DE6BA8 /* AdWhirlAdapterNexage.m in Sources */,
 				C73F8A17166F51EA00DE6BA8 /* AdWhirlAdapterCustom.m in Sources */,
 				C73F8A18166F51EA00DE6BA8 /* AdWhirlAdapterEvent.m in Sources */,
 				C73F8A19166F51EA00DE6BA8 /* AdWhirlAdapterGeneric.m in Sources */,

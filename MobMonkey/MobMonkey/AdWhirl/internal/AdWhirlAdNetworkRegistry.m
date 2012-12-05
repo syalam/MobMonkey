@@ -48,8 +48,6 @@
   NSNumber *key = [[NSNumber alloc] initWithInteger:netType];
   AdWhirlClassWrapper *wrapper = [[AdWhirlClassWrapper alloc] initWithClass:adapterClass];
   [adapterDict setObject:wrapper forKey:key];
-  [key release];
-  [wrapper release];
 }
 
 - (AdWhirlClassWrapper *)adapterClassFor:(NSInteger)adNetworkType {
@@ -57,8 +55,7 @@
 }
 
 - (void)dealloc {
-  [adapterDict release], adapterDict = nil;
-  [super dealloc];
+  adapterDict = nil;
 }
 
 @end

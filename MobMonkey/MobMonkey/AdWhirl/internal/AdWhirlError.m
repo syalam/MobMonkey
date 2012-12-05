@@ -23,15 +23,15 @@
 @implementation AdWhirlError
 
 + (AdWhirlError *)errorWithCode:(NSInteger)code userInfo:(NSDictionary *)dict {
-  return [[[AdWhirlError alloc] initWithCode:code userInfo:dict] autorelease];
+  return [[AdWhirlError alloc] initWithCode:code userInfo:dict] ;
 }
 
 + (AdWhirlError *)errorWithCode:(NSInteger)code description:(NSString *)desc {
-  return [[[AdWhirlError alloc] initWithCode:code description:desc] autorelease];
+  return [[AdWhirlError alloc] initWithCode:code description:desc];
 }
 
 + (AdWhirlError *)errorWithCode:(NSInteger)code description:(NSString *)desc underlyingError:(NSError *)uError {
-  return [[[AdWhirlError alloc] initWithCode:code description:desc underlyingError:uError] autorelease];
+  return [[AdWhirlError alloc] initWithCode:code description:desc underlyingError:uError];
 }
 
 - (id)initWithCode:(NSInteger)code userInfo:(NSDictionary *)dict {
