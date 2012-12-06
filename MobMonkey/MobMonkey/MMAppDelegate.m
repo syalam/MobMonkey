@@ -64,7 +64,7 @@
 
     inboxVC.title = @"Inbox";
     searchVC.title = @"Search";
-    trendingVC.title = @"Trending";
+    trendingVC.title = @"What's Trending Now";
     bookmarksVC.title = @"Bookmarks";
     settingsVC.title = @"Settings";
     
