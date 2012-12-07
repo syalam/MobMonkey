@@ -253,12 +253,12 @@
     [MMAPI fulfillRequest:mediaRequested
                    params:params
                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                      [SVProgressHUD dismissWithSuccess:@"Success"];
+                      [SVProgressHUD showSuccessWithStatus:@"Success"];
                       [self.navigationController popViewControllerAnimated:YES];
                   }
                   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                       NSLog(@"%@", operation.responseString);
-                      [SVProgressHUD dismissWithError:@"Epic Fail"];
+                      [SVProgressHUD showErrorWithStatus:@"Epic Fail"];
                   }];
     
     [picker dismissModalViewControllerAnimated:YES];

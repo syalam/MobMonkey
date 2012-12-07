@@ -208,7 +208,7 @@
         [self setContentList:responseObject];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
-        [SVProgressHUD dismissWithError:@"Unable to load"];
+        [SVProgressHUD showErrorWithStatus:@"Unable to load"];
     }];
 }
 

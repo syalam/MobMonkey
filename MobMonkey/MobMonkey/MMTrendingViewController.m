@@ -283,7 +283,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%d", [operation.response statusCode]);
         NSLog(@"%@", operation.responseString);
-        [SVProgressHUD dismissWithError:@"Unable to load"];
+        [SVProgressHUD showErrorWithStatus:@"Unable to load"];
         [self.locationsViewController.navigationController popViewControllerAnimated:YES];
     }];
 }

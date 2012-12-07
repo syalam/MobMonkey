@@ -246,7 +246,7 @@
                                         if ([response valueForKey:@"description"]) {
                                             NSString *responseString = [response valueForKey:@"description"];
                                             
-                                            [SVProgressHUD dismissWithError:responseString];
+                                            [SVProgressHUD showErrorWithStatus:responseString];
                                         }
                             [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
                         }];
@@ -255,7 +255,7 @@
                          NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
                          if ([response valueForKey:@"description"]) {
                              NSString *responseString = [response valueForKey:@"description"];
-                             [SVProgressHUD dismissWithError:responseString];
+                             [SVProgressHUD showErrorWithStatus:responseString];
                          }
                      }];
     }

@@ -453,7 +453,7 @@
         [self fetchLatestMediaForLocation];
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD dismissWithError:@"Unable to load location data"];
+        [SVProgressHUD showErrorWithStatus:@"Unable to load location data"];
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }
