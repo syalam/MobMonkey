@@ -223,10 +223,34 @@
 #pragma mark - IBAction Methods
 - (IBAction)mediaButtonTapped:(id)sender
 {
+  switch ([sender tag]) {
+    case MMLiveCameraMediaType:
+      if ([[[self.contentList valueForKey:@"livestreaming"] description] intValue] == 0)
+        return;
+      
+      break;
+      
+    case MMVideoMediaType:
+      if ([[[self.contentList valueForKey:@"videos"] description] intValue] == 0)
+        return;
+      
+      break;
+      
+    case MMPhotoMediaType:
+      if ([[[self.contentList valueForKey:@"images"] description] intValue] == 0)
+        return;
+
+      break;
+      
+    default:
+      break;
+  }
+
     MMLocationMediaViewController *lmvc = [[MMLocationMediaViewController alloc] initWithNibName:@"MMLocationMediaViewController" bundle:nil];
     lmvc.location = self.contentList;
     lmvc.title = self.title;
     lmvc.mediaType = [sender tag];
+  
     UINavigationController *locationMediaNavC = [[UINavigationController alloc] initWithRootViewController:lmvc];
     [self presentViewController:locationMediaNavC animated:YES completion:NULL];
 }
@@ -389,7 +413,6 @@
   
   NSString *videoCount = [[self.contentList valueForKey:@"videos"] description];
   if ([videoCount intValue] == 0) {
-    // TODO - disable media button
     self.videoCountLabel.hidden = YES;
 
   } else {
