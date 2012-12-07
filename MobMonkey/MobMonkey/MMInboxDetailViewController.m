@@ -207,7 +207,7 @@
     }
 }
 
-#pragma mark - UIImagePickerController Delegate Methods
+#pragma mark - UIImagePickerController Delegate Methods // asdf
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSString *mediaRequested;
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
@@ -247,7 +247,9 @@
         [params setObject:@"video/mp4" forKey:@"contentType"];
         [params setObject:[dataObj base64EncodedString] forKey:@"mediaData"];
     }
-    [SVProgressHUD showWithStatus:@"Uploading Media"];
+  CGFloat progress = 0.5; // TODO / FIXME - update progress (just a placeholder for now)
+  [SVProgressHUD showProgress:progress status:@"Uploading Media"];
+
     [MMAPI fulfillRequest:mediaRequested
                    params:params
                   success:^(AFHTTPRequestOperation *operation, id responseObject) {

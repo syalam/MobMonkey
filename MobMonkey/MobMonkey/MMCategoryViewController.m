@@ -186,6 +186,8 @@ static NSString *const SelectedInterestsKey = @"selectedInterests";
 
 #pragma mark - Helper Methods
 - (void)setTableContent {
+  NSLog(@"categoriesArray: %@", categoriesArray); // asdf
+  
     [self setContentList:[categoriesArray mutableCopy]];
     [self.tableView reloadData];
 }
