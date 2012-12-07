@@ -193,7 +193,7 @@
 		F734A5C115F12AC00090E85A /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5B515F12AC00090E85A /* AFURLConnectionOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F734A5C215F12AC00090E85A /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5B715F12AC00090E85A /* AFXMLRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F734A5C315F12AC00090E85A /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5B915F12AC00090E85A /* UIImageView+AFNetworking.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F734A5C715F12AF10090E85A /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5C415F12AF10090E85A /* SVProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F734A5C715F12AF10090E85A /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5C415F12AF10090E85A /* SVProgressHUD.m */; };
 		F734A5C815F12AF10090E85A /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F734A5C515F12AF10090E85A /* SVProgressHUD.bundle */; };
 		F734A5CF15F12EBB0090E85A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A5CE15F12EBB0090E85A /* CoreLocation.framework */; };
 		F734A5D815F1331B0090E85A /* MMResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5D715F1331B0090E85A /* MMResultCell.m */; };
