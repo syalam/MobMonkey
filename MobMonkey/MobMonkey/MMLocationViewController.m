@@ -373,10 +373,49 @@
     _locationNameLabel.text = self.title;
     _phoneNumberLabel.text = [_contentList valueForKey:@"phoneNumber"];
     _addressLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", [_contentList valueForKey:@"streetAddress"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];
-    self.streamingCountLabel.text = [[self.contentList valueForKey:@"livestreaming"] description];
-    self.videoCountLabel.text = [[self.contentList valueForKey:@"videos"] description];
-    self.photoCountLabel.text = [[self.contentList valueForKey:@"images"] description];
-    self.monkeyCountLabel.text = [[self.contentList valueForKey:@"monkeys"] description];
+  
+  // putting this in without testing.. will need someone to confirm that it works or need a way to fake my location so that I can actually test it ~ SM
+  
+  // TODO / FIXME - DRY the following (4x nearly identical code)
+  NSString *streamingCount = [[self.contentList valueForKey:@"livestreaming"] description];
+  if ([streamingCount intValue] == 0) { // TODO - is there a way to get the count directly without having to convert from string to integer ? 
+    // TODO - disable media button
+    self.streamingCountLabel.hidden = YES;
+  
+  } else {
+    self.streamingCountLabel.hidden = NO;
+    self.streamingCountLabel.text = streamingCount;
+  }
+  
+  NSString *videoCount = [[self.contentList valueForKey:@"videos"] description];
+  if ([videoCount intValue] == 0) {
+    // TODO - disable media button
+    self.videoCountLabel.hidden = YES;
+
+  } else {
+    self.videoCountLabel.hidden = NO;
+    self.videoCountLabel.text = videoCount;
+  }
+  
+  NSString *photoCount = [[self.contentList valueForKey:@"images"] description];
+  if ([photoCount intValue] == 0) {
+    self.photoCountLabel.hidden = YES;
+    // TODO - disable media button
+
+  } else {
+    self.photoCountLabel.hidden = NO;
+    self.photoCountLabel.text = photoCount;
+  }
+  
+  NSString *monkeyCount = [[self.contentList valueForKey:@"monkeys"] description];
+  if ([monkeyCount intValue] == 0) {
+    self.monkeyCountLabel.hidden = YES;
+    // TODO - disable media button
+
+  } else {
+    self.monkeyCountLabel.hidden = NO;
+    self.monkeyCountLabel.text = monkeyCount;
+  }
 }
 
 - (void)loadLocationDataWithLocationId:(NSString*)locationId providerId:(NSString*)providerId {
