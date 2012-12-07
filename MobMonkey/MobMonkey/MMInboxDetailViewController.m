@@ -146,7 +146,7 @@
         [self setContentList:responseObject];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
-        [SVProgressHUD dismissWithError:@"Unable to load open requests"];
+        [SVProgressHUD showErrorWithStatus:@"Unable to load open requests"];
     }];
 }
 
@@ -158,7 +158,7 @@
         [self setContentList:responseObject];
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD dismissWithError:@"Unable to load assigned requests"];
+        [SVProgressHUD showErrorWithStatus:@"Unable to load assigned requests"];
     }];
     /*[MMAPI getAssignedRequestsOnSuccess:^(id responseObject) {
         [SVProgressHUD dismiss];
@@ -166,13 +166,13 @@
         [self setContentList:responseObject];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
-        [SVProgressHUD dismissWithError:@"Unable to load assigned requests"];
+        [SVProgressHUD showErrorWithStatus:@"Unable to load assigned requests"];
     }];*/
 }
 
 - (id)failureBlock
 {
-    [SVProgressHUD dismissWithError:@"Epic Fail"];
+    [SVProgressHUD showErrorWithStatus:@"Epic Fail"];
     id _failureBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
         if ([[response valueForKey:@"status"] isEqualToString:@"Unauthorized"]) {

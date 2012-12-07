@@ -144,7 +144,7 @@
     }
     else {
         [SVProgressHUD show];
-        [SVProgressHUD dismissWithError:@"Unable to load this location"];
+        [SVProgressHUD showErrorWithStatus:@"Unable to load this location"];
     }
 }
 

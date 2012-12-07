@@ -229,7 +229,7 @@
         [SVProgressHUD showWithStatus:@"Signing Up"];
         [MMAPI signUpNewUser:params
                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                        [SVProgressHUD dismissWithSuccess:@"Sign Up Successful"];
+                        [SVProgressHUD showErrorWithStatus:@"Sign Up Successful"];
                         [[NSUserDefaults standardUserDefaults]setObject:_emailTextField.text forKey:@"userName"];
                         [[NSUserDefaults standardUserDefaults]setObject:_passwordTextField.text forKey:@"password"];
                         [[NSUserDefaults standardUserDefaults]synchronize];
