@@ -37,7 +37,11 @@
     emailTextField.placeholder = @"Email Address";
     emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     emailTextField.autocorrectionType= UITextAutocorrectionTypeNo;
-    
+  if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
+    emailTextField.text = [[NSUserDefaults standardUserDefaults]objectForKey:@"userName"];
+  }
+    [[NSUserDefaults standardUserDefaults]setObject:emailTextField.text forKey:@"userName"];
+  
     passwordTextField = [[UITextField alloc]initWithFrame:textFieldRect];
     passwordTextField.placeholder = @"Password";
     passwordTextField.secureTextEntry = YES;
