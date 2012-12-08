@@ -15,26 +15,20 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        _categoryBackgroundImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 286, 44)];
-        _categoryTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(30, 5, 200, 30)];
-        _categoryItemCountLabel = [[UILabel alloc]initWithFrame:CGRectMake(240, 5, 50, 30)];
+        _pillboxImageView = [[UIImageView alloc]initWithFrame:CGRectMake(230, 12, 45, 20)];
+        _categoryItemCountLabel = [[UILabel alloc]initWithFrame:_pillboxImageView.frame];
         
-        _categoryBackgroundImageView.image = [UIImage imageNamed:@"roundedRectLarge"];
-        _categoryBackgroundImageView.clipsToBounds = YES;
+        [_categoryItemCountLabel setFont:[UIFont boldSystemFontOfSize:14]];
         
-        [_categoryTitleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16]];
-        [_categoryItemCountLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:14]];
-        
-        [_categoryTitleLabel setBackgroundColor:[UIColor clearColor]];
         [_categoryItemCountLabel setBackgroundColor:[UIColor clearColor]];
         
-        [_categoryTitleLabel setTextColor:[UIColor darkGrayColor]];
-        [_categoryItemCountLabel setTextColor:[UIColor darkGrayColor]];
+        [_categoryItemCountLabel setTextColor:[UIColor whiteColor]];
+        
+        [_categoryItemCountLabel setTextAlignment:NSTextAlignmentCenter];
         
         [self.contentView setBackgroundColor:[UIColor clearColor]];
         
-        [self.contentView addSubview:_categoryBackgroundImageView];
-        [self.contentView addSubview:_categoryTitleLabel];
+        [self.contentView addSubview:_pillboxImageView];
         [self.contentView addSubview:_categoryItemCountLabel];
         
     }

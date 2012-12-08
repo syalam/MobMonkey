@@ -72,10 +72,12 @@
         [_messageLabel sizeToFit];
     }
     
-    CGFloat distance = [[MMUtilities sharedUtilities] calculateDistance:[_location valueForKey:@"latitude"]
-                                                              longitude:[_location valueForKey:@"longitude"]];
-    _distanceLabel.text = [NSString stringWithFormat:@"%.2f miles", distance];
-    [_distanceLabel sizeToFit];
+    if (![[_location valueForKey:@"latitude"]isKindOfClass:[NSNull class]] && ![[_location valueForKey:@"longitude"] isKindOfClass:[NSNull class]]) {
+        CGFloat distance = [[MMUtilities sharedUtilities] calculateDistance:[_location valueForKey:@"latitude"]
+                                                                  longitude:[_location valueForKey:@"longitude"]];
+        _distanceLabel.text = [NSString stringWithFormat:@"%.2f miles", distance];
+        [_distanceLabel sizeToFit];
+    }
     
     CGFloat xPosition = CGRectGetMaxX(_mediaIconsView.bounds) - 16;
     UIImageView *imageView;

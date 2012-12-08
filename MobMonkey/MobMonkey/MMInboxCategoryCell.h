@@ -10,8 +10,7 @@
 
 @interface MMInboxCategoryCell : MMTableViewCell
 
-@property (nonatomic, retain) UIImageView *categoryBackgroundImageView;
-@property (nonatomic, retain) UILabel *categoryTitleLabel;
 @property (nonatomic, retain) UILabel *categoryItemCountLabel;
+@property (nonatomic, retain) UIImageView *pillboxImageView;
 
 @end

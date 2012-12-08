@@ -139,10 +139,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *InboxCategoryCellIdentifier = @"InboxCategoryCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:InboxCategoryCellIdentifier];
+    MMInboxCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:InboxCategoryCellIdentifier];
     
     if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:InboxCategoryCellIdentifier];
+        cell = [[MMInboxCategoryCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:InboxCategoryCellIdentifier];
         cell.detailTextLabel.textColor = [UIColor blackColor];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:17.0];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -153,31 +153,41 @@
     switch (indexPath.row) {
         case 0:
             if (self.openRequests.count > 0) {
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", self.openRequests.count];
+                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", self.openRequests.count];
             }
             else {
-                cell.detailTextLabel.text = @"";
+                cell.categoryItemCountLabel.text = @"";
             }
             break;
         case 1:
             if (self.fulfilledRequests.count > 0) {
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", self.fulfilledRequests.count];
+                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", self.fulfilledRequests.count];
             }
             else {
-                cell.detailTextLabel.text = @"";
+                cell.categoryItemCountLabel.text = @"";
             }
             break;
         case 2:
             if (self.assignedRequests.count > 0) {
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", self.assignedRequests.count];
+                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", self.assignedRequests.count];
             }
             else {
-                cell.detailTextLabel.text = @"";
+                cell.categoryItemCountLabel.text = @"";
             }
             break;
         default:
             break;
     }
+    if (cell.categoryItemCountLabel.text.length == 1) {
+        cell.pillboxImageView.image = [UIImage imageNamed:@"pillBoxSmall"];
+    }
+    else if (cell.categoryItemCountLabel.text.length == 2) {
+        cell.pillboxImageView.image = [UIImage imageNamed:@"pillBoxMed"];
+    }
+    else if (cell.categoryItemCountLabel.text.length == 3) {
+        cell.pillboxImageView.image = [UIImage imageNamed:@"pillBoxLarge"];
+    }
+    
     
     return cell;
 }

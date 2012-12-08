@@ -14,6 +14,7 @@
 #import "SectionInfo.h"
 #import "MMClientSDK.h"
 #import "MMLocationsViewController.h"
+#import "MMTrendingCell.h"
 
 @interface MMTrendingViewController ()
 
@@ -113,61 +114,23 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *CellIdentifier = [NSString stringWithFormat:@"Cell%d%d",indexPath.section, indexPath.row];
-    if (_sectionSelected) {
-        MMResultCell *cell = (MMResultCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (!cell) {
-            cell = [[MMResultCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            cell.delegate = self;
-        }
-        
-        
-        // Configure the cell...
-        
-        cell.timeLabel.text = @"14m ago";
-        cell.locationNameLabel.text = @"Nando's";
-        cell.thumbnailImageView.image = [UIImage imageNamed:@"monkey.jpg"];
-        
-        
-        //set tags
-        cell.likeButton.tag = indexPath.row;
-        cell.dislikeButton.tag = indexPath.row;
-        cell.flagButton.tag = indexPath.row;
-        cell.shareButton.tag = indexPath.row;
-        cell.toggleOverlayButton.tag = indexPath.row;
-        cell.enlargeButton.tag = indexPath.row;
-        if ([[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", indexPath.row]]) {
-            [cell.flagButton setBackgroundColor:[UIColor blueColor]];
-        }
-        else {
-            [cell.flagButton setBackgroundColor:[UIColor clearColor]];
-        }
-        
-        if ([[_cellToggleOnState valueForKey:[NSString stringWithFormat:@"%d", indexPath.row]]isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-            [cell.overlayBGImageView setAlpha:1];
-            [cell.overlayButtonView setAlpha:1];
-        }
-        else {
-            [cell.overlayBGImageView setAlpha:0];
-            [cell.overlayButtonView setAlpha:0];
-        }
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        return cell;
-    }
-    else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"Cell";
+    MMTrendingCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-        if (!cell) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
-            cell.detailTextLabel.textColor = [UIColor blackColor];
-            cell.detailTextLabel.font = [UIFont systemFontOfSize:17.0];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
-        cell.textLabel.text = [_contentList objectAtIndex:indexPath.row];
-        return cell;
+    if (!cell) {
+        cell = [[MMTrendingCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+        cell.detailTextLabel.textColor = [UIColor blackColor];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:17.0];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    cell.textLabel.text = @"";
+    cell.pillboxImageView.image = nil;
+    cell.itemCountLabel.text = @"";
+    
+    cell.textLabel.text = [_contentList objectAtIndex:indexPath.row];
+    
+    
+    return cell;
 }
 
 /*

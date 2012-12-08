@@ -38,11 +38,12 @@
         [self fetchAssignedRequests];
     }
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+    [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    self.navigationItem.leftBarButtonItem = backButton;
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,6 +78,11 @@
     // Configure the cell...
     
     return cell;
+}
+
+#pragma mark - Button Tap Methods
+- (void)backButtonTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*
@@ -160,14 +166,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD dismissWithError:@"Unable to load assigned requests"];
     }];
-    /*[MMAPI getAssignedRequestsOnSuccess:^(id responseObject) {
-        [SVProgressHUD dismiss];
-        NSLog(@"%@", responseObject);
-        [self setContentList:responseObject];
-        [self.tableView reloadData];
-    } failure:^(NSError *error) {
-        [SVProgressHUD dismissWithError:@"Unable to load assigned requests"];
-    }];*/
 }
 
 - (id)failureBlock
