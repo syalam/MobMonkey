@@ -61,6 +61,7 @@ enum RequestDurationLengths {
     
     self.mediaTypeSegmentedControl.selectedSegmentIndex = 1;
     [self changeMediaRequestType:self.mediaTypeSegmentedControl];
+  self.mediaTypeSegmentedControl.tintColor = [UIColor grayColor];
     self.stayActiveLengthSegmentedCell.selectedSegmentIndex = 1;
     
     self.requestInfo = [NSMutableDictionary dictionary];
