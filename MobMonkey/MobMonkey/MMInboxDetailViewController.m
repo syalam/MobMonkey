@@ -37,6 +37,13 @@
     else {
         [self fetchAssignedRequests];
     }
+    
+    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+    [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    self.navigationItem.leftBarButtonItem = backButton;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -135,6 +142,11 @@
         requestId = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestId"];
         [self openCameraSheet:indexPath.row];
     }
+}
+
+#pragma mark - Button tap methods
+- (void)backButtonTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Helper Methods

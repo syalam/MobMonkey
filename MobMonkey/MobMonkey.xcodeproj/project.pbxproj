@@ -429,6 +429,13 @@
 		F77BD35115F5321400E76CA5 /* MMLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD34F15F5321400E76CA5 /* MMLocationAnnotation.m */; };
 		F77D3E51161A1ED2000A818F /* MMClientSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = F77D3E50161A1ED2000A818F /* MMClientSDK.m */; };
 		F77D3E5E161A9F6C000A818F /* MMInboxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F77D3E5D161A9F6C000A818F /* MMInboxCell.m */; };
+		F78776F416731B0100CBDCD1 /* MMTrendingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F78776ED16731B0100CBDCD1 /* MMTrendingCell.m */; };
+		F78776F516731B0100CBDCD1 /* pillBoxLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = F78776EE16731B0100CBDCD1 /* pillBoxLarge.png */; };
+		F78776F616731B0100CBDCD1 /* pillBoxLarge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F78776EF16731B0100CBDCD1 /* pillBoxLarge@2x.png */; };
+		F78776F716731B0100CBDCD1 /* pillBoxMed.png in Resources */ = {isa = PBXBuildFile; fileRef = F78776F016731B0100CBDCD1 /* pillBoxMed.png */; };
+		F78776F816731B0100CBDCD1 /* pillBoxMed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F78776F116731B0100CBDCD1 /* pillBoxMed@2x.png */; };
+		F78776F916731B0100CBDCD1 /* pillBoxSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = F78776F216731B0100CBDCD1 /* pillBoxSmall.png */; };
+		F78776FA16731B0100CBDCD1 /* pillBoxSmall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F78776F316731B0100CBDCD1 /* pillBoxSmall@2x.png */; };
 		F792DA4815FF4C8000F5CD85 /* MMSocialNetworksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F792DA4615FF4C8000F5CD85 /* MMSocialNetworksViewController.m */; };
 		F792DA4915FF4C8000F5CD85 /* MMSocialNetworksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F792DA4715FF4C8000F5CD85 /* MMSocialNetworksViewController.xib */; };
 		F792DA4D15FF4DB300F5CD85 /* MMSocialNetworksCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F792DA4C15FF4DB300F5CD85 /* MMSocialNetworksCell.m */; };
@@ -1053,6 +1060,14 @@
 		F77D3E50161A1ED2000A818F /* MMClientSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMClientSDK.m; sourceTree = "<group>"; };
 		F77D3E5C161A9F6C000A818F /* MMInboxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInboxCell.h; sourceTree = "<group>"; };
 		F77D3E5D161A9F6C000A818F /* MMInboxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMInboxCell.m; sourceTree = "<group>"; };
+		F78776EC16731B0100CBDCD1 /* MMTrendingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTrendingCell.h; sourceTree = "<group>"; };
+		F78776ED16731B0100CBDCD1 /* MMTrendingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTrendingCell.m; sourceTree = "<group>"; };
+		F78776EE16731B0100CBDCD1 /* pillBoxLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pillBoxLarge.png; sourceTree = "<group>"; };
+		F78776EF16731B0100CBDCD1 /* pillBoxLarge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pillBoxLarge@2x.png"; sourceTree = "<group>"; };
+		F78776F016731B0100CBDCD1 /* pillBoxMed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pillBoxMed.png; sourceTree = "<group>"; };
+		F78776F116731B0100CBDCD1 /* pillBoxMed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pillBoxMed@2x.png"; sourceTree = "<group>"; };
+		F78776F216731B0100CBDCD1 /* pillBoxSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pillBoxSmall.png; sourceTree = "<group>"; };
+		F78776F316731B0100CBDCD1 /* pillBoxSmall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pillBoxSmall@2x.png"; sourceTree = "<group>"; };
 		F792DA4515FF4C8000F5CD85 /* MMSocialNetworksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSocialNetworksViewController.h; sourceTree = "<group>"; };
 		F792DA4615FF4C8000F5CD85 /* MMSocialNetworksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSocialNetworksViewController.m; sourceTree = "<group>"; };
 		F792DA4715FF4C8000F5CD85 /* MMSocialNetworksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSocialNetworksViewController.xib; sourceTree = "<group>"; };
@@ -1710,6 +1725,7 @@
 		F734A57A15F1224E0090E85A /* Trending */ = {
 			isa = PBXGroup;
 			children = (
+				F78776FD16731B2500CBDCD1 /* Trending Cell */,
 				F71B9B221601ED77003BED33 /* Collapsable TableView Classes */,
 				F734A57B15F1226C0090E85A /* MMTrendingViewController.h */,
 				F734A57C15F1226C0090E85A /* MMTrendingViewController.m */,
@@ -1857,6 +1873,7 @@
 		F734A62D15F146630090E85A /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				F78776FC16731B0C00CBDCD1 /* Pillbox */,
 				F7B012E4165606CC00BCAC26 /* App Icons */,
 				F7DB55481655676B00FC8AA9 /* separator-gradient.png */,
 				F7DB55491655676B00FC8AA9 /* separator-gradient@2x.png */,
@@ -2290,6 +2307,28 @@
 				F77D3E5D161A9F6C000A818F /* MMInboxCell.m */,
 			);
 			name = "Inbox Cell";
+			sourceTree = "<group>";
+		};
+		F78776FC16731B0C00CBDCD1 /* Pillbox */ = {
+			isa = PBXGroup;
+			children = (
+				F78776EE16731B0100CBDCD1 /* pillBoxLarge.png */,
+				F78776EF16731B0100CBDCD1 /* pillBoxLarge@2x.png */,
+				F78776F016731B0100CBDCD1 /* pillBoxMed.png */,
+				F78776F116731B0100CBDCD1 /* pillBoxMed@2x.png */,
+				F78776F216731B0100CBDCD1 /* pillBoxSmall.png */,
+				F78776F316731B0100CBDCD1 /* pillBoxSmall@2x.png */,
+			);
+			name = Pillbox;
+			sourceTree = "<group>";
+		};
+		F78776FD16731B2500CBDCD1 /* Trending Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F78776EC16731B0100CBDCD1 /* MMTrendingCell.h */,
+				F78776ED16731B0100CBDCD1 /* MMTrendingCell.m */,
+			);
+			name = "Trending Cell";
 			sourceTree = "<group>";
 		};
 		F792DA4415FF4C6500F5CD85 /* Social Networks */ = {
@@ -2948,6 +2987,12 @@
 				F76E6845165DF03C00E03AB2 /* supermarketsIcon.png in Resources */,
 				F76E6846165DF03C00E03AB2 /* supermarketsIcon@2x.png in Resources */,
 				C73F8A25166F51EA00DE6BA8 /* AdWhirlWebBrowser.xib in Resources */,
+				F78776F516731B0100CBDCD1 /* pillBoxLarge.png in Resources */,
+				F78776F616731B0100CBDCD1 /* pillBoxLarge@2x.png in Resources */,
+				F78776F716731B0100CBDCD1 /* pillBoxMed.png in Resources */,
+				F78776F816731B0100CBDCD1 /* pillBoxMed@2x.png in Resources */,
+				F78776F916731B0100CBDCD1 /* pillBoxSmall.png in Resources */,
+				F78776FA16731B0100CBDCD1 /* pillBoxSmall@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3076,6 +3121,7 @@
 				C73F8A48166F528500DE6BA8 /* CJSONScanner.m in Sources */,
 				C73F8A49166F528500DE6BA8 /* CJSONSerializer.m in Sources */,
 				C73F8A4A166F528500DE6BA8 /* CSerializedJSONData.m in Sources */,
+				F78776F416731B0100CBDCD1 /* MMTrendingCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
