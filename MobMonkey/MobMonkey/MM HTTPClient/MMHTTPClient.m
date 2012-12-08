@@ -54,6 +54,11 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 {
     NSURLRequest *request = [self requestWithMethod:@"POST" path:path     parameters:parameters data:data];
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
+    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+      CGFloat progress = (CGFloat)totalBytesWritten / totalBytesExpectedToWrite;
+      [SVProgressHUD showProgress:progress];
+    }];
+  
     [self enqueueHTTPRequestOperation:operation];
 }
 
