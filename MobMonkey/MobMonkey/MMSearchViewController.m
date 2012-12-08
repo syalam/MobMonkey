@@ -189,7 +189,7 @@
             self.searchResultsViewController.locations = responseObject;
         }
     } failure:^(NSError *error) {
-        [SVProgressHUD dismissWithError:[error description]];
+        [SVProgressHUD showErrorWithStatus:[error description]];
     }];
 
     

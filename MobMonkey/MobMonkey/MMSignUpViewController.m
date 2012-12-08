@@ -229,7 +229,7 @@
         [SVProgressHUD showWithStatus:@"Signing Up"];
         [MMAPI signUpNewUser:params
                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                        [SVProgressHUD dismissWithSuccess:@"Sign Up Successful"];
+                        [SVProgressHUD showErrorWithStatus:@"Sign Up Successful"];
                         [[NSUserDefaults standardUserDefaults]setObject:_emailTextField.text forKey:@"userName"];
                         [[NSUserDefaults standardUserDefaults]setObject:_passwordTextField.text forKey:@"password"];
                         [[NSUserDefaults standardUserDefaults]synchronize];
@@ -246,7 +246,7 @@
                                         if ([response valueForKey:@"description"]) {
                                             NSString *responseString = [response valueForKey:@"description"];
                                             
-                                            [SVProgressHUD dismissWithError:responseString];
+                                            [SVProgressHUD showErrorWithStatus:responseString];
                                         }
                             [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
                         }];
@@ -255,7 +255,7 @@
                          NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
                          if ([response valueForKey:@"description"]) {
                              NSString *responseString = [response valueForKey:@"description"];
-                             [SVProgressHUD dismissWithError:responseString];
+                             [SVProgressHUD showErrorWithStatus:responseString];
                          }
                      }];
     }

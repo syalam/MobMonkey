@@ -37,7 +37,11 @@
     emailTextField.placeholder = @"Email Address";
     emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     emailTextField.autocorrectionType= UITextAutocorrectionTypeNo;
-    
+  if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
+    emailTextField.text = [[NSUserDefaults standardUserDefaults]objectForKey:@"userName"];
+  }
+    [[NSUserDefaults standardUserDefaults]setObject:emailTextField.text forKey:@"userName"];
+  
     passwordTextField = [[UITextField alloc]initWithFrame:textFieldRect];
     passwordTextField.placeholder = @"Password";
     passwordTextField.secureTextEntry = YES;
@@ -120,7 +124,7 @@
         
         [SVProgressHUD showWithStatus:@"Signing In"];
         [MMAPI signInWithEmail:emailTextField.text password:passwordTextField.text provider:OAuthProviderNone success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [SVProgressHUD dismissWithSuccess:@"Signed In"];
+            [SVProgressHUD showSuccessWithStatus:@"Signed In"];
             NSLog(@"%@", responseObject);
             
             
@@ -137,7 +141,7 @@
             
             [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [SVProgressHUD dismissWithError:@"Could not log in"];
+            [SVProgressHUD showErrorWithStatus:@"Could not log in"];
         }];
     }
 }
@@ -164,7 +168,7 @@
 #pragma mark MMAPIDelegate Methods
 - (void)MMAPICallSuccessful:(id)response {
     NSLog(@"%@", response);
-    [SVProgressHUD dismissWithSuccess:@"Signed In"];
+    [SVProgressHUD showSuccessWithStatus:@"Signed In"];
     [[NSUserDefaults standardUserDefaults]setObject:emailTextField.text forKey:@"userName"];
     [[NSUserDefaults standardUserDefaults]setObject:passwordTextField.text forKey:@"password"];
     [[NSUserDefaults standardUserDefaults]synchronize];
@@ -175,7 +179,7 @@
     NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
     NSString *responseString = [response valueForKey:@"description"];
     
-    [SVProgressHUD dismissWithError:responseString];
+    [SVProgressHUD showErrorWithStatus:responseString];
 }
 
 @end

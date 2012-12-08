@@ -38,12 +38,11 @@
         [self fetchAssignedRequests];
     }
 
-    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
-    [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
-    
-    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
-    self.navigationItem.leftBarButtonItem = backButton;
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+ 
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,11 +77,6 @@
     // Configure the cell...
     
     return cell;
-}
-
-#pragma mark - Button Tap Methods
-- (void)backButtonTapped:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*
@@ -145,32 +139,40 @@
 
 #pragma mark - Helper Methods
 - (void)fetchOpenRequests {
-    [SVProgressHUD showWithStatus:@"Fetching Open Requests"];
+    [SVProgressHUD showWithStatus:@"Loading Open Requests"];
     [MMAPI getOpenRequestsOnSuccess:^(id responseObject) {
         [SVProgressHUD dismiss];
         NSLog(@"%@", responseObject);
         [self setContentList:responseObject];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
-        [SVProgressHUD dismissWithError:@"Unable to load open requests"];
+        [SVProgressHUD showErrorWithStatus:@"Unable to load open requests"];
     }];
 }
 
 - (void)fetchAssignedRequests {
-    [SVProgressHUD showWithStatus:@"Fetching Assigned Requests"];
+    [SVProgressHUD showWithStatus:@"Loading Assigned Requests"];
     [MMAPI getAssignedRequests:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [SVProgressHUD dismiss];
         NSLog(@"%@", responseObject);
         [self setContentList:responseObject];
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD dismissWithError:@"Unable to load assigned requests"];
+        [SVProgressHUD showErrorWithStatus:@"Unable to load assigned requests"];
     }];
+    /*[MMAPI getAssignedRequestsOnSuccess:^(id responseObject) {
+        [SVProgressHUD dismiss];
+        NSLog(@"%@", responseObject);
+        [self setContentList:responseObject];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:@"Unable to load assigned requests"];
+    }];*/
 }
 
 - (id)failureBlock
 {
-    [SVProgressHUD dismissWithError:@"Epic Fail"];
+    [SVProgressHUD showErrorWithStatus:@"Epic Fail"];
     id _failureBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
         if ([[response valueForKey:@"status"] isEqualToString:@"Unauthorized"]) {
@@ -205,7 +207,7 @@
     }
 }
 
-#pragma mark - UIImagePickerController Delegate Methods
+#pragma mark - UIImagePickerController Delegate Methods // asdf
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSString *mediaRequested;
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
@@ -245,16 +247,18 @@
         [params setObject:@"video/mp4" forKey:@"contentType"];
         [params setObject:[dataObj base64EncodedString] forKey:@"mediaData"];
     }
-    [SVProgressHUD showWithStatus:@"Uploading Media"];
+  CGFloat progress = 0.5; // TODO / FIXME - update progress (just a placeholder for now)
+  [SVProgressHUD showProgress:progress status:@"Uploading Media"];
+
     [MMAPI fulfillRequest:mediaRequested
                    params:params
                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                      [SVProgressHUD dismissWithSuccess:@"Success"];
+                      [SVProgressHUD showSuccessWithStatus:@"Success"];
                       [self.navigationController popViewControllerAnimated:YES];
                   }
                   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                       NSLog(@"%@", operation.responseString);
-                      [SVProgressHUD dismissWithError:@"Epic Fail"];
+                      [SVProgressHUD showErrorWithStatus:@"Epic Fail"];
                   }];
     
     [picker dismissModalViewControllerAnimated:YES];
