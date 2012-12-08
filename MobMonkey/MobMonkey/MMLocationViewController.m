@@ -56,7 +56,7 @@
     
     
     //set location name label text and font
-    _locationNameLabel.textColor = [UIColor colorWithRed:.8941 green:.4509 blue:.1725 alpha:1];
+  _locationNameLabel.textColor = [UIColor blackColor];
     
     //Add custom back button to the nav bar    
     
