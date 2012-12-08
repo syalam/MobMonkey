@@ -26,6 +26,8 @@
         
         [_categoryItemCountLabel setTextAlignment:NSTextAlignmentCenter];
         
+        _pillboxImageView.contentMode = UIViewContentModeCenter;
+        
         [self.contentView setBackgroundColor:[UIColor clearColor]];
         
         [self.contentView addSubview:_pillboxImageView];
