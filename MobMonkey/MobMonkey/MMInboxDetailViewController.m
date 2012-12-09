@@ -131,17 +131,30 @@
 {
     // Navigation logic may go here. Create and push another view controller.
     if ([self.title isEqualToString:@"Open Requests"]) {
-        NSString *locationId = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"locationId"];
-        NSString *providerId = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"providerId"];
-        
-        MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
-        [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
-        [self.navigationController pushViewController:locationViewController animated:YES];
+
+      UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Open Request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles: nil];
+
+      [actionSheet setValue:indexPath forKey:@"indexPath"];
+      [actionSheet showInView:tableView];
     }
     else {
         requestId = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestId"];
         [self openCameraSheet:indexPath.row];
     }
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+  NSIndexPath *indexPath = (NSIndexPath *)[actionSheet valueForKey:@"indexPath"];
+  NSString *locationId = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"locationId"];
+  NSString *providerId = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"providerId"];
+  
+  NSLog(@"TODO / FIXME - handle delete button press for locationId: %@, providerId: %@", locationId, providerId);
+}
+
+- (void)actionSheetCancel:(UIActionSheet *)actionSheet
+{
+  // nothing to do here for now
 }
 
 #pragma mark - Button tap methods
@@ -219,7 +232,7 @@
     }
 }
 
-#pragma mark - UIImagePickerController Delegate Methods // asdf
+#pragma mark - UIImagePickerController Delegate Methods
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSString *mediaRequested;
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
