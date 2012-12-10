@@ -352,7 +352,6 @@
 
       }
     }
-      // asdf
   }
   
     if (mediaArray.count > 0) {
