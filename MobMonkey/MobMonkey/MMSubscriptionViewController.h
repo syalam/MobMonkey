@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMSubscriptionViewController : ViewController
+@interface MMSubscriptionViewController : UIViewController
 
 @end

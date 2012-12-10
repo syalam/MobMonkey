@@ -157,6 +157,7 @@
 		C73F8A4A166F528500DE6BA8 /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = C73F8A40166F528500DE6BA8 /* CSerializedJSONData.m */; };
 		C73F8A4C166F727B00DE6BA8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73F8A4B166F727A00DE6BA8 /* iAd.framework */; };
 		C75171D7167607B0009B4DE8 /* MMSubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75171D6167607B0009B4DE8 /* MMSubscriptionViewController.m */; };
+		C75171D916760871009B4DE8 /* MMSubscriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C75171D816760871009B4DE8 /* MMSubscriptionViewController.xib */; };
 		F71991F716226418003C6A65 /* MMAnsweredRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F71991F516226418003C6A65 /* MMAnsweredRequestsViewController.m */; };
 		F71991F816226418003C6A65 /* MMAnsweredRequestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F71991F616226418003C6A65 /* MMAnsweredRequestsViewController.xib */; };
 		F71991FB16226771003C6A65 /* ThumbsBG@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F71991F916226771003C6A65 /* ThumbsBG@2x~iphone.png */; };
@@ -777,6 +778,7 @@
 		C73F8A4B166F727A00DE6BA8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		C75171D5167607B0009B4DE8 /* MMSubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSubscriptionViewController.h; sourceTree = "<group>"; };
 		C75171D6167607B0009B4DE8 /* MMSubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSubscriptionViewController.m; sourceTree = "<group>"; };
+		C75171D816760871009B4DE8 /* MMSubscriptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSubscriptionViewController.xib; sourceTree = "<group>"; };
 		F71991F416226418003C6A65 /* MMAnsweredRequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAnsweredRequestsViewController.h; sourceTree = "<group>"; };
 		F71991F516226418003C6A65 /* MMAnsweredRequestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAnsweredRequestsViewController.m; sourceTree = "<group>"; };
 		F71991F616226418003C6A65 /* MMAnsweredRequestsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMAnsweredRequestsViewController.xib; sourceTree = "<group>"; };
@@ -1556,6 +1558,7 @@
 			children = (
 				C75171D5167607B0009B4DE8 /* MMSubscriptionViewController.h */,
 				C75171D6167607B0009B4DE8 /* MMSubscriptionViewController.m */,
+				C75171D816760871009B4DE8 /* MMSubscriptionViewController.xib */,
 			);
 			name = Subscription;
 			sourceTree = "<group>";
@@ -3006,6 +3009,7 @@
 				F78776F816731B0100CBDCD1 /* pillBoxMed@2x.png in Resources */,
 				F78776F916731B0100CBDCD1 /* pillBoxSmall.png in Resources */,
 				F78776FA16731B0100CBDCD1 /* pillBoxSmall@2x.png in Resources */,
+				C75171D916760871009B4DE8 /* MMSubscriptionViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
