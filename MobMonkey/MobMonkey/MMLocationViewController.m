@@ -16,7 +16,7 @@
 #import "PhoneNumberFormatter.h"
 #import "MMRequestViewController.h"
 #import "MMLocationMediaViewController.h"
-
+#import "MMSubscriptionViewController.h"
 #import <MapKit/MapKit.h>
 #import "MMLocationAnnotation.h"
 
@@ -347,7 +347,9 @@
       
       if (viewsThisMonth > 5) {
         // After 5 views always show the subscription modal
-        
+        MMSubscriptionViewController *subscriptionViewController = [[MMSubscriptionViewController alloc] init];
+        [self presentViewController:subscriptionViewController animated:YES completion:nil];
+
       }
     }
       // asdf
