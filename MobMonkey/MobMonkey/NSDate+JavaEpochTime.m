@@ -12,7 +12,7 @@
 
 + (NSDate *)dateSinceJavaEpochTime:(NSNumber *)number
 {
-    return [NSDate dateWithTimeIntervalSince1970:[number integerValue] / 1000];
+    return [NSDate dateWithTimeIntervalSince1970:[number integerValue]];
 }
 
 @end
