@@ -319,7 +319,6 @@
 - (void)enlargeButtonTapped:(id)sender {
   
   if (![[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
-    // for an unsubscribed user - how many times they viewed a specific media, Free user can view something 10 times a month, and then start showing ads
     
     // Every 5th view will result in a pop-up ad on the client
     
@@ -336,14 +335,22 @@
       viewsKey = [NSString stringWithFormat:@"%@_views", _locationLatestImageView];
     }
     
-    [self viewsThisMonth:viewsKey];
-        // asdf
-    
-    // add view to viewsArray
-    // get view count for this month
-    // if viewCount for this month > 10, show ads
-    // viewCountForMonth %5 -> popup ad
-    // viewCount > 5 - show subscription modal
+    NSInteger viewsThisMonth = [self viewsThisMonth:viewsKey];
+
+    if (viewsThisMonth > 0) {
+      if (viewsThisMonth > 10 || ((viewsThisMonth % 5) == 0)) {
+        // for an unsubscribed user - how many times they viewed a specific media, Free user can view something 10 times a month, and then start showing ads
+
+          // Every 5th view will result in a pop-up ad on the client
+          NSLog(@"TODO - show popup ad");
+      }
+      
+      if (viewsThisMonth > 5) {
+        // After 5 views always show the subscription modal
+        
+      }
+    }
+      // asdf
   }
   
     if (mediaArray.count > 0) {
