@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/UTCoreTypes.h>
 
-@interface MMInboxDetailViewController : UITableViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
+@interface MMInboxDetailViewController : UITableViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate> {
     NSString *requestId;
 }
 
