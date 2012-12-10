@@ -336,8 +336,11 @@
       viewsKey = [NSString stringWithFormat:@"%@_views", _locationLatestImageView];
     }
     
-    NSArray *viewsArray = [[NSUserDefaults standardUserDefaults] arrayForKey:viewsKey];
-
+    NSMutableArray *viewsArray = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:viewsKey]];
+    [viewsArray addObject:[NSDate date]];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:viewsArray forKey:viewsKey];
+    
     // asdf
     
     // add view to viewsArray
