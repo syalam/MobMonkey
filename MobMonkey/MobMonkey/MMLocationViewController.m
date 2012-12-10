@@ -317,6 +317,29 @@
 }
 
 - (void)enlargeButtonTapped:(id)sender {
+  
+  if (![[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
+    // for an unsubscribed user - how many times they viewed a specific media, Free user can view something 10 times a month, and then start showing ads
+    
+    // Every 5th view will result in a pop-up ad on the client
+    
+    // After 5 views always show the subscription modal
+    
+    // asdf
+    NSURL *url = [NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
+  
+//    NSString *viewsKey = [NSString stringWithFormat:@"%@_views", _imageUrl];
+//    NSArray *viewsArray = [[NSUserDefaults standardUserDefaults] arrayForKey:viewsKey];
+    
+    // add view to viewsArray
+    // get view count for this month
+    // if viewCount for this month > 10, show ads
+    // viewCountForMonth %5 -> popup ad
+    // viewCount > 5 - show subscription modal
+    
+    //    NSInteger viewNumber = [[[NSUserDefaults standardUserDefaults]objectForKey:viewNumberKey] intValue];
+    
+  }
     if (mediaArray.count > 0) {
         if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"video"]) {
             NSURL *url = [NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
