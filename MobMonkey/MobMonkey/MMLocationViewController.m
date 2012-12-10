@@ -336,12 +336,8 @@
       viewsKey = [NSString stringWithFormat:@"%@_views", _locationLatestImageView];
     }
     
-    NSMutableArray *viewsArray = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:viewsKey]];
-    [viewsArray addObject:[NSDate date]];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:viewsArray forKey:viewsKey];
-    
-    // asdf
+    [self viewsThisMonth:viewsKey];
+        // asdf
     
     // add view to viewsArray
     // get view count for this month
@@ -360,6 +356,29 @@
             [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:_locationLatestImageView.image locationName:self.title];
         }
     }
+}
+
+- (NSInteger)viewsThisMonth:(NSString*)viewsKey
+{
+  NSMutableArray *viewsArray = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:viewsKey]];
+  
+  NSDate * now = [NSDate date];
+  NSDateComponents *nowComponents = [[NSCalendar currentCalendar] components:NSMonthCalendarUnit | NSYearCalendarUnit fromDate:now];
+  
+  NSEnumerator *dateEnumerator = [viewsArray objectEnumerator];
+  NSDate *date;
+  NSInteger viewsThisMonth = 0;
+  while (date = (NSDate*)[dateEnumerator nextObject]) {
+    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
+    
+    if ([dateComponents month] == [nowComponents month] && ([dateComponents year] == [nowComponents year]))
+      viewsThisMonth ++;
+  }
+  
+  [viewsArray addObject:now];
+  [[NSUserDefaults standardUserDefaults] setObject:viewsArray forKey:viewsKey];
+  
+  return viewsThisMonth;
 }
 
 - (IBAction)flagButtonTapped:(id)sender {
