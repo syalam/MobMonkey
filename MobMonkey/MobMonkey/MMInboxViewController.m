@@ -178,6 +178,8 @@
         default:
             break;
     }
+    cell.pillboxImageView.image = nil;
+    
     if (cell.categoryItemCountLabel.text.length == 1) {
         cell.pillboxImageView.image = [UIImage imageNamed:@"pillBoxSmall"];
     }
