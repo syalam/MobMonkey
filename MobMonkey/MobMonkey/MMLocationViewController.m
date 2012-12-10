@@ -376,6 +376,7 @@
   }
   
   [viewsArray addObject:now];
+  
   [[NSUserDefaults standardUserDefaults] setObject:viewsArray forKey:viewsKey];
   
   return viewsThisMonth;
