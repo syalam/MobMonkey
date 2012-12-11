@@ -187,9 +187,11 @@
     [SVProgressHUD showWithStatus:@"Loading Open Requests"];
     [MMAPI getOpenRequestsOnSuccess:^(id responseObject) {
         [SVProgressHUD dismiss];
-        NSLog(@"%@", responseObject);
         [self setContentList:responseObject];
         [self.tableView reloadData];
+        if (_contentList.count == 0) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     } failure:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:@"Unable to load open requests"];
     }];
@@ -199,9 +201,11 @@
     [SVProgressHUD showWithStatus:@"Loading Assigned Requests"];
     [MMAPI getAssignedRequests:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [SVProgressHUD dismiss];
-        NSLog(@"%@", responseObject);
         [self setContentList:responseObject];
         [self.tableView reloadData];
+        if (_contentList.count == 0) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD showErrorWithStatus:@"Unable to load assigned requests"];
     }];
