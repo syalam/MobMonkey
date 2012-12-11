@@ -33,6 +33,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *dislikeButton;
 @property (nonatomic, weak) IBOutlet UIButton *videosButton;
 @property (nonatomic, weak) IBOutlet UIButton *photosButton;
+@property (nonatomic, weak) IBOutlet UIButton *liveStreamButton;
 @property (nonatomic, weak) IBOutlet UIButton *makeRequestButton;
 @property (nonatomic, weak) IBOutlet UIButton *flagButton;
 @property (nonatomic, weak) IBOutlet UIButton *bookmarkButton;

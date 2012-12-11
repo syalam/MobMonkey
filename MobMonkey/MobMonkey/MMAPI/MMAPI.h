@@ -146,6 +146,17 @@ typedef enum OAuthProvider {
                  failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 
+
+///---------------------------------------------
+/// @name Fetches a count of how many items are in each of the inbox categories
+///---------------------------------------------
+/**
+ Fetches a count of how many items are in each of the inbox categories
+ */
++ (void)getInboxCounts:(NSMutableDictionary*)params
+               success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 ///---------------------------------------------
 /// @name Fetches a list of open requests from the server
 ///---------------------------------------------

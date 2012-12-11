@@ -16,7 +16,8 @@
     if (self) {
         // Initialization code
         _locationImageView = [[TCImageView alloc]initWithFrame:CGRectMake(self.contentView.frame.size.width / 2 - 100, 5, 200, 120)];
-        
+        [_locationImageView setContentMode:UIViewContentModeScaleAspectFill];
+        [_locationImageView setClipsToBounds:YES];
         _locationImageView.caching = YES;
         
         [self.contentView addSubview:_locationImageView];

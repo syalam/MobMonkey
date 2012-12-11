@@ -16,6 +16,7 @@
     CLLocation* _queryLocation;
     NSMutableDictionary* _cellToggleOnState;
     NSMutableArray *sectionTitleArray;
+    NSDictionary *trendingCategoryCountsDictionary;
 }
 
 @property (nonatomic, retain) NSMutableArray *sectionInfoArray;

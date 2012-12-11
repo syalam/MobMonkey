@@ -86,7 +86,8 @@
     [super viewDidAppear:animated];
     [self setContentList:[@[@"Open Requests", @"Answered Requests", @"Assigned Requests", @"Notifications"] mutableCopy]];
     [self.tableView reloadData];
-    [self reloadInbox];
+    [self getInboxCounts];
+    //[self reloadInbox];
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -99,26 +100,13 @@
     return NO;
 }
 
-- (void)reloadInbox
-{
-    [MMAPI getOpenRequestsOnSuccess:^(id responseObject) {
-        self.openRequests = responseObject;
-        [self.tableView reloadData];
-    } failure:^(NSError *error) {
-        NSLog(@"%@", @"Unable to load open requests");
-    }];
-    [MMAPI getAssignedRequests:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+- (void)getInboxCounts {
+    [MMAPI getInboxCounts:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        self.assignedRequests = responseObject;
+        inboxCountDictionary = responseObject;
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", operation.responseString);
-    }];
-    [MMAPI getFulfilledRequestsOnSuccess:^(id responseObject) {
-        self.fulfilledRequests = responseObject;
-        [self.tableView reloadData];
-    } failure:^(NSError *error) {
-        NSLog(@"%@", @"Unable to load fullfilled requests");
     }];
 }
 
@@ -133,7 +121,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return _contentList.count;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -148,33 +136,36 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
-    cell.textLabel.text = [_contentList objectAtIndex:indexPath.row];
-    
     switch (indexPath.row) {
         case 0:
-            if (self.openRequests.count > 0) {
-                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", self.openRequests.count];
+            cell.textLabel.text = @"Open Requests";
+            if ([[inboxCountDictionary valueForKey:@"openrequests"]intValue] > 0) {
+                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[inboxCountDictionary valueForKey:@"openrequests"]intValue]];
             }
             else {
                 cell.categoryItemCountLabel.text = @"";
             }
             break;
         case 1:
-            if (self.fulfilledRequests.count > 0) {
-                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", self.fulfilledRequests.count];
+            cell.textLabel.text = @"Answered Requests";
+            if ([[inboxCountDictionary valueForKey:@"fulfilledCount"]intValue] > 0) {
+                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[inboxCountDictionary valueForKey:@"fulfilledCount"]intValue]];
             }
             else {
                 cell.categoryItemCountLabel.text = @"";
             }
             break;
         case 2:
-            if (self.assignedRequests.count > 0) {
-                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", self.assignedRequests.count];
+            cell.textLabel.text = @"Assigned Requests";
+            if ([[inboxCountDictionary valueForKey:@"assignedrequests"]intValue] > 0) {
+                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[inboxCountDictionary valueForKey:@"assignedrequests"]intValue]];
             }
             else {
                 cell.categoryItemCountLabel.text = @"";
             }
             break;
+        case 3:
+            cell.textLabel.text = @"Notifications";
         default:
             break;
     }
@@ -202,18 +193,18 @@
         MMInboxDetailViewController *inboxDetailVC = [[MMInboxDetailViewController alloc]initWithNibName:@"MMInboxDetailViewController" bundle:nil];
         switch (indexPath.row) {
             case 0:
-                if (self.openRequests.count > 0) {
+                if ([[inboxCountDictionary valueForKey:@"openrequests"]intValue] > 0) {
                     inboxDetailVC.title = @"Open Requests";
                     [self.navigationController pushViewController:inboxDetailVC animated:YES];
                 }
                 break;
             case 1:
-                if (self.fulfilledRequests.count > 0) {
+                if ([[inboxCountDictionary valueForKey:@"fulfilledCount"]intValue] > 0) {
                     [[MMClientSDK sharedSDK] answeredRequestsScreen:self answeredItemsToDisplay:self.fulfilledRequests];
                 }
                 break;
             case 2:
-                if (self.assignedRequests.count > 0) {
+                if ([[inboxCountDictionary valueForKey:@"assignedrequests"]intValue] > 0) {
                     inboxDetailVC.title = @"Assigned Requests";
                     [self.navigationController pushViewController:inboxDetailVC animated:YES];
                 }

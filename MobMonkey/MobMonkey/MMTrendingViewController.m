@@ -14,7 +14,7 @@
 #import "SectionInfo.h"
 #import "MMClientSDK.h"
 #import "MMLocationsViewController.h"
-#import "MMTrendingCell.h"
+#import "MMInboxCategoryCell.h"
 
 @interface MMTrendingViewController ()
 
@@ -39,34 +39,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //set background color
-    _cellToggleOnState = [[NSMutableDictionary alloc]initWithCapacity:1];
-    
-    NSMutableArray *sectionContent;
-    
-    if (_sectionSelected) {
-        //Add custom back button to the nav bar
-        if (!_bookmarkTab) {
-            UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
-            [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
-            [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
-            
-            UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
-            self.navigationItem.leftBarButtonItem = backButton;
-
-        }
-        
-        sectionContent = [[NSMutableArray alloc]init];
-        for (int i = 0; i < 20; i++) {
-            [sectionContent addObject:@""];
-        }
-    }
-    else {
-        sectionContent = [NSMutableArray arrayWithObjects:@"Bookmarks", @"My Interests", @"Top Viewed", @"Near Me", nil];
-    }
-    
-    [self setContentList:sectionContent];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -76,7 +48,7 @@
         [[MMClientSDK sharedSDK]signInScreen:self];
     }
     else {
-        [self.tableView reloadData];
+        [self getTrendingCounts];
     }
     
     
@@ -99,6 +71,17 @@
     return NO;
 }
 
+- (void)getTrendingCounts {
+    NSDictionary *params = [NSDictionary dictionaryWithObject:@"true" forKey:@"countsonly"];
+    [MMAPI getTrendingType:@"topviewed" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        trendingCategoryCountsDictionary = responseObject;
+        [self.tableView reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
+    }];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -109,88 +92,76 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return _contentList.count;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    MMTrendingCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    MMInboxCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (!cell) {
-        cell = [[MMTrendingCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+        cell = [[MMInboxCategoryCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
         cell.detailTextLabel.textColor = [UIColor blackColor];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:17.0];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    cell.textLabel.text = @"";
+    
+    switch (indexPath.row) {
+        case 0:
+            cell.textLabel.text = @"Bookmarks";
+            if ([[trendingCategoryCountsDictionary valueForKey:@"bookmarkCount"]intValue] > 0) {
+                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[trendingCategoryCountsDictionary valueForKey:@"bookmarkCount"]intValue]];
+            }
+            else {
+                cell.categoryItemCountLabel.text = @"";
+            }
+            break;
+        case 1:
+            cell.textLabel.text = @"My Interests";
+            if ([[trendingCategoryCountsDictionary valueForKey:@"interestsCount"]intValue] > 0) {
+                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[trendingCategoryCountsDictionary valueForKey:@"interestsCount"]intValue]];
+            }
+            else {
+                cell.categoryItemCountLabel.text = @"";
+            }
+            break;
+        case 2:
+            cell.textLabel.text = @"Top Viewed";
+            if ([[trendingCategoryCountsDictionary valueForKey:@"topviewedCount"]intValue] > 0) {
+                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[trendingCategoryCountsDictionary valueForKey:@"topviewedCount"]intValue]];
+            }
+            else {
+                cell.categoryItemCountLabel.text = @"";
+            }
+            break;
+        case 3:
+            cell.textLabel.text = @"Near Me";
+            if ([[trendingCategoryCountsDictionary valueForKey:@"nearbyCount"]intValue] > 0) {
+                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[trendingCategoryCountsDictionary valueForKey:@"nearbyCount"]intValue]];
+            }
+            else {
+                cell.categoryItemCountLabel.text = @"";
+            }
+            break;
+        default:
+            break;
+    }
+    
     cell.pillboxImageView.image = nil;
-    cell.itemCountLabel.text = @"";
     
-    cell.textLabel.text = [_contentList objectAtIndex:indexPath.row];
-    
+    if (cell.categoryItemCountLabel.text.length == 1) {
+        cell.pillboxImageView.image = [UIImage imageNamed:@"pillBoxSmall"];
+    }
+    else if (cell.categoryItemCountLabel.text.length == 2) {
+        cell.pillboxImageView.image = [UIImage imageNamed:@"pillBoxMed"];
+    }
+    else if (cell.categoryItemCountLabel.text.length == 3) {
+        cell.pillboxImageView.image = [UIImage imageNamed:@"pillBoxLarge"];
+    }
     
     return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*-(UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
-
-	SectionInfo *sectionInfo = [[SectionInfo alloc]init];
-    if (!sectionInfo.headerView) {
-        sectionInfo.headerView = [[SectionHeaderView alloc]initWithFrame:CGRectMake(0.0, 0.0, self.tableView.bounds.size.width, HEADER_HEIGHT) title:[sectionTitleArray objectAtIndex:section] section:section delegate:self];
-    }
-    
-    return sectionInfo.headerView;
-}*/
-
-- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (_sectionSelected) {
-        return 200;
-    }
-    else {
-        return 45;
-    }
-}
-
 
 #pragma mark - Table view delegate
 
@@ -205,38 +176,56 @@
     
     switch (indexPath.row) {
         case 0:
-            [params setValue:@"true" forKey:@"bookmarksonly"];
+            if ([[trendingCategoryCountsDictionary valueForKey:@"bookmarkCount"]intValue] > 0) {
+                [params setValue:@"true" forKey:@"bookmarksonly"];
+                [self loadTrendingItem:params categoryTitle:@"Bookmarks"];
+            }
             break;
         case 1: {
-            NSDictionary *favorites = [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedInterests"];
-            NSString *favoritesParams = [[favorites allValues] componentsJoinedByString:@","];
-            if (favoritesParams && ![favoritesParams isEqualToString:@""]) {
-                [params setValue:favoritesParams forKey:@"categoryIds"];
-                [params setValue:@"true" forKey:@"myinterests"];
+            if ([[trendingCategoryCountsDictionary valueForKey:@"interestsCount"]intValue] > 0) {
+                NSDictionary *favorites = [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedInterests"];
+                NSString *favoritesParams = [[favorites allValues] componentsJoinedByString:@","];
+                if (favoritesParams && ![favoritesParams isEqualToString:@""]) {
+                    [params setValue:favoritesParams forKey:@"categoryIds"];
+                    [params setValue:@"true" forKey:@"myinterests"];
+                }
+                [self loadTrendingItem:params categoryTitle:@"My Interests"];
             }
         }
             break;
+        case 2:
+            if ([[trendingCategoryCountsDictionary valueForKey:@"topviewedCount"]intValue] > 0) {
+                [self loadTrendingItem:params categoryTitle:@"Top Viewed"];
+            }
+            break;
         case 3:
-            [params setValue:@"true" forKey:@"nearby"];
-            [params setValue:[NSNumber numberWithDouble:latitude] forKey:@"latitude"];
-            [params setValue:[NSNumber numberWithDouble:longitude] forKey:@"longitude"];
-            [params setValue:[NSNumber numberWithInt:10000] forKey:@"radius"];
+            if ([[trendingCategoryCountsDictionary valueForKey:@"nearbyCount"]intValue] > 0) {
+                [params setValue:@"true" forKey:@"nearby"];
+                [params setValue:[NSNumber numberWithDouble:latitude] forKey:@"latitude"];
+                [params setValue:[NSNumber numberWithDouble:longitude] forKey:@"longitude"];
+                [params setValue:[NSNumber numberWithInt:10000] forKey:@"radius"];
+                
+                [self loadTrendingItem:params categoryTitle:@"Nearby"];
+            }
             break;
         default:
             break;
     }
+}
 
-    
+
+#pragma mark - Helper Methods
+- (void)loadTrendingItem:(NSDictionary*)params categoryTitle:(NSString*)categoryTitle {
     if (!self.locationsViewController) {
         self.locationsViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
     }
     [self.navigationController pushViewController:self.locationsViewController animated:YES];
     self.locationsViewController.locations = [@[] mutableCopy];
-    self.locationsViewController.title = [_contentList objectAtIndex:indexPath.row];
+    self.locationsViewController.title = categoryTitle;
     
     NSLog(@"%@", params);
     
-    [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Loading %@", [_contentList objectAtIndex:indexPath.row]]];
+    [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Loading %@", categoryTitle]];
     [MMAPI getTrendingType:@"topviewed" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.locationsViewController.isSearching = NO;
         [SVProgressHUD dismiss];
