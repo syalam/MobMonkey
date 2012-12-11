@@ -49,13 +49,13 @@
   self = [super initWithFrame:kAdWhirlViewDefaultFrame];
   if (self != nil) {
     delegate = d;
-    redirectURL = rURL;
-    clickMetricsURL = cURL;
+    redirectURL = [rURL retain];
+    clickMetricsURL = [cURL retain];
     adType = aType;
     launchType = launch;
     animType = anim;
-    backgroundColor = bgColor;
-    textColor = fgColor;
+    backgroundColor = [bgColor retain];
+    textColor = [fgColor retain];
     
     if (adType == AWCustomAdTypeText) {
       textLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 0, 270, CGRectGetHeight(self.bounds))];
@@ -148,12 +148,13 @@
 }
 
 - (void)dealloc {
-  image = nil;
-  textLabel = nil;
-  redirectURL = nil;
-  clickMetricsURL = nil;
-  backgroundColor = nil;
-  textColor = nil;
+  [image release], image = nil;
+  [textLabel release], textLabel = nil;
+  [redirectURL release], redirectURL = nil;
+  [clickMetricsURL release], clickMetricsURL = nil;
+  [backgroundColor release], backgroundColor = nil;
+  [textColor release], textColor = nil;
+  [super dealloc];
 }
 
 #pragma mark UIButton control events

@@ -41,11 +41,11 @@
   kADBannerContentSizeIdentifierPortrait =
       &ADBannerContentSizeIdentifierPortrait != nil ?
           ADBannerContentSizeIdentifierPortrait :
-          ADBannerContentSizeIdentifierPortrait;
+          ADBannerContentSizeIdentifier320x50;
   kADBannerContentSizeIdentifierLandscape =
       &ADBannerContentSizeIdentifierLandscape != nil ?
           ADBannerContentSizeIdentifierLandscape :
-          ADBannerContentSizeIdentifierLandscape;
+          ADBannerContentSizeIdentifier480x32;
   ADBannerView *iAdView;
   if ([ADBannerView instancesRespondToSelector:@selector(initWithAdType:)]) {
     iAdView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
@@ -62,6 +62,7 @@
   [iAdView setDelegate:self];
 
   self.adNetworkView = iAdView;
+  [iAdView release];
 }
 
 - (void)stopBeingDelegate {
@@ -99,6 +100,7 @@
 }
 
 - (void)dealloc {
+  [super dealloc];
 }
 
 #pragma mark IAdDelegate methods

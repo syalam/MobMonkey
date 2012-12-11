@@ -61,6 +61,7 @@
         AWLogWarn(errorMsg);
       }
 
+      [self release];
       return nil;
     }
 
@@ -97,6 +98,7 @@
         AWLogWarn(errorMsg);
       }
 
+      [self release];
       return nil;
     }
 
@@ -128,6 +130,7 @@
         AWLogWarn(errorMsg);
       }
 
+      [self release];
       return nil;
     }
   }
@@ -156,9 +159,11 @@
 }
 
 - (void)dealloc {
-  nid = nil;
-  networkName = nil;
-  credentials = nil;
+  [nid release], nid = nil;
+  [networkName release], networkName = nil;
+  [credentials release], credentials = nil;
+
+  [super dealloc];
 }
 
 @end

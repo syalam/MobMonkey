@@ -29,27 +29,33 @@
 
   red   = [dict objectForKey:@"red"];
   if (red == nil) {
+    [self release];
     return nil;
   }
   green = [dict objectForKey:@"green"];
   if (green == nil) {
+    [self release];
     return nil;
   }
   blue  = [dict objectForKey:@"blue"];
   if (blue == nil) {
+    [self release];
     return nil;
   }
 
   NSInteger temp;
   if (!awIntVal(&temp, red)) {
+    [self release];
     return nil;
   }
   r = (CGFloat)temp/255.0;
   if (!awIntVal(&temp, green)) {
+    [self release];
     return nil;
   }
   g = (CGFloat)temp/255.0;
   if (!awIntVal(&temp, blue)) {
+    [self release];
     return nil;
   }
   b = (CGFloat)temp/255.0;

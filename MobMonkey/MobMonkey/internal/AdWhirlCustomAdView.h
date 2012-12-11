@@ -65,7 +65,7 @@ typedef enum {
 
 @interface AdWhirlCustomAdView : UIButton
 {
-__unsafe_unretained  id<AdWhirlCustomAdViewDelegate> delegate;
+  id<AdWhirlCustomAdViewDelegate> delegate;
   UIImage *image;
   UILabel *textLabel;
   NSURL *redirectURL;

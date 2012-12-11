@@ -127,6 +127,7 @@
   NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:adRequest
                                                           delegate:self];
   self.adConnection = conn;
+  [conn release];
 }
 
 - (void)stopBeingDelegate {
@@ -137,13 +138,14 @@
 }
 
 - (void)dealloc {
-  locationManager = nil;
-  adConnection = nil;
-  adData = nil;
-  imageConnection = nil;
-  imageData = nil;
-  adView = nil;
-  webBrowserController = nil;
+  [locationManager release], locationManager = nil;
+  [adConnection release], adConnection = nil;
+  [adData release], adData = nil;
+  [imageConnection release], imageConnection = nil;
+  [imageData release], imageData = nil;
+  [adView release], adView = nil;
+  [webBrowserController release], webBrowserController = nil;
+  [super dealloc];
 }
 
 
@@ -263,8 +265,10 @@
                                                        animType:animType
                                                 backgroundColor:[self helperBackgroundColorToUse]
                                                       textColor:[self helperTextColorToUse]];
+    [self.adView release];
     self.adNetworkView = adView;
-
+    [redirectURL release];
+    [clickMetricsURL release];
     if (adView == nil) {
       if (error != nil)
         *error = [AdWhirlError errorWithCode:AdWhirlCustomAdDataError
@@ -289,6 +293,7 @@
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:imageRequest
                                                             delegate:self];
     self.imageConnection = conn;
+    [conn release];
   }
   else {
     if (error != nil)
@@ -339,6 +344,7 @@
     UIImage *image = [[UIImage alloc] initWithData:imageData];
     if (self.scale == 2.0) {
       UIImage *img = [[UIImage alloc] initWithCGImage:image.CGImage scale:2.0 orientation:image.imageOrientation];
+      [image release];
       image = img;
     }
     if (image == nil) {
@@ -349,6 +355,7 @@
     }
     adView.image = image;
     [adView setNeedsDisplay];
+    [image release];
     requesting = NO;
     [self.adWhirlView adapter:self didReceiveAdView:self.adView];
   }
@@ -389,6 +396,7 @@
       if (self.webBrowserController == nil) {
         AdWhirlWebBrowserController *ctrlr = [[AdWhirlWebBrowserController alloc] init];
         self.webBrowserController = ctrlr;
+        [ctrlr release];
       }
       webBrowserController.delegate = self;
       [webBrowserController presentWithController:[self.adWhirlDelegate viewControllerForPresentingModalView]

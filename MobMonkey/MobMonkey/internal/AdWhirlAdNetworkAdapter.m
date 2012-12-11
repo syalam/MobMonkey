@@ -75,9 +75,10 @@
   [self stopBeingDelegate];
   adWhirlDelegate = nil;
   adWhirlView = nil;
-  adWhirlConfig = nil;
-  networkConfig = nil;
-  adNetworkView = nil;
+  [adWhirlConfig release], adWhirlConfig = nil;
+  [networkConfig release], networkConfig = nil;
+  [adNetworkView release], adNetworkView = nil;
+  [super dealloc];
 }
 
 @end

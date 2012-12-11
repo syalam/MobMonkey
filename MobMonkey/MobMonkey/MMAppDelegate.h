@@ -10,12 +10,10 @@
 #import <CoreLocation/CoreLocation.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import "MMAPI.h"
-#import "AdWhirl/AdWhirlDelegateProtocol.h"
-#import <iAd/iAd.h>
 
-@interface MMAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, AdWhirlDelegate, CLLocationManagerDelegate> {
+@interface MMAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, CLLocationManagerDelegate, AdWhirlDelegate> {
     CLLocationManager *_locationManager;
-  ADBannerView *adBannerView;
+    AdWhirlView *adView;
 }
 
 @property (strong, nonatomic) UIWindow *window;

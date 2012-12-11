@@ -14,16 +14,14 @@
 #import "MMSettingsViewController.h"
 #import "MMTabBarViewController.h"
 
-#import "AdWhirlView.h"
-
 @implementation MMAppDelegate
-@synthesize adBannerView;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //initialize testflight SDK
     [TestFlight takeOff:@"e6432d80aed42a955243c8d93a493dea_MTAwODk2MjAxMi0wNi0yMyAxODoxNzoxOC45NjMzMjY"];
     
+    adView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
     
     //REMOVE ME: Hardcode the partner ID
     [[NSUserDefaults standardUserDefaults]setObject:@"aba0007c-ebee-42db-bd52-7c9f02e3d371" forKey:@"mmPartnerId"];
@@ -49,18 +47,13 @@
     UIViewController *settingsVC = [[MMSettingsViewController alloc] initWithNibName:@"MMSettingsViewController" bundle:nil];
     
     UINavigationController *inboxNavC = [[UINavigationController alloc] initWithRootViewController:inboxVC];
-  [self addBannerToView:[inboxNavC view]];
     UINavigationController *searchNavC = [[UINavigationController alloc] initWithRootViewController:searchVC];
-  [self addBannerToView:[searchNavC view]];
 
     UINavigationController *trendingNavC = [[UINavigationController alloc] initWithRootViewController:trendingVC];
-  [self addBannerToView:[trendingNavC view]];
 
     UINavigationController *bookmarksNavC = [[UINavigationController alloc] initWithRootViewController:bookmarksVC];
-  [self addBannerToView:[bookmarksNavC view]];
 
     UINavigationController *settingsNavC = [[UINavigationController alloc] initWithRootViewController:settingsVC];
-  [self addBannerToView:[settingsNavC view]];
 
     inboxVC.title = @"Inbox";
     searchVC.title = @"Search";
@@ -99,21 +92,13 @@
     settingsNavC.tabBarItem.title = nil;
     
     self.window.rootViewController = self.tabBarController;
+    
+    [self.window.rootViewController.view addSubview:adView];
   
     [self.window makeKeyAndVisible];
     return YES;
 }
 
-- (void)addBannerToView: (UIView *)view
-{
- // AdWhirlView *adWhirlView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
-
-  CGRect rect = CGRectMake(0, view.frame.size.height - 100, view.frame.size.width, view.frame.size.height);
-  adBannerView = [[ADBannerView alloc] initWithFrame:rect];
-  adBannerView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
-
-  [view addSubview:adBannerView];
-}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -211,14 +196,6 @@
     }
 }
 
-- (NSString *)adWhirlApplicationKey {
-  return @"e67aceb15fb24045a941523de953b263";
-}
-
-- (UIViewController *)viewControllerForPresentingModalView {
-  return self.window.rootViewController;
-}
-
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSLog(@"%@", [error localizedDescription]);
@@ -228,6 +205,32 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     // attempt to extract a token from the url
     return [FBSession.activeSession handleOpenURL:url];
+}
+
+#pragma mark - Adwhirl delegate methods
+- (NSString *)adWhirlApplicationKey {
+    return @"8f2f46a21dff4f20b2771f46d86b409c";
+}
+
+- (UIViewController *)viewControllerForPresentingModalView {
+    return self.window.rootViewController;
+}
+
+- (void)adWhirlDidReceiveAd:(AdWhirlView *)adWhirlView {
+    [UIView beginAnimations:@"AdWhirlDelegate.adWhirlDidReceiveAd:"
+                    context:nil];
+    
+    [UIView setAnimationDuration:0.7];
+    
+    CGSize adSize = [adWhirlView actualAdSize];
+    CGRect newFrame = adWhirlView.frame;
+    
+    newFrame.size = adSize;
+    newFrame.origin.x = (self.window.rootViewController.view.bounds.size.width - adSize.width)/ 2;
+    
+    adWhirlView.frame = newFrame;
+    
+    [UIView commitAnimations];
 }
 
 

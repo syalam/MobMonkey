@@ -32,8 +32,8 @@
 
 
 @interface AdWhirlWebBrowserController : UIViewController <UIWebViewDelegate> {
-__unsafe_unretained  id<AdWhirlWebBrowserControllerDelegate> delegate;
-__unsafe_unretained  UIViewController *viewControllerForPresenting;
+  id<AdWhirlWebBrowserControllerDelegate> delegate;
+  UIViewController *viewControllerForPresenting;
   NSArray *loadingButtons;
   NSArray *loadedButtons;
   AWCustomAdWebViewAnimType transitionType;

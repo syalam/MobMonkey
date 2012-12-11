@@ -49,7 +49,7 @@ static AdWhirlConfigStore *gStore = nil;
 
 + (void)resetStore {
   if (gStore != nil) {
-    gStore = nil;
+    [gStore release], gStore = nil;
     [self sharedStore];
   }
 }
@@ -96,22 +96,30 @@ static AdWhirlConfigStore *gStore = nil;
 
   if (fetchingConfig_ != nil) {
     AWLogWarn(@"Another fetch is in progress, wait until finished.");
+    [config release];
     return nil;
   }
   fetchingConfig_ = config;
 
   if (![self checkReachability]) {
+    [config release];
     return nil;
   }
 
   [configs_ setObject:config forKey:appKey];
+  [config release];
   return config;
 }
 
 - (void)dealloc {
   if (reachability_ != nil) {
     reachability_.delegate = nil;
+    [reachability_ release];
   }
+  [connection_ release];
+  [receivedData_ release];
+  [configs_ release];
+  [super dealloc];
 }
 
 
@@ -130,6 +138,7 @@ static AdWhirlConfigStore *gStore = nil;
     reachability_ = [AWNetworkReachabilityWrapper
                      reachabilityWithHostname:[fetchingConfig_.configURL host]
                      callbackDelegate:self];
+    [reachability_ retain];
   }
   if (reachability_ == nil) {
     [fetchingConfig_ notifyDelegatesOfFailure:
@@ -144,7 +153,7 @@ static AdWhirlConfigStore *gStore = nil;
      [AdWhirlError errorWithCode:AdWhirlConfigConnectionError
                      description:
       @"Error scheduling reachability check to config server"]];
-    reachability_ = nil;
+    [reachability_ release], reachability_ = nil;
     return NO;
   }
 
@@ -191,8 +200,8 @@ static AdWhirlConfigStore *gStore = nil;
 
 // Clean up after fetching, success or failed
 - (void)finishedFetching {
-  connection_ = nil;
-  receivedData_ = nil;
+  [connection_ release], connection_ = nil;
+  [receivedData_ release], receivedData_ = nil;
   fetchingConfig_ = nil;
 }
 
@@ -207,7 +216,7 @@ static AdWhirlConfigStore *gStore = nil;
   }
   AWLogDebug(@"Config host %@ not (yet) reachable, check back later",
              reach.hostname);
-  reachability_ = nil;
+  [reachability_ release], reachability_ = nil;
   [self performSelector:@selector(checkReachability)
              withObject:nil
              afterDelay:10.0];
@@ -220,7 +229,7 @@ static AdWhirlConfigStore *gStore = nil;
     return;
   }
   // done with the reachability
-  reachability_ = nil;
+  [reachability_ release], reachability_ = nil;
 
   [self startFetchingAssumingReachable];
 }

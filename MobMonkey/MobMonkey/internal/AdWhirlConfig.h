@@ -66,7 +66,7 @@ typedef enum {
   NSMutableArray *delegates;
   BOOL hasConfig;
 
-__unsafe_unretained  AdWhirlAdNetworkRegistry *adNetworkRegistry;
+  AdWhirlAdNetworkRegistry *adNetworkRegistry;
 }
 
 - (id)initWithAppKey:(NSString *)ak delegate:(id<AdWhirlConfigDelegate>)delegate;

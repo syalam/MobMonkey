@@ -83,7 +83,7 @@ NSInteger adNetworkPriorityComparer(id a, id b, void *ctx) {
                        @" viewControllerForPresentingModalView"];
   }
   AdWhirlView *adView
-    = [[AdWhirlView alloc] initWithDelegate:delegate];
+    = [[[AdWhirlView alloc] initWithDelegate:delegate] autorelease];
   [adView startGetConfig];  // errors are communicated via delegate
   return adView;
 }
@@ -123,24 +123,26 @@ NSInteger adNetworkPriorityComparer(id a, id b, void *ctx) {
 - (void)dealloc {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   [rollOverReachability setDelegate:nil];
-  rollOverReachability = nil;
+  [rollOverReachability release], rollOverReachability = nil;
   delegate = nil;
   [config removeDelegate:self];
-  config = nil;
-  prioritizedAdNetCfgs = nil;
+  [config release], config = nil;
+  [prioritizedAdNetCfgs release], prioritizedAdNetCfgs = nil;
   totalPercent = 0.0;
   requesting = NO;
   currAdapter.adWhirlDelegate = nil, currAdapter.adWhirlView = nil;
-  currAdapter = nil;
+  [currAdapter release], currAdapter = nil;
   lastAdapter.adWhirlDelegate = nil, lastAdapter.adWhirlView = nil;
-  lastAdapter = nil;
-  lastRequestTime = nil;
-  pendingAdapters = nil;
+  [lastAdapter release], lastAdapter = nil;
+  [lastRequestTime release], lastRequestTime = nil;
+  [pendingAdapters release], pendingAdapters = nil;
   if (refreshTimer != nil) {
     [refreshTimer invalidate];
-    refreshTimer = nil;
+    [refreshTimer release], refreshTimer = nil;
   }
-  lastError = nil;
+  [lastError release], lastError = nil;
+
+  [super dealloc];
 }
 
 
@@ -230,6 +232,7 @@ static id<AdWhirlDelegate> classAdWhirlDelegateForConfig = nil;
     totalPercent += cfg.trafficPercentage;
   }
   self.prioritizedAdNetCfgs = freshNetCfgs;
+  [freshNetCfgs release];
 
   [self makeAdRequest:YES];
 }
@@ -337,13 +340,15 @@ static BOOL randSeeded = NO;
   // during transitions
   self.lastAdapter = self.currAdapter;
   self.currAdapter = adapter;
+  [adapter release];
 
   // take nextAdNetCfg out so we don't request again when we roll over
   [prioritizedAdNetCfgs removeObject:nextAdNetCfg];
 
   if (lastRequestTime) {
+    [lastRequestTime release];
   }
-  lastRequestTime = [NSDate date];
+  lastRequestTime = [[NSDate date] retain];
 
   // remember this pending request so we do not request again when we make
   // new ad requests
@@ -613,9 +618,10 @@ static BOOL randSeeded = NO;
           break;
       }
 
+      [currAdView retain]; // will be released when animation is done
       AWLogDebug(@"Beginning AdWhirlAdTransition animation"
                  @" currAdView %x incoming %x", currAdView, view);
-      [UIView beginAnimations:@"AdWhirlAdTransition" context:(__bridge void *)(currAdView)];
+      [UIView beginAnimations:@"AdWhirlAdTransition" context:currAdView];
       [UIView setAnimationDelegate:self];
       [UIView setAnimationDidStopSelector:
             @selector(newAdAnimationDidStopWithAnimationID:finished:context:)];
@@ -695,8 +701,9 @@ static BOOL randSeeded = NO;
 {
   AWLogDebug(@"animation %@ finished %@ context %x",
              animationID, finished? @"YES":@"NO", context);
-  UIView *adViewToRemove = (UIView *)CFBridgingRelease(context);
+  UIView *adViewToRemove = (UIView *)context;
   [adViewToRemove removeFromSuperview];
+  [adViewToRemove release]; // was retained before beginAnimations
   lastAdapter.adWhirlDelegate = nil, lastAdapter.adWhirlView = nil;
   self.lastAdapter = nil;
   if ([delegate respondsToSelector:@selector(adWhirlDidAnimateToNewAdIn:)]) {
@@ -758,6 +765,7 @@ static BOOL randSeeded = NO;
                  netTypeKey,
                  adapter);
     }
+    [[pendingAdapter retain] autorelease];
     [pendingAdapters removeObjectForKey:netTypeKey];
   }
 }
@@ -858,7 +866,7 @@ static BOOL randSeeded = NO;
 - (void)reachabilityBecameReachable:(AWNetworkReachabilityWrapper *)reach {
   if (reach == self.rollOverReachability) {
     // not an error, just need to rollover
-    lastError = nil;
+    [lastError release], lastError = nil;
     if ([delegate respondsToSelector:
          @selector(adWhirlDidFailToReceiveAd:usingBackup:)]) {
       [delegate adWhirlDidFailToReceiveAd:self usingBackup:YES];
@@ -914,7 +922,9 @@ static BOOL randSeeded = NO;
                         @selector(adWhirlReceivedNotificationAdsAreOff:)]) {
       // to prevent self being freed before this returns, in case the
       // delegate decides to release this
+      [self retain];
       [delegate adWhirlReceivedNotificationAdsAreOff:self];
+      [self autorelease];
     }
     return;
   }
@@ -985,15 +995,20 @@ static BOOL randSeeded = NO;
   NSError *error = [[AdWhirlError alloc] initWithCode:errorCode
                                           description:desc];
   [self notifyDelegateOfError:error];
+  [error release];
 }
 
 - (void)notifyDelegateOfError:(NSError *)error {
+  [error retain];
+  [lastError release];
   lastError = error;
   if ([delegate respondsToSelector:
                           @selector(adWhirlDidFailToReceiveAd:usingBackup:)]) {
     // to prevent self being freed before this returns, in case the
     // delegate decides to release this
+    [self retain];
     [delegate adWhirlDidFailToReceiveAd:self usingBackup:NO];
+    [self autorelease];
   }
 }
 
