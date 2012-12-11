@@ -622,10 +622,11 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
   [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
     CGFloat progress = (CGFloat)totalBytesWritten / totalBytesExpectedToWrite;
     // TODO / FIXME - add progress bar
-    // TODO / FIXME - only do this for sufficiently large posts
-    NSLog(@"totalBytesExpectedToWrite: %lld", totalBytesExpectedToWrite);
-    [SVProgressHUD showProgress:progress];
-    NSLog(@"upload progress: %f", progress);
+    if ((progress < 1.) && (totalBytesExpectedToWrite > MINIMUM_BYTES_FOR_PROGRESS)) {
+      NSLog(@"totalBytesExpectedToWrite: %lld", totalBytesExpectedToWrite);
+      [SVProgressHUD showProgress:progress];
+      NSLog(@"upload progress: %f", progress);
+    }
   }];
   
   [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
