@@ -14,7 +14,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     dispatch_once(&onceToken, ^{
         _sharedClient = [[MMHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBMHTTPClientBaseURLString]];
     });
-    
+
     return _sharedClient;
 }
 
@@ -23,14 +23,14 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     if (!self) {
         return nil;
     }
-    
+
     [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
-    
+
     // Accept HTTP Header; see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
 	[self setDefaultHeader:@"Accept" value:@"application/json"];
     [self setDefaultHeader:@"MobMonkey-partnerId" value:kBMHTTPClientApplicationID];
     [self setParameterEncoding:AFJSONParameterEncoding];
-    
+
     return self;
 }
 
@@ -57,8 +57,9 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
       CGFloat progress = (CGFloat)totalBytesWritten / totalBytesExpectedToWrite;
       [SVProgressHUD showProgress:progress];
+      //NSLog(@"upload progress: %f", progress);
     }];
-  
+
     [self enqueueHTTPRequestOperation:operation];
 }
 
@@ -92,9 +93,9 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     NSMutableURLRequest* request = [super requestWithMethod:method
                                                        path:path
                                                  parameters:parameters];
-    
+
     [request setHTTPBody:data];
-    
+
     return request;
 }
 
