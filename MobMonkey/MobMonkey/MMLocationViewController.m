@@ -196,6 +196,15 @@
             MKMapRect pointRect = MKMapRectMake(annotationPoint.x - 2500, annotationPoint.y - 2500, 5000, 5000);
             
             [mapView setVisibleMapRect:pointRect animated:YES];
+            
+            UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+            [backNavbutton addTarget:mapViewController.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+            [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+            
+            UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+            mapViewController.navigationItem.leftBarButtonItem = backButton;
+
+            
 
             [self.navigationController pushViewController:mapViewController animated:YES];
             break;

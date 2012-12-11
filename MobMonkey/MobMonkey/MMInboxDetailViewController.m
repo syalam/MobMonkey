@@ -143,33 +143,41 @@
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    NSString *selectedRequestId = [[_contentList objectAtIndex:selectedIndexToClear]valueForKey:@"requestId"];
-    NSString *isRecurring;
-    if ([[[_contentList objectAtIndex:selectedIndexToClear]valueForKey:@"frequencyInMS"]intValue] > 0) {
-        isRecurring = @"true";
-    }
-    else {
-        isRecurring = @"false";
-    }
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
-                            selectedRequestId, @"requestId",
-                            isRecurring, @"isRecurring", nil];
-    [MMAPI deleteMediaRequest:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-        [self fetchOpenRequests];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        id jsonObject;
-        NSString *message;
-        if (operation.responseData) {
-            jsonObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
-            message = [jsonObject valueForKey:@"description"];
+    switch (buttonIndex) {
+        case 0: {
+            NSString *selectedRequestId = [[_contentList objectAtIndex:selectedIndexToClear]valueForKey:@"requestId"];
+            NSString *isRecurring;
+            if ([[[_contentList objectAtIndex:selectedIndexToClear]valueForKey:@"frequencyInMS"]intValue] > 0) {
+                isRecurring = @"true";
+            }
+            else {
+                isRecurring = @"false";
+            }
+            NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
+                                    selectedRequestId, @"requestId",
+                                    isRecurring, @"isRecurring", nil];
+            [MMAPI deleteMediaRequest:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSLog(@"%@", responseObject);
+                [self fetchOpenRequests];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                id jsonObject;
+                NSString *message;
+                if (operation.responseData) {
+                    jsonObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+                    message = [jsonObject valueForKey:@"description"];
+                }
+                else {
+                    message = @"Unable to clear request at this time. Please try again later";
+                }
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }];
         }
-        else {
-            message = @"Unable to clear request at this time. Please try again later";
-        }
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-    }];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet

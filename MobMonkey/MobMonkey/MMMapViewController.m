@@ -90,6 +90,8 @@
     lpgr.minimumPressDuration = 2.0; //user needs to press for 2 seconds
     [self.mapView addGestureRecognizer:lpgr];
     
+    
+    
     /*if (_address) {
         CLLocationCoordinate2D addressCoordinate = [self getLocationFromAddressString:_address];
         MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc]initWithName:nil address:_address coordinate:addressCoordinate];
