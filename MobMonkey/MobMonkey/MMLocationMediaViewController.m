@@ -61,7 +61,9 @@
 
 - (void)selectMediaType:(id)sender
 {
+    _mediaArray = nil;
     self.mediaType = [sender selectedSegmentIndex];
+    [self.tableView reloadData];
     NSArray *mediaTypes = @[@"livestreaming", @"video", @"image"];
     [MMAPI getMediaForLocationID:[self.location valueForKey:@"locationId"] providerID:[self.location valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type LIKE %@", mediaTypes[[sender selectedSegmentIndex]]];
@@ -96,6 +98,7 @@
         [cell.locationImageView reloadWithUrl:[[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"mediaURL"]];
     }
     else {
+        cell.locationImageView.image = nil;
         dispatch_async(backgroundQueue, ^(void) {
             cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row];
         });
