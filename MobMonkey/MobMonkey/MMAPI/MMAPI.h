@@ -179,6 +179,22 @@ typedef enum OAuthProvider {
 
 + (void)getAssignedRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
 + (void)getLocationsInAssignedRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
+
+
+///---------------------------------------------
+/// @name deletes and open media request
+///---------------------------------------------
+/**
+ deletes and open media request
+ params:
+ requestId
+ isRecurring
+ */
++ (void)deleteMediaRequest:(NSDictionary *)params
+                   success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+
 ///---------------------------------------------
 /// @name Fetches a list of fulfilled requests from the server
 ///---------------------------------------------

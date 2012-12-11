@@ -11,6 +11,7 @@
 
 @interface MMInboxDetailViewController : UITableViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate> {
     NSString *requestId;
+    int selectedIndexToClear;
 }
 
 @property(nonatomic, retain)NSArray *contentList;

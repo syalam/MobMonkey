@@ -131,11 +131,9 @@
 {
     // Navigation logic may go here. Create and push another view controller.
     if ([self.title isEqualToString:@"Open Requests"]) {
-
-      UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Open Request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles: nil];
-
-      [actionSheet setValue:indexPath forKey:@"indexPath"];
-      [actionSheet showInView:tableView];
+        selectedIndexToClear = indexPath.row;
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Open Request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles: nil];
+        [actionSheet showInView:self.tabBarController.tabBar];
     }
     else {
         requestId = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestId"];
@@ -145,11 +143,33 @@
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-  NSIndexPath *indexPath = (NSIndexPath *)[actionSheet valueForKey:@"indexPath"];
-  NSString *locationId = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"locationId"];
-  NSString *providerId = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"providerId"];
-  
-  NSLog(@"TODO / FIXME - handle delete button press for locationId: %@, providerId: %@", locationId, providerId);
+    NSString *selectedRequestId = [[_contentList objectAtIndex:selectedIndexToClear]valueForKey:@"requestId"];
+    NSString *isRecurring;
+    if ([[[_contentList objectAtIndex:selectedIndexToClear]valueForKey:@"frequencyInMS"]intValue] > 0) {
+        isRecurring = @"true";
+    }
+    else {
+        isRecurring = @"false";
+    }
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
+                            selectedRequestId, @"requestId",
+                            isRecurring, @"isRecurring", nil];
+    [MMAPI deleteMediaRequest:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [self fetchOpenRequests];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        id jsonObject;
+        NSString *message;
+        if (operation.responseData) {
+            jsonObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+            message = [jsonObject valueForKey:@"description"];
+        }
+        else {
+            message = @"Unable to clear request at this time. Please try again later";
+        }
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }];
 }
 
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet
