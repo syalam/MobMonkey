@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="sh5-cT-apx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C2034" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="sh5-cT-apx">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
         <!--Request View Controller - Make a Request-->
@@ -58,6 +58,7 @@
                                         <segment title="1h"/>
                                         <segment title="3h"/>
                                     </segments>
+                                    <color key="tintColor" red="0.79607850309999995" green="0.79607850309999995" blue="0.79607850309999995" alpha="1" colorSpace="deviceRGB"/>
                                     <connections>
                                         <action selector="changeRequestDuration:" destination="hl6-g5-Sg9" eventType="valueChanged" id="UiN-vx-1ud"/>
                                     </connections>
@@ -342,6 +343,38 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="makeRequestButtonBlank.png" width="307" height="61"/>
         <image name="videoIcn.png" width="34" height="33"/>
     </resources>
+    <classes>
+        <class className="MMRequestMessageViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMRequestMessageViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="clearText:"/>
+                <relationship kind="outlet" name="textFieldBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="MMRequestScheduleViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMRequestScheduleViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="setSchedule:"/>
+                <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
+            </relationships>
+        </class>
+        <class className="MMRequestViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMRequestViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelRequest:"/>
+                <relationship kind="action" name="changeMediaRequestType:"/>
+                <relationship kind="action" name="changeRequestDuration:"/>
+                <relationship kind="action" name="sendRequest:"/>
+                <relationship kind="outlet" name="mediaTypeSegmentedControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="requestButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="stayActiveLengthSegmentedCell" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="MMTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMTableViewCell.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

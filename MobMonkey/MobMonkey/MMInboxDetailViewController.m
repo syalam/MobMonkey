@@ -272,8 +272,8 @@
         [params setObject:@"video/mp4" forKey:@"contentType"];
         [params setObject:[dataObj base64EncodedString] forKey:@"mediaData"];
     }
-  CGFloat progress = 0.5; // TODO / FIXME - update progress (just a placeholder for now)
-  [SVProgressHUD showProgress:progress status:@"Uploading Media"];
+  
+    [SVProgressHUD showWithStatus:@"Uploading Media"];
 
     [MMAPI fulfillRequest:mediaRequested
                    params:params
