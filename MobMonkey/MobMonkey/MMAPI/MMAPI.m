@@ -81,15 +81,18 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 }
 
 + (void)facebookSignIn {
-    [FBSession openActiveSessionWithPermissions:nil allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+    NSArray *permissions = [NSArray arrayWithObjects:@"email", nil];
+    [FBSession openActiveSessionWithPermissions:permissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
         if (session.isOpen) {
             FBRequest *me = [FBRequest requestForMe];
             [me startWithCompletionHandler: ^(FBRequestConnection *connection,
                                               NSDictionary<FBGraphUser> *my,
                                               NSError *error) {
                 if (!error) {
-                    NSLog(@"%@", @"logged in");
+                    NSLog(@"%@", my);
                     //TODO: send FB token to server call
+                    NSString* accessToken = me.session.accessToken;
+                    NSLog(@"%@", accessToken);
                 }
                 else {
                     UIAlertView *alert = [[[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to log you in. Please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil] autorelease];
