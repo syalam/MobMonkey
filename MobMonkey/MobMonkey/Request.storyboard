@@ -50,8 +50,8 @@
                                         <action selector="sendRequest:" destination="hl6-g5-Sg9" eventType="touchUpInside" id="Gog-ae-QRL"/>
                                     </connections>
                                 </button>
-                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="mB6-aP-9HP">
-                                    <rect key="frame" x="10" y="29" width="300" height="44"/>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="mB6-aP-9HP">
+                                    <rect key="frame" x="10" y="36" width="300" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <segments>
                                         <segment title="15m"/>

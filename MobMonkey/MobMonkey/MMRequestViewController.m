@@ -62,6 +62,8 @@ enum RequestDurationLengths {
     self.mediaTypeSegmentedControl.selectedSegmentIndex = 1;
     [self changeMediaRequestType:self.mediaTypeSegmentedControl];
     self.mediaTypeSegmentedControl.tintColor = [UIColor grayColor];
+  self.stayActiveLengthSegmentedCell.tintColor = [UIColor grayColor];
+  
     self.stayActiveLengthSegmentedCell.selectedSegmentIndex = 1;
     
     self.requestInfo = [NSMutableDictionary dictionary];
@@ -167,7 +169,7 @@ enum RequestDurationLengths {
         default:
             break;
     }
-    [[self.stayActiveLengthSegmentedCell.subviews objectAtIndex:[sender selectedSegmentIndex]] setTintColor:[UIColor grayColor]];
+//    [[self.stayActiveLengthSegmentedCell.subviews objectAtIndex:[sender selectedSegmentIndex]] setTintColor:[UIColor grayColor]];
 }
 
 - (IBAction)cancelRequest:(id)sender
