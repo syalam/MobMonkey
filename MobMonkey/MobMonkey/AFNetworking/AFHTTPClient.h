@@ -23,7 +23,10 @@
 #import <Foundation/Foundation.h>
 
 // only show progress bar for posts in excess of this
-const int MINIMUM_BYTES_FOR_PROGRESS = 1048576;
+
+#ifndef MINIMUM_BYTES_FOR_PROGRESS
+#define MINIMUM_BYTES_FOR_PROGRESS 1048576
+#endif
 
 @class AFHTTPRequestOperation;
 

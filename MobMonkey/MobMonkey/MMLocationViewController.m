@@ -326,7 +326,11 @@
 }
 
 - (void)enlargeButtonTapped:(id)sender {
+  NSLog(@"enlargeButtonTapped");
+  NSLog(@"standardUserDefaults]boolForKey:@'subscribedUser': %i",
+        [[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]);
   
+        
   if (![[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
     
     // Every 5th view will result in a pop-up ad on the client
