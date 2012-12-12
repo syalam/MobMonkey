@@ -623,9 +623,7 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
     CGFloat progress = (CGFloat)totalBytesWritten / totalBytesExpectedToWrite;
     // TODO / FIXME - add progress bar
     if ((progress < 1.) && (totalBytesExpectedToWrite > MINIMUM_BYTES_FOR_PROGRESS)) {
-      NSLog(@"totalBytesExpectedToWrite: %lld", totalBytesExpectedToWrite);
       [SVProgressHUD showProgress:progress];
-      NSLog(@"upload progress: %f", progress);
     }
   }];
   
