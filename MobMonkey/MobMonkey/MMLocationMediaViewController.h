@@ -18,7 +18,7 @@ typedef enum {
     MMPhotoMediaType
 } MobMonkeyMediaType;
 
-@interface MMLocationMediaViewController : UIViewController <UITabBarControllerDelegate, UITableViewDataSource> {
+@interface MMLocationMediaViewController : UIViewController <UITabBarControllerDelegate, UITableViewDataSource, UIActionSheetDelegate> {
     dispatch_queue_t backgroundQueue;
 }
 

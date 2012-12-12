@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MMSubscriptionViewController : UIViewController
+- (IBAction) dismiss;
 
 @end

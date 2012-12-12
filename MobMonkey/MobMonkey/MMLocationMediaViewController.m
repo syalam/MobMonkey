@@ -116,13 +116,7 @@
 {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   NSString *urlString = [[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"mediaURL"];
-  
-  //asdf
-  MMSubscriptionViewController *subscriptionViewController = [[MMSubscriptionViewController alloc] init];
-  NSLog(@"subscriptionViewController: %@", subscriptionViewController);
-  
-  [self.navigationController presentViewController:subscriptionViewController animated:YES completion:nil];
-  
+    
   if (![[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
     
     // Every 5th view will result in a pop-up ad on the client
@@ -143,9 +137,9 @@
       
       if (viewsThisMonth > 5) {
         // After 5 views always show the subscription modal
-//        MMSubscriptionViewController *subscriptionViewController = [[MMSubscriptionViewController alloc] init];
-//        [self presentViewController:subscriptionViewController animated:YES completion:nil];
-        
+
+        MMSubscriptionViewController *subscriptionViewController = [[MMSubscriptionViewController alloc] init];
+        [self.navigationController presentViewController:subscriptionViewController animated:YES completion:nil];
       }
     }
   }
