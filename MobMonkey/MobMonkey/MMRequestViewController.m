@@ -112,12 +112,20 @@ enum RequestDurationLengths {
     [self.requestInfo setValue:[NSNumber numberWithBool:NO] forKey:@"recurring"];
     
     NSString *mediaType;
-    if (_mediaTypeSegmentedControl.selectedSegmentIndex == 0) {
-        mediaType = @"video";
-    }
-    else {
-        mediaType = @"image";
-    }
+  switch (_mediaTypeSegmentedControl.selectedSegmentIndex) {
+    case 0:
+      mediaType = @"video";
+      break;
+    case 1:
+      mediaType = @"image";
+      break;
+    case 2:
+      mediaType = @"text";
+      break;
+      
+    default:
+      break;
+  }
     
     [MMAPI requestMedia:mediaType params:self.requestInfo success:nil failure:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -125,11 +133,20 @@ enum RequestDurationLengths {
 
 - (IBAction)changeMediaRequestType:(id)sender
 {
-    if ([sender selectedSegmentIndex]) {
-        [self.requestButton setTitle:@"Send Photo Request" forState:UIControlStateNormal];
-        return;
-    }
-    [self.requestButton setTitle:@"Send Video Request" forState:UIControlStateNormal];
+  switch (_mediaTypeSegmentedControl.selectedSegmentIndex) {
+    case 0:
+      [self.requestButton setTitle:@"Send Video Request" forState:UIControlStateNormal];
+      break;
+    case 1:
+      [self.requestButton setTitle:@"Send Photo Request" forState:UIControlStateNormal];
+      break;
+    case 2:
+      [self.requestButton setTitle:@"Send Text Request" forState:UIControlStateNormal];
+      break;
+      
+    default:
+      break;
+  }
 }
 
 - (IBAction)changeRequestDuration:(id)sender

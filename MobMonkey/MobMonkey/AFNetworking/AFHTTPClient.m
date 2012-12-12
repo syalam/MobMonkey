@@ -619,7 +619,23 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
 {
 	NSURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:parameters];
 	AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
-    [self enqueueHTTPRequestOperation:operation];
+  [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+    CGFloat progress = (CGFloat)totalBytesWritten / totalBytesExpectedToWrite;
+    // TODO / FIXME - add progress bar
+    if ((progress < 1.) && (totalBytesExpectedToWrite > MINIMUM_BYTES_FOR_PROGRESS)) {
+      [SVProgressHUD showProgress:progress];
+    }
+  }];
+  
+  [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [SVProgressHUD dismiss];
+  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    [SVProgressHUD dismiss];
+    
+    [SVProgressHUD showErrorWithStatus:@"Couldn't complete upload."];
+  }];
+  
+  [self enqueueHTTPRequestOperation:operation];
 }
 
 - (void)putPath:(NSString *)path 

@@ -22,6 +22,9 @@
 
 #import <Foundation/Foundation.h>
 
+// only show progress bar for posts in excess of this
+const int MINIMUM_BYTES_FOR_PROGRESS = 1048576;
+
 @class AFHTTPRequestOperation;
 
 /**
@@ -92,7 +95,6 @@ typedef enum {
 @protocol AFMultipartFormData;
 
 @interface AFHTTPClient : NSObject <NSCoding, NSCopying>
-
 ///---------------------------------------
 /// @name Accessing HTTP Client Properties
 ///---------------------------------------
