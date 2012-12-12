@@ -113,9 +113,37 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  NSString *urlString = [[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"mediaURL"];
+
+  NSLog(@"standardUserDefaults]boolForKey:@'subscribedUser': %i",
+        [[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]);
+  
+  if (![[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
     
-    NSString *urlString = [[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"mediaURL"];
+    // Every 5th view will result in a pop-up ad on the client
+    
+    // After 5 views always show the subscription modal
+    
+    NSInteger viewsThisMonth = 0;
+    viewsThisMonth = [self viewsThisMonth:urlString];
+    
+    if (viewsThisMonth > 0) {
+      if (viewsThisMonth > 10 || ((viewsThisMonth % 5) == 0)) {
+        // for an unsubscribed user - how many times they viewed a specific media, Free user can view something 10 times a month, and then start showing ads
+        
+        // Every 5th view will result in a pop-up ad on the client
+        NSLog(@"TODO - show popup ad");
+      }
+      
+      if (viewsThisMonth > 5) {
+        // After 5 views always show the subscription modal
+//        MMSubscriptionViewController *subscriptionViewController = [[MMSubscriptionViewController alloc] init];
+//        [self presentViewController:subscriptionViewController animated:YES completion:nil];
+        
+      }
+    }
+  }
     if ([self.segmentedControl selectedSegmentIndex] != MMPhotoMediaType) {
         self.moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:urlString]];
         [self.navigationController presentMoviePlayerViewControllerAnimated:self.moviePlayerViewController];
@@ -124,6 +152,31 @@
         [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:cell.locationImageView.image locationName:self.title];
     }
 }
+
+- (NSInteger)viewsThisMonth:(NSString*)viewsKey
+{
+  NSMutableArray *viewsArray = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:viewsKey]];
+  
+  NSDate * now = [NSDate date];
+  NSDateComponents *nowComponents = [[NSCalendar currentCalendar] components:NSMonthCalendarUnit | NSYearCalendarUnit fromDate:now];
+  
+  NSEnumerator *dateEnumerator = [viewsArray objectEnumerator];
+  NSDate *date;
+  NSInteger viewsThisMonth = 0;
+  while (date = (NSDate*)[dateEnumerator nextObject]) {
+    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
+    
+    if ([dateComponents month] == [nowComponents month] && ([dateComponents year] == [nowComponents year]))
+      viewsThisMonth ++;
+  }
+  
+  [viewsArray addObject:now];
+  
+  [[NSUserDefaults standardUserDefaults] setObject:viewsArray forKey:viewsKey];
+  
+  return viewsThisMonth;
+}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 130;
@@ -137,7 +190,7 @@
 #pragma mark - Helper Methods
 - (UIImage*)generateThumbnailForVideo:(int)row {
     UIImage *thumbnailImage;
-    
+  
     if ([_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]]) {
         thumbnailImage = [_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]];
     }

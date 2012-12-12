@@ -326,42 +326,6 @@
 }
 
 - (void)enlargeButtonTapped:(id)sender {
-  NSLog(@"enlargeButtonTapped");
-  NSLog(@"standardUserDefaults]boolForKey:@'subscribedUser': %i",
-        [[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]);
-  
-        
-  if (![[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
-    
-    // Every 5th view will result in a pop-up ad on the client
-    
-    // After 5 views always show the subscription modal
-
-    NSString * viewsKey = nil;
-    NSInteger viewsThisMonth = 0;
-    if (mediaArray.count > 0) {
-        NSURL *url = [NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
-        viewsKey = [NSString stringWithFormat:@"%@_views", [url path]];
-        viewsThisMonth = [self viewsThisMonth:viewsKey];
-      }
-
-    if (viewsThisMonth > 0) {
-      if (viewsThisMonth > 10 || ((viewsThisMonth % 5) == 0)) {
-        // for an unsubscribed user - how many times they viewed a specific media, Free user can view something 10 times a month, and then start showing ads
-
-          // Every 5th view will result in a pop-up ad on the client
-          NSLog(@"TODO - show popup ad");
-      }
-      
-      if (viewsThisMonth > 5) {
-        // After 5 views always show the subscription modal
-        MMSubscriptionViewController *subscriptionViewController = [[MMSubscriptionViewController alloc] init];
-        [self presentViewController:subscriptionViewController animated:YES completion:nil];
-
-      }
-    }
-  }
-  
     if (mediaArray.count > 0) {
         if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"video"]) {
             NSURL *url = [NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
@@ -372,30 +336,6 @@
             [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:_locationLatestImageView.image locationName:self.title];
         }
     }
-}
-
-- (NSInteger)viewsThisMonth:(NSString*)viewsKey
-{
-  NSMutableArray *viewsArray = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:viewsKey]];
-  
-  NSDate * now = [NSDate date];
-  NSDateComponents *nowComponents = [[NSCalendar currentCalendar] components:NSMonthCalendarUnit | NSYearCalendarUnit fromDate:now];
-  
-  NSEnumerator *dateEnumerator = [viewsArray objectEnumerator];
-  NSDate *date;
-  NSInteger viewsThisMonth = 0;
-  while (date = (NSDate*)[dateEnumerator nextObject]) {
-    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
-    
-    if ([dateComponents month] == [nowComponents month] && ([dateComponents year] == [nowComponents year]))
-      viewsThisMonth ++;
-  }
-  
-  [viewsArray addObject:now];
-  
-  [[NSUserDefaults standardUserDefaults] setObject:viewsArray forKey:viewsKey];
-  
-  return viewsThisMonth;
 }
 
 - (IBAction)flagButtonTapped:(id)sender {
