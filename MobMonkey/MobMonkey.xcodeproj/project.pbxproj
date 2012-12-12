@@ -126,8 +126,8 @@
 		37E5241316418AD4003AC7E5 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7716D55161D114A00578A90 /* MediaPlayer.framework */; };
 		37E524AD16430376003AC7E5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E524AC16430376003AC7E5 /* SystemConfiguration.framework */; };
 		C73F8A4C166F727B00DE6BA8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73F8A4B166F727A00DE6BA8 /* iAd.framework */; };
-		C75171D7167607B0009B4DE8 /* MMSubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75171D6167607B0009B4DE8 /* MMSubscriptionViewController.m */; };
-		C75171D916760871009B4DE8 /* MMSubscriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C75171D816760871009B4DE8 /* MMSubscriptionViewController.xib */; };
+		C75171EB1678C0DE009B4DE8 /* MMSubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75171E91678C0DE009B4DE8 /* MMSubscriptionViewController.m */; };
+		C75171EC1678C0DE009B4DE8 /* MMSubscriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C75171EA1678C0DE009B4DE8 /* MMSubscriptionViewController.xib */; };
 		F71991F716226418003C6A65 /* MMAnsweredRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F71991F516226418003C6A65 /* MMAnsweredRequestsViewController.m */; };
 		F71991F816226418003C6A65 /* MMAnsweredRequestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F71991F616226418003C6A65 /* MMAnsweredRequestsViewController.xib */; };
 		F71991FB16226771003C6A65 /* ThumbsBG@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F71991F916226771003C6A65 /* ThumbsBG@2x~iphone.png */; };
@@ -736,9 +736,9 @@
 		C73F8A3F166F528500DE6BA8 /* CSerializedJSONData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSerializedJSONData.h; sourceTree = "<group>"; };
 		C73F8A40166F528500DE6BA8 /* CSerializedJSONData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSerializedJSONData.m; sourceTree = "<group>"; };
 		C73F8A4B166F727A00DE6BA8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
-		C75171D5167607B0009B4DE8 /* MMSubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSubscriptionViewController.h; sourceTree = "<group>"; };
-		C75171D6167607B0009B4DE8 /* MMSubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSubscriptionViewController.m; sourceTree = "<group>"; };
-		C75171D816760871009B4DE8 /* MMSubscriptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSubscriptionViewController.xib; sourceTree = "<group>"; };
+		C75171E81678C0DE009B4DE8 /* MMSubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSubscriptionViewController.h; sourceTree = "<group>"; };
+		C75171E91678C0DE009B4DE8 /* MMSubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSubscriptionViewController.m; sourceTree = "<group>"; };
+		C75171EA1678C0DE009B4DE8 /* MMSubscriptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSubscriptionViewController.xib; sourceTree = "<group>"; };
 		F71991F416226418003C6A65 /* MMAnsweredRequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAnsweredRequestsViewController.h; sourceTree = "<group>"; };
 		F71991F516226418003C6A65 /* MMAnsweredRequestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAnsweredRequestsViewController.m; sourceTree = "<group>"; };
 		F71991F616226418003C6A65 /* MMAnsweredRequestsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMAnsweredRequestsViewController.xib; sourceTree = "<group>"; };
@@ -1511,9 +1511,9 @@
 		C75171D41676076D009B4DE8 /* Subscription */ = {
 			isa = PBXGroup;
 			children = (
-				C75171D5167607B0009B4DE8 /* MMSubscriptionViewController.h */,
-				C75171D6167607B0009B4DE8 /* MMSubscriptionViewController.m */,
-				C75171D816760871009B4DE8 /* MMSubscriptionViewController.xib */,
+				C75171E81678C0DE009B4DE8 /* MMSubscriptionViewController.h */,
+				C75171E91678C0DE009B4DE8 /* MMSubscriptionViewController.m */,
+				C75171EA1678C0DE009B4DE8 /* MMSubscriptionViewController.xib */,
 			);
 			name = Subscription;
 			sourceTree = "<group>";
@@ -3084,8 +3084,8 @@
 				F78776F816731B0100CBDCD1 /* pillBoxMed@2x.png in Resources */,
 				F78776F916731B0100CBDCD1 /* pillBoxSmall.png in Resources */,
 				F78776FA16731B0100CBDCD1 /* pillBoxSmall@2x.png in Resources */,
-				C75171D916760871009B4DE8 /* MMSubscriptionViewController.xib in Resources */,
 				F723AD1B1676FF9200F7336B /* AdWhirlWebBrowser.xib in Resources */,
+				C75171EC1678C0DE009B4DE8 /* MMSubscriptionViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3186,7 +3186,6 @@
 				F75A8738165573F800AF83EA /* MMInboxDetailViewController.m in Sources */,
 				F7B012DB1655AF2E00BCAC26 /* MMAnsweredRequestsCell.m in Sources */,
 				F78776F416731B0100CBDCD1 /* MMTrendingCell.m in Sources */,
-				C75171D7167607B0009B4DE8 /* MMSubscriptionViewController.m in Sources */,
 				F723ACE21676FF8400F7336B /* AdWhirlAdapterIAd.m in Sources */,
 				F723AD0D1676FF9200F7336B /* AdWhirlAdapterCustom.m in Sources */,
 				F723AD0E1676FF9200F7336B /* AdWhirlAdapterEvent.m in Sources */,
@@ -3216,6 +3215,7 @@
 				F723AD3E1676FFC700F7336B /* CJSONScanner.m in Sources */,
 				F723AD3F1676FFC700F7336B /* CJSONSerializer.m in Sources */,
 				F723AD401676FFC700F7336B /* CSerializedJSONData.m in Sources */,
+				C75171EB1678C0DE009B4DE8 /* MMSubscriptionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

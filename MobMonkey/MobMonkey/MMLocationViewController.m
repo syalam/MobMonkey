@@ -16,7 +16,6 @@
 #import "PhoneNumberFormatter.h"
 #import "MMRequestViewController.h"
 #import "MMLocationMediaViewController.h"
-#import "MMSubscriptionViewController.h"
 #import <MapKit/MapKit.h>
 #import "MMLocationAnnotation.h"
 

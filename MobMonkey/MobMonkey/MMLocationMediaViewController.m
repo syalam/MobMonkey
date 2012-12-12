@@ -8,6 +8,7 @@
 
 #import "MMLocationMediaViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "MMSubscriptionViewController.h"
 #import "MMClientSDK.h"
 
 @interface MMLocationMediaViewController ()
@@ -115,9 +116,12 @@
 {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   NSString *urlString = [[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"mediaURL"];
-
-  NSLog(@"standardUserDefaults]boolForKey:@'subscribedUser': %i",
-        [[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]);
+  
+  //asdf
+  MMSubscriptionViewController *subscriptionViewController = [[MMSubscriptionViewController alloc] init];
+  NSLog(@"subscriptionViewController: %@", subscriptionViewController);
+  
+  [self.navigationController presentViewController:subscriptionViewController animated:YES completion:nil];
   
   if (![[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
     
@@ -127,6 +131,7 @@
     
     NSInteger viewsThisMonth = 0;
     viewsThisMonth = [self viewsThisMonth:urlString];
+    NSLog(@"viewsThisMonth: %i", viewsThisMonth);
     
     if (viewsThisMonth > 0) {
       if (viewsThisMonth > 10 || ((viewsThisMonth % 5) == 0)) {
