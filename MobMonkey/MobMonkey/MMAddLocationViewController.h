@@ -12,13 +12,20 @@
 {
   UITextField *nameTextField;
   NSDictionary *addressDictionary;
-  UITextView *addressTextView;
+  UITextField *streetTextField;
+  UITextField *cityTextField;
+  UITextField *stateTextField;
+  UITextField *zipTextField;
+  
   UITextField *phoneNumberTextField;
   CLLocation *location;
 }
 
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
-@property (strong, nonatomic) IBOutlet UITextView *addressTextView;
+@property (strong, nonatomic) IBOutlet UITextField *streetTextField;
+@property (strong, nonatomic) IBOutlet UITextField *cityTextField;
+@property (strong, nonatomic) IBOutlet UITextField *stateTextField;
+@property (strong, nonatomic) IBOutlet UITextField *zipTextField;
 @property (strong, nonatomic) IBOutlet UITextField *phoneNumberTextField;
 
 -(id)initWithLocation:(CLLocationCoordinate2D)location;

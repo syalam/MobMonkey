@@ -15,7 +15,10 @@
 @implementation MMAddLocationViewController
 
 @synthesize nameTextField;
-@synthesize addressTextView;
+@synthesize streetTextField;
+@synthesize cityTextField;
+@synthesize stateTextField;
+@synthesize zipTextField;
 @synthesize phoneNumberTextField;
 
 - (id)initWithLocation:(CLLocationCoordinate2D)touchLocation
@@ -45,8 +48,9 @@
                  completionHandler:^(NSArray *placemarks, NSError *error) {
                    CLPlacemark *placemark = [placemarks lastObject];
                    addressDictionary = placemark.addressDictionary;
-                   NSLog(@"%@", addressDictionary);
-                   addressTextView.text = [NSString stringWithFormat:@"%@", addressDictionary];
+                   streetTextField.text = [addressDictionary valueForKey:@"Street"];
+                   cityTextField.text = [addressDictionary valueForKey:@"City"];
+                   stateTextField.text = [addressDictionary valueForKey:@"State"];
                  }];
 
   UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
