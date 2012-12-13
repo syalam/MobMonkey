@@ -92,9 +92,8 @@
 }
 
 -(IBAction)addLocation:(id)sender {
+  // add the location to the MMAPI 
   NSMutableDictionary* locationDictionary = [[NSMutableDictionary alloc] init];
-  [locationDictionary setValue:[[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]
-                        forKey:@"MobMonkey-user"];
   
   [locationDictionary setValue:[addressDictionary objectForKey:@"Name"]
                         forKey:@"name"];
@@ -102,21 +101,20 @@
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.latitude] forKey:@"latitude"];
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.longitude] forKey:@"longitude"];
 
+  [locationDictionary setValue:@"25" forKey:@"radiusInYards"]; // 
   
   [[MMAPI sharedAPI] addNewLocation:locationDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
     NSLog(@"responseObject: %@", responseObject);
+    NSLog(@"TODO navigate to the Location screen populated with the location data just entered by the user");
+
   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
     NSLog(@"error: %@", error);
   }];
   
-  NSLog(@"TODO save the location in addressDictionary to the server");
-  NSLog(@"TODO navigate to the Location screen populated with the location data just entered by the user");
 }
 
 #pragma mark - UIBarButtonItem Action Methods
 - (void)backButtonTapped:(id)sender {
-  //  [_delegate setFilters:[NSDictionary dictionaryWithObjectsAndKeys:selectedRadius, @"radius", nil]];
-  NSLog(@"return with location set");
   [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 
