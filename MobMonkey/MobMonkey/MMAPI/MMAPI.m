@@ -133,27 +133,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 
 + (void)fulfillRequest:(NSString*)mediaType params:(NSMutableDictionary*)params
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    /*MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
-    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
-    [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
-    [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
-    [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
-    NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:[NSString stringWithFormat:@"media/%@", mediaType] parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
-        [formData appendPartWithFormData:[[params valueForKey:@"contentType"] dataUsingEncoding:NSUTF8StringEncoding] name:@"contentType"];
-        [formData appendPartWithFormData:[[params valueForKey:@"mediaData"] dataUsingEncoding:NSUTF8StringEncoding] name:@"mediaData"];
-    }];
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        NSLog(@"Sent %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
-        [SVProgressHUD showProgress:totalBytesWritten/totalBytesExpectedToWrite status:@"Uploading Media"];
-    }];
-    
-    [operation setCompletionBlockWithSuccess:success failure:failure];
-    
-    [operation start];*/
-    
-    
+               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {    
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
@@ -209,18 +189,26 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 #pragma mark - Add Location
 -(void)addNewLocation:(NSDictionary*)params
 {
-    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
-    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
-    [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
-    [httpClient  postPath:@"/location" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
-        NSLog(@"%@", JSON);
-        [_delegate MMAPICallSuccessful:JSON];
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_delegate MMAPICallFailed:operation];
-    }];
+  [self addNewLocation:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSLog(@"%@", responseObject);
+    [_delegate MMAPICallSuccessful:responseObject];
+  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+     [_delegate MMAPICallFailed:operation];
+  }];
 }
 
-#pragma mark - Inbox 
+- (void)addNewLocation:(NSDictionary*)params
+               success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+  MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+  [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
+  [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
+  [httpClient  postPath:@"/location" parameters:params
+                success:success
+                failure:failure];
+}
+
+#pragma mark - Inbox
 + (void)getInboxCounts:(NSMutableDictionary*)params
                  success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                  failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
