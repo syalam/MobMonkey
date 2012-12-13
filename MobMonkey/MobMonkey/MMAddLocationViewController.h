@@ -20,7 +20,6 @@
 @property (strong, nonatomic) UITextField *phoneNumberTextField;
 
 -(id)initWithLocation:(CLLocationCoordinate2D)location;
--(IBAction)addIt:(id)sender;
--(IBAction)cancel:(id)sender;
+-(IBAction)addLocation:(id)sender;
 
 @end

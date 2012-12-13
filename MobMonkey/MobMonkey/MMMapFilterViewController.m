@@ -67,21 +67,10 @@
   addLocationViewController.title = @"Add Location";
   UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
   [self.navigationController presentViewController:navc animated:YES completion:nil];
-
-  MKPointAnnotation *pointAnnotation = [[MKPointAnnotation alloc] init];
-  pointAnnotation.coordinate = touchMapCoordinate;
-  pointAnnotation.title = @"Hello";
-  [mapView addAnnotation:pointAnnotation];
-  
-/*  UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"title" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"destructive" otherButtonTitles:@"other titles", nil];
-  
-  [actionSheet showInView:mapView];*/
 }
 
 #pragma mark - UIBarButtonItem Action Methods
 - (void)backButtonTapped:(id)sender {
-//  [_delegate setFilters:[NSDictionary dictionaryWithObjectsAndKeys:selectedRadius, @"radius", nil]];
-  NSLog(@"return with location set");
   [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 

@@ -51,15 +51,11 @@
   self.navigationItem.leftBarButtonItem = backButton;
 }
 
--(IBAction)addIt:(id)sender {
+-(IBAction)addLocation:(id)sender {
   NSLog(@"TODO add it - require that the name and phone number are set");
   NSLog(@"TODO save the location to the server");
   NSLog(@"TODO save the location to the server");
   NSLog(@"TODO navigate to the Location screen populated with the location data just entered by the user");
-}
-
--(IBAction)cancel:(id)sender {
-  
 }
 
 #pragma mark - UIBarButtonItem Action Methods
