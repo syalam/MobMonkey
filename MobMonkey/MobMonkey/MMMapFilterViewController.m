@@ -7,6 +7,7 @@
 //
 
 #import "MMMapFilterViewController.h"
+#import "MMAddLocationViewController.h"
 
 @interface MMMapFilterViewController ()
 
@@ -61,6 +62,12 @@
 {
   CGPoint touchPoint = [gestureRecognizer locationInView:mapView];
   CLLocationCoordinate2D touchMapCoordinate = [mapView convertPoint:touchPoint toCoordinateFromView:mapView];
+  
+  MMAddLocationViewController *addLocationViewController = [[MMAddLocationViewController alloc] initWithLocation:touchMapCoordinate];
+  addLocationViewController.title = @"Add Location";
+  UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
+  [self.navigationController presentViewController:navc animated:YES completion:nil];
+
   MKPointAnnotation *pointAnnotation = [[MKPointAnnotation alloc] init];
   pointAnnotation.coordinate = touchMapCoordinate;
   pointAnnotation.title = @"Hello";

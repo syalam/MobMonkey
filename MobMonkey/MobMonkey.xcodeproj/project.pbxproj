@@ -130,6 +130,8 @@
 		C75171EC1678C0DE009B4DE8 /* MMSubscriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C75171EA1678C0DE009B4DE8 /* MMSubscriptionViewController.xib */; };
 		C75171F11679FE4B009B4DE8 /* MMMapFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75171EF1679FE4B009B4DE8 /* MMMapFilterViewController.m */; };
 		C75171F21679FE4B009B4DE8 /* MMMapFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C75171F01679FE4B009B4DE8 /* MMMapFilterViewController.xib */; };
+		C75171F6167A05FE009B4DE8 /* MMAddLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75171F4167A05FD009B4DE8 /* MMAddLocationViewController.m */; };
+		C75171F7167A05FE009B4DE8 /* MMAddLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C75171F5167A05FD009B4DE8 /* MMAddLocationViewController.xib */; };
 		F71991F716226418003C6A65 /* MMAnsweredRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F71991F516226418003C6A65 /* MMAnsweredRequestsViewController.m */; };
 		F71991F816226418003C6A65 /* MMAnsweredRequestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F71991F616226418003C6A65 /* MMAnsweredRequestsViewController.xib */; };
 		F71991FB16226771003C6A65 /* ThumbsBG@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F71991F916226771003C6A65 /* ThumbsBG@2x~iphone.png */; };
@@ -744,6 +746,9 @@
 		C75171EE1679FE4B009B4DE8 /* MMMapFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMapFilterViewController.h; sourceTree = "<group>"; };
 		C75171EF1679FE4B009B4DE8 /* MMMapFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMapFilterViewController.m; sourceTree = "<group>"; };
 		C75171F01679FE4B009B4DE8 /* MMMapFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMMapFilterViewController.xib; sourceTree = "<group>"; };
+		C75171F3167A05FD009B4DE8 /* MMAddLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAddLocationViewController.h; sourceTree = "<group>"; };
+		C75171F4167A05FD009B4DE8 /* MMAddLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAddLocationViewController.m; sourceTree = "<group>"; };
+		C75171F5167A05FD009B4DE8 /* MMAddLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMAddLocationViewController.xib; sourceTree = "<group>"; };
 		F71991F416226418003C6A65 /* MMAnsweredRequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAnsweredRequestsViewController.h; sourceTree = "<group>"; };
 		F71991F516226418003C6A65 /* MMAnsweredRequestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAnsweredRequestsViewController.m; sourceTree = "<group>"; };
 		F71991F616226418003C6A65 /* MMAnsweredRequestsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMAnsweredRequestsViewController.xib; sourceTree = "<group>"; };
@@ -1529,6 +1534,9 @@
 				C75171EE1679FE4B009B4DE8 /* MMMapFilterViewController.h */,
 				C75171EF1679FE4B009B4DE8 /* MMMapFilterViewController.m */,
 				C75171F01679FE4B009B4DE8 /* MMMapFilterViewController.xib */,
+				C75171F3167A05FD009B4DE8 /* MMAddLocationViewController.h */,
+				C75171F4167A05FD009B4DE8 /* MMAddLocationViewController.m */,
+				C75171F5167A05FD009B4DE8 /* MMAddLocationViewController.xib */,
 			);
 			name = "Map Filter";
 			sourceTree = "<group>";
@@ -3103,6 +3111,7 @@
 				F723AD1B1676FF9200F7336B /* AdWhirlWebBrowser.xib in Resources */,
 				C75171EC1678C0DE009B4DE8 /* MMSubscriptionViewController.xib in Resources */,
 				C75171F21679FE4B009B4DE8 /* MMMapFilterViewController.xib in Resources */,
+				C75171F7167A05FE009B4DE8 /* MMAddLocationViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3234,6 +3243,7 @@
 				C75171EB1678C0DE009B4DE8 /* MMSubscriptionViewController.m in Sources */,
 				F78C277B16796A3300F22B8A /* AFHTTPClient.m in Sources */,
 				C75171F11679FE4B009B4DE8 /* MMMapFilterViewController.m in Sources */,
+				C75171F6167A05FE009B4DE8 /* MMAddLocationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
