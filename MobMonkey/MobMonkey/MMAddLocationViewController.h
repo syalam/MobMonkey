@@ -9,6 +9,18 @@
 #import <UIKit/UIKit.h>
 
 @interface MMAddLocationViewController : UIViewController
+{
+  UITextField *nameTextField;
+  UITextView *addressTextView;
+  UITextField *phoneNumberTextField;
+}
+
+@property (strong, nonatomic) UITextField *nameTextField;
+@property (strong, nonatomic) UITextView *addressTextView;
+@property (strong, nonatomic) UITextField *phoneNumberTextField;
 
 -(id)initWithLocation:(CLLocationCoordinate2D)location;
+-(IBAction)addIt:(id)sender;
+-(IBAction)cancel:(id)sender;
+
 @end
