@@ -142,7 +142,6 @@
 - (void)showMapView:(id)sender
 {
   MMMapFilterViewController *mvc = [[MMMapFilterViewController alloc] init];
-  NSLog(@"TODO - add .delegate ?");
   mvc.title = @"Add Location";
   UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:mvc];
   [self.navigationController presentViewController:navc animated:YES completion:nil];

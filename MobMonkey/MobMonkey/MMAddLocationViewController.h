@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMAddLocationViewController : UIViewController
+@interface MMAddLocationViewController : UIViewController <UITextFieldDelegate>
 {
   UITextField *nameTextField;
   NSDictionary *addressDictionary;

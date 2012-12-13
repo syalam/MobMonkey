@@ -64,10 +64,34 @@
   self.navigationItem.leftBarButtonItem = backButton;
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+  NSString *key;
+  
+  if (textField == nameTextField) {
+    key = @"Name";
+    
+  } else if (textField == streetTextField) {
+    key = @"Street";
+    
+  } else if (textField == cityTextField) {
+    key = @"City";
+    
+  } else if (textField == stateTextField) {
+    key = @"State";
+    
+  } else if (textField == zipTextField) {
+    key = @"ZIP";
+    
+  } else if (textField == phoneNumberTextField) {
+    key = @"PhoneNumber";
+  }
+  
+  [addressDictionary setValue:textField.text forKey:key];
+}
+
 -(IBAction)addLocation:(id)sender {
-  NSLog(@"TODO add it - require that the name and phone number are set");
-  NSLog(@"TODO save the location to the server");
-  NSLog(@"TODO save the location to the server");
+  NSLog(@"TODO save the location in addressDictionary to the server");
   NSLog(@"TODO navigate to the Location screen populated with the location data just entered by the user");
 }
 
