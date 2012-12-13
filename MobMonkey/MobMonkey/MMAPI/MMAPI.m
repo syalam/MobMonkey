@@ -206,7 +206,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
   [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
   [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
 
-  [httpClient postPath:@"location" parameters:params
+  [httpClient postPath:@"location/create" parameters:params
                success:success
                failure:failure];
 }
