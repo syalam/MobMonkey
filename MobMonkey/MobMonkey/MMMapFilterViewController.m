@@ -13,6 +13,7 @@
 @end
 
 @implementation MMMapFilterViewController
+@synthesize mapView;
 
 - (id)init
 {
