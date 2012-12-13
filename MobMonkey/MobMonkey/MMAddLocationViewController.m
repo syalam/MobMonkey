@@ -113,11 +113,6 @@
   NSLog(@"TODO navigate to the Location screen populated with the location data just entered by the user");
 }
 
-#pragma mark MMAPIDelegate Methods
-- (void)MMAPICallSuccessful:(id)response {
-  NSLog(@"Location: %@", response);
-}
-
 #pragma mark - UIBarButtonItem Action Methods
 - (void)backButtonTapped:(id)sender {
   //  [_delegate setFilters:[NSDictionary dictionaryWithObjectsAndKeys:selectedRadius, @"radius", nil]];
