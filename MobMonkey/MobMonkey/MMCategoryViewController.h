@@ -13,6 +13,7 @@
     NSMutableDictionary *selectedItemsDictionary;
     NSArray *categoriesArray;
     NSArray *allCategoriesArray;
+    UIButton *selectAllButton;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;

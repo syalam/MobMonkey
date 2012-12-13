@@ -58,12 +58,28 @@ static NSString *const SelectedInterestsKey = @"selectedInterests";
         [self setTableContent];
     }
     else {
+        UIImage *selectAllButtonBG = [[UIImage imageNamed:@"navBarButtonBlank"]
+                                      resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
+        selectAllButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        selectAllButton.bounds = CGRectMake(0, 0, 80, 31);
+        [selectAllButton setBackgroundImage:selectAllButtonBG forState:UIControlStateNormal];
+        [selectAllButton setTitle:@"Select All" forState:UIControlStateNormal];
+        [selectAllButton.titleLabel setTextColor:[UIColor whiteColor]];
+        [selectAllButton.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
+        [selectAllButton.titleLabel setShadowColor:[UIColor darkGrayColor]];
+        [selectAllButton.titleLabel setShadowOffset:CGSizeMake(0, -1)];
+        [selectAllButton addTarget:self action:@selector(toggleSelectAll:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *selectAllBarButton = [[UIBarButtonItem alloc] initWithCustomView:selectAllButton];
+        self.navigationItem.rightBarButtonItem = selectAllBarButton;
+        
+        self.navigationItem.rightBarButtonItem = selectAllBarButton;
         NSString *parent = [NSString stringWithFormat:@"[%@]", _parentId];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents CONTAINS %@", parent];
         categoriesArray = [allCategoriesArray filteredArrayUsingPredicate:predicate];
         [self setTableContent];
 
     }
+
 }
 
 - (void)viewDidUnload
@@ -76,6 +92,48 @@ static NSString *const SelectedInterestsKey = @"selectedInterests";
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Button taps
+- (void)toggleSelectAll:(id)sender
+{
+    UITableViewCell *cell;
+    NSIndexPath *indexPath;
+    if ([[selectAllButton titleLabel].text isEqualToString: @"Deselect All"]) {
+        [selectAllButton setTitle:@"Select All" forState:UIControlStateNormal];
+        indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        for (int i = 0; i < _contentList.count; i++) {
+            indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            cell = [_tableView cellForRowAtIndexPath:indexPath];
+            if (cell.accessoryType != UITableViewCellAccessoryDisclosureIndicator) {
+                if ([selectedItemsDictionary valueForKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]]) {
+                    [selectedItemsDictionary setValue:nil forKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]];
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                    [[NSUserDefaults standardUserDefaults] setValue:selectedItemsDictionary forKey:SelectedInterestsKey];
+                }
+
+            }
+
+        }
+    }
+    else {
+        [selectAllButton setTitle:@"Deselect All" forState:UIControlStateNormal];
+        for (int i = 0; i < _contentList.count; i++) {
+            indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            cell = [_tableView cellForRowAtIndexPath:indexPath];
+            if (cell.accessoryType != UITableViewCellAccessoryDisclosureIndicator) {
+                if (cell.accessoryType != UITableViewCellAccessoryDisclosureIndicator) {
+                    NSDictionary *favorite = [_contentList objectAtIndex:indexPath.row];
+                    [selectedItemsDictionary setValue:[favorite[@"categoryId"] description] forKey:[NSString stringWithFormat:@"%d %d", indexPath.section, indexPath.row]];
+                    [_tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+                    [[NSUserDefaults standardUserDefaults] setValue:selectedItemsDictionary forKey:SelectedInterestsKey];
+                }
+
+            }
+        }
+    }
+    UIBarButtonItem *selectAllBarButton = [[UIBarButtonItem alloc] initWithCustomView:selectAllButton];
+    self.navigationItem.rightBarButtonItem = selectAllBarButton;
 }
 
 #pragma mark - Table view data source
