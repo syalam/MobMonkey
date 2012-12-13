@@ -54,12 +54,6 @@
                    stateTextField.text = [addressDictionary valueForKey:@"State"];
                    zipTextField.text = placemark.postalCode;
                  }];
-
-  [MMAPI getCategoriesOnSuccess:^(AFHTTPRequestOperation *operation, id response) {
-    NSLog(@"categories: %@", response);
-  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-    NSLog(@"error: %@", error);
-  }];
   
   UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
   [backNavbutton addTarget:self action:@selector(backButtonTapped:)
