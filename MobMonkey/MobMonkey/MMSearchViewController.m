@@ -9,6 +9,7 @@
 #import "MMSearchViewController.h"
 #import "MMLocationsViewController.h"
 #import "MMFilterViewController.h"
+#import "MMMapFilterViewController.h"
 
 @interface MMSearchViewController ()
 
@@ -140,7 +141,11 @@
 
 - (void)showMapView:(id)sender
 {
-  NSLog(@"TODO - add map view controller");
+  MMMapFilterViewController *mvc = [[MMMapFilterViewController alloc] init];
+  NSLog(@"TODO - add .delegate ?");
+  mvc.title = @"Add Location";
+  UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:mvc];
+  [self.navigationController presentViewController:navc animated:YES completion:nil];
 }
 
 - (void)showSearchResultsForCategory:(NSDictionary *)category

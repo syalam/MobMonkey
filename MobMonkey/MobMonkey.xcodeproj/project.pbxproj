@@ -128,6 +128,8 @@
 		C73F8A4C166F727B00DE6BA8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73F8A4B166F727A00DE6BA8 /* iAd.framework */; };
 		C75171EB1678C0DE009B4DE8 /* MMSubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75171E91678C0DE009B4DE8 /* MMSubscriptionViewController.m */; };
 		C75171EC1678C0DE009B4DE8 /* MMSubscriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C75171EA1678C0DE009B4DE8 /* MMSubscriptionViewController.xib */; };
+		C75171F11679FE4B009B4DE8 /* MMMapFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75171EF1679FE4B009B4DE8 /* MMMapFilterViewController.m */; };
+		C75171F21679FE4B009B4DE8 /* MMMapFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C75171F01679FE4B009B4DE8 /* MMMapFilterViewController.xib */; };
 		F71991F716226418003C6A65 /* MMAnsweredRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F71991F516226418003C6A65 /* MMAnsweredRequestsViewController.m */; };
 		F71991F816226418003C6A65 /* MMAnsweredRequestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F71991F616226418003C6A65 /* MMAnsweredRequestsViewController.xib */; };
 		F71991FB16226771003C6A65 /* ThumbsBG@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F71991F916226771003C6A65 /* ThumbsBG@2x~iphone.png */; };
@@ -739,6 +741,9 @@
 		C75171E81678C0DE009B4DE8 /* MMSubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSubscriptionViewController.h; sourceTree = "<group>"; };
 		C75171E91678C0DE009B4DE8 /* MMSubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSubscriptionViewController.m; sourceTree = "<group>"; };
 		C75171EA1678C0DE009B4DE8 /* MMSubscriptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSubscriptionViewController.xib; sourceTree = "<group>"; };
+		C75171EE1679FE4B009B4DE8 /* MMMapFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMapFilterViewController.h; sourceTree = "<group>"; };
+		C75171EF1679FE4B009B4DE8 /* MMMapFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMapFilterViewController.m; sourceTree = "<group>"; };
+		C75171F01679FE4B009B4DE8 /* MMMapFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMMapFilterViewController.xib; sourceTree = "<group>"; };
 		F71991F416226418003C6A65 /* MMAnsweredRequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAnsweredRequestsViewController.h; sourceTree = "<group>"; };
 		F71991F516226418003C6A65 /* MMAnsweredRequestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAnsweredRequestsViewController.m; sourceTree = "<group>"; };
 		F71991F616226418003C6A65 /* MMAnsweredRequestsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMAnsweredRequestsViewController.xib; sourceTree = "<group>"; };
@@ -1516,6 +1521,16 @@
 				C75171EA1678C0DE009B4DE8 /* MMSubscriptionViewController.xib */,
 			);
 			name = Subscription;
+			sourceTree = "<group>";
+		};
+		C75171ED1679FE2D009B4DE8 /* Map Filter */ = {
+			isa = PBXGroup;
+			children = (
+				C75171EE1679FE4B009B4DE8 /* MMMapFilterViewController.h */,
+				C75171EF1679FE4B009B4DE8 /* MMMapFilterViewController.m */,
+				C75171F01679FE4B009B4DE8 /* MMMapFilterViewController.xib */,
+			);
+			name = "Map Filter";
 			sourceTree = "<group>";
 		};
 		F71991F0162263E5003C6A65 /* Answered Requests */ = {
@@ -2450,6 +2465,7 @@
 				F71BD705160896B3004E1ADB /* Category Cell */,
 				F71BD700160877BB004E1ADB /* Search Cell */,
 				F77BD33815F523E800E76CA5 /* Search Filter */,
+				C75171ED1679FE2D009B4DE8 /* Map Filter */,
 				F79B4FA215F3EE5A0004BE01 /* _MMSearchViewController.h */,
 				F79B4FA315F3EE5A0004BE01 /* _MMSearchViewController.m */,
 				F79B4FA415F3EE5A0004BE01 /* _MMSearchViewController.xib */,
@@ -3086,6 +3102,7 @@
 				F78776FA16731B0100CBDCD1 /* pillBoxSmall@2x.png in Resources */,
 				F723AD1B1676FF9200F7336B /* AdWhirlWebBrowser.xib in Resources */,
 				C75171EC1678C0DE009B4DE8 /* MMSubscriptionViewController.xib in Resources */,
+				C75171F21679FE4B009B4DE8 /* MMMapFilterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3216,6 +3233,7 @@
 				F723AD401676FFC700F7336B /* CSerializedJSONData.m in Sources */,
 				C75171EB1678C0DE009B4DE8 /* MMSubscriptionViewController.m in Sources */,
 				F78C277B16796A3300F22B8A /* AFHTTPClient.m in Sources */,
+				C75171F11679FE4B009B4DE8 /* MMMapFilterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
