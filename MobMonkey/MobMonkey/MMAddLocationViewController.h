@@ -13,11 +13,12 @@
   UITextField *nameTextField;
   UITextView *addressTextView;
   UITextField *phoneNumberTextField;
+  CLLocationCoordinate2D location;
 }
 
-@property (strong, nonatomic) UITextField *nameTextField;
-@property (strong, nonatomic) UITextView *addressTextView;
-@property (strong, nonatomic) UITextField *phoneNumberTextField;
+@property (strong, nonatomic) IBOutlet UITextField *nameTextField;
+@property (strong, nonatomic) IBOutlet UITextView *addressTextView;
+@property (strong, nonatomic) IBOutlet UITextField *phoneNumberTextField;
 
 -(id)initWithLocation:(CLLocationCoordinate2D)location;
 -(IBAction)addLocation:(id)sender;
