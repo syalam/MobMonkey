@@ -93,7 +93,9 @@
     
     self.window.rootViewController = self.tabBarController;
     
-    [self.window.rootViewController.view addSubview:adView];
+    
+    //TODO: UNCOMMENT WHEN iAD working
+    //[self.window.rootViewController.view addSubview:adView];
   
     [self.window makeKeyAndVisible];
     return YES;

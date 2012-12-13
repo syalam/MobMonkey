@@ -188,7 +188,6 @@
 		F734A58315F122FF0090E85A /* MMInboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A58115F122FF0090E85A /* MMInboxViewController.m */; };
 		F734A58415F122FF0090E85A /* MMInboxViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F734A58215F122FF0090E85A /* MMInboxViewController.xib */; };
 		F734A5A315F12AAF0090E85A /* MMAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5A115F12AAF0090E85A /* MMAPI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F734A5BA15F12AC00090E85A /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5A615F12AC00090E85A /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F734A5BB15F12AC00090E85A /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5A815F12AC00090E85A /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F734A5BC15F12AC00090E85A /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5AA15F12AC00090E85A /* AFImageRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F734A5BD15F12AC00090E85A /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5AC15F12AC00090E85A /* AFJSONRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -441,6 +440,7 @@
 		F78776F816731B0100CBDCD1 /* pillBoxMed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F78776F116731B0100CBDCD1 /* pillBoxMed@2x.png */; };
 		F78776F916731B0100CBDCD1 /* pillBoxSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = F78776F216731B0100CBDCD1 /* pillBoxSmall.png */; };
 		F78776FA16731B0100CBDCD1 /* pillBoxSmall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F78776F316731B0100CBDCD1 /* pillBoxSmall@2x.png */; };
+		F78C277B16796A3300F22B8A /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F78C277A16796A3300F22B8A /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F792DA4815FF4C8000F5CD85 /* MMSocialNetworksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F792DA4615FF4C8000F5CD85 /* MMSocialNetworksViewController.m */; };
 		F792DA4915FF4C8000F5CD85 /* MMSocialNetworksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F792DA4715FF4C8000F5CD85 /* MMSocialNetworksViewController.xib */; };
 		F792DA4D15FF4DB300F5CD85 /* MMSocialNetworksCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F792DA4C15FF4DB300F5CD85 /* MMSocialNetworksCell.m */; };
@@ -847,8 +847,6 @@
 		F734A58215F122FF0090E85A /* MMInboxViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMInboxViewController.xib; sourceTree = "<group>"; };
 		F734A5A015F12AAF0090E85A /* MMAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAPI.h; sourceTree = "<group>"; };
 		F734A5A115F12AAF0090E85A /* MMAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAPI.m; sourceTree = "<group>"; };
-		F734A5A515F12AC00090E85A /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
-		F734A5A615F12AC00090E85A /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		F734A5A715F12AC00090E85A /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		F734A5A815F12AC00090E85A /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		F734A5A915F12AC00090E85A /* AFImageRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFImageRequestOperation.h; sourceTree = "<group>"; };
@@ -1099,6 +1097,8 @@
 		F78776F116731B0100CBDCD1 /* pillBoxMed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pillBoxMed@2x.png"; sourceTree = "<group>"; };
 		F78776F216731B0100CBDCD1 /* pillBoxSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pillBoxSmall.png; sourceTree = "<group>"; };
 		F78776F316731B0100CBDCD1 /* pillBoxSmall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pillBoxSmall@2x.png"; sourceTree = "<group>"; };
+		F78C277916796A3300F22B8A /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
+		F78C277A16796A3300F22B8A /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		F792DA4515FF4C8000F5CD85 /* MMSocialNetworksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSocialNetworksViewController.h; sourceTree = "<group>"; };
 		F792DA4615FF4C8000F5CD85 /* MMSocialNetworksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSocialNetworksViewController.m; sourceTree = "<group>"; };
 		F792DA4715FF4C8000F5CD85 /* MMSocialNetworksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSocialNetworksViewController.xib; sourceTree = "<group>"; };
@@ -1885,8 +1885,8 @@
 		F734A5A415F12AC00090E85A /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
-				F734A5A515F12AC00090E85A /* AFHTTPClient.h */,
-				F734A5A615F12AC00090E85A /* AFHTTPClient.m */,
+				F78C277916796A3300F22B8A /* AFHTTPClient.h */,
+				F78C277A16796A3300F22B8A /* AFHTTPClient.m */,
 				F734A5A715F12AC00090E85A /* AFHTTPRequestOperation.h */,
 				F734A5A815F12AC00090E85A /* AFHTTPRequestOperation.m */,
 				F734A5A915F12AC00090E85A /* AFImageRequestOperation.h */,
@@ -3126,7 +3126,6 @@
 				F734A57E15F1226C0090E85A /* MMTrendingViewController.m in Sources */,
 				F734A58315F122FF0090E85A /* MMInboxViewController.m in Sources */,
 				F734A5A315F12AAF0090E85A /* MMAPI.m in Sources */,
-				F734A5BA15F12AC00090E85A /* AFHTTPClient.m in Sources */,
 				F734A5BB15F12AC00090E85A /* AFHTTPRequestOperation.m in Sources */,
 				F734A5BC15F12AC00090E85A /* AFImageRequestOperation.m in Sources */,
 				F734A5BD15F12AC00090E85A /* AFJSONRequestOperation.m in Sources */,
@@ -3216,6 +3215,7 @@
 				F723AD3F1676FFC700F7336B /* CJSONSerializer.m in Sources */,
 				F723AD401676FFC700F7336B /* CSerializedJSONData.m in Sources */,
 				C75171EB1678C0DE009B4DE8 /* MMSubscriptionViewController.m in Sources */,
+				F78C277B16796A3300F22B8A /* AFHTTPClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
