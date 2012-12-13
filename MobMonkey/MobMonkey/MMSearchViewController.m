@@ -54,7 +54,20 @@
     [customButton addTarget:self action:@selector(showFilterView:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* filterButton = [[UIBarButtonItem alloc] initWithCustomView:customButton];
     self.navigationItem.leftBarButtonItem = filterButton;
-    
+  
+  UIButton *plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
+  plusButton.bounds = CGRectMake(0, 0, 31, 31);
+  [plusButton setBackgroundImage:customButtonImage forState:UIControlStateNormal];
+  [plusButton setTitle:@"+" forState:UIControlStateNormal];
+  [plusButton.titleLabel setTextColor:[UIColor whiteColor]];
+  [plusButton.titleLabel setFont:[UIFont boldSystemFontOfSize:24]];
+  [plusButton.titleLabel setShadowColor:[UIColor darkGrayColor]];
+  [plusButton.titleLabel setShadowOffset:CGSizeMake(0, -1)];
+  [plusButton addTarget:self action:@selector(showMapView:)
+       forControlEvents:UIControlEventTouchUpInside];
+  
+  UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:plusButton];
+  self.navigationItem.rightBarButtonItem = addButton;
     
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:226.0/255.0
                                                                         green:112.0/225.0
@@ -123,6 +136,11 @@
     fvc.title = @"Filter";
     UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:fvc];
     [self.navigationController presentViewController:navc animated:YES completion:NULL];
+}
+
+- (void)showMapView:(id)sender
+{
+  NSLog(@"TODO - add map view controller");
 }
 
 - (void)showSearchResultsForCategory:(NSDictionary *)category
