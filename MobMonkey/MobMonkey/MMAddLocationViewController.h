@@ -11,9 +11,10 @@
 @interface MMAddLocationViewController : UIViewController
 {
   UITextField *nameTextField;
+  NSDictionary *addressDictionary;
   UITextView *addressTextView;
   UITextField *phoneNumberTextField;
-  CLLocationCoordinate2D location;
+  CLLocation *location;
 }
 
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;

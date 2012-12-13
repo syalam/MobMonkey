@@ -21,7 +21,7 @@
 - (id)initWithLocation:(CLLocationCoordinate2D)touchLocation
 {
   self = [super initWithNibName:@"MMAddLocationViewController" bundle:nil];
-  self->location = touchLocation;
+  self->location = [[CLLocation alloc] initWithCoordinate:touchLocation altitude:0 horizontalAccuracy:0 verticalAccuracy:0 timestamp:[[NSDate alloc] init]];
   
   return self;
 }
@@ -40,7 +40,14 @@
   [super viewDidLoad];
 
   // pre-populate address text view
-  addressTextView.text = [NSString stringWithFormat:@"TODO - geocoded address goes here from\n %f, %f", location.latitude, location.longitude];
+  CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+  [geocoder reverseGeocodeLocation:location
+                 completionHandler:^(NSArray *placemarks, NSError *error) {
+                   CLPlacemark *placemark = [placemarks lastObject];
+                   addressDictionary = placemark.addressDictionary;
+                   NSLog(@"%@", addressDictionary);
+                   addressTextView.text = [NSString stringWithFormat:@"%@", addressDictionary];
+                 }];
 
   UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
   [backNavbutton addTarget:self action:@selector(backButtonTapped:)
