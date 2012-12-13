@@ -34,7 +34,15 @@
 {
   [super viewDidLoad];
   
-  NSLog(@"map filter view did load");
+  UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+  [backNavbutton addTarget:self action:@selector(backButtonTapped:)
+          forControlEvents:UIControlEventTouchUpInside];
+  [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"]
+                           forState:UIControlStateNormal];
+  
+  UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+  self.navigationItem.leftBarButtonItem = backButton;
+
   // disable user interaction for map
   mapView.scrollEnabled = NO;
   mapView.zoomEnabled = NO;
@@ -61,6 +69,13 @@
 /*  UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"title" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"destructive" otherButtonTitles:@"other titles", nil];
   
   [actionSheet showInView:mapView];*/
+}
+
+#pragma mark - UIBarButtonItem Action Methods
+- (void)backButtonTapped:(id)sender {
+//  [_delegate setFilters:[NSDictionary dictionaryWithObjectsAndKeys:selectedRadius, @"radius", nil]];
+  NSLog(@"return with location set");
+  [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)didReceiveMemoryWarning
