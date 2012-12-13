@@ -51,6 +51,8 @@
                    streetTextField.text = [addressDictionary valueForKey:@"Street"];
                    cityTextField.text = [addressDictionary valueForKey:@"City"];
                    stateTextField.text = [addressDictionary valueForKey:@"State"];
+                   zipTextField.text = placemark.postalCode;
+                   
                  }];
 
   UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
