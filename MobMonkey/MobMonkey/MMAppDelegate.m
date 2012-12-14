@@ -27,7 +27,7 @@
                   clientKey:@"1L3iRNHfSsOKc58TxlkOEpD69rTGi9sf8FIBPNmp"];
     
     // Use the product identifier from iTunes to register a handler.
-    [PFPurchase addObserverForProduct:@"com.mobmonkey.MobMonkey.VK4524W4XL.subscribed" block:^(SKPaymentTransaction *transaction) {
+    [PFPurchase addObserverForProduct:@"com.mobmonkey.MobMonkey.VK4524W4XL.1month" block:^(SKPaymentTransaction *transaction) {
         // Write business logic that should run once this product is purchased.
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"subscribedUser"];
         
