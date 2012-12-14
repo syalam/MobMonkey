@@ -323,23 +323,24 @@
 
 
 #pragma mark - Helper Methods
--(UIImage *)resizeImage:(UIImage*)imageToResize
-{
-    CGFloat sourceWidth = imageToResize.size.width;
-    CGFloat sourceHeight = imageToResize.size.height;
+// Shrink to 640x480 if larger. Aspect ratio is already correct.
+- (UIImage *)resizeImage:(UIImage *)image {
+    CGFloat sourceWidth = image.size.width;
+    CGFloat sourceHeight = image.size.height;
     
-    CGFloat destinationHeight = sourceHeight/3;
-    CGFloat destinationWidth = sourceWidth/3;
+    NSLog(@"sourceWidth: %f", sourceWidth);
+    NSLog(@"sourceHeight: %f", sourceHeight);
+    NSLog(@"imageOrientation: %d", image.imageOrientation);
     
-    UIGraphicsBeginImageContext(CGSizeMake(640.0, 480.0));
-    
-    [imageToResize drawInRect:CGRectMake(0.0, 0.0,destinationWidth, destinationHeight)];
-    
-    UIImage * resizedImage =  UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    
-    return resizedImage;
+    if (sourceWidth <= 640 && sourceHeight <= 480) {
+        return image;
+    } else {
+        UIGraphicsBeginImageContext(CGSizeMake(640, 480));
+        [image drawInRect:CGRectMake(0, 0, 640, 480)];
+        UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return resizedImage;
+    }
 }
 
 @end
