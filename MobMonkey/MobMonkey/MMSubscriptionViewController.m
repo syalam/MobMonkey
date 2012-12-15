@@ -7,6 +7,7 @@
 //
 
 #import "MMSubscriptionViewController.h"
+#import <Parse/Parse.h>
 
 @interface MMSubscriptionViewController ()
 
@@ -39,5 +40,21 @@
 {
   [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (IBAction)subscribeButtonTapped:(id)sender {
+    [PFPurchase buyProduct:@"com.mobmonkey.MobMonkey.VK4524W4XL.1month" block:^(NSError *error) {
+        if (!error) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Subscription Complete" message:@"Subscription successful" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        else {
+            NSLog (@"%@",[error localizedDescription]);
+        }
+        
+    }];
+
+}
+
 
 @end

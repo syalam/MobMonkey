@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMSubscriptionViewController : UIViewController
+@interface MMSubscriptionViewController : UIViewController {
+    IBOutlet UIButton *subscribeButton;
+}
 - (IBAction) dismiss;
+- (IBAction)subscribeButtonTapped:(id)sender;
 
 @end

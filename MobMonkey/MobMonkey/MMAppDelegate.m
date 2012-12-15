@@ -13,6 +13,8 @@
 #import "MMSearchViewController.h"
 #import "MMSettingsViewController.h"
 #import "MMTabBarViewController.h"
+#import <Parse/Parse.h>
+
 
 @implementation MMAppDelegate
 
@@ -20,6 +22,17 @@
 {
     //initialize testflight SDK
     [TestFlight takeOff:@"e6432d80aed42a955243c8d93a493dea_MTAwODk2MjAxMi0wNi0yMyAxODoxNzoxOC45NjMzMjY"];
+
+    [Parse setApplicationId:@"LUASgbV2PjApFDOJabTZeE1Yj8D2keJhLLua1DDl"
+                  clientKey:@"1L3iRNHfSsOKc58TxlkOEpD69rTGi9sf8FIBPNmp"];
+    
+    // Use the product identifier from iTunes to register a handler.
+    [PFPurchase addObserverForProduct:@"com.mobmonkey.MobMonkey.VK4524W4XL.1month" block:^(SKPaymentTransaction *transaction) {
+        // Write business logic that should run once this product is purchased.
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"subscribedUser"];
+        
+    }];
+
     
     adView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
     
