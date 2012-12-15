@@ -12,9 +12,12 @@
 @interface MMCategoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMAPIDelegate> {
     NSMutableDictionary *selectedItemsDictionary;
     NSArray *categoriesArray;
+    NSArray *allCategoriesArray;
+    UIButton *selectAllButton;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray *contentList;
+@property (nonatomic, retain) NSString *parentId;
 
 @end
