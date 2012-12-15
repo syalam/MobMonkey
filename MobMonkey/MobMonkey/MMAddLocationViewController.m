@@ -121,7 +121,8 @@
   
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.latitude] forKey:@"latitude"];
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.longitude] forKey:@"longitude"];
-  
+  // TODO / FIXME - hard coded constant (this should probably go in info.plist or wherever appropriate)
+  [locationDictionary setValue:@"e048acf0-9e61-4794-b901-6a4bb49c3181" forKey:@"providerId"];
   [locationDictionary setValue:[self address] forKey:@"address"];
 
   [locationDictionary setValue:@"25" forKey:@"radiusInYards"]; // 
