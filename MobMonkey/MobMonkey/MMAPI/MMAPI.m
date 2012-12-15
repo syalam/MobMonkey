@@ -200,6 +200,8 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 - (void)addNewLocation:(NSDictionary*)params
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+  // https://github.com/syalam/mobmonkey-api/wiki/Location-API
+  
   MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
   [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
   [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];

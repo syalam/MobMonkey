@@ -91,6 +91,22 @@
   [addressDictionary setValue:textField.text forKey:key];
 }
 
+-(NSString*)address {
+  return [addressDictionary valueForKey:@"Street"];
+}
+
+-(NSString*)phoneNumber {
+  return [addressDictionary valueForKey:@"PhoneNumber"];
+}
+
+-(NSString*)postcode {
+  return [addressDictionary valueForKey:@"ZIP"];
+}
+
+-(NSString*)region {
+  return [addressDictionary valueForKey:@"State"];
+}
+
 -(IBAction)addLocation:(id)sender {
   // add the location to the MMAPI 
   NSMutableDictionary* locationDictionary = [[NSMutableDictionary alloc] init];
@@ -98,8 +114,15 @@
   [locationDictionary setValue:[addressDictionary objectForKey:@"Name"]
                         forKey:@"name"];
 
+  [locationDictionary setValue: [self phoneNumber] forKey:@"phoneNumber"];
+  [locationDictionary setValue: [self postcode] forKey:@"postcode"];
+  [locationDictionary setValue: [self region] forKey:@"region"];
+//  [locationDictionary setValue: [self country] forKey:@"countryCode"];
+  
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.latitude] forKey:@"latitude"];
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.longitude] forKey:@"longitude"];
+  
+  [locationDictionary setValue:[self address] forKey:@"address"];
 
   [locationDictionary setValue:@"25" forKey:@"radiusInYards"]; // 
   
