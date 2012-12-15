@@ -8,6 +8,7 @@
 
 #import "MMAddLocationViewController.h"
 #import "MMAPI.h"
+#import "MMLocationViewController.h"
 
 @interface MMAddLocationViewController ()
 
@@ -122,19 +123,22 @@
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.latitude] forKey:@"latitude"];
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.longitude] forKey:@"longitude"];
   // TODO / FIXME - hard coded constant (this should probably go in info.plist or wherever appropriate)
-  [locationDictionary setValue:@"e048acf0-9e61-4794-b901-6a4bb49c3181" forKey:@"providerId"];
+  NSString *providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181"; 
+  [locationDictionary setValue:providerId forKey:@"providerId"];
   [locationDictionary setValue:[self address] forKey:@"address"];
 
   [locationDictionary setValue:@"25" forKey:@"radiusInYards"]; // 
   
   [[MMAPI sharedAPI] addNewLocation:locationDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
-    NSLog(@"responseObject: %@", responseObject);
+    NSString *locationId = [responseObject objectForKey:@"locationId"];
     NSLog(@"TODO navigate to the Location screen populated with the location data just entered by the user");
+    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+    [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
+    [self.navigationController pushViewController:locationViewController animated:YES];
 
   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
     NSLog(@"error: %@", error);
   }];
-  
 }
 
 #pragma mark - UIBarButtonItem Action Methods
