@@ -44,7 +44,7 @@
   UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
   self.navigationItem.leftBarButtonItem = backButton;
 
-  // disable user interaction for map
+  // uncomment these to disable user interaction for map
   //mapView.scrollEnabled = NO;
   //mapView.zoomEnabled = NO;
   
