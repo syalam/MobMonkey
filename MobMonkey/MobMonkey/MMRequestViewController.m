@@ -126,7 +126,8 @@ enum RequestDurationLengths {
     default:
       break;
   }
-    
+  NSLog(@"MMRequestViewController.m requestMedia %@", self.requestInfo);
+  
     [MMAPI requestMedia:mediaType params:self.requestInfo success:nil failure:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
 }

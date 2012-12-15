@@ -54,6 +54,8 @@
                    cityTextField.text = [addressDictionary valueForKey:@"City"];
                    stateTextField.text = [addressDictionary valueForKey:@"State"];
                    zipTextField.text = placemark.postalCode;
+                   [addressDictionary setValue:placemark.country forKey:@"Country"];
+                   [addressDictionary setValue:placemark.locality forKey:@"Locality"];
                  }];
   
   UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
@@ -90,6 +92,11 @@
   }
   
   [addressDictionary setValue:textField.text forKey:key];
+  NSLog(@"// TODO / FIXME - geocode the new address to refine the coordinates");
+}
+
+-(NSString*)country {
+  return [addressDictionary valueForKey:@"Country"];
 }
 
 -(NSString*)address {
@@ -108,6 +115,10 @@
   return [addressDictionary valueForKey:@"State"];
 }
 
+-(NSString*)locality {
+  return [addressDictionary objectForKey:@"Locality"];
+}
+
 -(IBAction)addLocation:(id)sender {
   // add the location to the MMAPI 
   NSMutableDictionary* locationDictionary = [[NSMutableDictionary alloc] init];
@@ -117,8 +128,9 @@
 
   [locationDictionary setValue: [self phoneNumber] forKey:@"phoneNumber"];
   [locationDictionary setValue: [self postcode] forKey:@"postcode"];
+  [locationDictionary setValue: [self locality] forKey:@"locality"];
   [locationDictionary setValue: [self region] forKey:@"region"];
-//  [locationDictionary setValue: [self country] forKey:@"countryCode"];
+  [locationDictionary setValue: [self country] forKey:@"countryCode"];
   
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.latitude] forKey:@"latitude"];
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.longitude] forKey:@"longitude"];
@@ -126,7 +138,9 @@
   NSString *providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181"; 
   [locationDictionary setValue:providerId forKey:@"providerId"];
   [locationDictionary setValue:[self address] forKey:@"address"];
-
+  
+  [locationDictionary setValue:[self country] forKey:@"countryCode"];
+  
   [locationDictionary setValue:@"25" forKey:@"radiusInYards"]; // 
   
   [[MMAPI sharedAPI] addNewLocation:locationDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {

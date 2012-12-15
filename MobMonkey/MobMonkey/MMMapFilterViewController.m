@@ -45,8 +45,8 @@
   self.navigationItem.leftBarButtonItem = backButton;
 
   // disable user interaction for map
-  mapView.scrollEnabled = NO;
-  mapView.zoomEnabled = NO;
+  //mapView.scrollEnabled = NO;
+  //mapView.zoomEnabled = NO;
   
   mapView.delegate = self;
   
