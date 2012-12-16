@@ -71,40 +71,6 @@
   self.navigationItem.leftBarButtonItem = backButton;
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-  NSString *key;
-  
-  if (textField == nameTextField) {
-    key = @"MonkeyName";
-
-  } else if (textField == streetTextField) {
-    key = @"Street";
-    
-  } else if (textField == cityTextField) {
-    key = @"City";
-    
-  } else if (textField == stateTextField) {
-    key = @"State";
-    
-  } else if (textField == zipTextField) {
-    key = @"ZIP";
-    
-  } else if (textField == phoneNumberTextField) {
-    key = @"MonkeyPhoneNumber";
-  }
-  
-  [addressDictionary setValue:textField.text forKey:key];
-
-  [geocoder geocodeAddressDictionary:addressDictionary
-                   completionHandler:^(NSArray *placemarks, NSError *error) {
-                     if ([placemarks count] > 0) {
-                       CLPlacemark *placemark = [placemarks objectAtIndex:0];
-                       location = placemark.location;
-                     }
-                   }];
-}
-
 -(NSString*)name {
   return [addressDictionary valueForKey:@"MonkeyName"];
 }
@@ -141,7 +107,28 @@
 }
 
 -(IBAction)addLocation:(id)sender {
-  // add the location to the MMAPI 
+  
+  [addressDictionary setValue:nameTextField.text forKey:@"MonkeyName"];
+  [addressDictionary setValue:streetTextField.text forKey:@"Street"];
+  [addressDictionary setValue:cityTextField.text forKey:@"City"];
+  [addressDictionary setValue:stateTextField.text forKey:@"State"];
+  [addressDictionary setValue:zipTextField.text forKey:@"ZIP"];
+  [addressDictionary setValue:phoneNumberTextField.text forKey:@"MonkeyPhoneNumber"];
+  
+  [geocoder geocodeAddressDictionary:addressDictionary
+                   completionHandler:^(NSArray *placemarks, NSError *error) {
+                     if ([placemarks count] > 0) {
+                       CLPlacemark *placemark = [placemarks objectAtIndex:0];
+                       location = placemark.location;
+                       [self addAndJumpToLocation];
+                     }
+                   }];
+}
+
+-(void)addAndJumpToLocation
+{
+  // add the location to the MMAPI
+
   NSMutableDictionary* locationDictionary = [[NSMutableDictionary alloc] init];
   
   [locationDictionary setValue:[self name]
