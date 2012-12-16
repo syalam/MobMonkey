@@ -162,7 +162,6 @@
   
   [[MMAPI sharedAPI] addNewLocation:locationDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
     NSString *locationId = [responseObject objectForKey:@"locationId"];
-    NSLog(@"TODO navigate to the Location screen populated with the location data just entered by the user");
     MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
     [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
     [self.navigationController pushViewController:locationViewController animated:YES];
