@@ -45,10 +45,13 @@
   [super viewDidLoad];
 
   // pre-populate address text view
-  CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+  if (geocoder == nil)
+    geocoder = [[CLGeocoder alloc] init];
+  
   [geocoder reverseGeocodeLocation:location
                  completionHandler:^(NSArray *placemarks, NSError *error) {
-                   CLPlacemark *placemark = [placemarks lastObject];
+                   CLPlacemark *placemark = [placemarks objectAtIndex:0];
+
                    addressDictionary = placemark.addressDictionary;
                    streetTextField.text = [addressDictionary valueForKey:@"Street"];
                    cityTextField.text = [addressDictionary valueForKey:@"City"];
@@ -93,6 +96,12 @@
   
   [addressDictionary setValue:textField.text forKey:key];
   NSLog(@"// TODO / FIXME - geocode the new address to refine the coordinates");
+
+  [geocoder geocodeAddressDictionary:addressDictionary
+                   completionHandler:^(NSArray *placemarks, NSError *error) {
+                     NSLog(@"placemarks: %@", placemarks);
+                     location = [placemarks objectAtIndex:0];
+                   }];
 }
 
 -(NSString*)country {
@@ -119,6 +128,13 @@
   return [addressDictionary objectForKey:@"Locality"];
 }
 
+-(NSString*)radiusInYards {
+  NSString *radiusInYards = [[[NSNumber alloc]
+                             initWithDouble:(1.0936133 * location.horizontalAccuracy)] // location.horizontalAccuracy is in meters
+                            stringValue];
+  return radiusInYards;
+}
+
 -(IBAction)addLocation:(id)sender {
   // add the location to the MMAPI 
   NSMutableDictionary* locationDictionary = [[NSMutableDictionary alloc] init];
@@ -134,6 +150,7 @@
   
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.latitude] forKey:@"latitude"];
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.longitude] forKey:@"longitude"];
+  
   // TODO / FIXME - hard coded constant (this should probably go in info.plist or wherever appropriate)
   NSString *providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181"; 
   [locationDictionary setValue:providerId forKey:@"providerId"];
@@ -141,7 +158,7 @@
   
   [locationDictionary setValue:[self country] forKey:@"countryCode"];
   
-  [locationDictionary setValue:@"25" forKey:@"radiusInYards"]; // 
+  [locationDictionary setValue:[self radiusInYards] forKey:@"radiusInYards"]; //
   
   [[MMAPI sharedAPI] addNewLocation:locationDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
     NSString *locationId = [responseObject objectForKey:@"locationId"];

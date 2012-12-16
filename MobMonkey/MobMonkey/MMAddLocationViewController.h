@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
 @interface MMAddLocationViewController : UIViewController <UITextFieldDelegate>
 {
@@ -20,6 +21,8 @@
   
   UITextField *phoneNumberTextField;
   CLLocation *location;
+  
+  CLGeocoder *geocoder;
 }
 
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
