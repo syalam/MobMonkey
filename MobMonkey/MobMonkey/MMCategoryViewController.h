@@ -14,6 +14,7 @@
     NSArray *categoriesArray;
     NSArray *allCategoriesArray;
     UIButton *selectAllButton;
+    int checkMarkCount;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
