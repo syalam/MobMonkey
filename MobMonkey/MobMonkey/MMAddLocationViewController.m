@@ -76,8 +76,8 @@
   NSString *key;
   
   if (textField == nameTextField) {
-    key = @"Name";
-    
+    key = @"MonkeyName";
+
   } else if (textField == streetTextField) {
     key = @"Street";
     
@@ -91,17 +91,22 @@
     key = @"ZIP";
     
   } else if (textField == phoneNumberTextField) {
-    key = @"PhoneNumber";
+    key = @"MonkeyPhoneNumber";
   }
   
   [addressDictionary setValue:textField.text forKey:key];
-  NSLog(@"// TODO / FIXME - geocode the new address to refine the coordinates");
 
   [geocoder geocodeAddressDictionary:addressDictionary
                    completionHandler:^(NSArray *placemarks, NSError *error) {
-                     NSLog(@"placemarks: %@", placemarks);
-                     location = [placemarks objectAtIndex:0];
+                     if ([placemarks count] > 0) {
+                       CLPlacemark *placemark = [placemarks objectAtIndex:0];
+                       location = placemark.location;
+                     }
                    }];
+}
+
+-(NSString*)name {
+  return [addressDictionary valueForKey:@"MonkeyName"];
 }
 
 -(NSString*)country {
@@ -113,7 +118,7 @@
 }
 
 -(NSString*)phoneNumber {
-  return [addressDictionary valueForKey:@"PhoneNumber"];
+  return [addressDictionary valueForKey:@"MonkeyPhoneNumber"];
 }
 
 -(NSString*)postcode {
@@ -139,7 +144,7 @@
   // add the location to the MMAPI 
   NSMutableDictionary* locationDictionary = [[NSMutableDictionary alloc] init];
   
-  [locationDictionary setValue:[addressDictionary objectForKey:@"Name"]
+  [locationDictionary setValue:[self name]
                         forKey:@"name"];
 
   [locationDictionary setValue: [self phoneNumber] forKey:@"phoneNumber"];
@@ -150,7 +155,7 @@
   
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.latitude] forKey:@"latitude"];
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.longitude] forKey:@"longitude"];
-  
+
   // TODO / FIXME - hard coded constant (this should probably go in info.plist or wherever appropriate)
   NSString *providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181"; 
   [locationDictionary setValue:providerId forKey:@"providerId"];
