@@ -58,7 +58,6 @@ enum RequestDurationLengths {
     [self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
     
-    
     self.mediaTypeSegmentedControl.selectedSegmentIndex = 1;
     [self changeMediaRequestType:self.mediaTypeSegmentedControl];
     self.mediaTypeSegmentedControl.tintColor = [UIColor grayColor];

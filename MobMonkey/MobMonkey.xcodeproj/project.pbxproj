@@ -131,6 +131,7 @@
 		37E5233D163F3E97003AC7E5 /* peopleIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37E52339163F3E97003AC7E5 /* peopleIcon@2x.png */; };
 		37E5241316418AD4003AC7E5 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7716D55161D114A00578A90 /* MediaPlayer.framework */; };
 		37E524AD16430376003AC7E5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E524AC16430376003AC7E5 /* SystemConfiguration.framework */; };
+		C731E541167DE443002525C8 /* 187-pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = C731E540167DE443002525C8 /* 187-pencil.png */; };
 		C73F8A4C166F727B00DE6BA8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73F8A4B166F727A00DE6BA8 /* iAd.framework */; };
 		C75171EB1678C0DE009B4DE8 /* MMSubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75171E91678C0DE009B4DE8 /* MMSubscriptionViewController.m */; };
 		C75171EC1678C0DE009B4DE8 /* MMSubscriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C75171EA1678C0DE009B4DE8 /* MMSubscriptionViewController.xib */; };
@@ -731,6 +732,7 @@
 		37E52338163F3E97003AC7E5 /* peopleIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = peopleIcon.png; sourceTree = "<group>"; };
 		37E52339163F3E97003AC7E5 /* peopleIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "peopleIcon@2x.png"; sourceTree = "<group>"; };
 		37E524AC16430376003AC7E5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C731E540167DE443002525C8 /* 187-pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "187-pencil.png"; sourceTree = "<group>"; };
 		C73F8A2B166F528500DE6BA8 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
 		C73F8A2C166F528500DE6BA8 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
 		C73F8A2E166F528500DE6BA8 /* CDataScanner_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner_Extensions.h; sourceTree = "<group>"; };
@@ -1373,6 +1375,7 @@
 		371273EF162BC61B000557D1 /* tabs */ = {
 			isa = PBXGroup;
 			children = (
+				C731E540167DE443002525C8 /* 187-pencil.png */,
 				37127420162BC6A2000557D1 /* selected-tab-background.png */,
 				37127421162BC6A2000557D1 /* selected-tab-background@2x.png */,
 				37127422162BC6A2000557D1 /* tabbar-background.png */,
@@ -3136,6 +3139,7 @@
 				C75171EC1678C0DE009B4DE8 /* MMSubscriptionViewController.xib in Resources */,
 				C75171F21679FE4B009B4DE8 /* MMMapFilterViewController.xib in Resources */,
 				C75171F7167A05FE009B4DE8 /* MMAddLocationViewController.xib in Resources */,
+				C731E541167DE443002525C8 /* 187-pencil.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

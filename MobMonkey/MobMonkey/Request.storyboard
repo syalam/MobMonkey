@@ -22,7 +22,7 @@
                                     <segments>
                                         <segment title="" image="videoIcn.png"/>
                                         <segment title="" image="location-pictureIcn.png"/>
-                                        <segment title=""/>
+                                        <segment title="" image="187-pencil.png"/>
                                     </segments>
                                     <connections>
                                         <action selector="changeMediaRequestType:" destination="hl6-g5-Sg9" eventType="valueChanged" id="Cyq-f1-3iY"/>
@@ -336,6 +336,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         </scene>
     </scenes>
     <resources>
+        <image name="187-pencil.png" width="23" height="23"/>
         <image name="SearchBar.png" width="312" height="30"/>
         <image name="calendarIcn.png" width="15" height="16"/>
         <image name="clipboardIcn.png" width="12" height="16"/>
