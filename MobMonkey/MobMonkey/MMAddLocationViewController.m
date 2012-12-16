@@ -93,7 +93,6 @@
   
   [addressDictionary setValue:textField.text forKey:key];
   NSLog(@"// TODO / FIXME - geocode the new address to refine the coordinates");
-  NSLog(@"TODO / FIXME - use a CLPlacemark or similar rather than a MutableDictionary");
 }
 
 -(NSString*)country {
