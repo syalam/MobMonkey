@@ -42,8 +42,8 @@
   mapRegion.center = newLocation.coordinate;
   
   // TODO / FIXME - hard-coded constant
-  mapRegion.span.latitudeDelta = 0.2;
-  mapRegion.span.longitudeDelta = 0.2;
+  mapRegion.span.latitudeDelta = 0.01;
+  mapRegion.span.longitudeDelta = 0.01;
   
   [mapView setRegion:mapRegion animated: YES];
   
