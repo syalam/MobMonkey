@@ -126,19 +126,22 @@
         [MMAPI signInWithEmail:emailTextField.text password:passwordTextField.text provider:OAuthProviderNone success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [SVProgressHUD showSuccessWithStatus:@"Signed In"];
             NSLog(@"%@", responseObject);
+            [[NSUserDefaults standardUserDefaults]setObject:emailTextField.text forKey:@"userName"];
+            [[NSUserDefaults standardUserDefaults]setObject:passwordTextField.text forKey:@"password"];
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"subscribedUser"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
             [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"%@", responseObject);
                 [[NSUserDefaults standardUserDefaults]setObject:responseObject forKey:@"allCategories"];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"%@", operation.responseString);
             }];
+
+            NSMutableDictionary *checkinParams = [[NSMutableDictionary alloc]init];
+            [checkinParams setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
+            [checkinParams setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
             
-            [[NSUserDefaults standardUserDefaults]setObject:emailTextField.text forKey:@"userName"];
-            [[NSUserDefaults standardUserDefaults]setObject:passwordTextField.text forKey:@"password"];
-            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"subscribedUser"];
-            [[NSUserDefaults standardUserDefaults]synchronize];
-            
-            [MMAPI checkUserIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [MMAPI checkUserIn:checkinParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"%@", @"Checked In");
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"%@", operation.responseString);
