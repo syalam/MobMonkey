@@ -10,6 +10,8 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
 #import "MMLocationMediaCell.h"
+#import "GSAdDelegate.h"
+#import "GSFullscreenAd.h"
 
 
 typedef enum {
@@ -18,12 +20,23 @@ typedef enum {
     MMPhotoMediaType
 } MobMonkeyMediaType;
 
-@interface MMLocationMediaViewController : UIViewController <UITabBarControllerDelegate, UITableViewDataSource, UIActionSheetDelegate> {
+@interface MMLocationMediaViewController : UIViewController <UITabBarControllerDelegate, UITableViewDataSource, UIActionSheetDelegate, GSAdDelegate> {
     dispatch_queue_t backgroundQueue;
 }
 
 @property (nonatomic, strong) NSDictionary *location;
 @property (assign, nonatomic) MobMonkeyMediaType mediaType;
 @property (nonatomic, retain) NSMutableDictionary *thumbnailCache;
+@property (strong, nonatomic) GSFullscreenAd* myFullscreenAd;
+
+//Protocol methods for defining basic ad behaviors
+- (NSString *)greystripeGUID;
+//Delegate "events" to be notified of ad lifecycle
+- (void)greystripeAdFetchSucceeded:(id<GSAd>)a_ad;
+- (void)greystripeAdFetchFailed:(id<GSAd>)a_ad withError:(GSAdError)a_error;
+- (void)greystripeAdClickedThrough:(id<GSAd>)a_ad;
+- (void)greystripeWillPresentModalViewController;
+- (void)greystripeDidDismissModalViewController;
+
 
 @end

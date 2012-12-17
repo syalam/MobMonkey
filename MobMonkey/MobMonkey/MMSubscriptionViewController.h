@@ -10,8 +10,11 @@
 
 @interface MMSubscriptionViewController : UIViewController {
     IBOutlet UIButton *subscribeButton;
+    IBOutlet UIButton *dismissButton;
 }
-- (IBAction) dismiss;
+- (IBAction) dismissButtonTapped:(id)sender;
 - (IBAction)subscribeButtonTapped:(id)sender;
+
+@property BOOL popup;
 
 @end

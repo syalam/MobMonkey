@@ -48,11 +48,18 @@
 		1A6784AD1640C49900A45AC5 /* CloseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A6784AB1640C49900A45AC5 /* CloseButton.png */; };
 		1A6784AE1640C49900A45AC5 /* CloseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A6784AC1640C49900A45AC5 /* CloseButton@2x.png */; };
 		1A9F8EB7167AC3F10077675B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EB6167AC3F10077675B /* Parse.framework */; };
-		1A9F8EBE167ACB800077675B /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EBD167ACB800077675B /* AdSupport.framework */; };
+		1A9F8EBE167ACB800077675B /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EBD167ACB800077675B /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1A9F8EC0167ACB9B0077675B /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EBF167ACB9B0077675B /* Social.framework */; };
 		1A9F8EC2167ACBD20077675B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EC1167ACBD10077675B /* CFNetwork.framework */; };
 		1A9F8EC4167ACC430077675B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EC3167ACC430077675B /* Security.framework */; };
 		1A9F8EC6167ACC540077675B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EC5167ACC540077675B /* StoreKit.framework */; };
+		1A9F8EE0167EAEEB0077675B /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EDF167EAEEB0077675B /* EventKit.framework */; };
+		1A9F8EE2167EAF0D0077675B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EE1167EAF0D0077675B /* MessageUI.framework */; };
+		1A9F8F2A167F7E380077675B /* subsciptionScreenBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F8F28167F7E380077675B /* subsciptionScreenBg.png */; };
+		1A9F8F2B167F7E380077675B /* subsciptionScreenBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F8F29167F7E380077675B /* subsciptionScreenBg@2x.png */; };
+		1A9F8F32167F81B40077675B /* CloseButton2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F8F30167F81B30077675B /* CloseButton2.png */; };
+		1A9F8F33167F81B40077675B /* CloseButton2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F8F31167F81B40077675B /* CloseButton2@2x.png */; };
+		1A9F8F3E167F9F180077675B /* libGreystripeSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8F3D167F9F180077675B /* libGreystripeSDK.a */; };
 		1AC1D4441640545500C8162F /* greenNavBarButtonBlank.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4401640545100C8162F /* greenNavBarButtonBlank.png */; };
 		1AC1D4451640545500C8162F /* greenNavBarButtonBlank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4411640545200C8162F /* greenNavBarButtonBlank@2x.png */; };
 		1AC1D4461640545500C8162F /* navBarButtonBlank.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4421640545300C8162F /* navBarButtonBlank.png */; };
@@ -642,6 +649,22 @@
 		1A9F8EC1167ACBD10077675B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		1A9F8EC3167ACC430077675B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1A9F8EC5167ACC540077675B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		1A9F8EDF167EAEEB0077675B /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		1A9F8EE1167EAF0D0077675B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		1A9F8F28167F7E380077675B /* subsciptionScreenBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = subsciptionScreenBg.png; sourceTree = "<group>"; };
+		1A9F8F29167F7E380077675B /* subsciptionScreenBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subsciptionScreenBg@2x.png"; sourceTree = "<group>"; };
+		1A9F8F30167F81B30077675B /* CloseButton2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseButton2.png; sourceTree = "<group>"; };
+		1A9F8F31167F81B40077675B /* CloseButton2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CloseButton2@2x.png"; sourceTree = "<group>"; };
+		1A9F8F35167F9F180077675B /* GSAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAd.h; sourceTree = "<group>"; };
+		1A9F8F36167F9F180077675B /* GSAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAdDelegate.h; sourceTree = "<group>"; };
+		1A9F8F37167F9F180077675B /* GSBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSBannerAdView.h; sourceTree = "<group>"; };
+		1A9F8F38167F9F180077675B /* GSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSConstants.h; sourceTree = "<group>"; };
+		1A9F8F39167F9F180077675B /* GSFullscreenAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSFullscreenAd.h; sourceTree = "<group>"; };
+		1A9F8F3A167F9F180077675B /* GSLeaderboardAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLeaderboardAdView.h; sourceTree = "<group>"; };
+		1A9F8F3B167F9F180077675B /* GSMediumRectangleAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSMediumRectangleAdView.h; sourceTree = "<group>"; };
+		1A9F8F3C167F9F180077675B /* GSMobileBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSMobileBannerAdView.h; sourceTree = "<group>"; };
+		1A9F8F3D167F9F180077675B /* libGreystripeSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGreystripeSDK.a; sourceTree = "<group>"; };
+		1A9F8F3F167FA1FD0077675B /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		1AC1D4401640545100C8162F /* greenNavBarButtonBlank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenNavBarButtonBlank.png; sourceTree = "<group>"; };
 		1AC1D4411640545200C8162F /* greenNavBarButtonBlank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenNavBarButtonBlank@2x.png"; sourceTree = "<group>"; };
 		1AC1D4421640545300C8162F /* navBarButtonBlank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBarButtonBlank.png; sourceTree = "<group>"; };
@@ -1233,6 +1256,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A9F8EE2167EAF0D0077675B /* MessageUI.framework in Frameworks */,
+				1A9F8EE0167EAEEB0077675B /* EventKit.framework in Frameworks */,
 				1A9F8EC6167ACC540077675B /* StoreKit.framework in Frameworks */,
 				1A9F8EC4167ACC430077675B /* Security.framework in Frameworks */,
 				F734A5CF15F12EBB0090E85A /* CoreLocation.framework in Frameworks */,
@@ -1259,6 +1284,7 @@
 				37E5241316418AD4003AC7E5 /* MediaPlayer.framework in Frameworks */,
 				37D6AB4C1644488A0070220D /* libTestFlight.a in Frameworks */,
 				1A9F8EB7167AC3F10077675B /* Parse.framework in Frameworks */,
+				1A9F8F3E167F9F180077675B /* libGreystripeSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1361,6 +1387,34 @@
 				1A6784D516419BB400A45AC5 /* supermarketsIcon@2x.png */,
 			);
 			path = "Search Icons";
+			sourceTree = "<group>";
+		};
+		1A9F8F23167F7CD20077675B /* Subscription Screen */ = {
+			isa = PBXGroup;
+			children = (
+				1A9F8F30167F81B30077675B /* CloseButton2.png */,
+				1A9F8F31167F81B40077675B /* CloseButton2@2x.png */,
+				1A9F8F28167F7E380077675B /* subsciptionScreenBg.png */,
+				1A9F8F29167F7E380077675B /* subsciptionScreenBg@2x.png */,
+			);
+			name = "Subscription Screen";
+			sourceTree = "<group>";
+		};
+		1A9F8F34167F9F160077675B /* GSSSDK4.1 */ = {
+			isa = PBXGroup;
+			children = (
+				1A9F8F35167F9F180077675B /* GSAd.h */,
+				1A9F8F36167F9F180077675B /* GSAdDelegate.h */,
+				1A9F8F37167F9F180077675B /* GSBannerAdView.h */,
+				1A9F8F38167F9F180077675B /* GSConstants.h */,
+				1A9F8F39167F9F180077675B /* GSFullscreenAd.h */,
+				1A9F8F3A167F9F180077675B /* GSLeaderboardAdView.h */,
+				1A9F8F3B167F9F180077675B /* GSMediumRectangleAdView.h */,
+				1A9F8F3C167F9F180077675B /* GSMobileBannerAdView.h */,
+				1A9F8F3D167F9F180077675B /* libGreystripeSDK.a */,
+			);
+			name = GSSSDK4.1;
+			path = iOSSDK4.1;
 			sourceTree = "<group>";
 		};
 		370D65041648E79100D72154 /* NSString URLParams */ = {
@@ -1778,6 +1832,7 @@
 				F734A53B15F11C3E0090E85A /* CoreGraphics.framework */,
 				F734A5CE15F12EBB0090E85A /* CoreLocation.framework */,
 				F7716D53161D10D900578A90 /* CoreMedia.framework */,
+				1A9F8EDF167EAEEB0077675B /* EventKit.framework */,
 				F7E7564115FC9D26005C8D7C /* FacebookSDK.framework */,
 				F7E7564415FC9D9E005C8D7C /* FacebookSDKResources.bundle */,
 				F734A53915F11C3E0090E85A /* Foundation.framework */,
@@ -1786,6 +1841,7 @@
 				37D6AB50164448D10070220D /* libz.dylib */,
 				F747F10D15F4376A002E5567 /* MapKit.framework */,
 				F7716D55161D114A00578A90 /* MediaPlayer.framework */,
+				1A9F8EE1167EAF0D0077675B /* MessageUI.framework */,
 				F7716D59161D11BF00578A90 /* MobileCoreServices.framework */,
 				1A9F8EB6167AC3F10077675B /* Parse.framework */,
 				F71B9B231601F683003BED33 /* QuartzCore.framework */,
@@ -1803,6 +1859,8 @@
 		F734A53D15F11C3E0090E85A /* MobMonkey */ = {
 			isa = PBXGroup;
 			children = (
+				1A9F8F3F167FA1FD0077675B /* Constants.h */,
+				1A9F8F34167F9F160077675B /* GSSSDK4.1 */,
 				F723ACDE1676FF4200F7336B /* Adwhirl */,
 				F734A62D15F146630090E85A /* Assets */,
 				371273EF162BC61B000557D1 /* tabs */,
@@ -2015,6 +2073,7 @@
 		F734A62D15F146630090E85A /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				1A9F8F23167F7CD20077675B /* Subscription Screen */,
 				F78776FC16731B0C00CBDCD1 /* Pillbox */,
 				F7B012E4165606CC00BCAC26 /* App Icons */,
 				F7DB55481655676B00FC8AA9 /* separator-gradient.png */,
@@ -3140,6 +3199,10 @@
 				C75171F21679FE4B009B4DE8 /* MMMapFilterViewController.xib in Resources */,
 				C75171F7167A05FE009B4DE8 /* MMAddLocationViewController.xib in Resources */,
 				C731E541167DE443002525C8 /* 187-pencil.png in Resources */,
+				1A9F8F2A167F7E380077675B /* subsciptionScreenBg.png in Resources */,
+				1A9F8F2B167F7E380077675B /* subsciptionScreenBg@2x.png in Resources */,
+				1A9F8F32167F81B40077675B /* CloseButton2.png in Resources */,
+				1A9F8F33167F81B40077675B /* CloseButton2@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3388,6 +3451,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/MobMonkey/TestFlightSDK1\"",
+					"\"$(SRCROOT)/MobMonkey/iOSSDK4.1\"",
+					"\"$(SRCROOT)/MobMonkey/GSSDK 3.2.1\"",
 				);
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3414,6 +3479,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/MobMonkey/TestFlightSDK1\"",
+					"\"$(SRCROOT)/MobMonkey/iOSSDK4.1\"",
+					"\"$(SRCROOT)/MobMonkey/GSSDK 3.2.1\"",
 				);
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";

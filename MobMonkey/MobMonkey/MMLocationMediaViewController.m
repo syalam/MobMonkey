@@ -10,6 +10,8 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "MMSubscriptionViewController.h"
 #import "MMClientSDK.h"
+#import "Constants.h"
+#import "MMAppDelegate.h"
 
 @interface MMLocationMediaViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -132,6 +134,13 @@
         // for an unsubscribed user - how many times they viewed a specific media, Free user can view something 10 times a month, and then start showing ads
         
         // Every 5th view will result in a pop-up ad on the client
+          //Init my fullscren ad object, and set the delegate to be this ViewController
+          self.myFullscreenAd = [[GSFullscreenAd alloc] initWithDelegate:self];
+          [self.myFullscreenAd fetch];
+          [_myFullscreenAd displayFromViewController:self];
+          
+          
+          
         NSLog(@"TODO - show popup ad");
       }
       
@@ -206,6 +215,74 @@
     }
     
     return thumbnailImage;
+}
+
+#pragma mark - Greystripe Protocol methods
+
+- (NSString *)greystripeGUID {
+    NSLog(@"Accessing GUID");
+    
+    // The Greystripe GUID is defined in Constants.h and preloaded in GSSDKDemo-Prefix.pch in this example
+    // Alternate example: You can also set the Greystripe GUID in the AppDelegate.m as well
+    return GSGUID;
+}
+
+- (void)textViewDidChangeSelection:(UITextView *)textView {
+    [textView resignFirstResponder];
+}
+
+- (void)greystripeAdFetchSucceeded:(id<GSAd>)a_ad {
+    if (a_ad == _myFullscreenAd) {
+        NSLog(@"Fullscreen ad successfully fetched.");
+    }
+}
+
+- (void)greystripeAdFetchFailed:(id<GSAd>)a_ad withError:(GSAdError)a_error {
+    NSString *errorString =  @"";
+    
+    switch(a_error) {
+        case kGSNoNetwork:
+            errorString = @"Error: No network connection available.";
+            break;
+        case kGSNoAd:
+            errorString = @"Error: No ad available from server.";
+            break;
+        case kGSTimeout:
+            errorString = @"Error: Fetch request timed out.";
+            break;
+        case kGSServerError:
+            errorString = @"Error: Greystripe returned a server error.";
+            break;
+        case kGSInvalidApplicationIdentifier:
+            errorString = @"Error: Invalid or missing application identifier.";
+            break;
+        case kGSAdExpired:
+            errorString = @"Error: Previously fetched ad expired.";
+            break;
+        case kGSFetchLimitExceeded:
+            errorString = @"Error: Too many requests too quickly.";
+            break;
+        case kGSUnknown:
+            errorString = @"Error: An unknown error has occurred.";
+            break;
+        default:
+            errorString = @"An invalid error code was returned. Thats really bad!";
+    }
+    NSLog(@"Greystripe failed with error: %@",errorString);
+}
+
+- (void)greystripeAdClickedThrough:(id<GSAd>)a_ad {
+    NSLog(@"Greystripe ad was clicked.");
+}
+- (void)greystripeWillPresentModalViewController {
+    MMAppDelegate* appDelegate = (MMAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate.adView removeFromSuperview];
+    NSLog(@"Greystripe opening fullscreen.");
+}
+- (void)greystripeDidDismissModalViewController {
+    MMAppDelegate* appDelegate = (MMAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate.window.rootViewController.view addSubview:appDelegate.adView];
+    NSLog(@"Greystripe closed fullscreen.");
 }
 
 @end

@@ -13,6 +13,9 @@
 #import "MMSocialNetworksViewController.h"
 #import "MMSetTitleImage.h"
 #import "MMClientSDK.h"
+#import "MMAppDelegate.h"
+#import "MMSubscriptionViewController.h"
+
 
 @interface MMSettingsViewController ()
 
@@ -39,7 +42,7 @@
     selectionDictionary = [[NSMutableDictionary alloc]init];
     
     
-    NSArray *sectionOneArray = [NSArray arrayWithObjects:@"My Info", @"Social Networks", @"My Interests", nil];
+    NSArray *sectionOneArray = [NSArray arrayWithObjects:@"My Info", @"Social Networks", @"My Interests", @"Subscribe", nil];
     
     NSArray *tableContentsArray = [NSArray arrayWithObjects:sectionOneArray, nil];
     
@@ -130,6 +133,10 @@
             [self.navigationController pushViewController:categoryVC animated:YES];
         }
             break;
+        case 3: {
+            MMSubscriptionViewController *subscriptionVC = [[MMSubscriptionViewController alloc]initWithNibName:@"MMSubscriptionViewController" bundle:nil];
+            [self.navigationController pushViewController:subscriptionVC animated:YES];
+        }
         default:
             break;
     }
