@@ -12,6 +12,7 @@
 @interface MMMapFilterViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate> {
   MKMapView *mapView;
   CLLocationManager *locationManager;
+  NSArray *contentList;
 }
 
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;

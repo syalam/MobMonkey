@@ -18,6 +18,7 @@
 #import "MMLocationMediaViewController.h"
 #import <MapKit/MapKit.h>
 #import "MMLocationAnnotation.h"
+#import "MMMapFilterViewController.h"
 
 @interface MMLocationViewController ()
 
@@ -52,7 +53,6 @@
     
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
     self.navigationItem.leftBarButtonItem = backButton;
-    
     
     //set location name label text and font
   _locationNameLabel.textColor = [UIColor blackColor];
@@ -180,32 +180,37 @@
         }
             break;
         case 1: {
-            UIViewController *mapViewController = [[UIViewController alloc] init];
-            mapViewController.title = [_contentList valueForKey:@"name"];
-            UIView *view = mapViewController.view;
-            MKMapView *mapView = [[MKMapView alloc] initWithFrame:view.frame];
-            [mapView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
-            [view addSubview:mapView];
-            CLLocationCoordinate2D coordinate;
+          MMMapFilterViewController *mvc = [[MMMapFilterViewController alloc] init];
+          mvc.title = [_contentList valueForKey:@"name"];
+          UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:mvc];
+          [self.navigationController presentViewController:navc animated:YES completion:nil];
+
+//            UIViewController *mapViewController = [[UIViewController alloc] init];
+//            mapViewController.title = [_contentList valueForKey:@"name"];
+//            UIView *view = mapViewController.view;
+//            MKMapView *mapView = [[MKMapView alloc] initWithFrame:view.frame];
+//            [mapView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
+//            [view addSubview:mapView];
+/*            CLLocationCoordinate2D coordinate;
             coordinate.latitude = [[_contentList valueForKey:@"latitude"] floatValue];
             coordinate.longitude = [[_contentList valueForKey:@"longitude"] floatValue];
             MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc] initWithName:[_contentList valueForKey:@"name"] address:[_contentList valueForKey:@"address"] coordinate:coordinate arrayIndex:0];
             [mapView addAnnotation:(id)annotation];
             MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
             MKMapRect pointRect = MKMapRectMake(annotationPoint.x - 2500, annotationPoint.y - 2500, 5000, 5000);
+  */
+//            [mapView setVisibleMapRect:pointRect animated:YES];
             
-            [mapView setVisibleMapRect:pointRect animated:YES];
+//            UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+//            [backNavbutton addTarget:mapViewController.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+//            [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
             
-            UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
-            [backNavbutton addTarget:mapViewController.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
-            [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
-            
-            UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
-            mapViewController.navigationItem.leftBarButtonItem = backButton;
+//            UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+//            mapViewController.navigationItem.leftBarButtonItem = backButton;
 
             
 
-            [self.navigationController pushViewController:mapViewController animated:YES];
+//            [self.navigationController pushViewController:mapViewController animated:YES];
             break;
         }
         case 2: {
