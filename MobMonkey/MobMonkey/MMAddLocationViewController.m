@@ -72,7 +72,7 @@
 }
 
 -(NSString*)name {
-  return [addressDictionary valueForKey:@"MonkeyName"];
+  return [addressDictionary valueForKey:@"Name"];
 }
 
 -(NSString*)country {
@@ -84,7 +84,7 @@
 }
 
 -(NSString*)phoneNumber {
-  return [addressDictionary valueForKey:@"MonkeyPhoneNumber"];
+  return [addressDictionary valueForKey:@"PhoneNumber"];
 }
 
 -(NSString*)postcode {
@@ -108,12 +108,12 @@
 
 -(IBAction)addLocation:(id)sender {
   
-  [addressDictionary setValue:nameTextField.text forKey:@"MonkeyName"];
+  [addressDictionary setValue:nameTextField.text forKey:@"Name"];
   [addressDictionary setValue:streetTextField.text forKey:@"Street"];
   [addressDictionary setValue:cityTextField.text forKey:@"City"];
   [addressDictionary setValue:stateTextField.text forKey:@"State"];
   [addressDictionary setValue:zipTextField.text forKey:@"ZIP"];
-  [addressDictionary setValue:phoneNumberTextField.text forKey:@"MonkeyPhoneNumber"];
+  [addressDictionary setValue:phoneNumberTextField.text forKey:@"PhoneNumber"];
   
   [geocoder geocodeAddressDictionary:addressDictionary
                    completionHandler:^(NSArray *placemarks, NSError *error) {
