@@ -22,6 +22,10 @@ typedef enum {
 
 @interface MMLocationMediaViewController : UIViewController <UITabBarControllerDelegate, UITableViewDataSource, UIActionSheetDelegate, GSAdDelegate> {
     dispatch_queue_t backgroundQueue;
+    NSInteger views;
+    BOOL didShowModal;
+    BOOL didShowAd;
+    
 }
 
 @property (nonatomic, strong) NSDictionary *location;

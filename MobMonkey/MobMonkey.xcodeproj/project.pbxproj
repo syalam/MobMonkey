@@ -60,6 +60,8 @@
 		1A9F8F32167F81B40077675B /* CloseButton2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F8F30167F81B30077675B /* CloseButton2.png */; };
 		1A9F8F33167F81B40077675B /* CloseButton2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F8F31167F81B40077675B /* CloseButton2@2x.png */; };
 		1A9F8F3E167F9F180077675B /* libGreystripeSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8F3D167F9F180077675B /* libGreystripeSDK.a */; };
+		1A9F8F52167FCE110077675B /* compose.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F8F50167FCE110077675B /* compose.png */; };
+		1A9F8F53167FCE110077675B /* compose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F8F51167FCE110077675B /* compose@2x.png */; };
 		1AC1D4441640545500C8162F /* greenNavBarButtonBlank.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4401640545100C8162F /* greenNavBarButtonBlank.png */; };
 		1AC1D4451640545500C8162F /* greenNavBarButtonBlank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4411640545200C8162F /* greenNavBarButtonBlank@2x.png */; };
 		1AC1D4461640545500C8162F /* navBarButtonBlank.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4421640545300C8162F /* navBarButtonBlank.png */; };
@@ -661,6 +663,8 @@
 		1A9F8F3C167F9F180077675B /* GSMobileBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSMobileBannerAdView.h; sourceTree = "<group>"; };
 		1A9F8F3D167F9F180077675B /* libGreystripeSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGreystripeSDK.a; sourceTree = "<group>"; };
 		1A9F8F3F167FA1FD0077675B /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		1A9F8F50167FCE110077675B /* compose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compose.png; sourceTree = "<group>"; };
+		1A9F8F51167FCE110077675B /* compose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose@2x.png"; sourceTree = "<group>"; };
 		1AC1D4401640545100C8162F /* greenNavBarButtonBlank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenNavBarButtonBlank.png; sourceTree = "<group>"; };
 		1AC1D4411640545200C8162F /* greenNavBarButtonBlank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenNavBarButtonBlank@2x.png"; sourceTree = "<group>"; };
 		1AC1D4421640545300C8162F /* navBarButtonBlank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBarButtonBlank.png; sourceTree = "<group>"; };
@@ -2172,6 +2176,8 @@
 		F738D0EB1654CF9B005FC693 /* new button images */ = {
 			isa = PBXGroup;
 			children = (
+				1A9F8F50167FCE110077675B /* compose.png */,
+				1A9F8F51167FCE110077675B /* compose@2x.png */,
 				F738D0EC1654CF9B005FC693 /* grayBtn.png */,
 				F738D0ED1654CF9B005FC693 /* grayBtn@2x.png */,
 				F738D0EE1654CF9B005FC693 /* greenGlowCircle.png */,
@@ -3177,6 +3183,8 @@
 				1A9F8F2B167F7E380077675B /* subsciptionScreenBg@2x.png in Resources */,
 				1A9F8F32167F81B40077675B /* CloseButton2.png in Resources */,
 				1A9F8F33167F81B40077675B /* CloseButton2@2x.png in Resources */,
+				1A9F8F52167FCE110077675B /* compose.png in Resources */,
+				1A9F8F53167FCE110077675B /* compose@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -29,9 +29,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     backgroundQueue = dispatch_queue_create("com.MobMonkey.GenerateThumbnailQueue", NULL);
-    
+    views = 0;
     //Add custom back button to the nav bar
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
     [backNavbutton addTarget:self.navigationController action:@selector(dismissModalViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
@@ -54,6 +53,35 @@
     [super viewDidAppear:animated];
     [self.segmentedControl setSelectedSegmentIndex:self.mediaType];
     [self selectMediaType:self.segmentedControl];
+    
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
+        // Every 5th view will result in a pop-up ad on the client
+        // After 5 views always show the subscription modal
+        if (views > 5 && !didShowModal) {
+            // After 5 views always show the subscription modal
+            didShowModal = YES;
+            MMSubscriptionViewController *subscriptionViewController = [[MMSubscriptionViewController alloc] init];
+            UINavigationController *subscriptionModal = [[UINavigationController alloc]initWithRootViewController:subscriptionViewController];
+            subscriptionViewController.popup = YES;
+            [self.navigationController presentModalViewController:subscriptionModal animated:YES];
+        }
+        else if (views > 10 && views % 5 == 0 && !didShowAd) {
+            didShowAd = YES;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.myFullscreenAd = [[GSFullscreenAd alloc] initWithDelegate:self];
+                [self.myFullscreenAd fetch];
+            });
+            
+        }
+        
+    }
+
+    
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -116,42 +144,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  [tableView deselectRowAtIndexPath:indexPath animated:YES];
-  NSString *urlString = [[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"mediaURL"];
-    
-  if (![[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
-    
-    // Every 5th view will result in a pop-up ad on the client
-    
-    // After 5 views always show the subscription modal
+    didShowModal = NO;
+    didShowAd = NO;
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSString *urlString = [[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"mediaURL"];
     
     NSInteger viewsThisMonth = 0;
     viewsThisMonth = [self viewsThisMonth:urlString];
+    views = viewsThisMonth;
     NSLog(@"viewsThisMonth: %i", viewsThisMonth);
     
-    if (viewsThisMonth > 0) {
-      if (viewsThisMonth > 10 || ((viewsThisMonth % 5) == 0)) {
-        // for an unsubscribed user - how many times they viewed a specific media, Free user can view something 10 times a month, and then start showing ads
-        
-        // Every 5th view will result in a pop-up ad on the client
-          //Init my fullscren ad object, and set the delegate to be this ViewController
-          self.myFullscreenAd = [[GSFullscreenAd alloc] initWithDelegate:self];
-          [self.myFullscreenAd fetch];
-          [_myFullscreenAd displayFromViewController:self];
-          
-          
-          
-        NSLog(@"TODO - show popup ad");
-      }
-      
-      if (viewsThisMonth > 5) {
-        // After 5 views always show the subscription modal
-
-        MMSubscriptionViewController *subscriptionViewController = [[MMSubscriptionViewController alloc] init];
-        [self.navigationController presentViewController:subscriptionViewController animated:YES completion:nil];
-      }
-    }
-  }
     if ([self.segmentedControl selectedSegmentIndex] != MMPhotoMediaType) {
         self.moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:urlString]];
         [self.navigationController presentMoviePlayerViewControllerAnimated:self.moviePlayerViewController];
@@ -234,6 +236,7 @@
 - (void)greystripeAdFetchSucceeded:(id<GSAd>)a_ad {
     if (a_ad == _myFullscreenAd) {
         NSLog(@"Fullscreen ad successfully fetched.");
+        [_myFullscreenAd displayFromViewController:self];
     }
 }
 
@@ -269,6 +272,7 @@
             errorString = @"An invalid error code was returned. Thats really bad!";
     }
     NSLog(@"Greystripe failed with error: %@",errorString);
+    
 }
 
 - (void)greystripeAdClickedThrough:(id<GSAd>)a_ad {
