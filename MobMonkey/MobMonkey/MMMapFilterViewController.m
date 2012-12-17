@@ -46,8 +46,6 @@
   mapRegion.span.longitudeDelta = 0.01;
   
   [mapView setRegion:mapRegion animated: YES];
-  
-  [locationManager stopUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
