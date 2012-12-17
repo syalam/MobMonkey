@@ -31,10 +31,43 @@
   return self;
 }
 
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+//  NSLog(@"locationManager newLocation: %@", newLocation);
+
+  [mapView setCenterCoordinate:newLocation.coordinate];
+  if ([mapView showsUserLocation] == NO) {
+    [mapView setShowsUserLocation:YES];
+  }
+  
+  MKCoordinateRegion mapRegion;
+  mapRegion.center = mapView.userLocation.coordinate;
+  
+  // TODO / FIXME - hard-coded constant
+  mapRegion.span.latitudeDelta = 0.2;
+  mapRegion.span.longitudeDelta = 0.2;
+  
+  [mapView setRegion:mapRegion animated: YES];
+  
+  [locationManager stopUpdatingLocation];
+
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+  NSLog(@"locationManager error: %@", error);
+}
+
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+
+  locationManager = [[CLLocationManager alloc] init];
+  locationManager.delegate = self;
+  [locationManager startMonitoringSignificantLocationChanges];
   
+  [mapView setUserInteractionEnabled:YES];
+
   UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
   [backNavbutton addTarget:self action:@selector(backButtonTapped:)
           forControlEvents:UIControlEventTouchUpInside];
