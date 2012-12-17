@@ -107,8 +107,16 @@
 }
 
 -(IBAction)addLocation:(id)sender {
+  NSString *name = nameTextField.text;
+  if ([name length] == 0) {
+    name = streetTextField.text;
+  }
   
-  [addressDictionary setValue:nameTextField.text forKey:@"Name"];
+  if ([name length] == 0) {
+    name = @"Unnamed Location";
+  }
+  
+  [addressDictionary setValue:name forKey:@"Name"];
   [addressDictionary setValue:streetTextField.text forKey:@"Street"];
   [addressDictionary setValue:cityTextField.text forKey:@"City"];
   [addressDictionary setValue:stateTextField.text forKey:@"State"];
