@@ -11,6 +11,7 @@
 #import "MMSubscriptionViewController.h"
 #import "MMClientSDK.h"
 #import "Constants.h"
+#import "MMAppDelegate.h"
 
 @interface MMLocationMediaViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -274,9 +275,13 @@
     NSLog(@"Greystripe ad was clicked.");
 }
 - (void)greystripeWillPresentModalViewController {
+    MMAppDelegate* appDelegate = (MMAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate.adView removeFromSuperview];
     NSLog(@"Greystripe opening fullscreen.");
 }
 - (void)greystripeDidDismissModalViewController {
+    MMAppDelegate* appDelegate = (MMAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate.window.rootViewController.view addSubview:appDelegate.adView];
     NSLog(@"Greystripe closed fullscreen.");
 }
 
