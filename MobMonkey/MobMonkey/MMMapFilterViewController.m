@@ -41,7 +41,7 @@
   }
   
   MKCoordinateRegion mapRegion;
-  mapRegion.center = mapView.userLocation.coordinate;
+  mapRegion.center = newLocation.coordinate;
   
   // TODO / FIXME - hard-coded constant
   mapRegion.span.latitudeDelta = 0.2;
@@ -61,6 +61,8 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+
+  [mapView setShowsUserLocation:YES];
 
   locationManager = [[CLLocationManager alloc] init];
   locationManager.delegate = self;
