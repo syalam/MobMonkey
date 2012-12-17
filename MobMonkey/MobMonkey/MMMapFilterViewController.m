@@ -41,7 +41,7 @@
   MKCoordinateRegion mapRegion;
   mapRegion.center = newLocation.coordinate;
   
-  // TODO / FIXME - hard-coded constant
+  // TODO / FIXME - hard-coded constant (0.01º)
   mapRegion.span.latitudeDelta = 0.01;
   mapRegion.span.longitudeDelta = 0.01;
   
