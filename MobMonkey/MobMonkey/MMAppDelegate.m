@@ -28,14 +28,12 @@
     
     // Use the product identifier from iTunes to register a handler.
     [PFPurchase addObserverForProduct:@"com.mobmonkey.MobMonkey.VK4524W4XL.1month" block:^(SKPaymentTransaction *transaction) {
-        // Write business logic that should run once this product is purchased.
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"subscribedUser"];
+        [_adView removeFromSuperview];
         
     }];
 
-    
-    adView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
-    
+        
     //REMOVE ME: Hardcode the partner ID
     [[NSUserDefaults standardUserDefaults]setObject:@"aba0007c-ebee-42db-bd52-7c9f02e3d371" forKey:@"mmPartnerId"];
     [[NSUserDefaults standardUserDefaults]synchronize];
@@ -108,7 +106,11 @@
     
     
     //TODO: UNCOMMENT WHEN iAD working
-    //[self.window.rootViewController.view addSubview:adView];
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
+        _adView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
+        [self.window.rootViewController.view addSubview:_adView];
+
+    }
   
     [self.window makeKeyAndVisible];
     return YES;
@@ -243,11 +245,11 @@
     
     newFrame.size = adSize;
     newFrame.origin.x = (self.window.rootViewController.view.bounds.size.width - adSize.width)/ 2;
+    newFrame.origin.y = (self.window.rootViewController.view.bounds.size.height - adSize.height - 49);
     
     adWhirlView.frame = newFrame;
-    
     [UIView commitAnimations];
+    
 }
-
 
 @end
