@@ -33,8 +33,6 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-//  NSLog(@"locationManager newLocation: %@", newLocation);
-
   [mapView setCenterCoordinate:newLocation.coordinate];
   if ([mapView showsUserLocation] == NO) {
     [mapView setShowsUserLocation:YES];
@@ -50,7 +48,6 @@
   [mapView setRegion:mapRegion animated: YES];
   
   [locationManager stopUpdatingLocation];
-
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
