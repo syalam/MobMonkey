@@ -11,6 +11,7 @@
 #import "MMLocationListCell.h"
 #import "MMLocationAnnotation.h"
 #import "MMMapFilterViewController.h"
+#import "MMAddLocationViewController.h"
 
 @interface MMLocationsViewController ()
 
@@ -197,8 +198,14 @@
 
 - (void)handleTap:(UIGestureRecognizer *)gestureRecognizer
 {
-  [mapFilterViewController handleTap:gestureRecognizer];
-}
+  // TODO / FIXME - DRY this (duplicated in MMMapFilterViewController)
+  CGPoint touchPoint = [gestureRecognizer locationInView:mapView];
+  CLLocationCoordinate2D touchMapCoordinate = [mapView convertPoint:touchPoint toCoordinateFromView:mapView];
+  
+  MMAddLocationViewController *addLocationViewController = [[MMAddLocationViewController alloc] initWithLocation:touchMapCoordinate];
+  addLocationViewController.title = @"Add Location";
+  UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
+  [self.navigationController presentViewController:navc animated:YES completion:nil];}
 
 
 #pragma mark - IBAction Methods
