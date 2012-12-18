@@ -104,7 +104,7 @@
   [mapView addGestureRecognizer:longPressGestureRecognizer];
 }
 
-- (void)handleTap:(UIGestureRecognizer *)gestureRecognizer
+- (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer
 {
   CGPoint touchPoint = [gestureRecognizer locationInView:mapView];
   CLLocationCoordinate2D touchMapCoordinate = [mapView convertPoint:touchPoint toCoordinateFromView:mapView];

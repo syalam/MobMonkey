@@ -209,8 +209,8 @@
   MMAddLocationViewController *addLocationViewController = [[MMAddLocationViewController alloc] initWithLocation:touchMapCoordinate];
   addLocationViewController.title = @"Add Location";
   UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
-  [self.navigationController presentViewController:navc animated:YES completion:nil];}
-
+  [self.navigationController presentViewController:navc animated:YES completion:nil];
+}
 
 #pragma mark - IBAction Methods
 - (void)backButtonTapped:(id)sender {
