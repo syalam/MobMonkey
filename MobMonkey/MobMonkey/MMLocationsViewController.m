@@ -59,7 +59,7 @@
   [mapView addGestureRecognizer:tapGestureRecognizer];*/
 
   UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc]
-                                                              initWithTarget:self action:@selector(handleLongPress)];
+                                                              initWithTarget:self action:@selector(handleLongPress:)];
   [mapView addGestureRecognizer:longPressGestureRecognizer];
   
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:226.0/255.0

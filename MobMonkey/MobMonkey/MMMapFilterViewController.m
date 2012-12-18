@@ -100,7 +100,7 @@
   [mapView addGestureRecognizer:tapGestureRecognizer];
   
   UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc]
-                                                              initWithTarget:self action:@selector(handleLongPress)];
+                                                              initWithTarget:self action:@selector(handleLongPress:)];
   [mapView addGestureRecognizer:longPressGestureRecognizer];
 }
 
