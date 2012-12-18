@@ -15,6 +15,8 @@
   NSArray *contentList;
 }
 
+- initWithMapView:(MKMapView*)mapView;
+
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 
 @end

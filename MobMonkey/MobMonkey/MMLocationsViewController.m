@@ -10,6 +10,7 @@
 #import "MMLocationViewController.h"
 #import "MMLocationListCell.h"
 #import "MMLocationAnnotation.h"
+#import "MMMapFilterViewController.h"
 
 @interface MMLocationsViewController ()
 
@@ -20,6 +21,7 @@
 @end
 
 @implementation MMLocationsViewController
+@synthesize mapView;
 
 - (void)viewDidLoad
 {
@@ -47,12 +49,14 @@
     }
     
     self.locations = [NSMutableArray array];
+  mapFilterViewController = [[MMMapFilterViewController alloc] initWithMapView:mapView];
+  
     self.mapView.showsUserLocation = YES;
+  
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:226.0/255.0
                                                                           green:112.0/225.0
                                                                            blue:36.0/255.0
                                                                           alpha:1.0]];
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -157,7 +161,7 @@
 #pragma mark - Manage map view
 
 - (void)reloadMapView
-{
+{ // asdf - TODO / FIXME - MMMapFilterViewController here
     [self.mapView removeAnnotations:self.mapView.annotations];
     for (NSMutableDictionary *location in self.locations) {
         if (![[location valueForKey:@"latitude"]isKindOfClass:[NSNull class]] && ![[location valueForKey:@"longitude"]isKindOfClass:[NSNull class]]) {

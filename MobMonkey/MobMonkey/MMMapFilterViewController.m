@@ -31,6 +31,18 @@
   return self;
 }
 
+- (id)initWithMapView:(MKMapView *)mapViewParameter
+{
+  self = [super init];
+  if (self) {
+    self.mapView = mapViewParameter;
+    self.view = mapView;
+    [self viewDidLoad];
+  }
+  
+  return self;
+}
+
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
   [mapView setCenterCoordinate:newLocation.coordinate];
