@@ -52,12 +52,16 @@
     self.locations = [NSMutableArray array];
   mapFilterViewController = [[MMMapFilterViewController alloc] initWithMapView:mapView];
   mapView.delegate = self;
-  UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]
+/*  UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]
                                                   initWithTarget:self
                                                   action:@selector(handleTap:)];
   
-  [mapView addGestureRecognizer:tapGestureRecognizer];
+  [mapView addGestureRecognizer:tapGestureRecognizer];*/
 
+  UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc]
+                                                              initWithTarget:self action:@selector(handleLongPress)];
+  [mapView addGestureRecognizer:longPressGestureRecognizer];
+  
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:226.0/255.0
                                                                           green:112.0/225.0
                                                                            blue:36.0/255.0
@@ -196,7 +200,7 @@
     [[MMClientSDK sharedSDK] locationScreen:self locationDetail:[self.locations objectAtIndex:[sender tag]]];
 }
 
-- (void)handleTap:(UIGestureRecognizer *)gestureRecognizer
+- (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer
 {
   // TODO / FIXME - DRY this (duplicated in MMMapFilterViewController)
   CGPoint touchPoint = [gestureRecognizer locationInView:mapView];
