@@ -50,7 +50,13 @@
     
     self.locations = [NSMutableArray array];
   mapFilterViewController = [[MMMapFilterViewController alloc] initWithMapView:mapView];
+  mapView.delegate = self;
+  UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]
+                                                  initWithTarget:self
+                                                  action:@selector(handleTap:)];
   
+  [mapView addGestureRecognizer:tapGestureRecognizer];
+
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:226.0/255.0
                                                                           green:112.0/225.0
                                                                            blue:36.0/255.0
@@ -159,7 +165,7 @@
 #pragma mark - Manage map view
 
 - (void)reloadMapView
-{ // asdf - TODO / FIXME - MMMapFilterViewController here
+{
     [self.mapView removeAnnotations:self.mapView.annotations];
     for (NSMutableDictionary *location in self.locations) {
         if (![[location valueForKey:@"latitude"]isKindOfClass:[NSNull class]] && ![[location valueForKey:@"longitude"]isKindOfClass:[NSNull class]]) {
@@ -189,6 +195,12 @@
     [[MMClientSDK sharedSDK] locationScreen:self locationDetail:[self.locations objectAtIndex:[sender tag]]];
 }
 
+- (void)handleTap:(UIGestureRecognizer *)gestureRecognizer
+{
+  [mapFilterViewController handleTap:gestureRecognizer];
+}
+
+
 #pragma mark - IBAction Methods
 - (void)backButtonTapped:(id)sender {
     [SVProgressHUD dismiss];
@@ -197,7 +209,6 @@
 
 #pragma mark - MapView Delegate Methods
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-  NSLog(@"fdsa MKAnnotationView viewForAnnotation");
     static NSString *identifier = @"MMLocation";
     if ([annotation isKindOfClass:[MMLocationAnnotation class]]) {
         MMLocationAnnotation *myAnnotation = (MMLocationAnnotation*)annotation;

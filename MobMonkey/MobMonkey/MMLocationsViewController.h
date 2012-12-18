@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "MMMapFilterViewController.h"
 
-@interface MMLocationsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+@interface MMLocationsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate> {
   MKMapView *mapView;
   MMMapFilterViewController *mapFilterViewController;
 }

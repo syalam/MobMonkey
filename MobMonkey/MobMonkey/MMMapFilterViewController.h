@@ -16,6 +16,7 @@
 }
 
 - initWithMapView:(MKMapView*)mapView;
+- (void)handleTap:(UIGestureRecognizer *)gestureRecognizer;
 
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 
