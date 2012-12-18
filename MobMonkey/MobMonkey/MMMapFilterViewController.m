@@ -111,6 +111,13 @@
   [self.navigationController presentViewController:navc animated:YES completion:nil];
 }
 
+#pragma mark - MapView Delegate Methods
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+  NSLog(@"asdf MKAnnotationView viewForAnnotation");
+
+  return nil;
+}
+
 #pragma mark - UIBarButtonItem Action Methods
 - (void)backButtonTapped:(id)sender {
   [self.navigationController dismissViewControllerAnimated:YES completion:NULL];

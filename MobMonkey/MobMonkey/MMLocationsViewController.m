@@ -51,8 +51,6 @@
     self.locations = [NSMutableArray array];
   mapFilterViewController = [[MMMapFilterViewController alloc] initWithMapView:mapView];
   
-    self.mapView.showsUserLocation = YES;
-  
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:226.0/255.0
                                                                           green:112.0/225.0
                                                                            blue:36.0/255.0
@@ -199,7 +197,7 @@
 
 #pragma mark - MapView Delegate Methods
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-    
+  NSLog(@"fdsa MKAnnotationView viewForAnnotation");
     static NSString *identifier = @"MMLocation";
     if ([annotation isKindOfClass:[MMLocationAnnotation class]]) {
         MMLocationAnnotation *myAnnotation = (MMLocationAnnotation*)annotation;
