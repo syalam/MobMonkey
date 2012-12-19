@@ -22,6 +22,7 @@
 @synthesize stateTextField;
 @synthesize zipTextField;
 @synthesize phoneNumberTextField;
+@synthesize category;
 
 - (id)initWithLocation:(CLLocationCoordinate2D)touchLocation
 {
@@ -149,7 +150,12 @@
   [locationDictionary setValue: [self locality] forKey:@"locality"];
   [locationDictionary setValue: [self region] forKey:@"region"];
   [locationDictionary setValue: [self country] forKey:@"countryCode"];
-    
+  
+  if (category != nil) {
+    NSString *categoryId = [category valueForKey:@"categoryId"];
+    [locationDictionary setValue:categoryId forKey:@"categoryId"];
+  }
+  
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.latitude] forKey:@"latitude"];
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.longitude] forKey:@"longitude"];
 

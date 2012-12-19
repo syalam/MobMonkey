@@ -115,7 +115,7 @@
   
   MMAddLocationViewController *addLocationViewController = [[MMAddLocationViewController alloc] initWithLocation:touchMapCoordinate];
   addLocationViewController.title = @"Add Location";
-  addLocationViewController.category = category;
+  addLocationViewController.category = self.category;
   UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
   [self.navigationController presentViewController:navc animated:YES completion:nil];
 }

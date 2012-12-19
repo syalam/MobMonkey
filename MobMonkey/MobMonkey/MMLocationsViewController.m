@@ -23,6 +23,7 @@
 
 @implementation MMLocationsViewController
 @synthesize mapView;
+@synthesize category;
 
 - (void)viewDidLoad
 {
@@ -51,7 +52,6 @@
     
     self.locations = [NSMutableArray array];
   mapFilterViewController = [[MMMapFilterViewController alloc] initWithMapView:mapView];
-  mapFilterViewController.category = category;
   mapView.delegate = self;
 
   /*  UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]
@@ -68,6 +68,14 @@
                                                                           green:112.0/225.0
                                                                            blue:36.0/255.0
                                                                           alpha:1.0]];
+}
+
+- (void)setCategory:(NSDictionary *)categoryParameter
+{
+  category = categoryParameter;
+  NSLog(@"categoryParameter: %@", categoryParameter);
+  if (categoryParameter != nil)
+    mapFilterViewController.category = categoryParameter;
 }
 
 - (void)didReceiveMemoryWarning
@@ -209,7 +217,9 @@
   CLLocationCoordinate2D touchMapCoordinate = [mapView convertPoint:touchPoint toCoordinateFromView:mapView];
   
   MMAddLocationViewController *addLocationViewController = [[MMAddLocationViewController alloc] initWithLocation:touchMapCoordinate];
-  addLocationViewController.title = @"Add Location";
+  addLocationViewController.title =@"Add Location";
+  NSLog(@"category at handleLongPress %@", category);
+  addLocationViewController.category = self.category; // case in point for DRY - wasted almost an hour before realizing this is here and not in the MMAddLocationViewController..
   UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
   [self.navigationController presentViewController:navc animated:YES completion:nil];
 }
