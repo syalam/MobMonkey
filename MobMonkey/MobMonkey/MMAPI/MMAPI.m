@@ -73,11 +73,12 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
                 success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
+    NSLog(@"%@", [[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"]);
     MMHTTPClient *httpClient = [[MMHTTPClient alloc] initWithBaseURL:[self baseURL]];
     [httpClient setDefaultHeader:@"MobMonkey-user" value:email];
     [httpClient setDefaultHeader:@"MobMonkey-auth" value:password];
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"]];
-    [httpClient postPath:@"signin/iOS/12341234123123123123123123123123" parameters:nil success:success failure:failure];
+    [httpClient postPath:[NSString stringWithFormat:@"signin/iOS/%@", [[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"]] parameters:nil success:success failure:failure];
 }
 
 + (void)facebookSignIn {
