@@ -73,7 +73,6 @@
 - (void)setCategory:(NSDictionary *)categoryParameter
 {
   category = categoryParameter;
-  NSLog(@"categoryParameter: %@", categoryParameter);
   if (categoryParameter != nil)
     mapFilterViewController.category = categoryParameter;
 }
@@ -218,7 +217,6 @@
   
   MMAddLocationViewController *addLocationViewController = [[MMAddLocationViewController alloc] initWithLocation:touchMapCoordinate];
   addLocationViewController.title =@"Add Location";
-  NSLog(@"category at handleLongPress %@", category);
   addLocationViewController.category = self.category; // case in point for DRY - wasted almost an hour before realizing this is here and not in the MMAddLocationViewController..
   UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
   [self.navigationController presentViewController:navc animated:YES completion:nil];

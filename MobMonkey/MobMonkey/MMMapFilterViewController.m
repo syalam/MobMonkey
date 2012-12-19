@@ -71,8 +71,6 @@
 {
   [super viewDidLoad];
 
-  NSLog(@"contentList: %@", contentList);
-  
   [mapView setShowsUserLocation:YES];
 
   locationManager = [[CLLocationManager alloc] init];
