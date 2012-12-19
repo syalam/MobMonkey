@@ -13,13 +13,11 @@
 
 @interface MMAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, CLLocationManagerDelegate, AdWhirlDelegate> {
     CLLocationManager *_locationManager;
-    AdWhirlView *adView;
 }
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UITabBarController *tabBarController;
-@property (strong, nonatomic) UIView *adBannerView;
 @property (nonatomic, readonly) CLLocation* currentLocation;
-
+@property (strong, nonatomic) AdWhirlView *adView;
 
 @end

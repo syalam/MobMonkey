@@ -8,12 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "MMMapFilterViewController.h"
 
-@interface MMLocationsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface MMLocationsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate> {
+  MKMapView *mapView;
+  NSDictionary *category;
+  MMMapFilterViewController *mapFilterViewController;
+}
 
 @property (strong, nonatomic) NSMutableArray *locations;
 @property (assign, nonatomic) BOOL isSearching;
+@property (strong, nonatomic) NSDictionary *category;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (strong, nonatomic) IBOutlet MKMapView *mapView;
+
+- (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer;
 
 @end

@@ -22,6 +22,8 @@
   UITextField *phoneNumberTextField;
   CLLocation *location;
   
+  NSDictionary *category;
+  
   CLGeocoder *geocoder;
 }
 
@@ -31,6 +33,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *stateTextField;
 @property (strong, nonatomic) IBOutlet UITextField *zipTextField;
 @property (strong, nonatomic) IBOutlet UITextField *phoneNumberTextField;
+@property (strong, nonatomic) NSDictionary *category;
 
 -(id)initWithLocation:(CLLocationCoordinate2D)location;
 -(IBAction)addLocation:(id)sender;

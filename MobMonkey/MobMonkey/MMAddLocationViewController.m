@@ -22,6 +22,7 @@
 @synthesize stateTextField;
 @synthesize zipTextField;
 @synthesize phoneNumberTextField;
+@synthesize category;
 
 - (id)initWithLocation:(CLLocationCoordinate2D)touchLocation
 {
@@ -72,7 +73,7 @@
 }
 
 -(NSString*)name {
-  return [addressDictionary valueForKey:@"MonkeyName"];
+  return [addressDictionary valueForKey:@"Name"];
 }
 
 -(NSString*)country {
@@ -84,7 +85,7 @@
 }
 
 -(NSString*)phoneNumber {
-  return [addressDictionary valueForKey:@"MonkeyPhoneNumber"];
+  return [addressDictionary valueForKey:@"PhoneNumber"];
 }
 
 -(NSString*)postcode {
@@ -107,13 +108,21 @@
 }
 
 -(IBAction)addLocation:(id)sender {
+  NSString *name = nameTextField.text;
+  if ([name length] == 0) {
+    name = streetTextField.text;
+  }
   
-  [addressDictionary setValue:nameTextField.text forKey:@"MonkeyName"];
+  if ([name length] == 0) {
+    name = @"Unnamed Location";
+  }
+  
+  [addressDictionary setValue:name forKey:@"Name"];
   [addressDictionary setValue:streetTextField.text forKey:@"Street"];
   [addressDictionary setValue:cityTextField.text forKey:@"City"];
   [addressDictionary setValue:stateTextField.text forKey:@"State"];
   [addressDictionary setValue:zipTextField.text forKey:@"ZIP"];
-  [addressDictionary setValue:phoneNumberTextField.text forKey:@"MonkeyPhoneNumber"];
+  [addressDictionary setValue:phoneNumberTextField.text forKey:@"PhoneNumber"];
   
   [geocoder geocodeAddressDictionary:addressDictionary
                    completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -139,6 +148,11 @@
   [locationDictionary setValue: [self locality] forKey:@"locality"];
   [locationDictionary setValue: [self region] forKey:@"region"];
   [locationDictionary setValue: [self country] forKey:@"countryCode"];
+  
+  if (category != nil) {
+    NSString *categoryId = [category valueForKey:@"categoryId"];
+    [locationDictionary setValue:categoryId forKey:@"categoryIds"];
+  }
   
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.latitude] forKey:@"latitude"];
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.longitude] forKey:@"longitude"];

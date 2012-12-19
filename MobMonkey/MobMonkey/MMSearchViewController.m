@@ -153,11 +153,13 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSData* jsonData;
     id jsonObject;
-    
     [self.searchBar resignFirstResponder];
     if (!self.searchResultsViewController) {
         self.searchResultsViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
     }
+  
+  self.searchResultsViewController.category = category;
+
     self.searchResultsViewController.locations = [NSMutableArray array];
     [self.searchResultsViewController.tableView reloadData];
     self.searchResultsViewController.isSearching = YES;

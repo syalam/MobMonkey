@@ -10,6 +10,8 @@
 #import "MMLocationViewController.h"
 #import "MMLocationListCell.h"
 #import "MMLocationAnnotation.h"
+#import "MMMapFilterViewController.h"
+#import "MMAddLocationViewController.h"
 
 @interface MMLocationsViewController ()
 
@@ -20,6 +22,8 @@
 @end
 
 @implementation MMLocationsViewController
+@synthesize mapView;
+@synthesize category;
 
 - (void)viewDidLoad
 {
@@ -47,12 +51,30 @@
     }
     
     self.locations = [NSMutableArray array];
-    self.mapView.showsUserLocation = YES;
+  mapFilterViewController = [[MMMapFilterViewController alloc] initWithMapView:mapView];
+  mapView.delegate = self;
+
+  /*  UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]
+                                                  initWithTarget:self
+                                                  action:@selector(handleTap:)];
+  
+  [mapView addGestureRecognizer:tapGestureRecognizer];*/
+
+  UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc]
+                                                              initWithTarget:self action:@selector(handleLongPress:)];
+  [mapView addGestureRecognizer:longPressGestureRecognizer];
+  
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:226.0/255.0
                                                                           green:112.0/225.0
                                                                            blue:36.0/255.0
                                                                           alpha:1.0]];
-    
+}
+
+- (void)setCategory:(NSDictionary *)categoryParameter
+{
+  category = categoryParameter;
+  if (categoryParameter != nil)
+    mapFilterViewController.category = categoryParameter;
 }
 
 - (void)didReceiveMemoryWarning
@@ -187,6 +209,19 @@
     [[MMClientSDK sharedSDK] locationScreen:self locationDetail:[self.locations objectAtIndex:[sender tag]]];
 }
 
+- (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer
+{
+  // TODO / FIXME - DRY this (duplicated in MMMapFilterViewController)
+  CGPoint touchPoint = [gestureRecognizer locationInView:mapView];
+  CLLocationCoordinate2D touchMapCoordinate = [mapView convertPoint:touchPoint toCoordinateFromView:mapView];
+  
+  MMAddLocationViewController *addLocationViewController = [[MMAddLocationViewController alloc] initWithLocation:touchMapCoordinate];
+  addLocationViewController.title =@"Add Location";
+  addLocationViewController.category = self.category; // case in point for DRY - wasted almost an hour before realizing this is here and not in the MMAddLocationViewController..
+  UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
+  [self.navigationController presentViewController:navc animated:YES completion:nil];
+}
+
 #pragma mark - IBAction Methods
 - (void)backButtonTapped:(id)sender {
     [SVProgressHUD dismiss];
@@ -195,7 +230,6 @@
 
 #pragma mark - MapView Delegate Methods
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-    
     static NSString *identifier = @"MMLocation";
     if ([annotation isKindOfClass:[MMLocationAnnotation class]]) {
         MMLocationAnnotation *myAnnotation = (MMLocationAnnotation*)annotation;

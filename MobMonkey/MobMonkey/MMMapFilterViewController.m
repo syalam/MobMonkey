@@ -15,6 +15,8 @@
 
 @implementation MMMapFilterViewController
 @synthesize mapView;
+@synthesize contentList;
+@synthesize category;
 
 - (id)init
 {
@@ -31,10 +33,52 @@
   return self;
 }
 
+- (id)initWithMapView:(MKMapView *)mapViewParameter
+{
+  self = [super init];
+  if (self) {
+    self.mapView = mapViewParameter;
+    self.view = mapView;
+    [self viewDidLoad];
+  }
+  
+  return self;
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+  [mapView setCenterCoordinate:newLocation.coordinate];
+  if ([mapView showsUserLocation] == NO) {
+    [mapView setShowsUserLocation:YES];
+  }
+  
+  MKCoordinateRegion mapRegion;
+  mapRegion.center = newLocation.coordinate;
+  
+  // TODO / FIXME - hard-coded constant (0.01º)
+  mapRegion.span.latitudeDelta = 0.01;
+  mapRegion.span.longitudeDelta = 0.01;
+  
+  [mapView setRegion:mapRegion animated: YES];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+  NSLog(@"locationManager error: %@", error);
+}
+
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+
+  [mapView setShowsUserLocation:YES];
+
+  locationManager = [[CLLocationManager alloc] init];
+  locationManager.delegate = self;
+  [locationManager startMonitoringSignificantLocationChanges];
   
+  [mapView setUserInteractionEnabled:YES];
+
   UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
   [backNavbutton addTarget:self action:@selector(backButtonTapped:)
           forControlEvents:UIControlEventTouchUpInside];
@@ -51,20 +95,25 @@
   mapView.delegate = self;
   
   // add gesture recognizer
-  UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]
+/*  UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]
                                                initWithTarget:self
                                                action:@selector(handleTap:)];
 
-  [mapView addGestureRecognizer:tapGestureRecognizer];
+  [mapView addGestureRecognizer:tapGestureRecognizer];*/
+  
+  UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc]
+                                                              initWithTarget:self action:@selector(handleLongPress:)];
+  [mapView addGestureRecognizer:longPressGestureRecognizer];
 }
 
-- (void)handleTap:(UIGestureRecognizer *)gestureRecognizer
+- (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer
 {
   CGPoint touchPoint = [gestureRecognizer locationInView:mapView];
   CLLocationCoordinate2D touchMapCoordinate = [mapView convertPoint:touchPoint toCoordinateFromView:mapView];
   
   MMAddLocationViewController *addLocationViewController = [[MMAddLocationViewController alloc] initWithLocation:touchMapCoordinate];
   addLocationViewController.title = @"Add Location";
+  addLocationViewController.category = self.category;
   UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
   [self.navigationController presentViewController:navc animated:YES completion:nil];
 }

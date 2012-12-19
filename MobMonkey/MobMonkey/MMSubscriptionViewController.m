@@ -27,7 +27,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.navigationController.navigationBar setHidden:YES];
     // Do any additional setup after loading the view from its nib.
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
+    [self.navigationController.navigationBar setHidden:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -36,10 +43,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction) dismiss;
-{
-  [self dismissViewControllerAnimated:YES completion:nil];
+- (IBAction) dismissButtonTapped:(id)sender {
+    if (_popup) {
+        [self.navigationController dismissModalViewControllerAnimated:YES];
+    }
+    else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
+
 
 - (IBAction)subscribeButtonTapped:(id)sender {
     [PFPurchase buyProduct:@"com.mobmonkey.MobMonkey.VK4524W4XL.1month" block:^(NSError *error) {
