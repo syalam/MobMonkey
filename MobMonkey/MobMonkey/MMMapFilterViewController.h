@@ -13,6 +13,7 @@
   MKMapView *mapView;
   CLLocationManager *locationManager;
   NSArray *contentList;
+  NSDictionary *category;
 }
 
 - initWithMapView:(MKMapView*)mapView;
@@ -20,5 +21,7 @@
 - (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer;
 
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
+@property (strong, nonatomic) NSArray *contentList;
+@property (strong, nonatomic) NSDictionary *category;
 
 @end

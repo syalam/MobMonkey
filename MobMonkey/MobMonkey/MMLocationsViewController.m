@@ -51,8 +51,10 @@
     
     self.locations = [NSMutableArray array];
   mapFilterViewController = [[MMMapFilterViewController alloc] initWithMapView:mapView];
+  mapFilterViewController.category = category;
   mapView.delegate = self;
-/*  UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]
+
+  /*  UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]
                                                   initWithTarget:self
                                                   action:@selector(handleTap:)];
   

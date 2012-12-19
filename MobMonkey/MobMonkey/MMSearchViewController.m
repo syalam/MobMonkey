@@ -163,6 +163,7 @@
     self.searchResultsViewController.isSearching = YES;
     if (category) {
         self.searchResultsViewController.title = category[@"en"];
+        self.searchResultsViewController.category = category;
         [params setValue:category[@"categoryId"] forKey:@"categoryIds"];
     } else {
         if ([self.searchBar.text length] > 0) {

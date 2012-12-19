@@ -116,6 +116,8 @@
     name = @"Unnamed Location";
   }
   
+  NSLog(@"NSDictionary *category: %@", category);
+
   [addressDictionary setValue:name forKey:@"Name"];
   [addressDictionary setValue:streetTextField.text forKey:@"Street"];
   [addressDictionary setValue:cityTextField.text forKey:@"City"];
@@ -147,7 +149,7 @@
   [locationDictionary setValue: [self locality] forKey:@"locality"];
   [locationDictionary setValue: [self region] forKey:@"region"];
   [locationDictionary setValue: [self country] forKey:@"countryCode"];
-  
+    
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.latitude] forKey:@"latitude"];
   [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.longitude] forKey:@"longitude"];
 

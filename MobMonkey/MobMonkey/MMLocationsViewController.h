@@ -12,11 +12,13 @@
 
 @interface MMLocationsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate> {
   MKMapView *mapView;
+  NSDictionary *category;
   MMMapFilterViewController *mapFilterViewController;
 }
 
 @property (strong, nonatomic) NSMutableArray *locations;
 @property (assign, nonatomic) BOOL isSearching;
+@property (strong, nonatomic) NSDictionary *category;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 

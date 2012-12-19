@@ -15,6 +15,8 @@
 
 @implementation MMMapFilterViewController
 @synthesize mapView;
+@synthesize contentList;
+@synthesize category;
 
 - (id)init
 {
@@ -69,6 +71,8 @@
 {
   [super viewDidLoad];
 
+  NSLog(@"contentList: %@", contentList);
+  
   [mapView setShowsUserLocation:YES];
 
   locationManager = [[CLLocationManager alloc] init];
@@ -93,11 +97,11 @@
   mapView.delegate = self;
   
   // add gesture recognizer
-  UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]
+/*  UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]
                                                initWithTarget:self
                                                action:@selector(handleTap:)];
 
-  [mapView addGestureRecognizer:tapGestureRecognizer];
+  [mapView addGestureRecognizer:tapGestureRecognizer];*/
   
   UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc]
                                                               initWithTarget:self action:@selector(handleLongPress:)];
@@ -111,6 +115,7 @@
   
   MMAddLocationViewController *addLocationViewController = [[MMAddLocationViewController alloc] initWithLocation:touchMapCoordinate];
   addLocationViewController.title = @"Add Location";
+  addLocationViewController.category = category;
   UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
   [self.navigationController presentViewController:navc animated:YES completion:nil];
 }
