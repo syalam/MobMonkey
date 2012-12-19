@@ -83,6 +83,7 @@
     expandImageGesture.numberOfTapsRequired = 1;
     
     [_locationLatestImageView addGestureRecognizer:expandImageGesture];
+    
 }
 
 - (void)viewDidUnload
@@ -407,6 +408,7 @@
     _addressLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", [_contentList valueForKey:@"streetAddress"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];
   
     [_liveStreamButton setEnabled:YES];
+    [liveStreamImage setImage:[UIImage imageNamed:@"location-liveVideoIcn"]];
     [_videosButton setEnabled:YES];
     [_photosButton setEnabled:YES];
   
@@ -414,6 +416,7 @@
     if (streamingCount == 0) {
         self.streamingCountLabel.hidden = YES;
         [_liveStreamButton setEnabled:NO];
+        [liveStreamImage setImage:[UIImage imageNamed:@"location-liveVideoIcnOff"]];
     }
     else {
         self.streamingCountLabel.hidden = NO;
