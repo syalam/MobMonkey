@@ -15,6 +15,4 @@
 - (IBAction) dismissButtonTapped:(id)sender;
 - (IBAction)subscribeButtonTapped:(id)sender;
 
-@property BOOL popup;
-
 @end

@@ -46,6 +46,12 @@
     self.navigationItem.titleView = self.segmentedControl;
     
     _thumbnailCache = [[NSMutableDictionary alloc]init];
+    
+    showAd = NO;
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
+        self.myFullscreenAd = [[GSFullscreenAd alloc] initWithDelegate:self];
+        [self.myFullscreenAd fetch];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -62,15 +68,12 @@
             didShowModal = YES;
             MMSubscriptionViewController *subscriptionViewController = [[MMSubscriptionViewController alloc] init];
             UINavigationController *subscriptionModal = [[UINavigationController alloc]initWithRootViewController:subscriptionViewController];
-            subscriptionViewController.popup = YES;
             [self.navigationController presentModalViewController:subscriptionModal animated:YES];
         }
         else if (views > 10 && views % 5 == 0 && !didShowAd) {
             didShowAd = YES;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.myFullscreenAd = [[GSFullscreenAd alloc] initWithDelegate:self];
-                [self.myFullscreenAd fetch];
-            });
+            self.myFullscreenAd = [[GSFullscreenAd alloc] initWithDelegate:self];
+            [self.myFullscreenAd fetch];
             
         }
         
@@ -235,8 +238,13 @@
 
 - (void)greystripeAdFetchSucceeded:(id<GSAd>)a_ad {
     if (a_ad == _myFullscreenAd) {
-        NSLog(@"Fullscreen ad successfully fetched.");
-        [_myFullscreenAd displayFromViewController:self];
+        if (showAd) {
+            NSLog(@"Fullscreen ad successfully fetched.");
+            [_myFullscreenAd displayFromViewController:self];
+
+        } else {
+            showAd = YES;
+        }
     }
 }
 
@@ -272,6 +280,7 @@
             errorString = @"An invalid error code was returned. Thats really bad!";
     }
     NSLog(@"Greystripe failed with error: %@",errorString);
+    showAd = YES;
     
 }
 

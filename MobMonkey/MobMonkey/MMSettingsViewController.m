@@ -135,7 +135,8 @@
             break;
         case 3: {
             MMSubscriptionViewController *subscriptionVC = [[MMSubscriptionViewController alloc]initWithNibName:@"MMSubscriptionViewController" bundle:nil];
-            [self.navigationController pushViewController:subscriptionVC animated:YES];
+            UINavigationController *subscriptionNavC = [[UINavigationController alloc]initWithRootViewController:subscriptionVC];
+            [self.navigationController presentModalViewController:subscriptionNavC animated:YES];
         }
         default:
             break;
