@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1536</int>
-		<string key="IBDocument.SystemVersion">12C3012</string>
+		<string key="IBDocument.SystemVersion">12C2034</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
@@ -189,7 +189,7 @@
 											<object class="IBUIImageView" id="509561929">
 												<reference key="NSNextResponder" ref="907497415"/>
 												<int key="NSvFlags">292</int>
-												<string key="NSFrame">{{5, 0}, {15, 15}}</string>
+												<string key="NSFrame">{{22, 0}, {15, 15}}</string>
 												<reference key="NSSuperview" ref="907497415"/>
 												<reference key="NSNextKeyView" ref="2053439"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -218,6 +218,7 @@
 												<reference key="IBUIShadowColor" ref="876798432"/>
 												<int key="IBUIBaselineAdjustment">0</int>
 												<float key="IBUIMinimumFontSize">8</float>
+												<int key="IBUITextAlignment">2</int>
 												<object class="IBUIFontDescription" key="IBUIFontDescription">
 													<int key="type">2</int>
 													<double key="pointSize">13</double>
@@ -721,6 +722,14 @@
 					<int key="connectionID">175</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">requestTimeLabel</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="2053439"/>
+					</object>
+					<int key="connectionID">176</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
 						<string key="label">gestureRecognizers</string>
 						<reference key="source" ref="276660228"/>
@@ -908,8 +917,8 @@
 						<int key="objectID">120</int>
 						<reference key="object" ref="907497415"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="509561929"/>
 							<reference ref="2053439"/>
+							<reference ref="509561929"/>
 						</array>
 						<reference key="parent" ref="821810327"/>
 						<string key="objectName">Time View</string>
@@ -1037,7 +1046,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">175</int>
+			<int key="maxID">176</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
