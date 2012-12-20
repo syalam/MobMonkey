@@ -21,6 +21,8 @@
     BOOL uiAdjustedForNotificationSetting;
     
     dispatch_queue_t backgroundQueue;
+    
+    IBOutlet UIImageView *liveStreamImage;
 }
 
 @property (nonatomic, retain) NSMutableDictionary* contentList;

@@ -25,6 +25,7 @@ typedef enum {
     NSInteger views;
     BOOL didShowModal;
     BOOL didShowAd;
+    BOOL showAd;
     
 }
 
