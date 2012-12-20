@@ -10,10 +10,17 @@
 #import <MapKit/MapKit.h>
 
 @interface MMMapFilterViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate> {
-  MKMapView *mapView;
-  CLLocationManager *locationManager;
-  NSArray *contentList;
-  NSDictionary *category;
+    MKMapView *mapView;
+    CLLocationManager *locationManager;
+    NSArray *contentList;
+    NSDictionary *category;
+    
+    IBOutlet UIImageView *overlayImageView;
+    
+    UIBarButtonItem *addButton;
+    UIBarButtonItem *cancelButton;
+    
+    UITapGestureRecognizer *tapGestureRecognizer;
 }
 
 - initWithMapView:(MKMapView*)mapView;
