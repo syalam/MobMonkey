@@ -68,7 +68,6 @@
             didShowModal = YES;
             MMSubscriptionViewController *subscriptionViewController = [[MMSubscriptionViewController alloc] init];
             UINavigationController *subscriptionModal = [[UINavigationController alloc]initWithRootViewController:subscriptionViewController];
-            subscriptionViewController.popup = YES;
             [self.navigationController presentModalViewController:subscriptionModal animated:YES];
         }
         else if (views > 10 && views % 5 == 0 && !didShowAd) {

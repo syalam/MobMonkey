@@ -35,6 +35,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:YES];
     [self.navigationController.navigationBar setHidden:NO];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,12 +45,8 @@
 }
 
 - (IBAction) dismissButtonTapped:(id)sender {
-    if (_popup) {
         [self.navigationController dismissModalViewControllerAnimated:YES];
-    }
-    else {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+
 }
 
 
