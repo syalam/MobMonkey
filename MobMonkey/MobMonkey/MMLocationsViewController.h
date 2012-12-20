@@ -14,6 +14,10 @@
   MKMapView *mapView;
   NSDictionary *category;
   MMMapFilterViewController *mapFilterViewController;
+    
+    UIBarButtonItem* globeButton;
+    UIBarButtonItem* addLocationButton;
+    UIBarButtonItem* cancelButton;
 }
 
 @property (strong, nonatomic) NSMutableArray *locations;
@@ -22,6 +26,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 
-- (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer;
+- (void)handleTap:(UIGestureRecognizer *)gestureRecognizer;
 
 @end
