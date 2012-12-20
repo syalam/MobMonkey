@@ -495,6 +495,8 @@
                 CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
                 _locationLatestImageView.image =  [UIImage imageWithCGImage:imgRef];
             }
+            
+            
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Could not load image");

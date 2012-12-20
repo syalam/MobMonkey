@@ -56,23 +56,28 @@
     UIBarButtonItem* filterButton = [[UIBarButtonItem alloc] initWithCustomView:customButton];
     self.navigationItem.leftBarButtonItem = filterButton;
   
-  UIButton *plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  plusButton.bounds = CGRectMake(0, 0, 31, 31);
-  [plusButton setBackgroundImage:customButtonImage forState:UIControlStateNormal];
-  [plusButton setTitle:@"+" forState:UIControlStateNormal];
-  [plusButton.titleLabel setTextColor:[UIColor whiteColor]];
-  [plusButton.titleLabel setFont:[UIFont boldSystemFontOfSize:24]];
-  [plusButton.titleLabel setShadowColor:[UIColor darkGrayColor]];
-  [plusButton.titleLabel setShadowOffset:CGSizeMake(0, -1)];
-  [plusButton addTarget:self action:@selector(showMapView:)
-       forControlEvents:UIControlEventTouchUpInside];
+    UIButton *plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [plusButton setFrame:CGRectMake(0, 0, 31, 31)];
+    [plusButton setBackgroundImage:customButtonImage forState:UIControlStateNormal];
+    [plusButton addTarget:self action:@selector(showMapView:)
+         forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel *plusButtonLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, -3, plusButton.frame.size.width, plusButton.frame.size.height)];
+    [plusButtonLabel setBackgroundColor:[UIColor clearColor]];
+    [plusButtonLabel setText:@"+"];
+    [plusButtonLabel setTextColor:[UIColor whiteColor]];
+    [plusButtonLabel setShadowColor:[UIColor darkGrayColor]];
+    [plusButtonLabel setShadowOffset:CGSizeMake(0, -1)];
+    [plusButtonLabel setFont:[UIFont boldSystemFontOfSize:24]];
+    [plusButtonLabel setTextAlignment:NSTextAlignmentCenter];
+    [plusButton addSubview:plusButtonLabel];
   
   UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:plusButton];
   self.navigationItem.rightBarButtonItem = addButton;
     
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:226.0/255.0
-                                                                        green:112.0/225.0
-                                                                         blue:36.0/255.0
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:219.0/255.0
+                                                                        green:100.0/225.0
+                                                                         blue:24.0/255.0
                                                                         alpha:1.0];
     self.filteredCategories = @[];
     self.savedSearchTerm = @"";
@@ -109,10 +114,16 @@
             self.categories = responseObject;
             [self.tableView reloadData];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
-            if ([[response valueForKey:@"status"] isEqualToString:@"Unauthorized"]) {
-                [[MMClientSDK sharedSDK] signInScreen:self];
+            if (operation.responseData) {
+                NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+                if ([[response valueForKey:@"status"] isEqualToString:@"Unauthorized"]) {
+                    [[MMClientSDK sharedSDK] signInScreen:self];
+                }
             }
+            else {
+                [[MMClientSDK sharedSDK]signInScreen:self];
+            }
+            
         }];
     }
 }
