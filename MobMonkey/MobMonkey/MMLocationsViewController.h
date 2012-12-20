@@ -22,6 +22,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 
-- (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer;
+- (void)handleTap:(UIGestureRecognizer *)gestureRecognizer;
 
 @end

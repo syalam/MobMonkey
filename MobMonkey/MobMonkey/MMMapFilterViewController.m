@@ -88,25 +88,25 @@
   UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
   self.navigationItem.leftBarButtonItem = backButton;
 
-  // uncomment these to disable user interaction for map
-  //mapView.scrollEnabled = NO;
-  //mapView.zoomEnabled = NO;
+  // comment these to enable user interaction for map
+  mapView.scrollEnabled = NO;
+  mapView.zoomEnabled = NO;
   
   mapView.delegate = self;
   
   // add gesture recognizer
-/*  UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]
+  UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]
                                                initWithTarget:self
                                                action:@selector(handleTap:)];
 
-  [mapView addGestureRecognizer:tapGestureRecognizer];*/
+  [mapView addGestureRecognizer:tapGestureRecognizer];
   
-  UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc]
+/*  UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc]
                                                               initWithTarget:self action:@selector(handleLongPress:)];
-  [mapView addGestureRecognizer:longPressGestureRecognizer];
+  [mapView addGestureRecognizer:longPressGestureRecognizer];*/
 }
 
-- (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer
+- (void)handleTap:(UIGestureRecognizer *)gestureRecognizer
 {
   CGPoint touchPoint = [gestureRecognizer locationInView:mapView];
   CLLocationCoordinate2D touchMapCoordinate = [mapView convertPoint:touchPoint toCoordinateFromView:mapView];

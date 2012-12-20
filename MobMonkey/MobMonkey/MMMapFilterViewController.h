@@ -18,7 +18,6 @@
 
 - initWithMapView:(MKMapView*)mapView;
 - (void)handleTap:(UIGestureRecognizer *)gestureRecognizer;
-- (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer;
 
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) NSArray *contentList;
