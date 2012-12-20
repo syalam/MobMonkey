@@ -14,6 +14,10 @@
   MKMapView *mapView;
   NSDictionary *category;
   MMMapFilterViewController *mapFilterViewController;
+    
+    UIBarButtonItem* globeButton;
+    UIBarButtonItem* addLocationButton;
+    UIBarButtonItem* cancelButton;
 }
 
 @property (strong, nonatomic) NSMutableArray *locations;

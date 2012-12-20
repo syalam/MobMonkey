@@ -120,16 +120,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient  postPath:[NSString stringWithFormat:@"requestmedia/%@", mediaType]
                parameters:params
                   success:success
-                  failure:^(AFHTTPRequestOperation *operation, id json) {
-                      int statusCode = operation.response.statusCode;
-                      if (statusCode == 200 || statusCode == 201) {
-                          id response = operation.responseString;
-                          NSLog(@"%@", response);
-                          success(operation, json);
-                      } else {
-                          failure(operation, json);
-                      }
-                  }];
+                  failure:failure];
 }
 
 + (void)fulfillRequest:(NSString*)mediaType params:(NSMutableDictionary*)params

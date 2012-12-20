@@ -38,8 +38,47 @@
     UIButton *customButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 33, 30)];
     [customButton addTarget:self action:@selector(flipView:) forControlEvents:UIControlEventTouchUpInside];
     [customButton setImage:[UIImage imageNamed:@"GlobeBtn"] forState:UIControlStateNormal];
-    UIBarButtonItem* flipViewButton = [[UIBarButtonItem alloc]initWithCustomView:customButton];
-    self.navigationItem.rightBarButtonItem = flipViewButton;
+    globeButton = [[UIBarButtonItem alloc]initWithCustomView:customButton];
+    
+    UIButton *plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [plusButton setFrame:CGRectMake(0, 0, 31, 31)];
+    [plusButton setBackgroundImage:[UIImage imageNamed:@"navBarButtonBlank"] forState:UIControlStateNormal];
+    [plusButton addTarget:self action:@selector(addLocationButtonTapped:)
+         forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel *plusButtonLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, -3, plusButton.frame.size.width, plusButton.frame.size.height)];
+    [plusButtonLabel setBackgroundColor:[UIColor clearColor]];
+    [plusButtonLabel setText:@"+"];
+    [plusButtonLabel setTextColor:[UIColor whiteColor]];
+    [plusButtonLabel setShadowColor:[UIColor darkGrayColor]];
+    [plusButtonLabel setShadowOffset:CGSizeMake(0, -1)];
+    [plusButtonLabel setFont:[UIFont boldSystemFontOfSize:24]];
+    [plusButtonLabel setTextAlignment:NSTextAlignmentCenter];
+    [plusButton addSubview:plusButtonLabel];
+    
+    addLocationButton = [[UIBarButtonItem alloc] initWithCustomView:plusButton];
+    
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:globeButton, addLocationButton, nil];
+    
+    
+    //cancel nav button
+    UIButton *cancelNavButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [cancelNavButton  setFrame:CGRectMake(0, 0, 50, 31)];
+    [cancelNavButton setBackgroundImage:[UIImage imageNamed:@"navBarButtonBlank"] forState:UIControlStateNormal];
+    [cancelNavButton addTarget:self action:@selector(cancelButtonTapped:)
+              forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel *cancelButtonLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, -1, cancelNavButton.frame.size.width, cancelNavButton.frame.size.height)];
+    [cancelButtonLabel setBackgroundColor:[UIColor clearColor]];
+    [cancelButtonLabel setText:@"Cancel"];
+    [cancelButtonLabel setTextColor:[UIColor whiteColor]];
+    [cancelButtonLabel setShadowColor:[UIColor darkGrayColor]];
+    [cancelButtonLabel setShadowOffset:CGSizeMake(0, -1)];
+    [cancelButtonLabel setFont:[UIFont boldSystemFontOfSize:11]];
+    [cancelButtonLabel setTextAlignment:NSTextAlignmentCenter];
+    [cancelNavButton addSubview:cancelButtonLabel];
+    
+    cancelButton = [[UIBarButtonItem alloc]initWithCustomView:cancelNavButton];
     
     if ([self.navigationController viewControllers].count > 1) {
         UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
@@ -108,6 +147,7 @@
     //[SVProgressHUD dismiss];
 }
 
+#pragma mark - IBAction Methods
 - (void)flipView:(id)sender
 {
     if ([self.mapView isHidden]) {
@@ -118,6 +158,8 @@
     [UIView transitionFromView:self.mapView toView:self.tableView duration:0.4 options:UIViewAnimationOptionTransitionFlipFromRight | UIViewAnimationOptionShowHideTransitionViews completion:nil];
     [sender setTitle:@"Map"];
 }
+
+
 
 - (void)setLocations:(NSMutableArray *)locations
 {
