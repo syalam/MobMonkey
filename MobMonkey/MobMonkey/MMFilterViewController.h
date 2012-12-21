@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMSearchViewController.h"
 
 @protocol MMFilterViewDelegate
 

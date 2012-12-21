@@ -17,6 +17,7 @@
         // Initialization code
         _locationNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 20, 300, 21)];
         _timeStampLabel = [[UILabel alloc]initWithFrame:CGRectMake(241, 62, 72, 16)];
+        [_timeStampLabel setTextAlignment:NSTextAlignmentRight];
         _locationImageView = [[TCImageView alloc]initWithFrame:CGRectMake(10, 49, 300, 225)];
         
         _locationNameButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -58,8 +59,8 @@
         UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(5, 6, 310, 343)];
         [backgroundView setBackgroundColor:[UIColor whiteColor]];
         
-        UIImageView *clockImageView = [[UIImageView alloc]initWithFrame:CGRectMake(218, 62, 15, 15)];
-        [clockImageView setImage:[UIImage imageNamed:@"timeIcnOverlay"]];
+        _clockImageView = [[UIImageView alloc]initWithFrame:CGRectMake(218, 62, 15, 15)];
+        [_clockImageView setImage:[UIImage imageNamed:@"timeIcnOverlay"]];
     
         UIImageView *toolbarImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 242, 302, 32)];
         [toolbarImageView setImage:[UIImage imageNamed:@"ThumbsBG~iphone"]];
@@ -69,7 +70,7 @@
         [self.contentView addSubview:_locationNameButton];
         [self.contentView addSubview:_locationImageView];
         [self.contentView addSubview:_imageButton];
-        [self.contentView addSubview:clockImageView];
+        [self.contentView addSubview:_clockImageView];
         [self.contentView addSubview:_timeStampLabel];
         [self.contentView addSubview:toolbarImageView];
         [self.contentView addSubview:_moreButton];

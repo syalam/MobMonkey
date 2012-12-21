@@ -101,6 +101,9 @@
                              (NSTimeInterval)unixTime];
         
         cell.timeStampLabel.text = [GetRelativeTime getRelativeTime:dateAnswered];
+        [cell.timeStampLabel sizeToFit];
+        [cell.timeStampLabel setFrame:CGRectMake(cell.frame.size.width - cell.timeStampLabel.frame.size.width - 20, cell.timeStampLabel.frame.origin.y, cell.timeStampLabel.frame.size.width, cell.timeStampLabel.frame.size.height)];
+        [cell.clockImageView setFrame:CGRectMake(cell.timeStampLabel.frame.origin.x - 20, cell.clockImageView.frame.origin.y, cell.clockImageView.frame.size.width, cell.clockImageView.frame.size.height)];
     }
     if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"media"] isKindOfClass:[NSNull class]]) {
         if ([[[[[_contentList objectAtIndex:indexPath.row]valueForKey:@"media"]objectAtIndex:0]valueForKey:@"accepted"]intValue] == 1) {

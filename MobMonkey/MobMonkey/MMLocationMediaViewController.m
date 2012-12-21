@@ -63,14 +63,14 @@
     if (![[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
         // Every 5th view will result in a pop-up ad on the client
         // After 5 views always show the subscription modal
-        if (views > 5 && !didShowModal) {
+        if (views >= 5 && !didShowModal) {
             // After 5 views always show the subscription modal
             didShowModal = YES;
             MMSubscriptionViewController *subscriptionViewController = [[MMSubscriptionViewController alloc] init];
             UINavigationController *subscriptionModal = [[UINavigationController alloc]initWithRootViewController:subscriptionViewController];
             [self.navigationController presentModalViewController:subscriptionModal animated:YES];
         }
-        else if (views > 10 && views % 5 == 0 && !didShowAd) {
+        else if (views >= 10 && views % 5 == 0 && !didShowAd) {
             didShowAd = YES;
             self.myFullscreenAd = [[GSFullscreenAd alloc] initWithDelegate:self];
             [self.myFullscreenAd fetch];
