@@ -148,6 +148,18 @@
 }
 
 #pragma mark - IBAction Methods
+- (void)backButtonTapped:(id)sender {
+    [SVProgressHUD dismiss];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)addLocationButtonTapped:(id)sender {
+    MMMapFilterViewController *mvc = [[MMMapFilterViewController alloc] init];
+    mvc.title = @"Add Location";
+    UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:mvc];
+    [self.navigationController presentViewController:navc animated:YES completion:nil];
+}
+
 - (void)flipView:(id)sender
 {
     if ([self.mapView isHidden]) {
@@ -262,12 +274,6 @@
   addLocationViewController.category = self.category; // case in point for DRY - wasted almost an hour before realizing this is here and not in the MMAddLocationViewController..
   UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
   [self.navigationController presentViewController:navc animated:YES completion:nil];
-}
-
-#pragma mark - IBAction Methods
-- (void)backButtonTapped:(id)sender {
-    [SVProgressHUD dismiss];
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - MapView Delegate Methods

@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMSearchViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate> 
+@interface MMSearchViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate> {
+    NSArray* allCategoriesArray;
+}
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSDictionary *filters;
