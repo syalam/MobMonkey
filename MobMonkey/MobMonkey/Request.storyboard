@@ -345,38 +345,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="makeRequestButtonBlank.png" width="307" height="61"/>
         <image name="videoIcn.png" width="34" height="33"/>
     </resources>
-    <classes>
-        <class className="MMRequestMessageViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMRequestMessageViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="clearText:"/>
-                <relationship kind="outlet" name="textFieldBackground" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="MMRequestScheduleViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMRequestScheduleViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="setSchedule:"/>
-                <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
-            </relationships>
-        </class>
-        <class className="MMRequestViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMRequestViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelRequest:"/>
-                <relationship kind="action" name="changeMediaRequestType:"/>
-                <relationship kind="action" name="changeRequestDuration:"/>
-                <relationship kind="action" name="sendRequest:"/>
-                <relationship kind="outlet" name="mediaTypeSegmentedControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="requestButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="stayActiveLengthSegmentedCell" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="MMTableViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMTableViewCell.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

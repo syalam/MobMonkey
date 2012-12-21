@@ -88,6 +88,7 @@
         
         self.savedSearchTerm = nil;
     }
+    allCategoriesArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"allCategories"];
     [self.tableView reloadData];
     self.tableView.scrollEnabled = YES;
 }
@@ -109,7 +110,7 @@
         [[MMClientSDK sharedSDK]signInScreen:self];
     }
     else {
-        [MMAPI getCategoriesOnSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        /*[MMAPI getCategoriesOnSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"Received Categories");
             self.categories = responseObject;
             [self.tableView reloadData];
@@ -124,7 +125,12 @@
                 //[[MMClientSDK sharedSDK]signInScreen:self];
             }
             
-        }];
+        }];*/
+        NSString *parent = [NSString stringWithFormat:@"[%@]", @"1"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents CONTAINS %@", parent];
+        self.categories = [allCategoriesArray filteredArrayUsingPredicate:predicate];
+        [self.tableView reloadData];
+
     }
 }
 
