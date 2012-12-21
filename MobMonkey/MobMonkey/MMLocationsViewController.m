@@ -58,7 +58,6 @@
     
     addLocationButton = [[UIBarButtonItem alloc] initWithCustomView:plusButton];
     
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:addLocationButton, globeButton, nil];
     
     
     //cancel nav button
@@ -79,6 +78,13 @@
     [cancelNavButton addSubview:cancelButtonLabel];
     
     cancelButton = [[UIBarButtonItem alloc]initWithCustomView:cancelNavButton];
+    
+    if ([self.title isEqualToString:@"Bookmarks"]) {
+        self.navigationItem.rightBarButtonItem = globeButton;
+    }
+    else {
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:addLocationButton, globeButton, nil];
+    }
     
     if ([self.navigationController viewControllers].count > 1) {
         UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
