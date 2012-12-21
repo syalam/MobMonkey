@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1536</int>
-		<string key="IBDocument.SystemVersion">12C60</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2843</string>
+		<string key="IBDocument.SystemVersion">12C3012</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1929</string>
+			<string key="NS.object.0">1930</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
@@ -86,7 +86,7 @@
 							<object class="IBUIButton" id="218101634">
 								<reference key="NSNextResponder" ref="934881223"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{90, 20}, {18, 25}}</string>
+								<string key="NSFrame">{{90, 21}, {18, 25}}</string>
 								<reference key="NSSuperview" ref="934881223"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="322245308"/>
@@ -149,7 +149,7 @@
 							<object class="IBUIButton" id="227173784">
 								<reference key="NSNextResponder" ref="934881223"/>
 								<int key="NSvFlags">265</int>
-								<string key="NSFrame">{{20, 14}, {38, 38}}</string>
+								<string key="NSFrame">{{20, 23}, {27, 20}}</string>
 								<reference key="NSSuperview" ref="934881223"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="218101634"/>
@@ -174,7 +174,7 @@
 							<object class="IBUIButton" id="949462393">
 								<reference key="NSNextResponder" ref="934881223"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{270, 19}, {30, 30}}</string>
+								<string key="NSFrame">{{270, 18}, {30, 30}}</string>
 								<reference key="NSSuperview" ref="934881223"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -369,9 +369,9 @@
 						<reference key="object" ref="934881223"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="642821180"/>
+							<reference ref="227173784"/>
 							<reference ref="218101634"/>
 							<reference ref="322245308"/>
-							<reference ref="227173784"/>
 							<reference ref="949462393"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
@@ -529,11 +529,11 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="CloseButton.png">{35, 35}</string>
-			<string key="ThumbDown~iphone.png">{16, 16}</string>
-			<string key="ThumbUp~iphone.png">{16, 16}</string>
+			<string key="ThumbDown~iphone.png">{18, 25}</string>
+			<string key="ThumbUp~iphone.png">{18, 25}</string>
 			<string key="ThumbsBG~iphone.png">{77, 38}</string>
 			<string key="more.png">{27, 20}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">1929</string>
+		<string key="IBCocoaTouchPluginVersion">1930</string>
 	</data>
 </archive>
