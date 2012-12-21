@@ -51,6 +51,7 @@
 
 
 - (IBAction)subscribeButtonTapped:(id)sender {
+    [subscribeButton setEnabled:NO];
     [PFPurchase buyProduct:@"com.mobmonkey.MobMonkey.VK4524W4XL.1month" block:^(NSError *error) {
         if (!error) {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Subscription Complete" message:@"Subscription successful" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
