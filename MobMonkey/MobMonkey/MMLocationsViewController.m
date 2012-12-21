@@ -79,12 +79,8 @@
     
     cancelButton = [[UIBarButtonItem alloc]initWithCustomView:cancelNavButton];
     
-    if ([self.title isEqualToString:@"Bookmarks"]) {
-        self.navigationItem.rightBarButtonItem = globeButton;
-    }
-    else {
-        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:addLocationButton, globeButton, nil];
-    }
+
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:addLocationButton, globeButton, nil];
     
     if ([self.navigationController viewControllers].count > 1) {
         UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
@@ -159,12 +155,12 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)addLocationButtonTapped:(id)sender {
+/*- (void)addLocationButtonTapped:(id)sender {
     MMMapFilterViewController *mvc = [[MMMapFilterViewController alloc] init];
     mvc.title = @"Add Location";
     UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:mvc];
     [self.navigationController presentViewController:navc animated:YES completion:nil];
-}
+}*/
 
 - (void)flipView:(id)sender
 {
@@ -172,6 +168,10 @@
         [UIView transitionFromView:self.tableView toView:self.mapView duration:0.4 options:UIViewAnimationOptionTransitionFlipFromLeft | UIViewAnimationOptionShowHideTransitionViews completion:nil];
         [sender setTitle:@"List"];
         return;
+    }
+    else {
+        [overlayImageView setHidden:YES];
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:addLocationButton, globeButton, nil];
     }
     [UIView transitionFromView:self.mapView toView:self.tableView duration:0.4 options:UIViewAnimationOptionTransitionFlipFromRight | UIViewAnimationOptionShowHideTransitionViews completion:nil];
     [sender setTitle:@"Map"];
