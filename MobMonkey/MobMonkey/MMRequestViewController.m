@@ -111,30 +111,28 @@ enum RequestDurationLengths {
     [self.requestInfo setValue:[NSNumber numberWithBool:NO] forKey:@"recurring"];
     
     NSString *mediaType;
-  switch (_mediaTypeSegmentedControl.selectedSegmentIndex) {
-    case 0:
-      mediaType = @"video";
-      break;
-    case 1:
-      mediaType = @"image";
-      break;
-    case 2:
-      mediaType = @"text";
-      break;
-      
-    default:
-      break;
-  }
-  NSLog(@"MMRequestViewController.m requestMedia %@", self.requestInfo);
-  
+    switch (_mediaTypeSegmentedControl.selectedSegmentIndex) {
+        case 0:
+            mediaType = @"video";
+            break;
+        case 1:
+            mediaType = @"image";
+            break;
+        case 2:
+            mediaType = @"text";
+            break;
+            
+        default:
+            break;
+    }
+    NSLog(@"MMRequestViewController.m requestMedia %@", self.requestInfo);
     [MMAPI requestMedia:mediaType params:self.requestInfo success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [self dismissViewControllerAnimated:YES completion:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD showErrorWithStatus:@"Unable to make request. Please try again"];
         NSLog(@"%@", operation.responseString);
     }];
-    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)changeMediaRequestType:(id)sender

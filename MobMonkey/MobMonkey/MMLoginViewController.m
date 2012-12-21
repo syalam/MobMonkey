@@ -136,7 +136,7 @@
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"%@", operation.responseString);
             }];
-
+            
             NSMutableDictionary *checkinParams = [[NSMutableDictionary alloc]init];
             [checkinParams setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
             [checkinParams setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];

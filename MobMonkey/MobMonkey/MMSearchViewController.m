@@ -88,6 +88,7 @@
         
         self.savedSearchTerm = nil;
     }
+    allCategoriesArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"allCategories"];
     [self.tableView reloadData];
     self.tableView.scrollEnabled = YES;
 }
@@ -109,7 +110,7 @@
         [[MMClientSDK sharedSDK]signInScreen:self];
     }
     else {
-        [MMAPI getCategoriesOnSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        /*[MMAPI getCategoriesOnSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"Received Categories");
             self.categories = responseObject;
             [self.tableView reloadData];
@@ -124,7 +125,12 @@
                 //[[MMClientSDK sharedSDK]signInScreen:self];
             }
             
-        }];
+        }];*/
+        NSString *parent = [NSString stringWithFormat:@"[%@]", @"1"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents CONTAINS %@", parent];
+        self.categories = [allCategoriesArray filteredArrayUsingPredicate:predicate];
+        [self.tableView reloadData];
+
     }
 }
 
@@ -200,6 +206,14 @@
     else {
     [params setValue:[NSNumber numberWithInt:10000] forKey:@"radiusInYards"];
     }
+    /*if ([[_filters valueForKey:@"media type"] isEqualToString:@"mmUserImage"]) {
+        [params setObject:[NSNumber numberWithInt:-1] forKey:@"images"];
+    } else if ([[_filters valueForKey:@"media type"] isEqualToString:@"mmUserVideo"]) {
+        [params setObject:[NSNumber numberWithInt:-1] forKey:@"videos"];
+    } else if ([[_filters valueForKey:@"media type"] isEqualToString:@"mmLocationLiveStream"]) {
+        [params setObject:[NSNumber numberWithInt:-1] forKey:@"livestreaming"];
+    }*/
+
     jsonData = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:nil];
     jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
     
@@ -221,6 +235,26 @@
             }
             
             // End of hack
+            NSPredicate *predicate;
+            if ([[_filters valueForKey:@"media type"] isEqualToString:@"mmUserImage"]) {
+                predicate = [NSPredicate predicateWithFormat:@"images != %d", 0];
+                responseObject = [responseObject filteredArrayUsingPredicate:predicate];
+                responseObjectArray = responseObject;
+            } else if ([[_filters valueForKey:@"media type"] isEqualToString:@"mmUserVideo"]) {
+                predicate = [NSPredicate predicateWithFormat:@"videos != %d", 0];
+                responseObject = [responseObject filteredArrayUsingPredicate:predicate];
+                responseObjectArray = responseObject;
+            } else if ([[_filters valueForKey:@"media type"] isEqualToString:@"mmLocationLiveStream"]) {
+                predicate = [NSPredicate predicateWithFormat:@"livestreaming != %d", 0];
+                responseObject = [responseObject filteredArrayUsingPredicate:predicate];
+                responseObjectArray = responseObject;
+            }
+            if (responseObjectArray.count < 1) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"No locations found" delegate:self.searchResultsViewController cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+
+            
             self.searchResultsViewController.locations = responseObject;
         }
     } failure:^(NSError *error) {
