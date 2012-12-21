@@ -108,6 +108,7 @@
     //TODO: UNCOMMENT WHEN iAD working
     if (![[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
         _adView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
+        [_adView setHidden:YES];
         [self.window.rootViewController.view addSubview:_adView];
 
     }
@@ -239,7 +240,7 @@
                     context:nil];
     
     [UIView setAnimationDuration:0.7];*/
-    
+    [_adView setHidden:NO];
     CGSize adSize = [adWhirlView actualAdSize];
     CGRect newFrame = adWhirlView.frame;
     

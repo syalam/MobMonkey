@@ -15,6 +15,10 @@
   NSDictionary *category;
   MMMapFilterViewController *mapFilterViewController;
     
+    IBOutlet UIImageView *overlayImageView;
+    
+    UITapGestureRecognizer *tapGestureRecognizer;
+    
     UIBarButtonItem* globeButton;
     UIBarButtonItem* addLocationButton;
     UIBarButtonItem* cancelButton;

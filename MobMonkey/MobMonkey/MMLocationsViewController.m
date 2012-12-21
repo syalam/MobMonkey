@@ -58,7 +58,7 @@
     
     addLocationButton = [[UIBarButtonItem alloc] initWithCustomView:plusButton];
     
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:globeButton, addLocationButton, nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:addLocationButton, globeButton, nil];
     
     
     //cancel nav button
@@ -93,11 +93,11 @@
   mapFilterViewController = [[MMMapFilterViewController alloc] initWithMapView:mapView];
   mapView.delegate = self;
 
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]
+    tapGestureRecognizer = [[UITapGestureRecognizer alloc]
                                                   initWithTarget:self
                                                   action:@selector(handleTap:)];
   
-  [mapView addGestureRecognizer:tapGestureRecognizer];
+  
 
 /*  UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc]
                                                               initWithTarget:self action:@selector(handleLongPress:)];
@@ -159,7 +159,32 @@
     [sender setTitle:@"Map"];
 }
 
+- (void)addLocationButtonTapped:(id)sender {
+    if ([self.mapView isHidden]) {
+        MMAddLocationViewController *addLocationViewController = [[MMAddLocationViewController alloc] initWithNibName:@"MMAddLocationViewController" bundle:nil];
+        addLocationViewController.title = @"Add Location";
+        addLocationViewController.category = self.category;
+        UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
+        [self.navigationController presentViewController:navc animated:YES completion:nil];
+    }
+    else {
+        [SVProgressHUD showSuccessWithStatus:@"Tap on the location you'd like to add on the map"];
+        [overlayImageView setHidden:NO];
+        [mapView addGestureRecognizer:tapGestureRecognizer];
+        [mapView setScrollEnabled:NO];
+        [mapView setZoomEnabled:NO];
+        
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:cancelButton, globeButton, nil];
+    }
+}
 
+- (void)cancelButtonTapped:(id)sender {
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:addLocationButton, globeButton, nil];
+    [overlayImageView setHidden:YES];
+    [mapView setScrollEnabled:YES];
+    [mapView setZoomEnabled:YES];
+    [mapView removeGestureRecognizer:tapGestureRecognizer];
+}
 
 - (void)setLocations:(NSMutableArray *)locations
 {

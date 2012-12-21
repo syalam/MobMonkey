@@ -121,7 +121,7 @@
                 }
             }
             else {
-                [[MMClientSDK sharedSDK]signInScreen:self];
+                //[[MMClientSDK sharedSDK]signInScreen:self];
             }
             
         }];
