@@ -237,15 +237,15 @@
             // End of hack
             NSPredicate *predicate;
             if ([[_filters valueForKey:@"media type"] isEqualToString:@"mmUserImage"]) {
-                predicate = [NSPredicate predicateWithFormat:@"images != %d", 0];
+                predicate = [NSPredicate predicateWithFormat:@"images > %d", 0];
                 responseObject = [responseObject filteredArrayUsingPredicate:predicate];
                 responseObjectArray = responseObject;
             } else if ([[_filters valueForKey:@"media type"] isEqualToString:@"mmUserVideo"]) {
-                predicate = [NSPredicate predicateWithFormat:@"videos != %d", 0];
+                predicate = [NSPredicate predicateWithFormat:@"videos > %d", 0];
                 responseObject = [responseObject filteredArrayUsingPredicate:predicate];
                 responseObjectArray = responseObject;
             } else if ([[_filters valueForKey:@"media type"] isEqualToString:@"mmLocationLiveStream"]) {
-                predicate = [NSPredicate predicateWithFormat:@"livestreaming != %d", 0];
+                predicate = [NSPredicate predicateWithFormat:@"livestreaming > %d", 0];
                 responseObject = [responseObject filteredArrayUsingPredicate:predicate];
                 responseObjectArray = responseObject;
             }

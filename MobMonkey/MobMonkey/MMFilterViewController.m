@@ -48,6 +48,7 @@
                 [fiveMileButton setImage:[UIImage imageNamed:@"fiveMileFilterOff"] forState:UIControlStateNormal];
                 [tenMileButton setImage:[UIImage imageNamed:@"tenMileFilterOff"] forState:UIControlStateNormal];
                 [twentyMileButton setImage:[UIImage imageNamed:@"twentyMileFilterOff"] forState:UIControlStateNormal];
+                selectedRadius = [NSNumber numberWithInt:880];
                 break;
                 
             case 1760:
@@ -56,6 +57,8 @@
                 [fiveMileButton setImage:[UIImage imageNamed:@"fiveMileFilterOff"] forState:UIControlStateNormal];
                 [tenMileButton setImage:[UIImage imageNamed:@"tenMileFilterOff"] forState:UIControlStateNormal];
                 [twentyMileButton setImage:[UIImage imageNamed:@"twentyMileFilterOff"] forState:UIControlStateNormal];
+                selectedRadius = [NSNumber numberWithInt:1760];
+
                 break;
                 
             case 8800:
@@ -64,6 +67,8 @@
                 [fiveMileButton setImage:[UIImage imageNamed:@"fiveMileFilterOn"] forState:UIControlStateNormal];
                 [tenMileButton setImage:[UIImage imageNamed:@"tenMileFilterOff"] forState:UIControlStateNormal];
                 [twentyMileButton setImage:[UIImage imageNamed:@"twentyMileFilterOff"] forState:UIControlStateNormal];
+                selectedRadius = [NSNumber numberWithInt:8800];
+
                 break;
                 
             case 17600:
@@ -72,6 +77,8 @@
                 [fiveMileButton setImage:[UIImage imageNamed:@"fiveMileFilterOff"] forState:UIControlStateNormal];
                 [tenMileButton setImage:[UIImage imageNamed:@"tenMileFilterOn"] forState:UIControlStateNormal];
                 [twentyMileButton setImage:[UIImage imageNamed:@"twentyMileFilterOff"] forState:UIControlStateNormal];
+                selectedRadius = [NSNumber numberWithInt:17600];
+
                 break;
                 
             case 35200:
@@ -80,30 +87,39 @@
                 [fiveMileButton setImage:[UIImage imageNamed:@"fiveMileFilterOff"] forState:UIControlStateNormal];
                 [tenMileButton setImage:[UIImage imageNamed:@"tenMileFilterOff"] forState:UIControlStateNormal];
                 [twentyMileButton setImage:[UIImage imageNamed:@"twentyMileFilterOn"] forState:UIControlStateNormal];
+                selectedRadius = [NSNumber numberWithInt:35200];
+
                 break;
                 
             default:
                 break;
         }
+    } else {
+        [halfMileButton setImage:[UIImage imageNamed:@"halfMileFilterOn"] forState:UIControlStateNormal];
+        [oneMileButton setImage:[UIImage imageNamed:@"oneMileFilterOff"] forState:UIControlStateNormal];
+        [fiveMileButton setImage:[UIImage imageNamed:@"fiveMileFilterOff"] forState:UIControlStateNormal];
+        [tenMileButton setImage:[UIImage imageNamed:@"tenMileFilterOff"] forState:UIControlStateNormal];
+        [twentyMileButton setImage:[UIImage imageNamed:@"twentyMileFilterOff"] forState:UIControlStateNormal];
+        selectedRadius = [NSNumber numberWithInt:880];
     }
     
     if ([prefs valueForKey:@"savedMediaFilter"]) {
-        NSString *mediaFilter = [prefs valueForKey:@"savedMediaFilter"];
+        selectedFilter = [prefs valueForKey:@"savedMediaFilter"];
         
-        if ([mediaFilter isEqualToString:@"mmUserVideo"]) {
+        if ([selectedFilter isEqualToString:@"mmUserVideo"]) {
             [videoButton setImage:[UIImage imageNamed:@"videoFilterOn"] forState:UIControlStateNormal];
             [pictureButton setImage:[UIImage imageNamed:@"pictureFilterOff"] forState:UIControlStateNormal];
             [liveFeedButton setImage:[UIImage imageNamed:@"liveFeedFilterOff"] forState:UIControlStateNormal];
             [locationVideoButton setImage:[UIImage imageNamed:@"locationVideoFilterOff"] forState:UIControlStateNormal];
         }
-        else if ([mediaFilter isEqualToString:@"mmUserImage"]) {
+        else if ([selectedFilter isEqualToString:@"mmUserImage"]) {
             [videoButton setImage:[UIImage imageNamed:@"videoFilterOff"] forState:UIControlStateNormal];
             [pictureButton setImage:[UIImage imageNamed:@"pictureFilterOn"] forState:UIControlStateNormal];
             [liveFeedButton setImage:[UIImage imageNamed:@"liveFeedFilterOff"] forState:UIControlStateNormal];
             [locationVideoButton setImage:[UIImage imageNamed:@"locationVideoFilterOff"] forState:UIControlStateNormal];
         }
         
-        else if ([mediaFilter isEqualToString:@"mmLocationLiveStream"]) {
+        else if ([selectedFilter isEqualToString:@"mmLocationLiveStream"]) {
             [videoButton setImage:[UIImage imageNamed:@"videoFilterOff"] forState:UIControlStateNormal];
             [pictureButton setImage:[UIImage imageNamed:@"pictureFilterOff"] forState:UIControlStateNormal];
             [liveFeedButton setImage:[UIImage imageNamed:@"liveFeedFilterOn"] forState:UIControlStateNormal];
@@ -116,6 +132,12 @@
             [liveFeedButton setImage:[UIImage imageNamed:@"liveFeedFilterOff"] forState:UIControlStateNormal];
             [locationVideoButton setImage:[UIImage imageNamed:@"locationVideoFilterOn"] forState:UIControlStateNormal];
         }
+    } else {
+        selectedFilter = @"mmUserVideo";
+        [videoButton setImage:[UIImage imageNamed:@"videoFilterOn"] forState:UIControlStateNormal];
+        [pictureButton setImage:[UIImage imageNamed:@"pictureFilterOff"] forState:UIControlStateNormal];
+        [liveFeedButton setImage:[UIImage imageNamed:@"liveFeedFilterOff"] forState:UIControlStateNormal];
+        [locationVideoButton setImage:[UIImage imageNamed:@"locationVideoFilterOff"] forState:UIControlStateNormal];
     }
 }
 
