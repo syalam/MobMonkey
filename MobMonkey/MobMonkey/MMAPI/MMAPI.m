@@ -39,22 +39,15 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
               success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSLog(@"%@", params);
+    NSMutableDictionary *paramsCopy = [params mutableCopy];
+    [paramsCopy setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
     [httpClient  postPath:@"signup/user"
-               parameters:params
+               parameters:paramsCopy
                   success:success
-                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                      int statusCode = operation.response.statusCode;
-                      NSLog(@"%d", statusCode);
-                      if (statusCode == 200 || statusCode == 201) {
-                          success(operation, [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil]);
-                      }
-                      else {
-                          failure(operation, error);
-                      }
-                   }];
+                  failure:failure];
 }
 
 + (void)getUserOnSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
