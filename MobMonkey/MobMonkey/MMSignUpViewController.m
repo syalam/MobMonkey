@@ -252,10 +252,12 @@
                         }];
                      }
                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
-                         if ([response valueForKey:@"description"]) {
-                             NSString *responseString = [response valueForKey:@"description"];
-                             [SVProgressHUD showErrorWithStatus:responseString];
+                         if (operation.responseData) {
+                             NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+                             if ([response valueForKey:@"description"]) {
+                                 NSString *responseString = [response valueForKey:@"description"];
+                                 [SVProgressHUD showErrorWithStatus:responseString];
+                             }
                          }
                      }];
     }
