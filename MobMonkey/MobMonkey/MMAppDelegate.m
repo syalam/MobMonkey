@@ -189,6 +189,7 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     NSLog(@"%@", @"Push Notification Received");
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"pushNotificationReceived" object:userInfo];
 }
 
 

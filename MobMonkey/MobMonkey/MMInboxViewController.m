@@ -52,6 +52,11 @@
                                                                            blue:36.0/255.0
                                                                           alpha:1.0]];
     self.locationsViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(pushNotificationReceived:)
+                                                 name:@"pushNotificationReceived"
+                                               object:nil];
 }
 
 - (void)viewDidUnload
@@ -259,6 +264,11 @@
         
     };
     return _failureBlock;
+}
+
+#pragma mark - Notification Methods
+- (void)pushNotificationReceived:(NSNotification*)notification {
+    [self getInboxCounts];
 }
 
 
