@@ -236,20 +236,23 @@
                         
                         NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
                         [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
-                        [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
-                        [MMAPI checkUserIn:params
-                                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                       [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
-                                   }
-                                   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                        NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
-                                        if ([response valueForKey:@"description"]) {
-                                            NSString *responseString = [response valueForKey:@"description"];
+                         [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
+                         [MMAPI checkUserIn:params
+                                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                        [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+                                    }
+                                    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                        if (operation.responseData) {
+                                            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+                                            if ([response valueForKey:@"description"]) {
+                                                NSString *responseString = [response valueForKey:@"description"];
+                                                
+                                                [SVProgressHUD showErrorWithStatus:responseString];
+                                            }
+                                            [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
                                             
-                                            [SVProgressHUD showErrorWithStatus:responseString];
                                         }
-                            [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
-                        }];
+                                    }];
                      }
                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                          if (operation.responseData) {

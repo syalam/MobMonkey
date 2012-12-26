@@ -206,14 +206,18 @@
     else {
     [params setValue:[NSNumber numberWithInt:10000] forKey:@"radiusInYards"];
     }
-    /*if ([[_filters valueForKey:@"media type"] isEqualToString:@"mmUserImage"]) {
-        [params setObject:[NSNumber numberWithInt:-1] forKey:@"images"];
-    } else if ([[_filters valueForKey:@"media type"] isEqualToString:@"mmUserVideo"]) {
-        [params setObject:[NSNumber numberWithInt:-1] forKey:@"videos"];
-    } else if ([[_filters valueForKey:@"media type"] isEqualToString:@"mmLocationLiveStream"]) {
-        [params setObject:[NSNumber numberWithInt:-1] forKey:@"livestreaming"];
+    /*if ([self.filters valueForKey:@"media type"]) {
+        if ([[self.filters valueForKey:@"media type"] isEqualToString:@"mmUserImage"]) {
+            [params setObject:[NSNumber numberWithInt:1] forKey:@"mediaType"];
+        }
+        else if ([[self.filters valueForKey:@"media type"] isEqualToString:@"mmUserVideo"]) {
+            [params setObject:[NSNumber numberWithInt:2] forKey:@"mediaType"];
+        }
+        else {
+            [params setObject:[NSNumber numberWithInt:3] forKey:@"mediaType"];
+        }
     }*/
-
+    
     jsonData = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:nil];
     jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
     
