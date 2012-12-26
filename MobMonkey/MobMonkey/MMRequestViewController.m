@@ -52,15 +52,15 @@ enum RequestDurationLengths {
     CGRect frame = self.mediaTypeSegmentedControl.frame;
     frame.size.height = 64;
     self.mediaTypeSegmentedControl.frame = frame;
-    [self.mediaTypeSegmentedControl setBackgroundImage:[UIImage imageNamed:@"deselectedRectRed"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    //[self.mediaTypeSegmentedControl setBackgroundImage:[UIImage imageNamed:@"deselectedRectRed"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     //UIImage *divider = [UIImage imageNamed:@"separator-gradient"];
-    UIImage *divider = [UIImage imageNamed:@"segmentedControlSeparator"];
-    [self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    //UIImage *divider = [UIImage imageNamed:@"segmentedControlSeparator"];
+    //[self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    //[self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
     
-    self.mediaTypeSegmentedControl.selectedSegmentIndex = 1;
+    self.mediaTypeSegmentedControl.selectedSegmentIndex = 0;
     [self changeMediaRequestType:self.mediaTypeSegmentedControl];
-    self.mediaTypeSegmentedControl.tintColor = [UIColor grayColor];
+    //self.mediaTypeSegmentedControl.tintColor = [UIColor grayColor];
     self.stayActiveLengthSegmentedCell.selectedSegmentIndex = 1;
     
     self.requestInfo = [NSMutableDictionary dictionary];

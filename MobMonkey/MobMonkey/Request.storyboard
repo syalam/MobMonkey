@@ -68,7 +68,6 @@
                                     <rect key="frame" x="11" y="0.0" width="129" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
-                                    <color key="textColor" red="0.89411764709999997" green="0.45098039220000002" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
@@ -248,18 +247,17 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                             <rect key="frame" x="0.0" y="282" width="320" height="107"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="S6o-ct-jH7">
-                                    <rect key="frame" x="10" y="7" width="300" height="30"/>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="S6o-ct-jH7">
+                                    <rect key="frame" x="10" y="0.0" width="300" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <segments>
                                         <segment title="Daily"/>
                                         <segment title="Weekly"/>
                                         <segment title="Monthly"/>
                                     </segments>
-                                    <color key="tintColor" red="0.90196084980000002" green="0.44313728810000003" blue="0.13333334029999999" alpha="1" colorSpace="deviceRGB"/>
                                 </segmentedControl>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5al-qh-QAY">
-                                    <rect key="frame" x="10" y="52" width="300" height="44"/>
+                                    <rect key="frame" x="10" y="51" width="300" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                     <state key="normal" title="Set Schedule" backgroundImage="deselectedRectRed.png">
@@ -345,6 +343,38 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="makeRequestButtonBlank.png" width="307" height="61"/>
         <image name="videoIcn.png" width="34" height="33"/>
     </resources>
+    <classes>
+        <class className="MMRequestMessageViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMRequestMessageViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="clearText:"/>
+                <relationship kind="outlet" name="textFieldBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="MMRequestScheduleViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMRequestScheduleViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="setSchedule:"/>
+                <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
+            </relationships>
+        </class>
+        <class className="MMRequestViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMRequestViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelRequest:"/>
+                <relationship kind="action" name="changeMediaRequestType:"/>
+                <relationship kind="action" name="changeRequestDuration:"/>
+                <relationship kind="action" name="sendRequest:"/>
+                <relationship kind="outlet" name="mediaTypeSegmentedControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="requestButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="stayActiveLengthSegmentedCell" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="MMTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMTableViewCell.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
