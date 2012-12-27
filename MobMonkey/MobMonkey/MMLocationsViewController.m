@@ -279,17 +279,24 @@
     if (![[[_locations objectAtIndex:indexPath.row]valueForKey:@"locationId"] isKindOfClass:[NSNull class]] && ![[[_locations objectAtIndex:indexPath.row]valueForKey:@"providerId"]isKindOfClass:[NSNull class]]) {
         if (!self.isHistory) {
             NSMutableArray *searchHistory;
-            if ([[NSUserDefaults standardUserDefaults]objectForKey:@"history"]) {
+            if ([[NSUserDefaults standardUserDefaults]valueForKey:@"history"]) {
                 searchHistory = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"history"];
             }
             else {
                 searchHistory = [[NSMutableArray alloc]init];
             }
+<<<<<<< HEAD
             NSMutableDictionary *locationDictionary = [[_locations objectAtIndex:indexPath.row] mutableCopy];
             [locationDictionary removeObjectForKey:@"requests"];
             [locationDictionary removeObjectsForKeys:[NSArray arrayWithObjects:@"requests", @"radiusInYards", nil]];
             NSDictionary *locationDictionary2 = [[NSDictionary alloc]initWithDictionary:locationDictionary];
             if (![searchHistory containsObject:locationDictionary2]) {
+=======
+            if (![searchHistory containsObject:[self.locations objectAtIndex:indexPath.row]]) {
+                NSMutableDictionary *locationDictionary = [[_locations objectAtIndex:indexPath.row] mutableCopy];
+                [locationDictionary removeObjectForKey:@"requests"];
+                [locationDictionary removeObjectsForKeys:[NSArray arrayWithObjects:@"requests", @"radiusInYards", nil]];
+>>>>>>> 3223ff4bc4a163ef509f23a475f49d827389a0d7
                 [searchHistory addObject:locationDictionary];
                 [[NSUserDefaults standardUserDefaults]setValue:searchHistory forKey:@"history"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
@@ -306,7 +313,6 @@
         [self.navigationController pushViewController:locationViewController animated:YES];
     }
     else {
-        [SVProgressHUD show];
         [SVProgressHUD showErrorWithStatus:@"Unable to load this location"];
     }
 }
