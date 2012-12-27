@@ -431,7 +431,13 @@
     if (!self.searchResultsViewController) {
         self.searchResultsViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
     }
-    NSMutableArray *searchHistory = [[NSUserDefaults standardUserDefaults]objectForKey:@"history"];
+    NSMutableArray *searchHistory;
+    if ([[NSUserDefaults standardUserDefaults]objectForKey:@"history"]) {
+        searchHistory = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"history"];
+    }
+    else {
+        searchHistory = [[NSMutableArray alloc]init];
+    }
     self.searchResultsViewController.locations = searchHistory;
     [self.searchResultsViewController.tableView reloadData];
     self.searchResultsViewController.isHistory = YES;

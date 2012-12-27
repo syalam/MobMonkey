@@ -245,14 +245,15 @@
         if (!self.isHistory) {
             NSMutableArray *searchHistory;
             if ([[NSUserDefaults standardUserDefaults]objectForKey:@"history"]) {
-                searchHistory = [[NSUserDefaults standardUserDefaults]objectForKey:@"history"];
+                searchHistory = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"history"];
             }
             else {
-                searchHistory = [[NSMutableArray alloc]initWithCapacity:1];
+                searchHistory = [[NSMutableArray alloc]init];
             }
             if (![searchHistory containsObject:[self.locations objectAtIndex:indexPath.row]]) {
                 [searchHistory addObject:[self.locations objectAtIndex:indexPath.row]];
                 [[NSUserDefaults standardUserDefaults]setObject:searchHistory forKey:@"history"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
             }
             
         }
