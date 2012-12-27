@@ -285,18 +285,14 @@
             else {
                 searchHistory = [[NSMutableArray alloc]init];
             }
-<<<<<<< HEAD
             NSMutableDictionary *locationDictionary = [[_locations objectAtIndex:indexPath.row] mutableCopy];
             [locationDictionary removeObjectForKey:@"requests"];
             [locationDictionary removeObjectsForKeys:[NSArray arrayWithObjects:@"requests", @"radiusInYards", nil]];
             NSDictionary *locationDictionary2 = [[NSDictionary alloc]initWithDictionary:locationDictionary];
             if (![searchHistory containsObject:locationDictionary2]) {
-=======
-            if (![searchHistory containsObject:[self.locations objectAtIndex:indexPath.row]]) {
                 NSMutableDictionary *locationDictionary = [[_locations objectAtIndex:indexPath.row] mutableCopy];
                 [locationDictionary removeObjectForKey:@"requests"];
                 [locationDictionary removeObjectsForKeys:[NSArray arrayWithObjects:@"requests", @"radiusInYards", nil]];
->>>>>>> 3223ff4bc4a163ef509f23a475f49d827389a0d7
                 [searchHistory addObject:locationDictionary];
                 [[NSUserDefaults standardUserDefaults]setValue:searchHistory forKey:@"history"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
