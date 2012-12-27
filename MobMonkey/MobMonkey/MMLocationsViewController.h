@@ -29,6 +29,7 @@
 @property (strong, nonatomic) NSDictionary *category;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
+@property (assign, nonatomic) BOOL isHistory;
 
 - (void)handleTap:(UIGestureRecognizer *)gestureRecognizer;
 

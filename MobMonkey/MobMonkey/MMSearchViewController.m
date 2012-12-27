@@ -175,11 +175,11 @@
         self.searchResultsViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
     }
   
-  self.searchResultsViewController.category = category;
-
+    self.searchResultsViewController.category = category;
     self.searchResultsViewController.locations = [NSMutableArray array];
     [self.searchResultsViewController.tableView reloadData];
     self.searchResultsViewController.isSearching = YES;
+    self.searchResultsViewController.isHistory = NO;
     if (category) {
         self.searchResultsViewController.title = category[@"en"];
         [params setValue:category[@"categoryId"] forKey:@"categoryIds"];
@@ -293,7 +293,7 @@
     }
     switch (section) {
         case 0:
-            numberOfRows = 1;
+            numberOfRows = 2;
             break;
         case 1:
             numberOfRows = self.categories.count;
@@ -332,7 +332,12 @@
     NSString *categoryName;
     switch (indexPath.section) {
         case 0:
-            categoryName = @"Show All Nearby";
+            if (indexPath.row == 0) {
+                categoryName = @"Show All Nearby";
+            }
+            else {
+                categoryName = @"History";
+            }
             break;
         case 1:
             if (tableView == self.searchDisplayController.searchResultsTableView) {
@@ -357,13 +362,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSDictionary *category = nil;
 
     if (indexPath.section == 1) {
         category = self.categories[indexPath.row];
+        [self showSearchResultsForCategory:category];
+    }
+    else if (indexPath.section == 0 && indexPath.row == 0) {
+        [self showSearchResultsForCategory:category];
+    }
+    else {
+        [self showSearchHistory];
     }
 
-    [self showSearchResultsForCategory:category];
 }
 
 #pragma mark - Helper Methods
@@ -385,7 +397,7 @@
     else if ([categoryName isEqualToString:@"Community and Government"] || [categoryName isEqualToString:@"Landmarks"]) {
         cellIconImage = [UIImage imageNamed:@"schoolsIcon"];
     }
-    else if ([categoryName isEqualToString:@"Services and Supplies"]) {
+    else if ([categoryName isEqualToString:@"Services and Supplies"] || [categoryName isEqualToString:@"History"]) {
         cellIconImage = [UIImage imageNamed:@"historyIcon"];
     }
     else if (!([categoryName rangeOfString:@"Automotive"].location == NSNotFound)) {
@@ -413,6 +425,20 @@
         cellIconImage = [UIImage imageNamed:@"beachesIcon"];
     }
     return cellIconImage;
+}
+
+- (void)showSearchHistory {
+    if (!self.searchResultsViewController) {
+        self.searchResultsViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
+    }
+    NSMutableArray *searchHistory = [[NSUserDefaults standardUserDefaults]objectForKey:@"history"];
+    self.searchResultsViewController.locations = searchHistory;
+    [self.searchResultsViewController.tableView reloadData];
+    self.searchResultsViewController.isHistory = YES;
+    self.searchResultsViewController.title = @"History";
+    
+    [self.navigationController pushViewController:self.searchResultsViewController animated:YES];
+
 }
 
 #pragma mark - Search bar delegate

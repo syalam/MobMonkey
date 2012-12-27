@@ -242,6 +242,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (![[[_locations objectAtIndex:indexPath.row]valueForKey:@"locationId"] isKindOfClass:[NSNull class]] && ![[[_locations objectAtIndex:indexPath.row]valueForKey:@"providerId"]isKindOfClass:[NSNull class]]) {
+        if (!self.isHistory) {
+            NSMutableArray *searchHistory;
+            if ([[NSUserDefaults standardUserDefaults]objectForKey:@"history"]) {
+                searchHistory = [[NSUserDefaults standardUserDefaults]objectForKey:@"history"];
+            }
+            else {
+                searchHistory = [[NSMutableArray alloc]initWithCapacity:1];
+            }
+            if (![searchHistory containsObject:[self.locations objectAtIndex:indexPath.row]]) {
+                [searchHistory addObject:[self.locations objectAtIndex:indexPath.row]];
+                [[NSUserDefaults standardUserDefaults]setObject:searchHistory forKey:@"history"];
+            }
+            
+        }
         NSString *locationId = [[_locations objectAtIndex:indexPath.row]valueForKey:@"locationId"];
         NSString *providerId = [[_locations objectAtIndex:indexPath.row]valueForKey:@"providerId"];
         
