@@ -64,6 +64,7 @@ enum RequestDurationLengths {
     self.stayActiveLengthSegmentedCell.selectedSegmentIndex = 1;
     
     self.requestInfo = [NSMutableDictionary dictionary];
+    self.requestButton.titleEdgeInsets = UIEdgeInsetsMake(0.0, 1.0, 2.0, 0.0);
     
     //initialize duration to 30 minutes
     self.duration = @30;

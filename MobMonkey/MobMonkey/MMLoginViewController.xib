@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1536</int>
-		<string key="IBDocument.SystemVersion">12C60</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2843</string>
+		<string key="IBDocument.SystemVersion">12C3012</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1929</string>
+			<string key="NS.object.0">1930</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
@@ -66,19 +66,19 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<int key="IBUIButtonType">1</int>
 								<string key="IBUINormalTitle">Sign In</string>
 								<object class="NSColor" key="IBUIHighlightedTitleColor" id="408847526">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
 								</object>
-								<object class="NSColor" key="IBUINormalTitleColor">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-								</object>
+								<reference key="IBUINormalTitleColor" ref="408847526"/>
 								<object class="NSColor" key="IBUINormalTitleShadowColor" id="290906785">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC41AA</bytes>
+								</object>
+								<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="1045489538">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">signInBtn.png</string>
 								</object>
 								<object class="IBUIFontDescription" key="IBUIFontDescription" id="1018966387">
 									<int key="type">2</int>
@@ -102,14 +102,11 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<int key="IBUIButtonType">1</int>
 								<string key="IBUINormalTitle">Sign in with Facebook</string>
 								<reference key="IBUIHighlightedTitleColor" ref="408847526"/>
-								<object class="NSColor" key="IBUINormalTitleColor">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-								</object>
+								<reference key="IBUINormalTitleColor" ref="408847526"/>
 								<reference key="IBUINormalTitleShadowColor" ref="290906785"/>
+								<reference key="IBUINormalBackgroundImage" ref="1045489538"/>
 								<reference key="IBUIFontDescription" ref="1018966387"/>
 								<reference key="IBUIFont" ref="767064944"/>
 							</object>
@@ -125,14 +122,11 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<int key="IBUIButtonType">1</int>
 								<string key="IBUINormalTitle">Sign in with Twitter</string>
 								<reference key="IBUIHighlightedTitleColor" ref="408847526"/>
-								<object class="NSColor" key="IBUINormalTitleColor">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-								</object>
+								<reference key="IBUINormalTitleColor" ref="408847526"/>
 								<reference key="IBUINormalTitleShadowColor" ref="290906785"/>
+								<reference key="IBUINormalBackgroundImage" ref="1045489538"/>
 								<reference key="IBUIFontDescription" ref="1018966387"/>
 								<reference key="IBUIFont" ref="767064944"/>
 							</object>
@@ -142,19 +136,17 @@
 								<string key="NSFrame">{{13, 140}, {297, 37}}</string>
 								<reference key="NSSuperview" ref="184888817"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<int key="IBUIButtonType">1</int>
 								<string key="IBUINormalTitle">Sign Up</string>
 								<reference key="IBUIHighlightedTitleColor" ref="408847526"/>
-								<object class="NSColor" key="IBUINormalTitleColor">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-								</object>
+								<reference key="IBUINormalTitleColor" ref="408847526"/>
 								<reference key="IBUINormalTitleShadowColor" ref="290906785"/>
+								<reference key="IBUINormalBackgroundImage" ref="1045489538"/>
 								<reference key="IBUIFontDescription" ref="1018966387"/>
 								<reference key="IBUIFont" ref="767064944"/>
 							</object>
@@ -388,6 +380,10 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<string key="IBCocoaTouchPluginVersion">1929</string>
+		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="NS.key.0">signInBtn.png</string>
+			<string key="NS.object.0">{298, 36}</string>
+		</object>
+		<string key="IBCocoaTouchPluginVersion">1930</string>
 	</data>
 </archive>

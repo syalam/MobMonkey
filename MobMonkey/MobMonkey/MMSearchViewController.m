@@ -204,7 +204,7 @@
         [params setObject:[self.filters valueForKey:@"radius"] forKey:@"radiusInYards"];
     }
     else {
-    [params setValue:[NSNumber numberWithInt:10000] forKey:@"radiusInYards"];
+        [params setValue:[NSNumber numberWithInt:10000] forKey:@"radiusInYards"];
     }
     /*if ([self.filters valueForKey:@"media type"]) {
         if ([[self.filters valueForKey:@"media type"] isEqualToString:@"mmUserImage"]) {
@@ -240,25 +240,17 @@
             
             // End of hack
             NSPredicate *predicate;
-            if ([[_filters valueForKey:@"media type"] isEqualToString:@"mmUserImage"]) {
-                predicate = [NSPredicate predicateWithFormat:@"images > %d", 0];
-                responseObject = [responseObject filteredArrayUsingPredicate:predicate];
-                responseObjectArray = responseObject;
-            } else if ([[_filters valueForKey:@"media type"] isEqualToString:@"mmUserVideo"]) {
-                predicate = [NSPredicate predicateWithFormat:@"videos > %d", 0];
-                responseObject = [responseObject filteredArrayUsingPredicate:predicate];
-                responseObjectArray = responseObject;
-            } else if ([[_filters valueForKey:@"media type"] isEqualToString:@"mmLocationLiveStream"]) {
+            if ([[_filters valueForKey:@"liveStream"]boolValue]) {
                 predicate = [NSPredicate predicateWithFormat:@"livestreaming > %d", 0];
                 responseObject = [responseObject filteredArrayUsingPredicate:predicate];
                 responseObjectArray = responseObject;
+
             }
             if (responseObjectArray.count < 1) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"No locations found" delegate:self.searchResultsViewController cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
             }
 
-            
             self.searchResultsViewController.locations = responseObject;
         }
     } failure:^(NSError *error) {

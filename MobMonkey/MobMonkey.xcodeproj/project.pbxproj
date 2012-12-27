@@ -68,6 +68,8 @@
 		1AAFE4FF16851DCE0034FAD1 /* ThumbUp~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AAFE4FD16851DCE0034FAD1 /* ThumbUp~iphone.png */; };
 		1AAFE50116851E070034FAD1 /* more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AAFE50016851E070034FAD1 /* more@2x.png */; };
 		1AAFE50316851E160034FAD1 /* more.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AAFE50216851E160034FAD1 /* more.png */; };
+		1AAFE55E168BA0D00034FAD1 /* signInBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AAFE55C168BA0D00034FAD1 /* signInBtn.png */; };
+		1AAFE55F168BA0D00034FAD1 /* signInBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AAFE55D168BA0D00034FAD1 /* signInBtn@2x.png */; };
 		1AC1D4441640545500C8162F /* greenNavBarButtonBlank.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4401640545100C8162F /* greenNavBarButtonBlank.png */; };
 		1AC1D4451640545500C8162F /* greenNavBarButtonBlank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4411640545200C8162F /* greenNavBarButtonBlank@2x.png */; };
 		1AC1D4461640545500C8162F /* navBarButtonBlank.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4421640545300C8162F /* navBarButtonBlank.png */; };
@@ -681,6 +683,8 @@
 		1AAFE4FD16851DCE0034FAD1 /* ThumbUp~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ThumbUp~iphone.png"; sourceTree = "<group>"; };
 		1AAFE50016851E070034FAD1 /* more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more@2x.png"; sourceTree = "<group>"; };
 		1AAFE50216851E160034FAD1 /* more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more.png; sourceTree = "<group>"; };
+		1AAFE55C168BA0D00034FAD1 /* signInBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signInBtn.png; sourceTree = "<group>"; };
+		1AAFE55D168BA0D00034FAD1 /* signInBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "signInBtn@2x.png"; sourceTree = "<group>"; };
 		1AC1D4401640545100C8162F /* greenNavBarButtonBlank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenNavBarButtonBlank.png; sourceTree = "<group>"; };
 		1AC1D4411640545200C8162F /* greenNavBarButtonBlank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenNavBarButtonBlank@2x.png"; sourceTree = "<group>"; };
 		1AC1D4421640545300C8162F /* navBarButtonBlank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBarButtonBlank.png; sourceTree = "<group>"; };
@@ -1433,6 +1437,15 @@
 			path = iOSSDK4.1;
 			sourceTree = "<group>";
 		};
+		1AAFE556168B9EBC0034FAD1 /* Sign In and Sign Up */ = {
+			isa = PBXGroup;
+			children = (
+				1AAFE55C168BA0D00034FAD1 /* signInBtn.png */,
+				1AAFE55D168BA0D00034FAD1 /* signInBtn@2x.png */,
+			);
+			name = "Sign In and Sign Up";
+			sourceTree = "<group>";
+		};
 		370D65041648E79100D72154 /* NSString URLParams */ = {
 			isa = PBXGroup;
 			children = (
@@ -2089,6 +2102,7 @@
 		F734A62D15F146630090E85A /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				1AAFE556168B9EBC0034FAD1 /* Sign In and Sign Up */,
 				1A9F8F23167F7CD20077675B /* Subscription Screen */,
 				F78776FC16731B0C00CBDCD1 /* Pillbox */,
 				F7B012E4165606CC00BCAC26 /* App Icons */,
@@ -3235,6 +3249,8 @@
 				1AAFE4FF16851DCE0034FAD1 /* ThumbUp~iphone.png in Resources */,
 				1AAFE50116851E070034FAD1 /* more@2x.png in Resources */,
 				1AAFE50316851E160034FAD1 /* more.png in Resources */,
+				1AAFE55E168BA0D00034FAD1 /* signInBtn.png in Resources */,
+				1AAFE55F168BA0D00034FAD1 /* signInBtn@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
