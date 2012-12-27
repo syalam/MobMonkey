@@ -244,16 +244,21 @@
     if (![[[_locations objectAtIndex:indexPath.row]valueForKey:@"locationId"] isKindOfClass:[NSNull class]] && ![[[_locations objectAtIndex:indexPath.row]valueForKey:@"providerId"]isKindOfClass:[NSNull class]]) {
         if (!self.isHistory) {
             NSMutableArray *searchHistory;
-            if ([[NSUserDefaults standardUserDefaults]objectForKey:@"history"]) {
+            if ([[NSUserDefaults standardUserDefaults]valueForKey:@"history"]) {
                 searchHistory = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"history"];
             }
             else {
                 searchHistory = [[NSMutableArray alloc]init];
             }
             if (![searchHistory containsObject:[self.locations objectAtIndex:indexPath.row]]) {
-                [searchHistory addObject:[self.locations objectAtIndex:indexPath.row]];
-                [[NSUserDefaults standardUserDefaults]setObject:searchHistory forKey:@"history"];
+                NSMutableDictionary *locationDictionary = [[_locations objectAtIndex:indexPath.row] mutableCopy];
+                [locationDictionary removeObjectForKey:@"requests"];
+                [locationDictionary removeObjectsForKeys:[NSArray arrayWithObjects:@"requests", @"radiusInYards", nil]];
+                [searchHistory addObject:locationDictionary];
+                [[NSUserDefaults standardUserDefaults]setValue:searchHistory forKey:@"history"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                NSLog(@"%@", [[NSUserDefaults standardUserDefaults]valueForKey:@"history"]);
             }
             
         }
@@ -265,7 +270,6 @@
         [self.navigationController pushViewController:locationViewController animated:YES];
     }
     else {
-        [SVProgressHUD show];
         [SVProgressHUD showErrorWithStatus:@"Unable to load this location"];
     }
 }
