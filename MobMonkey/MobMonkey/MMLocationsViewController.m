@@ -290,10 +290,7 @@
             [locationDictionary removeObjectsForKeys:[NSArray arrayWithObjects:@"requests", @"radiusInYards", nil]];
             NSDictionary *locationDictionary2 = [[NSDictionary alloc]initWithDictionary:locationDictionary];
             if (![searchHistory containsObject:locationDictionary2]) {
-                NSMutableDictionary *locationDictionary = [[_locations objectAtIndex:indexPath.row] mutableCopy];
-                [locationDictionary removeObjectForKey:@"requests"];
-                [locationDictionary removeObjectsForKeys:[NSArray arrayWithObjects:@"requests", @"radiusInYards", nil]];
-                [searchHistory addObject:locationDictionary];
+                [searchHistory addObject:locationDictionary2];
                 [[NSUserDefaults standardUserDefaults]setValue:searchHistory forKey:@"history"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
