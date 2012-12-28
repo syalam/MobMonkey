@@ -52,13 +52,16 @@
         self.myFullscreenAd = [[GSFullscreenAd alloc] initWithDelegate:self];
         [self.myFullscreenAd fetch];
     }
+    
+    [self.segmentedControl setSelectedSegmentIndex:self.mediaType]; 
+    [self selectMediaType:self.segmentedControl];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.segmentedControl setSelectedSegmentIndex:self.mediaType];
-    [self selectMediaType:self.segmentedControl];
+    //[self.segmentedControl setSelectedSegmentIndex:self.mediaType];
+    //[self selectMediaType:self.segmentedControl];
     
     if (![[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
         // Every 5th view will result in a pop-up ad on the client
