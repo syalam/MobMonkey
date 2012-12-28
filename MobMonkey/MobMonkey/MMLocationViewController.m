@@ -407,6 +407,15 @@
     _locationNameLabel.text = self.title;
     _phoneNumberLabel.text = [_contentList valueForKey:@"phoneNumber"];
     _addressLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", [_contentList valueForKey:@"streetAddress"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];
+    NSLog(@"%@", _contentList);
+    NSString *message = [_contentList valueForKey:@"message"];
+    if (message != (id)[NSNull null]) {
+        if (message.length) {
+            _messageLabel.adjustsFontSizeToFitWidth = YES;
+            _messageLabel.text = [_contentList valueForKey:@"message"];
+        }
+    }
+   
   
     
     [_liveStreamButton setEnabled:YES];

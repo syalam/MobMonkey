@@ -44,6 +44,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *addressButton;
 @property (nonatomic, weak) IBOutlet UILabel *uploadDateLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *clockImageView;
+@property (nonatomic, weak) IBOutlet UILabel *messageLabel;
 
 @property (nonatomic, retain) IBOutlet TCImageView *locationLatestImageView;
 
