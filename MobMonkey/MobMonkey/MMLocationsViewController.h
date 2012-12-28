@@ -22,6 +22,7 @@
     UIBarButtonItem* globeButton;
     UIBarButtonItem* addLocationButton;
     UIBarButtonItem* cancelButton;
+    UIBarButtonItem *clearBarButton;
 }
 
 @property (strong, nonatomic) NSMutableArray *locations;

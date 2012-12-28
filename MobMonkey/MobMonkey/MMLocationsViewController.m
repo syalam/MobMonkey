@@ -34,8 +34,7 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    UIButton *customButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 33, 30)];
+    UIButton *customButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 31, 31)];
     [customButton addTarget:self action:@selector(flipView:) forControlEvents:UIControlEventTouchUpInside];
     [customButton setImage:[UIImage imageNamed:@"GlobeBtn"] forState:UIControlStateNormal];
     globeButton = [[UIBarButtonItem alloc]initWithCustomView:customButton];
@@ -58,6 +57,18 @@
     
     addLocationButton = [[UIBarButtonItem alloc] initWithCustomView:plusButton];
     
+    UIImage *clearButtonBg = [[UIImage imageNamed:@"navBarButtonBlank"]
+                              resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
+    UIButton* clearButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    clearButton.bounds = CGRectMake(0, 0, 50, 31);
+    [clearButton setBackgroundImage:clearButtonBg forState:UIControlStateNormal];
+    [clearButton setTitle:@"Clear" forState:UIControlStateNormal];
+    [clearButton.titleLabel setTextColor:[UIColor whiteColor]];
+    [clearButton.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
+    [clearButton.titleLabel setShadowColor:[UIColor darkGrayColor]];
+    [clearButton.titleLabel setShadowOffset:CGSizeMake(0, -1)];
+    [clearButton addTarget:self action:@selector(clearButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    clearBarButton = [[UIBarButtonItem alloc] initWithCustomView:clearButton];
     
     
     //cancel nav button
@@ -79,8 +90,6 @@
     
     cancelButton = [[UIBarButtonItem alloc]initWithCustomView:cancelNavButton];
     
-
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:addLocationButton, globeButton, nil];
     
     if ([self.navigationController viewControllers].count > 1) {
         UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
@@ -122,6 +131,26 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (!_isHistory) {
+        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:addLocationButton, globeButton, nil];
+    }
+    else {
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:nil, nil, nil];
+        self.navigationItem.rightBarButtonItem = clearBarButton;
+        if (_locations.count == 0) {
+            [clearBarButton setEnabled:NO];
+        }
+        else {
+            [clearBarButton setEnabled:YES];
+        }
+    }
+    
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -211,6 +240,12 @@
     [self reloadMapView];
 }
 
+- (void)clearButtonTapped:(id)sender {
+    UIAlertView *clearHistoryAlert = [[UIAlertView alloc]initWithTitle:@"Clear your history" message:@"Are you sure you want to clear you recently viewed results?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [clearHistoryAlert show];
+
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -250,11 +285,12 @@
             else {
                 searchHistory = [[NSMutableArray alloc]init];
             }
-            if (![searchHistory containsObject:[self.locations objectAtIndex:indexPath.row]]) {
-                NSMutableDictionary *locationDictionary = [[_locations objectAtIndex:indexPath.row] mutableCopy];
-                [locationDictionary removeObjectForKey:@"requests"];
-                [locationDictionary removeObjectsForKeys:[NSArray arrayWithObjects:@"requests", @"radiusInYards", nil]];
-                [searchHistory addObject:locationDictionary];
+            NSMutableDictionary *locationDictionary = [[_locations objectAtIndex:indexPath.row] mutableCopy];
+            [locationDictionary removeObjectForKey:@"requests"];
+            [locationDictionary removeObjectsForKeys:[NSArray arrayWithObjects:@"requests", @"radiusInYards", nil]];
+            NSDictionary *locationDictionary2 = [[NSDictionary alloc]initWithDictionary:locationDictionary];
+            if (![searchHistory containsObject:locationDictionary2]) {
+                [searchHistory addObject:locationDictionary2];
                 [[NSUserDefaults standardUserDefaults]setValue:searchHistory forKey:@"history"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
@@ -356,9 +392,19 @@
     return nil;
 }
 
-#pragma mark - UIAlertView Delegate Method
+#pragma mark - UIAlertView Delegate Methods
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    [self.navigationController popViewControllerAnimated:YES];
+    switch (buttonIndex) {
+        case 1:
+            [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"history"];
+            [_locations removeAllObjects];
+            [_tableView reloadData];
+            [clearBarButton setEnabled:NO];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end
