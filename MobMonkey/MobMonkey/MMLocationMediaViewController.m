@@ -153,7 +153,7 @@
     NSString *urlString = [[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"mediaURL"];
     
     NSInteger viewsThisMonth = 0;
-    viewsThisMonth = [self viewsThisMonth:urlString];
+    viewsThisMonth = [self viewsThisMonth];
     views = viewsThisMonth;
     NSLog(@"viewsThisMonth: %i", viewsThisMonth);
     
@@ -166,28 +166,32 @@
     }
 }
 
-- (NSInteger)viewsThisMonth:(NSString*)viewsKey
+- (NSInteger)viewsThisMonth
 {
-  NSMutableArray *viewsArray = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:viewsKey]];
-  
-  NSDate * now = [NSDate date];
-  NSDateComponents *nowComponents = [[NSCalendar currentCalendar] components:NSMonthCalendarUnit | NSYearCalendarUnit fromDate:now];
-  
-  NSEnumerator *dateEnumerator = [viewsArray objectEnumerator];
-  NSDate *date;
-  NSInteger viewsThisMonth = 0;
-  while (date = (NSDate*)[dateEnumerator nextObject]) {
-    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
+    NSMutableArray *viewsArray = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"viewsThisMonth"]];
     
-    if ([dateComponents month] == [nowComponents month] && ([dateComponents year] == [nowComponents year]))
-      viewsThisMonth ++;
-  }
-  
-  [viewsArray addObject:now];
-  
-  [[NSUserDefaults standardUserDefaults] setObject:viewsArray forKey:viewsKey];
-  
-  return viewsThisMonth;
+    NSDate * now = [NSDate date];
+    NSDateComponents *nowComponents = [[NSCalendar currentCalendar] components:NSMonthCalendarUnit | NSYearCalendarUnit fromDate:now];
+    
+    NSEnumerator *dateEnumerator = [viewsArray objectEnumerator];
+    NSDate *date;
+    NSInteger viewsThisMonth = 0;
+    while (date = (NSDate*)[dateEnumerator nextObject]) {
+        NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
+        
+        if ([dateComponents month] == [nowComponents month] && ([dateComponents year] == [nowComponents year])) {
+            viewsThisMonth ++;
+        }
+        else {
+            [viewsArray removeObject:date];
+        }
+    }
+    
+    [viewsArray addObject:now];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:viewsArray forKey:@"viewsThisMonth"];
+    
+    return viewsThisMonth;
 }
 
 

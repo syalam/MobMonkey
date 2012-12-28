@@ -40,6 +40,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    prefs = [NSUserDefaults standardUserDefaults];
 
     self.searchBar.backgroundImage = [UIImage imageNamed:@"SearchBG~iphone.png"];
     UIImage *customButtonImage = [[UIImage imageNamed:@"navBarButtonBlank"]
@@ -88,7 +89,7 @@
         
         self.savedSearchTerm = nil;
     }
-    allCategoriesArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"allCategories"];
+    allCategoriesArray = [prefs objectForKey:@"allCategories"];
     [self.tableView reloadData];
     self.tableView.scrollEnabled = YES;
 }
@@ -106,7 +107,7 @@
     
     [SVProgressHUD dismiss];
     
-    if (![[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
+    if (![prefs objectForKey:@"userName"]) {
         [[MMClientSDK sharedSDK]signInScreen:self];
     }
     else {
@@ -194,8 +195,8 @@
         [params setValue:@"" forKey:@"categoryIds"];
     }
     [params setValue:self.searchBar.text forKey:@"name"];
-    latitude = [[[NSUserDefaults standardUserDefaults] valueForKey:@"latitude"]doubleValue];
-    longitude = [[[NSUserDefaults standardUserDefaults] valueForKey:@"longitude"]doubleValue];
+    latitude = [[prefs  valueForKey:@"latitude"]doubleValue];
+    longitude = [[prefs  valueForKey:@"longitude"]doubleValue];
     NSLog(@"%f, %f", latitude, longitude);
     
     [params setValue:[NSNumber numberWithDouble:latitude] forKey:@"latitude"];
@@ -432,8 +433,8 @@
         self.searchResultsViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
     }
     NSMutableArray *searchHistory;
-    if ([[NSUserDefaults standardUserDefaults]objectForKey:@"history"]) {
-        searchHistory = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"history"];
+    if ([prefs objectForKey:@"history"]) {
+        searchHistory = [prefs  mutableArrayValueForKey:@"history"];
     }
     else {
         searchHistory = [[NSMutableArray alloc]init];

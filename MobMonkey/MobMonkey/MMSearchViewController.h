@@ -10,6 +10,7 @@
 
 @interface MMSearchViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate> {
     NSArray* allCategoriesArray;
+    NSUserDefaults *prefs;
 }
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;

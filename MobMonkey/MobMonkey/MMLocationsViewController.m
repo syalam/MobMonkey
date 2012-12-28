@@ -101,19 +101,19 @@
     }
     
     self.locations = [NSMutableArray array];
-  mapFilterViewController = [[MMMapFilterViewController alloc] initWithMapView:mapView];
-  mapView.delegate = self;
-
+    mapFilterViewController = [[MMMapFilterViewController alloc] initWithMapView:mapView];
+    mapView.delegate = self;
+    
     tapGestureRecognizer = [[UITapGestureRecognizer alloc]
-                                                  initWithTarget:self
-                                                  action:@selector(handleTap:)];
-  
-  
-
-/*  UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc]
-                                                              initWithTarget:self action:@selector(handleLongPress:)];
-  [mapView addGestureRecognizer:longPressGestureRecognizer];*/
-  
+                            initWithTarget:self
+                            action:@selector(handleTap:)];
+    
+    
+    
+    /*  UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc]
+     initWithTarget:self action:@selector(handleLongPress:)];
+     [mapView addGestureRecognizer:longPressGestureRecognizer];*/
+    
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:226.0/255.0
                                                                           green:112.0/225.0
                                                                            blue:36.0/255.0
