@@ -143,7 +143,7 @@
     [[NSUserDefaults standardUserDefaults]synchronize];
     
     [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+        //NSLog(@"%@", responseObject);
         [[NSUserDefaults standardUserDefaults]setObject:responseObject forKey:@"allCategories"];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", operation.responseString);

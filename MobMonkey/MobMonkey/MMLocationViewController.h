@@ -42,7 +42,8 @@
 @property (nonatomic, weak) IBOutlet UIButton *notificationSettingsButton;
 @property (nonatomic, weak) IBOutlet UIButton *phoneNumberButton;
 @property (nonatomic, weak) IBOutlet UIButton *addressButton;
-@property (nonatomic, weak) IBOutlet UILabel *requestTimeLabel;
+@property (nonatomic, weak) IBOutlet UILabel *uploadDateLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *clockImageView;
 
 @property (nonatomic, retain) IBOutlet TCImageView *locationLatestImageView;
 

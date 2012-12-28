@@ -18,6 +18,7 @@
 #import "MMLocationMediaViewController.h"
 #import <MapKit/MapKit.h>
 #import "MMLocationAnnotation.h"
+#import "GetRelativeTime.h"
 
 @interface MMLocationViewController ()
 
@@ -407,6 +408,7 @@
     _phoneNumberLabel.text = [_contentList valueForKey:@"phoneNumber"];
     _addressLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", [_contentList valueForKey:@"streetAddress"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];
   
+    
     [_liveStreamButton setEnabled:YES];
     [liveStreamImage setImage:[UIImage imageNamed:@"location-liveVideoIcn"]];
     [_videosButton setEnabled:YES];
@@ -469,6 +471,7 @@
         [self fetchLatestMediaForLocation];
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
         [SVProgressHUD showErrorWithStatus:@"Unable to load location data"];
         [self.navigationController popViewControllerAnimated:YES];
     }];
@@ -479,6 +482,14 @@
         NSLog(@"%@", responseObject);
         mediaArray = [responseObject valueForKey:@"media"];
         if (mediaArray.count > 0) {
+            [_uploadDateLabel setHidden:NO];
+            [_clockImageView setHidden:NO];
+            double unixTime = [[[mediaArray objectAtIndex:0]valueForKey:@"uploadedDate"] floatValue]/1000;
+            NSDate *dateAnswered = [NSDate dateWithTimeIntervalSince1970:
+                                    (NSTimeInterval)unixTime];
+            
+            _uploadDateLabel.text = [GetRelativeTime getRelativeTime:dateAnswered];
+            
             NSString *mediaUrl = [[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"];
             if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"image"]) {
                 [_locationLatestImageView reloadWithUrl:mediaUrl];

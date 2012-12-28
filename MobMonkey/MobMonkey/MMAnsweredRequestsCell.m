@@ -29,7 +29,7 @@
         [_imageButton addTarget:self action:@selector(imageButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         
         _moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_moreButton setFrame:CGRectMake(263, 242, 32, 32)];
+        [_moreButton setFrame:CGRectMake(242, 232, 53, 42)];
         [_moreButton setImage:[UIImage imageNamed:@"moreBtnOverlay"] forState:UIControlStateNormal];
         [_moreButton addTarget:self action:@selector(moreButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -62,7 +62,7 @@
         _clockImageView = [[UIImageView alloc]initWithFrame:CGRectMake(218, 62, 15, 15)];
         [_clockImageView setImage:[UIImage imageNamed:@"timeIcnOverlay"]];
     
-        UIImageView *toolbarImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 242, 302, 32)];
+        UIImageView *toolbarImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 226, 302, 48)];
         [toolbarImageView setImage:[UIImage imageNamed:@"ThumbsBG~iphone"]];
         
         [self.contentView addSubview:backgroundView];
