@@ -410,10 +410,8 @@
     NSLog(@"%@", _contentList);
     NSString *message = [_contentList valueForKey:@"message"];
     if (message != (id)[NSNull null]) {
-        if (message.length) {
-            _messageLabel.adjustsFontSizeToFitWidth = YES;
-            _messageLabel.text = [_contentList valueForKey:@"message"];
-        }
+        _messageLabel.adjustsFontSizeToFitWidth = YES;
+        _messageLabel.text = [_contentList valueForKey:@"message"];
     }
    
   
