@@ -70,7 +70,7 @@
             UINavigationController *subscriptionModal = [[UINavigationController alloc]initWithRootViewController:subscriptionViewController];
             [self.navigationController presentModalViewController:subscriptionModal animated:YES];
         }
-        else if (views >= 10 && views % 5 == 0 && !didShowAd) {
+        else if (views >= 10 && (views % 5) == 0 && !didShowAd) {
             didShowAd = YES;
             self.myFullscreenAd = [[GSFullscreenAd alloc] initWithDelegate:self];
             [self.myFullscreenAd fetch];

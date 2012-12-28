@@ -99,8 +99,10 @@
         UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
         self.navigationItem.leftBarButtonItem = backButton;
     }
+    if (!self.locations) {
+        self.locations = [NSMutableArray array];
+    }
     
-    self.locations = [NSMutableArray array];
     mapFilterViewController = [[MMMapFilterViewController alloc] initWithMapView:mapView];
     mapView.delegate = self;
     
@@ -286,11 +288,13 @@
                 searchHistory = [[NSMutableArray alloc]init];
             }
             NSMutableDictionary *locationDictionary = [[_locations objectAtIndex:indexPath.row] mutableCopy];
-            [locationDictionary removeObjectForKey:@"requests"];
-            [locationDictionary removeObjectsForKeys:[NSArray arrayWithObjects:@"requests", @"radiusInYards", nil]];
-            NSDictionary *locationDictionary2 = [[NSDictionary alloc]initWithDictionary:locationDictionary];
-            if (![searchHistory containsObject:locationDictionary2]) {
-                [searchHistory addObject:locationDictionary2];
+            NSString *locationId = [locationDictionary objectForKey:@"locationId"];
+            NSString *providerId = [locationDictionary objectForKey:@"providerId"];
+            NSPredicate *locationPredicate = [NSPredicate predicateWithFormat:@"(locationId MATCHES %@) AND (providerId MATCHES %@)", locationId, providerId];
+            NSArray *matchingLocations = [searchHistory filteredArrayUsingPredicate:locationPredicate];
+            if (matchingLocations.count == 0) {
+                [locationDictionary removeObjectsForKeys:[NSArray arrayWithObjects:@"requests", @"radiusInYards", @"message", nil]];
+                [searchHistory addObject:locationDictionary];
                 [[NSUserDefaults standardUserDefaults]setValue:searchHistory forKey:@"history"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
