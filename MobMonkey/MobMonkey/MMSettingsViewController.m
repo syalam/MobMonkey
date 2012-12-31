@@ -175,15 +175,14 @@
 - (IBAction)signInButtonTapped:(id)sender {
     //if user name exists, the user is signed in. On this button tap, the user should be signed out
     if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userName"];
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"oAuthToken"];
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"password"];
         [[NSUserDefaults standardUserDefaults]synchronize];
         
-        [[MMClientSDK sharedSDK]signInScreen:self];
+        
     }
-    //otherwise allow the user to sign in but calling the sign in screen
-    else {
-        [[MMClientSDK sharedSDK] signInScreen:self];
-    }
+    [[MMClientSDK sharedSDK]signInScreen:self];
 }
 
 @end

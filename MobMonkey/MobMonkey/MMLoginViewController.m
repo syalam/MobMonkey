@@ -155,7 +155,43 @@
 }
 
 - (IBAction)facebookButtonTapped:(id)sender {
-    [MMAPI facebookSignIn];
+    NSArray *permissions = [NSArray arrayWithObjects:@"email", nil];
+    [FBSession openActiveSessionWithPermissions:permissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        if (session.isOpen) {
+            FBRequest *me = [FBRequest requestForMe];
+            [me startWithCompletionHandler: ^(FBRequestConnection *connection,
+                                              NSDictionary<FBGraphUser> *my,
+                                              NSError *error) {
+                if (!error) {
+                    NSLog(@"%@", my);
+                    //TODO: send FB token to server call
+                    NSString* accessToken = me.session.accessToken;
+                    NSLog(@"%@", accessToken);
+                    
+                    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                            [my valueForKey:@"email"], @"eMailAddress",
+                                            accessToken, @"oAuthToken", nil];
+                    [MMAPI facebookSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        NSLog(@"%@", responseObject);
+                        [[NSUserDefaults standardUserDefaults]setObject:[my valueForKey:@"email"] forKey:@"userName"];
+                        [[NSUserDefaults standardUserDefaults]setValue:accessToken forKey:@"oAuthToken"];
+                        [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:[responseObject valueForKey:@"description"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                        [alert show];
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to log you in. Please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+                        [alert show];
+                    }];
+                }
+                else {
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to log you in. Please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+                    [alert show];
+                }
+                
+            }];
+        }
+    }];
+    
 }
 
 - (IBAction)twitterButtonTapped:(id)sender {

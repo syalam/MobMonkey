@@ -122,7 +122,9 @@ typedef enum OAuthProvider {
 /**
  facebook sign in/sign up
 */
-+ (void)facebookSignIn;
++ (void)facebookSignIn:(NSDictionary*)params
+               success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 ///---------------------------------------------
 /// @name Fetches a list of top level categories from the server

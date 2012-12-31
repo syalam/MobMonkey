@@ -126,14 +126,22 @@ enum RequestDurationLengths {
         default:
             break;
     }
-    NSLog(@"MMRequestViewController.m requestMedia %@", self.requestInfo);
-    [MMAPI requestMedia:mediaType params:self.requestInfo success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"Unable to make request. Please try again"];
-        NSLog(@"%@", operation.responseString);
-    }];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    if ([mediaType isEqualToString:@"text"] && ![self.requestInfo valueForKey:@"message"]) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Text must be entered for a text request" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+
+    else {
+        NSLog(@"MMRequestViewController.m requestMedia %@", self.requestInfo);
+        [MMAPI requestMedia:mediaType params:self.requestInfo success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"%@", responseObject);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [SVProgressHUD showErrorWithStatus:@"Unable to make request. Please try again"];
+            NSLog(@"%@", operation.responseString);
+        }];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (IBAction)changeMediaRequestType:(id)sender

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
 #import "MMAPI.h"
 
 @interface MMLoginViewController : UITableViewController <MMAPIDelegate> 

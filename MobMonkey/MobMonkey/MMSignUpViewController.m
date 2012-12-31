@@ -267,7 +267,37 @@
 }
 
 - (IBAction)facebookButtonTapped:(id)sender {
-    [MMAPI facebookSignIn];
+    NSArray *permissions = [NSArray arrayWithObjects:@"email", nil];
+    [FBSession openActiveSessionWithPermissions:permissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        if (session.isOpen) {
+            FBRequest *me = [FBRequest requestForMe];
+            [me startWithCompletionHandler: ^(FBRequestConnection *connection,
+                                              NSDictionary<FBGraphUser> *my,
+                                              NSError *error) {
+                if (!error) {
+                    NSLog(@"%@", my);
+                    //TODO: send FB token to server call
+                    NSString* accessToken = me.session.accessToken;
+                    NSLog(@"%@", accessToken);
+                    
+                    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                            [my valueForKey:@"email"], @"eMailAddress",
+                                            accessToken, @"oAuthToken", nil];
+                    [MMAPI facebookSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        
+                    }];
+                }
+                else {
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to log you in. Please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+                    [alert show];
+                }
+                
+            }];
+        }
+    }];
+    
 }
 
 - (IBAction)twitterButtonTapped:(id)sender {
