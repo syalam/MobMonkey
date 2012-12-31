@@ -1,4 +1,4 @@
-//
+ //
 //  TwitterAccounts.m
 //  fizzpoints
 //
@@ -27,27 +27,36 @@
             }
             else {
                 [SVProgressHUD dismiss];
-                [self showAccounts:_accounts];
+                [_delegate showAccounts:_accounts];
+                /*UIActionSheet *twitterAccActionSheet = [[UIActionSheet alloc]initWithTitle:@"Twitter Accounts on This Device" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+                for (NSInteger i = 0; i < _accounts.count; i++) {
+                    ACAccount *account = [_accounts objectAtIndex:i];
+                    [twitterAccActionSheet addButtonWithTitle:account.username];
+                }
+                twitterAccActionSheet.cancelButtonIndex = [twitterAccActionSheet addButtonWithTitle:@"Cancel"];
+                
+                twitterAccActionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+                [_delegate showAccounts:twitterAccActionSheet];*/
+                
+                /*if (_loginOptionScreen) {
+                    _loginOptionScreen.accounts = _accounts;
+                    [twitterAccActionSheet showInView:_loginOptionScreen.view];
+                }
+                else {
+                    _createAccountScreen.accounts = _accounts;
+                    [twitterAccActionSheet showInView:_createAccountScreen.view];
+                }*/
             }
         }
         else {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"You have not granted us access to your Twitter account. Please update your settings in your iPhone's settings menu" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Please ensure that you've given us access to your Twitter account and that you have added Twitter accounts to your device" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
         }
     }];
 }
 
-- (void)showAccounts:(NSArray*)accounts {
-    UIActionSheet *twitterAccActionSheet = [[UIActionSheet alloc]initWithTitle:@"Twitter Accounts on This Device" delegate:delegateClass cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
-    for (NSInteger i = 0; i < _accounts.count; i++) {
-        ACAccount *account = [_accounts objectAtIndex:i];
-        [twitterAccActionSheet addButtonWithTitle:account.username];
-    }
-    twitterAccActionSheet.cancelButtonIndex = [twitterAccActionSheet addButtonWithTitle:@"Cancel"];
-    
-    twitterAccActionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-    
-    [_delegate showAccounts:twitterAccActionSheet];
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [_delegate twitterAccountsActionSheet:actionSheet clickedButtonAtIndex:buttonIndex accounts:_accounts];
 }
 
 @end

@@ -1,4 +1,4 @@
-//
+ //
 //  MMSignUpViewController.m
 //  MobMonkey
 //
@@ -304,7 +304,9 @@
     TwitterAccounts *twitter = [[TwitterAccounts alloc]init];
     twitter.delegate = self;
     [twitter fetchData];
-}
+    /*UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Test" delegate:nil cancelButtonTitle:@"OK" destructiveButtonTitle:nil otherButtonTitles:@"OK", nil];
+    [actionSheet showInView:self.view];*/
+} 
 
 /*- (IBAction)saveButtonTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -396,8 +398,30 @@
 }
 
 #pragma mark - Twitter Accounts delegate
-- (void)showAccounts:(UIActionSheet*)accounts {
-    [accounts showInView:self.view];
+- (void)showAccounts:(NSArray*)accounts {
+    [self setTwitterAccounts:accounts];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Twitter Accounts on This Device" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+    for (NSInteger i = 0; i < _twitterAccounts.count; i++) {
+        ACAccount *account = [_twitterAccounts objectAtIndex:i];
+        [actionSheet addButtonWithTitle:account.username];
+    }
+    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
+    
+    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+    
+    [actionSheet showInView:self.view];
+}
+- (void)twitterAccountsActionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex accounts:(NSArray*)accounts {
+    ACAccount *account = [accounts objectAtIndex:buttonIndex];
+    
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            account.username, @"eMailAddress",
+                            account.identifier, @"oAuthToken", nil];
+    [MMAPI TwitterSignUp:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
+    }];
 }
 
 @end

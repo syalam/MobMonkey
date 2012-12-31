@@ -121,8 +121,22 @@ typedef enum OAuthProvider {
 ///---------------------------------------------
 /**
  facebook sign in/sign up
+ @param facebook session id
 */
+
 + (void)facebookSignIn:(NSDictionary*)params
+               success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+///---------------------------------------------
+/// @name Sign's a user in with Twitter
+///---------------------------------------------
+/**
+ Twitter sign in/sign up
+ @param twitter o auth token
+ */
+
++ (void)TwitterSignUp:(NSDictionary*)params
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 

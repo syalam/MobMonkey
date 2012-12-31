@@ -12,11 +12,12 @@
 
 @protocol TwitterAccountsDelegate
 
-- (void)showAccounts:(UIActionSheet*)accounts;
+- (void)showAccounts:(NSArray*)accounts;
+- (void)twitterAccountsActionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex accounts:(NSArray*)accounts;
 
 @end
 
-@interface TwitterAccounts : NSObject {
+@interface TwitterAccounts : NSObject <UIActionSheetDelegate> {
     id delegateClass;
 }
 
@@ -24,6 +25,7 @@
 
 @property (strong, nonatomic) ACAccountStore *accountStore;
 @property (strong, nonatomic) NSArray *accounts;
-@property (strong, nonatomic) id<TwitterAccountsDelegate> delegate;
+@property (nonatomic, assign) id<TwitterAccountsDelegate>delegate;
+
 
 @end
