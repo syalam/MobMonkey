@@ -398,17 +398,7 @@
 }
 
 #pragma mark - Twitter Accounts delegate
-- (void)showAccounts:(NSArray*)accounts {
-    [self setTwitterAccounts:accounts];
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Twitter Accounts on This Device" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
-    for (NSInteger i = 0; i < _twitterAccounts.count; i++) {
-        ACAccount *account = [_twitterAccounts objectAtIndex:i];
-        [actionSheet addButtonWithTitle:account.username];
-    }
-    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
-    
-    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-    
+- (void)showAccounts:(UIActionSheet*)actionSheet {
     [actionSheet showInView:self.view];
 }
 - (void)twitterAccountsActionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex accounts:(NSArray*)accounts {

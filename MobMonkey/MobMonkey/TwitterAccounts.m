@@ -27,8 +27,7 @@
             }
             else {
                 [SVProgressHUD dismiss];
-                [_delegate showAccounts:_accounts];
-                /*UIActionSheet *twitterAccActionSheet = [[UIActionSheet alloc]initWithTitle:@"Twitter Accounts on This Device" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+                UIActionSheet *twitterAccActionSheet = [[UIActionSheet alloc]initWithTitle:@"Twitter Accounts on This Device" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
                 for (NSInteger i = 0; i < _accounts.count; i++) {
                     ACAccount *account = [_accounts objectAtIndex:i];
                     [twitterAccActionSheet addButtonWithTitle:account.username];
@@ -36,7 +35,7 @@
                 twitterAccActionSheet.cancelButtonIndex = [twitterAccActionSheet addButtonWithTitle:@"Cancel"];
                 
                 twitterAccActionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-                [_delegate showAccounts:twitterAccActionSheet];*/
+                [_delegate showAccounts:twitterAccActionSheet];
                 
                 /*if (_loginOptionScreen) {
                     _loginOptionScreen.accounts = _accounts;
