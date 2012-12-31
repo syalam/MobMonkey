@@ -12,7 +12,7 @@
 
 @protocol TwitterAccountsDelegate
 
-- (void)showAccounts:(UIActionSheet*)actionSheet;
+- (void)showAccounts:(NSArray*)accounts;
 - (void)twitterAccountsActionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex accounts:(NSArray*)accounts;
 
 @end
