@@ -115,6 +115,8 @@
             }
             else {
                 cell.categoryItemCountLabel.text = @"";
+                cell.backgroundColor = [UIColor lightGrayColor];
+                cell.accessoryType = UITableViewCellAccessoryNone;
             }
             break;
         case 1:
@@ -124,6 +126,8 @@
             }
             else {
                 cell.categoryItemCountLabel.text = @"";
+                cell.backgroundColor = [UIColor lightGrayColor];
+                cell.accessoryType = UITableViewCellAccessoryNone;
             }
             break;
         case 2:
@@ -133,6 +137,8 @@
             }
             else {
                 cell.categoryItemCountLabel.text = @"";
+                cell.backgroundColor = [UIColor lightGrayColor];
+                cell.accessoryType = UITableViewCellAccessoryNone;
             }
             break;
         case 3:
@@ -142,6 +148,8 @@
             }
             else {
                 cell.categoryItemCountLabel.text = @"";
+                cell.backgroundColor = [UIColor lightGrayColor];
+                cell.accessoryType = UITableViewCellAccessoryNone;
             }
             break;
         default:
