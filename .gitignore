@@ -11,3 +11,9 @@ project.xcworkspace/
 xcuserdata/
 /MobMonkey/Build/Intermediates/PrecompiledHeaders/
 /MobMonkey/Build/Intermediates/MobMonkey.build/Debug-iphoneos/
+/MobMonkey/Build/Products/
+/MobMonkey/Build/Intermediates/MobMonkey.build/Debug-iphonesimulator/MobMonkey.build/Objects-normal/
+/MobMonkey/Build/Intermediates/MobMonkey.build/Debug-iphonesimulator/MobMonkey.build/MobMonkey~.dep
+/MobMonkey/Build/Intermediates/MobMonkey.build/Debug-iphonesimulator/MobMonkey.build/MobMonkey.dep
+/MobMonkey/Build/Intermediates/MobMonkey.build/Debug-iphonesimulator/MobMonkey.build/build-state~.dat
+/MobMonkey/Build/Intermediates/MobMonkey.build/Debug-iphonesimulator/MobMonkey.build/build-state.dat

@@ -155,7 +155,7 @@
 }
 
 - (IBAction)facebookButtonTapped:(id)sender {
-    NSArray *permissions = [NSArray arrayWithObjects:@"email", nil];
+    NSArray *permissions = [NSArray arrayWithObjects:@"email", @"publish_stream", nil];
     [FBSession openActiveSessionWithPermissions:permissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
         if (session.isOpen) {
             FBRequest *me = [FBRequest requestForMe];
