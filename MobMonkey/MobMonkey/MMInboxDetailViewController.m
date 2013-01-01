@@ -11,6 +11,7 @@
 #import "MMInboxCell.h"
 #import "NSData+Base64.h"
 #import "MMLocationViewController.h"
+#import "MMAnswerTextRequestViewController.h"
 
 @interface MMInboxDetailViewController ()
 
@@ -137,7 +138,15 @@
     }
     else {
         requestId = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestId"];
-        [self openCameraSheet:indexPath.row];
+        NSLog(@"%@", _contentList);
+        if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 4) {
+            MMAnswerTextRequestViewController *answerTextRequest = [[MMAnswerTextRequestViewController alloc]initWithNibName:@"MMAnswerTextRequestViewController" bundle:nil];
+            UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:answerTextRequest];
+            [self.navigationController presentViewController:navC animated:YES completion:NULL];
+        }
+        else {
+            [self openCameraSheet:indexPath.row];
+        }
     }
 }
 

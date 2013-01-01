@@ -564,6 +564,8 @@
 		F7E7568615FE38F9005C8D7C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E7568515FE38F8005C8D7C /* Accounts.framework */; };
 		F7E7569715FE8EE7005C8D7C /* MMCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E7569515FE8EE7005C8D7C /* MMCategoryViewController.m */; };
 		F7E7569815FE8EE7005C8D7C /* MMCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E7569615FE8EE7005C8D7C /* MMCategoryViewController.xib */; };
+		F7ED0E151692A487000F2121 /* MMAnswerTextRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7ED0E131692A487000F2121 /* MMAnswerTextRequestViewController.m */; };
+		F7ED0E161692A487000F2121 /* MMAnswerTextRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7ED0E141692A487000F2121 /* MMAnswerTextRequestViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1269,6 +1271,9 @@
 		F7E7569415FE8EE7005C8D7C /* MMCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCategoryViewController.h; sourceTree = "<group>"; };
 		F7E7569515FE8EE7005C8D7C /* MMCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCategoryViewController.m; sourceTree = "<group>"; };
 		F7E7569615FE8EE7005C8D7C /* MMCategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMCategoryViewController.xib; sourceTree = "<group>"; };
+		F7ED0E121692A487000F2121 /* MMAnswerTextRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAnswerTextRequestViewController.h; sourceTree = "<group>"; };
+		F7ED0E131692A487000F2121 /* MMAnswerTextRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAnswerTextRequestViewController.m; sourceTree = "<group>"; };
+		F7ED0E141692A487000F2121 /* MMAnswerTextRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMAnswerTextRequestViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1966,6 +1971,7 @@
 		F734A58515F123070090E85A /* Inbox */ = {
 			isa = PBXGroup;
 			children = (
+				F7ED0E0D1692A3D3000F2121 /* AnswerTextRequest */,
 				F71991FD1622A0B8003C6A65 /* Inbox Category Cell */,
 				F71991F0162263E5003C6A65 /* Answered Requests */,
 				F76DFE48161EADE500B5683F /* Full Screen Image */,
@@ -2756,6 +2762,16 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		F7ED0E0D1692A3D3000F2121 /* AnswerTextRequest */ = {
+			isa = PBXGroup;
+			children = (
+				F7ED0E121692A487000F2121 /* MMAnswerTextRequestViewController.h */,
+				F7ED0E131692A487000F2121 /* MMAnswerTextRequestViewController.m */,
+				F7ED0E141692A487000F2121 /* MMAnswerTextRequestViewController.xib */,
+			);
+			name = AnswerTextRequest;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3251,6 +3267,7 @@
 				1AAFE50316851E160034FAD1 /* more.png in Resources */,
 				1AAFE55E168BA0D00034FAD1 /* signInBtn.png in Resources */,
 				1AAFE55F168BA0D00034FAD1 /* signInBtn@2x.png in Resources */,
+				F7ED0E161692A487000F2121 /* MMAnswerTextRequestViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3383,6 +3400,7 @@
 				C75171F11679FE4B009B4DE8 /* MMMapFilterViewController.m in Sources */,
 				C75171F6167A05FE009B4DE8 /* MMAddLocationViewController.m in Sources */,
 				F77966131691EF4F0059FA0A /* TwitterAccounts.m in Sources */,
+				F7ED0E151692A487000F2121 /* MMAnswerTextRequestViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

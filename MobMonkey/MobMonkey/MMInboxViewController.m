@@ -140,6 +140,7 @@
         cell.detailTextLabel.font = [UIFont systemFontOfSize:17.0];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    cell.backgroundColor = [UIColor whiteColor];
     
     switch (indexPath.row) {
         case 0:
