@@ -9,3 +9,5 @@
 *.xcuserstate
 project.xcworkspace/
 xcuserdata/
+/MobMonkey/Build/Intermediates/PrecompiledHeaders/
+/MobMonkey/Build/Intermediates/MobMonkey.build/Debug-iphoneos/
