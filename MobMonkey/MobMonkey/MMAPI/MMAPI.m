@@ -41,7 +41,9 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     NSLog(@"%@", params);
     NSMutableDictionary *paramsCopy = [params mutableCopy];
     [paramsCopy setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
+    [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
     [httpClient  postPath:@"signup/user"
                parameters:paramsCopy
                   success:success
