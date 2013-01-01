@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum UIActionSheetCalls {
+    twitterAccountsActionSheetCall,
+    genderActionSheetCall,
+}UIActionSheetCalls;
+
 @interface MMConstants : NSObject
 
 @end

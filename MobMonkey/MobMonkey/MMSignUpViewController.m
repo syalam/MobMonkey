@@ -1,4 +1,4 @@
-//
+ //
 //  MMSignUpViewController.m
 //  MobMonkey
 //
@@ -301,10 +301,8 @@
 }
 
 - (IBAction)twitterButtonTapped:(id)sender {
-    TwitterAccounts *twitter = [[TwitterAccounts alloc]init];
-    twitter.delegate = self;
-    [twitter fetchData];
-}
+    [self showAccounts];
+} 
 
 /*- (IBAction)saveButtonTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -373,6 +371,7 @@
 
 - (void)createGenderActionSheet {
     UIActionSheet *genderActionSheet = [[UIActionSheet alloc]initWithTitle:@"Gender" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Male", @"Female", nil];
+    actionSheetCall = genderActionSheetCall;
     if ([self.title isEqualToString:@"My Info"]) {
         [genderActionSheet showInView:self.tabBarController.tabBar];
     }
@@ -383,21 +382,64 @@
 
 #pragma mark - Action Sheet Delegate Methods
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    switch (buttonIndex) {
-        case 0:
-            _genderTextField.text = @"Male";
-            break;
-        case 1:
-            _genderTextField.text = @"Female";
-            break;
-        default:
-            break;
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    if (![buttonTitle isEqualToString:@"Cancel"]) {
+        switch (actionSheetCall) {
+            case twitterAccountsActionSheetCall: {
+                ACAccount *account = [_twitterAccounts objectAtIndex:buttonIndex];
+                
+                NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                        account.username, @"eMailAddress",
+                                        account.identifier, @"oAuthToken", nil];
+                [MMAPI TwitterSignUp:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSLog(@"%@", responseObject);
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"%@", operation.responseString);
+                }];
+            }
+                break;
+            case genderActionSheetCall:
+                switch (buttonIndex) {
+                    case 0:
+                        _genderTextField.text = @"Male";
+                        break;
+                    case 1:
+                        _genderTextField.text = @"Female";
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
     }
+    
 }
 
 #pragma mark - Twitter Accounts delegate
-- (void)showAccounts:(UIActionSheet*)accounts {
-    [accounts showInView:self.view];
+- (void)showAccounts {
+    [SVProgressHUD showWithStatus:@"Loading Twitter Accounts"];
+    ACAccountStore* accountStore = [[ACAccountStore alloc] init];
+    ACAccountType *accountTypeTwitter = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    [accountStore requestAccessToAccountsWithType:accountTypeTwitter options:nil completion:^(BOOL granted, NSError *error) {
+        [SVProgressHUD dismiss];
+        if (granted) {
+            _twitterAccounts = [accountStore accountsWithAccountType:accountTypeTwitter];
+            UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Twitter Accounts on This Device" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+            for (NSInteger i = 0; i < _twitterAccounts.count; i++) {
+                ACAccount *account = [_twitterAccounts objectAtIndex:i];
+                [actionSheet addButtonWithTitle:account.username];
+            }
+            actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
+            
+            actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+            actionSheetCall = twitterAccountsActionSheetCall;
+            [actionSheet showInView:self.view];
+        }
+        
+    }];
 }
-
+     
 @end

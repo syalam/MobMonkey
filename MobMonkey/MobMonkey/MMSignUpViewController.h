@@ -11,9 +11,9 @@
 #import <Twitter/Twitter.h>
 #import <Accounts/Accounts.h>
 #import "MMAPI.h"
-#import "TwitterAccounts.h"
 
-@interface MMSignUpViewController : UITableViewController <UIActionSheetDelegate, UITextFieldDelegate, TwitterAccountsDelegate> {
+@interface MMSignUpViewController : UITableViewController <UIActionSheetDelegate, UITextFieldDelegate> {
+    int actionSheetCall;
 }
 
 - (IBAction)signUpButtonTapped:(id)sender;
@@ -23,5 +23,6 @@
 @property (nonatomic, weak) IBOutlet UIButton *signUpButton;
 @property (nonatomic, weak) IBOutlet UIButton *facebookButton;
 @property (nonatomic, weak) IBOutlet UIButton *twitterButton;
+@property (nonatomic, retain) NSArray *twitterAccounts;
 
 @end

@@ -71,6 +71,13 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient  postPath:@"http://api.mobmonkey.com/rest/signup/user/oauth/facebook" parameters:params success:success failure:failure];
 }
 
++ (void)TwitterSignUp:(NSDictionary*)params
+              success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    MMHTTPClient *httpClient = [self setupHTTPClient];
+    [httpClient  postPath:@"http://api.mobmonkey.com/rest/signup/user/oauth/twitter" parameters:params success:success failure:failure];
+}
+
 #pragma mark - Request Media Methods
 
 + (void)requestMedia:(NSString*)mediaType params:(NSMutableDictionary*)params
