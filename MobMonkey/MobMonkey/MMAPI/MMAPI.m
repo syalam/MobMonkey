@@ -60,7 +60,10 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
                 success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [[MMHTTPClient alloc] initWithBaseURL:[self baseURL]];
+    [httpClient setDefaultHeader:@"MobMonkey-user" value:email];
+    [httpClient setDefaultHeader:@"MobMonkey-auth" value:password];
+    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"]];
     [httpClient postPath:[NSString stringWithFormat:@"signin/iOS/%@", [[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"]] parameters:nil success:success failure:failure];
 }
 
