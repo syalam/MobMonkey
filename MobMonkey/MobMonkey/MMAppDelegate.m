@@ -27,8 +27,9 @@
                   clientKey:@"1L3iRNHfSsOKc58TxlkOEpD69rTGi9sf8FIBPNmp"];
     
     // Use the product identifier from iTunes to register a handler.
+    NSString *subscribedUserKey = [NSString stringWithFormat:@"%@ subscribed", [[NSUserDefaults standardUserDefaults] valueForKey:@"userName"]];
     [PFPurchase addObserverForProduct:@"com.mobmonkey.MobMonkey.VK4524W4XL.1month" block:^(SKPaymentTransaction *transaction) {
-        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"subscribedUser"];
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:subscribedUserKey];
         [_adView removeFromSuperview];
         
     }];
@@ -106,7 +107,7 @@
     
     
     //TODO: UNCOMMENT WHEN iAD working
-    if (![[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:subscribedUserKey]) {
         _adView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
         [_adView setHidden:YES];
         [self.window.rootViewController.view addSubview:_adView];

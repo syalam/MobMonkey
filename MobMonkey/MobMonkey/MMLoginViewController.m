@@ -28,6 +28,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    prefs = [NSUserDefaults standardUserDefaults];
     //self.navigationItem.titleView = [[MMSetTitleImage alloc]setTitleImageView];
     self.title = @"Sign In";
     
@@ -37,14 +38,15 @@
     emailTextField.placeholder = @"Email Address";
     emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     emailTextField.autocorrectionType= UITextAutocorrectionTypeNo;
-  if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
-    emailTextField.text = [[NSUserDefaults standardUserDefaults]objectForKey:@"userName"];
+  if ([prefs objectForKey:@"userName"]) {
+    emailTextField.text = [prefs objectForKey:@"userName"];
   }
-    [[NSUserDefaults standardUserDefaults]setObject:emailTextField.text forKey:@"userName"];
+    [prefs setObject:emailTextField.text forKey:@"userName"];
   
     passwordTextField = [[UITextField alloc]initWithFrame:textFieldRect];
     passwordTextField.placeholder = @"Password";
     passwordTextField.secureTextEntry = YES;
+    
     
     _contentList = [[NSMutableArray alloc]initWithObjects:emailTextField, passwordTextField, nil];
 }
@@ -126,20 +128,19 @@
         [MMAPI signInWithEmail:emailTextField.text password:passwordTextField.text provider:OAuthProviderNone success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [SVProgressHUD showSuccessWithStatus:@"Signed In"];
             NSLog(@"%@", responseObject);
-            [[NSUserDefaults standardUserDefaults]setObject:emailTextField.text forKey:@"userName"];
-            [[NSUserDefaults standardUserDefaults]setObject:passwordTextField.text forKey:@"password"];
-            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"subscribedUser"];
-            [[NSUserDefaults standardUserDefaults]synchronize];
+            [prefs setObject:emailTextField.text forKey:@"userName"];
+            [prefs setObject:passwordTextField.text forKey:@"password"];
+            [prefs synchronize];
             [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"%@", responseObject);
-                [[NSUserDefaults standardUserDefaults]setObject:responseObject forKey:@"allCategories"];
+                [prefs setObject:responseObject forKey:@"allCategories"];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"%@", operation.responseString);
             }];
             
             NSMutableDictionary *checkinParams = [[NSMutableDictionary alloc]init];
-            [checkinParams setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
-            [checkinParams setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
+            [checkinParams setObject:[NSNumber numberWithDouble:[[prefs objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
+            [checkinParams setObject:[NSNumber numberWithDouble:[[prefs objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
             
             [MMAPI checkUserIn:checkinParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"%@", @"Checked In");
@@ -173,10 +174,11 @@
                                             accessToken, @"oAuthToken", nil];
                     [MMAPI facebookSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         NSLog(@"%@", responseObject);
-                        [[NSUserDefaults standardUserDefaults]setObject:[my valueForKey:@"email"] forKey:@"userName"];
-                        [[NSUserDefaults standardUserDefaults]setValue:accessToken forKey:@"oAuthToken"];
+                        [prefs setObject:[my valueForKey:@"email"] forKey:@"userName"];
+                        [prefs setValue:accessToken forKey:@"oAuthToken"];
                         [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
                         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:[responseObject valueForKey:@"description"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                        [prefs setBool:YES forKey:@"facebookEnabled"];
                         [alert show];
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to log you in. Please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
@@ -195,7 +197,6 @@
 }
 
 - (IBAction)twitterButtonTapped:(id)sender {
-    
 }
 
 - (IBAction)signUpButtonClicked:(id)sender {
@@ -213,9 +214,9 @@
 - (void)MMAPICallSuccessful:(id)response {
     NSLog(@"%@", response);
     [SVProgressHUD showSuccessWithStatus:@"Signed In"];
-    [[NSUserDefaults standardUserDefaults]setObject:emailTextField.text forKey:@"userName"];
-    [[NSUserDefaults standardUserDefaults]setObject:passwordTextField.text forKey:@"password"];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+    [prefs setObject:emailTextField.text forKey:@"userName"];
+    [prefs setObject:passwordTextField.text forKey:@"password"];
+    [prefs synchronize];
     
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }

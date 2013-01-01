@@ -10,7 +10,9 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "MMAPI.h"
 
-@interface MMLoginViewController : UITableViewController <MMAPIDelegate> 
+@interface MMLoginViewController : UITableViewController <MMAPIDelegate> {
+    NSUserDefaults *prefs;
+}
 
 - (IBAction)loginButtonClicked:(id)sender;
 - (IBAction)signUpButtonClicked:(id)sender;

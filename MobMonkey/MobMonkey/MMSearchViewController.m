@@ -433,8 +433,9 @@
         self.searchResultsViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
     }
     NSMutableArray *searchHistory;
-    if ([prefs objectForKey:@"history"]) {
-        searchHistory = [prefs  mutableArrayValueForKey:@"history"];
+    NSString *historyKey = [NSString stringWithFormat:@"%@ history", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+    if ([prefs objectForKey:historyKey]) {
+        searchHistory = [prefs  mutableArrayValueForKey:historyKey];
     }
     else {
         searchHistory = [[NSMutableArray alloc]init];

@@ -45,6 +45,7 @@
 		1A0055B41652B83B003836F4 /* videoFilterOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0055901652B83B003836F4 /* videoFilterOn@2x.png */; };
 		1A0055B81652CF1C003836F4 /* filterDividers.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0055B61652CF1B003836F4 /* filterDividers.png */; };
 		1A0055B91652CF1C003836F4 /* filterDividers@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A0055B71652CF1B003836F4 /* filterDividers@2x.png */; };
+		1A25820D169289D20057EAAD /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A25820C169289D20057EAAD /* FacebookSDK.framework */; };
 		1A6784AD1640C49900A45AC5 /* CloseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A6784AB1640C49900A45AC5 /* CloseButton.png */; };
 		1A6784AE1640C49900A45AC5 /* CloseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A6784AC1640C49900A45AC5 /* CloseButton@2x.png */; };
 		1A9F8EB7167AC3F10077675B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EB6167AC3F10077675B /* Parse.framework */; };
@@ -558,7 +559,6 @@
 		F7DB55471655665D00FC8AA9 /* mapPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB55451655665D00FC8AA9 /* mapPin@2x.png */; };
 		F7DB554A1655676B00FC8AA9 /* separator-gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB55481655676B00FC8AA9 /* separator-gradient.png */; };
 		F7DB554B1655676B00FC8AA9 /* separator-gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB55491655676B00FC8AA9 /* separator-gradient@2x.png */; };
-		F7E7564215FC9D26005C8D7C /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E7564115FC9D26005C8D7C /* FacebookSDK.framework */; };
 		F7E7564515FC9D9E005C8D7C /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F7E7564415FC9D9E005C8D7C /* FacebookSDKResources.bundle */; };
 		F7E7568415FE06DA005C8D7C /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E7568315FE06DA005C8D7C /* Twitter.framework */; };
 		F7E7568615FE38F9005C8D7C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E7568515FE38F8005C8D7C /* Accounts.framework */; };
@@ -617,6 +617,7 @@
 		1A0055B71652CF1B003836F4 /* filterDividers@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filterDividers@2x.png"; sourceTree = "<group>"; };
 		1A0055BA1652FF93003836F4 /* editedCinemasIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = editedCinemasIcon.png; sourceTree = "<group>"; };
 		1A0055BB1652FF93003836F4 /* editedCinemasIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "editedCinemasIcon@2x.png"; sourceTree = "<group>"; };
+		1A25820C169289D20057EAAD /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		1A6784AB1640C49900A45AC5 /* CloseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseButton.png; sourceTree = "<group>"; };
 		1A6784AC1640C49900A45AC5 /* CloseButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CloseButton@2x.png"; sourceTree = "<group>"; };
 		1A6784B416419BB400A45AC5 /* beachesIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beachesIcon.png; sourceTree = "<group>"; };
@@ -1262,7 +1263,6 @@
 		F7DB55451655665D00FC8AA9 /* mapPin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mapPin@2x.png"; sourceTree = "<group>"; };
 		F7DB55481655676B00FC8AA9 /* separator-gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "separator-gradient.png"; sourceTree = "<group>"; };
 		F7DB55491655676B00FC8AA9 /* separator-gradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "separator-gradient@2x.png"; sourceTree = "<group>"; };
-		F7E7564115FC9D26005C8D7C /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		F7E7564415FC9D9E005C8D7C /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKResources.bundle; sourceTree = "<group>"; };
 		F7E7568315FE06DA005C8D7C /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		F7E7568515FE38F8005C8D7C /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -1300,11 +1300,11 @@
 				F7E7568415FE06DA005C8D7C /* Twitter.framework in Frameworks */,
 				F734A53815F11C3E0090E85A /* UIKit.framework in Frameworks */,
 				F734A53A15F11C3E0090E85A /* Foundation.framework in Frameworks */,
-				F7E7564215FC9D26005C8D7C /* FacebookSDK.framework in Frameworks */,
 				37E5241316418AD4003AC7E5 /* MediaPlayer.framework in Frameworks */,
 				37D6AB4C1644488A0070220D /* libTestFlight.a in Frameworks */,
 				1A9F8EB7167AC3F10077675B /* Parse.framework in Frameworks */,
 				1A9F8F3E167F9F180077675B /* libGreystripeSDK.a in Frameworks */,
+				1A25820D169289D20057EAAD /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1852,6 +1852,7 @@
 		F734A53615F11C3E0090E85A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1A25820C169289D20057EAAD /* FacebookSDK.framework */,
 				F7E7568515FE38F8005C8D7C /* Accounts.framework */,
 				F723ACD81676FE9E00F7336B /* AddressBook.framework */,
 				1A9F8EBD167ACB800077675B /* AdSupport.framework */,
@@ -1862,7 +1863,6 @@
 				F734A5CE15F12EBB0090E85A /* CoreLocation.framework */,
 				F7716D53161D10D900578A90 /* CoreMedia.framework */,
 				1A9F8EDF167EAEEB0077675B /* EventKit.framework */,
-				F7E7564115FC9D26005C8D7C /* FacebookSDK.framework */,
 				F7E7564415FC9D9E005C8D7C /* FacebookSDKResources.bundle */,
 				F734A53915F11C3E0090E85A /* Foundation.framework */,
 				C73F8A4B166F727A00DE6BA8 /* iAd.framework */,

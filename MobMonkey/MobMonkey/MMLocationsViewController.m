@@ -279,10 +279,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (![[[_locations objectAtIndex:indexPath.row]valueForKey:@"locationId"] isKindOfClass:[NSNull class]] && ![[[_locations objectAtIndex:indexPath.row]valueForKey:@"providerId"]isKindOfClass:[NSNull class]]) {
+        NSString *historyKey = [NSString stringWithFormat:@"%@ history", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
         if (!self.isHistory) {
             NSMutableArray *searchHistory;
-            if ([[NSUserDefaults standardUserDefaults]valueForKey:@"history"]) {
-                searchHistory = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"history"];
+            if ([[NSUserDefaults standardUserDefaults]valueForKey:historyKey]) {
+                searchHistory = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:historyKey];
             }
             else {
                 searchHistory = [[NSMutableArray alloc]init];
@@ -295,10 +296,10 @@
             if (matchingLocations.count == 0) {
                 [locationDictionary removeObjectsForKeys:[NSArray arrayWithObjects:@"requests", @"radiusInYards", @"message", nil]];
                 [searchHistory addObject:locationDictionary];
-                [[NSUserDefaults standardUserDefaults]setValue:searchHistory forKey:@"history"];
+                [[NSUserDefaults standardUserDefaults]setValue:searchHistory forKey:historyKey];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
-                NSLog(@"%@", [[NSUserDefaults standardUserDefaults]valueForKey:@"history"]);
+                NSLog(@"%@", [[NSUserDefaults standardUserDefaults]valueForKey:historyKey]);
             }
             
         }
@@ -398,9 +399,10 @@
 
 #pragma mark - UIAlertView Delegate Methods
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *historyKey = [NSString stringWithFormat:@"%@ history", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
     switch (buttonIndex) {
         case 1:
-            [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"history"];
+            [[NSUserDefaults standardUserDefaults]removeObjectForKey:historyKey];
             [_locations removeAllObjects];
             [_tableView reloadData];
             [clearBarButton setEnabled:NO];

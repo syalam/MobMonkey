@@ -22,6 +22,7 @@
 
 @interface MMLocationViewController ()
 
+
 @end
 
 @implementation MMLocationViewController
@@ -84,6 +85,7 @@
     expandImageGesture.numberOfTapsRequired = 1;
     
     [_locationLatestImageView addGestureRecognizer:expandImageGesture];
+    
     
 }
 
@@ -322,7 +324,16 @@
 }
 
 - (IBAction)shareButtonTapped:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Flag for Review", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    if ([prefs boolForKey:@"facebookEnabled"]) {
+        [actionSheet addButtonWithTitle:@"Share on Facebook"];
+    }
+    if ([prefs boolForKey:@"twitterEnabled"]) {
+        [actionSheet addButtonWithTitle:@"Share on Twitter"];
+    }
+    [actionSheet addButtonWithTitle:@"Flag for Review"];
     [actionSheet showFromTabBar:self.tabBarController.tabBar];
 }
 
@@ -380,10 +391,49 @@
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     switch (buttonIndex) {
         case 0:
-            
             break;
         case 1:
-            
+            if ([[actionSheet buttonTitleAtIndex:1]isEqualToString:@"Share on Facebook"]) {
+                postParams =
+                [[NSMutableDictionary alloc] initWithObjectsAndKeys:[_contentList valueForKey:@"name"]
+                 , @"name",
+                 _messageLabel.text, @"caption",
+                 _addressLabel.text, @"description",
+                 nil];
+                if ([FBSession.activeSession.permissions
+                     indexOfObject:@"publish_actions"] == NSNotFound) {
+                    // No permissions found in session, ask for it
+                    [FBSession.activeSession
+                     reauthorizeWithPublishPermissions:
+                     [NSArray arrayWithObject:@"publish_actions"]
+                     defaultAudience:FBSessionDefaultAudienceFriends
+                     completionHandler:^(FBSession *session, NSError *error) {
+                         if (!error) {
+                             // If permissions granted, publish the story
+                             [self publishStory];
+                         }
+                     }];
+                } else {
+                    // If permissions present, publish the story
+                    [self publishStory];
+                }
+            }
+            else if ([[actionSheet buttonTitleAtIndex:1]isEqualToString:@"Share on Twitter"]){
+                
+            }
+            else {
+                
+            }
+            break;
+        case 2:
+            if ([[actionSheet buttonTitleAtIndex:2]isEqualToString:@"Share on Twitter"]){
+                
+            }
+            else {
+                
+            }
+            break;
+        case 3:
             break;
         default:
             break;
@@ -521,5 +571,36 @@
     }];
 
 }
+
+- (void)publishStory
+{
+    [FBRequestConnection
+     startWithGraphPath:@"me/feed"
+     parameters:postParams
+     HTTPMethod:@"POST"
+     completionHandler:^(FBRequestConnection *connection,
+                         id result,
+                         NSError *error) {
+         NSString *alertText;
+         if (error) {
+             alertText = [NSString stringWithFormat:
+                          @"error: domain = %@, code = %d",
+                          error.domain, error.code];
+         } else {
+             alertText = [NSString stringWithFormat:
+                          @"Posted action, id: %@",
+                          [result objectForKey:@"id"]];
+         }
+         // Show the result in an alert
+         [[[UIAlertView alloc] initWithTitle:@"Result"
+                                     message:alertText
+                                    delegate:self
+                           cancelButtonTitle:@"OK!"
+                           otherButtonTitles:nil]
+          show];
+     }];
+}
+
+
 
 @end

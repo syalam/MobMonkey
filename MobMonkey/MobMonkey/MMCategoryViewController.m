@@ -15,12 +15,12 @@
 
 @implementation MMCategoryViewController
 
-static NSString *const SelectedInterestsKey = @"selectedInterests";
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.title = @"My Interests";
+    SelectedInterestsKey = [NSString stringWithFormat:@"%@ selectedInterests", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     

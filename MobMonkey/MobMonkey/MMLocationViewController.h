@@ -12,8 +12,9 @@
 #import "TCImageView.h"
 #import "MMNotificationSettingsViewController.h"
 #import "MMAPI.h"
+#import <FacebookSDK/FacebookSDK.h>
 
-@interface MMLocationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MMNotificationSettingsDelegate, MMAPIDelegate, UIGestureRecognizerDelegate> {
+@interface MMLocationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MMNotificationSettingsDelegate, MMAPIDelegate, UIGestureRecognizerDelegate, NSURLConnectionDelegate> {
     NSArray *mediaArray;
     
     UITapGestureRecognizer *expandImageGesture;
@@ -23,6 +24,8 @@
     dispatch_queue_t backgroundQueue;
     
     IBOutlet UIImageView *liveStreamImage;
+    
+    NSDictionary *postParams;
 }
 
 @property (nonatomic, retain) NSMutableDictionary* contentList;
@@ -61,6 +64,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *notificationSettingLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) MPMoviePlayerViewController *player;
+
 
 @property (nonatomic) int rowIndex;
 

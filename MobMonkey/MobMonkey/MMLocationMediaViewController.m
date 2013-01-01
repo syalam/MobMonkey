@@ -48,7 +48,8 @@
     _thumbnailCache = [[NSMutableDictionary alloc]init];
     
     showAd = NO;
-    if (![[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
+    NSString *subscribedUserKey = [NSString stringWithFormat:@"%@ subscribed", [[NSUserDefaults standardUserDefaults] valueForKey:@"userName"]];
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:subscribedUserKey]) {
         self.myFullscreenAd = [[GSFullscreenAd alloc] initWithDelegate:self];
         [self.myFullscreenAd fetch];
     }
@@ -62,8 +63,8 @@
     [super viewDidAppear:animated];
     //[self.segmentedControl setSelectedSegmentIndex:self.mediaType];
     //[self selectMediaType:self.segmentedControl];
-    
-    if (![[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
+    NSString *subscribedUserKey = [NSString stringWithFormat:@"%@ subscribed", [[NSUserDefaults standardUserDefaults] valueForKey:@"userName"]];
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:subscribedUserKey]) {
         // Every 5th view will result in a pop-up ad on the client
         // After 5 views always show the subscription modal
         if (views >= 5 && !didShowModal) {
@@ -171,7 +172,8 @@
 
 - (NSInteger)viewsThisMonth
 {
-    NSMutableArray *viewsArray = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"viewsThisMonth"]];
+    NSString *userViewsThisMonth = [NSString stringWithFormat:@"%@ viewsThisMonth", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+    NSMutableArray *viewsArray = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:userViewsThisMonth]];
     
     NSDate * now = [NSDate date];
     NSDateComponents *nowComponents = [[NSCalendar currentCalendar] components:NSMonthCalendarUnit | NSYearCalendarUnit fromDate:now];
@@ -192,7 +194,7 @@
     
     [viewsArray addObject:now];
     
-    [[NSUserDefaults standardUserDefaults] setObject:viewsArray forKey:@"viewsThisMonth"];
+    [[NSUserDefaults standardUserDefaults] setObject:viewsArray forKey:userViewsThisMonth];
     
     return viewsThisMonth;
 }

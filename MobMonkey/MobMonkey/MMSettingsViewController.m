@@ -178,6 +178,8 @@
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userName"];
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"oAuthToken"];
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"password"];
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"facebookEnabled"];
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"twitterEnabled"];
         [[NSUserDefaults standardUserDefaults]synchronize];
         
         
