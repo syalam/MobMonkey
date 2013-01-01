@@ -234,22 +234,7 @@
                         NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
                         [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
                          [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
-                         [MMAPI checkUserIn:params
-                                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                        [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
-                                    }
-                                    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                        if (operation.responseData) {
-                                            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
-                                            if ([response valueForKey:@"description"]) {
-                                                NSString *responseString = [response valueForKey:@"description"];
-                                                
-                                                [SVProgressHUD showErrorWithStatus:responseString];
-                                            }
-                                            [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
-                                            
-                                        }
-                                    }];
+                         [self checkInUser];
                      }
                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                          NSLog(@"%@", operation.responseString);
@@ -282,7 +267,9 @@
                                             [my valueForKey:@"email"], @"eMailAddress",
                                             accessToken, @"oAuthToken", nil];
                     [MMAPI facebookSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                        
+                        [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"eMailAddress"] forKey:@"userName"];
+                        [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"oAuthToken"] forKey:@"oAuthToken"];
+                        [self checkInUser];
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         
                     }];
@@ -325,7 +312,7 @@
     [alert show];
 }
 
-#pragma mark - Helper Classes
+#pragma mark - Helper Methods
 - (void)createBirthdayActionSheet {
     birthdayActionSheet = [[UIActionSheet alloc] init];
     [birthdayActionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
@@ -376,6 +363,27 @@
     else {
         [genderActionSheet showInView:self.view];
     }
+}
+
+- (void)checkInUser {
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
+    [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
+    [MMAPI checkUserIn:params
+               success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                   [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+               }
+               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                   if (operation.responseData) {
+                       NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+                       if ([response valueForKey:@"description"]) {
+                           NSString *responseString = [response valueForKey:@"description"];
+                           
+                           [SVProgressHUD showErrorWithStatus:responseString];
+                       }
+                       [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+                   }
+               }];
 }
 
 #pragma mark - Action Sheet Delegate Methods
