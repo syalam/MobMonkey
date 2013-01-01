@@ -83,18 +83,17 @@
     UIImageView *imageView;
     if ([[_location valueForKey:@"mediaType"]intValue] == 1) {
         imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellPictureBtn"]];
-        imageView.frame = CGRectMake(xPosition, 0, 16.0, 16.0);
-        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        [_mediaIconsView addSubview:imageView];
-        xPosition -= 20.0;
+    }
+    else if ([[_location valueForKey:@"mediaType"]intValue] == 4) {
+        imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"pencilIcn"]];
     }
     else {
         imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellVideoBtn"]];
-        imageView.frame = CGRectMake(xPosition, 0, 16.0, 16.0);
-        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        [_mediaIconsView addSubview:imageView];
-        xPosition -= 20.0;
     }
+    imageView.frame = CGRectMake(xPosition, 0, 16.0, 16.0);
+    imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    [_mediaIconsView addSubview:imageView];
+    xPosition -= 20.0;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
