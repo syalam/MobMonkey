@@ -138,8 +138,8 @@
         cell = [[MMInboxCategoryCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:InboxCategoryCellIdentifier];
         cell.detailTextLabel.textColor = [UIColor blackColor];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:17.0];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.backgroundColor = [UIColor whiteColor];
     
     switch (indexPath.row) {

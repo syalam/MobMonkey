@@ -104,8 +104,9 @@
         cell = [[MMInboxCategoryCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
         cell.detailTextLabel.textColor = [UIColor blackColor];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:17.0];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    cell.backgroundColor = [UIColor whiteColor];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     switch (indexPath.row) {
         case 0:
