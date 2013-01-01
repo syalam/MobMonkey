@@ -219,12 +219,9 @@
         else {
             [params setObject:[NSNumber numberWithInt:0] forKey:@"gender"];
         }
-        if ([[NSUserDefaults standardUserDefaults]objectForKey:@"apnsToken"]) {
-            [params setObject:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
-        }
-        else {
-            [params setObject:@"01238jkl123iu33bb93aa621864be0a927de9672cb13af16b0e9512398uiu123oiu" forKey:@"deviceId"];
-        }
+        [params setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
+
+
         [params setObject:@"iOS" forKey:@"deviceType"];
         [SVProgressHUD showWithStatus:@"Signing Up"];
         [MMAPI signUpNewUser:params
@@ -255,6 +252,7 @@
                                     }];
                      }
                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                         NSLog(@"%@", operation.responseString);
                          if (operation.responseData) {
                              NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
                              if ([response valueForKey:@"description"]) {

@@ -44,10 +44,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
-    [httpClient  postPath:@"signup/user"
-               parameters:paramsCopy
-                  success:success
-                  failure:failure];
+    [httpClient  postPath:@"signup/user" parameters:paramsCopy success:success failure:failure];
 }
 
 + (void)getUserOnSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
