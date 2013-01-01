@@ -105,8 +105,8 @@
         cell.detailTextLabel.textColor = [UIColor blackColor];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:17.0];
     }
-    cell.backgroundColor = [UIColor whiteColor];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.textLabel.textColor = [UIColor blackColor];
     
     switch (indexPath.row) {
         case 0:
@@ -116,7 +116,7 @@
             }
             else {
                 cell.categoryItemCountLabel.text = @"";
-                cell.backgroundColor = [UIColor lightGrayColor];
+                cell.textLabel.textColor = [UIColor lightGrayColor];
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }
             break;
@@ -127,7 +127,7 @@
             }
             else {
                 cell.categoryItemCountLabel.text = @"";
-                cell.backgroundColor = [UIColor lightGrayColor];
+                cell.textLabel.textColor = [UIColor lightGrayColor];
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }
             break;
@@ -138,7 +138,7 @@
             }
             else {
                 cell.categoryItemCountLabel.text = @"";
-                cell.backgroundColor = [UIColor lightGrayColor];
+                cell.textLabel.textColor = [UIColor lightGrayColor];
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }
             break;
@@ -149,7 +149,7 @@
             }
             else {
                 cell.categoryItemCountLabel.text = @"";
-                cell.backgroundColor = [UIColor lightGrayColor];
+                cell.textLabel.textColor = [UIColor lightGrayColor];
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }
             break;
