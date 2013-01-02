@@ -10,6 +10,7 @@
 #import "MMClientSDK.h"
 #import "GetRelativeTime.h"
 #import "MMLocationViewController.h"
+#import "MMLocationListCell.h"
 
 @interface MMAnsweredRequestsViewController ()
 
@@ -81,53 +82,74 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    MMAnsweredRequestsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (!cell) {
-        cell = [[MMAnsweredRequestsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.delegate = self;
-    }
-    
-    cell.timeStampLabel.text = @"";
-    cell.locationImageView.image = nil;
-    cell.locationNameLabel.text = @"";
-    
-    if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"] isKindOfClass:[NSNull class]]) {
-        cell.locationNameLabel.text = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"];
-    }
-    if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"fulfilledDate"] isKindOfClass:[NSNull class]]) {
-        double unixTime = [[[_contentList objectAtIndex:indexPath.row]valueForKey:@"fulfilledDate"] floatValue]/1000;
-        NSDate *dateAnswered = [NSDate dateWithTimeIntervalSince1970:
-                             (NSTimeInterval)unixTime];
-        
-        cell.timeStampLabel.text = [GetRelativeTime getRelativeTime:dateAnswered];
-        [cell.timeStampLabel sizeToFit];
-        [cell.timeStampLabel setFrame:CGRectMake(cell.frame.size.width - cell.timeStampLabel.frame.size.width - 20, cell.timeStampLabel.frame.origin.y, cell.timeStampLabel.frame.size.width, cell.timeStampLabel.frame.size.height)];
-        [cell.clockImageView setFrame:CGRectMake(cell.timeStampLabel.frame.origin.x - 20, cell.clockImageView.frame.origin.y, cell.clockImageView.frame.size.width, cell.clockImageView.frame.size.height)];
-    }
-    if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"media"] isKindOfClass:[NSNull class]]) {
-        if ([[[[[_contentList objectAtIndex:indexPath.row]valueForKey:@"media"]objectAtIndex:0]valueForKey:@"accepted"]intValue] == 1) {
-            [cell.acceptButton setHidden:YES];
-            [cell.rejectButton setHidden:YES];
+    if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 4) {
+        static NSString *CellIdentifier = @"TextAnswerCell";
+        UITableViewCell *textCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (!textCell) {
+            textCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            textCell.textLabel.font = [UIFont boldSystemFontOfSize:12];
+            textCell.backgroundColor = [UIColor whiteColor];
         }
         
-        if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 1) {
-            [cell.locationImageView reloadWithUrl:[[[[_contentList objectAtIndex:indexPath.row]valueForKey:@"media"]objectAtIndex:0]valueForKey:@"mediaURL"]];
-        }
-        else {
-            dispatch_async(backgroundQueue, ^(void) {
-                cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row];
-            });
-        }
+        textCell.textLabel.text = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"message"];
+        
+        return textCell;
     }
-    
-    cell.moreButton.tag = indexPath.row;
-    cell.locationNameButton.tag = indexPath.row;
-    cell.imageButton.tag = indexPath.row;
-    cell.acceptButton.tag = indexPath.row;
-    cell.rejectButton.tag = indexPath.row;
-    
-    return cell;
+    else {
+        static NSString *CellIdentifier = @"Cell";
+        MMAnsweredRequestsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (!cell) {
+            cell = [[MMAnsweredRequestsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell.delegate = self;
+        }
+        
+        cell.timeStampLabel.text = @"";
+        cell.locationImageView.image = nil;
+        cell.locationNameLabel.text = @"";
+        
+        NSArray *mediaArray  = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"media"];
+        
+        if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"] isKindOfClass:[NSNull class]]) {
+            cell.locationNameLabel.text = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"];
+        }
+        if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"fulfilledDate"] isKindOfClass:[NSNull class]]) {
+            double unixTime = [[[_contentList objectAtIndex:indexPath.row]valueForKey:@"fulfilledDate"] floatValue]/1000;
+            NSDate *dateAnswered = [NSDate dateWithTimeIntervalSince1970:
+                                    (NSTimeInterval)unixTime];
+            
+            cell.timeStampLabel.text = [GetRelativeTime getRelativeTime:dateAnswered];
+            [cell.timeStampLabel sizeToFit];
+            [cell.timeStampLabel setFrame:CGRectMake(cell.frame.size.width - cell.timeStampLabel.frame.size.width - 20, cell.timeStampLabel.frame.origin.y, cell.timeStampLabel.frame.size.width, cell.timeStampLabel.frame.size.height)];
+            [cell.clockImageView setFrame:CGRectMake(cell.timeStampLabel.frame.origin.x - 20, cell.clockImageView.frame.origin.y, cell.clockImageView.frame.size.width, cell.clockImageView.frame.size.height)];
+        }
+        if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"media"] isKindOfClass:[NSNull class]]) {
+            if (mediaArray.count > 0) {
+                if ([[[mediaArray objectAtIndex:0]valueForKey:@"accepted"]intValue] == 1) {
+                    [cell.acceptButton setHidden:YES];
+                    [cell.rejectButton setHidden:YES];
+                }
+            }
+            
+            if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 1) {
+                if (mediaArray.count > 0) {
+                    [cell.locationImageView reloadWithUrl:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
+                }
+            }
+            else {
+                dispatch_async(backgroundQueue, ^(void) {
+                    cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row];
+                });
+            }
+        }
+        
+        cell.moreButton.tag = indexPath.row;
+        cell.locationNameButton.tag = indexPath.row;
+        cell.imageButton.tag = indexPath.row;
+        cell.acceptButton.tag = indexPath.row;
+        cell.rejectButton.tag = indexPath.row;
+        
+        return cell;
+    }
 }
 
 #pragma mark - Table view delegate
@@ -138,7 +160,12 @@
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 370;
+    if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 4) {
+        return 50;
+    }
+    else {
+        return 370;
+    }
 }
 
 #pragma mark - UINavBar Action Methods
@@ -192,13 +219,14 @@
         [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:cell.locationImageView.image locationName:cell.locationNameLabel.text];
     }
     else {
-        NSURL *url = [NSURL URLWithString:[[[[_contentList objectAtIndex:[sender tag]]valueForKey:@"media"]objectAtIndex:0]valueForKey:@"mediaURL"]];
-        NSLog(@"%@", url);
-        MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-        [self.navigationController presentMoviePlayerViewControllerAnimated:player];
+        NSArray *mediaArray  = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"media"];
+        if (mediaArray.count > 0) {
+            NSURL *url = [NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
+            NSLog(@"%@", url);
+            MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+            [self.navigationController presentMoviePlayerViewControllerAnimated:player];
+        }
     }
-    
-    
 }
 
 
@@ -222,15 +250,18 @@
         thumbnailImage = [_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]];
     }
     else {
-        AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[[[_contentList objectAtIndex:row]valueForKey:@"media"]objectAtIndex:0]valueForKey:@"mediaURL"]] options:nil];
-        AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-        generate.appliesPreferredTrackTransform = YES;
-        NSError *err = NULL;
-        CMTime time = CMTimeMake(0, 60);
-        CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
-        
-        thumbnailImage = [UIImage imageWithCGImage:imgRef];
-        [_thumbnailCache setValue:thumbnailImage forKey:[NSString stringWithFormat:@"%d", row]];
+        NSArray *mediaArray  = [[_contentList objectAtIndex:row]valueForKey:@"media"];
+        if (mediaArray.count > 0) {
+            AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]] options:nil];
+            AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+            generate.appliesPreferredTrackTransform = YES;
+            NSError *err = NULL;
+            CMTime time = CMTimeMake(0, 60);
+            CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
+            
+            thumbnailImage = [UIImage imageWithCGImage:imgRef];
+            [_thumbnailCache setValue:thumbnailImage forKey:[NSString stringWithFormat:@"%d", row]];
+        }
     }
     
     return thumbnailImage;

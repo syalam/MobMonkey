@@ -35,9 +35,6 @@
     if ([self.title isEqualToString:@"Open Requests"]) {
         [self fetchOpenRequests];
     }
-    else {
-        [self fetchAssignedRequests];
-    }
     
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
     [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -51,6 +48,14 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if ([self.title isEqualToString:@"Assigned Requests"]) {
+        [self fetchAssignedRequests];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -227,14 +232,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD showErrorWithStatus:@"Unable to load assigned requests"];
     }];
-    /*[MMAPI getAssignedRequestsOnSuccess:^(id responseObject) {
-        [SVProgressHUD dismiss];
-        NSLog(@"%@", responseObject);
-        [self setContentList:responseObject];
-        [self.tableView reloadData];
-    } failure:^(NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"Unable to load assigned requests"];
-    }];*/
 }
 
 - (id)failureBlock

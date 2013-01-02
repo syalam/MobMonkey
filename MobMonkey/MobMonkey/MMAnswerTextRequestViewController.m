@@ -57,7 +57,7 @@
                                        [NSNumber numberWithInt:0], @"requestType",
                                        [_requestObject valueForKey:@"requestId"], @"requestId", nil];
         NSLog(@"%@", params);
-        [MMAPI fulfillRequest:@"Text" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MMAPI fulfillRequest:@"text" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [SVProgressHUD showSuccessWithStatus:@"Response submitted"];
             [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -69,7 +69,6 @@
             else {
                 [SVProgressHUD showErrorWithStatus:@"Unable to submit response at this time. Please try again later"];
             }
-            
         }];
     }
     else {
