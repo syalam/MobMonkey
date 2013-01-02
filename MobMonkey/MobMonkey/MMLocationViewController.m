@@ -330,9 +330,9 @@
     if ([prefs boolForKey:@"facebookEnabled"]) {
         [actionSheet addButtonWithTitle:@"Share on Facebook"];
     }
-    //if ([prefs boolForKey:@"twitterEnabled"]) {
+    if ([prefs boolForKey:@"twitterEnabled"]) {
         [actionSheet addButtonWithTitle:@"Share on Twitter"];
-    //}
+    }
     [actionSheet addButtonWithTitle:@"Flag for Review"];
     actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
     [actionSheet showFromTabBar:self.tabBarController.tabBar];

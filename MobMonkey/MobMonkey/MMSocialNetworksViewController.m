@@ -84,6 +84,7 @@
     if (!cell) {
         cell = [[MMSocialNetworksCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.delegate = self;
     }
     cell.mmSocialNetworkTextLabel.text = contentForThisRow;
     cell.mmSocialNetworkSwitch.tag = indexPath.row;
