@@ -141,6 +141,7 @@
         NSLog(@"%@", _contentList);
         if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 4) {
             MMAnswerTextRequestViewController *answerTextRequest = [[MMAnswerTextRequestViewController alloc]initWithNibName:@"MMAnswerTextRequestViewController" bundle:nil];
+            answerTextRequest.requestObject = [_contentList objectAtIndex:indexPath.row];
             UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:answerTextRequest];
             [self.navigationController presentViewController:navC animated:YES completion:NULL];
         }

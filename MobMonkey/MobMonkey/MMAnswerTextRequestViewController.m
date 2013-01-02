@@ -53,14 +53,23 @@
         [SVProgressHUD showWithStatus:@"Submitting response"];
         NSMutableDictionary* params = [[NSMutableDictionary alloc]initWithObjectsAndKeys:
                                        textView.text, @"mediaData",
-                                       @"text", @"contentType", nil];
+                                       @"text", @"contentType",
+                                       [NSNumber numberWithInt:0], @"requestType",
+                                       [_requestObject valueForKey:@"requestId"], @"requestId", nil];
         NSLog(@"%@", params);
         [MMAPI fulfillRequest:@"Text" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [SVProgressHUD showSuccessWithStatus:@"Response submitted"];
             [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"%@", operation.responseString);
-            [SVProgressHUD showErrorWithStatus:@"Unable to submit response at this time. Please try again later"];
+            if (operation.responseData) {
+                NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+                [SVProgressHUD showErrorWithStatus:[response valueForKey:@"description"]];
+            }
+            else {
+                [SVProgressHUD showErrorWithStatus:@"Unable to submit response at this time. Please try again later"];
+            }
+            
         }];
     }
     else {
