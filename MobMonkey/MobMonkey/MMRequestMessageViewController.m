@@ -112,4 +112,18 @@
     [self setTextView:nil];
     [super viewDidUnload];
 }
+
+#pragma mark - UITextView Delegate
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)aRange replacementText:(NSString *)aText {
+    
+    NSString* newText = [textView.text stringByReplacingCharactersInRange:aRange withString:aText];
+    
+    if([newText length] > 100)
+    {
+        return NO; // can't enter more text
+    }
+    else
+        return YES; // let the textView know that it should handle the inserted text
+}
+
 @end

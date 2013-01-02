@@ -16,6 +16,8 @@
     if (self) {
         // Initialization code
         _locationNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 20, 300, 21)];
+        _requestLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 80, 300, 60)];
+        _responseLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 140, 300, 60)];
         _timeStampLabel = [[UILabel alloc]initWithFrame:CGRectMake(241, 62, 72, 16)];
         [_timeStampLabel setTextAlignment:NSTextAlignmentRight];
         _locationImageView = [[TCImageView alloc]initWithFrame:CGRectMake(10, 49, 300, 225)];
@@ -48,9 +50,20 @@
         [_locationNameLabel setBackgroundColor:[UIColor clearColor]];
         _locationNameLabel.font = [UIFont boldSystemFontOfSize:20.0];
         
+        _requestLabel.textColor = [UIColor blackColor];
+        [_requestLabel setBackgroundColor:[UIColor clearColor]];
+        _requestLabel.font = [UIFont boldSystemFontOfSize:14];
+        
+        
+        _responseLabel.textColor = [UIColor blackColor];
+        [_responseLabel setBackgroundColor:[UIColor clearColor]];
+        _responseLabel.font = [UIFont systemFontOfSize:14];
+        
+        
         _timeStampLabel.textColor = [UIColor whiteColor];
         [_timeStampLabel setBackgroundColor:[UIColor clearColor]];
         _timeStampLabel.font = [UIFont boldSystemFontOfSize:12];
+        
         
         [_locationImageView setImage:[UIImage imageNamed:@"monkey.jpg"]];
         [_locationImageView setContentMode:UIViewContentModeScaleAspectFill];
@@ -69,6 +82,8 @@
         [self.contentView addSubview:backgroundView];
         [self.contentView addSubview:_locationNameLabel];
         [self.contentView addSubview:_locationNameButton];
+        [self.contentView addSubview:_requestLabel];
+        [self.contentView addSubview:_responseLabel];
         [self.contentView addSubview:_locationImageView];
         [self.contentView addSubview:_imageButton];
         [self.contentView addSubview:_clockImageView];

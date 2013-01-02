@@ -23,6 +23,8 @@
 
 @property (nonatomic, retain) UIButton *locationNameButton;
 @property (nonatomic, retain) UILabel *locationNameLabel;
+@property (nonatomic, retain) UILabel *requestLabel;
+@property (nonatomic, retain) UILabel *responseLabel;
 @property (nonatomic, retain) UILabel *timeStampLabel;
 @property (nonatomic, retain) TCImageView *locationImageView;
 @property (nonatomic, retain) UIButton *imageButton;

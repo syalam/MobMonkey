@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMAnswerTextRequestViewController : UIViewController {
+@interface MMAnswerTextRequestViewController : UIViewController <UITextViewDelegate> {
     IBOutlet UITextView* textView;
     IBOutlet UIButton*  submitButton;
 }
