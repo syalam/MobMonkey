@@ -269,6 +269,8 @@
                     [MMAPI facebookSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"eMailAddress"] forKey:@"userName"];
                         [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"oAuthToken"] forKey:@"oAuthToken"];
+                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"facebookEnabled"];
+                        [[NSUserDefaults standardUserDefaults]synchronize];
                         [self checkInUser];
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         
@@ -286,8 +288,27 @@
 }
 
 - (IBAction)twitterButtonTapped:(id)sender {
-    [self showAccounts];
-} 
+    [SVProgressHUD showWithStatus:@"Loading Twitter Accounts"];
+    ACAccountStore* accountStore = [[ACAccountStore alloc] init];
+    ACAccountType *accountTypeTwitter = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    [accountStore requestAccessToAccountsWithType:accountTypeTwitter options:nil completion:^(BOOL granted, NSError *error) {
+        [SVProgressHUD dismiss];
+        if (granted) {
+            _twitterAccounts = [accountStore accountsWithAccountType:accountTypeTwitter];
+            UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Twitter Accounts on This Device" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+            for (NSInteger i = 0; i < _twitterAccounts.count; i++) {
+                ACAccount *account = [_twitterAccounts objectAtIndex:i];
+                [actionSheet addButtonWithTitle:account.username];
+            }
+            actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
+            
+            actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+            actionSheetCall = twitterAccountsActionSheetCall;
+            [actionSheet showInView:self.view];
+        }
+        
+    }];
+}
 
 /*- (IBAction)saveButtonTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -386,6 +407,16 @@
                }];
 }
 
+- (void)getAllCategories {
+    [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [[NSUserDefaults standardUserDefaults] setObject:responseObject forKey:@"allCategories"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
+    }];
+}
+
 #pragma mark - Action Sheet Delegate Methods
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
@@ -400,6 +431,11 @@
                                         account.identifier, @"oAuthToken", nil];
                 [MMAPI TwitterSignUp:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSLog(@"%@", responseObject);
+                    [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"eMailAddress"] forKey:@"userName"];
+                    [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"oAuthToken"] forKey:@"oAuthToken"];
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"twitterEnabled"];
+                    [[NSUserDefaults standardUserDefaults]synchronize];
+                    [self checkInUser];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     NSLog(@"%@", operation.responseString);
                 }];
@@ -424,28 +460,4 @@
     
 }
 
-#pragma mark - Twitter Accounts delegate
-- (void)showAccounts {
-    [SVProgressHUD showWithStatus:@"Loading Twitter Accounts"];
-    ACAccountStore* accountStore = [[ACAccountStore alloc] init];
-    ACAccountType *accountTypeTwitter = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    [accountStore requestAccessToAccountsWithType:accountTypeTwitter options:nil completion:^(BOOL granted, NSError *error) {
-        [SVProgressHUD dismiss];
-        if (granted) {
-            _twitterAccounts = [accountStore accountsWithAccountType:accountTypeTwitter];
-            UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Twitter Accounts on This Device" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
-            for (NSInteger i = 0; i < _twitterAccounts.count; i++) {
-                ACAccount *account = [_twitterAccounts objectAtIndex:i];
-                [actionSheet addButtonWithTitle:account.username];
-            }
-            actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
-            
-            actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-            actionSheetCall = twitterAccountsActionSheetCall;
-            [actionSheet showInView:self.view];
-        }
-        
-    }];
-}
-     
 @end

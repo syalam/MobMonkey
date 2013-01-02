@@ -131,22 +131,10 @@
             [prefs setObject:emailTextField.text forKey:@"userName"];
             [prefs setObject:passwordTextField.text forKey:@"password"];
             [prefs synchronize];
-            [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSLog(@"%@", responseObject);
-                [prefs setObject:responseObject forKey:@"allCategories"];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"%@", operation.responseString);
-            }];
             
-            NSMutableDictionary *checkinParams = [[NSMutableDictionary alloc]init];
-            [checkinParams setObject:[NSNumber numberWithDouble:[[prefs objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
-            [checkinParams setObject:[NSNumber numberWithDouble:[[prefs objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
+            [self getAllCategories];
             
-            [MMAPI checkUserIn:checkinParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSLog(@"%@", @"Checked In");
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"%@", operation.responseString);
-            }];
+            [self checkInUser];
             
             [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -156,8 +144,8 @@
 }
 
 - (IBAction)facebookButtonTapped:(id)sender {
-    NSArray *permissions = [NSArray arrayWithObjects:@"email", @"publish_stream", nil];
-    [FBSession openActiveSessionWithPermissions:permissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+    NSArray *permissions = [NSArray arrayWithObjects:@"email", nil];
+    [FBSession openActiveSessionWithReadPermissions:permissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
         if (session.isOpen) {
             FBRequest *me = [FBRequest requestForMe];
             [me startWithCompletionHandler: ^(FBRequestConnection *connection,
@@ -179,6 +167,10 @@
                         [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
                         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:[responseObject valueForKey:@"description"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                         [prefs setBool:YES forKey:@"facebookEnabled"];
+                        [prefs synchronize];
+                        [self checkInUser];
+                        [self getAllCategories];
+                        
                         [alert show];
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to log you in. Please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
@@ -189,7 +181,6 @@
                     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to log you in. Please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
                     [alert show];
                 }
-                
             }];
         }
     }];
@@ -197,6 +188,25 @@
 }
 
 - (IBAction)twitterButtonTapped:(id)sender {
+    [SVProgressHUD showWithStatus:@"Loading Twitter Accounts"];
+    ACAccountStore* accountStore = [[ACAccountStore alloc] init];
+    ACAccountType *accountTypeTwitter = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    [accountStore requestAccessToAccountsWithType:accountTypeTwitter options:nil completion:^(BOOL granted, NSError *error) {
+        [SVProgressHUD dismiss];
+        if (granted) {
+            _twitterAccounts = [accountStore accountsWithAccountType:accountTypeTwitter];
+            UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Twitter Accounts on This Device" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+            for (NSInteger i = 0; i < _twitterAccounts.count; i++) {
+                ACAccount *account = [_twitterAccounts objectAtIndex:i];
+                [actionSheet addButtonWithTitle:account.username];
+            }
+            actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
+            
+            actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+            actionSheetCall = twitterAccountsActionSheetCall;
+            [actionSheet showInView:self.view];
+        }
+    }];
 }
 
 - (IBAction)signUpButtonClicked:(id)sender {
@@ -208,6 +218,26 @@
 - (void)showAlertView:(NSString*)message {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
+}
+
+- (void)checkInUser {
+    NSMutableDictionary *checkinParams = [[NSMutableDictionary alloc]init];
+    [checkinParams setObject:[NSNumber numberWithDouble:[[prefs objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
+    [checkinParams setObject:[NSNumber numberWithDouble:[[prefs objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
+    [MMAPI checkUserIn:checkinParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", @"Checked In");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
+    }];
+}
+
+- (void)getAllCategories {
+    [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [prefs setObject:responseObject forKey:@"allCategories"];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
+    }];
 }
 
 #pragma mark MMAPIDelegate Methods
@@ -225,6 +255,39 @@
     NSString *responseString = [response valueForKey:@"description"];
     
     [SVProgressHUD showErrorWithStatus:responseString];
+}
+
+#pragma mark - UIActionSheet Delegate methods
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    if (![buttonTitle isEqualToString:@"Cancel"]) {
+        switch (actionSheetCall) {
+            case twitterAccountsActionSheetCall: {
+                ACAccount *account = [_twitterAccounts objectAtIndex:buttonIndex];
+                
+                NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                        account.username, @"eMailAddress",
+                                        account.identifier, @"oAuthToken", nil];
+                [MMAPI TwitterSignUp:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSLog(@"%@", responseObject);
+                    [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"eMailAddress"] forKey:@"userName"];
+                    [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"oAuthToken"] forKey:@"oAuthToken"];
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"twitterEnabled"];
+                    [[NSUserDefaults standardUserDefaults]synchronize];
+                    [self checkInUser];
+                    [self getAllCategories];
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"%@", operation.responseString);
+                }];
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
 }
 
 @end

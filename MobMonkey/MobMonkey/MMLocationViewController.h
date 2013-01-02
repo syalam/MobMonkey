@@ -13,6 +13,8 @@
 #import "MMNotificationSettingsViewController.h"
 #import "MMAPI.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import <Twitter/Twitter.h>
+
 
 @interface MMLocationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MMNotificationSettingsDelegate, MMAPIDelegate, UIGestureRecognizerDelegate, NSURLConnectionDelegate> {
     NSArray *mediaArray;
@@ -24,8 +26,6 @@
     dispatch_queue_t backgroundQueue;
     
     IBOutlet UIImageView *liveStreamImage;
-    
-    NSDictionary *postParams;
 }
 
 @property (nonatomic, retain) NSMutableDictionary* contentList;
