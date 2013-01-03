@@ -553,102 +553,43 @@
 
 - (void)publishStoryToFacebook
 {
-    NSString *url;
-    UIImage *imageToPost;
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    BOOL isVideo = NO;
+    [params setValue:_locationNameLabel.text forKey:@"initialText"];
     if (mediaArray.count > 0) {
-        imageToPost = _locationLatestImageView.image;
+        if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"video"]) {
+            [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
+            isVideo = YES;
+        }
+        else {
+            [params setValue:_locationLatestImageView.image forKey:@"image"];
+        }
     }
-    if (![[_contentList valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[_contentList valueForKey:@"webSite"]isEqualToString:@""]) {
-        url = [_contentList valueForKey:@"webSite"];
+    if (![[_contentList valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[_contentList valueForKey:@"webSite"]isEqualToString:@""] && !isVideo) {
+        [params setValue:[_contentList valueForKey:@"webSite"] forKey:@"url"];
     }
     
-    [FBNativeDialogs presentShareDialogModallyFrom:self initialText:_locationNameLabel.text image:imageToPost url:[NSURL URLWithString:url] handler:^(FBNativeDialogResult result, NSError *error) {
-         if (error) {
-             /* handle failure */
-             NSLog(@"%@", error);
-         } else {
-             if (result == FBNativeDialogResultSucceeded) {
-                 NSLog(@"%@", @"success");
-             } else {
-                 
-             }
-         }
-     }];
-    
-    /*if (!displayedNativeDialog) {
-        NSMutableDictionary* postParams = [[NSMutableDictionary alloc] init];
-        if (mediaArray.count > 0) {
-            [postParams setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"picture"];
-        }
-        if (![[_contentList valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[_contentList valueForKey:@"webSite"]isEqualToString:@""]) {
-            [postParams setValue:[_contentList valueForKey:@"webSite"] forKey:@"link"];
-        }
-        [postParams setValue:_locationNameLabel.text forKey:@"description"];
-        
-        [FBRequestConnection
-         startWithGraphPath:@"me/feed"
-         parameters:postParams
-         HTTPMethod:@"POST"
-         completionHandler:^(FBRequestConnection *connection,
-                             id result,
-                             NSError *error) {
-             NSString *alertText;
-             if (error) {
-                 alertText = [NSString stringWithFormat:
-                              @"error: domain = %@, code = %d",
-                              error.domain, error.code];
-             } else {
-                 alertText = [NSString stringWithFormat:
-                              @"Posted action, id: %@",
-                              [result objectForKey:@"id"]];
-             }
-             // Show the result in an alert
-             [[[UIAlertView alloc] initWithTitle:@"Result"
-                                         message:alertText
-                                        delegate:self
-                               cancelButtonTitle:@"OK!"
-                               otherButtonTitles:nil]
-              show];
-         }];
-    }*/
+    [[MMClientSDK sharedSDK]shareViaFacebook:params presentingViewController:self];
 }
 
 - (void)publishOnTwitter {
-    SLComposeViewController *tweetSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-    if (([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])) {
-        SLComposeViewControllerCompletionHandler __block completionHandler=^(SLComposeViewControllerResult result){
-            [tweetSheet dismissViewControllerAnimated:YES completion:nil];
-            
-            switch(result){
-                case SLComposeViewControllerResultCancelled:
-                default:
-                {
-                    NSLog(@"Cancelled.....");
-                    
-                }
-                    break;
-                case SLComposeViewControllerResultDone:
-                {
-                    NSLog(@"Posted....");
-                }
-                break;
-            }
-        };
-        
-        NSString *url;
-        UIImage *imageToPost;
-        if (mediaArray.count > 0) {
-            imageToPost = _locationLatestImageView.image;
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    BOOL isVideo = NO;
+    [params setValue:_locationNameLabel.text forKey:@"initialText"];
+    if (mediaArray.count > 0) {
+        if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"video"]) {
+            [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
+            isVideo = YES;
         }
-        if (![[_contentList valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[_contentList valueForKey:@"webSite"]isEqualToString:@""]) {
-            url = [_contentList valueForKey:@"webSite"];
+        else {
+            [params setValue:_locationLatestImageView.image forKey:@"image"];
         }
-        [tweetSheet addImage:imageToPost];
-        [tweetSheet setInitialText:_locationNameLabel.text];
-        [tweetSheet addURL:[NSURL URLWithString:url]];
-        [tweetSheet setCompletionHandler:completionHandler];
-        [self presentViewController:tweetSheet animated:YES completion:NULL];
     }
+    if (![[_contentList valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[_contentList valueForKey:@"webSite"]isEqualToString:@""] && !isVideo) {
+        [params setValue:[_contentList valueForKey:@"webSite"] forKey:@"url"];
+    }
+    
+    [[MMClientSDK sharedSDK]shareViaTwitter:params presentingViewController:self];
 }
 
 

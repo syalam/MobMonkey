@@ -112,4 +112,48 @@
     [presentingViewController.navigationController presentViewController:locationMediaNavC animated:YES completion:NULL];
 }
 
+- (void)shareViaTwitter:(NSDictionary*)params presentingViewController:(UIViewController*)presentingViewController {
+    SLComposeViewController *tweetSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+    if (([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])) {
+        SLComposeViewControllerCompletionHandler __block completionHandler=^(SLComposeViewControllerResult result){
+            [tweetSheet dismissViewControllerAnimated:YES completion:nil];
+            
+            switch(result){
+                case SLComposeViewControllerResultCancelled:
+                default:
+                {
+                    NSLog(@"Cancelled.....");
+                    
+                }
+                    break;
+                case SLComposeViewControllerResultDone:
+                {
+                    NSLog(@"Posted....");
+                }
+                    break;
+            }
+        };
+        [tweetSheet addImage:[params valueForKey:@"image"]];
+        [tweetSheet setInitialText:[params valueForKey:@"initialText"]];
+        [tweetSheet addURL:[NSURL URLWithString:[params valueForKey:@"url"]]];
+        [tweetSheet setCompletionHandler:completionHandler];
+        [presentingViewController presentViewController:tweetSheet animated:YES completion:NULL];
+    }
+}
+
+- (void)shareViaFacebook:(NSDictionary*)params presentingViewController:(UIViewController*)presentingViewController {
+    [FBNativeDialogs presentShareDialogModallyFrom:presentingViewController initialText:[params valueForKey:@"initialText"]    image:[params valueForKey:@"image"] url:[NSURL URLWithString:[params valueForKey:@"url"]] handler:^(FBNativeDialogResult result, NSError *error) {
+        if (error) {
+            /* handle failure */
+            NSLog(@"%@", error);
+        } else {
+            if (result == FBNativeDialogResultSucceeded) {
+                NSLog(@"%@", @"success");
+            } else {
+                
+            }
+        }
+    }];
+}
+
 @end

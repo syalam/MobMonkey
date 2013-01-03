@@ -112,7 +112,6 @@
     if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"media"] isKindOfClass:[NSNull class]]) {
         if (mediaArray.count > 0) {
             if ([[[mediaArray objectAtIndex:0]valueForKey:@"accepted"]intValue] == 1) {
-                cell.timeStampLabel.textColor = [UIColor blackColor];
                 [cell.acceptButton setHidden:YES];
                 [cell.rejectButton setHidden:YES];
             }
@@ -126,6 +125,9 @@
         else if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 4) {
             if (mediaArray.count > 0) {
                 if (![[[mediaArray objectAtIndex:0]valueForKey:@"text"]isKindOfClass:[NSNull class]]) {
+                    [cell.timeStampLabel setTextColor:[UIColor blackColor]];
+                    [cell.clockImageView setImage:[UIImage imageNamed:@"timeIcnOverlayBlack"]];
+                    
                     cell.requestLabel.text = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"message"];
                     cell.responseLabel.text = [[mediaArray objectAtIndex:0]valueForKey:@"text"];
                     
@@ -184,6 +186,7 @@
 }
 
 -(void)moreButtonTapped:(id)sender {
+    selectedRow = [sender tag];
     UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Flag for Review", nil];
     [actionSheet showFromTabBar:self.tabBarController.tabBar];
 }
@@ -266,5 +269,102 @@
     
     return thumbnailImage;
 }
+
+#pragma mark - Action Sheet Delegate Methods
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([buttonTitle isEqualToString:@"Share on Facebook"]) {
+        if ([FBSession.activeSession.permissions
+             indexOfObject:@"publish_actions"] == NSNotFound) {
+            // No permissions found in session, ask for it
+            [FBSession.activeSession
+             reauthorizeWithPublishPermissions:
+             [NSArray arrayWithObject:@"publish_actions"]
+             defaultAudience:FBSessionDefaultAudienceFriends
+             completionHandler:^(FBSession *session, NSError *error) {
+                 if (!error) {
+                     // If permissions granted, publish the story
+                     [self publishStoryToFacebook];
+                 }
+             }];
+        }
+        else {
+            [self publishStoryToFacebook];
+        }
+    }
+    else if ([buttonTitle isEqualToString:@"Share on Twitter"]) {
+        [self publishOnTwitter];
+    }
+    else if ([buttonTitle isEqualToString:@"Flag for Review"]) {
+        
+    }
+}
+
+
+#pragma mark - Helper Methods
+- (void)publishStoryToFacebook
+{
+    MMAnsweredRequestsCell *cell = (MMAnsweredRequestsCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0]];
+    BOOL isVideo = NO;
+    NSArray *mediaArray  = [[_contentList objectAtIndex:selectedRow]valueForKey:@"media"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    [params setValue:cell.locationNameLabel.text forKey:@"initialText"];
+    if (mediaArray.count > 0) {
+        if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 1) {
+            [params setValue:cell.locationImageView.image forKey:@"image"];
+        }
+        else if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 2) {
+            [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
+            isVideo = YES;
+        }
+        else if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 4) {
+            NSString *initialText = [params valueForKey:@"initialText"];
+            if (![[[mediaArray objectAtIndex:0]valueForKey:@"text"]isKindOfClass:[NSNull class]]) {
+                initialText = [NSString stringWithFormat:@"%@. %@", initialText, [[mediaArray objectAtIndex:0]valueForKey:@"text"]];
+            }
+            [params setValue:initialText forKey:@"initialText"];
+        }
+    }
+    if (!isVideo) {
+        if (![[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"]isEqualToString:@""]) {
+            [params setValue:[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"] forKey:@"url"];
+        }
+    }
+
+    [[MMClientSDK sharedSDK]shareViaFacebook:params presentingViewController:self];
+}
+
+- (void)publishOnTwitter {
+    MMAnsweredRequestsCell *cell = (MMAnsweredRequestsCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0]];
+    BOOL isVideo = NO;
+    NSArray *mediaArray  = [[_contentList objectAtIndex:selectedRow]valueForKey:@"media"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    [params setValue:cell.locationNameLabel.text forKey:@"initialText"];
+    if (mediaArray.count > 0) {
+        if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 1) {
+            [params setValue:cell.locationImageView.image forKey:@"image"];
+        }
+        else if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 2) {
+            [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
+            isVideo = YES;
+        }
+        else if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 4) {
+            NSString *initialText = [params valueForKey:@"initialText"];
+            if (![[[mediaArray objectAtIndex:0]valueForKey:@"text"]isKindOfClass:[NSNull class]]) {
+                initialText = [NSString stringWithFormat:@"%@. %@", initialText, [[mediaArray objectAtIndex:0]valueForKey:@"text"]];
+            }
+            [params setValue:initialText forKey:@"initialText"];
+        }
+    }
+    if (!isVideo) {
+        if (![[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"]isEqualToString:@""]) {
+            [params setValue:[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"] forKey:@"url"];
+        }
+    }
+    
+    
+    [[MMClientSDK sharedSDK]shareViaTwitter:params presentingViewController:self];
+}
+
 
 @end

@@ -543,6 +543,8 @@
 		F7B012E3165606C500BCAC26 /* homeScreenAppIcon~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F7B012DF165606C500BCAC26 /* homeScreenAppIcon~iphone.png */; };
 		F7B0132D1658C36900BCAC26 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7716D57161D115C00578A90 /* AVFoundation.framework */; };
 		F7B0132F1658C3D500BCAC26 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7716D53161D10D900578A90 /* CoreMedia.framework */; };
+		F7BEA9BF1695415B0010A84D /* timeIcnOverlayBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = F7BEA9BD1695415B0010A84D /* timeIcnOverlayBlack.png */; };
+		F7BEA9C01695415B0010A84D /* timeIcnOverlayBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7BEA9BE1695415B0010A84D /* timeIcnOverlayBlack@2x.png */; };
 		F7D41BA816234B4E00DBA87D /* MMTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D41BA616234B4E00DBA87D /* MMTabBarViewController.m */; };
 		F7D41BA916234B4E00DBA87D /* MMTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7D41BA716234B4E00DBA87D /* MMTabBarViewController.xib */; };
 		F7DB5531165561D900FC8AA9 /* deselectedRectRed.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB552F165561D900FC8AA9 /* deselectedRectRed.png */; };
@@ -1248,6 +1250,8 @@
 		F7B012DD165606C500BCAC26 /* homeScreenAppIcon@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "homeScreenAppIcon@2x~iphone.png"; sourceTree = "<group>"; };
 		F7B012DE165606C500BCAC26 /* homeScreenAppIcon~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "homeScreenAppIcon~ipad.png"; sourceTree = "<group>"; };
 		F7B012DF165606C500BCAC26 /* homeScreenAppIcon~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "homeScreenAppIcon~iphone.png"; sourceTree = "<group>"; };
+		F7BEA9BD1695415B0010A84D /* timeIcnOverlayBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeIcnOverlayBlack.png; sourceTree = "<group>"; };
+		F7BEA9BE1695415B0010A84D /* timeIcnOverlayBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeIcnOverlayBlack@2x.png"; sourceTree = "<group>"; };
 		F7D41BA516234B4E00DBA87D /* MMTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTabBarViewController.h; sourceTree = "<group>"; };
 		F7D41BA616234B4E00DBA87D /* MMTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTabBarViewController.m; sourceTree = "<group>"; };
 		F7D41BA716234B4E00DBA87D /* MMTabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMTabBarViewController.xib; sourceTree = "<group>"; };
@@ -2228,6 +2232,8 @@
 				F738D0FD1654CF9B005FC693 /* rectangleOverlay@2x.png */,
 				F738D0FE1654CF9B005FC693 /* timeIcnOverlay.png */,
 				F738D0FF1654CF9B005FC693 /* timeIcnOverlay@2x.png */,
+				F7BEA9BD1695415B0010A84D /* timeIcnOverlayBlack.png */,
+				F7BEA9BE1695415B0010A84D /* timeIcnOverlayBlack@2x.png */,
 				F738D1001654CF9B005FC693 /* videoBg.png */,
 				F738D1011654CF9B005FC693 /* videoBg@2x.png */,
 			);
@@ -3268,6 +3274,8 @@
 				1AAFE55E168BA0D00034FAD1 /* signInBtn.png in Resources */,
 				1AAFE55F168BA0D00034FAD1 /* signInBtn@2x.png in Resources */,
 				F7ED0E161692A487000F2121 /* MMAnswerTextRequestViewController.xib in Resources */,
+				F7BEA9BF1695415B0010A84D /* timeIcnOverlayBlack.png in Resources */,
+				F7BEA9C01695415B0010A84D /* timeIcnOverlayBlack@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

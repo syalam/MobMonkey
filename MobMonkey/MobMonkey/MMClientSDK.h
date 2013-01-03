@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Twitter/Twitter.h>
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface MMClientSDK : NSObject
 
@@ -22,5 +24,8 @@
 - (void)locationScreen:(UIViewController*)presentingViewController locationDetail:(NSMutableDictionary*)locationDetail;
 - (void)makeARequestScreen:(UIViewController*)presentingViewController locationDetail:(NSDictionary*)locationDetail;
 - (void)locationMediaScreen:(UIViewController*)presentingViewController locationMediaContent:(NSArray*)locationMediaContent locationName:(NSString*)locationName;
+- (void)shareViaTwitter:(NSDictionary*)params presentingViewController:(UIViewController*)presentingViewController;
+- (void)shareViaFacebook:(NSDictionary*)params presentingViewController:(UIViewController*)presentingViewController;
+
 
 @end

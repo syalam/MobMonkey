@@ -12,6 +12,7 @@
 @interface MMAnsweredRequestsViewController : UITableViewController <UIActionSheetDelegate, MMAnsweredRequestsCellDelegate> {
     dispatch_queue_t backgroundQueue;
     
+    int selectedRow;
    
 }
 
