@@ -315,18 +315,29 @@
     [accountStore requestAccessToAccountsWithType:accountTypeTwitter options:nil completion:^(BOOL granted, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [SVProgressHUD dismiss];
+            NSLog(@"%@", error);
             if (granted) {
                 _twitterAccounts = [accountStore accountsWithAccountType:accountTypeTwitter];
-                UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Twitter Accounts on This Device" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
-                for (NSInteger i = 0; i < _twitterAccounts.count; i++) {
-                    ACAccount *account = [_twitterAccounts objectAtIndex:i];
-                    [actionSheet addButtonWithTitle:account.username];
+                if (_twitterAccounts.count > 0) {
+                    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Twitter Accounts on This Device" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+                    for (NSInteger i = 0; i < _twitterAccounts.count; i++) {
+                        ACAccount *account = [_twitterAccounts objectAtIndex:i];
+                        [actionSheet addButtonWithTitle:account.username];
+                    }
+                    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
+                    
+                    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+                    actionSheetCall = twitterAccountsActionSheetCall;
+                    [actionSheet showInView:self.view];
                 }
-                actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
-                
-                actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-                actionSheetCall = twitterAccountsActionSheetCall;
-                [actionSheet showInView:self.view];
+                else {
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"There are no Twitter accounts enabled on this device. Please go into your iOS settings menu to add a Twitter account" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                    [alert show];
+                }
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"There are no Twitter accounts enabled on this device. Please go into your iOS settings menu to add a Twitter account" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
             }
         });
         

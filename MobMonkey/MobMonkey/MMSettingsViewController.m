@@ -175,7 +175,6 @@
 - (IBAction)signInButtonTapped:(id)sender {
     //if user name exists, the user is signed in. On this button tap, the user should be signed out
     if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
-        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userName"];
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"oAuthToken"];
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"password"];
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"facebookEnabled"];
