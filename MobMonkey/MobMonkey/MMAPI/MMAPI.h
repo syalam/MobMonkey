@@ -136,7 +136,7 @@ typedef enum OAuthProvider {
  @param twitter o auth token
  */
 
-+ (void)TwitterSignUp:(NSDictionary*)params
++ (void)TwitterSignIn:(NSDictionary*)params
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
