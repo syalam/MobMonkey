@@ -107,6 +107,12 @@
     
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc] initWithCustomView:backNavbutton];
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    if (_twitterSignIn) {
+        _signUpButton.titleLabel.text = @"Sign In";
+        [_facebookButton setHidden:YES];
+        [_twitterButton setHidden:YES];
+    }
 
 }
 
@@ -234,6 +240,7 @@
                         NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
                         [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
                          [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
+                         [self getAllCategories];
                          [self checkInUser];
                      }
                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -426,7 +433,9 @@
     [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
     [MMAPI checkUserIn:params
                success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                   [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+
+                    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+
                }
                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                    if (operation.responseData) {
@@ -455,10 +464,10 @@
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
     
-    if (![buttonTitle isEqualToString:@"Cancel"]) {
-        [SVProgressHUD showWithStatus:@"Signing in with Twitter"];
+    if (![buttonTitle isEqualToString:@"Cancel"]) {        
         switch (actionSheetCall) {
             case twitterAccountsActionSheetCall: {
+                [SVProgressHUD showWithStatus:@"Signing in with Twitter"];
                 ACAccount *account = [_twitterAccounts objectAtIndex:buttonIndex];
                 
                 NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:

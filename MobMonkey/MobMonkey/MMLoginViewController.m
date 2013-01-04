@@ -314,9 +314,12 @@
                     [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"oAuthToken"] forKey:@"oAuthToken"];
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"twitterEnabled"];
                     [[NSUserDefaults standardUserDefaults]synchronize];
-                    [self checkInUser];
-                    [self getAllCategories];
-                    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+                    //[self checkInUser];
+                    //[self getAllCategories];
+                    MMSignUpViewController *signUpViewController = [[MMSignUpViewController alloc]initWithNibName:@"MMSignUpViewController" bundle:nil];
+                    signUpViewController.twitterSignIn = YES;
+                    [self.navigationController pushViewController:signUpViewController animated:YES];
+                    //[self.navigationController dismissViewControllerAnimated:YES completion:NULL];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     if (operation.responseData) {
                         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
