@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "MMMapFilterViewController.h"
+#import "MMAddLocationViewController.h"
 
-@interface MMLocationsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate> {
+@interface MMLocationsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate, MMMapFilterDelegate, MMAddLocationDelegate> {
   MKMapView *mapView;
   NSDictionary *category;
   MMMapFilterViewController *mapFilterViewController;

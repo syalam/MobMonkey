@@ -10,8 +10,6 @@
 #import "MMLocationViewController.h"
 #import "MMLocationListCell.h"
 #import "MMLocationAnnotation.h"
-#import "MMMapFilterViewController.h"
-#import "MMAddLocationViewController.h"
 
 @interface MMLocationsViewController ()
 
@@ -213,6 +211,7 @@
         MMAddLocationViewController *addLocationViewController = [[MMAddLocationViewController alloc] initWithNibName:@"MMAddLocationViewController" bundle:nil];
         addLocationViewController.title = @"Add Location";
         addLocationViewController.category = self.category;
+        addLocationViewController.delegate = self;
         UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
         [self.navigationController presentViewController:navc animated:YES completion:nil];
     }
@@ -356,15 +355,16 @@
 
 - (void)handleTap:(UIGestureRecognizer *)gestureRecognizer
 {
-  // TODO / FIXME - DRY this (duplicated in MMMapFilterViewController)
-  CGPoint touchPoint = [gestureRecognizer locationInView:mapView];
-  CLLocationCoordinate2D touchMapCoordinate = [mapView convertPoint:touchPoint toCoordinateFromView:mapView];
-  
-  MMAddLocationViewController *addLocationViewController = [[MMAddLocationViewController alloc] initWithLocation:touchMapCoordinate];
-  addLocationViewController.title =@"Add Location";
-  addLocationViewController.category = self.category; // case in point for DRY - wasted almost an hour before realizing this is here and not in the MMAddLocationViewController..
-  UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
-  [self.navigationController presentViewController:navc animated:YES completion:nil];
+    // TODO / FIXME - DRY this (duplicated in MMMapFilterViewController)
+    CGPoint touchPoint = [gestureRecognizer locationInView:mapView];
+    CLLocationCoordinate2D touchMapCoordinate = [mapView convertPoint:touchPoint toCoordinateFromView:mapView];
+    
+    MMAddLocationViewController *addLocationViewController = [[MMAddLocationViewController alloc] initWithLocation:touchMapCoordinate];
+    addLocationViewController.title =@"Add Location";
+    addLocationViewController.category = self.category; // case in point for DRY - wasted almost an hour before realizing this is here and not in the MMAddLocationViewController..
+    addLocationViewController.delegate = self;
+    UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
+    [self.navigationController presentViewController:navc animated:YES completion:nil];
 }
 
 #pragma mark - MapView Delegate Methods
@@ -411,6 +411,13 @@
         default:
             break;
     }
+}
+
+#pragma mark - MMAddLocation Delegate methods
+- (void)locationAddedViaAddLocationViewWithLocationId:(NSString*)locationId providerId:(NSString*)providerId {
+    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+    [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
+    [self.navigationController pushViewController:locationViewController animated:YES];
 }
 
 @end

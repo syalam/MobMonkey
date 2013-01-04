@@ -7,7 +7,7 @@
 //
 
 #import "MMMapFilterViewController.h"
-#import "MMAddLocationViewController.h"
+
 
 @interface MMMapFilterViewController ()
 
@@ -153,8 +153,10 @@
     MMAddLocationViewController *addLocationViewController = [[MMAddLocationViewController alloc] initWithLocation:touchMapCoordinate];
     addLocationViewController.title = @"Add Location";
     addLocationViewController.category = self.category;
-    UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
-    [self.navigationController presentViewController:navc animated:YES completion:nil];
+    addLocationViewController.delegate = self;
+    [self.navigationController pushViewController:addLocationViewController animated:YES];
+    //UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
+    //[self.navigationController presentViewController:navc animated:YES completion:nil];
 }
 
 #pragma mark - UIBarButtonItem Action Methods
@@ -189,6 +191,11 @@
     
     [mapView removeGestureRecognizer:tapGestureRecognizer];
     self.navigationItem.rightBarButtonItem = addButton;
+}
+
+#pragma mark - AddLocationDelegate
+- (void)locationAddedViaAddLocationViewWithLocationId:(NSString*)locationId providerId:(NSString*)providerId {
+    [_delegate locationAddedViaMapViewWithLocationID:locationId providerId:providerId];
 }
 
 @end

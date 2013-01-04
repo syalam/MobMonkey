@@ -14,7 +14,6 @@
 #import "MMSettingsViewController.h"
 #import "MMTabBarViewController.h"
 #import <Parse/Parse.h>
-#import "Flurry.h"
 
 
 @implementation MMAppDelegate
@@ -27,10 +26,18 @@
     [Parse setApplicationId:@"LUASgbV2PjApFDOJabTZeE1Yj8D2keJhLLua1DDl"
                   clientKey:@"1L3iRNHfSsOKc58TxlkOEpD69rTGi9sf8FIBPNmp"];
     
-    [Flurry startSession:@"ZXW98Q8CBP2BNTRCCXHP"];
+    
+    NSString *subscribedUserKey = [NSString stringWithFormat:@"%@ subscribed", [[NSUserDefaults standardUserDefaults] valueForKey:@"userName"]];
+    
+    //TODO: UNCOMMENT WHEN iAD working
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:subscribedUserKey]) {
+        _adView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
+        
+        [_adView setHidden:YES];
+        [self.window.rootViewController.view addSubview:_adView];
+    }
     
     // Use the product identifier from iTunes to register a handler.
-    NSString *subscribedUserKey = [NSString stringWithFormat:@"%@ subscribed", [[NSUserDefaults standardUserDefaults] valueForKey:@"userName"]];
     [PFPurchase addObserverForProduct:@"com.mobmonkey.MobMonkey.VK4524W4XL.1month" block:^(SKPaymentTransaction *transaction) {
                 [[NSUserDefaults standardUserDefaults]setBool:YES forKey:subscribedUserKey];
         [_adView removeFromSuperview];
@@ -108,14 +115,6 @@
     
     self.window.rootViewController = self.tabBarController;
     
-    
-    //TODO: UNCOMMENT WHEN iAD working
-    if (![[NSUserDefaults standardUserDefaults]boolForKey:subscribedUserKey]) {
-        _adView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
-        [_adView setHidden:YES];
-        [self.window.rootViewController.view addSubview:_adView];
-
-    }
   
     [self.window makeKeyAndVisible];
     return YES;
@@ -241,7 +240,12 @@
 }
 
 - (void)adWhirlDidReceiveAd:(AdWhirlView *)adWhirlView {
-    [_adView setHidden:NO];
+    NSString *subscribedUserKey = [NSString stringWithFormat:@"%@ subscribed", [[NSUserDefaults standardUserDefaults] valueForKey:@"userName"]];
+    
+    //TODO: UNCOMMENT WHEN iAD working
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:subscribedUserKey]) {
+        [_adView setHidden:NO];
+    }
     CGSize adSize = [adWhirlView actualAdSize];
     CGRect newFrame = adWhirlView.frame;
     

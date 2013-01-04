@@ -255,6 +255,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                         <segment title="Weekly"/>
                                         <segment title="Monthly"/>
                                     </segments>
+                                    <connections>
+                                        <action selector="frequencySelectorTapped:" destination="yPh-jr-8GY" eventType="valueChanged" id="wGU-V3-I0C"/>
+                                    </connections>
                                 </segmentedControl>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5al-qh-QAY">
                                     <rect key="frame" x="10" y="51" width="300" height="44"/>
@@ -294,6 +297,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                                 <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="kaL-Ok-fti">
                                                     <rect key="frame" x="213" y="8" width="79" height="27"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="recurringSwitchTapped:" destination="yPh-jr-8GY" eventType="valueChanged" id="VAz-Ru-0jC"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -310,6 +316,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <navigationItem key="navigationItem" title="Schedule Request" id="90Y-qR-r4E"/>
                     <connections>
                         <outlet property="datePicker" destination="zw3-Qd-fIa" id="ooM-Vj-Xkd"/>
+                        <outlet property="frequencySelector" destination="S6o-ct-jH7" id="q4D-zB-CWI"/>
+                        <outlet property="recurringSwitch" destination="kaL-Ok-fti" id="4vI-lS-F6T"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CF3-ht-Kvo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -343,38 +351,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="makeRequestButtonBlank.png" width="307" height="61"/>
         <image name="videoIcn.png" width="34" height="33"/>
     </resources>
-    <classes>
-        <class className="MMRequestMessageViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMRequestMessageViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="clearText:"/>
-                <relationship kind="outlet" name="textFieldBackground" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="MMRequestScheduleViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMRequestScheduleViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="setSchedule:"/>
-                <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
-            </relationships>
-        </class>
-        <class className="MMRequestViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMRequestViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelRequest:"/>
-                <relationship kind="action" name="changeMediaRequestType:"/>
-                <relationship kind="action" name="changeRequestDuration:"/>
-                <relationship kind="action" name="sendRequest:"/>
-                <relationship kind="outlet" name="mediaTypeSegmentedControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="requestButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="stayActiveLengthSegmentedCell" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="MMTableViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MMTableViewCell.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

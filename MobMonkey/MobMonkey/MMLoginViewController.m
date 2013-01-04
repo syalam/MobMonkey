@@ -203,7 +203,7 @@
             }];
         }
         else {
-            [SVProgressHUD showErrorWithStatus:@"Unable to sign in with Facebook"];
+            [SVProgressHUD dismiss];
             NSLog(@"%@", error);
         }
     }];

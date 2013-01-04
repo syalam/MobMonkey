@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMMapFilterViewController.h"
 
-@interface MMSearchViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate> {
+@interface MMSearchViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate, MMMapFilterDelegate> {
     NSArray* allCategoriesArray;
     NSUserDefaults *prefs;
 }

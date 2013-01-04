@@ -29,6 +29,8 @@
     [super viewDidLoad];
     [self.navigationController.navigationBar setHidden:YES];
     // Do any additional setup after loading the view from its nib.
+    
+    appDelegate = (MMAppDelegate *)[[UIApplication sharedApplication] delegate];
 
 }
 
@@ -56,7 +58,10 @@
         if (!error) {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Subscription Complete" message:@"Subscription successful" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
-            [self.navigationController popViewControllerAnimated:YES];
+            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:[NSString stringWithFormat:@"%@ subscribed", [[NSUserDefaults standardUserDefaults] valueForKey:@"userName"]]];
+            
+            [appDelegate.adView setHidden:YES];
+            [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
         }
         else {
             NSLog (@"%@",[error localizedDescription]);

@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMAppDelegate.h"
 
 @interface MMSubscriptionViewController : UIViewController {
     IBOutlet UIButton *subscribeButton;
     IBOutlet UIButton *dismissButton;
+    
+    MMAppDelegate *appDelegate;
 }
 - (IBAction) dismissButtonTapped:(id)sender;
 - (IBAction)subscribeButtonTapped:(id)sender;

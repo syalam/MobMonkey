@@ -9,7 +9,7 @@
 #import "MMSearchViewController.h"
 #import "MMLocationsViewController.h"
 #import "MMFilterViewController.h"
-#import "MMMapFilterViewController.h"
+#import "MMLocationViewController.h"
 
 @interface MMSearchViewController ()
 
@@ -159,10 +159,11 @@
 
 - (void)showMapView:(id)sender
 {
-  MMMapFilterViewController *mvc = [[MMMapFilterViewController alloc] init];
-  mvc.title = @"Add Location";
-  UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:mvc];
-  [self.navigationController presentViewController:navc animated:YES completion:nil];
+    MMMapFilterViewController *mvc = [[MMMapFilterViewController alloc] init];
+    mvc.title = @"Add Location";
+    mvc.delegate = self;
+    UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:mvc];
+    [self.navigationController presentViewController:navc animated:YES completion:nil];
 }
 
 - (void)showSearchResultsForCategory:(NSDictionary *)category
@@ -474,4 +475,14 @@
     tableView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
     tableView.backgroundView = nil;
 }
+
+
+#pragma mark - MMMapFilterDelegate
+- (void)locationAddedViaMapViewWithLocationID:(NSString*)locationId providerId:(NSString*)providerId {
+    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+    [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
+    [self.navigationController pushViewController:locationViewController animated:YES];
+}
+
+
 @end
