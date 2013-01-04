@@ -117,10 +117,12 @@
         case 4:
             cell.textField.placeholder = @"Zip";
             cell.textField.text = [addressDictionary valueForKey:@"Zip"];
+            cell.textField.keyboardType = UIKeyboardTypeNumberPad;
             zipTextField = cell.textField;
             break;
         case 5:
             cell.textField.placeholder = @"Phone Number (optional)";
+            cell.textField.keyboardType = UIKeyboardTypeNumberPad;
             cell.textField.text = [addressDictionary valueForKey:@"PhoneNumber"];
             phoneNumberTextField = cell.textField;
             break;
