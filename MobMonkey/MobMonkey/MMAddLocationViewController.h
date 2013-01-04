@@ -9,7 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface MMAddLocationViewController : UIViewController <UITextFieldDelegate>
+@protocol MMAddLocationDelegate
+
+@optional
+- (void)locationAddedViaAddLocationViewWithLocationId:(NSString*)locationId providerId:(NSString*)providerId;
+
+@end
+
+@interface MMAddLocationViewController : UITableViewController <UITextFieldDelegate>
 {
   UITextField *nameTextField;
   NSDictionary *addressDictionary;
@@ -34,6 +41,8 @@
 @property (strong, nonatomic) IBOutlet UITextField *zipTextField;
 @property (strong, nonatomic) IBOutlet UITextField *phoneNumberTextField;
 @property (strong, nonatomic) NSDictionary *category;
+@property (nonatomic, assign) id<MMAddLocationDelegate>delegate;
+
 
 -(id)initWithLocation:(CLLocationCoordinate2D)location;
 -(IBAction)addLocation:(id)sender;

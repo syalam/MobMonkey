@@ -9,6 +9,7 @@
 #import "MMAddLocationViewController.h"
 #import "MMAPI.h"
 #import "MMLocationViewController.h"
+#import "MMTextFieldCell.h"
 
 @interface MMAddLocationViewController ()
 
@@ -72,6 +73,72 @@
     self.navigationItem.leftBarButtonItem = backButton;
 }
 
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 6;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    MMTextFieldCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[MMTextFieldCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    switch (indexPath.row) {
+        case 0:
+            cell.textField.placeholder = @"Name";
+            cell.textField.text = [addressDictionary valueForKey:@"Name"];
+            nameTextField = cell.textField;
+            break;
+        case 1:
+            cell.textField.placeholder = @"Street";
+            cell.textField.text = [addressDictionary valueForKey:@"Street"];
+            streetTextField = cell.textField;
+            break;
+        case 2:
+            cell.textField.placeholder = @"City";
+            cell.textField.text = [addressDictionary valueForKey:@"City"];
+            cityTextField = cell.textField;
+            break;
+        case 3:
+            cell.textField.placeholder = @"State";
+            cell.textField.text = [addressDictionary valueForKey:@"State"];
+            stateTextField = cell.textField;
+            break;
+        case 4:
+            cell.textField.placeholder = @"Zip";
+            cell.textField.text = [addressDictionary valueForKey:@"Zip"];
+            zipTextField = cell.textField;
+            break;
+        case 5:
+            cell.textField.placeholder = @"Phone Number (optional)";
+            cell.textField.text = [addressDictionary valueForKey:@"PhoneNumber"];
+            phoneNumberTextField = cell.textField;
+            break;
+        default:
+            break;
+    }
+    
+    return cell;
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 -(NSString*)name {
     return [addressDictionary valueForKey:@"Name"];
 }
@@ -117,12 +184,18 @@
         name = @"Unnamed Location";
     }
     
-    [addressDictionary setValue:name forKey:@"Name"];
+    if (!addressDictionary) {
+        addressDictionary = [[NSMutableDictionary alloc]init];
+    }
+    
+    [addressDictionary setValue:nameTextField.text forKey:@"Name"];
     [addressDictionary setValue:streetTextField.text forKey:@"Street"];
     [addressDictionary setValue:cityTextField.text forKey:@"City"];
     [addressDictionary setValue:stateTextField.text forKey:@"State"];
     [addressDictionary setValue:zipTextField.text forKey:@"ZIP"];
     [addressDictionary setValue:phoneNumberTextField.text forKey:@"PhoneNumber"];
+
+    NSLog(@"%@", addressDictionary);
     
     [geocoder geocodeAddressDictionary:addressDictionary
                      completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -167,10 +240,12 @@
     [locationDictionary setValue:[self radiusInYards] forKey:@"radiusInYards"]; //
     
     [[MMAPI sharedAPI] addNewLocation:locationDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *locationId = [responseObject objectForKey:@"locationId"];
-        MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
-        [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
-        [self.navigationController pushViewController:locationViewController animated:YES];
+        NSString *locationId = [responseObject valueForKey:@"locationId"];
+        NSString *responseProviderId = [responseObject valueForKey:@"providerId"];
+        
+        [_delegate locationAddedViaAddLocationViewWithLocationId:locationId providerId:responseProviderId];
+        
+        [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error: %@", error);

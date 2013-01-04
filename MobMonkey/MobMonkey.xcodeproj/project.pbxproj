@@ -545,6 +545,7 @@
 		F7B0132F1658C3D500BCAC26 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7716D53161D10D900578A90 /* CoreMedia.framework */; };
 		F7BEA9BF1695415B0010A84D /* timeIcnOverlayBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = F7BEA9BD1695415B0010A84D /* timeIcnOverlayBlack.png */; };
 		F7BEA9C01695415B0010A84D /* timeIcnOverlayBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7BEA9BE1695415B0010A84D /* timeIcnOverlayBlack@2x.png */; };
+		F7BEAA0116969AEF0010A84D /* MMTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7BEAA0016969AEF0010A84D /* MMTextFieldCell.m */; };
 		F7D41BA816234B4E00DBA87D /* MMTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D41BA616234B4E00DBA87D /* MMTabBarViewController.m */; };
 		F7D41BA916234B4E00DBA87D /* MMTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7D41BA716234B4E00DBA87D /* MMTabBarViewController.xib */; };
 		F7DB5531165561D900FC8AA9 /* deselectedRectRed.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB552F165561D900FC8AA9 /* deselectedRectRed.png */; };
@@ -1252,6 +1253,8 @@
 		F7B012DF165606C500BCAC26 /* homeScreenAppIcon~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "homeScreenAppIcon~iphone.png"; sourceTree = "<group>"; };
 		F7BEA9BD1695415B0010A84D /* timeIcnOverlayBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeIcnOverlayBlack.png; sourceTree = "<group>"; };
 		F7BEA9BE1695415B0010A84D /* timeIcnOverlayBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeIcnOverlayBlack@2x.png"; sourceTree = "<group>"; };
+		F7BEA9FF16969AEF0010A84D /* MMTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTextFieldCell.h; sourceTree = "<group>"; };
+		F7BEAA0016969AEF0010A84D /* MMTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTextFieldCell.m; sourceTree = "<group>"; };
 		F7D41BA516234B4E00DBA87D /* MMTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTabBarViewController.h; sourceTree = "<group>"; };
 		F7D41BA616234B4E00DBA87D /* MMTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTabBarViewController.m; sourceTree = "<group>"; };
 		F7D41BA716234B4E00DBA87D /* MMTabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMTabBarViewController.xib; sourceTree = "<group>"; };
@@ -1897,6 +1900,7 @@
 		F734A53D15F11C3E0090E85A /* MobMonkey */ = {
 			isa = PBXGroup;
 			children = (
+				F7BEA9FE16969ACF0010A84D /* Text Field Cell */,
 				1A9F8F3F167FA1FD0077675B /* Constants.h */,
 				1A9F8F34167F9F160077675B /* GSSSDK4.1 */,
 				F723ACDE1676FF4200F7336B /* Adwhirl */,
@@ -2739,6 +2743,15 @@
 			name = "App Icons";
 			sourceTree = "<group>";
 		};
+		F7BEA9FE16969ACF0010A84D /* Text Field Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F7BEA9FF16969AEF0010A84D /* MMTextFieldCell.h */,
+				F7BEAA0016969AEF0010A84D /* MMTextFieldCell.m */,
+			);
+			name = "Text Field Cell";
+			sourceTree = "<group>";
+		};
 		F7D41BA41623477300DBA87D /* TabBar Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -3409,6 +3422,7 @@
 				C75171F6167A05FE009B4DE8 /* MMAddLocationViewController.m in Sources */,
 				F77966131691EF4F0059FA0A /* TwitterAccounts.m in Sources */,
 				F7ED0E151692A487000F2121 /* MMAnswerTextRequestViewController.m in Sources */,
+				F7BEAA0116969AEF0010A84D /* MMTextFieldCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

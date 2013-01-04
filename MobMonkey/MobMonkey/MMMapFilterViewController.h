@@ -8,8 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "MMAddLocationViewController.h"
 
-@interface MMMapFilterViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate> {
+@protocol MMMapFilterDelegate
+
+@optional
+- (void)locationAddedViaMapViewWithLocationID:(NSString*)locationId providerId:(NSString*)providerId;
+
+@end
+
+@interface MMMapFilterViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate, MMAddLocationDelegate> {
     MKMapView *mapView;
     CLLocationManager *locationManager;
     NSArray *contentList;
@@ -29,5 +37,6 @@
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) NSArray *contentList;
 @property (strong, nonatomic) NSDictionary *category;
+@property (nonatomic, assign) id<MMMapFilterDelegate> delegate;
 
 @end
