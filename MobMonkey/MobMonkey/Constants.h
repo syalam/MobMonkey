@@ -11,7 +11,7 @@
 @interface NSObject ()
 
 // Greystripe SDK Test GUID
-#define GSGUID @"0448f608-a4e4-4048-92fe-9b850b360d87"
+#define GSGUID @"f6755ca8-390c-4c9c-896c-933e40f83158"
 
 // For quick testing and debugging, paste your app's Greystripe GUID below in "appGUID"
 // Comment out the #define line above and uncomment the #define line below 

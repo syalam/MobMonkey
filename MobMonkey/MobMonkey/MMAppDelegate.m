@@ -14,6 +14,7 @@
 #import "MMSettingsViewController.h"
 #import "MMTabBarViewController.h"
 #import <Parse/Parse.h>
+#import "Flurry.h"
 
 
 @implementation MMAppDelegate
@@ -25,6 +26,8 @@
 
     [Parse setApplicationId:@"LUASgbV2PjApFDOJabTZeE1Yj8D2keJhLLua1DDl"
                   clientKey:@"1L3iRNHfSsOKc58TxlkOEpD69rTGi9sf8FIBPNmp"];
+    
+    [Flurry startSession:@"ZXW98Q8CBP2BNTRCCXHP"];
     
     // Use the product identifier from iTunes to register a handler.
     NSString *subscribedUserKey = [NSString stringWithFormat:@"%@ subscribed", [[NSUserDefaults standardUserDefaults] valueForKey:@"userName"]];

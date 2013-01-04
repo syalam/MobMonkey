@@ -75,6 +75,7 @@
 		1AC1D4451640545500C8162F /* greenNavBarButtonBlank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4411640545200C8162F /* greenNavBarButtonBlank@2x.png */; };
 		1AC1D4461640545500C8162F /* navBarButtonBlank.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4421640545300C8162F /* navBarButtonBlank.png */; };
 		1AC1D4471640545500C8162F /* navBarButtonBlank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4431640545400C8162F /* navBarButtonBlank@2x.png */; };
+		1AE5965F16974BB100AD6707 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE5965E16974BB100AD6707 /* libFlurry.a */; };
 		370D65071648E7B700D72154 /* NSString+URLParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D65061648E7B700D72154 /* NSString+URLParams.m */; };
 		37127408162BC61B000557D1 /* bookmarkIcn.png in Resources */ = {isa = PBXBuildFile; fileRef = 371273F0162BC61B000557D1 /* bookmarkIcn.png */; };
 		37127409162BC61B000557D1 /* bookmarkIcn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 371273F1162BC61B000557D1 /* bookmarkIcn@2x.png */; };
@@ -694,6 +695,8 @@
 		1AC1D4411640545200C8162F /* greenNavBarButtonBlank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenNavBarButtonBlank@2x.png"; sourceTree = "<group>"; };
 		1AC1D4421640545300C8162F /* navBarButtonBlank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBarButtonBlank.png; sourceTree = "<group>"; };
 		1AC1D4431640545400C8162F /* navBarButtonBlank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBarButtonBlank@2x.png"; sourceTree = "<group>"; };
+		1AE5965D16974BB100AD6707 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		1AE5965E16974BB100AD6707 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		370D65051648E7B700D72154 /* NSString+URLParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLParams.h"; sourceTree = "<group>"; };
 		370D65061648E7B700D72154 /* NSString+URLParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLParams.m"; sourceTree = "<group>"; };
 		371273F0162BC61B000557D1 /* bookmarkIcn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookmarkIcn.png; sourceTree = "<group>"; };
@@ -1314,6 +1317,7 @@
 				1A9F8EB7167AC3F10077675B /* Parse.framework in Frameworks */,
 				1A9F8F3E167F9F180077675B /* libGreystripeSDK.a in Frameworks */,
 				1A25820D169289D20057EAAD /* FacebookSDK.framework in Frameworks */,
+				1AE5965F16974BB100AD6707 /* libFlurry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1453,6 +1457,15 @@
 				1AAFE55D168BA0D00034FAD1 /* signInBtn@2x.png */,
 			);
 			name = "Sign In and Sign Up";
+			sourceTree = "<group>";
+		};
+		1AE5965C16974BB100AD6707 /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				1AE5965D16974BB100AD6707 /* Flurry.h */,
+				1AE5965E16974BB100AD6707 /* libFlurry.a */,
+			);
+			path = Flurry;
 			sourceTree = "<group>";
 		};
 		370D65041648E79100D72154 /* NSString URLParams */ = {
@@ -1898,6 +1911,7 @@
 			isa = PBXGroup;
 			children = (
 				1A9F8F3F167FA1FD0077675B /* Constants.h */,
+				1AE5965C16974BB100AD6707 /* Flurry */,
 				1A9F8F34167F9F160077675B /* GSSSDK4.1 */,
 				F723ACDE1676FF4200F7336B /* Adwhirl */,
 				F734A62D15F146630090E85A /* Assets */,
@@ -3529,6 +3543,7 @@
 					"\"$(SRCROOT)/MobMonkey/GSSDK 3.2.1\"",
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.2.1/Add-ons/GoogleAnalyticsiOS_2.0beta3/Library\"",
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.2.1\"",
+					"\"$(SRCROOT)/MobMonkey/Flurry\"",
 				);
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3559,6 +3574,7 @@
 					"\"$(SRCROOT)/MobMonkey/GSSDK 3.2.1\"",
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.2.1/Add-ons/GoogleAnalyticsiOS_2.0beta3/Library\"",
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.2.1\"",
+					"\"$(SRCROOT)/MobMonkey/Flurry\"",
 				);
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
