@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMRequestScheduleViewController.h"
 
 @class MMTableViewCell;
 
-@interface MMRequestViewController : UITableViewController
+@interface MMRequestViewController : UITableViewController <MMRequestScheduleDelegate> {
+    BOOL isRecurring;
+}
 
 @property (nonatomic, retain)NSDictionary *contentList;
 

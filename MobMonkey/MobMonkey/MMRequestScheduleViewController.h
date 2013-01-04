@@ -8,8 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMRequestScheduleViewController : UITableViewController
+
+@protocol MMRequestScheduleDelegate
+
+- (void)RequestScheduleSetWithDictionary:(NSDictionary*)requestScheduleParams;
+
+@end
+
+@interface MMRequestScheduleViewController : UITableViewController {
+    IBOutlet UISegmentedControl *frequencySelector;
+    IBOutlet UISwitch *recurringSwitch;
+    int frequency;
+}
+
+- (IBAction)frequencySelectorTapped:(id)sender;
+- (IBAction)recurringSwitchTapped:(id)sender;
 
 @property (weak, nonatomic) NSMutableDictionary *requestInfo;
+@property (nonatomic, assign)id<MMRequestScheduleDelegate> delegate;
 
 @end

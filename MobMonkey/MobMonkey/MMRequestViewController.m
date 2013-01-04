@@ -9,7 +9,7 @@
 #import "MMRequestViewController.h"
 #import "MMTableViewCell.h"
 #import "MMRequestMessageViewController.h"
-#import "MMRequestScheduleViewController.h"
+
 
 enum RequestDurationLengths {
     RequestDuration15Min = 0,
@@ -68,6 +68,8 @@ enum RequestDurationLengths {
     
     //initialize duration to 30 minutes
     self.duration = @30;
+    
+    isRecurring = NO;
 }
 
 - (void)viewDidUnload {
@@ -94,6 +96,7 @@ enum RequestDurationLengths {
     if ([segue.identifier isEqualToString:@"ScheduleSegue"]) {
         MMRequestScheduleViewController *messageVC = (MMRequestScheduleViewController *)segue.destinationViewController;
         messageVC.requestInfo = self.requestInfo;
+        messageVC.delegate = self;
         return;
     }
 }
@@ -104,12 +107,14 @@ enum RequestDurationLengths {
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
     NSString *dateString = [dateFormatter stringFromDate:[self.requestInfo valueForKey:@"scheduleDate"]];
     
+
     [self.requestInfo setValue:dateString forKey:@"scheduleDate"];
     [self.requestInfo setValue:[_contentList valueForKey:@"providerId"] forKey:@"providerId"];
     [self.requestInfo setValue:[_contentList valueForKey:@"locationId"] forKey:@"locationId"];
     [self.requestInfo setValue:self.duration forKey:@"duration"];
     [self.requestInfo setValue:[NSNumber numberWithInt:3520] forKey:@"radiusInYards"];
-    [self.requestInfo setValue:[NSNumber numberWithBool:NO] forKey:@"recurring"];
+    [self.requestInfo setValue:[NSNumber numberWithBool:isRecurring] forKey:@"recurring"];
+    
     
     NSString *mediaType;
     switch (_mediaTypeSegmentedControl.selectedSegmentIndex) {
@@ -262,6 +267,24 @@ enum RequestDurationLengths {
     [self.tableView beginUpdates];
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
     [self.tableView endUpdates];
+}
+
+#pragma mark - MMRequestSchedule Delegate
+- (void)RequestScheduleSetWithDictionary:(NSDictionary*)requestScheduleParams {
+    if ([requestScheduleParams valueForKey:@"scheduleDate"]) {
+        [self.requestInfo setValue:[requestScheduleParams valueForKey:@"scheduleDate"] forKey:@"scheduleDate"];
+    }
+    if ([requestScheduleParams valueForKey:@"frequencyInMS"]) {
+        [self.requestInfo setValue:[requestScheduleParams valueForKey:@"frequencyInMS"] forKey:@"frequencyInMS"];
+    }
+    if ([requestScheduleParams valueForKey:@"recurring"]) {
+        if ([[requestScheduleParams valueForKey:@"recurring"]isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+            isRecurring = YES;
+        }
+        else {
+            isRecurring = NO;
+        }
+    }
 }
 
 @end
