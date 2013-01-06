@@ -120,36 +120,32 @@
         case 0:
             selectedRadius = [NSNumber numberWithInt:880];
             [prefs setObject:selectedRadius forKey:@"savedSegmentValue"];
-            [prefs synchronize];
             break;
             
         case 1:
             selectedRadius = [NSNumber numberWithInt:1760];
             [prefs setObject:selectedRadius forKey:@"savedSegmentValue"];
-            [prefs synchronize];
             break;
         
         case 2:
             selectedRadius = [NSNumber numberWithInt:8800];
             [prefs setObject:selectedRadius forKey:@"savedSegmentValue"];
-            [prefs synchronize];
             break;
             
         case 3:
             selectedRadius = [NSNumber numberWithInt:17600];
             [prefs setObject:selectedRadius forKey:@"savedSegmentValue"];
-            [prefs synchronize];
             break;
             
         case 4:
             selectedRadius = [NSNumber numberWithInt:35200];
             [prefs setObject:selectedRadius forKey:@"savedSegmentValue"];
-            [prefs synchronize];
             break;
 
         default:
             break;
     }
+    [prefs synchronize];
     
     selectedFilter = liveFeedSwitch.on;
     [prefs setBool:selectedFilter forKey:@"savedMediaFilter"];
