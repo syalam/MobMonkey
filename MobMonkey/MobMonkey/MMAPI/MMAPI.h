@@ -90,7 +90,7 @@ typedef enum OAuthProvider {
 */
 + (void)signInWithEmail:(NSString *)email
                password:(NSString *)password
-               provider:(OAuthProvider)provider
+               params:(NSDictionary*)params
                 success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
@@ -124,7 +124,7 @@ typedef enum OAuthProvider {
  @param facebook session id
 */
 
-+ (void)facebookSignIn:(NSDictionary*)params
++ (void)oauthSignIn:(NSDictionary*)params
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
@@ -258,9 +258,9 @@ typedef enum OAuthProvider {
 /**
  search for a location
  */
-+ (void)searchForLocation:(NSDictionary*)params
-                  success:(void (^)(id responseObject))success
-                  failure:(void (^)( NSError *error))failure;
++ (void)searchForLocation:(NSMutableDictionary*)params
+               success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 
 @property (nonatomic, assign)id<MMAPIDelegate> delegate;

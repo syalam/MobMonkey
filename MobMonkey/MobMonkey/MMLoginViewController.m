@@ -121,11 +121,12 @@
     }
     else {
         NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-        [params setObject:emailTextField.text forKey:@"eMailAddress"];
-        [params setObject:passwordTextField.text forKey:@"password"];
+        [params setValue:@"iOS" forKey:@"deviceType"];
+        [params setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
+        
         
         [SVProgressHUD showWithStatus:@"Signing In"];
-        [MMAPI signInWithEmail:emailTextField.text password:passwordTextField.text provider:OAuthProviderNone success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MMAPI signInWithEmail:emailTextField.text password:passwordTextField.text params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [SVProgressHUD showSuccessWithStatus:@"Signed In"];
             NSLog(@"%@", responseObject);
             [prefs setObject:emailTextField.text forKey:@"userName"];
@@ -163,19 +164,22 @@
                                               NSDictionary<FBGraphUser> *my,
                                               NSError *error) {
                 if (!error) {
-                    NSLog(@"%@", my);
-                    //TODO: send FB token to server call
                     NSString* accessToken = me.session.accessToken;
                     NSLog(@"%@", accessToken);
                     
                     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                            [my valueForKey:@"email"], @"eMailAddress",
-                                            accessToken, @"oAuthToken", nil];
-                    [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"eMailAddress"] forKey:@"userName"];
-                    [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"oAuthToken"] forKey:@"oAuthToken"];
-                    [[NSUserDefaults standardUserDefaults]synchronize];
-                    [MMAPI facebookSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                            [my valueForKey:@"email"], @"providerUserName",
+                                            [[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"], @"deviceId",
+                                            @"true", @"useOAuth",
+                                            accessToken, @"oauthToken",
+                                            @"facebook", @"provider",
+                                            @"iOS", @"deviceType", nil];
+                    [MMAPI oauthSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         NSLog(@"%@", responseObject);
+                        [[NSUserDefaults standardUserDefaults]setValue:[my valueForKey:@"email"] forKey:@"userName"];
+                        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"oauthUser"];
+                        [[NSUserDefaults standardUserDefaults]synchronize];
+                        
                         [prefs setBool:YES forKey:@"facebookEnabled"];
                         [prefs synchronize];
                         [self checkInUser];
@@ -183,6 +187,7 @@
                         [SVProgressHUD showSuccessWithStatus:@"Signed in with Facebook"];
                         [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        NSLog(@"%@", operation.responseString);
                         if (operation.responseData) {
                             NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
                             if ([response valueForKey:@"description"]) {
@@ -302,13 +307,19 @@
                 ACAccount *account = [_twitterAccounts objectAtIndex:buttonIndex];
                 
                 NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        account.username, @"eMailAddress",
-                                        account.identifier, @"oAuthToken", nil];
-                [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"eMailAddress"] forKey:@"userName"];
-                [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"oAuthToken"] forKey:@"oAuthToken"];
-                [[NSUserDefaults standardUserDefaults]synchronize];
-                [MMAPI TwitterSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                        account.username, @"providerUserName",
+                                        account.identifier, @"oauthToken",
+                                        @"twitter", @"provider",
+                                        @"true", @"useOAuth",
+                                        @"iOS", @"deviceType",
+                                        [[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"], @"deviceId", nil];
+                
+                [MMAPI oauthSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSLog(@"%@", responseObject);
+                    [[NSUserDefaults standardUserDefaults]setValue:account.username forKey:@"userName"];
+                    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"oauthUser"];
+                    [[NSUserDefaults standardUserDefaults]synchronize];
+                    
                     [SVProgressHUD showSuccessWithStatus:@"Signed in with Twitter"];
                     [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"eMailAddress"] forKey:@"userName"];
                     [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"oAuthToken"] forKey:@"oAuthToken"];
@@ -321,6 +332,7 @@
                     [self.navigationController pushViewController:signUpViewController animated:YES];
                     //[self.navigationController dismissViewControllerAnimated:YES completion:NULL];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"%@", operation.responseString);
                     if (operation.responseData) {
                         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
                         if ([response valueForKey:@"description"]) {

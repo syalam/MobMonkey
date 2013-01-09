@@ -208,54 +208,21 @@
     else {
         [params setValue:[NSNumber numberWithInt:10000] forKey:@"radiusInYards"];
     }
-    /*if ([self.filters valueForKey:@"media type"]) {
-        if ([[self.filters valueForKey:@"media type"] isEqualToString:@"mmUserImage"]) {
-            [params setObject:[NSNumber numberWithInt:1] forKey:@"mediaType"];
-        }
-        else if ([[self.filters valueForKey:@"media type"] isEqualToString:@"mmUserVideo"]) {
-            [params setObject:[NSNumber numberWithInt:2] forKey:@"mediaType"];
-        }
-        else {
-            [params setObject:[NSNumber numberWithInt:3] forKey:@"mediaType"];
-        }
-    }*/
+    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"liveFeedFilter"]) {
+        [params setValue:@"3" forKey:@"mediaType"];
+    }
     
-    jsonData = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:nil];
-    jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
-    
-    NSLog(@"%@", jsonObject);
-    [MMAPI searchForLocation:params success:^(id responseObject) {
+    [MMAPI searchForLocation:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.searchResultsViewController.isSearching = NO;
         [SVProgressHUD dismiss];
-        
         NSArray *responseObjectArray = responseObject;
         if (responseObjectArray.count < 1) {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"No locations found" delegate:self.searchResultsViewController cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
         }
-        else {
-            // A hack because of AFNetworking
-            if (responseObject) {
-                NSData *data = [NSJSONSerialization dataWithJSONObject:responseObject options:0 error:nil];
-                responseObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            }
-            
-            // End of hack
-            NSPredicate *predicate;
-            if ([[_filters valueForKey:@"liveStream"]boolValue]) {
-                predicate = [NSPredicate predicateWithFormat:@"livestreaming > %d", 0];
-                responseObject = [responseObject filteredArrayUsingPredicate:predicate];
-                responseObjectArray = responseObject;
-
-            }
-            if (responseObjectArray.count < 1) {
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"No locations found" delegate:self.searchResultsViewController cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-            }
-
-            self.searchResultsViewController.locations = responseObject;
-        }
-    } failure:^(NSError *error) {
+        self.searchResultsViewController.locations = responseObject;
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD showErrorWithStatus:[error description]];
     }];
 

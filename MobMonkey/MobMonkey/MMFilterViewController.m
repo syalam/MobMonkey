@@ -80,9 +80,11 @@
 
     }
     
-    if ([prefs boolForKey:@"savedMediaFilter"]) {
-        selectedFilter = [prefs boolForKey:@"savedMediaFilter"];
-        [liveFeedSwitch setOn:YES];
+    if ([prefs valueForKey:@"liveFeedFilter"]) {
+        liveFeedSwitch.on = YES;
+    }
+    else {
+        liveFeedSwitch.on = NO;
     }
     
     for (id segment in [distancePicker subviews])
@@ -147,6 +149,12 @@
     }
     [prefs synchronize];
     
+    if (liveFeedSwitch.on) {
+        [prefs setBool:YES forKey:@"liveFeedFilter"];
+    }
+    else {
+        [prefs setBool:NO forKey:@"liveFeedFilter"];
+    }
     selectedFilter = liveFeedSwitch.on;
     [prefs setBool:selectedFilter forKey:@"savedMediaFilter"];
     [prefs synchronize];

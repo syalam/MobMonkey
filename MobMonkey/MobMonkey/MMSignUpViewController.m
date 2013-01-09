@@ -280,7 +280,7 @@
                     [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"eMailAddress"] forKey:@"userName"];
                     [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"oAuthToken"] forKey:@"oAuthToken"];
                     [[NSUserDefaults standardUserDefaults]synchronize];
-                    [MMAPI facebookSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    /*[MMAPI facebookSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         [SVProgressHUD showSuccessWithStatus:@"Signed in with Facebook"];
                         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"facebookEnabled"];
                         [[NSUserDefaults standardUserDefaults]synchronize];
@@ -298,7 +298,7 @@
                         else {
                             [SVProgressHUD showErrorWithStatus:@"Unable to login"];
                         }
-                    }];
+                    }];*/
                 }
                 else {
                     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to log you in. Please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil];

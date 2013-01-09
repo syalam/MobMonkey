@@ -55,30 +55,29 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 
 + (void)signInWithEmail:(NSString *)email
                password:(NSString *)password
-               provider:(OAuthProvider)provider
+                 params:(NSDictionary*)params
                 success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
-    MMHTTPClient *httpClient = [[MMHTTPClient alloc] initWithBaseURL:[self baseURL]];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient setDefaultHeader:@"MobMonkey-user" value:email];
     [httpClient setDefaultHeader:@"MobMonkey-auth" value:password];
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"]];
-    [httpClient postPath:[NSString stringWithFormat:@"signin/iOS/%@", [[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"]] parameters:nil success:success failure:failure];
+    [httpClient postPath:@"signin" parameters:params success:success failure:failure];
 }
 
-+ (void)facebookSignIn:(NSDictionary*)params
++ (void)oauthSignIn:(NSDictionary*)params
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     MMHTTPClient *httpClient = [self setupHTTPClient];
-    NSLog(@"%@", httpClient);
-    [httpClient postPath:[NSString stringWithFormat:@"signin/ios/%@?useOAuth=true&provider=facebook&oauthToken=%@",[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"], [params valueForKey:@"oAuthToken"]] parameters:nil success:success failure:failure];
+    [httpClient postPath:@"signin" parameters:nil success:success failure:failure];
 }
 
 + (void)TwitterSignIn:(NSDictionary*)params
               success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     MMHTTPClient *httpClient = [self setupHTTPClient];
-    [httpClient postPath:[NSString stringWithFormat:@"signin/ios/%@?useOAuth=true&provider=twitter&oauthToken=%@",[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"], [params valueForKey:@"oAuthToken"]] parameters:nil success:success failure:failure];
+    [httpClient postPath:@"signin" parameters:params success:success failure:failure];
 }
 
 #pragma mark - Request Media Methods
@@ -333,7 +332,14 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 }
 
 #pragma mark - Search
-+ (void)searchForLocation:(NSDictionary*)params
++ (void)searchForLocation:(NSMutableDictionary*)params
+                  success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                  failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    MMHTTPClient *httpClient = [self setupHTTPClient];
+    [httpClient postPath:@"search/location" parameters:params success:success failure:failure];
+}
+
+/*+ (void)searchForLocation:(NSDictionary*)params
                   success:(void (^)(id responseObject))success
                   failure:(void (^)(NSError *error))failure {
     NSString *urlString = [kBMHTTPClientBaseURLString stringByAppendingString:@"search/location"];
@@ -358,7 +364,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
         NSLog(@"Locations: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         success([NSJSONSerialization JSONObjectWithData:data options:0 error:nil]);
     }];
-}
+}*/
 
 #pragma marl - Media
 + (void)getMediaForLocationID:(NSString *)locationID
@@ -434,12 +440,9 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
-    [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
-    if ([[NSUserDefaults standardUserDefaults]valueForKey:@"password"]) {
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:@"oauthUser"]) {
+        [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
         [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
-    }
-    else {
-        [httpClient setDefaultHeader:@"OauthToken" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"oAuthToken"]];
     }
 
     return httpClient;
