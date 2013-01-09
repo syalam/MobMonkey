@@ -142,18 +142,32 @@
 }
 
 - (void)shareViaFacebook:(NSDictionary*)params presentingViewController:(UIViewController*)presentingViewController {
-    [FBNativeDialogs presentShareDialogModallyFrom:presentingViewController initialText:[params valueForKey:@"initialText"]    image:[params valueForKey:@"image"] url:[NSURL URLWithString:[params valueForKey:@"url"]] handler:^(FBNativeDialogResult result, NSError *error) {
-        if (error) {
-            /* handle failure */
-            NSLog(@"%@", error);
-        } else {
-            if (result == FBNativeDialogResultSucceeded) {
-                NSLog(@"%@", @"success");
-            } else {
-                
+    SLComposeViewController *fbSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+    if (([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])) {
+        SLComposeViewControllerCompletionHandler __block completionHandler=^(SLComposeViewControllerResult result){
+            [fbSheet dismissViewControllerAnimated:YES completion:nil];
+            
+            switch(result){
+                case SLComposeViewControllerResultCancelled:
+                default:
+                {
+                    NSLog(@"Cancelled.....");
+                    
+                }
+                    break;
+                case SLComposeViewControllerResultDone:
+                {
+                    NSLog(@"Posted....");
+                }
+                    break;
             }
-        }
-    }];
+        };
+        [fbSheet addImage:[params valueForKey:@"image"]];
+        [fbSheet setInitialText:[params valueForKey:@"initialText"]];
+        [fbSheet addURL:[NSURL URLWithString:[params valueForKey:@"url"]]];
+        [fbSheet setCompletionHandler:completionHandler];
+        [presentingViewController presentViewController:fbSheet animated:YES completion:NULL];
+    }
 }
 
 @end

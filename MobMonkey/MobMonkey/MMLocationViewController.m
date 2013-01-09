@@ -392,23 +392,7 @@
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
     if ([buttonTitle isEqualToString:@"Share on Facebook"]) {
-        if ([FBSession.activeSession.permissions
-             indexOfObject:@"publish_actions"] == NSNotFound) {
-            // No permissions found in session, ask for it
-            [FBSession.activeSession
-             reauthorizeWithPublishPermissions:
-             [NSArray arrayWithObject:@"publish_actions"]
-             defaultAudience:FBSessionDefaultAudienceFriends
-             completionHandler:^(FBSession *session, NSError *error) {
-                 if (!error) {
-                     // If permissions granted, publish the story
-                     [self publishStoryToFacebook];
-                 }
-             }];
-        }
-        else {
             [self publishStoryToFacebook];
-        }
     }
     else if ([buttonTitle isEqualToString:@"Share on Twitter"]) {
         [self publishOnTwitter];
