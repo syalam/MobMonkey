@@ -80,6 +80,13 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient postPath:@"signin" parameters:params success:success failure:failure];
 }
 
++ (void)signOut:(NSDictionary*)params
+              success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    MMHTTPClient  *httpClient = [MMHTTPClient sharedClient];
+    [httpClient postPath:[NSString stringWithFormat:@"signout/iOS/%@", [[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"]] parameters:params success:success failure:failure];
+}
+
 #pragma mark - Request Media Methods
 
 + (void)requestMedia:(NSString*)mediaType params:(NSMutableDictionary*)params

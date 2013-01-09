@@ -318,15 +318,16 @@
                     NSLog(@"%@", responseObject);
                     [[NSUserDefaults standardUserDefaults]setValue:account.username forKey:@"userName"];
                     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"oauthUser"];
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"twitterEnabled"];
                     [[NSUserDefaults standardUserDefaults]synchronize];
                     
                     [SVProgressHUD showSuccessWithStatus:@"Signed in with Twitter"];
-                    [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"eMailAddress"] forKey:@"userName"];
-                    [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"oAuthToken"] forKey:@"oAuthToken"];
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"twitterEnabled"];
+                    
                     [[NSUserDefaults standardUserDefaults]synchronize];
+                    
                     //[self checkInUser];
                     //[self getAllCategories];
+                    
                     MMSignUpViewController *signUpViewController = [[MMSignUpViewController alloc]initWithNibName:@"MMSignUpViewController" bundle:nil];
                     signUpViewController.twitterSignIn = YES;
                     [self.navigationController pushViewController:signUpViewController animated:YES];

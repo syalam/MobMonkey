@@ -211,7 +211,7 @@
     if ([[NSUserDefaults standardUserDefaults]boolForKey:@"liveFeedFilter"]) {
         [params setValue:@"3" forKey:@"mediaType"];
     }
-    
+    NSLog(@"%@", params);
     [MMAPI searchForLocation:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.searchResultsViewController.isSearching = NO;
         [SVProgressHUD dismiss];
@@ -223,6 +223,7 @@
         self.searchResultsViewController.locations = responseObject;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
         [SVProgressHUD showErrorWithStatus:[error description]];
     }];
 

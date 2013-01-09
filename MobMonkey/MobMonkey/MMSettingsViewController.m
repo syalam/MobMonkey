@@ -171,19 +171,29 @@
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
-#pragma mark - UINavBar Methods
+#pragma mark - UINavBar Button Tap Methods
 - (IBAction)signInButtonTapped:(id)sender {
-    //if user name exists, the user is signed in. On this button tap, the user should be signed out
-    if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
+    [SVProgressHUD showWithStatus:@"Signing Out"];
+    [MMAPI signOut:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [SVProgressHUD dismiss];
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userName"];
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"oAuthToken"];
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"password"];
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"facebookEnabled"];
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"twitterEnabled"];
-        [[NSUserDefaults standardUserDefaults]synchronize];
         
+        [[MMClientSDK sharedSDK]signInScreen:self];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD dismiss];
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userName"];
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"oAuthToken"];
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"password"];
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"facebookEnabled"];
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"twitterEnabled"];
         
-    }
-    [[MMClientSDK sharedSDK]signInScreen:self];
+        [[MMClientSDK sharedSDK]signInScreen:self];
+    }];
+    
 }
 
 @end

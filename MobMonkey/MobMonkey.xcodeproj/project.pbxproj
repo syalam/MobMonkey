@@ -160,6 +160,7 @@
 		C75171F21679FE4B009B4DE8 /* MMMapFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C75171F01679FE4B009B4DE8 /* MMMapFilterViewController.xib */; };
 		C75171F6167A05FE009B4DE8 /* MMAddLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75171F4167A05FD009B4DE8 /* MMAddLocationViewController.m */; };
 		C75171F7167A05FE009B4DE8 /* MMAddLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C75171F5167A05FD009B4DE8 /* MMAddLocationViewController.xib */; };
+		F7038689169D5BD6005724E2 /* MMTrendingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7038688169D5BD6005724E2 /* MMTrendingCell.m */; };
 		F71991F716226418003C6A65 /* MMAnsweredRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F71991F516226418003C6A65 /* MMAnsweredRequestsViewController.m */; };
 		F71991F816226418003C6A65 /* MMAnsweredRequestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F71991F616226418003C6A65 /* MMAnsweredRequestsViewController.xib */; };
 		F71991FB16226771003C6A65 /* ThumbsBG@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F71991F916226771003C6A65 /* ThumbsBG@2x~iphone.png */; };
@@ -466,7 +467,6 @@
 		F77BD35115F5321400E76CA5 /* MMLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD34F15F5321400E76CA5 /* MMLocationAnnotation.m */; };
 		F77D3E51161A1ED2000A818F /* MMClientSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = F77D3E50161A1ED2000A818F /* MMClientSDK.m */; };
 		F77D3E5E161A9F6C000A818F /* MMInboxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F77D3E5D161A9F6C000A818F /* MMInboxCell.m */; };
-		F78776F416731B0100CBDCD1 /* MMTrendingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F78776ED16731B0100CBDCD1 /* MMTrendingCell.m */; };
 		F78776F516731B0100CBDCD1 /* pillBoxLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = F78776EE16731B0100CBDCD1 /* pillBoxLarge.png */; };
 		F78776F616731B0100CBDCD1 /* pillBoxLarge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F78776EF16731B0100CBDCD1 /* pillBoxLarge@2x.png */; };
 		F78776F716731B0100CBDCD1 /* pillBoxMed.png in Resources */ = {isa = PBXBuildFile; fileRef = F78776F016731B0100CBDCD1 /* pillBoxMed.png */; };
@@ -819,6 +819,8 @@
 		C75171F3167A05FD009B4DE8 /* MMAddLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAddLocationViewController.h; sourceTree = "<group>"; };
 		C75171F4167A05FD009B4DE8 /* MMAddLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAddLocationViewController.m; sourceTree = "<group>"; };
 		C75171F5167A05FD009B4DE8 /* MMAddLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMAddLocationViewController.xib; sourceTree = "<group>"; };
+		F7038687169D5BD6005724E2 /* MMTrendingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTrendingCell.h; sourceTree = "<group>"; };
+		F7038688169D5BD6005724E2 /* MMTrendingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTrendingCell.m; sourceTree = "<group>"; };
 		F71991F416226418003C6A65 /* MMAnsweredRequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAnsweredRequestsViewController.h; sourceTree = "<group>"; };
 		F71991F516226418003C6A65 /* MMAnsweredRequestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAnsweredRequestsViewController.m; sourceTree = "<group>"; };
 		F71991F616226418003C6A65 /* MMAnsweredRequestsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMAnsweredRequestsViewController.xib; sourceTree = "<group>"; };
@@ -1171,8 +1173,6 @@
 		F77D3E50161A1ED2000A818F /* MMClientSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMClientSDK.m; sourceTree = "<group>"; };
 		F77D3E5C161A9F6C000A818F /* MMInboxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInboxCell.h; sourceTree = "<group>"; };
 		F77D3E5D161A9F6C000A818F /* MMInboxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMInboxCell.m; sourceTree = "<group>"; };
-		F78776EC16731B0100CBDCD1 /* MMTrendingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTrendingCell.h; sourceTree = "<group>"; };
-		F78776ED16731B0100CBDCD1 /* MMTrendingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTrendingCell.m; sourceTree = "<group>"; };
 		F78776EE16731B0100CBDCD1 /* pillBoxLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pillBoxLarge.png; sourceTree = "<group>"; };
 		F78776EF16731B0100CBDCD1 /* pillBoxLarge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pillBoxLarge@2x.png"; sourceTree = "<group>"; };
 		F78776F016731B0100CBDCD1 /* pillBoxMed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pillBoxMed.png; sourceTree = "<group>"; };
@@ -2600,8 +2600,8 @@
 		F78776FD16731B2500CBDCD1 /* Trending Cell */ = {
 			isa = PBXGroup;
 			children = (
-				F78776EC16731B0100CBDCD1 /* MMTrendingCell.h */,
-				F78776ED16731B0100CBDCD1 /* MMTrendingCell.m */,
+				F7038687169D5BD6005724E2 /* MMTrendingCell.h */,
+				F7038688169D5BD6005724E2 /* MMTrendingCell.m */,
 			);
 			name = "Trending Cell";
 			sourceTree = "<group>";
@@ -3408,7 +3408,6 @@
 				371D6E981650CBFF006354E2 /* NSDate+JavaEpochTime.m in Sources */,
 				F75A8738165573F800AF83EA /* MMInboxDetailViewController.m in Sources */,
 				F7B012DB1655AF2E00BCAC26 /* MMAnsweredRequestsCell.m in Sources */,
-				F78776F416731B0100CBDCD1 /* MMTrendingCell.m in Sources */,
 				F723ACE21676FF8400F7336B /* AdWhirlAdapterIAd.m in Sources */,
 				F723AD0D1676FF9200F7336B /* AdWhirlAdapterCustom.m in Sources */,
 				F723AD0E1676FF9200F7336B /* AdWhirlAdapterEvent.m in Sources */,
@@ -3445,6 +3444,7 @@
 				F77966131691EF4F0059FA0A /* TwitterAccounts.m in Sources */,
 				F7ED0E151692A487000F2121 /* MMAnswerTextRequestViewController.m in Sources */,
 				F7BEAA0116969AEF0010A84D /* MMTextFieldCell.m in Sources */,
+				F7038689169D5BD6005724E2 /* MMTrendingCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

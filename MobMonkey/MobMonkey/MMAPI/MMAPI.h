@@ -140,6 +140,18 @@ typedef enum OAuthProvider {
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+
+///---------------------------------------------
+/// @name Sign user out of app
+///---------------------------------------------
+/**
+ sign user out of app
+ @param Type
+ */
++ (void)signOut:(NSDictionary*)params
+        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 ///---------------------------------------------
 /// @name Fetches a list of top level categories from the server
 ///---------------------------------------------
