@@ -170,8 +170,6 @@
 {
     double latitude, longitude;
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSData* jsonData;
-    id jsonObject;
     [self.searchBar resignFirstResponder];
     if (!self.searchResultsViewController) {
         self.searchResultsViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
@@ -212,6 +210,7 @@
         [params setValue:@"3" forKey:@"mediaType"];
     }
     NSLog(@"%@", params);
+    [SVProgressHUD showWithStatus:@"Searching"];
     [MMAPI searchForLocation:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.searchResultsViewController.isSearching = NO;
         [SVProgressHUD dismiss];

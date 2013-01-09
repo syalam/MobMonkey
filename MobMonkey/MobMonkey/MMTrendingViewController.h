@@ -11,12 +11,15 @@
 #import <CoreLocation/CoreLocation.h>
 #import "MMResultCell.h"
 #import "SectionHeaderView.h"
+#import "MMTrendingCell.h"
 
-@interface MMTrendingViewController : UITableViewController <MMResultCellDelegate, MKMapViewDelegate, UIActionSheetDelegate, SectionHeaderViewDelegate> {
+@interface MMTrendingViewController : UITableViewController <MMResultCellDelegate, MKMapViewDelegate, UIActionSheetDelegate, SectionHeaderViewDelegate, MMTrendingCellDelegate> {
     CLLocation* _queryLocation;
     NSMutableDictionary* _cellToggleOnState;
     NSMutableArray *sectionTitleArray;
     NSDictionary *trendingCategoryCountsDictionary;
+    
+    int selectedRow;
 }
 
 @property (nonatomic, retain) NSMutableArray *sectionInfoArray;

@@ -159,12 +159,7 @@
     if (![[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
         [[MMClientSDK sharedSDK]signInScreen:self];
     }
-    else if (self.isSearching) {
-        [SVProgressHUD showWithStatus:@"Searching"];
-    }
-    else {
-        [SVProgressHUD dismiss];
-    }
+
     [self.tableView reloadData];
 }
 

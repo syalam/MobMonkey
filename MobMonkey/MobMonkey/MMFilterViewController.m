@@ -80,7 +80,7 @@
 
     }
     
-    if ([prefs valueForKey:@"liveFeedFilter"]) {
+    if ([prefs boolForKey:@"liveFeedFilter"]) {
         liveFeedSwitch.on = YES;
     }
     else {

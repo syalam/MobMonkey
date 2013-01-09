@@ -9,12 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "TCImageView.h"
 
-@protocol TrendingCellDelegate
+@protocol MMTrendingCellDelegate
 
 -(void)locationNameButtonTapped:(id)sender;
 -(void)moreButtonTapped:(id)sender;
--(void)acceptButtonTapped:(id)sender;
--(void)rejectButtonTapped:(id)sender;
 -(void)imageButtonTapped:(id)sender;
 
 @end
@@ -33,6 +31,6 @@
 @property (nonatomic, retain) UIButton *acceptButton;
 @property (nonatomic, retain) UIButton *rejectButton;
 @property (nonatomic, retain) UIImageView *clockImageView;
-@property (nonatomic, assign) id<TrendingCellDelegate>delegate;
+@property (nonatomic, assign) id<MMTrendingCellDelegate>delegate;
 
 @end

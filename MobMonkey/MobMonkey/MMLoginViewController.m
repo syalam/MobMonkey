@@ -131,6 +131,7 @@
             NSLog(@"%@", responseObject);
             [prefs setObject:emailTextField.text forKey:@"userName"];
             [prefs setObject:passwordTextField.text forKey:@"password"];
+            [prefs setBool:NO forKey:@"oauthUser"];
             [prefs synchronize];
             
             [self getAllCategories];
