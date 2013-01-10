@@ -236,12 +236,12 @@
 #pragma mark - Helper Methods
 - (void)fetchAnsweredRequests {
     [SVProgressHUD showWithStatus:@"Loading Answered Requests"];
-    [MMAPI getFulfilledRequestsOnSuccess:^(id responseObject) {
+    [MMAPI getFulfilledRequests:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         [SVProgressHUD dismiss];
         [self setContentList:responseObject];
         [self.tableView reloadData];
-    } failure:^(NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD showErrorWithStatus:@"Unable to load"];
     }];
 }

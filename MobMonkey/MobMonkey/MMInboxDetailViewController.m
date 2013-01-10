@@ -208,14 +208,14 @@
 #pragma mark - Helper Methods
 - (void)fetchOpenRequests {
     [SVProgressHUD showWithStatus:@"Loading Open Requests"];
-    [MMAPI getOpenRequestsOnSuccess:^(id responseObject) {
+    [MMAPI getOpenRequests:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [SVProgressHUD dismiss];
         [self setContentList:responseObject];
         [self.tableView reloadData];
         if (_contentList.count == 0) {
             [self.navigationController popViewControllerAnimated:YES];
         }
-    } failure:^(NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD showErrorWithStatus:@"Unable to load open requests"];
     }];
 }

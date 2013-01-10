@@ -199,50 +199,12 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient  getPath:@"inbox/counts" parameters:nil success:success failure:failure];
 }
 
-+ (void)getOpenRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure {
-    NSString *urlString = [kBMHTTPClientBaseURLString stringByAppendingString:@"inbox/openrequests"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    [request setHTTPMethod:@"GET"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"] forHTTPHeaderField:@"MobMonkey-partnerId"];
-    [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"] forHTTPHeaderField:@"MobMonkey-user"];
-    if ([[NSUserDefaults standardUserDefaults]valueForKey:@"password"]) {
-        [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"] forHTTPHeaderField:@"MobMonkey-auth"];
-    }
-    else {
-        [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"oAuthToken"] forHTTPHeaderField:@"OauthToken"];
-    }
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        if (error) {
-            failure(error);
-            return;
-        }
-        NSLog(@"Open Requests: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        success([NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil]);
-    }];
-}
 
-+ (void)getLocationsInOpenRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure {
-    NSString *urlString = [kBMHTTPClientBaseURLString stringByAppendingString:@"locations/openrequests"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    [request setHTTPMethod:@"GET"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"] forHTTPHeaderField:@"MobMonkey-partnerId"];
-    [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"] forHTTPHeaderField:@"MobMonkey-user"];
-    if ([[NSUserDefaults standardUserDefaults]valueForKey:@"password"]) {
-        [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"] forHTTPHeaderField:@"MobMonkey-auth"];
-    }
-    else {
-        [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"oAuthToken"] forHTTPHeaderField:@"OauthToken"];
-    }
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        if (error) {
-            failure(error);
-            return;
-        }
-        NSLog(@"Locations in Open Requests: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        success([NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil]);
-    }];
++ (void)getOpenRequests:(NSMutableDictionary*)params
+               success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    MMHTTPClient *httpClient = [self setupHTTPClient];
+    [httpClient getPath:@"inbox/openrequests" parameters:nil success:success failure:failure];
 }
 
 + (void)getAssignedRequests:(NSMutableDictionary*)params
@@ -252,72 +214,11 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient  getPath:@"inbox/assignedrequests" parameters:nil success:success failure:failure];
 }
 
-+ (void)getAssignedRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure {
-    NSString *urlString = [kBMHTTPClientBaseURLString stringByAppendingString:@"inbox/assignedrequests"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    [request setHTTPMethod:@"GET"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"] forHTTPHeaderField:@"MobMonkey-partnerId"];
-    [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"] forHTTPHeaderField:@"MobMonkey-user"];
-    if ([[NSUserDefaults standardUserDefaults]valueForKey:@"password"]) {
-        [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"] forHTTPHeaderField:@"MobMonkey-auth"];
-    }
-    else {
-        [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"oAuthToken"] forHTTPHeaderField:@"OauthToken"];
-    }    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        if (error) {
-            failure(error);
-            return;
-        }
-        NSLog(@"Assigned Requests: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        success([NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil]);
-    }];
-}
-
-+ (void)getLocationsInAssignedRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure {
-    NSString *urlString = [kBMHTTPClientBaseURLString stringByAppendingString:@"locations/openrequests"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    [request setHTTPMethod:@"GET"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"] forHTTPHeaderField:@"MobMonkey-partnerId"];
-    [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"] forHTTPHeaderField:@"MobMonkey-user"];
-    if ([[NSUserDefaults standardUserDefaults]valueForKey:@"password"]) {
-        [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"] forHTTPHeaderField:@"MobMonkey-auth"];
-    }
-    else {
-        [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"oAuthToken"] forHTTPHeaderField:@"OauthToken"];
-    }
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        if (error) {
-            failure(error);
-            return;
-        }
-        NSLog(@"Locations in Open Requests: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        success([NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil]);
-    }];
-}
-
-+ (void)getFulfilledRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure {
-    NSString *urlString = [kBMHTTPClientBaseURLString stringByAppendingString:@"inbox/fulfilledrequests"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    [request setHTTPMethod:@"GET"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"] forHTTPHeaderField:@"MobMonkey-partnerId"];
-    [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"] forHTTPHeaderField:@"MobMonkey-user"];
-    if ([[NSUserDefaults standardUserDefaults]valueForKey:@"password"]) {
-        [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"] forHTTPHeaderField:@"MobMonkey-auth"];
-    }
-    else {
-        [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"oAuthToken"] forHTTPHeaderField:@"OauthToken"];
-    }
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        if (error) {
-            failure(error);
-            return;
-        }
-        NSLog(@"Fulfilled Requests: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        success([NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil]);
-    }];
++ (void)getFulfilledRequests:(NSMutableDictionary*)params
+                     success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    MMHTTPClient *httpClient = [self setupHTTPClient];
+    [httpClient getPath:@"inbox/fulfilledrequests" parameters:nil success:success failure:failure];
 }
 
 + (void)rejectMedia:(NSDictionary *)params
@@ -364,33 +265,6 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     }
     [httpClient postPath:urlString parameters:params success:success failure:failure];
 }
-
-/*+ (void)searchForLocation:(NSDictionary*)params
-                  success:(void (^)(id responseObject))success
-                  failure:(void (^)(NSError *error))failure {
-    NSString *urlString = [kBMHTTPClientBaseURLString stringByAppendingString:@"search/location"];
-    //urlString = [urlString stringByAppendingFormat:@"?%@", [NSString URLParameterizedStringFromDictionary:params]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:params options:0 error:nil]];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"] forHTTPHeaderField:@"MobMonkey-partnerId"];
-    [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"] forHTTPHeaderField:@"MobMonkey-user"];
-    if ([[NSUserDefaults standardUserDefaults]valueForKey:@"password"]) {
-        [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"] forHTTPHeaderField:@"MobMonkey-auth"];
-    }
-    else {
-        [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"oAuthToken"] forHTTPHeaderField:@"OauthToken"];
-    }
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        if (error) {
-            failure(error);
-            return;
-        }
-        NSLog(@"Locations: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        success([NSJSONSerialization JSONObjectWithData:data options:0 error:nil]);
-    }];
-}*/
 
 #pragma marl - Media
 + (void)getMediaForLocationID:(NSString *)locationID
@@ -457,7 +331,8 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
                 success:(void (^)(AFHTTPRequestOperation *, id))success
                 failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
     MMHTTPClient *httpClient = [self setupHTTPClient];
-    [httpClient getPath:[NSString stringWithFormat:@"locations?locationId=%@&providerId=%@", [param valueForKey:@"locationId"], [param valueForKey:@"providerId"]] parameters:nil success:success failure:failure];
+    NSString *urlString = [NSString stringWithFormat:@"locations?locationId=%@&providerId=%@", [param valueForKey:@"locationId"], [param valueForKey:@"providerId"]];
+    [httpClient getPath:urlString parameters:nil success:success failure:failure];
 }
 
 #pragma mark - Helper Methods
@@ -466,9 +341,12 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
     if (![[NSUserDefaults standardUserDefaults]boolForKey:@"oauthUser"]) {
-        [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
         [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
+    }
+    else {
+        [httpClient setDefaultHeader:@"OauthToken" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"oauthToken"]];
     }
 
     return httpClient;

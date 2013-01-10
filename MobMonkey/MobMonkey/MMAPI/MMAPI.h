@@ -205,8 +205,9 @@ typedef enum OAuthProvider {
 /**
  Retrieve list of open requests from the server
  */
-+ (void)getOpenRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
-+ (void)getLocationsInOpenRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
++ (void)getOpenRequests:(NSMutableDictionary*)params
+                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 ///---------------------------------------------
 /// @name Fetches a list of assigned requests from the server
@@ -217,10 +218,6 @@ typedef enum OAuthProvider {
 + (void)getAssignedRequests:(NSMutableDictionary*)params
                     success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
-
-
-+ (void)getAssignedRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
-+ (void)getLocationsInAssignedRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
 
 
 ///---------------------------------------------
@@ -244,7 +241,10 @@ typedef enum OAuthProvider {
  Retrieve list of fulfilled requests from the server
  */
 
-+ (void)getFulfilledRequestsOnSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
+
++ (void)getFulfilledRequests:(NSMutableDictionary*)params
+                    success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure; 
 
 ///---------------------------------------------
 /// @name Adds a new location to the system

@@ -170,15 +170,16 @@
                     
                     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                                             [my valueForKey:@"email"], @"providerUserName",
-                                            [[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"], @"deviceId",
                                             @"true", @"useOAuth",
                                             accessToken, @"oauthToken",
                                             @"facebook", @"provider",
-                                            @"iOS", @"deviceType", nil];
+                                            @"iOS", @"deviceType",
+                                            [[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"], @"deviceId", nil];
                     [MMAPI oauthSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         NSLog(@"%@", responseObject);
                         [[NSUserDefaults standardUserDefaults]setValue:[my valueForKey:@"email"] forKey:@"userName"];
                         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"oauthUser"];
+                        [[NSUserDefaults standardUserDefaults]setValue:accessToken forKey:@"oauthToken"];
                         [[NSUserDefaults standardUserDefaults]synchronize];
                         
                         [prefs setBool:YES forKey:@"facebookEnabled"];

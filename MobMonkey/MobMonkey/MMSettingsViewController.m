@@ -182,6 +182,8 @@
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"facebookEnabled"];
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"twitterEnabled"];
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"oauthUser"];
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"oauthToken"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
         
         [[MMClientSDK sharedSDK]signInScreen:self];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -192,6 +194,8 @@
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"facebookEnabled"];
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"twitterEnabled"];
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"oauthUser"];
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"oauthToken"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
         
         [[MMClientSDK sharedSDK]signInScreen:self];
     }];
