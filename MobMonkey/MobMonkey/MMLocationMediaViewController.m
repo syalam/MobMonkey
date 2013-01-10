@@ -129,7 +129,10 @@
     if (!cell) {
         cell = [[MMLocationMediaCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.delegate = self;
+        [cell.clockImageView setHidden:YES];
     }
+    
     if ([self.segmentedControl selectedSegmentIndex] == MMPhotoMediaType) {
         [cell.locationImageView reloadWithUrl:[[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"mediaURL"]];
     }
@@ -140,7 +143,8 @@
         });
     }
     
-    // Configure the cell...
+    cell.imageButton.tag = indexPath.row;
+    cell.moreButton.tag = indexPath.row;
     
     return cell;
 }
@@ -149,23 +153,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    didShowModal = NO;
-    didShowAd = NO;
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSString *urlString = [[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"mediaURL"];
-    
-    NSInteger viewsThisMonth = 0;
-    viewsThisMonth = [self viewsThisMonth];
-    views = viewsThisMonth;
-    NSLog(@"viewsThisMonth: %i", viewsThisMonth);
-    
-    if ([self.segmentedControl selectedSegmentIndex] != MMPhotoMediaType) {
-        self.moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:urlString]];
-        [self.navigationController presentMoviePlayerViewControllerAnimated:self.moviePlayerViewController];
-    } else {
-        MMLocationMediaCell *cell = (MMLocationMediaCell*)[tableView cellForRowAtIndexPath:indexPath];
-        [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:cell.locationImageView.image locationName:self.title];
-    }
+
 }
 
 - (NSInteger)viewsThisMonth
@@ -199,7 +187,7 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 130;
+    return 317;
 }
 
 - (void)viewDidUnload {
@@ -303,6 +291,95 @@
     MMAppDelegate* appDelegate = (MMAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.window.rootViewController.view addSubview:appDelegate.adView];
     NSLog(@"Greystripe closed fullscreen.");
+}
+
+#pragma mark - MMLocationMediaCell delegate
+-(void)moreButtonTapped:(id)sender {
+    selectedRow = [sender tag];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Flag for Review", nil];
+    [actionSheet showInView:self.view];
+}
+-(void)imageButtonTapped:(id)sender {
+    MMLocationMediaCell *cell = (MMLocationMediaCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
+    didShowModal = NO;
+    didShowAd = NO;
+    NSString *urlString = [[self.mediaArray objectAtIndex:[sender tag]] valueForKey:@"mediaURL"];
+    
+    NSInteger viewsThisMonth = 0;
+    viewsThisMonth = [self viewsThisMonth];
+    views = viewsThisMonth;
+    NSLog(@"viewsThisMonth: %i", viewsThisMonth);
+    
+    if ([self.segmentedControl selectedSegmentIndex] != MMPhotoMediaType) {
+        self.moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:urlString]];
+        [self.navigationController presentMoviePlayerViewControllerAnimated:self.moviePlayerViewController];
+    } else {
+        [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:cell.locationImageView.image locationName:nil];
+    }
+}
+
+#pragma mark - Helper Methods
+- (void)publishStoryToFacebook
+{
+    MMLocationMediaCell *cell = (MMLocationMediaCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0]];
+    BOOL isVideo = NO;
+    NSArray *mediaArray  = [[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"media"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    [params setValue:_locationName forKey:@"initialText"];
+    if (mediaArray.count > 0) {
+        if ([[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 1) {
+            [params setValue:cell.locationImageView.image forKey:@"image"];
+        }
+        else if ([[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 2) {
+            [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
+            isVideo = YES;
+        }
+    }
+    if (!isVideo) {
+        if (![[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"webSite"]isEqualToString:@""]) {
+            [params setValue:[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"webSite"] forKey:@"url"];
+        }
+    }
+    
+    [[MMClientSDK sharedSDK]shareViaFacebook:params presentingViewController:self];
+}
+
+- (void)publishOnTwitter {
+    MMLocationMediaCell *cell = (MMLocationMediaCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0]];
+    BOOL isVideo = NO;
+    NSArray *mediaArray  = [[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"media"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    [params setValue:_locationName forKey:@"initialText"];
+    if (mediaArray.count > 0) {
+        if ([[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 1) {
+            [params setValue:cell.locationImageView.image forKey:@"image"];
+        }
+        else if ([[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 2) {
+            [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
+            isVideo = YES;
+        }
+    }
+    if (!isVideo) {
+        if (![[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"webSite"]isEqualToString:@""]) {
+            [params setValue:[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"webSite"] forKey:@"url"];
+        }
+    }
+    
+    [[MMClientSDK sharedSDK]shareViaTwitter:params presentingViewController:self];
+}
+
+#pragma mark - Action Sheet Delegate Methods
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([buttonTitle isEqualToString:@"Share on Facebook"]) {
+        [self publishStoryToFacebook];
+    }
+    else if ([buttonTitle isEqualToString:@"Share on Twitter"]) {
+        [self publishOnTwitter];
+    }
+    else if ([buttonTitle isEqualToString:@"Flag for Review"]) {
+        
+    }
 }
 
 @end

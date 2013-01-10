@@ -64,6 +64,8 @@
         cell = [[MMTrendingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.delegate = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell.timeStampLabel setHidden:YES];
+        [cell.clockImageView setHidden:YES];
     }
     
     cell.timeStampLabel.text = @"";
@@ -173,19 +175,6 @@
     UINavigationController *locationMediaNavC = [[UINavigationController alloc] initWithRootViewController:lmvc];
     locationMediaNavC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:locationMediaNavC animated:YES completion:NULL];
-    
-    /*/[MMAPI getMediaForLocationID:locationId providerID:providerId success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type LIKE %@", @"image"];
-        lmvc.mediaArray = [[responseObject valueForKey:@"media"] filteredArrayUsingPredicate:predicate];
-        [lmvc.tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Could not add Bookmark!");
-    }];*/
-
-    
-    /*MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
-    [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
-    [self.navigationController pushViewController:locationViewController animated:YES];*/
 }
 -(void)moreButtonTapped:(id)sender {
     selectedRow = [sender tag];

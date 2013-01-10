@@ -20,13 +20,13 @@ typedef enum {
     MMPhotoMediaType
 } MobMonkeyMediaType;
 
-@interface MMLocationMediaViewController : UIViewController <UITabBarControllerDelegate, UITableViewDataSource, UIActionSheetDelegate, GSAdDelegate> {
+@interface MMLocationMediaViewController : UIViewController <UITabBarControllerDelegate, UITableViewDataSource, UIActionSheetDelegate, GSAdDelegate, MMLocationMediaCellDelegate> {
     dispatch_queue_t backgroundQueue;
     NSInteger views;
     BOOL didShowModal;
     BOOL didShowAd;
     BOOL showAd;
-    
+    int selectedRow;
 }
 
 @property (nonatomic, strong) NSDictionary *location;
@@ -37,6 +37,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) NSString* providerId;
 @property (nonatomic, retain) NSString* locationId;
+@property (nonatomic, retain) NSString* locationName;
 
 //Protocol methods for defining basic ad behaviors
 - (NSString *)greystripeGUID;
