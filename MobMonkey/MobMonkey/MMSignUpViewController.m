@@ -203,59 +203,7 @@
 }
 
 - (IBAction)facebookButtonTapped:(id)sender {
-    [SVProgressHUD showWithStatus:@"Signing in with Facebook"];
-    NSArray *permissions = [NSArray arrayWithObjects:@"email", nil];
-    [FBSession openActiveSessionWithPermissions:permissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-        if (session.isOpen) {
-            FBRequest *me = [FBRequest requestForMe];
-            [me startWithCompletionHandler: ^(FBRequestConnection *connection,
-                                              NSDictionary<FBGraphUser> *my,
-                                              NSError *error) {
-                if (!error) {
-                    NSLog(@"%@", my);
-                    //TODO: send FB token to server call
-                    NSString* accessToken = me.session.accessToken;
-                    NSLog(@"%@", accessToken);
-                    
-                    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                            [my valueForKey:@"email"], @"eMailAddress",
-                                            accessToken, @"oAuthToken", nil];
-                    [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"eMailAddress"] forKey:@"userName"];
-                    [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"oAuthToken"] forKey:@"oAuthToken"];
-                    [[NSUserDefaults standardUserDefaults]synchronize];
-                    /*[MMAPI facebookSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                        [SVProgressHUD showSuccessWithStatus:@"Signed in with Facebook"];
-                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"facebookEnabled"];
-                        [[NSUserDefaults standardUserDefaults]synchronize];
-                        [self checkInUser];
-                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        NSLog(@"%@", operation.responseString);
-                        if (operation.responseData) {
-                            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
-                            if ([response valueForKey:@"description"]) {
-                                NSString *responseString = [response valueForKey:@"description"];
-                                
-                                [SVProgressHUD showErrorWithStatus:responseString];
-                            }
-                        }
-                        else {
-                            [SVProgressHUD showErrorWithStatus:@"Unable to login"];
-                        }
-                    }];*/
-                }
-                else {
-                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to log you in. Please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-                    [alert show];
-                }
-                
-            }];
-        }
-        else {
-            [SVProgressHUD showErrorWithStatus:@"Unable to sign in with Facebook"];
-            NSLog(@"%@", error);
-        }
-    }];
-    
+    [[MMClientSDK sharedSDK]signInViaFacebook:nil presentingViewController:self];
 }
 
 - (IBAction)twitterButtonTapped:(id)sender {
@@ -455,6 +403,8 @@
         [MMAPI registerTwitterUserDetails:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"%@", responseObject);
             [SVProgressHUD showSuccessWithStatus:[responseObject valueForKey:@"description"]];
+            [self checkInUser];
+            [self getAllCategories];
             [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [SVProgressHUD showErrorWithStatus:[error description]];
@@ -555,34 +505,7 @@
             case twitterAccountsActionSheetCall: {
                 [SVProgressHUD showWithStatus:@"Signing in with Twitter"];
                 ACAccount *account = [_twitterAccounts objectAtIndex:buttonIndex];
-                
-                NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        account.username, @"eMailAddress",
-                                        account.identifier, @"oAuthToken", nil];
-                [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"eMailAddress"] forKey:@"userName"];
-                [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"oAuthToken"] forKey:@"oAuthToken"];
-                [[NSUserDefaults standardUserDefaults]synchronize];
-                [MMAPI TwitterSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    NSLog(@"%@", responseObject);
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"twitterEnabled"];
-                    [[NSUserDefaults standardUserDefaults]synchronize];
-                    [self checkInUser];
-                    [self getAllCategories];
-                    [SVProgressHUD showSuccessWithStatus:@"Signed in with Twitter"];
-                    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    if (operation.responseData) {
-                        NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
-                        if ([response valueForKey:@"description"]) {
-                            NSString *responseString = [response valueForKey:@"description"];
-                            
-                            [SVProgressHUD showErrorWithStatus:responseString];
-                        }
-                        else {
-                            [SVProgressHUD showErrorWithStatus:@"Unable to login"];
-                        }
-                    }
-                }];
+                [[MMClientSDK sharedSDK]signInViaTwitter:account presentingViewController:self];
             }
                 break;
             case genderActionSheetCall:

@@ -173,9 +173,146 @@
         [presentingViewController presentViewController:fbSheet animated:YES completion:NULL];
     }
     else {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to access your twitter account. Please ensure that you are logged in to Facebook in your iPhone's settings menu and that you have given MobMonkey permission to access your Facebook account" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to access your Facebook account. Please ensure that you are logged in to Facebook in your iPhone's settings menu and that you have given MobMonkey permission to access your Facebook account" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
+}
+
+- (void)signInViaFacebook:(NSDictionary*)params presentingViewController:(UIViewController*)presentingViewController {
+    NSArray *permissions = [NSArray arrayWithObjects:@"email", nil];
+    [SVProgressHUD showWithStatus:@"Signing in with Facebook"];
+    [FBSession openActiveSessionWithReadPermissions:permissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        if (session.isOpen) {
+            FBRequest *me = [FBRequest requestForMe];
+            [me startWithCompletionHandler: ^(FBRequestConnection *connection,
+                                              NSDictionary<FBGraphUser> *my,
+                                              NSError *error) {
+                if (!error) {
+                    NSString* accessToken = me.session.accessToken;
+                    NSLog(@"%@", accessToken);
+                    
+                    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                            [my valueForKey:@"email"], @"providerUserName",
+                                            @"true", @"useOAuth",
+                                            accessToken, @"oauthToken",
+                                            @"facebook", @"provider",
+                                            @"iOS", @"deviceType",
+                                            [[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"], @"deviceId", nil];
+                    [MMAPI oauthSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        NSLog(@"%@", responseObject);
+                        [[NSUserDefaults standardUserDefaults]setValue:[my valueForKey:@"email"] forKey:@"userName"];
+                        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"oauthUser"];
+                        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"facebookEnabled"];
+                        [[NSUserDefaults standardUserDefaults]setValue:accessToken forKey:@"oauthToken"];
+                        [[NSUserDefaults standardUserDefaults]synchronize];
+                        
+                        [self checkInUser];
+                        [self getAllCategories];
+                        [SVProgressHUD showSuccessWithStatus:@"Signed in with Facebook"];
+                        [presentingViewController.navigationController dismissViewControllerAnimated:YES completion:NULL];
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        NSLog(@"%@", operation.responseString);
+                        if (operation.responseData) {
+                            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+                            if ([response valueForKey:@"description"]) {
+                                NSString *responseString = [response valueForKey:@"description"];
+                                
+                                [SVProgressHUD showErrorWithStatus:responseString];
+                            }
+                            else {
+                                [SVProgressHUD showErrorWithStatus:@"Unable to login"];
+                            }
+                        }
+                    }];
+                }
+                else {
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to log you in. Please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+                    [alert show];
+                }
+            }];
+        }
+        else {
+            [SVProgressHUD dismiss];
+            NSLog(@"%@", error);
+        }
+    }];
+}
+- (void)signInViaTwitter:(ACAccount*)account presentingViewController:(UIViewController*)presentingViewController {
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            account.username, @"providerUserName",
+                            account.identifier, @"oauthToken",
+                            @"twitter", @"provider",
+                            @"true", @"useOAuth",
+                            @"iOS", @"deviceType",
+                            [[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"], @"deviceId", nil];
+    
+    [MMAPI oauthSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [[NSUserDefaults standardUserDefaults]setValue:account.username forKey:@"userName"];
+        [[NSUserDefaults standardUserDefaults]setValue:account.identifier forKey:@"oauthToken"];
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"oauthUser"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"twitterEnabled"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+        
+        [SVProgressHUD showSuccessWithStatus:@"Signed in with Twitter"];
+        
+        [[NSUserDefaults standardUserDefaults]synchronize];
+        
+        [self checkInUser];
+        [self getAllCategories];
+        [presentingViewController.navigationController dismissViewControllerAnimated:YES completion:NULL];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
+        //twitter auth passed, but user is new and needs to enter additional info to become a valid user
+        if ([operation.response statusCode] == 404) {
+            [[NSUserDefaults standardUserDefaults]setValue:account.username forKey:@"userName"];
+            [[NSUserDefaults standardUserDefaults]setValue:account.identifier forKey:@"oauthToken"];
+            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"oauthUser"];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"twitterEnabled"];
+            
+            MMSignUpViewController *signUpViewController = [[MMSignUpViewController alloc]initWithNibName:@"MMSignUpViewController" bundle:nil];
+            signUpViewController.twitterSignIn = YES;
+            [signUpViewController.navigationItem setHidesBackButton:YES];
+            signUpViewController.title = [NSString stringWithFormat:@"@%@ user info", account.username];
+            [presentingViewController.navigationController pushViewController:signUpViewController animated:YES];
+        }
+        //if its not a 404 status code being returned, there is a legitimate error
+        else if (operation.responseData) {
+            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+            if ([response valueForKey:@"description"]) {
+                NSString *responseString = [response valueForKey:@"description"];
+                
+                [SVProgressHUD showErrorWithStatus:responseString];
+            }
+            else {
+                [SVProgressHUD showErrorWithStatus:@"Unable to login"];
+            }
+        }
+        else {
+            [SVProgressHUD showErrorWithStatus:@"Unable to login"];
+        }
+    }];
+}
+
+- (void)checkInUser {
+    NSMutableDictionary *checkinParams = [[NSMutableDictionary alloc]init];
+    [checkinParams setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
+    [checkinParams setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
+    [MMAPI checkUserIn:checkinParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", @"Checked In");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
+    }];
+}
+
+- (void)getAllCategories {
+    [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [[NSUserDefaults standardUserDefaults] setObject:responseObject forKey:@"allCategories"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
+    }];
 }
 
 @end

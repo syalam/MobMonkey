@@ -27,6 +27,7 @@
 - (void)shareViaTwitter:(NSDictionary*)params presentingViewController:(UIViewController*)presentingViewController;
 - (void)shareViaFacebook:(NSDictionary*)params presentingViewController:(UIViewController*)presentingViewController;
 - (void)signInViaFacebook:(NSDictionary*)params presentingViewController:(UIViewController*)presentingViewController;
+- (void)signInViaTwitter:(ACAccount*)account presentingViewController:(UIViewController*)presentingViewController;
 
 
 @end

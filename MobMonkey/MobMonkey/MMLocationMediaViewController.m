@@ -322,23 +322,15 @@
 - (void)publishStoryToFacebook
 {
     MMLocationMediaCell *cell = (MMLocationMediaCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0]];
-    BOOL isVideo = NO;
-    NSArray *mediaArray  = [[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"media"];
+    //BOOL isVideo = NO;
+    //NSArray *mediaArray  = [[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"media"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
     [params setValue:_locationName forKey:@"initialText"];
-    if (mediaArray.count > 0) {
-        if ([[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 1) {
-            [params setValue:cell.locationImageView.image forKey:@"image"];
-        }
-        else if ([[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 2) {
-            [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
-            isVideo = YES;
-        }
+    if ([self.segmentedControl selectedSegmentIndex] != MMPhotoMediaType) {
+        [params setValue:[[self.mediaArray objectAtIndex:selectedRow] valueForKey:@"mediaURL"] forKey:@"url"];
     }
-    if (!isVideo) {
-        if (![[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"webSite"]isEqualToString:@""]) {
-            [params setValue:[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"webSite"] forKey:@"url"];
-        }
+    else {
+        [params setValue:cell.locationImageView.image forKey:@"image"];
     }
     
     [[MMClientSDK sharedSDK]shareViaFacebook:params presentingViewController:self];
@@ -346,23 +338,15 @@
 
 - (void)publishOnTwitter {
     MMLocationMediaCell *cell = (MMLocationMediaCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0]];
-    BOOL isVideo = NO;
-    NSArray *mediaArray  = [[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"media"];
+    //BOOL isVideo = NO;
+    //NSArray *mediaArray  = [[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"media"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
     [params setValue:_locationName forKey:@"initialText"];
-    if (mediaArray.count > 0) {
-        if ([[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 1) {
-            [params setValue:cell.locationImageView.image forKey:@"image"];
-        }
-        else if ([[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 2) {
-            [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
-            isVideo = YES;
-        }
+    if ([self.segmentedControl selectedSegmentIndex] != MMPhotoMediaType) {
+        [params setValue:[[self.mediaArray objectAtIndex:selectedRow] valueForKey:@"mediaURL"] forKey:@"url"];
     }
-    if (!isVideo) {
-        if (![[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"webSite"]isEqualToString:@""]) {
-            [params setValue:[[self.mediaArray objectAtIndex:selectedRow]valueForKey:@"webSite"] forKey:@"url"];
-        }
+    else {
+        [params setValue:cell.locationImageView.image forKey:@"image"];
     }
     
     [[MMClientSDK sharedSDK]shareViaTwitter:params presentingViewController:self];
