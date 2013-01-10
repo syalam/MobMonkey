@@ -26,6 +26,7 @@
 - (void)locationMediaScreen:(UIViewController*)presentingViewController locationMediaContent:(NSArray*)locationMediaContent locationName:(NSString*)locationName;
 - (void)shareViaTwitter:(NSDictionary*)params presentingViewController:(UIViewController*)presentingViewController;
 - (void)shareViaFacebook:(NSDictionary*)params presentingViewController:(UIViewController*)presentingViewController;
+- (void)signInViaFacebook:(NSDictionary*)params presentingViewController:(UIViewController*)presentingViewController;
 
 
 @end

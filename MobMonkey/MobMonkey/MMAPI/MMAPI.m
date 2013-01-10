@@ -69,8 +69,20 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 + (void)oauthSignIn:(NSDictionary*)params
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    //construct url
+    NSString *urlString = [NSString stringWithFormat:@"signin?deviceType=ios&deviceId=%@&useOAuth=true&provider=%@&oauthToken=%@&providerUserName=%@", [params valueForKey:@"deviceId"], [params valueForKey:@"provider"], [params valueForKey:@"oauthToken"], [params valueForKey:@"providerUserName"]];
+
+    
     MMHTTPClient *httpClient = [self setupHTTPClient];
-    [httpClient postPath:@"signin" parameters:nil success:success failure:failure];
+    [httpClient postPath:urlString parameters:nil success:success failure:failure];
+}
+
++ (void)registerTwitterUserDetails:(NSDictionary*)params
+                           success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString *urlString = [NSString stringWithFormat:@"signin/registeremail?deviceType=iOS&deviceId=%@&oauthToken=%@&providerUserName=%@&eMailAddress=%@", [params valueForKey:@"deviceId"], [params valueForKey:@"oauthToken"], [params valueForKey:@"providerUsername"], [params valueForKey:@"eMailAddress"]];
+    MMHTTPClient *httpClient = [self setupHTTPClient];
+    [httpClient postPath:urlString parameters:nil success:success failure:failure];
 }
 
 + (void)TwitterSignIn:(NSDictionary*)params
@@ -339,11 +351,18 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 }
 
 #pragma mark - Search
-+ (void)searchForLocation:(NSMutableDictionary*)params
++ (void)searchForLocation:(NSMutableDictionary*)params mediaType:(NSString*)mediaType
                   success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     MMHTTPClient *httpClient = [self setupHTTPClient];
-    [httpClient postPath:@"search/location" parameters:params success:success failure:failure];
+    NSString *urlString;
+    if (mediaType) {
+        urlString = [NSString stringWithFormat:@"search/location?mediaType=%@", mediaType];
+    }
+    else {
+        urlString = @"search/location";
+    }
+    [httpClient postPath:urlString parameters:params success:success failure:failure];
 }
 
 /*+ (void)searchForLocation:(NSDictionary*)params

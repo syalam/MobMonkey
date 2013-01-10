@@ -128,6 +128,20 @@ typedef enum OAuthProvider {
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+
+///---------------------------------------------
+/// @name Register email address for twitter user
+///---------------------------------------------
+/**
+ Register email address for twitter user
+ @param facebook session id
+ */
+
++ (void)registerTwitterUserDetails:(NSDictionary*)params
+                    success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+
 ///---------------------------------------------
 /// @name Sign's a user in with Twitter
 ///---------------------------------------------
@@ -270,7 +284,7 @@ typedef enum OAuthProvider {
 /**
  search for a location
  */
-+ (void)searchForLocation:(NSMutableDictionary*)params
++ (void)searchForLocation:(NSMutableDictionary*)params mediaType:(NSString*)mediaType
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 

@@ -318,6 +318,7 @@
                 [MMAPI oauthSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSLog(@"%@", responseObject);
                     [[NSUserDefaults standardUserDefaults]setValue:account.username forKey:@"userName"];
+                    [[NSUserDefaults standardUserDefaults]setValue:account.identifier forKey:@"oauthToken"];
                     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"oauthUser"];
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"twitterEnabled"];
                     [[NSUserDefaults standardUserDefaults]synchronize];
@@ -326,16 +327,26 @@
                     
                     [[NSUserDefaults standardUserDefaults]synchronize];
                     
-                    //[self checkInUser];
-                    //[self getAllCategories];
-                    
-                    MMSignUpViewController *signUpViewController = [[MMSignUpViewController alloc]initWithNibName:@"MMSignUpViewController" bundle:nil];
-                    signUpViewController.twitterSignIn = YES;
-                    [self.navigationController pushViewController:signUpViewController animated:YES];
-                    //[self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+                    [self checkInUser];
+                    [self getAllCategories];
+                    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     NSLog(@"%@", operation.responseString);
-                    if (operation.responseData) {
+                    //twitter auth passed, but user is new and needs to enter additional info to become a valid user
+                    if ([operation.response statusCode] == 404) {
+                        [[NSUserDefaults standardUserDefaults]setValue:account.username forKey:@"userName"];
+                        [[NSUserDefaults standardUserDefaults]setValue:account.identifier forKey:@"oauthToken"];
+                        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"oauthUser"];
+                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"twitterEnabled"];
+                        
+                        MMSignUpViewController *signUpViewController = [[MMSignUpViewController alloc]initWithNibName:@"MMSignUpViewController" bundle:nil];
+                        signUpViewController.twitterSignIn = YES;
+                        [signUpViewController.navigationItem setHidesBackButton:YES];
+                        signUpViewController.title = [NSString stringWithFormat:@"@%@ user info", account.username];
+                        [self.navigationController pushViewController:signUpViewController animated:YES];
+                    }
+                    //if its not a 404 status code being returned, there is a legitimate error
+                    else if (operation.responseData) {
                         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
                         if ([response valueForKey:@"description"]) {
                             NSString *responseString = [response valueForKey:@"description"];
@@ -345,6 +356,9 @@
                         else {
                             [SVProgressHUD showErrorWithStatus:@"Unable to login"];
                         }
+                    }
+                    else {
+                        [SVProgressHUD showErrorWithStatus:@"Unable to login"];
                     }
                 }];
             }

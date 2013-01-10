@@ -178,14 +178,6 @@
     [SVProgressHUD dismiss];
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-/*- (void)addLocationButtonTapped:(id)sender {
-    MMMapFilterViewController *mvc = [[MMMapFilterViewController alloc] init];
-    mvc.title = @"Add Location";
-    UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:mvc];
-    [self.navigationController presentViewController:navc animated:YES completion:nil];
-}*/
-
 - (void)flipView:(id)sender
 {
     if ([self.mapView isHidden]) {

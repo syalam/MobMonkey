@@ -206,12 +206,13 @@
     else {
         [params setValue:[NSNumber numberWithInt:10000] forKey:@"radiusInYards"];
     }
+    NSString *mediaType;
     if ([[NSUserDefaults standardUserDefaults]boolForKey:@"liveFeedFilter"]) {
-        [params setValue:@"3" forKey:@"mediaType"];
+        mediaType = @"3";
     }
     NSLog(@"%@", params);
     [SVProgressHUD showWithStatus:@"Searching"];
-    [MMAPI searchForLocation:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MMAPI searchForLocation:params mediaType:mediaType success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.searchResultsViewController.isSearching = NO;
         [SVProgressHUD dismiss];
         NSArray *responseObjectArray = responseObject;
