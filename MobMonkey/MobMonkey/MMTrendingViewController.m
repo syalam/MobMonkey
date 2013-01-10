@@ -227,8 +227,9 @@
 #pragma mark - Helper Methods
 - (void)loadTrendingItem:(NSDictionary*)params categoryTitle:(NSString*)categoryTitle {
     MMTrendingDetailViewController *trendingDetailViewController = [[MMTrendingDetailViewController alloc]initWithNibName:@"MMTrendingDetailViewController" bundle:nil];
-    [self.navigationController pushViewController:trendingDetailViewController animated:YES];
     trendingDetailViewController.title = categoryTitle;
+    [self.navigationController pushViewController:trendingDetailViewController animated:YES];
+   
     
     NSLog(@"%@", params);
     

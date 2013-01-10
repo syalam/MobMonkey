@@ -261,6 +261,8 @@
     MMLocationMediaViewController *lmvc = [[MMLocationMediaViewController alloc] initWithNibName:@"MMLocationMediaViewController" bundle:nil];
     lmvc.location = self.contentList;
     lmvc.title = self.title;
+    lmvc.providerId = [_contentList valueForKey:@"providerId"];
+    lmvc.locationId = [_contentList valueForKey:@"locationId"];
     lmvc.mediaType = [sender tag];
   
     UINavigationController *locationMediaNavC = [[UINavigationController alloc] initWithRootViewController:lmvc];

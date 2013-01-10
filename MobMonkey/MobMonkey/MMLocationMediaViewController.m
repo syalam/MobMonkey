@@ -14,9 +14,7 @@
 #import "MMAppDelegate.h"
 
 @interface MMLocationMediaViewController ()
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
-@property (strong, nonatomic) NSArray __block *mediaArray;
 @property (strong, nonatomic) MPMoviePlayerViewController *moviePlayerViewController;
 
 - (void)selectMediaType:(id)sender;
@@ -54,7 +52,7 @@
         [self.myFullscreenAd fetch];
     }
     
-    [self.segmentedControl setSelectedSegmentIndex:self.mediaType]; 
+    [self.segmentedControl setSelectedSegmentIndex:self.mediaType];
     [self selectMediaType:self.segmentedControl];
 }
 
@@ -103,7 +101,7 @@
     self.mediaType = [sender selectedSegmentIndex];
     [self.tableView reloadData];
     NSArray *mediaTypes = @[@"livestreaming", @"video", @"image"];
-    [MMAPI getMediaForLocationID:[self.location valueForKey:@"locationId"] providerID:[self.location valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MMAPI getMediaForLocationID:_locationId providerID:_providerId success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type LIKE %@", mediaTypes[[sender selectedSegmentIndex]]];
         self.mediaArray = [[responseObject valueForKey:@"media"] filteredArrayUsingPredicate:predicate];
         [self.tableView reloadData];

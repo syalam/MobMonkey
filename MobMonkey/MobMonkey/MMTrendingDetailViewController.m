@@ -7,7 +7,7 @@
 //
 
 #import "MMTrendingDetailViewController.h"
-#import "MMLocationViewController.h"
+#import "MMLocationMediaViewController.h"
 #import "GetRelativeTime.h"
 
 @interface MMTrendingDetailViewController ()
@@ -160,12 +160,32 @@
 
 #pragma mark - MMTrendingCell Delegate Methods
 -(void)locationNameButtonTapped:(id)sender {
+    MMTrendingCell *cell = (MMTrendingCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
     NSString *locationId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"locationId"];
     NSString *providerId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"providerId"];
     
-    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+    MMLocationMediaViewController *lmvc = [[MMLocationMediaViewController alloc] initWithNibName:@"MMLocationMediaViewController" bundle:nil];
+    lmvc.title = cell.locationNameLabel.text;
+    lmvc.providerId = providerId;
+    lmvc.locationId = locationId;
+    lmvc.mediaType = 2;
+    
+    UINavigationController *locationMediaNavC = [[UINavigationController alloc] initWithRootViewController:lmvc];
+    locationMediaNavC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:locationMediaNavC animated:YES completion:NULL];
+    
+    /*/[MMAPI getMediaForLocationID:locationId providerID:providerId success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type LIKE %@", @"image"];
+        lmvc.mediaArray = [[responseObject valueForKey:@"media"] filteredArrayUsingPredicate:predicate];
+        [lmvc.tableView reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Could not add Bookmark!");
+    }];*/
+
+    
+    /*MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
     [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
-    [self.navigationController pushViewController:locationViewController animated:YES];
+    [self.navigationController pushViewController:locationViewController animated:YES];*/
 }
 -(void)moreButtonTapped:(id)sender {
     selectedRow = [sender tag];
@@ -174,20 +194,18 @@
 }
 -(void)imageButtonTapped:(id)sender {
     MMTrendingCell *cell = (MMTrendingCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
-    if ([[[_contentList objectAtIndex:[sender tag]]valueForKey:@"mediaType"]intValue] != 4) {
-        if ([[[_contentList objectAtIndex:[sender tag]]valueForKey:@"mediaType"]intValue] == 1) {
-            [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:cell.locationImageView.image locationName:cell.locationNameLabel.text];
-        }
-        else {
-            NSArray *mediaArray  = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"media"];
-            if (mediaArray.count > 0) {
-                NSURL *url = [NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
-                NSLog(@"%@", url);
-                MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-                [self.navigationController presentMoviePlayerViewControllerAnimated:player];
-            }
-        }
+    if (![[[_contentList objectAtIndex:[sender tag]]valueForKey:@"mediaUrl"] isKindOfClass:[NSNull class]]) {
+        [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:cell.locationImageView.image locationName:cell.locationNameLabel.text];
     }
+    /*else {
+        NSArray *mediaArray  = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"media"];
+        if (mediaArray.count > 0) {
+            NSURL *url = [NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
+            NSLog(@"%@", url);
+            MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+            [self.navigationController presentMoviePlayerViewControllerAnimated:player];
+        }
+     }*/
 }
 
 #pragma mark - IBAction Methods
