@@ -118,33 +118,6 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient  postPath:[NSString stringWithFormat:@"media/%@", mediaType] parameters:params success:success failure:failure];
 }
 
-- (void)fetchMediaCountsForLocation:(NSDictionary*)params {
-    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
-    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
-    [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
-    [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
-    if ([[NSUserDefaults standardUserDefaults]valueForKey:@"password"]) {
-        [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
-    }
-    else {
-        [httpClient setDefaultHeader:@"OauthToken" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"oAuthToken"]];
-    }
-    [httpClient  postPath:@"search/media/image" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
-        NSLog(@"%@", JSON);
-        [_delegate MMAPICallSuccessful:JSON];
-    }failure:^(AFHTTPRequestOperation *operation, id JSON) {
-        int statusCode = operation.response.statusCode;
-        if (statusCode == 200 || statusCode == 201) {
-            id response = operation.responseString;
-            NSLog(@"%@", response);
-            [_delegate MMAPICallSuccessful:response];
-        }
-        else {
-            [_delegate MMAPICallFailed:operation];
-        }
-    }];
-}
-
 #pragma mark - Retrieve categories
     
 + (void)getAllCategories:(NSMutableDictionary*)params

@@ -291,15 +291,6 @@ typedef enum OAuthProvider {
 
 @property (nonatomic, assign)id<MMAPIDelegate> delegate;
 
-
-///---------------------------------------------
-/// @name Fetches media counts for a location
-///---------------------------------------------
-/**
-Fetches media counts for a location
- */
-- (void)fetchMediaCountsForLocation:(NSDictionary*)params;
-
 ///---------------------------------------------
 /// @name Fetches livestreaming URLs for a location
 ///---------------------------------------------

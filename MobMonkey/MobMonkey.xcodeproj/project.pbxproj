@@ -539,6 +539,8 @@
 		F79B505115F3F45E0004BE01 /* logo@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B504F15F3F45D0004BE01 /* logo@2x~iphone.png */; };
 		F79B505215F3F45E0004BE01 /* logo~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F79B505015F3F45E0004BE01 /* logo~iphone.png */; };
 		F79B505615F3F81F0004BE01 /* MMSetTitleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F79B505515F3F81F0004BE01 /* MMSetTitleImage.m */; };
+		F7AAF5F5169E9ABD00760B4D /* MMTrendingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7AAF5F3169E9ABD00760B4D /* MMTrendingDetailViewController.m */; };
+		F7AAF5F6169E9ABD00760B4D /* MMTrendingDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7AAF5F4169E9ABD00760B4D /* MMTrendingDetailViewController.xib */; };
 		F7B012DB1655AF2E00BCAC26 /* MMAnsweredRequestsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B012DA1655AF2E00BCAC26 /* MMAnsweredRequestsCell.m */; };
 		F7B012E0165606C500BCAC26 /* homeScreenAppIcon@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F7B012DC165606C500BCAC26 /* homeScreenAppIcon@2x~ipad.png */; };
 		F7B012E1165606C500BCAC26 /* homeScreenAppIcon@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F7B012DD165606C500BCAC26 /* homeScreenAppIcon@2x~iphone.png */; };
@@ -1252,6 +1254,9 @@
 		F79B505015F3F45E0004BE01 /* logo~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo~iphone.png"; sourceTree = "<group>"; };
 		F79B505415F3F81F0004BE01 /* MMSetTitleImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSetTitleImage.h; sourceTree = "<group>"; };
 		F79B505515F3F81F0004BE01 /* MMSetTitleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSetTitleImage.m; sourceTree = "<group>"; };
+		F7AAF5F2169E9ABD00760B4D /* MMTrendingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTrendingDetailViewController.h; sourceTree = "<group>"; };
+		F7AAF5F3169E9ABD00760B4D /* MMTrendingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTrendingDetailViewController.m; sourceTree = "<group>"; };
+		F7AAF5F4169E9ABD00760B4D /* MMTrendingDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMTrendingDetailViewController.xib; sourceTree = "<group>"; };
 		F7B012D91655AF2E00BCAC26 /* MMAnsweredRequestsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAnsweredRequestsCell.h; sourceTree = "<group>"; };
 		F7B012DA1655AF2E00BCAC26 /* MMAnsweredRequestsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAnsweredRequestsCell.m; sourceTree = "<group>"; };
 		F7B012DC165606C500BCAC26 /* homeScreenAppIcon@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "homeScreenAppIcon@2x~ipad.png"; sourceTree = "<group>"; };
@@ -1992,6 +1997,7 @@
 				F734A57B15F1226C0090E85A /* MMTrendingViewController.h */,
 				F734A57C15F1226C0090E85A /* MMTrendingViewController.m */,
 				F734A57D15F1226C0090E85A /* MMTrendingViewController.xib */,
+				F7AAF5F8169E9AE600760B4D /* Trending Detail */,
 			);
 			name = Trending;
 			sourceTree = "<group>";
@@ -2743,6 +2749,16 @@
 			name = "Set Title ImageView";
 			sourceTree = "<group>";
 		};
+		F7AAF5F8169E9AE600760B4D /* Trending Detail */ = {
+			isa = PBXGroup;
+			children = (
+				F7AAF5F2169E9ABD00760B4D /* MMTrendingDetailViewController.h */,
+				F7AAF5F3169E9ABD00760B4D /* MMTrendingDetailViewController.m */,
+				F7AAF5F4169E9ABD00760B4D /* MMTrendingDetailViewController.xib */,
+			);
+			name = "Trending Detail";
+			sourceTree = "<group>";
+		};
 		F7B012D71655AF0B00BCAC26 /* AnsweredRequestCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -3311,6 +3327,7 @@
 				1AE5966916975F3000AD6707 /* Default-568h@2x.png in Resources */,
 				1AE5966A16975F3000AD6707 /* Default.png in Resources */,
 				1AE5966B16975F3000AD6707 /* Default@2x.png in Resources */,
+				F7AAF5F6169E9ABD00760B4D /* MMTrendingDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3445,6 +3462,7 @@
 				F7ED0E151692A487000F2121 /* MMAnswerTextRequestViewController.m in Sources */,
 				F7BEAA0116969AEF0010A84D /* MMTextFieldCell.m in Sources */,
 				F7038689169D5BD6005724E2 /* MMTrendingCell.m in Sources */,
+				F7AAF5F5169E9ABD00760B4D /* MMTrendingDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,6 +15,7 @@
 #import "MMClientSDK.h"
 #import "MMLocationsViewController.h"
 #import "MMInboxCategoryCell.h"
+#import "MMTrendingDetailViewController.h"
 
 @interface MMTrendingViewController ()
 
@@ -225,12 +226,9 @@
 
 #pragma mark - Helper Methods
 - (void)loadTrendingItem:(NSDictionary*)params categoryTitle:(NSString*)categoryTitle {
-    if (!self.locationsViewController) {
-        self.locationsViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
-    }
-    [self.navigationController pushViewController:self.locationsViewController animated:YES];
-    self.locationsViewController.locations = [@[] mutableCopy];
-    self.locationsViewController.title = categoryTitle;
+    MMTrendingDetailViewController *trendingDetailViewController = [[MMTrendingDetailViewController alloc]initWithNibName:@"MMTrendingDetailViewController" bundle:nil];
+    [self.navigationController pushViewController:trendingDetailViewController animated:YES];
+    trendingDetailViewController.title = categoryTitle;
     
     NSLog(@"%@", params);
     
@@ -238,144 +236,15 @@
     [MMAPI getTrendingType:@"topviewed" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.locationsViewController.isSearching = NO;
         [SVProgressHUD dismiss];
-        NSLog(@"%d", [operation.response statusCode]);
         NSLog(@"%@", responseObject);
-        self.locationsViewController.locations = responseObject;
+        trendingDetailViewController.contentList = responseObject;
+        [trendingDetailViewController.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%d", [operation.response statusCode]);
         NSLog(@"%@", operation.responseString);
-        [SVProgressHUD showErrorWithStatus:@"Unable to load"];
-        [self.locationsViewController.navigationController popViewControllerAnimated:YES];
+        [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Unable to load %@", categoryTitle]];
+        [trendingDetailViewController.navigationController popViewControllerAnimated:YES];
     }];
 }
 
-#pragma mark - MMTrendingCell Delegate Methods
--(void)locationNameButtonTapped:(id)sender {
-    NSString *locationId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"locationId"];
-    NSString *providerId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"providerId"];
-    
-    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
-    [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
-    [self.navigationController pushViewController:locationViewController animated:YES];
-}
--(void)moreButtonTapped:(id)sender {
-    selectedRow = [sender tag];
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Flag for Review", nil];
-    [actionSheet showFromTabBar:self.tabBarController.tabBar];
-}
--(void)imageButtonTapped:(id)sender {
-    MMTrendingCell *cell = (MMTrendingCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
-    if ([[[_contentList objectAtIndex:[sender tag]]valueForKey:@"mediaType"]intValue] != 4) {
-        if ([[[_contentList objectAtIndex:[sender tag]]valueForKey:@"mediaType"]intValue] == 1) {
-            [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:cell.locationImageView.image locationName:cell.locationNameLabel.text];
-        }
-        else {
-            NSArray *mediaArray  = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"media"];
-            if (mediaArray.count > 0) {
-                NSURL *url = [NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
-                NSLog(@"%@", url);
-                MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-                [self.navigationController presentMoviePlayerViewControllerAnimated:player];
-            }
-        }
-    }
-}
-
-
-#pragma mark - Action Sheet Delegate Methods
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if ([buttonTitle isEqualToString:@"Share on Facebook"]) {
-        if ([FBSession.activeSession.permissions
-             indexOfObject:@"publish_actions"] == NSNotFound) {
-            // No permissions found in session, ask for it
-            [FBSession.activeSession
-             reauthorizeWithPublishPermissions:
-             [NSArray arrayWithObject:@"publish_actions"]
-             defaultAudience:FBSessionDefaultAudienceFriends
-             completionHandler:^(FBSession *session, NSError *error) {
-                 if (!error) {
-                     // If permissions granted, publish the story
-                     [self publishStoryToFacebook];
-                 }
-             }];
-        }
-        else {
-            [self publishStoryToFacebook];
-        }
-    }
-    else if ([buttonTitle isEqualToString:@"Share on Twitter"]) {
-        [self publishOnTwitter];
-    }
-    else if ([buttonTitle isEqualToString:@"Flag for Review"]) {
-        
-    }
-}
-
-
-#pragma mark - Helper Methods
-- (void)publishStoryToFacebook
-{
-    MMTrendingCell *cell = (MMTrendingCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0]];
-    BOOL isVideo = NO;
-    NSArray *mediaArray  = [[_contentList objectAtIndex:selectedRow]valueForKey:@"media"];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-    [params setValue:cell.locationNameLabel.text forKey:@"initialText"];
-    if (mediaArray.count > 0) {
-        if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 1) {
-            [params setValue:cell.locationImageView.image forKey:@"image"];
-        }
-        else if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 2) {
-            [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
-            isVideo = YES;
-        }
-        else if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 4) {
-            NSString *initialText = [params valueForKey:@"initialText"];
-            if (![[[mediaArray objectAtIndex:0]valueForKey:@"text"]isKindOfClass:[NSNull class]]) {
-                initialText = [NSString stringWithFormat:@"%@. %@", initialText, [[mediaArray objectAtIndex:0]valueForKey:@"text"]];
-            }
-            [params setValue:initialText forKey:@"initialText"];
-        }
-    }
-    if (!isVideo) {
-        if (![[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"]isEqualToString:@""]) {
-            [params setValue:[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"] forKey:@"url"];
-        }
-    }
-    
-    [[MMClientSDK sharedSDK]shareViaFacebook:params presentingViewController:self];
-}
-
-- (void)publishOnTwitter {
-    MMTrendingCell *cell = (MMTrendingCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0]];
-    BOOL isVideo = NO;
-    NSArray *mediaArray  = [[_contentList objectAtIndex:selectedRow]valueForKey:@"media"];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-    [params setValue:cell.locationNameLabel.text forKey:@"initialText"];
-    if (mediaArray.count > 0) {
-        if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 1) {
-            [params setValue:cell.locationImageView.image forKey:@"image"];
-        }
-        else if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 2) {
-            [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
-            isVideo = YES;
-        }
-        else if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 4) {
-            NSString *initialText = [params valueForKey:@"initialText"];
-            if (![[[mediaArray objectAtIndex:0]valueForKey:@"text"]isKindOfClass:[NSNull class]]) {
-                initialText = [NSString stringWithFormat:@"%@. %@", initialText, [[mediaArray objectAtIndex:0]valueForKey:@"text"]];
-            }
-            [params setValue:initialText forKey:@"initialText"];
-        }
-    }
-    if (!isVideo) {
-        if (![[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"]isEqualToString:@""]) {
-            [params setValue:[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"] forKey:@"url"];
-        }
-    }
-    
-    
-    [[MMClientSDK sharedSDK]shareViaTwitter:params presentingViewController:self];
-}
-    
 @end

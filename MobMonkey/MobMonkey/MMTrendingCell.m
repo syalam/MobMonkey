@@ -92,4 +92,15 @@
     // Configure the view for the selected state
 }
 
+#pragma mark - IBAction Methods
+-(void)locationNameButtonTapped:(id)sender {
+    [_delegate locationNameButtonTapped:sender];
+}
+-(void)moreButtonTapped:(id)sender {
+    [_delegate moreButtonTapped:sender];
+}
+-(void)imageButtonTapped:(id)sender {
+    [_delegate imageButtonTapped:sender];
+}
+
 @end

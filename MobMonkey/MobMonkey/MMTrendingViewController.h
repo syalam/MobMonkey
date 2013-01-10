@@ -11,9 +11,9 @@
 #import <CoreLocation/CoreLocation.h>
 #import "MMResultCell.h"
 #import "SectionHeaderView.h"
-#import "MMTrendingCell.h"
 
-@interface MMTrendingViewController : UITableViewController <MMResultCellDelegate, MKMapViewDelegate, UIActionSheetDelegate, SectionHeaderViewDelegate, MMTrendingCellDelegate> {
+
+@interface MMTrendingViewController : UITableViewController <MMResultCellDelegate, MKMapViewDelegate, UIActionSheetDelegate, SectionHeaderViewDelegate> {
     CLLocation* _queryLocation;
     NSMutableDictionary* _cellToggleOnState;
     NSMutableArray *sectionTitleArray;

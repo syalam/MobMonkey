@@ -139,6 +139,10 @@
         [tweetSheet setCompletionHandler:completionHandler];
         [presentingViewController presentViewController:tweetSheet animated:YES completion:NULL];
     }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to access your Twitter account. Please ensure that you are logged in to Twitter in your iPhone's settings menu and that you have given MobMonkey permission to access your Twitter account" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
 }
 
 - (void)shareViaFacebook:(NSDictionary*)params presentingViewController:(UIViewController*)presentingViewController {
@@ -167,6 +171,10 @@
         [fbSheet addURL:[NSURL URLWithString:[params valueForKey:@"url"]]];
         [fbSheet setCompletionHandler:completionHandler];
         [presentingViewController presentViewController:fbSheet animated:YES completion:NULL];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Unable to access your twitter account. Please ensure that you are logged in to Facebook in your iPhone's settings menu and that you have given MobMonkey permission to access your Facebook account" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
     }
 }
 

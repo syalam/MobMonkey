@@ -139,13 +139,15 @@ enum RequestDurationLengths {
 
     else {
         NSLog(@"MMRequestViewController.m requestMedia %@", self.requestInfo);
+        [SVProgressHUD showWithStatus:@"Sending Request"];
         [MMAPI requestMedia:mediaType params:self.requestInfo success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"%@", responseObject);
+            [SVProgressHUD showSuccessWithStatus:@"Request Sent"];
+            [self dismissViewControllerAnimated:YES completion:nil];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [SVProgressHUD showErrorWithStatus:@"Unable to make request. Please try again"];
             NSLog(@"%@", operation.responseString);
         }];
-        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

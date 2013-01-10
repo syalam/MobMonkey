@@ -315,19 +315,20 @@
     }
   
     [SVProgressHUD showWithStatus:@"Uploading Media"];
-
+    
     [MMAPI fulfillRequest:mediaRequested
                    params:params
                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
                       [SVProgressHUD showSuccessWithStatus:@"Success"];
-                      [self.navigationController popViewControllerAnimated:YES];
+                      [picker dismissModalViewControllerAnimated:YES];
+                      //[self.navigationController popViewControllerAnimated:YES];
                   }
                   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                       NSLog(@"%@", operation.responseString);
                       [SVProgressHUD showErrorWithStatus:@"Epic Fail"];
                   }];
     
-    [picker dismissModalViewControllerAnimated:YES];
+    
 }
 
 
