@@ -95,14 +95,25 @@
         
         [MMAPI getUserOnSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"USER: %@", [responseObject description]);
-            self.firstNameTextField.text = [responseObject valueForKey:@"firstName"];
-            self.lastNameTextField.text = [responseObject valueForKey:@"lastName"];
-            self.emailTextField.text = [responseObject valueForKey:@"eMailAddress"];
-            self.genderTextField.text = [[responseObject valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
-            NSString *birthdate = [NSDateFormatter localizedStringFromDate:[NSDate dateSinceJavaEpochTime:[responseObject valueForKey:@"birthday"]]
-                                                                 dateStyle:NSDateFormatterLongStyle
-                                                                 timeStyle:NSDateFormatterNoStyle];
-            self.birthdayTextField.text = birthdate;
+            if (![[responseObject valueForKey:@"firstName"]isKindOfClass:[NSNull class]]) {
+                self.firstNameTextField.text = [responseObject valueForKey:@"firstName"];
+            }
+            if (![[responseObject valueForKey:@"lastName"]isKindOfClass:[NSNull class]]) {
+                self.lastNameTextField.text = [responseObject valueForKey:@"lastName"];
+            }
+            if (![[responseObject valueForKey:@"lastName"]isKindOfClass:[NSNull class]]) {
+                self.emailTextField.text = [responseObject valueForKey:@"lastName"];
+            }
+            if (![[responseObject valueForKey:@"gender"]isKindOfClass:[NSNull class]]) {
+                self.genderTextField.text = [[responseObject valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
+            }
+            if (![[responseObject valueForKey:@"birthday"]isKindOfClass:[NSNull class]]) {
+                NSString *birthdate = [NSDateFormatter localizedStringFromDate:[NSDate dateSinceJavaEpochTime:[responseObject valueForKey:@"birthday"]]
+                                                                     dateStyle:NSDateFormatterLongStyle
+                                                                     timeStyle:NSDateFormatterNoStyle];
+                self.birthdayTextField.text = birthdate;
+            }
+            
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Could not retrieve user info");
         }];

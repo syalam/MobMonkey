@@ -18,6 +18,7 @@
     NSMutableDictionary* _cellToggleOnState;
     NSMutableArray *sectionTitleArray;
     NSDictionary *trendingCategoryCountsDictionary;
+    NSArray *myInterestsArray;
     
     int selectedRow;
 }

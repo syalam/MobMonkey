@@ -50,6 +50,7 @@
     }
     else {
         [self getTrendingCounts];
+        [self getMyInterestsCount];
     }
     
     
@@ -70,17 +71,6 @@
 -(BOOL)shouldAutorotate
 {
     return NO;
-}
-
-- (void)getTrendingCounts {
-    NSDictionary *params = [NSDictionary dictionaryWithObject:@"true" forKey:@"countsonly"];
-    [MMAPI getTrendingType:@"topviewed" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-        trendingCategoryCountsDictionary = responseObject;
-        [self.tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", operation.responseString);
-    }];
 }
 
 #pragma mark - Table view data source
@@ -123,8 +113,8 @@
             break;
         case 1:
             cell.textLabel.text = @"My Interests";
-            if ([[trendingCategoryCountsDictionary valueForKey:@"interestsCount"]intValue] > 0) {
-                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[trendingCategoryCountsDictionary valueForKey:@"interestsCount"]intValue]];
+            if (myInterestsArray.count > 0) {
+                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", myInterestsArray.count];
             }
             else {
                 cell.categoryItemCountLabel.text = @"";
@@ -192,7 +182,7 @@
             }
             break;
         case 1: {
-            if ([[trendingCategoryCountsDictionary valueForKey:@"interestsCount"]intValue] > 0) {
+            if (myInterestsArray.count > 0) {
                 NSDictionary *favorites = [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedInterests"];
                 NSString *favoritesParams = [[favorites allValues] componentsJoinedByString:@","];
                 if (favoritesParams && ![favoritesParams isEqualToString:@""]) {
@@ -246,6 +236,39 @@
         [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Unable to load %@", categoryTitle]];
         [trendingDetailViewController.navigationController popViewControllerAnimated:YES];
     }];
+}
+
+- (void)getTrendingCounts {
+    NSDictionary *params = [NSDictionary dictionaryWithObject:@"true" forKey:@"countsonly"];
+    [MMAPI getTrendingType:@"topviewed" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        trendingCategoryCountsDictionary = responseObject;
+        [self.tableView reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
+    }];
+}
+
+- (void)getMyInterestsCount {
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    NSString *selectedInterestsKey = [NSString stringWithFormat:@"%@ selectedInterests", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+    NSDictionary *favorites = [[NSUserDefaults standardUserDefaults] valueForKey:selectedInterestsKey];
+    NSString *favoritesParams = [[favorites allValues] componentsJoinedByString:@","];
+    if (favoritesParams && ![favoritesParams isEqualToString:@""]) {
+        [params setValue:favoritesParams forKey:@"categoryIds"];
+        [params setValue:@"true" forKey:@"myinterests"];
+        [MMAPI getTrendingType:@"topviewed" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            myInterestsArray = responseObject;
+            [self.tableView reloadData];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@", operation.responseString);
+        }];
+    }
+    else {
+        myInterestsArray = [[NSArray alloc]init];
+        [self.tableView reloadData];
+    }
+    
 }
 
 @end
