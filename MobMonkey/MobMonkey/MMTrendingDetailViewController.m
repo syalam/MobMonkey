@@ -29,6 +29,7 @@
 {
     [super viewDidLoad];
     backgroundQueue = dispatch_queue_create("com.MobMonkey.GenerateThumbnailQueue", NULL);
+
     
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
     [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -58,14 +59,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSDictionary *mediaDictionary = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"media"];
+    
     static NSString *CellIdentifier = @"Cell";
     MMTrendingCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[MMTrendingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.delegate = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell.timeStampLabel setHidden:YES];
-        [cell.clockImageView setHidden:YES];
     }
     
     cell.timeStampLabel.text = @"";
@@ -77,8 +78,8 @@
     if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"name"] isKindOfClass:[NSNull class]]) {
         cell.locationNameLabel.text = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"name"];
     }
-    if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"fulfilledDate"] isKindOfClass:[NSNull class]]) {
-        double unixTime = [[[_contentList objectAtIndex:indexPath.row]valueForKey:@"fulfilledDate"] floatValue]/1000;
+    if (![[mediaDictionary valueForKey:@"uploadedDate"] isKindOfClass:[NSNull class]]) {
+        double unixTime = [[mediaDictionary valueForKey:@"uploadedDate"] floatValue]/1000;
         NSDate *dateAnswered = [NSDate dateWithTimeIntervalSince1970:
                                 (NSTimeInterval)unixTime];
         
@@ -87,17 +88,20 @@
         [cell.timeStampLabel setFrame:CGRectMake(cell.frame.size.width - cell.timeStampLabel.frame.size.width - 20, cell.timeStampLabel.frame.origin.y, cell.timeStampLabel.frame.size.width, cell.timeStampLabel.frame.size.height)];
         [cell.clockImageView setFrame:CGRectMake(cell.timeStampLabel.frame.origin.x - 20, cell.clockImageView.frame.origin.y, cell.clockImageView.frame.size.width, cell.clockImageView.frame.size.height)];
     }
-    if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaUrl"] isKindOfClass:[NSNull class]]) {
-        [cell.locationImageView reloadWithUrl:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaUrl"]];
-        
-        /*if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 1) {
-            [cell.locationImageView reloadWithUrl:[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaUrl"]];
+    if (![[mediaDictionary valueForKey:@"mediaURL"] isKindOfClass:[NSNull class]]) {
+        if ([[mediaDictionary valueForKey:@"type"] isEqualToString:@"image"]) {
+            [cell.locationImageView reloadWithUrl:[mediaDictionary valueForKey:@"mediaURL"]];
         }
         else {
-            dispatch_async(backgroundQueue, ^(void) {
-                cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row];
-            });
-        }*/
+            if ([_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", indexPath.row]]) {
+                cell.locationImageView.image = [_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+            }
+            else {
+                dispatch_async(backgroundQueue, ^(void) {
+                    cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row];
+                });
+            }
+        }
     }
     
     cell.moreButton.tag = indexPath.row;
@@ -162,6 +166,7 @@
 
 #pragma mark - MMTrendingCell Delegate Methods
 -(void)locationNameButtonTapped:(id)sender {
+    NSDictionary *mediaDictionary = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"media"];
     MMTrendingCell *cell = (MMTrendingCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
     NSString *locationId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"locationId"];
     NSString *providerId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"providerId"];
@@ -171,7 +176,15 @@
     lmvc.locationName = cell.locationNameLabel.text;
     lmvc.providerId = providerId;
     lmvc.locationId = locationId;
-    lmvc.mediaType = 2;
+    if ([[mediaDictionary valueForKey:@"type"] isEqualToString:@"image"]) {
+        lmvc.mediaType = 2;
+    }
+    else if ([[mediaDictionary valueForKey:@"type"] isEqualToString:@"video"]) {
+        lmvc.mediaType = 1;
+    }
+    else {
+        lmvc.mediaType = 0;
+    }
     
     UINavigationController *locationMediaNavC = [[UINavigationController alloc] initWithRootViewController:lmvc];
     locationMediaNavC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
@@ -184,18 +197,18 @@
 }
 -(void)imageButtonTapped:(id)sender {
     MMTrendingCell *cell = (MMTrendingCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
-    if (![[[_contentList objectAtIndex:[sender tag]]valueForKey:@"mediaUrl"] isKindOfClass:[NSNull class]]) {
-        [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:cell.locationImageView.image locationName:cell.locationNameLabel.text];
-    }
-    /*else {
-        NSArray *mediaArray  = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"media"];
-        if (mediaArray.count > 0) {
-            NSURL *url = [NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
+    NSDictionary *mediaDictionary = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"media"];
+    if (![mediaDictionary isKindOfClass:[NSNull class]]) {
+        if ([[mediaDictionary valueForKey:@"type"]isEqualToString:@"image"]) {
+            [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:cell.locationImageView.image locationName:cell.locationNameLabel.text];
+        }
+        else {
+            NSURL *url = [NSURL URLWithString:[mediaDictionary valueForKey:@"mediaURL"]];
             NSLog(@"%@", url);
             MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
             [self.navigationController presentMoviePlayerViewControllerAnimated:player];
         }
-     }*/
+    }
 }
 
 #pragma mark - IBAction Methods
@@ -204,74 +217,38 @@
 }
 
 #pragma mark - Helper Methods
-- (void)publishStoryToFacebook
-{
+- (void)publishStoryToFacebook {
     MMTrendingCell *cell = (MMTrendingCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0]];
-    //BOOL isVideo = NO;
-    //NSArray *mediaArray  = [[_contentList objectAtIndex:selectedRow]valueForKey:@"media"];
+    NSDictionary *mediaDictionary  = [[_contentList objectAtIndex:selectedRow]valueForKey:@"media"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
     [params setValue:cell.locationNameLabel.text forKey:@"initialText"];
-    if (![[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaUrl"]isKindOfClass:[NSNull class]]) {
-        [params setValue:cell.locationImageView.image forKey:@"image"];
+    if (![[mediaDictionary valueForKey:@"mediaURL"]isKindOfClass:[NSNull class]]) {
+        if ([[mediaDictionary valueForKey:@"type"] isEqualToString:@"image"]) {
+            [params setValue:cell.locationImageView.image forKey:@"image"];
+            [params setValue:[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"] forKey:@"url"];
+        }
+        else {
+            [params setValue:[mediaDictionary valueForKey:@"mediaURL"] forKey:@"url"];
+        }
     }
-    /*if (mediaArray.count > 0) {
-     if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 1) {
-     [params setValue:cell.locationImageView.image forKey:@"image"];
-     }
-     else if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 2) {
-     [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
-     isVideo = YES;
-     }
-     else if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 4) {
-     NSString *initialText = [params valueForKey:@"initialText"];
-     if (![[[mediaArray objectAtIndex:0]valueForKey:@"text"]isKindOfClass:[NSNull class]]) {
-     initialText = [NSString stringWithFormat:@"%@. %@", initialText, [[mediaArray objectAtIndex:0]valueForKey:@"text"]];
-     }
-     [params setValue:initialText forKey:@"initialText"];
-     }
-     }
-     if (!isVideo) {
-     if (![[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"]isEqualToString:@""]) {
-     [params setValue:[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"] forKey:@"url"];
-     }
-     }*/
-    
     
     [[MMClientSDK sharedSDK]shareViaFacebook:params presentingViewController:self];
 }
 
 - (void)publishOnTwitter {
     MMTrendingCell *cell = (MMTrendingCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0]];
-    //BOOL isVideo = NO;
-    //NSArray *mediaArray  = [[_contentList objectAtIndex:selectedRow]valueForKey:@"media"];
+    NSDictionary *mediaDictionary  = [[_contentList objectAtIndex:selectedRow]valueForKey:@"media"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
     [params setValue:cell.locationNameLabel.text forKey:@"initialText"];
-    if (![[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaUrl"]isKindOfClass:[NSNull class]]) {
-        [params setValue:cell.locationImageView.image forKey:@"image"];
-    }
-    /*if (mediaArray.count > 0) {
-        if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 1) {
+    if (![[mediaDictionary valueForKey:@"mediaURL"]isKindOfClass:[NSNull class]]) {
+        if ([[mediaDictionary valueForKey:@"type"] isEqualToString:@"image"]) {
             [params setValue:cell.locationImageView.image forKey:@"image"];
-        }
-        else if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 2) {
-            [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
-            isVideo = YES;
-        }
-        else if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 4) {
-            NSString *initialText = [params valueForKey:@"initialText"];
-            if (![[[mediaArray objectAtIndex:0]valueForKey:@"text"]isKindOfClass:[NSNull class]]) {
-                initialText = [NSString stringWithFormat:@"%@. %@", initialText, [[mediaArray objectAtIndex:0]valueForKey:@"text"]];
-            }
-            [params setValue:initialText forKey:@"initialText"];
-        }
-    }
-    if (!isVideo) {
-        if (![[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"]isEqualToString:@""]) {
             [params setValue:[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"] forKey:@"url"];
         }
-    }*/
-    
-    
+        else {
+            [params setValue:[mediaDictionary valueForKey:@"mediaURL"] forKey:@"url"];
+        }
+    }
     [[MMClientSDK sharedSDK]shareViaTwitter:params presentingViewController:self];
 }
 
@@ -300,9 +277,9 @@
         thumbnailImage = [_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]];
     }
     else {
-        NSArray *mediaArray  = [[_contentList objectAtIndex:row]valueForKey:@"media"];
-        if (mediaArray.count > 0) {
-            AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]] options:nil];
+        NSDictionary *mediaDictionary  = [[_contentList objectAtIndex:row]valueForKey:@"media"];
+        if (![[mediaDictionary valueForKey:@"mediaURL"]isKindOfClass:[NSNull class]]) {
+            AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[mediaDictionary valueForKey:@"mediaURL"]] options:nil];
             AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
             generate.appliesPreferredTrackTransform = YES;
             NSError *err = NULL;

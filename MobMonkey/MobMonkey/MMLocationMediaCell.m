@@ -15,7 +15,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        _timeStampLabel = [[UILabel alloc]initWithFrame:CGRectMake(231, 52, 72, 16)];
+        _timeStampLabel = [[UILabel alloc]initWithFrame:CGRectMake(231, 42, 72, 16)];
         [_timeStampLabel setTextAlignment:NSTextAlignmentRight];
         _locationImageView = [[TCImageView alloc]initWithFrame:CGRectMake(10, 29, 300, 235)];
         

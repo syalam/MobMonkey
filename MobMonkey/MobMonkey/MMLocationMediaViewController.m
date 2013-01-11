@@ -12,6 +12,7 @@
 #import "MMClientSDK.h"
 #import "Constants.h"
 #import "MMAppDelegate.h"
+#import "GetRelativeTime.h"
 
 @interface MMLocationMediaViewController ()
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
@@ -130,17 +131,32 @@
         cell = [[MMLocationMediaCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
-        [cell.clockImageView setHidden:YES];
+    }
+    cell.locationImageView.image = nil;
+    
+    if (![[[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"uploadedDate"] isKindOfClass:[NSNull class]]) {
+        double unixTime = [[[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"uploadedDate"] floatValue]/1000;
+        NSDate *dateAnswered = [NSDate dateWithTimeIntervalSince1970:
+                                (NSTimeInterval)unixTime];
+        
+        cell.timeStampLabel.text = [GetRelativeTime getRelativeTime:dateAnswered];
+        [cell.timeStampLabel sizeToFit];
+        [cell.timeStampLabel setFrame:CGRectMake(cell.frame.size.width - cell.timeStampLabel.frame.size.width - 20, cell.timeStampLabel.frame.origin.y, cell.timeStampLabel.frame.size.width, cell.timeStampLabel.frame.size.height)];
+        [cell.clockImageView setFrame:CGRectMake(cell.timeStampLabel.frame.origin.x - 20, cell.clockImageView.frame.origin.y, cell.clockImageView.frame.size.width, cell.clockImageView.frame.size.height)];
     }
     
     if ([self.segmentedControl selectedSegmentIndex] == MMPhotoMediaType) {
         [cell.locationImageView reloadWithUrl:[[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"mediaURL"]];
     }
     else {
-        cell.locationImageView.image = nil;
-        dispatch_async(backgroundQueue, ^(void) {
-            cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row];
-        });
+        if ([_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", indexPath.row]]) {
+            cell.locationImageView.image = [_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+        }
+        else {
+            dispatch_async(backgroundQueue, ^(void) {
+                cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row];
+            });
+        }
     }
     
     cell.imageButton.tag = indexPath.row;
