@@ -144,7 +144,7 @@
         }
         else {
             dispatch_async(backgroundQueue, ^(void) {
-                cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row];
+                cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row cell:cell];
             });
         }
     }
@@ -246,7 +246,7 @@
     }];
 }
 
-- (UIImage*)generateThumbnailForVideo:(int)row {
+- (UIImage*)generateThumbnailForVideo:(int)row cell:(MMAnsweredRequestsCell*)cell {
     UIImage *thumbnailImage;
     
     if ([_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]]) {
@@ -264,6 +264,10 @@
             
             thumbnailImage = [UIImage imageWithCGImage:imgRef];
             [_thumbnailCache setValue:thumbnailImage forKey:[NSString stringWithFormat:@"%d", row]];
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                cell.locationImageView.image = thumbnailImage;
+            });
         }
     }
     
