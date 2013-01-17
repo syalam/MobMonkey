@@ -286,7 +286,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="CloseButton2.png">{40, 45}</string>
-			<string key="subsciptionScreenBg.png">{320, 548}</string>
+			<string key="subsciptionScreenBg.png">{320, 568}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1930</string>
 	</data>
