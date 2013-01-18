@@ -342,7 +342,7 @@
 
 - (void)enlargeButtonTapped:(id)sender {
     if (mediaArray.count > 0) {
-        if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"video"]) {
+        if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"video"] || [[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"livestreaming"]) {
             NSURL *url = [NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
             _player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
             [self.navigationController presentMoviePlayerViewControllerAnimated:_player];

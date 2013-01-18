@@ -310,7 +310,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 
 #pragma mark - Helper Methods
 + (MMHTTPClient*)setupHTTPClient {
-    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+    MMHTTPClient *httpClient = [[MMHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBMHTTPClientBaseURLString]];
     
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
