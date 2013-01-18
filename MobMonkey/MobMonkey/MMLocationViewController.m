@@ -536,7 +536,7 @@
             [_mediaView setHidden:NO];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Could not load image");
+        NSLog(@"%@", operation.responseString);
     }];
 
 }

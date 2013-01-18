@@ -262,7 +262,9 @@
         else {
             //[picker setVideoMaximumDuration:10];
             picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
+            [picker setVideoQuality:UIImagePickerControllerQualityTypeMedium];
             picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+            [picker setVideoMaximumDuration:10];
             
         }
         [self presentViewController:picker animated:YES completion:nil];
@@ -338,17 +340,48 @@
     CGFloat sourceWidth = image.size.width;
     CGFloat sourceHeight = image.size.height;
     
-    NSLog(@"sourceWidth: %f", sourceWidth);
-    NSLog(@"sourceHeight: %f", sourceHeight);
-    NSLog(@"imageOrientation: %d", image.imageOrientation);
-    
-    if (sourceWidth <= 640 && sourceHeight <= 480) {
+    // Float comparison works with height/width but not width/height
+    if ((sourceHeight / sourceWidth) == (480 / 640.0)) {
         return image;
     } else {
-        UIGraphicsBeginImageContext(CGSizeMake(640, 480));
-        [image drawInRect:CGRectMake(0, 0, 640, 480)];
-        UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        CGRect cropRect;
+        
+        if ((sourceHeight / sourceWidth) > (480 / 640.0)) {
+            // Too tall
+            CGFloat destinationHeight = sourceWidth * 480 / 640;
+            CGFloat cropMargin = (sourceHeight - destinationHeight) / 2;
+            
+            // When calculating crop rectangle, note that actual images are UIImageOrientationUp with rotation meta data
+            if (image.imageOrientation == UIImageOrientationUp   || image.imageOrientation == UIImageOrientationUpMirrored ||
+                image.imageOrientation == UIImageOrientationDown || image.imageOrientation == UIImageOrientationDownMirrored ) {
+                cropRect = CGRectMake(0, cropMargin, sourceWidth, destinationHeight);
+            } else if (image.imageOrientation == UIImageOrientationLeft  || image.imageOrientation == UIImageOrientationLeftMirrored ||
+                       image.imageOrientation == UIImageOrientationRight || image.imageOrientation == UIImageOrientationRightMirrored  ) {
+                cropRect = CGRectMake(cropMargin, 0, destinationHeight, sourceWidth);
+            }
+        } else {
+            // Too wide
+            CGFloat destinationWidth = sourceHeight * 640 / 480;
+            CGFloat cropMargin = (sourceWidth - destinationWidth) / 2;
+            
+            // When calculating crop rectangle, note that actual images are UIImageOrientationUp with rotation meta data
+            if (image.imageOrientation == UIImageOrientationUp   || image.imageOrientation == UIImageOrientationUpMirrored ||
+                image.imageOrientation == UIImageOrientationDown || image.imageOrientation == UIImageOrientationDownMirrored ) {
+                cropRect = CGRectMake(cropMargin, 0, destinationWidth, sourceHeight);
+            } else if (image.imageOrientation == UIImageOrientationLeft  || image.imageOrientation == UIImageOrientationLeftMirrored ||
+                       image.imageOrientation == UIImageOrientationRight || image.imageOrientation == UIImageOrientationRightMirrored  ) {
+                cropRect = CGRectMake(0, cropMargin, sourceHeight, destinationWidth);
+            }
+        }
+        
+        // Draw new image in current graphics context
+        CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
+        
+        // Create new resized UIImage
+        UIImage *resizedImage = [[UIImage alloc] initWithCGImage:imageRef scale:1.0 orientation:image.imageOrientation];
+        
+        CGImageRelease(imageRef);
+        
         return resizedImage;
     }
 }

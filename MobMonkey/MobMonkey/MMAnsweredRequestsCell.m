@@ -78,6 +78,7 @@
     
         UIImageView *toolbarImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 226, 300, 48)];
         [toolbarImageView setImage:[UIImage imageNamed:@"ThumbsBG~iphone"]];
+        [toolbarImageView setHidden:YES];
         
         [self.contentView addSubview:backgroundView];
         [self.contentView addSubview:_locationNameLabel];
