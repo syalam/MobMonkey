@@ -424,9 +424,10 @@
     _addressLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", [_contentList valueForKey:@"streetAddress"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];
     NSLog(@"%@", _contentList);
     NSString *message = [_contentList valueForKey:@"message"];
-    if (message != (id)[NSNull null]) {
+    if (![message isKindOfClass:[NSNull class]]) {
         _messageLabel.adjustsFontSizeToFitWidth = YES;
         _messageLabel.text = [_contentList valueForKey:@"message"];
+        _mediaToolbarView.backgroundColor = [UIColor clearColor];
     }
    
   
@@ -528,8 +529,11 @@
                 CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
                 _locationLatestImageView.image =  [UIImage imageWithCGImage:imgRef];
             }
-            
-            
+            [_makeRequestButton setFrame:CGRectMake(9, 349, 302, 66)];
+            [_makeRequestLabel setFrame:CGRectMake(10, 361, 300, 21)];
+            [_numberOfPeopleLabel setFrame:CGRectMake(10, 380, 300, 22)];
+            [_tableView setFrame:CGRectMake(0, 427,320, 440)];
+            [_mediaView setHidden:NO];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Could not load image");

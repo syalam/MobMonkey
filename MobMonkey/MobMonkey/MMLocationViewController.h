@@ -40,6 +40,8 @@
 @property (nonatomic, weak) IBOutlet UIButton *photosButton;
 @property (nonatomic, weak) IBOutlet UIButton *liveStreamButton;
 @property (nonatomic, weak) IBOutlet UIButton *makeRequestButton;
+@property (nonatomic, weak) IBOutlet UILabel *makeRequestLabel;
+@property (nonatomic, weak) IBOutlet UILabel *numberOfPeopleLabel;
 @property (nonatomic, weak) IBOutlet UIButton *flagButton;
 @property (nonatomic, weak) IBOutlet UIButton *bookmarkButton;
 @property (nonatomic, weak) IBOutlet UIButton *notificationSettingsButton;
@@ -48,6 +50,8 @@
 @property (nonatomic, weak) IBOutlet UILabel *uploadDateLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *clockImageView;
 @property (nonatomic, weak) IBOutlet UILabel *messageLabel;
+@property (nonatomic, weak) IBOutlet UIView *mediaToolbarView;
+@property (nonatomic, weak) IBOutlet UIView *mediaView;
 
 @property (nonatomic, retain) IBOutlet TCImageView *locationLatestImageView;
 
