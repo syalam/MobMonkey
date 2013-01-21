@@ -252,8 +252,7 @@ typedef enum OAuthProvider {
 /**
  Adds a new location to the system
  */
-- (void)addNewLocation:(NSDictionary*)params;
-- (void)addNewLocation:(NSDictionary*)params
++ (void)addNewLocation:(NSDictionary*)params
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 

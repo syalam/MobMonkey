@@ -184,31 +184,9 @@
         }
             break;
         case 1: {
-            UIViewController *mapViewController = [[UIViewController alloc] init];
+            MMMapViewController *mapViewController = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
             mapViewController.title = [_contentList valueForKey:@"name"];
-            UIView *view = mapViewController.view;
-            MKMapView *mapView = [[MKMapView alloc] initWithFrame:view.frame];
-            [mapView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
-            [view addSubview:mapView];
-            CLLocationCoordinate2D coordinate;
-            coordinate.latitude = [[_contentList valueForKey:@"latitude"] floatValue];
-            coordinate.longitude = [[_contentList valueForKey:@"longitude"] floatValue];
-            MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc] initWithName:[_contentList valueForKey:@"name"] address:[_contentList valueForKey:@"address"] coordinate:coordinate arrayIndex:0];
-            [mapView addAnnotation:(id)annotation];
-            MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
-            MKMapRect pointRect = MKMapRectMake(annotationPoint.x - 2500, annotationPoint.y - 2500, 5000, 5000);
-            
-            [mapView setVisibleMapRect:pointRect animated:YES];
-            
-            UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
-            [backNavbutton addTarget:mapViewController.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
-            [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
-            
-            UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
-            mapViewController.navigationItem.leftBarButtonItem = backButton;
-
-            
-
+            mapViewController.contentList = [NSArray arrayWithObject:_contentList];
             [self.navigationController pushViewController:mapViewController animated:YES];
             break;
         }

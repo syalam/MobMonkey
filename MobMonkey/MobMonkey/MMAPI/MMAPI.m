@@ -133,35 +133,11 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 }
 
 #pragma mark - Add Location
--(void)addNewLocation:(NSDictionary*)params
-{
-  [self addNewLocation:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-    NSLog(@"%@", responseObject);
-    [_delegate MMAPICallSuccessful:responseObject];
-  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-     [_delegate MMAPICallFailed:operation];
-  }];
-}
-
-- (void)addNewLocation:(NSDictionary*)params
++ (void)addNewLocation:(NSDictionary*)params
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-  // https://github.com/syalam/mobmonkey-api/wiki/Location-API
-  
-    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
-    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
-    [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
-    [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
-    if ([[NSUserDefaults standardUserDefaults]valueForKey:@"password"]) {
-        [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
-    }
-    else {
-        [httpClient setDefaultHeader:@"OauthToken" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"oAuthToken"]];
-    }
-    
-    [httpClient postPath:@"locations/create" parameters:params
-                 success:success
-                 failure:failure];
+    MMHTTPClient *httpClient = [self setupHTTPClient];
+    [httpClient postPath:@"locations/create" parameters:params success:success failure:failure];
 }
 
 #pragma mark - Inbox

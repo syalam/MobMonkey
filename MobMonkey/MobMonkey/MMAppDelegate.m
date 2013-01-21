@@ -155,7 +155,7 @@
         NSLog(@"%@", operation.responseString);
     }];
     
-    //[self initializeLocationManager];
+    [self initializeLocationManager];
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
     [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
     [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];

@@ -241,7 +241,7 @@
     
     [locationDictionary setValue:[self radiusInYards] forKey:@"radiusInYards"]; //
     
-    [[MMAPI sharedAPI] addNewLocation:locationDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MMAPI addNewLocation:locationDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *locationId = [responseObject valueForKey:@"locationId"];
         NSString *responseProviderId = [responseObject valueForKey:@"providerId"];
         
@@ -250,6 +250,7 @@
         [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
         NSLog(@"error: %@", error);
     }];
 }
