@@ -280,7 +280,14 @@
             NSPredicate *locationPredicate = [NSPredicate predicateWithFormat:@"(locationId MATCHES %@) AND (providerId MATCHES %@)", locationId, providerId];
             NSArray *matchingLocations = [searchHistory filteredArrayUsingPredicate:locationPredicate];
             if (matchingLocations.count == 0) {
-                [locationDictionary removeObjectsForKeys:[NSArray arrayWithObjects:@"requests", @"radiusInYards", @"message", nil]];
+                id const nul = [NSNull null];
+                NSDictionary *dictionaryToCleanUp = [locationDictionary copy];
+                for (NSString *key in dictionaryToCleanUp) {
+                    id const obj = [locationDictionary valueForKey:key];
+                    if (nul == obj) {
+                        [locationDictionary setValue:@"" forKey:key];
+                    }
+                }
                 [searchHistory addObject:locationDictionary];
                 [[NSUserDefaults standardUserDefaults]setValue:searchHistory forKey:historyKey];
                 [[NSUserDefaults standardUserDefaults] synchronize];

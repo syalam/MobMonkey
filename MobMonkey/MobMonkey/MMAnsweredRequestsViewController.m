@@ -41,13 +41,13 @@
     [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
     
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
-    self.navigationItem.leftBarButtonItem = backButton;    
+    self.navigationItem.leftBarButtonItem = backButton;
+    [self fetchAnsweredRequests];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [SVProgressHUD dismiss];
-    [self fetchAnsweredRequests];
 }
 
 - (void)viewDidUnload {
@@ -172,6 +172,7 @@
 #pragma mark - UINavBar Action Methods
 - (void)backButtonTapped:(id)sender {
     [SVProgressHUD dismiss];
+    [_delegate updateInboxCount];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -250,7 +251,9 @@
     UIImage *thumbnailImage;
     
     if ([_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]]) {
-        thumbnailImage = [_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]];
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            cell.locationImageView.image = [_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]];
+        });
     }
     else {
         NSArray *mediaArray  = [[_contentList objectAtIndex:row]valueForKey:@"media"];
@@ -263,9 +266,9 @@
             CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
             
             thumbnailImage = [UIImage imageWithCGImage:imgRef];
-            [_thumbnailCache setValue:thumbnailImage forKey:[NSString stringWithFormat:@"%d", row]];
             
             dispatch_async(dispatch_get_main_queue(), ^(void) {
+                [_thumbnailCache setValue:thumbnailImage forKey:[NSString stringWithFormat:@"%d", row]];
                 cell.locationImageView.image = thumbnailImage;
             });
         }

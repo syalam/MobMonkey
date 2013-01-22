@@ -14,7 +14,7 @@
 #import "MMInboxFullScreenImageViewController.h"
 #import "MMInboxCategoryCell.h"
 #import "MMLocationsViewController.h"
-#import "MMInboxDetailViewController.h"
+
 
 #define FONT_SIZE 14.0f
 #define CELL_CONTENT_WIDTH 180.0f
@@ -83,6 +83,7 @@
         UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
         self.navigationItem.leftBarButtonItem = backButton;
     }
+    [self getInboxCounts];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -202,6 +203,7 @@
 {
     if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
         MMInboxDetailViewController *inboxDetailVC = [[MMInboxDetailViewController alloc]initWithNibName:@"MMInboxDetailViewController" bundle:nil];
+        inboxDetailVC.delegate = self;
         switch (indexPath.row) {
             case 0:
                 if ([[inboxCountDictionary valueForKey:@"openrequests"]intValue] > 0) {
@@ -211,7 +213,10 @@
                 break;
             case 1:
                 if ([[inboxCountDictionary valueForKey:@"fulfilledCount"]intValue] > 0) {
-                    [[MMClientSDK sharedSDK] answeredRequestsScreen:self answeredItemsToDisplay:self.fulfilledRequests];
+                    MMAnsweredRequestsViewController *answeredRequests = [[MMAnsweredRequestsViewController alloc]initWithNibName:@"MMAnsweredRequestsViewController" bundle:nil];
+                    answeredRequests.delegate = self;
+                    answeredRequests.title = @"Answered Requests";
+                    [self.navigationController pushViewController:answeredRequests animated:YES];
                 }
                 break;
             case 2:
@@ -274,6 +279,11 @@
 
 #pragma mark - Notification Methods
 - (void)pushNotificationReceived:(NSNotification*)notification {
+    [self getInboxCounts];
+}
+
+#pragma mark - Inbox Detail and Answered Requests Delegate
+- (void)updateInboxCount {
     [self getInboxCounts];
 }
 

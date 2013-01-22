@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "MMAPI.h"
+#import "MMInboxDetailViewController.h"
+#import "MMAnsweredRequestsViewController.h"
 
-@interface MMInboxViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMAPIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
+@interface MMInboxViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMAPIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, InboxDetailDelegate, AnsweredRequestsDelegate> {
     NSDictionary *inboxCountDictionary;
 }
 

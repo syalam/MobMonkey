@@ -40,11 +40,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(getTrendingCounts)
-                                                 name:@"checkForUpdatedCounts"
-                                               object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -52,6 +47,9 @@
     
     if (![[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
         [[MMClientSDK sharedSDK]signInScreen:self];
+    }
+    else {
+        [self getTrendingCounts];
     }
 }
 

@@ -202,6 +202,7 @@
 
 #pragma mark - Button tap methods
 - (void)backButtonTapped:(id)sender {
+    [_delegate updateInboxCount];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -331,7 +332,6 @@
             //Background tasks require you to use asyncrous tasks
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 //Perform your tasks that your application requires
-                //NSLog(@"\n\nRunning in the background!\n\n");
                 [MMAPI fulfillRequest:mediaRequested
                                params:params
                               success:^(AFHTTPRequestOperation *operation, id responseObject) {

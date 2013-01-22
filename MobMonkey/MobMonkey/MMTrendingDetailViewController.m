@@ -93,14 +93,9 @@
             [cell.locationImageView reloadWithUrl:[mediaDictionary valueForKey:@"mediaURL"]];
         }
         else {
-            if ([_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", indexPath.row]]) {
-                cell.locationImageView.image = [_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
-            }
-            else {
-                dispatch_async(backgroundQueue, ^(void) {
-                    cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row cell:cell];
-                });
-            }
+            dispatch_async(backgroundQueue, ^(void) {
+                cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row cell:cell];
+            });
         }
     }
     
@@ -274,7 +269,9 @@
     }
     
     if ([_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]]) {
-        thumbnailImage = [_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]];
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            cell.locationImageView.image = [_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]];
+        });
     }
     else {
         NSDictionary *mediaDictionary  = [[_contentList objectAtIndex:row]valueForKey:@"media"];
@@ -287,8 +284,9 @@
             CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
             
             thumbnailImage = [UIImage imageWithCGImage:imgRef];
-            [_thumbnailCache setValue:thumbnailImage forKey:[NSString stringWithFormat:@"%d", row]];
+            
             dispatch_async(dispatch_get_main_queue(), ^(void) {
+                [_thumbnailCache setValue:thumbnailImage forKey:[NSString stringWithFormat:@"%d", row]];
                 cell.locationImageView.image = thumbnailImage;
             });
         }

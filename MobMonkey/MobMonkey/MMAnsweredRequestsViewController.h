@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "MMAnsweredRequestsCell.h"
 
+@protocol AnsweredRequestsDelegate
+
+@optional
+- (void)updateInboxCount;
+
+@end
+
 @interface MMAnsweredRequestsViewController : UITableViewController <UIActionSheetDelegate, MMAnsweredRequestsCellDelegate> {
     dispatch_queue_t backgroundQueue;
     
@@ -19,5 +26,6 @@
 @property (nonatomic, retain) NSArray *contentList;
 @property (strong, nonatomic) IBOutlet UITableViewCell *acceptRejectCell;
 @property (nonatomic, retain) NSMutableDictionary *thumbnailCache;
+@property (nonatomic, assign) id<AnsweredRequestsDelegate>delegate;
 
 @end

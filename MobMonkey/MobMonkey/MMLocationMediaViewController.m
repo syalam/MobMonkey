@@ -149,14 +149,9 @@
         [cell.locationImageView reloadWithUrl:[[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"mediaURL"]];
     }
     else {
-        if ([_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", indexPath.row]]) {
-            cell.locationImageView.image = [_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
-        }
-        else {
-            dispatch_async(backgroundQueue, ^(void) {
-                cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row cell:cell];
-            });
-        }
+        dispatch_async(backgroundQueue, ^(void) {
+            cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row cell:cell];
+        });
     }
     
     cell.imageButton.tag = indexPath.row;
@@ -216,7 +211,9 @@
     UIImage *thumbnailImage;
   
     if ([_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]]) {
-        thumbnailImage = [_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]];
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            cell.locationImageView.image = [_thumbnailCache valueForKey:[NSString stringWithFormat:@"%d", row]];
+        });
     }
     else {
         AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[self.mediaArray objectAtIndex:row] valueForKey:@"mediaURL"]] options:nil];
@@ -227,9 +224,10 @@
         CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
         
         thumbnailImage = [UIImage imageWithCGImage:imgRef];
-        [_thumbnailCache setValue:thumbnailImage forKey:[NSString stringWithFormat:@"%d", row]];
+        
         
         dispatch_async(dispatch_get_main_queue(), ^(void) {
+            [_thumbnailCache setValue:thumbnailImage forKey:[NSString stringWithFormat:@"%d", row]];
             cell.locationImageView.image = thumbnailImage;
         });
     }

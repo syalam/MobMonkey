@@ -221,9 +221,6 @@
         
         NSLog(@"%@, %@", [[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"], [[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]);
         [MMAPI checkUserIn:params success:nil failure:nil];
-        
-        locationUpdateCounter ++;
-        [[UIApplication sharedApplication]setApplicationIconBadgeNumber:locationUpdateCounter];
     }
 }
 

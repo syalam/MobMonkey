@@ -403,7 +403,7 @@
     }
     NSMutableArray *searchHistory;
     NSString *historyKey = [NSString stringWithFormat:@"%@ history", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
-    if ([prefs objectForKey:historyKey]) {
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:historyKey]) {
         searchHistory = [prefs  mutableArrayValueForKey:historyKey];
         //reverse order of items in array so that its displayed as latest viewed to oldest
         NSArray *reverse = [[searchHistory reverseObjectEnumerator]allObjects];
