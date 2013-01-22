@@ -13,6 +13,8 @@
 
 @interface MMAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, CLLocationManagerDelegate, AdWhirlDelegate> {
     CLLocationManager *_locationManager;
+    
+    int locationUpdateCounter;
 }
 
 @property (strong, nonatomic) UIWindow *window;

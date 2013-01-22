@@ -276,7 +276,6 @@
     [alert show];
 }
 
-#pragma mark - Helper Methods
 - (void)createBirthdayActionSheet {
     birthdayActionSheet = [[UIActionSheet alloc] init];
     [birthdayActionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
@@ -347,6 +346,7 @@
                            
                            [SVProgressHUD showErrorWithStatus:responseString];
                        }
+                       [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:nil];
                        [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
                    }
                }];

@@ -316,21 +316,43 @@
         [params setObject:[dataObj base64EncodedString] forKey:@"mediaData"];
     }
   
-    [SVProgressHUD showWithStatus:@"Uploading Media"];
+    [picker dismissModalViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
     
-    [MMAPI fulfillRequest:mediaRequested
-                   params:params
-                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                      [SVProgressHUD showSuccessWithStatus:@"Success"];
-                      [picker dismissModalViewControllerAnimated:YES];
-                      //[self.navigationController popViewControllerAnimated:YES];
-                  }
-                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                      NSLog(@"%@", operation.responseString);
-                      [SVProgressHUD showErrorWithStatus:@"Epic Fail"];
-                  }];
-    
-    
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)]) { //Check if our iOS version supports multitasking I.E iOS 4
+        if ([[UIDevice currentDevice] isMultitaskingSupported]) { //Check if device supports mulitasking
+            UIApplication *application = [UIApplication sharedApplication]; //Get the shared application instance
+            __block UIBackgroundTaskIdentifier background_task; //Create a task object
+            background_task = [application beginBackgroundTaskWithExpirationHandler: ^ {
+                [application endBackgroundTask: background_task]; //Tell the system that we are done with the tasks
+                background_task = UIBackgroundTaskInvalid; //Set the task to be invalid
+                //System will be shutting down the app at any point in time now
+            }];
+            //Background tasks require you to use asyncrous tasks
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                //Perform your tasks that your application requires
+                //NSLog(@"\n\nRunning in the background!\n\n");
+                [MMAPI fulfillRequest:mediaRequested
+                               params:params
+                              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                  NSLog(@"%@", responseObject);
+                                  
+                                  [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:nil];
+                                  
+                                  [application endBackgroundTask: background_task]; //End the task so the system knows that you are done with what you need to perform
+                                  background_task = UIBackgroundTaskInvalid; //Invalidate the background_task
+                              }
+                              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                  NSLog(@"%@", operation.responseString);
+                                  [application endBackgroundTask: background_task]; //End the task so the system knows that you are done with what you need to perform
+                                  background_task = UIBackgroundTaskInvalid; //Invalidate the background_task
+                              }];
+
+                
+                
+            });
+        }
+    }
 }
 
 

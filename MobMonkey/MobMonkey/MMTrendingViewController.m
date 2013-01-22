@@ -32,7 +32,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -40,6 +40,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(getTrendingCounts)
+                                                 name:@"checkForUpdatedCounts"
+                                               object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -48,12 +53,6 @@
     if (![[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
         [[MMClientSDK sharedSDK]signInScreen:self];
     }
-    else {
-        [self getTrendingCounts];
-        [self getMyInterestsCount];
-    }
-    
-    
 }
 
 - (void)viewDidUnload
@@ -247,6 +246,8 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", operation.responseString);
     }];
+    
+    [self getMyInterestsCount];
 }
 
 - (void)getMyInterestsCount {

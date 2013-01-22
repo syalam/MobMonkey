@@ -209,6 +209,7 @@
                         [self checkInUser];
                         [self getAllCategories];
                         [SVProgressHUD showSuccessWithStatus:@"Signed in with Facebook"];
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:nil];
                         [presentingViewController.navigationController dismissViewControllerAnimated:YES completion:NULL];
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         NSLog(@"%@", operation.responseString);
@@ -260,6 +261,7 @@
         
         [self checkInUser];
         [self getAllCategories];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:nil];
         [presentingViewController.navigationController dismissViewControllerAnimated:YES completion:NULL];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", operation.responseString);

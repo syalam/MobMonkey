@@ -164,6 +164,8 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", operation.responseString);
     }];
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -177,7 +179,7 @@
     _locationManager.delegate = self;
     _locationManager.desiredAccuracy =kCLLocationAccuracyBest;
     _locationManager.distanceFilter = 60.0f; // update every 200ft
-    [_locationManager startMonitoringSignificantLocationChanges];
+    [_locationManager startUpdatingLocation];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
@@ -195,7 +197,7 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     NSLog(@"%@", @"Push Notification Received");
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"pushNotificationReceived" object:userInfo];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:userInfo];
 }
 
 
@@ -219,7 +221,25 @@
         
         NSLog(@"%@, %@", [[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"], [[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]);
         [MMAPI checkUserIn:params success:nil failure:nil];
+        
+        locationUpdateCounter ++;
+        [[UIApplication sharedApplication]setApplicationIconBadgeNumber:locationUpdateCounter];
     }
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations {
+    // If it's a relatively recent event, turn off updates to save power
+    CLLocation* newLocation = [locations lastObject];
+    [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%f", newLocation.coordinate.latitude] forKey:@"latitude"];
+    [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%f", newLocation.coordinate.longitude] forKey:@"longitude"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    [params setObject:[NSNumber numberWithDouble:newLocation.coordinate.latitude] forKey:@"latitude"];
+    [params setObject:[NSNumber numberWithDouble:newLocation.coordinate.longitude] forKey:@"longitude"];
+    
+    NSLog(@"%@, %@", [[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"], [[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]);
+    [MMAPI checkUserIn:params success:nil failure:nil];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error

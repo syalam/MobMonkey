@@ -139,13 +139,31 @@ enum RequestDurationLengths {
 
     else {
         NSLog(@"MMRequestViewController.m requestMedia %@", self.requestInfo);
-        [MMAPI requestMedia:mediaType params:self.requestInfo success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"%@", responseObject);
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [SVProgressHUD showErrorWithStatus:@"Unable to make request. Please try again"];
-            NSLog(@"%@", operation.responseString);
-        }];
+        
+        if ([[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)]) { //Check if our iOS version supports multitasking I.E iOS 4
+            if ([[UIDevice currentDevice] isMultitaskingSupported]) { //Check if device supports mulitasking
+                UIApplication *application = [UIApplication sharedApplication]; //Get the shared application instance
+                __block UIBackgroundTaskIdentifier background_task; //Create a task object
+                background_task = [application beginBackgroundTaskWithExpirationHandler: ^ {
+                    [application endBackgroundTask: background_task]; //Tell the system that we are done with the tasks
+                    background_task = UIBackgroundTaskInvalid; //Set the task to be invalid
+                    //System will be shutting down the app at any point in time now
+                }];
+                //Background tasks require you to use asyncrous tasks
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    //Perform your tasks that your application requires
+                    //NSLog(@"\n\nRunning in the background!\n\n");
+                    [MMAPI requestMedia:mediaType params:self.requestInfo success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        NSLog(@"%@", responseObject);
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:nil];
+                        
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        [SVProgressHUD showErrorWithStatus:@"Unable to make request. Please try again"];
+                        NSLog(@"%@", operation.responseString);
+                    }];
+                });
+            }
+        }
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }

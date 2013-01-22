@@ -135,6 +135,7 @@
             break;
         case 3: {
             MMSubscriptionViewController *subscriptionVC = [[MMSubscriptionViewController alloc]initWithNibName:@"MMSubscriptionViewController" bundle:nil];
+            subscriptionVC.title = @"Subscribe";
             UINavigationController *subscriptionNavC = [[UINavigationController alloc]initWithRootViewController:subscriptionVC];
             [self.navigationController presentModalViewController:subscriptionNavC animated:YES];
         }

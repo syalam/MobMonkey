@@ -39,7 +39,11 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(pushNotificationReceived:)
+                                                     name:@"checkForUpdatedCounts"
+                                                   object:nil];
     }
     return self;
 }
@@ -52,11 +56,6 @@
                                                                            blue:36.0/255.0
                                                                           alpha:1.0]];
     self.locationsViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(pushNotificationReceived:)
-                                                 name:@"pushNotificationReceived"
-                                               object:nil];
 }
 
 - (void)viewDidUnload
@@ -91,8 +90,6 @@
     [super viewDidAppear:animated];
     [self setContentList:[@[@"Open Requests", @"Answered Requests", @"Assigned Requests", @"Notifications"] mutableCopy]];
     [self.tableView reloadData];
-    [self getInboxCounts];
-    //[self reloadInbox];
 }
 
 - (NSUInteger)supportedInterfaceOrientations

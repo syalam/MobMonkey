@@ -12,6 +12,7 @@
 @interface MMSubscriptionViewController : UIViewController {
     IBOutlet UIButton *subscribeButton;
     IBOutlet UIButton *dismissButton;
+    IBOutlet UIScrollView *scrollView;
     
     MMAppDelegate *appDelegate;
 }

@@ -137,7 +137,7 @@
             [self getAllCategories];
             
             [self checkInUser];
-            
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:nil];
             [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if (operation.responseData) {
