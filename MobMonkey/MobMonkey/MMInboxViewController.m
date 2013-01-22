@@ -108,6 +108,9 @@
         NSLog(@"%@", responseObject);
         inboxCountDictionary = responseObject;
         [self.tableView reloadData];
+        int  answeredRequests = [[inboxCountDictionary valueForKey:@"fulfilledCount"]intValue];
+        int assignedRequests = [[inboxCountDictionary valueForKey:@"assignedrequests"]intValue];
+        [[UIApplication sharedApplication]setApplicationIconBadgeNumber:assignedRequests + answeredRequests];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", operation.responseString);
     }];
