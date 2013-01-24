@@ -78,6 +78,7 @@
     if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"name"] isKindOfClass:[NSNull class]]) {
         cell.locationNameLabel.text = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"name"];
     }
+    cell.locationImageView.image = nil;
     if (![[mediaDictionary valueForKey:@"uploadedDate"] isKindOfClass:[NSNull class]]) {
         double unixTime = [[mediaDictionary valueForKey:@"uploadedDate"] floatValue]/1000;
         NSDate *dateAnswered = [NSDate dateWithTimeIntervalSince1970:
@@ -193,7 +194,7 @@
 -(void)imageButtonTapped:(id)sender {
     MMTrendingCell *cell = (MMTrendingCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
     NSDictionary *mediaDictionary = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"media"];
-    if (![mediaDictionary isKindOfClass:[NSNull class]]) {
+    if (![mediaDictionary isKindOfClass:[NSNull class]] && ![[mediaDictionary valueForKey:@"mediaURL"] isKindOfClass:[NSNull class]]) {
         if ([[mediaDictionary valueForKey:@"type"]isEqualToString:@"image"]) {
             [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:cell.locationImageView.image locationName:cell.locationNameLabel.text];
         }

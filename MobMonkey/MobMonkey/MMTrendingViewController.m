@@ -258,6 +258,7 @@
         [params setValue:@"true" forKey:@"myinterests"];
         [MMAPI getTrendingType:@"topviewed" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             myInterestsArray = responseObject;
+            NSLog(@"My Interests Count: %d", myInterestsArray.count);
             [self.tableView reloadData];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"%@", operation.responseString);

@@ -89,12 +89,13 @@
         cell = [[MMAnsweredRequestsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.delegate = self;
     }
-    
+    cell.timeStampLabel.textColor = [UIColor whiteColor];
     cell.timeStampLabel.text = @"";
     cell.locationImageView.image = nil;
     cell.locationNameLabel.text = @"";
     cell.requestLabel.text = @"";
     cell.responseLabel.text = @"";
+    [cell.clockImageView setImage:[UIImage imageNamed:@"timeIcnOverlay"]];
     
     if (![[[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"] isKindOfClass:[NSNull class]]) {
         cell.locationNameLabel.text = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"nameOfLocation"];
@@ -204,16 +205,20 @@
     }];
 }
 -(void)rejectButtonTapped:(id)sender {
-    NSString *requestId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"requestId"];
-    NSString *mediaId = [[[[_contentList objectAtIndex:[sender tag]]valueForKey:@"media"]objectAtIndex:0]valueForKey:@"mediaId"];
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            requestId, @"requestId",
-                            mediaId, @"mediaId", nil];
-    [MMAPI rejectMedia:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self fetchAnsweredRequests];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", operation.responseString);
-    }];
+    NSArray *mediaArray = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"media"];
+    
+    if (mediaArray.count > 0) {
+        NSString *requestId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"requestId"];
+        NSString *mediaId = [[mediaArray objectAtIndex:0]valueForKey:@"mediaId"];
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                requestId, @"requestId",
+                                mediaId, @"mediaId", nil];
+        [MMAPI rejectMedia:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self fetchAnsweredRequests];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@", operation.responseString);
+        }];
+    }
 }
 -(void)imageButtonTapped:(id)sender {
     MMAnsweredRequestsCell *cell = (MMAnsweredRequestsCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];

@@ -52,11 +52,6 @@ enum RequestDurationLengths {
     CGRect frame = self.mediaTypeSegmentedControl.frame;
     frame.size.height = 64;
     self.mediaTypeSegmentedControl.frame = frame;
-    //[self.mediaTypeSegmentedControl setBackgroundImage:[UIImage imageNamed:@"deselectedRectRed"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    //UIImage *divider = [UIImage imageNamed:@"separator-gradient"];
-    //UIImage *divider = [UIImage imageNamed:@"segmentedControlSeparator"];
-    //[self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    //[self.mediaTypeSegmentedControl setDividerImage:divider forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
     
     self.mediaTypeSegmentedControl.selectedSegmentIndex = 0;
     [self changeMediaRequestType:self.mediaTypeSegmentedControl];
@@ -112,7 +107,7 @@ enum RequestDurationLengths {
     [self.requestInfo setValue:[_contentList valueForKey:@"providerId"] forKey:@"providerId"];
     [self.requestInfo setValue:[_contentList valueForKey:@"locationId"] forKey:@"locationId"];
     [self.requestInfo setValue:self.duration forKey:@"duration"];
-    [self.requestInfo setValue:[NSNumber numberWithInt:50] forKey:@"radiusInYards"];
+    [self.requestInfo setValue:[NSNumber numberWithInt:5000] forKey:@"radiusInYards"];
     [self.requestInfo setValue:[NSNumber numberWithBool:isRecurring] forKey:@"recurring"];
     
     

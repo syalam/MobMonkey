@@ -240,38 +240,33 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient postPath:@"bookmarks" parameters:@{ @"locationId" : locationID , @"providerId" : providerID } success:success failure:failure];
 }
 
+
 + (void)deleteBookmarkWithLocationID:(NSString *)locationID
                           providerID:(NSString *)providerID
-                             success:(void (^)(id responseObject))success
-                             failure:(void (^)(NSError *error))failure {
-    NSString *urlString = [kBMHTTPClientBaseURLString stringByAppendingString:@"bookmarks"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    [request setHTTPMethod:@"DELETE"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"] forHTTPHeaderField:@"MobMonkey-partnerId"];
-    [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"] forHTTPHeaderField:@"MobMonkey-user"];
-    if ([[NSUserDefaults standardUserDefaults]valueForKey:@"password"]) {
-        [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"] forHTTPHeaderField:@"MobMonkey-auth"];
-    }
-    else {
-        [request setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"oAuthToken"] forHTTPHeaderField:@"OauthToken"];
-    }
-    NSData *body = [NSJSONSerialization dataWithJSONObject:@{ @"locationId" : locationID , @"providerId" : providerID } options:0 error:nil];
-    [request setHTTPBody:body];    
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        if (error) {
-            failure(error);
-            return;
-        }
-        success([NSJSONSerialization JSONObjectWithData:data options:0 error:nil]);
-    }];
+                             success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    MMHTTPClient *httpClient = [self setupHTTPClient];
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
+                            locationID, @"locationId",
+                            providerID, @"providerId", nil];
+    [httpClient deletePath:@"bookmarks" parameters:params success:success failure:failure];
 }
 
+#pragma mark - Trending
 + (void)getTrendingType:(NSString *)type params:(NSDictionary *)params
                 success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     MMHTTPClient *httpClient = [self setupHTTPClient];
-    [httpClient getPath:[@"trending/" stringByAppendingString:type] parameters:params success:success failure:failure];
+    NSString *urlParams = @"";
+    for (NSString *key in params) {
+        if (urlParams.length > 0) {
+            urlParams = [NSString stringWithFormat:@"%@&%@=%@", urlParams, key, [params valueForKey:key]];
+        }
+        else {
+            urlParams = [NSString stringWithFormat:@"trending/%@?%@=%@", type, key, [params valueForKey:key]];
+        }
+    }
+    [httpClient getPath:urlParams parameters:nil success:success failure:failure];
 }
 
 

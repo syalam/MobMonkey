@@ -340,11 +340,16 @@
     if ([[_contentList valueForKey:@"bookmark"] boolValue]) {
         [_contentList setValue:[NSNumber numberWithBool:NO] forKey:@"bookmark"];
         [self.tableView reloadData];
-        [MMAPI deleteBookmarkWithLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(id responseObject) {
+        [MMAPI deleteBookmarkWithLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"Removed bookmark");
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@", operation.responseString);
+        }];
+        /*[MMAPI deleteBookmarkWithLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(id responseObject) {
             NSLog(@"Removed bookmark");
         } failure:^(NSError *error) {
             NSLog(@"Could not remove! %@", [error description]);
-        }];
+        }];*/
         return;
     }
     [_contentList setValue:[NSNumber numberWithBool:YES] forKey:@"bookmark"];

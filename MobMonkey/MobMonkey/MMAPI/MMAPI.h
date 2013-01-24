@@ -330,8 +330,8 @@ Fetches livestreaming URLs for a location
  */
 + (void)deleteBookmarkWithLocationID:(NSString *)locationID
                           providerID:(NSString *)providerID
-                             success:(void (^)(id responseObject))success
-                             failure:(void (^)(NSError *error))failure;
+                             success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 ///---------------------------------------------
 /// @name Get Trending Type
