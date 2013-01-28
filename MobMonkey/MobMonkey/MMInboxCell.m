@@ -7,10 +7,13 @@
 //
 
 #import "MMInboxCell.h"
+#import "GetRelativeTime.h"
 
 @interface MMInboxCell ()
 
 @property (strong, nonatomic) UILabel *nameLabel;
+@property (strong, nonatomic) UIImageView *clockImageView;
+@property (strong, nonatomic) UILabel *timeStampLabel;
 @property (strong, nonatomic) UILabel *messageLabel;
 @property (strong, nonatomic) UILabel *addressLabel;
 @property (strong, nonatomic) UILabel *distanceLabel;
@@ -32,6 +35,11 @@
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.font = [UIFont boldSystemFontOfSize:18.0];
         [_nameLabel setLineBreakMode:NSLineBreakByTruncatingTail];
+        _timeStampLabel = [[UILabel alloc]initWithFrame: CGRectZero];
+        _timeStampLabel.numberOfLines = 1;
+        _timeStampLabel.backgroundColor = [UIColor clearColor];
+        _timeStampLabel.font = [UIFont boldSystemFontOfSize:12];
+        _clockImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"timeIcnOverlayBlack"]];
         _messageLabel = [[UILabel alloc]initWithFrame:CGRectZero];
         _messageLabel.numberOfLines = 0;
         _messageLabel.lineBreakMode = UILineBreakModeWordWrap;
@@ -43,7 +51,11 @@
         _mediaIconsView = [[UIView alloc] initWithFrame:CGRectZero];
         
         
+        
+        
         [self.contentView addSubview:_nameLabel];
+        //[self.contentView addSubview:_timeStampLabel];
+        //[self.contentView addSubview:_clockImageView];
         [self.contentView addSubview:_messageLabel];
         [self.contentView addSubview:_addressLabel];
         [self.contentView addSubview:_distanceLabel];
@@ -64,6 +76,14 @@
     if (![[_location valueForKey:@"nameOfLocation"]isKindOfClass:[NSNull class]]) {
         _nameLabel.text = [_location valueForKey:@"nameOfLocation"];
         [_nameLabel sizeToFit];
+    }
+    if (![[_location valueForKey:@"expiryDate"]isKindOfClass:[NSNull class]]) {
+        double unixTime = [[location valueForKey:@"expiryDate"] floatValue]/1000;
+        NSDate *expiryDate = [NSDate dateWithTimeIntervalSince1970:
+                                (NSTimeInterval)unixTime];
+        NSString *expiryDateString = [GetRelativeTime getRelativeTime:expiryDate];
+        
+        [_timeStampLabel sizeToFit];
     }
     
     _messageLabel.text = @"";

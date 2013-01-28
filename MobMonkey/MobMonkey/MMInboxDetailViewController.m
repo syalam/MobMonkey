@@ -85,6 +85,7 @@
     if (cell == nil) {
         cell = [[MMInboxCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    NSLog(@"%@", _contentList);
     cell.location = [_contentList objectAtIndex:indexPath.row];
     
     // Configure the cell...

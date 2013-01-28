@@ -112,12 +112,8 @@
     [super viewDidUnload];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    [SVProgressHUD dismiss];
-    
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     if (![prefs objectForKey:@"userName"]) {
         [[MMClientSDK sharedSDK]signInScreen:self];
     }
@@ -134,8 +130,16 @@
             self.categories = [allCategoriesArray filteredArrayUsingPredicate:predicate];
             [self.tableView reloadData];
         }
-
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [SVProgressHUD dismiss];
+    
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
