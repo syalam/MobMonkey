@@ -225,7 +225,6 @@
             [selectAllButton setTitle:@"Select All" forState:UIControlStateNormal];
             UIBarButtonItem *selectAllBarButton = [[UIBarButtonItem alloc] initWithCustomView:selectAllButton];
             self.navigationItem.rightBarButtonItem = selectAllBarButton;
-
         }
     }
 

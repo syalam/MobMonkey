@@ -40,8 +40,8 @@
     
     prefs = [NSUserDefaults standardUserDefaults];
     
-    if ([prefs integerForKey:@"savedSegmentValue"]) {
-        switch ([prefs integerForKey:@"savedSegmentValue"]) {
+    if ([prefs valueForKey:@"savedSegmentValue"]) {
+        switch ([[prefs valueForKey:@"savedSegmentValue"]intValue]) {
             case 880:
                 [distancePicker setSelectedSegmentIndex:0];
                 selectedRadius = [NSNumber numberWithInt:880];
