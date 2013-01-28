@@ -206,6 +206,13 @@
     }
     [params setValue:self.searchBar.text forKey:@"name"];
     
+    latitude = [[prefs  valueForKey:@"latitude"]doubleValue];
+    longitude = [[prefs  valueForKey:@"longitude"]doubleValue];
+    NSLog(@"%f, %f", latitude, longitude);
+    
+    [params setValue:[NSNumber numberWithDouble:latitude] forKey:@"latitude"];
+    [params setValue:[NSNumber numberWithDouble:longitude] forKey:@"longitude"];
+    
     //if ([self.searchBar.text length] < 1) {
         if ([prefs valueForKey:@"savedSegmentValue"]) {
             [params setObject:[prefs valueForKey:@"savedSegmentValue"] forKey:@"radiusInYards"];
@@ -213,18 +220,9 @@
         else {
             [params setValue:[NSNumber numberWithInt:880] forKey:@"radiusInYards"];
         }
-        
-        latitude = [[prefs  valueForKey:@"latitude"]doubleValue];
-        longitude = [[prefs  valueForKey:@"longitude"]doubleValue];
-        NSLog(@"%f, %f", latitude, longitude);
-        
-        [params setValue:[NSNumber numberWithDouble:latitude] forKey:@"latitude"];
-        [params setValue:[NSNumber numberWithDouble:longitude] forKey:@"longitude"];
     //}
     /*else {
-        [params setValue:[NSNumber numberWithInt:0] forKey:@"radiusInYards"];
-        [params setValue:@"" forKey:@"latitude"];
-        [params setValue:@"" forKey:@"longitude"];
+        [params setValue:[NSNumber numberWithInt:704000] forKey:@"radiusInYards"];
     }*/
     
     NSString *mediaType;
