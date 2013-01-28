@@ -180,8 +180,8 @@
             break;
         case 1: {
             if (myInterestsArray.count > 0) {
-                NSDictionary *favorites = [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedInterests"];
-                NSString *favoritesParams = [[favorites allValues] componentsJoinedByString:@","];
+                NSString *selectedInterestsKey = [NSString stringWithFormat:@"%@ selectedInterests", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+                NSDictionary *favorites = [[NSUserDefaults standardUserDefaults] valueForKey:selectedInterestsKey];                NSString *favoritesParams = [[favorites allValues] componentsJoinedByString:@","];
                 if (favoritesParams && ![favoritesParams isEqualToString:@""]) {
                     [params setValue:favoritesParams forKey:@"categoryIds"];
                     [params setValue:@"true" forKey:@"myinterests"];

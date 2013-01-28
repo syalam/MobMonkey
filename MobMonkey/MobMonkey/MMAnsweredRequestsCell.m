@@ -14,13 +14,15 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        UIImage *playButtonImage = [UIImage imageNamed:@"playBtnOverlay"];
         // Initialization code
         _locationNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 20, 300, 21)];
-        _requestLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 80, 300, 60)];
-        _responseLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 140, 300, 60)];
+        _requestLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 60, 200, 60)];
+        _responseLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 95, 200, 60)];
         _timeStampLabel = [[UILabel alloc]initWithFrame:CGRectMake(241, 62, 72, 16)];
         [_timeStampLabel setTextAlignment:NSTextAlignmentRight];
         _locationImageView = [[TCImageView alloc]initWithFrame:CGRectMake(10, 49, 300, 225)];
+        _playButtonImageView = [[UIImageView alloc]initWithFrame:CGRectMake(_locationImageView.frame.origin.x + _locationImageView.frame.size.width / 2 - playButtonImage.size.width/2, _locationImageView.frame.origin.y + _locationImageView.frame.size.height / 2 - playButtonImage.size.height/2, playButtonImage.size.height, playButtonImage.size.height)];
         
         _locationNameButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_locationNameButton setFrame:_locationNameLabel.frame];
@@ -70,8 +72,11 @@
         [_locationImageView setClipsToBounds:YES];
         [_locationImageView setCaching:YES];
         
-        UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(5, 6, 310, 343)];
-        [backgroundView setBackgroundColor:[UIColor whiteColor]];
+        _whiteBackgroundView = [[UIView alloc]initWithFrame:CGRectMake(5, 6, 310, 343)];
+        [_whiteBackgroundView setBackgroundColor:[UIColor whiteColor]];
+        
+        [_playButtonImageView setImage:playButtonImage];
+        [_playButtonImageView setHidden:YES];
         
         _clockImageView = [[UIImageView alloc]initWithFrame:CGRectMake(218, 62, 15, 15)];
         [_clockImageView setImage:[UIImage imageNamed:@"timeIcnOverlay"]];
@@ -80,12 +85,13 @@
         [toolbarImageView setImage:[UIImage imageNamed:@"ThumbsBG~iphone"]];
         [toolbarImageView setHidden:YES];
         
-        [self.contentView addSubview:backgroundView];
+        [self.contentView addSubview:_whiteBackgroundView];
         [self.contentView addSubview:_locationNameLabel];
         [self.contentView addSubview:_locationNameButton];
         [self.contentView addSubview:_requestLabel];
         [self.contentView addSubview:_responseLabel];
         [self.contentView addSubview:_locationImageView];
+        [self.contentView addSubview:_playButtonImageView];
         [self.contentView addSubview:_imageButton];
         [self.contentView addSubview:_clockImageView];
         [self.contentView addSubview:_timeStampLabel];

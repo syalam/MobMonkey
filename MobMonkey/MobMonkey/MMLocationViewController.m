@@ -500,17 +500,24 @@
             if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"image"]) {
                 [_locationLatestImageView reloadWithUrl:mediaUrl];
             }
+            else if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"livestreaming"]) {
+                _locationLatestImageView.image = [UIImage imageNamed:@"liveFeedPlaceholder"];
+                [playButtonImageView setHidden:NO];
+            }
             else {
-                /*dispatch_async(backgroundQueue, ^(void) {
-                    
-                });*/
-                AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]] options:nil];
-                AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-                generate.appliesPreferredTrackTransform = YES;
-                NSError *err = NULL;
-                CMTime time = CMTimeMake(0, 60);
-                CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
-                _locationLatestImageView.image =  [UIImage imageWithCGImage:imgRef];
+                [playButtonImageView setHidden:NO];
+                dispatch_async(backgroundQueue, ^(void) {
+                    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]] options:nil];
+                    AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+                    generate.appliesPreferredTrackTransform = YES;
+                    NSError *err = NULL;
+                    CMTime time = CMTimeMake(0, 60);
+                    CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
+                    dispatch_async(dispatch_get_main_queue(), ^(void) {
+                        _locationLatestImageView.image =  [UIImage imageWithCGImage:imgRef];
+                    });
+                });
+                
             }
             [_makeRequestButton setFrame:CGRectMake(9, 349, 302, 66)];
             [_makeRequestLabel setFrame:CGRectMake(10, 361, 300, 21)];

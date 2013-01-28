@@ -148,10 +148,15 @@
     if ([self.segmentedControl selectedSegmentIndex] == MMPhotoMediaType) {
         [cell.locationImageView reloadWithUrl:[[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"mediaURL"]];
     }
+    else if ([self.segmentedControl selectedSegmentIndex] == MMLiveCameraMediaType) {
+        [cell.locationImageView setImage:[UIImage imageNamed:@"liveFeedPlaceholder"]];
+        [cell.playButtonImageView setHidden:NO];
+    }
     else {
         dispatch_async(backgroundQueue, ^(void) {
             cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row cell:cell];
         });
+        [cell.playButtonImageView setHidden:NO];
     }
     
     cell.imageButton.tag = indexPath.row;

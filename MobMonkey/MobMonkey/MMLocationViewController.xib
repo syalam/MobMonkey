@@ -53,7 +53,7 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{9, 12}, {300, 21}}</string>
 										<reference key="NSSuperview" ref="821810327"/>
-										<reference key="NSNextKeyView" ref="276660228"/>
+										<reference key="NSNextKeyView" ref="138815527"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -182,6 +182,20 @@
 												<object class="NSCustomResource" key="IBUIImage">
 													<string key="NSClassName">NSImage</string>
 													<string key="NSResourceName">monkey.jpg</string>
+												</object>
+											</object>
+											<object class="IBUIImageView" id="727295026">
+												<reference key="NSNextResponder" ref="138815527"/>
+												<int key="NSvFlags">-2147483356</int>
+												<string key="NSFrame">{{132, 94}, {45, 45}}</string>
+												<reference key="NSSuperview" ref="138815527"/>
+												<reference key="NSNextKeyView" ref="938469843"/>
+												<string key="NSReuseIdentifierKey">_NS:9</string>
+												<bool key="IBUIUserInteractionEnabled">NO</bool>
+												<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+												<object class="NSCustomResource" key="IBUIImage">
+													<string key="NSClassName">NSImage</string>
+													<string key="NSResourceName">playBtnOverlay.png</string>
 												</object>
 											</object>
 											<object class="IBUIView" id="938469843">
@@ -500,7 +514,7 @@
 												<int key="NSvFlags">-2147483356</int>
 												<string key="NSFrame">{{255, 22}, {15, 15}}</string>
 												<reference key="NSSuperview" ref="138815527"/>
-												<reference key="NSNextKeyView" ref="938469843"/>
+												<reference key="NSNextKeyView" ref="727295026"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="IBUIUserInteractionEnabled">NO</bool>
 												<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -512,6 +526,7 @@
 										</array>
 										<string key="NSFrame">{{0, 35}, {320, 310}}</string>
 										<reference key="NSSuperview" ref="821810327"/>
+										<reference key="NSNextKeyView" ref="276660228"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<object class="NSColor" key="IBUIBackgroundColor">
 											<int key="NSColorSpace">2</int>
@@ -786,6 +801,14 @@
 					<int key="connectionID">185</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">playButtonImageView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="727295026"/>
+					</object>
+					<int key="connectionID">187</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
 						<string key="label">gestureRecognizers</string>
 						<reference key="source" ref="276660228"/>
@@ -949,6 +972,7 @@
 							<reference ref="907497415"/>
 							<reference ref="938469843"/>
 							<reference ref="276660228"/>
+							<reference ref="727295026"/>
 						</array>
 						<reference key="parent" ref="821810327"/>
 					</object>
@@ -1062,6 +1086,11 @@
 						<reference key="object" ref="808982511"/>
 						<reference key="parent" ref="821810327"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">186</int>
+						<reference key="object" ref="727295026"/>
+						<reference key="parent" ref="138815527"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1096,13 +1125,14 @@
 				<string key="169.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="171.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="181.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="186.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">185</int>
+			<int key="maxID">187</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
@@ -1116,6 +1146,7 @@
 			<string key="makeRequestButtonBlank.png">{307, 61}</string>
 			<string key="monkey.jpg">{800, 600}</string>
 			<string key="moreBtnOverlay.png">{55, 44}</string>
+			<string key="playBtnOverlay.png">{45, 45}</string>
 			<string key="separator-gradient.png">{320, 6}</string>
 			<string key="timeIcnOverlay.png">{15, 15}</string>
 			<string key="videoIcn.png">{34, 33}</string>

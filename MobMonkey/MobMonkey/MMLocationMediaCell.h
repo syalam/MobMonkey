@@ -19,6 +19,7 @@
 @interface MMLocationMediaCell : UITableViewCell
 
 @property (nonatomic, retain) TCImageView *locationImageView;
+@property (nonatomic, retain) UIImageView *playButtonImageView;
 @property (nonatomic, retain) UIButton *imageButton;
 @property (nonatomic, retain) UIButton *moreButton;
 @property (nonatomic, retain) UIImageView *clockImageView;

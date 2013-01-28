@@ -27,11 +27,13 @@
 @property (nonatomic, retain) UILabel *responseLabel;
 @property (nonatomic, retain) UILabel *timeStampLabel;
 @property (nonatomic, retain) TCImageView *locationImageView;
+@property (nonatomic, retain) UIImageView *playButtonImageView;
 @property (nonatomic, retain) UIButton *imageButton;
 @property (nonatomic, retain) UIButton *moreButton;
 @property (nonatomic, retain) UIButton *acceptButton;
 @property (nonatomic, retain) UIButton *rejectButton;
 @property (nonatomic, retain) UIImageView *clockImageView;
+@property (nonatomic, retain) UIView *whiteBackgroundView;
 @property (nonatomic, assign) id<MMAnsweredRequestsCellDelegate>delegate;
 
 @end

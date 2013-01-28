@@ -93,10 +93,15 @@
         if ([[mediaDictionary valueForKey:@"type"] isEqualToString:@"image"]) {
             [cell.locationImageView reloadWithUrl:[mediaDictionary valueForKey:@"mediaURL"]];
         }
+        else if([[mediaDictionary valueForKey:@"type"] isEqualToString:@"livestreaming"]) {
+            cell.locationImageView.image = [UIImage imageNamed:@"liveFeedPlaceholder"];
+            [cell.playButtonImageView setHidden:NO];
+        }
         else {
             dispatch_async(backgroundQueue, ^(void) {
                 cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row cell:cell];
             });
+            [cell.playButtonImageView setHidden:NO];
         }
     }
     

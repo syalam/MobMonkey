@@ -162,7 +162,8 @@
         case 0: {
             NSString *selectedRequestId = [[_contentList objectAtIndex:selectedIndexToClear]valueForKey:@"requestId"];
             NSString *isRecurring;
-            if ([[[_contentList objectAtIndex:selectedIndexToClear]valueForKey:@"frequencyInMS"]intValue] > 0) {
+            NSLog(@"%@", _contentList);
+            if ([[[_contentList objectAtIndex:selectedIndexToClear]valueForKey:@"recurring"]intValue] == 1) {
                 isRecurring = @"true";
             }
             else {

@@ -157,8 +157,11 @@
             break;
         case 1:
             cell.textLabel.text = @"Answered Requests";
-            if ([[inboxCountDictionary valueForKey:@"fulfilledCount"]intValue] > 0) {
-                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[inboxCountDictionary valueForKey:@"fulfilledCount"]intValue]];
+            if ([[inboxCountDictionary valueForKey:@"fulfilledUnreadCount"]intValue] > 0) {
+                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[inboxCountDictionary valueForKey:@"fulfilledUnreadCount"]intValue]];
+            }
+            else if ([[inboxCountDictionary valueForKey:@"fulfilledReadCount"]intValue] > 0) {
+                cell.categoryItemCountLabel.text = @"";
             }
             else {
                 cell.categoryItemCountLabel.text = @"";
@@ -168,8 +171,11 @@
             break;
         case 2:
             cell.textLabel.text = @"Assigned Requests";
-            if ([[inboxCountDictionary valueForKey:@"assignedrequests"]intValue] > 0) {
-                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[inboxCountDictionary valueForKey:@"assignedrequests"]intValue]];
+            if ([[inboxCountDictionary valueForKey:@"assignedUnreadRequests"]intValue] > 0) {
+                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[inboxCountDictionary valueForKey:@"assignedUnreadRequests"]intValue]];
+            }
+            else if ([[inboxCountDictionary valueForKey:@"assignedReadRequests"]intValue] > 0) {
+                cell.categoryItemCountLabel.text = @"";
             }
             else {
                 cell.categoryItemCountLabel.text = @"";
@@ -215,7 +221,7 @@
                 }
                 break;
             case 1:
-                if ([[inboxCountDictionary valueForKey:@"fulfilledCount"]intValue] > 0) {
+                if ([[inboxCountDictionary valueForKey:@"fulfilledReadCount"]intValue] + [[inboxCountDictionary valueForKey:@"fulfilledUnreadCount"]intValue] > 0) {
                     MMAnsweredRequestsViewController *answeredRequests = [[MMAnsweredRequestsViewController alloc]initWithNibName:@"MMAnsweredRequestsViewController" bundle:nil];
                     answeredRequests.delegate = self;
                     answeredRequests.title = @"Answered Requests";
@@ -223,7 +229,7 @@
                 }
                 break;
             case 2:
-                if ([[inboxCountDictionary valueForKey:@"assignedrequests"]intValue] > 0) {
+                if ([[inboxCountDictionary valueForKey:@"assignedReadRequests"]intValue] + [[inboxCountDictionary valueForKey:@"assignedUnreadRequests"]intValue] > 0) {
                     inboxDetailVC.title = @"Assigned Requests";
                     [self.navigationController pushViewController:inboxDetailVC animated:YES];
                 }

@@ -551,6 +551,10 @@
 		F7BEA9BF1695415B0010A84D /* timeIcnOverlayBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = F7BEA9BD1695415B0010A84D /* timeIcnOverlayBlack.png */; };
 		F7BEA9C01695415B0010A84D /* timeIcnOverlayBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7BEA9BE1695415B0010A84D /* timeIcnOverlayBlack@2x.png */; };
 		F7BEAA0116969AEF0010A84D /* MMTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7BEAA0016969AEF0010A84D /* MMTextFieldCell.m */; };
+		F7D34FDE16B63CFC00AE1CF2 /* liveFeedPlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = F7D34FDC16B63CFC00AE1CF2 /* liveFeedPlaceholder.png */; };
+		F7D34FDF16B63CFC00AE1CF2 /* liveFeedPlaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7D34FDD16B63CFC00AE1CF2 /* liveFeedPlaceholder@2x.png */; };
+		F7D34FE316B6450600AE1CF2 /* playBtnOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = F7D34FE116B6450600AE1CF2 /* playBtnOverlay.png */; };
+		F7D34FE416B6450600AE1CF2 /* playBtnOverlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7D34FE216B6450600AE1CF2 /* playBtnOverlay@2x.png */; };
 		F7D41BA816234B4E00DBA87D /* MMTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D41BA616234B4E00DBA87D /* MMTabBarViewController.m */; };
 		F7D41BA916234B4E00DBA87D /* MMTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7D41BA716234B4E00DBA87D /* MMTabBarViewController.xib */; };
 		F7DB5531165561D900FC8AA9 /* deselectedRectRed.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DB552F165561D900FC8AA9 /* deselectedRectRed.png */; };
@@ -1267,6 +1271,10 @@
 		F7BEA9BE1695415B0010A84D /* timeIcnOverlayBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeIcnOverlayBlack@2x.png"; sourceTree = "<group>"; };
 		F7BEA9FF16969AEF0010A84D /* MMTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTextFieldCell.h; sourceTree = "<group>"; };
 		F7BEAA0016969AEF0010A84D /* MMTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTextFieldCell.m; sourceTree = "<group>"; };
+		F7D34FDC16B63CFC00AE1CF2 /* liveFeedPlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = liveFeedPlaceholder.png; sourceTree = "<group>"; };
+		F7D34FDD16B63CFC00AE1CF2 /* liveFeedPlaceholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "liveFeedPlaceholder@2x.png"; sourceTree = "<group>"; };
+		F7D34FE116B6450600AE1CF2 /* playBtnOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playBtnOverlay.png; sourceTree = "<group>"; };
+		F7D34FE216B6450600AE1CF2 /* playBtnOverlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playBtnOverlay@2x.png"; sourceTree = "<group>"; };
 		F7D41BA516234B4E00DBA87D /* MMTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTabBarViewController.h; sourceTree = "<group>"; };
 		F7D41BA616234B4E00DBA87D /* MMTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTabBarViewController.m; sourceTree = "<group>"; };
 		F7D41BA716234B4E00DBA87D /* MMTabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMTabBarViewController.xib; sourceTree = "<group>"; };
@@ -2223,6 +2231,10 @@
 		F738D0D61654CF9B005FC693 /* location-full slices */ = {
 			isa = PBXGroup;
 			children = (
+				F7D34FE116B6450600AE1CF2 /* playBtnOverlay.png */,
+				F7D34FE216B6450600AE1CF2 /* playBtnOverlay@2x.png */,
+				F7D34FDC16B63CFC00AE1CF2 /* liveFeedPlaceholder.png */,
+				F7D34FDD16B63CFC00AE1CF2 /* liveFeedPlaceholder@2x.png */,
 				F7DB5534165565C100FC8AA9 /* bookmark.png */,
 				F7DB5535165565C100FC8AA9 /* bookmark@2x.png */,
 				F7DB5538165565E000FC8AA9 /* alarmClock.png */,
@@ -3328,6 +3340,10 @@
 				1A458C5D16A8797300118699 /* Default-568h@2x.png in Resources */,
 				1A458C5E16A8797300118699 /* Default.png in Resources */,
 				1A458C5F16A8797300118699 /* Default@2x.png in Resources */,
+				F7D34FDE16B63CFC00AE1CF2 /* liveFeedPlaceholder.png in Resources */,
+				F7D34FDF16B63CFC00AE1CF2 /* liveFeedPlaceholder@2x.png in Resources */,
+				F7D34FE316B6450600AE1CF2 /* playBtnOverlay.png in Resources */,
+				F7D34FE416B6450600AE1CF2 /* playBtnOverlay@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

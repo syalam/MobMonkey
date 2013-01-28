@@ -59,11 +59,22 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
                 success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
+    NSString *urlString = @"";
+    for (NSString *key in params) {
+        if (urlString.length > 0) {
+            urlString = [NSString stringWithFormat:@"%@&%@=%@", urlString, key, [params valueForKey:key]];
+        }
+        else {
+            urlString = [NSString stringWithFormat:@"signin?%@=%@", key, [params valueForKey:key]];
+        }
+    }
+    
+    
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient setDefaultHeader:@"MobMonkey-user" value:email];
     [httpClient setDefaultHeader:@"MobMonkey-auth" value:password];
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"]];
-    [httpClient postPath:@"signin" parameters:params success:success failure:failure];
+    [httpClient postPath:urlString parameters:nil success:success failure:failure];
 }
 
 + (void)oauthSignIn:(NSDictionary*)params
@@ -249,6 +260,16 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
                             locationID, @"locationId",
                             providerID, @"providerId", nil];
+    NSString *urlParams = @"";
+    for (NSString *key in params) {
+        if (urlParams.length > 0) {
+            urlParams = [NSString stringWithFormat:@"%@&%@=%@", urlParams, key, [params valueForKey:key]];
+        }
+        else {
+            urlParams = [NSString stringWithFormat:@"bookmarks/?%@=%@", key, [params valueForKey:key]];
+        }
+    }
+
     [httpClient deletePath:@"bookmarks" parameters:params success:success failure:failure];
 }
 

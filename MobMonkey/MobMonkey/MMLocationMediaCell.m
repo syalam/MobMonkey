@@ -14,10 +14,12 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        UIImage *playButtonImage = [UIImage imageNamed:@"playBtnOverlay"];
         // Initialization code
         _timeStampLabel = [[UILabel alloc]initWithFrame:CGRectMake(231, 42, 72, 16)];
         [_timeStampLabel setTextAlignment:NSTextAlignmentRight];
         _locationImageView = [[TCImageView alloc]initWithFrame:CGRectMake(10, 29, 300, 235)];
+        _playButtonImageView = [[UIImageView alloc]initWithFrame:CGRectMake(_locationImageView.frame.origin.x + _locationImageView.frame.size.width / 2 - playButtonImage.size.width/2, _locationImageView.frame.origin.y + _locationImageView.frame.size.height / 2 - playButtonImage.size.height/2, playButtonImage.size.height, playButtonImage.size.height)];
         
         _imageButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_imageButton setFrame:_locationImageView.frame];
@@ -48,8 +50,12 @@
         [toolbarImageView setImage:[UIImage imageNamed:@"ThumbsBG~iphone"]];
         [toolbarImageView setHidden:YES];
         
+        [_playButtonImageView setImage:playButtonImage];
+        [_playButtonImageView setHidden:YES];
+        
         [self.contentView addSubview:backgroundView];
         [self.contentView addSubview:_locationImageView];
+        [self.contentView addSubview:_playButtonImageView];
         [self.contentView addSubview:_imageButton];
         [self.contentView addSubview:_clockImageView];
         [self.contentView addSubview:_timeStampLabel];

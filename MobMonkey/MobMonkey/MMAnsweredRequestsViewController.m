@@ -123,6 +123,12 @@
                 [cell.locationImageView reloadWithUrl:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
             }
         }
+        else if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 3) {
+            if (mediaArray.count > 0) {
+                cell.locationImageView.image = [UIImage imageNamed:@"liveFeedPlaceholder"];
+                cell.playButtonImageView.hidden = NO;
+            }
+        }
         else if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 4) {
             if (mediaArray.count > 0) {
                 if (![[[mediaArray objectAtIndex:0]valueForKey:@"text"]isKindOfClass:[NSNull class]]) {
@@ -137,9 +143,19 @@
                     
                     cell.responseLabel.numberOfLines = 3;
                     cell.responseLabel.lineBreakMode = NSLineBreakByWordWrapping;
+                 
+                    CGFloat adjustmentFactor = 100;
                     
                     [cell.requestLabel sizeToFit];
+                    [cell.responseLabel setFrame:CGRectMake(cell.responseLabel.frame.origin.x, cell.requestLabel.frame.origin.y + cell.requestLabel.frame.size.height + 5, cell.responseLabel.frame.size.height, cell.responseLabel.frame.size.height)];
+                    
                     [cell.responseLabel sizeToFit];
+                    
+                    [cell.whiteBackgroundView setFrame:CGRectMake(cell.whiteBackgroundView.frame.origin.x, cell.whiteBackgroundView.frame.origin.y, cell.whiteBackgroundView.frame.size.width, cell.whiteBackgroundView.frame.size.height - adjustmentFactor)];
+                    
+                    [cell.acceptButton setFrame:CGRectMake(cell.acceptButton.frame.origin.x, cell.acceptButton.frame.origin.y - adjustmentFactor, cell.acceptButton.frame.size.width, cell.acceptButton.frame.size.height)];
+                    [cell.rejectButton setFrame:CGRectMake(cell.rejectButton.frame.origin.x, cell.rejectButton.frame.origin.y - adjustmentFactor, cell.rejectButton.frame.size.width, cell.rejectButton.frame.size.height)];
+                    [cell.moreButton setFrame:CGRectMake(cell.moreButton.frame.origin.x, cell.moreButton.frame.origin.y - adjustmentFactor, cell.moreButton.frame.size.width, cell.moreButton.frame.size.height)];
                 }
             }
         }
@@ -147,6 +163,7 @@
             dispatch_async(backgroundQueue, ^(void) {
                 cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row cell:cell];
             });
+            cell.playButtonImageView.hidden = NO;
         }
     }
     
@@ -155,6 +172,7 @@
     cell.imageButton.tag = indexPath.row;
     cell.acceptButton.tag = indexPath.row;
     cell.rejectButton.tag = indexPath.row;
+    
     
     return cell;
 }
@@ -167,7 +185,12 @@
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 370;
+    if ([[[_contentList objectAtIndex:indexPath.row]valueForKey:@"mediaType"]intValue] == 4) {
+        return 270;
+    }
+    else {
+        return 370;
+    }
 }
 
 #pragma mark - UINavBar Action Methods

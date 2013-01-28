@@ -26,6 +26,7 @@
     dispatch_queue_t backgroundQueue;
     
     IBOutlet UIImageView *liveStreamImage;
+    IBOutlet UIImageView *playButtonImageView;
 }
 
 @property (nonatomic, retain) NSMutableDictionary* contentList;
