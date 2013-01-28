@@ -206,7 +206,7 @@
     }
     [params setValue:self.searchBar.text forKey:@"name"];
     
-    if ([self.searchBar.text length] < 1) {
+    //if ([self.searchBar.text length] < 1) {
         if ([prefs valueForKey:@"savedSegmentValue"]) {
             [params setObject:[prefs valueForKey:@"savedSegmentValue"] forKey:@"radiusInYards"];
         }
@@ -220,10 +220,12 @@
         
         [params setValue:[NSNumber numberWithDouble:latitude] forKey:@"latitude"];
         [params setValue:[NSNumber numberWithDouble:longitude] forKey:@"longitude"];
-    }
-    else {
+    //}
+    /*else {
         [params setValue:[NSNumber numberWithInt:0] forKey:@"radiusInYards"];
-    }
+        [params setValue:@"" forKey:@"latitude"];
+        [params setValue:@"" forKey:@"longitude"];
+    }*/
     
     NSString *mediaType;
     if ([[NSUserDefaults standardUserDefaults]boolForKey:@"liveFeedFilter"]) {
