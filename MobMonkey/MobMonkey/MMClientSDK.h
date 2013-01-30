@@ -10,7 +10,10 @@
 #import <Twitter/Twitter.h>
 #import <FacebookSDK/FacebookSDK.h>
 
-@interface MMClientSDK : NSObject
+@interface MMClientSDK : NSObject <UIActionSheetDelegate> {
+    UIViewController *presentingVC;
+    NSDictionary *storyToPublishToSocialNetworkDictionary;
+}
 
 + (MMClientSDK *)sharedSDK;
 
@@ -28,6 +31,7 @@
 - (void)shareViaFacebook:(NSDictionary*)params presentingViewController:(UIViewController*)presentingViewController;
 - (void)signInViaFacebook:(NSDictionary*)params presentingViewController:(UIViewController*)presentingViewController;
 - (void)signInViaTwitter:(ACAccount*)account presentingViewController:(UIViewController*)presentingViewController;
+- (void)showMoreActionSheet:(UIViewController*)presentingViewController showFromTabBar:(BOOL)showFromTabBar paramsForPublishingToSocialNetwork:(NSDictionary*)paramsForPublishingToSocialNetwork;
 
 
 @end

@@ -317,4 +317,95 @@
     }];
 }
 
+- (void)showMoreActionSheet:(UIViewController*)presentingViewController showFromTabBar:(BOOL)showFromTabBar paramsForPublishingToSocialNetwork:(NSDictionary*)paramsForPublishingToSocialNetwork {
+    presentingVC = presentingViewController;
+    storyToPublishToSocialNetworkDictionary = paramsForPublishingToSocialNetwork;
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    [actionSheet addButtonWithTitle:@"Save to Camera Roll"];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    if ([prefs boolForKey:@"facebookEnabled"]) {
+        [actionSheet addButtonWithTitle:@"Share on Facebook"];
+    }
+    if ([prefs boolForKey:@"twitterEnabled"]) {
+        [actionSheet addButtonWithTitle:@"Share on Twitter"];
+    }
+    [actionSheet addButtonWithTitle:@"Flag for Review"];
+    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
+    if (showFromTabBar) {
+        [actionSheet showFromTabBar:presentingViewController.tabBarController.tabBar];
+    }
+    else {
+        [actionSheet showInView:presentingViewController.view];
+    }
+}
+
+#pragma mark - Action Sheet Delegate Methods
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([buttonTitle isEqualToString:@"Save to Camera Roll"]) {
+        if ([storyToPublishToSocialNetworkDictionary valueForKey:@"image"]) {
+            UIImageWriteToSavedPhotosAlbum([storyToPublishToSocialNetworkDictionary valueForKey:@"image"], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        }
+        else {
+            
+        }
+    }
+    if ([buttonTitle isEqualToString:@"Share on Facebook"]) {
+        [self shareViaFacebook:storyToPublishToSocialNetworkDictionary presentingViewController:presentingVC];
+    }
+    else if ([buttonTitle isEqualToString:@"Share on Twitter"]) {
+        [self shareViaTwitter:storyToPublishToSocialNetworkDictionary presentingViewController:presentingVC];
+    }
+    else if ([buttonTitle isEqualToString:@"Flag for Review"]) {
+        
+    }
+    
+}
+
+#pragma mark - Helper Methods
+- (void)saveVideoToCameraRoll {
+    NSString *stringURL = [storyToPublishToSocialNetworkDictionary valueForKey:@"url"];
+    NSURL  *url = [NSURL URLWithString:stringURL];
+    NSData *urlData = [NSData dataWithContentsOfURL:url];
+    if ( urlData )
+    {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        
+        NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"filename.mp4"];
+        [urlData writeToFile:filePath atomically:YES];
+        
+        UISaveVideoAtPathToSavedPhotosAlbum(filePath, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+    }
+}
+
+#pragma mark - Save To Camera Roll Completion Methods
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    // Was there an error?
+    if (error != NULL)
+    {
+        [SVProgressHUD showErrorWithStatus:@"Unable to save. Please try again"];
+        
+    }
+    else  // No errors
+    {
+        // Show message image successfully saved
+        [SVProgressHUD showSuccessWithStatus:@"Saved"];
+    }
+}
+
+- (void)video: (NSString *) videoPath didFinishSavingWithError: (NSError *) error contextInfo: (void *) contextInfo {
+    if (error != NULL)
+    {
+        [SVProgressHUD showErrorWithStatus:@"Unable to save. Please try again"];
+        
+    }
+    else  // No errors
+    {
+        // Show message image successfully saved
+        [SVProgressHUD showSuccessWithStatus:@"Saved"];
+    }
+}
+
 @end

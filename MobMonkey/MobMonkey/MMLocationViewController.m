@@ -304,7 +304,24 @@
 }
 
 - (IBAction)shareButtonTapped:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    BOOL isVideo = NO;
+    [params setValue:_locationNameLabel.text forKey:@"initialText"];
+    if (mediaArray.count > 0) {
+        if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"video"]) {
+            [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
+            isVideo = YES;
+        }
+        else {
+            [params setValue:_locationLatestImageView.image forKey:@"image"];
+        }
+    }
+    if (![[_contentList valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[_contentList valueForKey:@"webSite"]isEqualToString:@""] && !isVideo) {
+        [params setValue:[_contentList valueForKey:@"webSite"] forKey:@"url"];
+    }
+    
+    [[MMClientSDK sharedSDK]showMoreActionSheet:self showFromTabBar:YES paramsForPublishingToSocialNetwork:params];
+    /*UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
 
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     if ([prefs boolForKey:@"facebookEnabled"]) {
@@ -315,7 +332,7 @@
     }
     [actionSheet addButtonWithTitle:@"Flag for Review"];
     actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
-    [actionSheet showFromTabBar:self.tabBarController.tabBar];
+    [actionSheet showFromTabBar:self.tabBarController.tabBar];*/
 }
 
 - (void)enlargeButtonTapped:(id)sender {
