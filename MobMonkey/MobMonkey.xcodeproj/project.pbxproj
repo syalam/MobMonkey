@@ -1689,9 +1689,6 @@
 				C75171EE1679FE4B009B4DE8 /* MMMapFilterViewController.h */,
 				C75171EF1679FE4B009B4DE8 /* MMMapFilterViewController.m */,
 				C75171F01679FE4B009B4DE8 /* MMMapFilterViewController.xib */,
-				C75171F3167A05FD009B4DE8 /* MMAddLocationViewController.h */,
-				C75171F4167A05FD009B4DE8 /* MMAddLocationViewController.m */,
-				C75171F5167A05FD009B4DE8 /* MMAddLocationViewController.xib */,
 			);
 			name = "Map Filter";
 			sourceTree = "<group>";
@@ -1964,6 +1961,7 @@
 				F77BD34B15F52AA800E76CA5 /* Map View */,
 				F74517FB15F918600049277C /* Notification Settings */,
 				F734A62E15F1482F0090E85A /* Result Cell */,
+				F773DB6C16B907A400EF9EA4 /* Add a location */,
 				F79B4FA015F3EE470004BE01 /* Search */,
 				F734A63415F16B7D0090E85A /* Settings */,
 				C75171D41676076D009B4DE8 /* Subscription */,
@@ -2574,6 +2572,16 @@
 				F773DB6916B8F9FA00EF9EA4 /* MMTermsOfUseViewController.xib */,
 			);
 			name = "Terms of Use";
+			sourceTree = "<group>";
+		};
+		F773DB6C16B907A400EF9EA4 /* Add a location */ = {
+			isa = PBXGroup;
+			children = (
+				C75171F3167A05FD009B4DE8 /* MMAddLocationViewController.h */,
+				C75171F4167A05FD009B4DE8 /* MMAddLocationViewController.m */,
+				C75171F5167A05FD009B4DE8 /* MMAddLocationViewController.xib */,
+			);
+			name = "Add a location";
 			sourceTree = "<group>";
 		};
 		F77BD33815F523E800E76CA5 /* Search Filter */ = {

@@ -19,7 +19,6 @@
 
 @interface MMMapFilterViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate, MMAddLocationDelegate> {
     MKMapView *mapView;
-    CLLocationManager *locationManager;
     NSArray *contentList;
     NSDictionary *category;
     

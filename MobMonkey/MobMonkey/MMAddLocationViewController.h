@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "MMCategoryViewController.h"
 
 @protocol MMAddLocationDelegate
 
@@ -16,22 +17,23 @@
 
 @end
 
-@interface MMAddLocationViewController : UITableViewController <UITextFieldDelegate>
+@interface MMAddLocationViewController : UITableViewController <UITextFieldDelegate, MMCategoryDelegate>
 {
-  UITextField *nameTextField;
-  NSDictionary *addressDictionary;
-  
-  UITextField *streetTextField;
-  UITextField *cityTextField;
-  UITextField *stateTextField;
-  UITextField *zipTextField;
-  
-  UITextField *phoneNumberTextField;
-  CLLocation *location;
-  
-  NSDictionary *category;
-  
-  CLGeocoder *geocoder;
+    UITextField *nameTextField;
+    UITextField *categoryTextField;
+    NSDictionary *addressDictionary;
+    UITextField *streetTextField;
+    UITextField *cityTextField;
+    UITextField *stateTextField;
+    UITextField *zipTextField;
+    
+    
+    UITextField *phoneNumberTextField;
+    CLLocation *location;
+    
+    NSDictionary *categories;
+    
+    CLGeocoder *geocoder;
 }
 
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;

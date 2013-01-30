@@ -71,13 +71,19 @@
 {
     [super viewDidLoad];
     
-    [mapView setShowsUserLocation:YES];
-    
-    locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate = self;
-    [locationManager startMonitoringSignificantLocationChanges];
-    
     [mapView setUserInteractionEnabled:YES];
+    
+    [mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
+    [mapView setShowsUserLocation:YES];
+    CLLocationCoordinate2D coordinate;
+    if (mapView.userLocation.coordinate.latitude > .000001) {
+        coordinate = mapView.userLocation.coordinate;
+    }
+    MKCoordinateRegion region;
+    region.center = coordinate;
+    region.span.latitudeDelta = 0.03;
+    region.span.longitudeDelta = 0.03;
+    [mapView setRegion:region animated:YES];
     
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
     [backNavbutton addTarget:self action:@selector(backButtonTapped:)

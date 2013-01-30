@@ -19,7 +19,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"My Interests";
     SelectedInterestsKey = [NSString stringWithFormat:@"%@ selectedInterests", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -28,7 +27,7 @@
     if (![userDefaults valueForKey:SelectedInterestsKey]) {
         [userDefaults setValue:[[NSMutableDictionary alloc] initWithCapacity:1] forKey:SelectedInterestsKey];
     }
-    selectedItemsDictionary = [[userDefaults valueForKey:SelectedInterestsKey] mutableCopy];
+    
     
     //Add custom back button to the nav bar
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
@@ -37,7 +36,32 @@
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    UIImage *selectAllButtonBG = [[UIImage imageNamed:@"navBarButtonBlank"]
+    if (_addingLocation) {
+        if (_selectedItems) {
+            selectedItemsDictionary = [_selectedItems mutableCopy];
+        }
+        else {
+            selectedItemsDictionary = [[NSMutableDictionary alloc]init];
+        }
+        UIImage *doneButtonImage = [[UIImage imageNamed:@"navBarButtonBlank"]
+                                      resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
+        UIButton* doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        doneButton.bounds = CGRectMake(0, 0, 80, 31);
+        [doneButton setBackgroundImage:doneButtonImage forState:UIControlStateNormal];
+        [doneButton setTitle:@"Done" forState:UIControlStateNormal];
+        [doneButton.titleLabel setTextColor:[UIColor whiteColor]];
+        [doneButton.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
+        [doneButton.titleLabel setShadowColor:[UIColor darkGrayColor]];
+        [doneButton.titleLabel setShadowOffset:CGSizeMake(0, -1)];
+        [doneButton addTarget:self action:@selector(doneButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc] initWithCustomView:doneButton];
+        self.navigationItem.rightBarButtonItem = doneBarButton;
+    }
+    else {
+        
+    }
+    
+    /*UIImage *selectAllButtonBG = [[UIImage imageNamed:@"navBarButtonBlank"]
                                   resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
     selectAllButton = [UIButton buttonWithType:UIButtonTypeCustom];
     selectAllButton.bounds = CGRectMake(0, 0, 80, 31);
@@ -49,9 +73,11 @@
     [selectAllButton.titleLabel setShadowOffset:CGSizeMake(0, -1)];
     [selectAllButton addTarget:self action:@selector(toggleSelectAll:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *selectAllBarButton = [[UIBarButtonItem alloc] initWithCustomView:selectAllButton];
-    self.navigationItem.rightBarButtonItem = selectAllBarButton;
+    self.navigationItem.rightBarButtonItem = selectAllBarButton;*/
     
     allCategoriesArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"allCategories"];
+    
+    NSLog(@"%@", selectedItemsDictionary);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -96,6 +122,7 @@
 
 #pragma mark - Button taps
 - (void)backButtonTapped:(id)sender {
+    [_delegate categoriesSelected:selectedItemsDictionary];
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)toggleSelectAll:(id)sender
@@ -167,6 +194,10 @@
     [[NSUserDefaults standardUserDefaults]synchronize];
     UIBarButtonItem *selectAllBarButton = [[UIBarButtonItem alloc] initWithCustomView:selectAllButton];
     self.navigationItem.rightBarButtonItem = selectAllBarButton;
+}
+
+- (void)doneButtonTapped:(id)sender {
+    [_delegate categoriesSelected:selectedItemsDictionary];
 }
 
 #pragma mark - Table view data source
@@ -243,6 +274,7 @@
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents CONTAINS %@", categoryId];
         NSArray *subCategories = [allCategoriesArray filteredArrayUsingPredicate:predicate];
 
+        NSLog(@"%@", selectedItemsDictionary);
         if ([selectedItemsDictionary valueForKey:[NSString stringWithFormat:@"%@", categoryName]]) {
             [selectedItemsDictionary setValue:nil forKey:[NSString stringWithFormat:@"%@", categoryName]];
             if (subCategories.count == 0) {
@@ -259,22 +291,31 @@
                 }
                 
             }
-            [[NSUserDefaults standardUserDefaults] setValue:selectedItemsDictionary forKey:SelectedInterestsKey];
-            [[NSUserDefaults standardUserDefaults]synchronize];
-
+            if (!_addingLocation) {
+                [[NSUserDefaults standardUserDefaults] setValue:selectedItemsDictionary forKey:SelectedInterestsKey];
+                [[NSUserDefaults standardUserDefaults]synchronize];
+            }
         }
         else {
             if (subCategories.count == 0) {
                 [selectedItemsDictionary setValue:[category[@"categoryId"] description] forKey:[NSString stringWithFormat:@"%@", categoryName]];
                 [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
-                [[NSUserDefaults standardUserDefaults] setValue:selectedItemsDictionary forKey:SelectedInterestsKey];
-                [[NSUserDefaults standardUserDefaults]synchronize];
                 
+                if (!_addingLocation) {
+                    [[NSUserDefaults standardUserDefaults] setValue:selectedItemsDictionary forKey:SelectedInterestsKey];
+                    [[NSUserDefaults standardUserDefaults]synchronize];
+                }
             }
             else {
                 MMCategoryViewController *mmcvc = [[MMCategoryViewController alloc]initWithNibName:@"MMCategoryViewController" bundle:nil];
                 NSDictionary *category = [_contentList objectAtIndex:indexPath.row];
                 mmcvc.parentId = category[@"categoryId"];
+                mmcvc.title = self.title;
+                if (_addingLocation) {
+                    mmcvc.addingLocation = YES;
+                    mmcvc.selectedItems = selectedItemsDictionary;
+                    mmcvc.delegate = self;
+                }
                 [self.navigationController pushViewController:mmcvc animated:YES];
             }
             
@@ -360,6 +401,11 @@
         cellIconImage = [UIImage imageNamed:@"beachesIcon"];
     }
     return cellIconImage;
+}
+
+#pragma mark - MMCategoryViewController delegate 
+- (void)categoriesSelected:(NSMutableDictionary*)selectedCategories {
+    selectedItemsDictionary = [selectedCategories mutableCopy];
 }
 
 

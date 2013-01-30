@@ -9,7 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "MMAPI.h"
 
-@interface MMCategoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMAPIDelegate> {
+@protocol MMCategoryDelegate
+
+@optional
+- (void)categoriesSelected:(NSMutableDictionary*)selectedCategories;
+
+@end
+
+@interface MMCategoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMAPIDelegate, MMCategoryDelegate> {
     NSMutableDictionary *selectedItemsDictionary;
     NSArray *categoriesArray;
     NSArray *allCategoriesArray;
@@ -20,6 +27,10 @@
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray *contentList;
+@property (nonatomic, retain) NSMutableDictionary *selectedItems;
 @property (nonatomic, retain) NSString *parentId;
+@property (nonatomic) BOOL addingLocation;
+
+@property (nonatomic, assign)id<MMCategoryDelegate>delegate;
 
 @end
