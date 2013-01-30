@@ -49,6 +49,7 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{10, 0}, {300, 37}}</string>
 										<reference key="NSSuperview" ref="355916690"/>
+										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -66,7 +67,7 @@
 										</object>
 										<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">signInBtn.png</string>
+											<string key="NSResourceName">makeRequestButtonBlank.png</string>
 										</object>
 										<object class="IBUIFontDescription" key="IBUIFontDescription">
 											<int key="type">2</int>
@@ -247,8 +248,8 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">signInBtn.png</string>
-			<string key="NS.object.0">{298, 36}</string>
+			<string key="NS.key.0">makeRequestButtonBlank.png</string>
+			<string key="NS.object.0">{307, 61}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">1930</string>
 	</data>

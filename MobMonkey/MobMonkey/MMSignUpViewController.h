@@ -14,11 +14,16 @@
 
 @interface MMSignUpViewController : UITableViewController <UIActionSheetDelegate, UITextFieldDelegate> {
     int actionSheetCall;
+    IBOutlet UIButton *termsOfUseAcceptanceButton;
+    IBOutlet UIButton *termsOfUseButton;
+    BOOL termsOfUseAccepted;
 }
 
 - (IBAction)signUpButtonTapped:(id)sender;
 - (IBAction)facebookButtonTapped:(id)sender;
 - (IBAction)twitterButtonTapped:(id)sender;
+- (IBAction)termsOfUseAcceptanceButtonTapped:(id)sender;
+- (IBAction)termsOfUseButtonTapped:(id)sender;
 
 @property (nonatomic, weak) IBOutlet UIButton *signUpButton;
 @property (nonatomic, weak) IBOutlet UIButton *facebookButton;

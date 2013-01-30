@@ -228,6 +228,7 @@
     }];
 }
 -(void)rejectButtonTapped:(id)sender {
+    NSLog(@"%@", _contentList);
     NSArray *mediaArray = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"media"];
     
     if (mediaArray.count > 0) {

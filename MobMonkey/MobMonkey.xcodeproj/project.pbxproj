@@ -458,6 +458,10 @@
 		F7716D82161D7A5500578A90 /* BackBtn@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716D80161D7A5500578A90 /* BackBtn@2x~iphone.png */; };
 		F7716D83161D7A5500578A90 /* BackBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F7716D81161D7A5500578A90 /* BackBtn~iphone.png */; };
 		F7716DCD161E1A8600578A90 /* MMUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716DCC161E1A8500578A90 /* MMUtilities.m */; };
+		F773DB6316B8F2AD00EF9EA4 /* checkBoxEmpty.png in Resources */ = {isa = PBXBuildFile; fileRef = F773DB6116B8F2AD00EF9EA4 /* checkBoxEmpty.png */; };
+		F773DB6416B8F2AD00EF9EA4 /* checkBoxEmpty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F773DB6216B8F2AD00EF9EA4 /* checkBoxEmpty@2x.png */; };
+		F773DB6A16B8F9FA00EF9EA4 /* MMTermsOfUseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F773DB6816B8F9FA00EF9EA4 /* MMTermsOfUseViewController.m */; };
+		F773DB6B16B8F9FA00EF9EA4 /* MMTermsOfUseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F773DB6916B8F9FA00EF9EA4 /* MMTermsOfUseViewController.xib */; };
 		F77966131691EF4F0059FA0A /* TwitterAccounts.m in Sources */ = {isa = PBXBuildFile; fileRef = F77966121691EF4F0059FA0A /* TwitterAccounts.m */; };
 		F77BD34715F52AA100E76CA5 /* MMMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD34515F52AA100E76CA5 /* MMMapViewController.m */; };
 		F77BD34815F52AA100E76CA5 /* MMMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77BD34515F52AA100E76CA5 /* MMMapViewController.m */; };
@@ -1168,6 +1172,11 @@
 		F7716D81161D7A5500578A90 /* BackBtn~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackBtn~iphone.png"; sourceTree = "<group>"; };
 		F7716DCB161E1A8500578A90 /* MMUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMUtilities.h; sourceTree = "<group>"; };
 		F7716DCC161E1A8500578A90 /* MMUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMUtilities.m; sourceTree = "<group>"; };
+		F773DB6116B8F2AD00EF9EA4 /* checkBoxEmpty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBoxEmpty.png; sourceTree = "<group>"; };
+		F773DB6216B8F2AD00EF9EA4 /* checkBoxEmpty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkBoxEmpty@2x.png"; sourceTree = "<group>"; };
+		F773DB6716B8F9FA00EF9EA4 /* MMTermsOfUseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTermsOfUseViewController.h; sourceTree = "<group>"; };
+		F773DB6816B8F9FA00EF9EA4 /* MMTermsOfUseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTermsOfUseViewController.m; sourceTree = "<group>"; };
+		F773DB6916B8F9FA00EF9EA4 /* MMTermsOfUseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMTermsOfUseViewController.xib; sourceTree = "<group>"; };
 		F77966111691EF4F0059FA0A /* TwitterAccounts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterAccounts.h; sourceTree = "<group>"; };
 		F77966121691EF4F0059FA0A /* TwitterAccounts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterAccounts.m; sourceTree = "<group>"; };
 		F77BD34515F52AA100E76CA5 /* MMMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMapViewController.m; sourceTree = "<group>"; };
@@ -2156,6 +2165,8 @@
 				F7B012E4165606CC00BCAC26 /* App Icons */,
 				F7DB55481655676B00FC8AA9 /* separator-gradient.png */,
 				F7DB55491655676B00FC8AA9 /* separator-gradient@2x.png */,
+				F773DB6116B8F2AD00EF9EA4 /* checkBoxEmpty.png */,
+				F773DB6216B8F2AD00EF9EA4 /* checkBoxEmpty@2x.png */,
 				1A6784AB1640C49900A45AC5 /* CloseButton.png */,
 				1A6784AC1640C49900A45AC5 /* CloseButton@2x.png */,
 				37E52338163F3E97003AC7E5 /* peopleIcon.png */,
@@ -2462,6 +2473,7 @@
 			children = (
 				F747F16515F47439002E5567 /* Sign in */,
 				F747F16615F47445002E5567 /* Sign up */,
+				F773DB6616B8F9E000EF9EA4 /* Terms of Use */,
 			);
 			name = Authentication;
 			sourceTree = "<group>";
@@ -2552,6 +2564,16 @@
 				F7716DCC161E1A8500578A90 /* MMUtilities.m */,
 			);
 			name = "Utility Class";
+			sourceTree = "<group>";
+		};
+		F773DB6616B8F9E000EF9EA4 /* Terms of Use */ = {
+			isa = PBXGroup;
+			children = (
+				F773DB6716B8F9FA00EF9EA4 /* MMTermsOfUseViewController.h */,
+				F773DB6816B8F9FA00EF9EA4 /* MMTermsOfUseViewController.m */,
+				F773DB6916B8F9FA00EF9EA4 /* MMTermsOfUseViewController.xib */,
+			);
+			name = "Terms of Use";
 			sourceTree = "<group>";
 		};
 		F77BD33815F523E800E76CA5 /* Search Filter */ = {
@@ -3344,6 +3366,9 @@
 				F7D34FDF16B63CFC00AE1CF2 /* liveFeedPlaceholder@2x.png in Resources */,
 				F7D34FE316B6450600AE1CF2 /* playBtnOverlay.png in Resources */,
 				F7D34FE416B6450600AE1CF2 /* playBtnOverlay@2x.png in Resources */,
+				F773DB6316B8F2AD00EF9EA4 /* checkBoxEmpty.png in Resources */,
+				F773DB6416B8F2AD00EF9EA4 /* checkBoxEmpty@2x.png in Resources */,
+				F773DB6B16B8F9FA00EF9EA4 /* MMTermsOfUseViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3479,6 +3504,7 @@
 				F7BEAA0116969AEF0010A84D /* MMTextFieldCell.m in Sources */,
 				F7038689169D5BD6005724E2 /* MMTrendingCell.m in Sources */,
 				F7AAF5F5169E9ABD00760B4D /* MMTrendingDetailViewController.m in Sources */,
+				F773DB6A16B8F9FA00EF9EA4 /* MMTermsOfUseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

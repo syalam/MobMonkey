@@ -12,6 +12,7 @@
 #import "SVProgressHUD.h"
 #import "AFHTTPRequestOperation.h"
 #import "NSDate+JavaEpochTime.h"
+#import "MMTermsOfUseViewController.h"
 
 @interface MMSignUpViewController () {
     UIActionSheet *birthdayActionSheet;
@@ -92,6 +93,8 @@
         [_signUpButton setHidden:YES];
         [_facebookButton setHidden:YES];
         [_twitterButton setHidden:YES];
+        [termsOfUseAcceptanceButton setHidden:YES];
+        [termsOfUseButton setHidden:YES];
         
         [MMAPI getUserOnSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"USER: %@", [responseObject description]);
@@ -134,6 +137,8 @@
         [_facebookButton setHidden:YES];
         [_twitterButton setHidden:YES];
     }
+    
+    termsOfUseAccepted =  NO;
 
 }
 
@@ -214,43 +219,56 @@
 }
 
 - (IBAction)facebookButtonTapped:(id)sender {
-    [[MMClientSDK sharedSDK]signInViaFacebook:nil presentingViewController:self];
+    if (termsOfUseAccepted) {
+        [[MMClientSDK sharedSDK]signInViaFacebook:nil presentingViewController:self];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Terms of use must be accepted before signing up" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    
 }
 
 - (IBAction)twitterButtonTapped:(id)sender {
-    [SVProgressHUD showWithStatus:@"Loading Twitter Accounts"];
-    ACAccountStore* accountStore = [[ACAccountStore alloc] init];
-    ACAccountType *accountTypeTwitter = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    [accountStore requestAccessToAccountsWithType:accountTypeTwitter options:nil completion:^(BOOL granted, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD dismiss];
-            NSLog(@"%@", error);
-            if (granted) {
-                _twitterAccounts = [accountStore accountsWithAccountType:accountTypeTwitter];
-                if (_twitterAccounts.count > 0) {
-                    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Twitter Accounts on This Device" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
-                    for (NSInteger i = 0; i < _twitterAccounts.count; i++) {
-                        ACAccount *account = [_twitterAccounts objectAtIndex:i];
-                        [actionSheet addButtonWithTitle:account.username];
+    if (termsOfUseAccepted) {
+        [SVProgressHUD showWithStatus:@"Loading Twitter Accounts"];
+        ACAccountStore* accountStore = [[ACAccountStore alloc] init];
+        ACAccountType *accountTypeTwitter = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+        [accountStore requestAccessToAccountsWithType:accountTypeTwitter options:nil completion:^(BOOL granted, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+                NSLog(@"%@", error);
+                if (granted) {
+                    _twitterAccounts = [accountStore accountsWithAccountType:accountTypeTwitter];
+                    if (_twitterAccounts.count > 0) {
+                        UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Twitter Accounts on This Device" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+                        for (NSInteger i = 0; i < _twitterAccounts.count; i++) {
+                            ACAccount *account = [_twitterAccounts objectAtIndex:i];
+                            [actionSheet addButtonWithTitle:account.username];
+                        }
+                        actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
+                        
+                        actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+                        actionSheetCall = twitterAccountsActionSheetCall;
+                        [actionSheet showInView:self.view];
                     }
-                    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
-                    
-                    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-                    actionSheetCall = twitterAccountsActionSheetCall;
-                    [actionSheet showInView:self.view];
+                    else {
+                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"There are no Twitter accounts enabled on this device. Please go into your iOS settings menu to add a Twitter account" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                        [alert show];
+                    }
                 }
                 else {
                     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"There are no Twitter accounts enabled on this device. Please go into your iOS settings menu to add a Twitter account" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                     [alert show];
                 }
-            }
-            else {
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"There are no Twitter accounts enabled on this device. Please go into your iOS settings menu to add a Twitter account" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-            }
-        });
-        
-    }];
+            });
+            
+        }];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Terms of use must be accepted before signing up" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
 }
 
 /*- (IBAction)saveButtonTapped:(id)sender {
@@ -268,6 +286,24 @@
 
 - (void)cancelDateButtonTapped:(id)sender {
     [birthdayActionSheet dismissWithClickedButtonIndex:[sender tag] animated:YES];
+}
+
+- (IBAction)termsOfUseAcceptanceButtonTapped:(id)sender {
+    if (termsOfUseAccepted) {
+        termsOfUseAccepted = NO;
+        [termsOfUseAcceptanceButton setBackgroundImage:[UIImage imageNamed:@"checkBoxEmpty"] forState:UIControlStateNormal];
+    }
+    else {
+        termsOfUseAccepted = YES;
+        [termsOfUseAcceptanceButton setBackgroundImage:[UIImage imageNamed:@"CloseButton"] forState:UIControlStateNormal];
+    }
+}
+
+- (IBAction)termsOfUseButtonTapped:(id)sender {
+    MMTermsOfUseViewController *termsOfUseViewController = [[MMTermsOfUseViewController alloc]initWithNibName:@"MMTermsOfUseViewController" bundle:nil];
+    termsOfUseViewController.title = @"Terms of use";
+    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:termsOfUseViewController];
+    [self.navigationController presentViewController:navC animated:YES completion:NULL];
 }
 
 #pragma mark - Helper Methods
@@ -446,11 +482,10 @@
     else if (!_genderTextField.text || [_genderTextField.text isEqualToString:@""]) {
         errorMessageText = @"Please enter your gender.";
     }
-    
-    if (errorMessageText) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:errorMessageText delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
+    else if (!termsOfUseAccepted) {
+        errorMessageText = @"Terms of use must be accepted before signing up";
     }
+    
     //convert birthday field into unix epoch time
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     // this is imporant - we set our input date format to match our input string
@@ -462,48 +497,55 @@
     
     NSTimeInterval birthdayUnixTime = birthday.timeIntervalSince1970;
     
-    [params setObject:_firstNameTextField.text forKey:@"firstName"];
-    [params setObject:_lastNameTextField.text forKey:@"lastName"];
-    [params setObject:_emailTextField.text forKey:@"eMailAddress"];
-    [params setObject:_passwordTextField.text forKey:@"password"];
-    [params setObject:[NSNumber numberWithDouble:birthdayUnixTime] forKey:@"birthday"];
+    [params setValue:_firstNameTextField.text forKey:@"firstName"];
+    [params setValue:_lastNameTextField.text forKey:@"lastName"];
+    [params setValue:_emailTextField.text forKey:@"eMailAddress"];
+    [params setValue:_passwordTextField.text forKey:@"password"];
+    [params setValue:[NSNumber numberWithDouble:birthdayUnixTime] forKey:@"birthday"];
     if ([_genderTextField.text isEqualToString:@"Male"]) {
-        [params setObject:[NSNumber numberWithInt:1] forKey:@"gender"];
+        [params setValue:[NSNumber numberWithInt:1] forKey:@"gender"];
     }
     else {
-        [params setObject:[NSNumber numberWithInt:0] forKey:@"gender"];
+        [params setValue:[NSNumber numberWithInt:0] forKey:@"gender"];
     }
     [params setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
     
+    [params setValue:@"iOS" forKey:@"deviceType"];
     
-    [params setObject:@"iOS" forKey:@"deviceType"];
-    [SVProgressHUD showWithStatus:@"Signing Up"];
-    [MMAPI signUpNewUser:params
-                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                     [SVProgressHUD showSuccessWithStatus:@"Sign Up Successful"];
-                     [[NSUserDefaults standardUserDefaults]setObject:_emailTextField.text forKey:@"userName"];
-                     [[NSUserDefaults standardUserDefaults]setObject:_passwordTextField.text forKey:@"password"];
-                     [[NSUserDefaults standardUserDefaults]synchronize];
-                     
-                     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-                     [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
-                     [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
-                     [self getAllCategories];
-                     [self checkInUser];
-                 }
-                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                     NSLog(@"%@", operation.responseString);
-                     if (operation.responseData) {
-                         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
-                         if ([response valueForKey:@"description"]) {
-                             NSString *responseString = [response valueForKey:@"description"];
-                             [SVProgressHUD showErrorWithStatus:responseString];
-                         }
-                         else {
-                             [SVProgressHUD showErrorWithStatus:@"Unable sign up"];
-                         }
+    if (errorMessageText) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:errorMessageText delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else {
+        [SVProgressHUD showWithStatus:@"Signing Up"];
+        
+        [MMAPI signUpNewUser:params
+                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                         [SVProgressHUD showSuccessWithStatus:@"Sign Up Successful"];
+                         [[NSUserDefaults standardUserDefaults]setValue:_emailTextField.text forKey:@"userName"];
+                         [[NSUserDefaults standardUserDefaults]setValue:_passwordTextField.text forKey:@"password"];
+                         [[NSUserDefaults standardUserDefaults]synchronize];
+                         
+                         NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+                         [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]valueForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
+                         [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]valueForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
+                         [self getAllCategories];
+                         [self checkInUser];
                      }
-                 }];
+                     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                         NSLog(@"%@", operation.responseString);
+                         if (operation.responseData) {
+                             NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+                             if ([response valueForKey:@"description"]) {
+                                 NSString *responseString = [response valueForKey:@"description"];
+                                 [SVProgressHUD showErrorWithStatus:responseString];
+                             }
+                             else {
+                                 [SVProgressHUD showErrorWithStatus:@"Unable sign up"];
+                             }
+                         }
+                     }];
+    }
 }
 
 
