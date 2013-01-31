@@ -107,7 +107,7 @@ enum RequestDurationLengths {
     [self.requestInfo setValue:[_contentList valueForKey:@"providerId"] forKey:@"providerId"];
     [self.requestInfo setValue:[_contentList valueForKey:@"locationId"] forKey:@"locationId"];
     [self.requestInfo setValue:self.duration forKey:@"duration"];
-    [self.requestInfo setValue:[NSNumber numberWithInt:5000] forKey:@"radiusInYards"];
+    [self.requestInfo setValue:[NSNumber numberWithInt:50] forKey:@"radiusInYards"];
     [self.requestInfo setValue:[NSNumber numberWithBool:isRecurring] forKey:@"recurring"];
     
     

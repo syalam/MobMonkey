@@ -42,11 +42,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     NSMutableDictionary *paramsCopy = [params mutableCopy];
     [paramsCopy setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
-#if TARGET_IPHONE_SIMULATOR
-    [paramsCopy setValue:@"1234" forKey:@"deviceId"];
-#else
 	[paramsCopy setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
-#endif
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
     [httpClient  postPath:@"signup/user" parameters:paramsCopy success:success failure:failure];

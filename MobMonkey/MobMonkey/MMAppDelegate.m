@@ -24,6 +24,10 @@
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     
+#if TARGET_IPHONE_SIMULATOR
+    [paramsCopy setValue:@"1234" forKey:@"deviceId"];
+#endif
+    
     //initialize testflight SDK
     [TestFlight takeOff:@"e6432d80aed42a955243c8d93a493dea_MTAwODk2MjAxMi0wNi0yMyAxODoxNzoxOC45NjMzMjY"];
 
