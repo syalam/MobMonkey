@@ -203,6 +203,7 @@
                         [[NSUserDefaults standardUserDefaults]setValue:[my valueForKey:@"email"] forKey:@"userName"];
                         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"oauthUser"];
                         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"facebookEnabled"];
+                        [[NSUserDefaults standardUserDefaults]setValue:@"facebook" forKey:@"oauthProvider"];
                         [[NSUserDefaults standardUserDefaults]setValue:accessToken forKey:@"oauthToken"];
                         [[NSUserDefaults standardUserDefaults]synchronize];
                         
@@ -251,6 +252,7 @@
         NSLog(@"%@", responseObject);
         [[NSUserDefaults standardUserDefaults]setValue:account.username forKey:@"userName"];
         [[NSUserDefaults standardUserDefaults]setValue:account.identifier forKey:@"oauthToken"];
+        [[NSUserDefaults standardUserDefaults]setValue:@"twitter" forKey:@"oauthProvider"];
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"oauthUser"];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"twitterEnabled"];
         [[NSUserDefaults standardUserDefaults]synchronize];
@@ -348,7 +350,7 @@
             UIImageWriteToSavedPhotosAlbum([storyToPublishToSocialNetworkDictionary valueForKey:@"image"], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
         }
         else {
-            
+            [self saveVideoToCameraRoll];
         }
     }
     if ([buttonTitle isEqualToString:@"Share on Facebook"]) {
@@ -365,19 +367,22 @@
 
 #pragma mark - Helper Methods
 - (void)saveVideoToCameraRoll {
-    NSString *stringURL = [storyToPublishToSocialNetworkDictionary valueForKey:@"url"];
-    NSURL  *url = [NSURL URLWithString:stringURL];
-    NSData *urlData = [NSData dataWithContentsOfURL:url];
-    if ( urlData )
-    {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
-        
-        NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"filename.mp4"];
-        [urlData writeToFile:filePath atomically:YES];
-        
-        UISaveVideoAtPathToSavedPhotosAlbum(filePath, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
-    }
+    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.MobMonkey.SaveVideo", NULL);
+    dispatch_async(backgroundQueue, ^(void) {
+        NSString *stringURL = [storyToPublishToSocialNetworkDictionary valueForKey:@"url"];
+        NSURL  *url = [NSURL URLWithString:stringURL];
+        NSData *urlData = [NSData dataWithContentsOfURL:url];
+        if ( urlData )
+        {
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *documentsDirectory = [paths objectAtIndex:0];
+            
+            NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"filename.mp4"];
+            [urlData writeToFile:filePath atomically:YES];
+            
+            UISaveVideoAtPathToSavedPhotosAlbum(filePath, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+        }
+    });
 }
 
 #pragma mark - Save To Camera Roll Completion Methods
@@ -396,16 +401,18 @@
 }
 
 - (void)video: (NSString *) videoPath didFinishSavingWithError: (NSError *) error contextInfo: (void *) contextInfo {
-    if (error != NULL)
-    {
-        [SVProgressHUD showErrorWithStatus:@"Unable to save. Please try again"];
-        
-    }
-    else  // No errors
-    {
-        // Show message image successfully saved
-        [SVProgressHUD showSuccessWithStatus:@"Saved"];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        if (error != NULL)
+        {
+            [SVProgressHUD showErrorWithStatus:@"Unable to save. Please try again"];
+            
+        }
+        else  // No errors
+        {
+            // Show message image successfully saved
+            [SVProgressHUD showSuccessWithStatus:@"Saved"];
+        }
+    });
 }
 
 @end

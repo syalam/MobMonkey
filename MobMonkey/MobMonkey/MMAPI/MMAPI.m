@@ -42,6 +42,11 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     NSMutableDictionary *paramsCopy = [params mutableCopy];
     [paramsCopy setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+#if TARGET_IPHONE_SIMULATOR
+    [paramsCopy setValue:@"1234" forKey:@"deviceId"];
+#else
+	[paramsCopy setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
+#endif
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
     [httpClient  postPath:@"signup/user" parameters:paramsCopy success:success failure:failure];
@@ -82,17 +87,26 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     //construct url
     NSString *urlString = [NSString stringWithFormat:@"signin?deviceType=ios&deviceId=%@&useOAuth=true&provider=%@&oauthToken=%@&providerUserName=%@", [params valueForKey:@"deviceId"], [params valueForKey:@"provider"], [params valueForKey:@"oauthToken"], [params valueForKey:@"providerUserName"]];
-
-    
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
+    [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [httpClient setDefaultHeader:@"OauthProviderUserName" value:[params valueForKey:@"providerUsername"]];
+    [httpClient setDefaultHeader:@"OauthToken" value:[params valueForKey:@"oauthToken"]];
+    [httpClient setDefaultHeader:@"OauthProvider" value:[params valueForKey:@"provider"]];
     [httpClient postPath:urlString parameters:nil success:success failure:failure];
 }
 
 + (void)registerTwitterUserDetails:(NSDictionary*)params
                            success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                            failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    NSString *urlString = [NSString stringWithFormat:@"signin/registeremail?deviceType=iOS&deviceId=%@&oauthToken=%@&providerUserName=%@&eMailAddress=%@", [params valueForKey:@"deviceId"], [params valueForKey:@"oauthToken"], [params valueForKey:@"providerUsername"], [params valueForKey:@"eMailAddress"]];
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    NSString *urlString = [NSString stringWithFormat:@"signin/registeremail?deviceType=iOS&deviceId=%@&oauthToken=%@&providerUserName=%@&eMailAddress=%@&provider=%@", [params valueForKey:@"deviceId"], [params valueForKey:@"oauthToken"], [params valueForKey:@"providerUsername"], [params valueForKey:@"eMailAddress"], @"twitter"];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
+    [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
+    [httpClient setDefaultHeader:@"OauthProviderUserName" value:[params valueForKey:@"providerUsername"]];
+    [httpClient setDefaultHeader:@"OauthToken" value:[params valueForKey:@"oauthToken"]];
+    [httpClient setDefaultHeader:@"OauthProvider" value:@"twitter"];
+    
     [httpClient postPath:urlString parameters:nil success:success failure:failure];
 }
 
@@ -148,7 +162,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     MMHTTPClient *httpClient = [self setupHTTPClient];
-    [httpClient postPath:@"locations/create" parameters:params success:success failure:failure];
+    [httpClient putPath:@"location" parameters:params success:success failure:failure];
 }
 
 #pragma mark - Inbox
@@ -296,7 +310,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
                 success:(void (^)(AFHTTPRequestOperation *, id))success
                 failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
     MMHTTPClient *httpClient = [self setupHTTPClient];
-    NSString *urlString = [NSString stringWithFormat:@"locations?locationId=%@&providerId=%@", [param valueForKey:@"locationId"], [param valueForKey:@"providerId"]];
+    NSString *urlString = [NSString stringWithFormat:@"location?locationId=%@&providerId=%@", [param valueForKey:@"locationId"], [param valueForKey:@"providerId"]];
     [httpClient getPath:urlString parameters:nil success:success failure:failure];
 }
 
@@ -306,11 +320,13 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
-    [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
     if (![[NSUserDefaults standardUserDefaults]boolForKey:@"oauthUser"]) {
         [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
+        [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
     }
     else {
+        [httpClient setDefaultHeader:@"OauthProviderUserName" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+        [httpClient setDefaultHeader:@"OauthProvider" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"oauthProvider"]];
         [httpClient setDefaultHeader:@"OauthToken" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"oauthToken"]];
     }
 

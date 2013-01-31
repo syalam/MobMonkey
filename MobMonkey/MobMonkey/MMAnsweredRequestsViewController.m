@@ -212,8 +212,37 @@
 
 -(void)moreButtonTapped:(id)sender {
     selectedRow = [sender tag];
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Flag for Review", nil];
-    [actionSheet showFromTabBar:self.tabBarController.tabBar];
+    
+    MMAnsweredRequestsCell *cell = (MMAnsweredRequestsCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0]];
+    BOOL isVideo = NO;
+    NSArray *mediaArray  = [[_contentList objectAtIndex:selectedRow]valueForKey:@"media"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    [params setValue:cell.locationNameLabel.text forKey:@"initialText"];
+    if (mediaArray.count > 0) {
+        if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 1) {
+            [params setValue:cell.locationImageView.image forKey:@"image"];
+        }
+        else if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 2) {
+            [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
+            isVideo = YES;
+        }
+        else if ([[[_contentList objectAtIndex:selectedRow]valueForKey:@"mediaType"]intValue] == 4) {
+            NSString *initialText = [params valueForKey:@"initialText"];
+            if (![[[mediaArray objectAtIndex:0]valueForKey:@"text"]isKindOfClass:[NSNull class]]) {
+                initialText = [NSString stringWithFormat:@"%@. %@", initialText, [[mediaArray objectAtIndex:0]valueForKey:@"text"]];
+            }
+            [params setValue:initialText forKey:@"initialText"];
+        }
+    }
+    if (!isVideo) {
+        if (![[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"]isEqualToString:@""]) {
+            [params setValue:[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"] forKey:@"url"];
+        }
+    }
+    
+    [[MMClientSDK sharedSDK]showMoreActionSheet:self showFromTabBar:YES paramsForPublishingToSocialNetwork:params];
+    /*UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Flag for Review", nil];
+    [actionSheet showFromTabBar:self.tabBarController.tabBar];*/
 }
 -(void)acceptButtonTapped:(id)sender {
     NSString *requestId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"requestId"];

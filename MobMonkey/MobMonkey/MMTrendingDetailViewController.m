@@ -193,8 +193,24 @@
 }
 -(void)moreButtonTapped:(id)sender {
     selectedRow = [sender tag];
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Flag for Review", nil];
-    [actionSheet showFromTabBar:self.tabBarController.tabBar];
+    
+    MMTrendingCell *cell = (MMTrendingCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0]];
+    NSDictionary *mediaDictionary  = [[_contentList objectAtIndex:selectedRow]valueForKey:@"media"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    [params setValue:cell.locationNameLabel.text forKey:@"initialText"];
+    if (![[mediaDictionary valueForKey:@"mediaURL"]isKindOfClass:[NSNull class]]) {
+        if ([[mediaDictionary valueForKey:@"type"] isEqualToString:@"image"]) {
+            [params setValue:cell.locationImageView.image forKey:@"image"];
+            [params setValue:[[_contentList objectAtIndex:selectedRow]valueForKey:@"webSite"] forKey:@"url"];
+        }
+        else {
+            [params setValue:[mediaDictionary valueForKey:@"mediaURL"] forKey:@"url"];
+        }
+    }
+    
+    [[MMClientSDK sharedSDK]showMoreActionSheet:self showFromTabBar:YES paramsForPublishingToSocialNetwork:params];
+    /*UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Flag for Review", nil];
+    [actionSheet showFromTabBar:self.tabBarController.tabBar];*/
 }
 -(void)imageButtonTapped:(id)sender {
     MMTrendingCell *cell = (MMTrendingCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];

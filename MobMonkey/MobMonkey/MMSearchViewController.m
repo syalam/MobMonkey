@@ -202,7 +202,7 @@
             self.searchResultsViewController.title = @"All Nearby";
         }
         
-        [params setValue:@"" forKey:@"categoryIds"];
+        //[params setValue:@"" forKey:@"categoryIds"];
     }
     [params setValue:self.searchBar.text forKey:@"name"];
     

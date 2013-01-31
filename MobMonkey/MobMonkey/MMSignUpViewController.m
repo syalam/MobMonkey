@@ -121,7 +121,7 @@
             NSLog(@"Could not retrieve user info");
         }];
     }
-    
+    termsOfUseAccepted =  NO;
     //Add custom back button to the nav bar
     if (!_twitterSignIn) {
         UIButton *backNavbutton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 39, 30)];
@@ -133,12 +133,15 @@
     }
     
     else {
+        termsOfUseAccepted = YES;
+        [termsOfUseAcceptanceButton setHidden:YES];
+        [termsOfUseButton setHidden:YES];
         _signUpButton.titleLabel.text = @"Sign In";
         [_facebookButton setHidden:YES];
         [_twitterButton setHidden:YES];
     }
     
-    termsOfUseAccepted =  NO;
+    
 
 }
 
