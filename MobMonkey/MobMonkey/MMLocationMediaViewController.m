@@ -319,8 +319,21 @@
 #pragma mark - MMLocationMediaCell delegate
 -(void)moreButtonTapped:(id)sender {
     selectedRow = [sender tag];
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Flag for Review", nil];
-    [actionSheet showInView:self.view];
+    
+    MMLocationMediaCell *cell = (MMLocationMediaCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0]];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    [params setValue:_locationName forKey:@"initialText"];
+    if ([self.segmentedControl selectedSegmentIndex] != MMPhotoMediaType) {
+        [params setValue:[[self.mediaArray objectAtIndex:selectedRow] valueForKey:@"mediaURL"] forKey:@"url"];
+    }
+    else {
+        [params setValue:cell.locationImageView.image forKey:@"image"];
+    }
+    
+     [[MMClientSDK sharedSDK]showMoreActionSheet:self showFromTabBar:NO paramsForPublishingToSocialNetwork:params];
+    
+    /*UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Flag for Review", nil];
+    [actionSheet showInView:self.view];*/
 }
 -(void)imageButtonTapped:(id)sender {
     MMLocationMediaCell *cell = (MMLocationMediaCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
