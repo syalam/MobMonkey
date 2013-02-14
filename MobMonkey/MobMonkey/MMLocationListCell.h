@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMTableViewCell.h"
 
 
 @interface MMLocationListCell : MMTableViewCell

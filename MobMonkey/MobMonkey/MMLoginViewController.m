@@ -177,7 +177,6 @@
                     actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
                     
                     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-                    actionSheetCall = twitterAccountsActionSheetCall;
                     [actionSheet showInView:self.view];
                 }
                 else {
@@ -246,16 +245,9 @@
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
     if (![buttonTitle isEqualToString:@"Cancel"]) {
         [SVProgressHUD showWithStatus:@"Signing in with Twitter"];
-        switch (actionSheetCall) {
-            case twitterAccountsActionSheetCall: {
-                ACAccount *account = [_twitterAccounts objectAtIndex:buttonIndex];
-                [[MMClientSDK sharedSDK]signInViaTwitter:account presentingViewController:self];
-            }
-                break;
-                
-            default:
-                break;
-        }
+        
+        ACAccount *account = [_twitterAccounts objectAtIndex:buttonIndex];
+        [[MMClientSDK sharedSDK]signInViaTwitter:account presentingViewController:self];
     }
     
 }

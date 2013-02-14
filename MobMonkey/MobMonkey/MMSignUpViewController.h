@@ -12,6 +12,11 @@
 #import <Accounts/Accounts.h>
 #import "MMAPI.h"
 
+typedef enum UIActionSheetCalls {
+    twitterAccountsActionSheetCall,
+    genderActionSheetCall,
+}UIActionSheetCalls;
+
 @interface MMSignUpViewController : UITableViewController <UIActionSheetDelegate, UITextFieldDelegate> {
     int actionSheetCall;
     IBOutlet UIButton *termsOfUseAcceptanceButton;
