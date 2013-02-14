@@ -570,7 +570,6 @@
 		F7D3B19316CB75CE0014D5A7 /* MMSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D3B19216CB75CE0014D5A7 /* MMSDKTests.m */; };
 		F7D3B19A16CB75DC0014D5A7 /* MMTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7BEAA0016969AEF0010A84D /* MMTextFieldCell.m */; };
 		F7D3B19B16CB75E30014D5A7 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE5965E16974BB100AD6707 /* libFlurry.a */; };
-		F7D3B19C16CB75E90014D5A7 /* libGreystripeSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8F3D167F9F180077675B /* libGreystripeSDK.a */; };
 		F7D3B19D16CB75F10014D5A7 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = F723AD221676FFC700F7336B /* CDataScanner.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F7D3B19E16CB75F90014D5A7 /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F723AD251676FFC700F7336B /* CDataScanner_Extensions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F7D3B19F16CB75F90014D5A7 /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F723AD271676FFC700F7336B /* NSCharacterSet_Extensions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -647,16 +646,6 @@
 		F7D3B1E716CB773A0014D5A7 /* MMSetTitleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F79B505515F3F81F0004BE01 /* MMSetTitleImage.m */; };
 		F7D3B1E816CB773A0014D5A7 /* GetRelativeTime.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A63F15F17A5C0090E85A /* GetRelativeTime.m */; };
 		F7D3B1E916CB773A0014D5A7 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5C415F12AF10090E85A /* SVProgressHUD.m */; };
-		F7D3B1EA16CB773A0014D5A7 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F78C277A16796A3300F22B8A /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F7D3B1EB16CB773A0014D5A7 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5A815F12AC00090E85A /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F7D3B1EC16CB773A0014D5A7 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5AA15F12AC00090E85A /* AFImageRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F7D3B1ED16CB773A0014D5A7 /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5AC15F12AC00090E85A /* AFJSONRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F7D3B1EE16CB773A0014D5A7 /* AFJSONUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5AE15F12AC00090E85A /* AFJSONUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F7D3B1EF16CB773A0014D5A7 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5B015F12AC00090E85A /* AFNetworkActivityIndicatorManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F7D3B1F016CB773A0014D5A7 /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5B315F12AC00090E85A /* AFPropertyListRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F7D3B1F116CB773A0014D5A7 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5B515F12AC00090E85A /* AFURLConnectionOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F7D3B1F216CB773A0014D5A7 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5B715F12AC00090E85A /* AFXMLRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F7D3B1F316CB773A0014D5A7 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5B915F12AC00090E85A /* UIImageView+AFNetworking.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F7D3B1F416CB773A0014D5A7 /* NSDate+JavaEpochTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 371D6E971650CBFF006354E2 /* NSDate+JavaEpochTime.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F7D3B1F516CB779F0014D5A7 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A25820C169289D20057EAAD /* FacebookSDK.framework */; };
 		F7D3B1F616CB779F0014D5A7 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E7568515FE38F8005C8D7C /* Accounts.framework */; };
@@ -676,7 +665,6 @@
 		F7D3B20416CB77B20014D5A7 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7716D55161D114A00578A90 /* MediaPlayer.framework */; };
 		F7D3B20516CB77B20014D5A7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EE1167EAF0D0077675B /* MessageUI.framework */; };
 		F7D3B20616CB77B20014D5A7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7716D59161D11BF00578A90 /* MobileCoreServices.framework */; };
-		F7D3B20716CB77B20014D5A7 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EB6167AC3F10077675B /* Parse.framework */; };
 		F7D3B20816CB77B20014D5A7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71B9B231601F683003BED33 /* QuartzCore.framework */; };
 		F7D3B20916CB77B20014D5A7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EC3167ACC430077675B /* Security.framework */; };
 		F7D3B20A16CB77B20014D5A7 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A56315F11C3E0090E85A /* SenTestingKit.framework */; };
@@ -706,6 +694,12 @@
 		F7E7568615FE38F9005C8D7C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E7568515FE38F8005C8D7C /* Accounts.framework */; };
 		F7E7569715FE8EE7005C8D7C /* MMCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E7569515FE8EE7005C8D7C /* MMCategoryViewController.m */; };
 		F7E7569815FE8EE7005C8D7C /* MMCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E7569615FE8EE7005C8D7C /* MMCategoryViewController.xib */; };
+		F7E8213D16CCC10600D5682C /* MMInboxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F77D3E5D161A9F6C000A818F /* MMInboxCell.m */; };
+		F7E8214116CCC14000D5682C /* MMLocationMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F76DFE95161F543100B5683F /* MMLocationMediaCell.m */; };
+		F7E8214516CCC17600D5682C /* MMInboxCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F71991FF1622A0D7003C6A65 /* MMInboxCategoryCell.m */; };
+		F7E8214616CCC19000D5682C /* MMAnswerTextRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7ED0E131692A487000F2121 /* MMAnswerTextRequestViewController.m */; };
+		F7E8214716CCC19D00D5682C /* MMAnsweredRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F71991F516226418003C6A65 /* MMAnsweredRequestsViewController.m */; };
+		F7E8214816CCC1AC00D5682C /* MMAnsweredRequestsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B012DA1655AF2E00BCAC26 /* MMAnsweredRequestsCell.m */; };
 		F7ED0E151692A487000F2121 /* MMAnswerTextRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7ED0E131692A487000F2121 /* MMAnswerTextRequestViewController.m */; };
 		F7ED0E161692A487000F2121 /* MMAnswerTextRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7ED0E141692A487000F2121 /* MMAnswerTextRequestViewController.xib */; };
 /* End PBXBuildFile section */
@@ -1521,7 +1515,6 @@
 			files = (
 				F7D3B17716CB75CE0014D5A7 /* Foundation.framework in Frameworks */,
 				F7D3B19B16CB75E30014D5A7 /* libFlurry.a in Frameworks */,
-				F7D3B19C16CB75E90014D5A7 /* libGreystripeSDK.a in Frameworks */,
 				F7D3B1DD16CB76FE0014D5A7 /* libTestFlight.a in Frameworks */,
 				F7D3B1F516CB779F0014D5A7 /* FacebookSDK.framework in Frameworks */,
 				F7D3B1F616CB779F0014D5A7 /* Accounts.framework in Frameworks */,
@@ -1541,7 +1534,6 @@
 				F7D3B20416CB77B20014D5A7 /* MediaPlayer.framework in Frameworks */,
 				F7D3B20516CB77B20014D5A7 /* MessageUI.framework in Frameworks */,
 				F7D3B20616CB77B20014D5A7 /* MobileCoreServices.framework in Frameworks */,
-				F7D3B20716CB77B20014D5A7 /* Parse.framework in Frameworks */,
 				F7D3B20816CB77B20014D5A7 /* QuartzCore.framework in Frameworks */,
 				F7D3B20916CB77B20014D5A7 /* Security.framework in Frameworks */,
 				F7D3B20A16CB77B20014D5A7 /* SenTestingKit.framework in Frameworks */,
@@ -3911,17 +3903,13 @@
 				F7D3B1E716CB773A0014D5A7 /* MMSetTitleImage.m in Sources */,
 				F7D3B1E816CB773A0014D5A7 /* GetRelativeTime.m in Sources */,
 				F7D3B1E916CB773A0014D5A7 /* SVProgressHUD.m in Sources */,
-				F7D3B1EA16CB773A0014D5A7 /* AFHTTPClient.m in Sources */,
-				F7D3B1EB16CB773A0014D5A7 /* AFHTTPRequestOperation.m in Sources */,
-				F7D3B1EC16CB773A0014D5A7 /* AFImageRequestOperation.m in Sources */,
-				F7D3B1ED16CB773A0014D5A7 /* AFJSONRequestOperation.m in Sources */,
-				F7D3B1EE16CB773A0014D5A7 /* AFJSONUtilities.m in Sources */,
-				F7D3B1EF16CB773A0014D5A7 /* AFNetworkActivityIndicatorManager.m in Sources */,
-				F7D3B1F016CB773A0014D5A7 /* AFPropertyListRequestOperation.m in Sources */,
-				F7D3B1F116CB773A0014D5A7 /* AFURLConnectionOperation.m in Sources */,
-				F7D3B1F216CB773A0014D5A7 /* AFXMLRequestOperation.m in Sources */,
-				F7D3B1F316CB773A0014D5A7 /* UIImageView+AFNetworking.m in Sources */,
 				F7D3B1F416CB773A0014D5A7 /* NSDate+JavaEpochTime.m in Sources */,
+				F7E8213D16CCC10600D5682C /* MMInboxCell.m in Sources */,
+				F7E8214116CCC14000D5682C /* MMLocationMediaCell.m in Sources */,
+				F7E8214516CCC17600D5682C /* MMInboxCategoryCell.m in Sources */,
+				F7E8214616CCC19000D5682C /* MMAnswerTextRequestViewController.m in Sources */,
+				F7E8214716CCC19D00D5682C /* MMAnsweredRequestsViewController.m in Sources */,
+				F7E8214816CCC1AC00D5682C /* MMAnsweredRequestsCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

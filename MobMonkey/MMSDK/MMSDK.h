@@ -10,4 +10,6 @@
 
 @interface MMSDK : NSObject
 
++ (void)signInScreen:(UIViewController*)presentingViewController;
+
 @end
