@@ -257,17 +257,6 @@
         MMRequestViewController *requestVC = (MMRequestViewController *)navVC.viewControllers[0];
         [requestVC setContentList:self.contentList];
         [self.navigationController presentViewController:navVC animated:YES completion:nil];
-        /*if ([[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Request" bundle:nil];
-            UINavigationController *navVC = [storyboard instantiateInitialViewController];
-            MMRequestViewController *requestVC = (MMRequestViewController *)navVC.viewControllers[0];
-            [requestVC setContentList:self.contentList];
-            [self.navigationController presentViewController:navVC animated:YES completion:nil];
-        }
-        else {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Sign up for MobMonkey to see whats happening now!" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"Subscribe", nil];
-            [alert show];
-        }*/
     }
     else {
         [[MMClientSDK sharedSDK] signInScreen:self];
