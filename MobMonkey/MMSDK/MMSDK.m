@@ -14,7 +14,7 @@
 #import "MMAnsweredRequestsViewController.h"
 #import "MMLocationViewController.h"
 #import "MMRequestViewController.h"
-
+#import "MMSearchViewController.h"
 
 @implementation MMSDK
 
@@ -66,6 +66,11 @@
     [requestVC setContentList:params];
     UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
     [presentingViewController.navigationController presentViewController:requestNavC animated:YES completion:NULL];
+}
+
++ (void)displayMMSearchScreenFromPresentingViewController:(UIViewController*)presentingViewController {
+    MMSearchViewController *searchVC = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
+    [presentingViewController.navigationController pushViewController:searchVC animated:YES];
 }
 
 
