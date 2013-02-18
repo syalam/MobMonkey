@@ -389,6 +389,16 @@
 		F747F16415F4742D002E5567 /* MMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F16215F4742C002E5567 /* MMLoginViewController.xib */; };
 		F75A8738165573F800AF83EA /* MMInboxDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F75A8736165573F800AF83EA /* MMInboxDetailViewController.m */; };
 		F75A8739165573F800AF83EA /* MMInboxDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F75A8737165573F800AF83EA /* MMInboxDetailViewController.xib */; };
+		F76D8AAC16D2F4BE00B3FCEE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53915F11C3E0090E85A /* Foundation.framework */; };
+		F76D8AB116D2F4BE00B3FCEE /* MMSDK.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F76D8AB016D2F4BE00B3FCEE /* MMSDK.h */; };
+		F76D8AB316D2F4BE00B3FCEE /* MMSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = F76D8AB216D2F4BE00B3FCEE /* MMSDK.m */; };
+		F76D8ABA16D2F4BE00B3FCEE /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A56315F11C3E0090E85A /* SenTestingKit.framework */; };
+		F76D8ABB16D2F4BE00B3FCEE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53715F11C3E0090E85A /* UIKit.framework */; };
+		F76D8ABC16D2F4BE00B3FCEE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53915F11C3E0090E85A /* Foundation.framework */; };
+		F76D8ABF16D2F4BE00B3FCEE /* libMMSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F76D8AAB16D2F4BE00B3FCEE /* libMMSDK.a */; };
+		F76D8AC516D2F4BE00B3FCEE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F76D8AC316D2F4BE00B3FCEE /* InfoPlist.strings */; };
+		F76D8AC816D2F4BE00B3FCEE /* MMSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F76D8AC716D2F4BE00B3FCEE /* MMSDKTests.m */; };
+		F76D8ACF16D2F4EC00B3FCEE /* MMSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = F76D8AB216D2F4BE00B3FCEE /* MMSDK.m */; };
 		F76DFE52161EAEDC00B5683F /* MMInboxFullScreenImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F76DFE50161EAEDC00B5683F /* MMInboxFullScreenImageViewController.m */; };
 		F76DFE53161EAEDC00B5683F /* MMInboxFullScreenImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F76DFE51161EAEDC00B5683F /* MMInboxFullScreenImageViewController.xib */; };
 		F76DFE76161F4DCA00B5683F /* tabBtn1.png in Resources */ = {isa = PBXBuildFile; fileRef = F76DFE62161F4DCA00B5683F /* tabBtn1.png */; };
@@ -592,7 +602,27 @@
 			remoteGlobalIDString = F734A53215F11C3E0090E85A;
 			remoteInfo = MobMonkey;
 		};
+		F76D8ABD16D2F4BE00B3FCEE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F734A52A15F11C3E0090E85A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F76D8AAA16D2F4BE00B3FCEE;
+			remoteInfo = MMSDK;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F76D8AA916D2F4BE00B3FCEE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				F76D8AB116D2F4BE00B3FCEE /* MMSDK.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1A00556D1652B83B003836F4 /* fiveMileFilterOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fiveMileFilterOff.png; sourceTree = "<group>"; };
@@ -1129,6 +1159,15 @@
 		F75A8735165573F800AF83EA /* MMInboxDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInboxDetailViewController.h; sourceTree = "<group>"; };
 		F75A8736165573F800AF83EA /* MMInboxDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMInboxDetailViewController.m; sourceTree = "<group>"; };
 		F75A8737165573F800AF83EA /* MMInboxDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMInboxDetailViewController.xib; sourceTree = "<group>"; };
+		F76D8AAB16D2F4BE00B3FCEE /* libMMSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMMSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F76D8AAF16D2F4BE00B3FCEE /* MMSDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MMSDK-Prefix.pch"; sourceTree = "<group>"; };
+		F76D8AB016D2F4BE00B3FCEE /* MMSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMSDK.h; sourceTree = "<group>"; };
+		F76D8AB216D2F4BE00B3FCEE /* MMSDK.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMSDK.m; sourceTree = "<group>"; };
+		F76D8AB916D2F4BE00B3FCEE /* MMSDKTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MMSDKTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F76D8AC216D2F4BE00B3FCEE /* MMSDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MMSDKTests-Info.plist"; sourceTree = "<group>"; };
+		F76D8AC416D2F4BE00B3FCEE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F76D8AC616D2F4BE00B3FCEE /* MMSDKTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMSDKTests.h; sourceTree = "<group>"; };
+		F76D8AC716D2F4BE00B3FCEE /* MMSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMSDKTests.m; sourceTree = "<group>"; };
 		F76DFE4F161EAEDC00B5683F /* MMInboxFullScreenImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInboxFullScreenImageViewController.h; sourceTree = "<group>"; };
 		F76DFE50161EAEDC00B5683F /* MMInboxFullScreenImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMInboxFullScreenImageViewController.m; sourceTree = "<group>"; };
 		F76DFE51161EAEDC00B5683F /* MMInboxFullScreenImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMInboxFullScreenImageViewController.xib; sourceTree = "<group>"; };
@@ -1357,6 +1396,25 @@
 				F734A56415F11C3E0090E85A /* SenTestingKit.framework in Frameworks */,
 				F734A56515F11C3E0090E85A /* UIKit.framework in Frameworks */,
 				F734A56615F11C3E0090E85A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F76D8AA816D2F4BE00B3FCEE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F76D8AAC16D2F4BE00B3FCEE /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F76D8AB516D2F4BE00B3FCEE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F76D8ABA16D2F4BE00B3FCEE /* SenTestingKit.framework in Frameworks */,
+				F76D8ABB16D2F4BE00B3FCEE /* UIKit.framework in Frameworks */,
+				F76D8ABC16D2F4BE00B3FCEE /* Foundation.framework in Frameworks */,
+				F76D8ABF16D2F4BE00B3FCEE /* libMMSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1881,6 +1939,8 @@
 			isa = PBXGroup;
 			children = (
 				F734A53D15F11C3E0090E85A /* MobMonkey */,
+				F76D8AAD16D2F4BE00B3FCEE /* MMSDK */,
+				F76D8AC016D2F4BE00B3FCEE /* MMSDKTests */,
 				F734A53615F11C3E0090E85A /* Frameworks */,
 				F734A56915F11C3E0090E85A /* MobMonkeyTests */,
 				F734A53415F11C3E0090E85A /* Products */,
@@ -1892,6 +1952,8 @@
 			children = (
 				F734A53315F11C3E0090E85A /* MobMonkey.app */,
 				F734A56215F11C3E0090E85A /* MobMonkeyTests.octest */,
+				F76D8AAB16D2F4BE00B3FCEE /* libMMSDK.a */,
+				F76D8AB916D2F4BE00B3FCEE /* MMSDKTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2487,6 +2549,43 @@
 			name = "Inbox Detail";
 			sourceTree = "<group>";
 		};
+		F76D8AAD16D2F4BE00B3FCEE /* MMSDK */ = {
+			isa = PBXGroup;
+			children = (
+				F76D8AB016D2F4BE00B3FCEE /* MMSDK.h */,
+				F76D8AB216D2F4BE00B3FCEE /* MMSDK.m */,
+				F76D8AAE16D2F4BE00B3FCEE /* Supporting Files */,
+			);
+			path = MMSDK;
+			sourceTree = "<group>";
+		};
+		F76D8AAE16D2F4BE00B3FCEE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F76D8AAF16D2F4BE00B3FCEE /* MMSDK-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F76D8AC016D2F4BE00B3FCEE /* MMSDKTests */ = {
+			isa = PBXGroup;
+			children = (
+				F76D8AC616D2F4BE00B3FCEE /* MMSDKTests.h */,
+				F76D8AC716D2F4BE00B3FCEE /* MMSDKTests.m */,
+				F76D8AC116D2F4BE00B3FCEE /* Supporting Files */,
+			);
+			path = MMSDKTests;
+			sourceTree = "<group>";
+		};
+		F76D8AC116D2F4BE00B3FCEE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F76D8AC216D2F4BE00B3FCEE /* MMSDKTests-Info.plist */,
+				F76D8AC316D2F4BE00B3FCEE /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		F76DFE48161EADE500B5683F /* Full Screen Image */ = {
 			isa = PBXGroup;
 			children = (
@@ -2908,6 +3007,42 @@
 			productReference = F734A56215F11C3E0090E85A /* MobMonkeyTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
+		F76D8AAA16D2F4BE00B3FCEE /* MMSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F76D8ACD16D2F4BE00B3FCEE /* Build configuration list for PBXNativeTarget "MMSDK" */;
+			buildPhases = (
+				F76D8AA716D2F4BE00B3FCEE /* Sources */,
+				F76D8AA816D2F4BE00B3FCEE /* Frameworks */,
+				F76D8AA916D2F4BE00B3FCEE /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MMSDK;
+			productName = MMSDK;
+			productReference = F76D8AAB16D2F4BE00B3FCEE /* libMMSDK.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		F76D8AB816D2F4BE00B3FCEE /* MMSDKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F76D8ACE16D2F4BE00B3FCEE /* Build configuration list for PBXNativeTarget "MMSDKTests" */;
+			buildPhases = (
+				F76D8AB416D2F4BE00B3FCEE /* Sources */,
+				F76D8AB516D2F4BE00B3FCEE /* Frameworks */,
+				F76D8AB616D2F4BE00B3FCEE /* Resources */,
+				F76D8AB716D2F4BE00B3FCEE /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F76D8ABE16D2F4BE00B3FCEE /* PBXTargetDependency */,
+			);
+			name = MMSDKTests;
+			productName = MMSDKTests;
+			productReference = F76D8AB916D2F4BE00B3FCEE /* MMSDKTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -2932,6 +3067,8 @@
 			targets = (
 				F734A53215F11C3E0090E85A /* MobMonkey */,
 				F734A56115F11C3E0090E85A /* MobMonkeyTests */,
+				F76D8AAA16D2F4BE00B3FCEE /* MMSDK */,
+				F76D8AB816D2F4BE00B3FCEE /* MMSDKTests */,
 			);
 		};
 /* End PBXProject section */
@@ -3389,10 +3526,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F76D8AB616D2F4BE00B3FCEE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F76D8AC516D2F4BE00B3FCEE /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		F734A56015F11C3E0090E85A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		F76D8AB716D2F4BE00B3FCEE /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3513,6 +3671,7 @@
 				F7038689169D5BD6005724E2 /* MMTrendingCell.m in Sources */,
 				F7AAF5F5169E9ABD00760B4D /* MMTrendingDetailViewController.m in Sources */,
 				F773DB6A16B8F9FA00EF9EA4 /* MMTermsOfUseViewController.m in Sources */,
+				F76D8ACF16D2F4EC00B3FCEE /* MMSDK.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3526,6 +3685,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F76D8AA716D2F4BE00B3FCEE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F76D8AB316D2F4BE00B3FCEE /* MMSDK.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F76D8AB416D2F4BE00B3FCEE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F76D8AC816D2F4BE00B3FCEE /* MMSDKTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -3533,6 +3708,11 @@
 			isa = PBXTargetDependency;
 			target = F734A53215F11C3E0090E85A /* MobMonkey */;
 			targetProxy = F734A56715F11C3E0090E85A /* PBXContainerItemProxy */;
+		};
+		F76D8ABE16D2F4BE00B3FCEE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F76D8AAA16D2F4BE00B3FCEE /* MMSDK */;
+			targetProxy = F76D8ABD16D2F4BE00B3FCEE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3549,6 +3729,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				F734A56D15F11C3E0090E85A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F76D8AC316D2F4BE00B3FCEE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F76D8AC416D2F4BE00B3FCEE /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3717,6 +3905,86 @@
 			};
 			name = Release;
 		};
+		F76D8AC916D2F4BE00B3FCEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				DSTROOT = /tmp/MMSDK.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MMSDK/MMSDK-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F76D8ACA16D2F4BE00B3FCEE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				DSTROOT = /tmp/MMSDK.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MMSDK/MMSDK-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		F76D8ACB16D2F4BE00B3FCEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MMSDK/MMSDK-Prefix.pch";
+				INFOPLIST_FILE = "MMSDKTests/MMSDKTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		F76D8ACC16D2F4BE00B3FCEE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MMSDK/MMSDK-Prefix.pch";
+				INFOPLIST_FILE = "MMSDKTests/MMSDKTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3746,6 +4014,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		F76D8ACD16D2F4BE00B3FCEE /* Build configuration list for PBXNativeTarget "MMSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F76D8AC916D2F4BE00B3FCEE /* Debug */,
+				F76D8ACA16D2F4BE00B3FCEE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F76D8ACE16D2F4BE00B3FCEE /* Build configuration list for PBXNativeTarget "MMSDKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F76D8ACB16D2F4BE00B3FCEE /* Debug */,
+				F76D8ACC16D2F4BE00B3FCEE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
