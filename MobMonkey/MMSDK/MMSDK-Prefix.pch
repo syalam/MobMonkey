@@ -3,6 +3,12 @@
 //
 
 #ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "SVProgressHUD.h"
+#import "MMAPI.h"
+#import "MMTableViewCell.h"
+#import "MMClientSDK.h"
+#import "AdWhirlDelegateProtocol.h"
+#import "TCImageView.h"
 #endif
