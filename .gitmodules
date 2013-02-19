@@ -1,3 +1,0 @@
-[submodule "MobMonkey/MobMonkey/Reachability"]
-	path = MobMonkey/MobMonkey/Reachability
-	url = git://github.com/tonymillion/Reachability.git
