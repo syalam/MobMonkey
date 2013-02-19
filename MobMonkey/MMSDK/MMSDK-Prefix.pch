@@ -8,6 +8,7 @@
 #import "SVProgressHUD.h"
 #import "MMAPI.h"
 #import "MMTableViewCell.h"
+#import "MMConstants.h"
 #import "MMClientSDK.h"
 #import "AdWhirlDelegateProtocol.h"
 #import "TCImageView.h"

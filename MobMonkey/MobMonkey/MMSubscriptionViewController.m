@@ -7,6 +7,7 @@
 //
 
 #import "MMSubscriptionViewController.h"
+#import "AdWhirlView.h"
 #import <Parse/Parse.h>
 
 @interface MMSubscriptionViewController ()

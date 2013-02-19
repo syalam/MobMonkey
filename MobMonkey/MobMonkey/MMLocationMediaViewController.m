@@ -13,6 +13,7 @@
 #import "Constants.h"
 #import "MMAppDelegate.h"
 #import "GetRelativeTime.h"
+#import "AdWhirlView.h"
 
 @interface MMLocationMediaViewController ()
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;

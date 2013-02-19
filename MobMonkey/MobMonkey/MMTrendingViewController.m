@@ -11,7 +11,6 @@
 #import "MMLocationViewController.h"
 #import "MMFullScreenImageViewController.h"
 #import "MMAppDelegate.h"
-#import "SectionInfo.h"
 #import "MMClientSDK.h"
 #import "MMLocationsViewController.h"
 #import "MMInboxCategoryCell.h"
