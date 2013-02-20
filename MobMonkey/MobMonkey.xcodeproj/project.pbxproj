@@ -45,6 +45,8 @@
 		F723ACD91676FE9E00F7336B /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F723ACD81676FE9E00F7336B /* AddressBook.framework */; };
 		F723ACDB1676FEAA00F7336B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F723ACDA1676FEAA00F7336B /* AudioToolbox.framework */; };
 		F723ACDD1676FECC00F7336B /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F723ACDC1676FECC00F7336B /* libsqlite3.dylib */; };
+		F7304F7416D4851000C4CB09 /* MMAddLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7304F7316D4851000C4CB09 /* MMAddLocationViewController.xib */; };
+		F7304F7C16D4900400C4CB09 /* MMAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F76D8B3816D34A7700B3FCEE /* MMAPI.m */; };
 		F734A53815F11C3E0090E85A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53715F11C3E0090E85A /* UIKit.framework */; };
 		F734A53A15F11C3E0090E85A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53915F11C3E0090E85A /* Foundation.framework */; };
 		F734A53C15F11C3E0090E85A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53B15F11C3E0090E85A /* CoreGraphics.framework */; };
@@ -130,7 +132,6 @@
 		F76D8B3616D344CF00B3FCEE /* NSDate+JavaEpochTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 371D6E971650CBFF006354E2 /* NSDate+JavaEpochTime.m */; };
 		F76D8B3716D344E500B3FCEE /* MMClientSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = F77D3E50161A1ED2000A818F /* MMClientSDK.m */; };
 		F76D8B3916D34A7700B3FCEE /* MMAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F76D8B3816D34A7700B3FCEE /* MMAPI.m */; };
-		F76D8B3A16D34A7700B3FCEE /* MMAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F76D8B3816D34A7700B3FCEE /* MMAPI.m */; };
 		F76D8B3D16D34AF200B3FCEE /* MMHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F76D8B3C16D34AF200B3FCEE /* MMHTTPClient.m */; };
 		F76D8B3E16D34AF200B3FCEE /* MMHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F76D8B3C16D34AF200B3FCEE /* MMHTTPClient.m */; };
 		F76D8B4016D34B0900B3FCEE /* MMUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F7716DCC161E1A8500578A90 /* MMUtilities.m */; };
@@ -425,7 +426,6 @@
 		F7873AD816D4291C00ABC2AD /* MapDistanceBtn~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F787394416D4291B00ABC2AD /* MapDistanceBtn~iphone.png */; };
 		F7873AD916D4291C00ABC2AD /* mapPin.png in Resources */ = {isa = PBXBuildFile; fileRef = F787394516D4291B00ABC2AD /* mapPin.png */; };
 		F7873ADA16D4291C00ABC2AD /* mapPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F787394616D4291B00ABC2AD /* mapPin@2x.png */; };
-		F7873ADB16D4291C00ABC2AD /* MMAddLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F787394716D4291B00ABC2AD /* MMAddLocationViewController.xib */; };
 		F7873ADC16D4291C00ABC2AD /* ModalBackground@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F787394816D4291B00ABC2AD /* ModalBackground@2x~iphone.png */; };
 		F7873ADD16D4291C00ABC2AD /* ModalBackground~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F787394916D4291B00ABC2AD /* ModalBackground~iphone.png */; };
 		F7873ADE16D4291C00ABC2AD /* ModalPictureBtn1@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F787394A16D4291B00ABC2AD /* ModalPictureBtn1@2x~iphone.png */; };
@@ -669,7 +669,6 @@
 		F787407516D44B6A00ABC2AD /* UIColor+AdWhirlConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382716D4254B00ABC2AD /* UIColor+AdWhirlConfig.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F787408116D4582E00ABC2AD /* libGreystripeSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F787408016D4582E00ABC2AD /* libGreystripeSDK.a */; };
 		F787408216D4582E00ABC2AD /* libGreystripeSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F787408016D4582E00ABC2AD /* libGreystripeSDK.a */; };
-		F787408716D45F2300ABC2AD /* MMAddLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F787408616D45F2300ABC2AD /* MMAddLocationViewController.xib */; };
 		F78C277B16796A3300F22B8A /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F78C277A16796A3300F22B8A /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F792DA4815FF4C8000F5CD85 /* MMSocialNetworksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F792DA4615FF4C8000F5CD85 /* MMSocialNetworksViewController.m */; };
 		F792DA4D15FF4DB300F5CD85 /* MMSocialNetworksCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F792DA4C15FF4DB300F5CD85 /* MMSocialNetworksCell.m */; };
@@ -764,6 +763,7 @@
 		F723ACD81676FE9E00F7336B /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		F723ACDA1676FEAA00F7336B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		F723ACDC1676FECC00F7336B /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		F7304F7316D4851000C4CB09 /* MMAddLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MMAddLocationViewController.xib; path = "MMSDK/Resources/XIB Files/MMAddLocationViewController.xib"; sourceTree = SOURCE_ROOT; };
 		F734A53315F11C3E0090E85A /* MobMonkey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobMonkey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F734A53715F11C3E0090E85A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F734A53915F11C3E0090E85A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1400,7 +1400,6 @@
 		F7873A2316D4291C00ABC2AD /* videoIcn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoIcn.png; sourceTree = "<group>"; };
 		F7873A2416D4291C00ABC2AD /* videoIcn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "videoIcn@2x.png"; sourceTree = "<group>"; };
 		F787408016D4582E00ABC2AD /* libGreystripeSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGreystripeSDK.a; path = MMSDK/Dependencies/libGreystripeSDK.a; sourceTree = SOURCE_ROOT; };
-		F787408616D45F2300ABC2AD /* MMAddLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MMAddLocationViewController.xib; path = "MMSDK/Resources/XIB Files/MMAddLocationViewController.xib"; sourceTree = SOURCE_ROOT; };
 		F78C277A16796A3300F22B8A /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		F792DA4615FF4C8000F5CD85 /* MMSocialNetworksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSocialNetworksViewController.m; sourceTree = "<group>"; };
 		F792DA4C15FF4DB300F5CD85 /* MMSocialNetworksCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSocialNetworksCell.m; sourceTree = "<group>"; };
@@ -2102,7 +2101,7 @@
 			children = (
 				F76D8ADC16D31CBB00B3FCEE /* MMAddLocationViewController.h */,
 				C75171F4167A05FD009B4DE8 /* MMAddLocationViewController.m */,
-				F787408616D45F2300ABC2AD /* MMAddLocationViewController.xib */,
+				F7304F7316D4851000C4CB09 /* MMAddLocationViewController.xib */,
 			);
 			name = "Add a location";
 			sourceTree = "<group>";
@@ -3130,7 +3129,6 @@
 				F7873AD816D4291C00ABC2AD /* MapDistanceBtn~iphone.png in Resources */,
 				F7873AD916D4291C00ABC2AD /* mapPin.png in Resources */,
 				F7873ADA16D4291C00ABC2AD /* mapPin@2x.png in Resources */,
-				F7873ADB16D4291C00ABC2AD /* MMAddLocationViewController.xib in Resources */,
 				F7873ADC16D4291C00ABC2AD /* ModalBackground@2x~iphone.png in Resources */,
 				F7873ADD16D4291C00ABC2AD /* ModalBackground~iphone.png in Resources */,
 				F7873ADE16D4291C00ABC2AD /* ModalPictureBtn1@2x~iphone.png in Resources */,
@@ -3351,7 +3349,7 @@
 				F7873BB716D4291C00ABC2AD /* videoFilterOn@2x.png in Resources */,
 				F7873BB816D4291C00ABC2AD /* videoIcn.png in Resources */,
 				F7873BB916D4291C00ABC2AD /* videoIcn@2x.png in Resources */,
-				F787408716D45F2300ABC2AD /* MMAddLocationViewController.xib in Resources */,
+				F7304F7416D4851000C4CB09 /* MMAddLocationViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3562,7 +3560,6 @@
 				F76D8B3516D3449000B3FCEE /* NSString+URLParams.m in Sources */,
 				F76D8B3616D344CF00B3FCEE /* NSDate+JavaEpochTime.m in Sources */,
 				F76D8B3716D344E500B3FCEE /* MMClientSDK.m in Sources */,
-				F76D8B3A16D34A7700B3FCEE /* MMAPI.m in Sources */,
 				F76D8B3E16D34AF200B3FCEE /* MMHTTPClient.m in Sources */,
 				F76D8B4016D34B0900B3FCEE /* MMUtilities.m in Sources */,
 				F76D8B4116D34B2000B3FCEE /* MMSocialNetworksViewController.m in Sources */,
@@ -3618,6 +3615,7 @@
 				F787407316D44B6A00ABC2AD /* ARRollerView.m in Sources */,
 				F787407416D44B6A00ABC2AD /* AWNetworkReachabilityWrapper.m in Sources */,
 				F787407516D44B6A00ABC2AD /* UIColor+AdWhirlConfig.m in Sources */,
+				F7304F7C16D4900400C4CB09 /* MMAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

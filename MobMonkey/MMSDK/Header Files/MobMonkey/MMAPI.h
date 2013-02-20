@@ -10,6 +10,8 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "AFJSONRequestOperation.h"
 
+static NSString * const kBMMMPartnerID = @"aba0007c-ebee-42db-bd52-7c9f02e3d371";
+
 
 typedef enum apiCall {
     kAPICallOpenRequests,
