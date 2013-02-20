@@ -14,7 +14,6 @@
 		1A9F8EC6167ACC540077675B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EC5167ACC540077675B /* StoreKit.framework */; };
 		1A9F8EE0167EAEEB0077675B /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EDF167EAEEB0077675B /* EventKit.framework */; };
 		1A9F8EE2167EAF0D0077675B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EE1167EAF0D0077675B /* MessageUI.framework */; };
-		1A9F8F3E167F9F180077675B /* libGreystripeSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8F3D167F9F180077675B /* libGreystripeSDK.a */; };
 		1AE5965F16974BB100AD6707 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE5965E16974BB100AD6707 /* libFlurry.a */; };
 		370D65071648E7B700D72154 /* NSString+URLParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D65061648E7B700D72154 /* NSString+URLParams.m */; };
 		371D6E981650CBFF006354E2 /* NSDate+JavaEpochTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 371D6E971650CBFF006354E2 /* NSDate+JavaEpochTime.m */; };
@@ -170,7 +169,6 @@
 		F78737B316D41FD000ABC2AD /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5B715F12AC00090E85A /* AFXMLRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F78737B416D41FD000ABC2AD /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5B915F12AC00090E85A /* UIImageView+AFNetworking.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F78737B516D4200500ABC2AD /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D261631627EA6F0093938A /* UIColor+Additions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F78737D716D420BC00ABC2AD /* MMAddLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F78737BA16D420BC00ABC2AD /* MMAddLocationViewController.xib */; };
 		F78737D816D420BC00ABC2AD /* MMAnsweredRequestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F78737BB16D420BC00ABC2AD /* MMAnsweredRequestsViewController.xib */; };
 		F78737D916D420BC00ABC2AD /* MMAnswerTextRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F78737BC16D420BC00ABC2AD /* MMAnswerTextRequestViewController.xib */; };
 		F78737DA16D420BC00ABC2AD /* MMCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F78737BD16D420BC00ABC2AD /* MMCategoryViewController.xib */; };
@@ -196,64 +194,45 @@
 		F78737EE16D420BC00ABC2AD /* MMTrendingDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F78737D116D420BC00ABC2AD /* MMTrendingDetailViewController.xib */; };
 		F78737EF16D420BC00ABC2AD /* MMTrendingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F78737D216D420BC00ABC2AD /* MMTrendingViewController.xib */; };
 		F78737F016D420BC00ABC2AD /* Request.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F78737D316D420BC00ABC2AD /* Request.storyboard */; };
-		F787384216D4254B00ABC2AD /* AdWhirlAdapterIAd.m in Sources */ = {isa = PBXBuildFile; fileRef = F78737FF16D4254B00ABC2AD /* AdWhirlAdapterIAd.m */; };
-		F787384316D4254B00ABC2AD /* AdWhirlAdapterIAd.m in Sources */ = {isa = PBXBuildFile; fileRef = F78737FF16D4254B00ABC2AD /* AdWhirlAdapterIAd.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787384416D4254B00ABC2AD /* AdWhirlAdapterCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380516D4254B00ABC2AD /* AdWhirlAdapterCustom.m */; };
-		F787384516D4254B00ABC2AD /* AdWhirlAdapterCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380516D4254B00ABC2AD /* AdWhirlAdapterCustom.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787384616D4254B00ABC2AD /* AdWhirlAdapterEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380716D4254B00ABC2AD /* AdWhirlAdapterEvent.m */; };
-		F787384716D4254B00ABC2AD /* AdWhirlAdapterEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380716D4254B00ABC2AD /* AdWhirlAdapterEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787384816D4254B00ABC2AD /* AdWhirlAdapterGeneric.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380916D4254B00ABC2AD /* AdWhirlAdapterGeneric.m */; };
-		F787384916D4254B00ABC2AD /* AdWhirlAdapterGeneric.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380916D4254B00ABC2AD /* AdWhirlAdapterGeneric.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787384A16D4254B00ABC2AD /* AdWhirlAdNetworkAdapter+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380B16D4254B00ABC2AD /* AdWhirlAdNetworkAdapter+Helpers.m */; };
-		F787384B16D4254B00ABC2AD /* AdWhirlAdNetworkAdapter+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380B16D4254B00ABC2AD /* AdWhirlAdNetworkAdapter+Helpers.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787384C16D4254B00ABC2AD /* AdWhirlAdNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380C16D4254B00ABC2AD /* AdWhirlAdNetworkAdapter.m */; };
-		F787384D16D4254B00ABC2AD /* AdWhirlAdNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380C16D4254B00ABC2AD /* AdWhirlAdNetworkAdapter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787384E16D4254B00ABC2AD /* AdWhirlAdNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380E16D4254B00ABC2AD /* AdWhirlAdNetworkConfig.m */; };
-		F787384F16D4254B00ABC2AD /* AdWhirlAdNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380E16D4254B00ABC2AD /* AdWhirlAdNetworkConfig.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787385016D4254B00ABC2AD /* AdWhirlAdNetworkRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381016D4254B00ABC2AD /* AdWhirlAdNetworkRegistry.m */; };
-		F787385116D4254B00ABC2AD /* AdWhirlAdNetworkRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381016D4254B00ABC2AD /* AdWhirlAdNetworkRegistry.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787385216D4254B00ABC2AD /* AdWhirlClassWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381216D4254B00ABC2AD /* AdWhirlClassWrapper.m */; };
-		F787385316D4254B00ABC2AD /* AdWhirlClassWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381216D4254B00ABC2AD /* AdWhirlClassWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787385416D4254B00ABC2AD /* AdWhirlConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381416D4254B00ABC2AD /* AdWhirlConfig.m */; };
-		F787385516D4254B00ABC2AD /* AdWhirlConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381416D4254B00ABC2AD /* AdWhirlConfig.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787385616D4254B00ABC2AD /* AdWhirlConfigStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381616D4254B00ABC2AD /* AdWhirlConfigStore.m */; };
-		F787385716D4254B00ABC2AD /* AdWhirlConfigStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381616D4254B00ABC2AD /* AdWhirlConfigStore.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787385816D4254B00ABC2AD /* AdWhirlCustomAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381816D4254B00ABC2AD /* AdWhirlCustomAdView.m */; };
-		F787385916D4254B00ABC2AD /* AdWhirlCustomAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381816D4254B00ABC2AD /* AdWhirlCustomAdView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787385A16D4254B00ABC2AD /* AdWhirlError.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381A16D4254B00ABC2AD /* AdWhirlError.m */; };
-		F787385B16D4254B00ABC2AD /* AdWhirlError.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381A16D4254B00ABC2AD /* AdWhirlError.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787385C16D4254B00ABC2AD /* AdWhirlLog.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381C16D4254B00ABC2AD /* AdWhirlLog.m */; };
-		F787385D16D4254B00ABC2AD /* AdWhirlLog.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381C16D4254B00ABC2AD /* AdWhirlLog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787385E16D4254B00ABC2AD /* AdWhirlView.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381E16D4254B00ABC2AD /* AdWhirlView.m */; };
-		F787385F16D4254B00ABC2AD /* AdWhirlView.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381E16D4254B00ABC2AD /* AdWhirlView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787384216D4254B00ABC2AD /* AdWhirlAdapterIAd.m in Sources */ = {isa = PBXBuildFile; fileRef = F78737FF16D4254B00ABC2AD /* AdWhirlAdapterIAd.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787384416D4254B00ABC2AD /* AdWhirlAdapterCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380516D4254B00ABC2AD /* AdWhirlAdapterCustom.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787384616D4254B00ABC2AD /* AdWhirlAdapterEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380716D4254B00ABC2AD /* AdWhirlAdapterEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787384816D4254B00ABC2AD /* AdWhirlAdapterGeneric.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380916D4254B00ABC2AD /* AdWhirlAdapterGeneric.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787384A16D4254B00ABC2AD /* AdWhirlAdNetworkAdapter+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380B16D4254B00ABC2AD /* AdWhirlAdNetworkAdapter+Helpers.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787384C16D4254B00ABC2AD /* AdWhirlAdNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380C16D4254B00ABC2AD /* AdWhirlAdNetworkAdapter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787384E16D4254B00ABC2AD /* AdWhirlAdNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380E16D4254B00ABC2AD /* AdWhirlAdNetworkConfig.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787385016D4254B00ABC2AD /* AdWhirlAdNetworkRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381016D4254B00ABC2AD /* AdWhirlAdNetworkRegistry.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787385216D4254B00ABC2AD /* AdWhirlClassWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381216D4254B00ABC2AD /* AdWhirlClassWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787385416D4254B00ABC2AD /* AdWhirlConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381416D4254B00ABC2AD /* AdWhirlConfig.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787385616D4254B00ABC2AD /* AdWhirlConfigStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381616D4254B00ABC2AD /* AdWhirlConfigStore.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787385816D4254B00ABC2AD /* AdWhirlCustomAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381816D4254B00ABC2AD /* AdWhirlCustomAdView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787385A16D4254B00ABC2AD /* AdWhirlError.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381A16D4254B00ABC2AD /* AdWhirlError.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787385C16D4254B00ABC2AD /* AdWhirlLog.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381C16D4254B00ABC2AD /* AdWhirlLog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787385E16D4254B00ABC2AD /* AdWhirlView.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381E16D4254B00ABC2AD /* AdWhirlView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F787386016D4254B00ABC2AD /* AdWhirlWebBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = F787381F16D4254B00ABC2AD /* AdWhirlWebBrowser.xib */; };
-		F787386116D4254B00ABC2AD /* AdWhirlWebBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382116D4254B00ABC2AD /* AdWhirlWebBrowserController.m */; };
-		F787386216D4254B00ABC2AD /* AdWhirlWebBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382116D4254B00ABC2AD /* AdWhirlWebBrowserController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787386316D4254B00ABC2AD /* ARRollerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382216D4254B00ABC2AD /* ARRollerView.m */; };
-		F787386416D4254B00ABC2AD /* ARRollerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382216D4254B00ABC2AD /* ARRollerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787386516D4254B00ABC2AD /* AWNetworkReachabilityWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382516D4254B00ABC2AD /* AWNetworkReachabilityWrapper.m */; };
-		F787386616D4254B00ABC2AD /* AWNetworkReachabilityWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382516D4254B00ABC2AD /* AWNetworkReachabilityWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787386716D4254B00ABC2AD /* UIColor+AdWhirlConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382716D4254B00ABC2AD /* UIColor+AdWhirlConfig.m */; };
-		F787386816D4254B00ABC2AD /* UIColor+AdWhirlConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382716D4254B00ABC2AD /* UIColor+AdWhirlConfig.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787386916D4254B00ABC2AD /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382D16D4254B00ABC2AD /* CDataScanner.m */; };
+		F787386116D4254B00ABC2AD /* AdWhirlWebBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382116D4254B00ABC2AD /* AdWhirlWebBrowserController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787386316D4254B00ABC2AD /* ARRollerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382216D4254B00ABC2AD /* ARRollerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787386516D4254B00ABC2AD /* AWNetworkReachabilityWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382516D4254B00ABC2AD /* AWNetworkReachabilityWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787386716D4254B00ABC2AD /* UIColor+AdWhirlConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382716D4254B00ABC2AD /* UIColor+AdWhirlConfig.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787386916D4254B00ABC2AD /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382D16D4254B00ABC2AD /* CDataScanner.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F787386A16D4254B00ABC2AD /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382D16D4254B00ABC2AD /* CDataScanner.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787386B16D4254B00ABC2AD /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383016D4254B00ABC2AD /* CDataScanner_Extensions.m */; };
+		F787386B16D4254B00ABC2AD /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383016D4254B00ABC2AD /* CDataScanner_Extensions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F787386C16D4254B00ABC2AD /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383016D4254B00ABC2AD /* CDataScanner_Extensions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787386D16D4254B00ABC2AD /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383216D4254B00ABC2AD /* NSCharacterSet_Extensions.m */; };
+		F787386D16D4254B00ABC2AD /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383216D4254B00ABC2AD /* NSCharacterSet_Extensions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F787386E16D4254B00ABC2AD /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383216D4254B00ABC2AD /* NSCharacterSet_Extensions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787386F16D4254B00ABC2AD /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383416D4254B00ABC2AD /* NSDictionary_JSONExtensions.m */; };
+		F787386F16D4254B00ABC2AD /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383416D4254B00ABC2AD /* NSDictionary_JSONExtensions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F787387016D4254B00ABC2AD /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383416D4254B00ABC2AD /* NSDictionary_JSONExtensions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787387116D4254B00ABC2AD /* NSScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383616D4254B00ABC2AD /* NSScanner_Extensions.m */; };
+		F787387116D4254B00ABC2AD /* NSScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383616D4254B00ABC2AD /* NSScanner_Extensions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F787387216D4254B00ABC2AD /* NSScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383616D4254B00ABC2AD /* NSScanner_Extensions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787387316D4254B00ABC2AD /* CJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383916D4254B00ABC2AD /* CJSONDataSerializer.m */; };
+		F787387316D4254B00ABC2AD /* CJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383916D4254B00ABC2AD /* CJSONDataSerializer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F787387416D4254B00ABC2AD /* CJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383916D4254B00ABC2AD /* CJSONDataSerializer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787387516D4254B00ABC2AD /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383B16D4254B00ABC2AD /* CJSONDeserializer.m */; };
+		F787387516D4254B00ABC2AD /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383B16D4254B00ABC2AD /* CJSONDeserializer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F787387616D4254B00ABC2AD /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383B16D4254B00ABC2AD /* CJSONDeserializer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787387716D4254B00ABC2AD /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383D16D4254B00ABC2AD /* CJSONScanner.m */; };
+		F787387716D4254B00ABC2AD /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383D16D4254B00ABC2AD /* CJSONScanner.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F787387816D4254B00ABC2AD /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383D16D4254B00ABC2AD /* CJSONScanner.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787387916D4254B00ABC2AD /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383F16D4254B00ABC2AD /* CJSONSerializer.m */; };
+		F787387916D4254B00ABC2AD /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383F16D4254B00ABC2AD /* CJSONSerializer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F787387A16D4254B00ABC2AD /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F787383F16D4254B00ABC2AD /* CJSONSerializer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F787387B16D4254B00ABC2AD /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = F787384116D4254B00ABC2AD /* CSerializedJSONData.m */; };
+		F787387B16D4254B00ABC2AD /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = F787384116D4254B00ABC2AD /* CSerializedJSONData.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F787387C16D4254B00ABC2AD /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = F787384116D4254B00ABC2AD /* CSerializedJSONData.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F787388016D4257F00ABC2AD /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F787387D16D4257F00ABC2AD /* FacebookSDK.framework */; };
 		F787388216D4257F00ABC2AD /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F787387E16D4257F00ABC2AD /* FacebookSDKResources.bundle */; };
@@ -667,6 +646,30 @@
 		F7873BB716D4291C00ABC2AD /* videoFilterOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7873A2216D4291C00ABC2AD /* videoFilterOn@2x.png */; };
 		F7873BB816D4291C00ABC2AD /* videoIcn.png in Resources */ = {isa = PBXBuildFile; fileRef = F7873A2316D4291C00ABC2AD /* videoIcn.png */; };
 		F7873BB916D4291C00ABC2AD /* videoIcn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7873A2416D4291C00ABC2AD /* videoIcn@2x.png */; };
+		F787404816D4411300ABC2AD /* MMTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7BEAA0016969AEF0010A84D /* MMTextFieldCell.m */; };
+		F787404B16D4417700ABC2AD /* MMNotificationSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F74517FE15F918980049277C /* MMNotificationSettingsViewController.m */; };
+		F787406316D44B6A00ABC2AD /* AdWhirlAdapterIAd.m in Sources */ = {isa = PBXBuildFile; fileRef = F78737FF16D4254B00ABC2AD /* AdWhirlAdapterIAd.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787406416D44B6A00ABC2AD /* AdWhirlAdapterCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380516D4254B00ABC2AD /* AdWhirlAdapterCustom.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787406516D44B6A00ABC2AD /* AdWhirlAdapterEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380716D4254B00ABC2AD /* AdWhirlAdapterEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787406616D44B6A00ABC2AD /* AdWhirlAdapterGeneric.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380916D4254B00ABC2AD /* AdWhirlAdapterGeneric.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787406716D44B6A00ABC2AD /* AdWhirlAdNetworkAdapter+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380B16D4254B00ABC2AD /* AdWhirlAdNetworkAdapter+Helpers.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787406816D44B6A00ABC2AD /* AdWhirlAdNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380C16D4254B00ABC2AD /* AdWhirlAdNetworkAdapter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787406916D44B6A00ABC2AD /* AdWhirlAdNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F787380E16D4254B00ABC2AD /* AdWhirlAdNetworkConfig.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787406A16D44B6A00ABC2AD /* AdWhirlAdNetworkRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381016D4254B00ABC2AD /* AdWhirlAdNetworkRegistry.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787406B16D44B6A00ABC2AD /* AdWhirlClassWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381216D4254B00ABC2AD /* AdWhirlClassWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787406C16D44B6A00ABC2AD /* AdWhirlConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381416D4254B00ABC2AD /* AdWhirlConfig.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787406D16D44B6A00ABC2AD /* AdWhirlConfigStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381616D4254B00ABC2AD /* AdWhirlConfigStore.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787406E16D44B6A00ABC2AD /* AdWhirlCustomAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381816D4254B00ABC2AD /* AdWhirlCustomAdView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787406F16D44B6A00ABC2AD /* AdWhirlError.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381A16D4254B00ABC2AD /* AdWhirlError.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787407016D44B6A00ABC2AD /* AdWhirlLog.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381C16D4254B00ABC2AD /* AdWhirlLog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787407116D44B6A00ABC2AD /* AdWhirlView.m in Sources */ = {isa = PBXBuildFile; fileRef = F787381E16D4254B00ABC2AD /* AdWhirlView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787407216D44B6A00ABC2AD /* AdWhirlWebBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382116D4254B00ABC2AD /* AdWhirlWebBrowserController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787407316D44B6A00ABC2AD /* ARRollerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382216D4254B00ABC2AD /* ARRollerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787407416D44B6A00ABC2AD /* AWNetworkReachabilityWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382516D4254B00ABC2AD /* AWNetworkReachabilityWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787407516D44B6A00ABC2AD /* UIColor+AdWhirlConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F787382716D4254B00ABC2AD /* UIColor+AdWhirlConfig.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F787408116D4582E00ABC2AD /* libGreystripeSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F787408016D4582E00ABC2AD /* libGreystripeSDK.a */; };
+		F787408216D4582E00ABC2AD /* libGreystripeSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F787408016D4582E00ABC2AD /* libGreystripeSDK.a */; };
+		F787408716D45F2300ABC2AD /* MMAddLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F787408616D45F2300ABC2AD /* MMAddLocationViewController.xib */; };
 		F78C277B16796A3300F22B8A /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F78C277A16796A3300F22B8A /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F792DA4815FF4C8000F5CD85 /* MMSocialNetworksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F792DA4615FF4C8000F5CD85 /* MMSocialNetworksViewController.m */; };
 		F792DA4D15FF4DB300F5CD85 /* MMSocialNetworksCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F792DA4C15FF4DB300F5CD85 /* MMSocialNetworksCell.m */; };
@@ -729,7 +732,6 @@
 		1A9F8F3A167F9F180077675B /* GSLeaderboardAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLeaderboardAdView.h; sourceTree = "<group>"; };
 		1A9F8F3B167F9F180077675B /* GSMediumRectangleAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSMediumRectangleAdView.h; sourceTree = "<group>"; };
 		1A9F8F3C167F9F180077675B /* GSMobileBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSMobileBannerAdView.h; sourceTree = "<group>"; };
-		1A9F8F3D167F9F180077675B /* libGreystripeSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGreystripeSDK.a; sourceTree = "<group>"; };
 		1AE5965D16974BB100AD6707 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		1AE5965E16974BB100AD6707 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		370D65061648E7B700D72154 /* NSString+URLParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLParams.m"; sourceTree = "<group>"; };
@@ -901,7 +903,6 @@
 		F77D3E50161A1ED2000A818F /* MMClientSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMClientSDK.m; sourceTree = "<group>"; };
 		F77D3E5D161A9F6C000A818F /* MMInboxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMInboxCell.m; sourceTree = "<group>"; };
 		F78737B616D4202000ABC2AD /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Additions.h"; path = "MMSDK/Header Files/MobMonkey/UIColor+Additions.h"; sourceTree = SOURCE_ROOT; };
-		F78737BA16D420BC00ABC2AD /* MMAddLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MMAddLocationViewController.xib; path = "MMSDK/Resources/XIB Files/MMAddLocationViewController.xib"; sourceTree = SOURCE_ROOT; };
 		F78737BB16D420BC00ABC2AD /* MMAnsweredRequestsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MMAnsweredRequestsViewController.xib; path = "MMSDK/Resources/XIB Files/MMAnsweredRequestsViewController.xib"; sourceTree = SOURCE_ROOT; };
 		F78737BC16D420BC00ABC2AD /* MMAnswerTextRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MMAnswerTextRequestViewController.xib; path = "MMSDK/Resources/XIB Files/MMAnswerTextRequestViewController.xib"; sourceTree = SOURCE_ROOT; };
 		F78737BD16D420BC00ABC2AD /* MMCategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MMCategoryViewController.xib; path = "MMSDK/Resources/XIB Files/MMCategoryViewController.xib"; sourceTree = SOURCE_ROOT; };
@@ -1398,6 +1399,8 @@
 		F7873A2216D4291C00ABC2AD /* videoFilterOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "videoFilterOn@2x.png"; sourceTree = "<group>"; };
 		F7873A2316D4291C00ABC2AD /* videoIcn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoIcn.png; sourceTree = "<group>"; };
 		F7873A2416D4291C00ABC2AD /* videoIcn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "videoIcn@2x.png"; sourceTree = "<group>"; };
+		F787408016D4582E00ABC2AD /* libGreystripeSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGreystripeSDK.a; path = MMSDK/Dependencies/libGreystripeSDK.a; sourceTree = SOURCE_ROOT; };
+		F787408616D45F2300ABC2AD /* MMAddLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MMAddLocationViewController.xib; path = "MMSDK/Resources/XIB Files/MMAddLocationViewController.xib"; sourceTree = SOURCE_ROOT; };
 		F78C277A16796A3300F22B8A /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		F792DA4615FF4C8000F5CD85 /* MMSocialNetworksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSocialNetworksViewController.m; sourceTree = "<group>"; };
 		F792DA4C15FF4DB300F5CD85 /* MMSocialNetworksCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSocialNetworksCell.m; sourceTree = "<group>"; };
@@ -1446,10 +1449,10 @@
 				F734A53A15F11C3E0090E85A /* Foundation.framework in Frameworks */,
 				37E5241316418AD4003AC7E5 /* MediaPlayer.framework in Frameworks */,
 				37D6AB4C1644488A0070220D /* libTestFlight.a in Frameworks */,
-				1A9F8F3E167F9F180077675B /* libGreystripeSDK.a in Frameworks */,
 				1AE5965F16974BB100AD6707 /* libFlurry.a in Frameworks */,
 				F787388016D4257F00ABC2AD /* FacebookSDK.framework in Frameworks */,
 				F787388316D4257F00ABC2AD /* Parse.framework in Frameworks */,
+				F787408116D4582E00ABC2AD /* libGreystripeSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1470,6 +1473,7 @@
 				F76D8AAC16D2F4BE00B3FCEE /* Foundation.framework in Frameworks */,
 				F787388416D4257F00ABC2AD /* Parse.framework in Frameworks */,
 				F787388516D4258800ABC2AD /* FacebookSDK.framework in Frameworks */,
+				F787408216D4582E00ABC2AD /* libGreystripeSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1498,7 +1502,7 @@
 				1A9F8F3A167F9F180077675B /* GSLeaderboardAdView.h */,
 				1A9F8F3B167F9F180077675B /* GSMediumRectangleAdView.h */,
 				1A9F8F3C167F9F180077675B /* GSMobileBannerAdView.h */,
-				1A9F8F3D167F9F180077675B /* libGreystripeSDK.a */,
+				F787408016D4582E00ABC2AD /* libGreystripeSDK.a */,
 			);
 			name = GSSSDK4.1;
 			path = iOSSDK4.1;
@@ -1520,13 +1524,6 @@
 				370D65061648E7B700D72154 /* NSString+URLParams.m */,
 			);
 			name = "NSString URLParams";
-			sourceTree = "<group>";
-		};
-		372E64B3164C11490075AB60 /* location-full slices */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "location-full slices";
 			sourceTree = "<group>";
 		};
 		379CBF6D162EFC580080D95C /* MMTableViewCell */ = {
@@ -1927,7 +1924,6 @@
 		F747F0C815F42433002E5567 /* Location */ = {
 			isa = PBXGroup;
 			children = (
-				372E64B3164C11490075AB60 /* location-full slices */,
 				F76D8AF116D31CBB00B3FCEE /* MMLocationViewController.h */,
 				F747F10715F426F8002E5567 /* MMLocationViewController.m */,
 				F78737C516D420BC00ABC2AD /* MMLocationViewController.xib */,
@@ -2106,7 +2102,7 @@
 			children = (
 				F76D8ADC16D31CBB00B3FCEE /* MMAddLocationViewController.h */,
 				C75171F4167A05FD009B4DE8 /* MMAddLocationViewController.m */,
-				F78737BA16D420BC00ABC2AD /* MMAddLocationViewController.xib */,
+				F787408616D45F2300ABC2AD /* MMAddLocationViewController.xib */,
 			);
 			name = "Add a location";
 			sourceTree = "<group>";
@@ -2925,7 +2921,6 @@
 				37D6AB4D1644488A0070220D /* README.md in Resources */,
 				37D6AB4E1644488A0070220D /* release_notes.md in Resources */,
 				F76D8B4C16D34C1F00B3FCEE /* SVProgressHUD.bundle in Resources */,
-				F78737D716D420BC00ABC2AD /* MMAddLocationViewController.xib in Resources */,
 				F78737D816D420BC00ABC2AD /* MMAnsweredRequestsViewController.xib in Resources */,
 				F78737D916D420BC00ABC2AD /* MMAnswerTextRequestViewController.xib in Resources */,
 				F78737DA16D420BC00ABC2AD /* MMCategoryViewController.xib in Resources */,
@@ -3356,6 +3351,7 @@
 				F7873BB716D4291C00ABC2AD /* videoFilterOn@2x.png in Resources */,
 				F7873BB816D4291C00ABC2AD /* videoIcn.png in Resources */,
 				F7873BB916D4291C00ABC2AD /* videoIcn@2x.png in Resources */,
+				F787408716D45F2300ABC2AD /* MMAddLocationViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3589,25 +3585,6 @@
 				F78737B316D41FD000ABC2AD /* AFXMLRequestOperation.m in Sources */,
 				F78737B416D41FD000ABC2AD /* UIImageView+AFNetworking.m in Sources */,
 				F78737B516D4200500ABC2AD /* UIColor+Additions.m in Sources */,
-				F787384316D4254B00ABC2AD /* AdWhirlAdapterIAd.m in Sources */,
-				F787384516D4254B00ABC2AD /* AdWhirlAdapterCustom.m in Sources */,
-				F787384716D4254B00ABC2AD /* AdWhirlAdapterEvent.m in Sources */,
-				F787384916D4254B00ABC2AD /* AdWhirlAdapterGeneric.m in Sources */,
-				F787384B16D4254B00ABC2AD /* AdWhirlAdNetworkAdapter+Helpers.m in Sources */,
-				F787384D16D4254B00ABC2AD /* AdWhirlAdNetworkAdapter.m in Sources */,
-				F787384F16D4254B00ABC2AD /* AdWhirlAdNetworkConfig.m in Sources */,
-				F787385116D4254B00ABC2AD /* AdWhirlAdNetworkRegistry.m in Sources */,
-				F787385316D4254B00ABC2AD /* AdWhirlClassWrapper.m in Sources */,
-				F787385516D4254B00ABC2AD /* AdWhirlConfig.m in Sources */,
-				F787385716D4254B00ABC2AD /* AdWhirlConfigStore.m in Sources */,
-				F787385916D4254B00ABC2AD /* AdWhirlCustomAdView.m in Sources */,
-				F787385B16D4254B00ABC2AD /* AdWhirlError.m in Sources */,
-				F787385D16D4254B00ABC2AD /* AdWhirlLog.m in Sources */,
-				F787385F16D4254B00ABC2AD /* AdWhirlView.m in Sources */,
-				F787386216D4254B00ABC2AD /* AdWhirlWebBrowserController.m in Sources */,
-				F787386416D4254B00ABC2AD /* ARRollerView.m in Sources */,
-				F787386616D4254B00ABC2AD /* AWNetworkReachabilityWrapper.m in Sources */,
-				F787386816D4254B00ABC2AD /* UIColor+AdWhirlConfig.m in Sources */,
 				F787386A16D4254B00ABC2AD /* CDataScanner.m in Sources */,
 				F787386C16D4254B00ABC2AD /* CDataScanner_Extensions.m in Sources */,
 				F787386E16D4254B00ABC2AD /* NSCharacterSet_Extensions.m in Sources */,
@@ -3620,6 +3597,27 @@
 				F787387C16D4254B00ABC2AD /* CSerializedJSONData.m in Sources */,
 				F787388816D427C800ABC2AD /* SVProgressHUD.m in Sources */,
 				F787388E16D4288000ABC2AD /* MMSearchViewController.m in Sources */,
+				F787404816D4411300ABC2AD /* MMTextFieldCell.m in Sources */,
+				F787404B16D4417700ABC2AD /* MMNotificationSettingsViewController.m in Sources */,
+				F787406316D44B6A00ABC2AD /* AdWhirlAdapterIAd.m in Sources */,
+				F787406416D44B6A00ABC2AD /* AdWhirlAdapterCustom.m in Sources */,
+				F787406516D44B6A00ABC2AD /* AdWhirlAdapterEvent.m in Sources */,
+				F787406616D44B6A00ABC2AD /* AdWhirlAdapterGeneric.m in Sources */,
+				F787406716D44B6A00ABC2AD /* AdWhirlAdNetworkAdapter+Helpers.m in Sources */,
+				F787406816D44B6A00ABC2AD /* AdWhirlAdNetworkAdapter.m in Sources */,
+				F787406916D44B6A00ABC2AD /* AdWhirlAdNetworkConfig.m in Sources */,
+				F787406A16D44B6A00ABC2AD /* AdWhirlAdNetworkRegistry.m in Sources */,
+				F787406B16D44B6A00ABC2AD /* AdWhirlClassWrapper.m in Sources */,
+				F787406C16D44B6A00ABC2AD /* AdWhirlConfig.m in Sources */,
+				F787406D16D44B6A00ABC2AD /* AdWhirlConfigStore.m in Sources */,
+				F787406E16D44B6A00ABC2AD /* AdWhirlCustomAdView.m in Sources */,
+				F787406F16D44B6A00ABC2AD /* AdWhirlError.m in Sources */,
+				F787407016D44B6A00ABC2AD /* AdWhirlLog.m in Sources */,
+				F787407116D44B6A00ABC2AD /* AdWhirlView.m in Sources */,
+				F787407216D44B6A00ABC2AD /* AdWhirlWebBrowserController.m in Sources */,
+				F787407316D44B6A00ABC2AD /* ARRollerView.m in Sources */,
+				F787407416D44B6A00ABC2AD /* AWNetworkReachabilityWrapper.m in Sources */,
+				F787407516D44B6A00ABC2AD /* UIColor+AdWhirlConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3754,6 +3752,7 @@
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.2.1/Add-ons/GoogleAnalyticsiOS_2.0beta3/Library\"",
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.2.1\"",
 					"\"$(SRCROOT)/MobMonkey/Flurry\"",
+					"\"$(SRCROOT)/MMSDK/Dependencies\"",
 				);
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3787,6 +3786,7 @@
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.2.1/Add-ons/GoogleAnalyticsiOS_2.0beta3/Library\"",
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.2.1\"",
 					"\"$(SRCROOT)/MobMonkey/Flurry\"",
+					"\"$(SRCROOT)/MMSDK/Dependencies\"",
 				);
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3842,6 +3842,7 @@
 		F76D8AC916D2F4BE00B3FCEE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -3855,7 +3856,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MMSDK/MMSDK-Prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/MMSDK/Dependencies\"",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3866,6 +3871,7 @@
 		F76D8ACA16D2F4BE00B3FCEE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -3879,7 +3885,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MMSDK/MMSDK-Prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/MMSDK/Dependencies\"",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

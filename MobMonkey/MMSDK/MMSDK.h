@@ -85,4 +85,13 @@
  */
 + (void)displayMMMakeARequestScreenFromPresentingViewController:(UIViewController*)presentingViewController withLocationParams:(NSDictionary*)params;
 
+///---------------------------------------------
+/// @name displayMMSearchScreenFromPresentingViewController:presentingViewController
+///---------------------------------------------
+/**
+ Displays the MobMonkey Search Screen from a specified view controller
+ */
++ (void)displayMMSearchScreenFromPresentingViewController:(UIViewController*)presentingViewController;
+
+
 @end
