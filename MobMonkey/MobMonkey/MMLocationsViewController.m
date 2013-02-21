@@ -114,10 +114,10 @@
      initWithTarget:self action:@selector(handleLongPress:)];
      [mapView addGestureRecognizer:longPressGestureRecognizer];*/
     
-    [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:226.0/255.0
+    /*[self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:226.0/255.0
                                                                           green:112.0/225.0
                                                                            blue:36.0/255.0
-                                                                          alpha:1.0]];
+                                                                          alpha:1.0]];*/
 }
 
 - (void)setCategory:(NSDictionary *)categoryParameter

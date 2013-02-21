@@ -139,8 +139,10 @@
     // Navigation logic may go here. Create and push another view controller.
     if ([self.title isEqualToString:@"Open Requests"]) {
         selectedIndexToClear = indexPath.row;
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Open Request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles: nil];
-        [actionSheet showInView:self.tabBarController.tabBar];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Delete Request" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
+        [alert show];
+        //UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Open Request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles: nil];
+        //[actionSheet showInView:self.tabBarController.tabBar];
     }
     else {
         requestId = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"requestId"];
@@ -157,10 +159,10 @@
     }
 }
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     switch (buttonIndex) {
-        case 0: {
+        case 1: {
             NSString *selectedRequestId = [[_contentList objectAtIndex:selectedIndexToClear]valueForKey:@"requestId"];
             NSString *isRecurring;
             NSLog(@"%@", _contentList);

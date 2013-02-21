@@ -35,10 +35,10 @@
         _addressLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _addressLabel.numberOfLines = 2;
         _addressLabel.font = [UIFont systemFontOfSize:12.0];
-        _addressLabel.textColor = [UIColor colorWithHex:@"333333" alpha:1.0];
+        //_addressLabel.textColor = [UIColor colorWithHex:@"333333" alpha:1.0];
         _distanceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _distanceLabel.font = [UIFont boldSystemFontOfSize:14.0];
-        _distanceLabel.textColor = [UIColor colorWithHex:@"686868" alpha:1.0];        
+        //_distanceLabel.textColor = [UIColor colorWithHex:@"686868" alpha:1.0];
         _mediaIconsView = [[UIView alloc] initWithFrame:CGRectZero];
         
         [self.contentView addSubview:_nameLabel];

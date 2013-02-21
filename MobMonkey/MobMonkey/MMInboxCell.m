@@ -44,10 +44,10 @@
         _messageLabel.numberOfLines = 0;
         _messageLabel.lineBreakMode = UILineBreakModeWordWrap;
         _messageLabel.font = [UIFont systemFontOfSize:12.0];
-        _messageLabel.textColor = [UIColor colorWithHex:@"333333" alpha:1.0];
+        //_messageLabel.textColor = [UIColor colorWithHex:@"333333" alpha:1.0];
         _distanceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _distanceLabel.font = [UIFont boldSystemFontOfSize:14.0];
-        _distanceLabel.textColor = [UIColor colorWithHex:@"686868" alpha:1.0];
+        //_distanceLabel.textColor = [UIColor colorWithHex:@"686868" alpha:1.0];
         _mediaIconsView = [[UIView alloc] initWithFrame:CGRectZero];
         
         
