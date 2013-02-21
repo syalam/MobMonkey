@@ -71,7 +71,7 @@
 + (void)displayMMSearchScreenFromPresentingViewController:(UIViewController*)presentingViewController {
     MMSearchViewController *searchVC = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
     searchVC.title = @"Search";
-    searchVC.SDKCall = YES;
+    searchVC.pushedView = YES;
     [presentingViewController.navigationController pushViewController:searchVC animated:YES];
 }
 
