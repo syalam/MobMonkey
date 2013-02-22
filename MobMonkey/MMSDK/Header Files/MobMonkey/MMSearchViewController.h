@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSDictionary *filters;
 @property (nonatomic, strong) NSString *parentId;
+@property (nonatomic, retain) NSDictionary* themOptionsDictionary;
 @property (nonatomic)BOOL pushedView;
 
 @end

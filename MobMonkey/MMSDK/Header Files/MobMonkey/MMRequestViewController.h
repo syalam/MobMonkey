@@ -16,5 +16,6 @@
 }
 
 @property (nonatomic, retain)NSDictionary *contentList;
+@property (nonatomic, retain)NSDictionary *themeOptionsDictionary;
 
 @end

@@ -61,16 +61,18 @@
     [presentingViewController.navigationController pushViewController:locationVC animated:YES];
 }
 
-+ (void)displayMMMakeARequestScreenFromPresentingViewController:(UIViewController*)presentingViewController withLocationParams:(NSDictionary*)params {
++ (void)displayMMMakeARequestScreenFromPresentingViewController:(UIViewController*)presentingViewController withLocationParams:(NSDictionary*)params withThemeOptions:(NSDictionary*)themeOptionsDictionary {
     MMRequestViewController *requestVC = [[MMRequestViewController alloc]initWithNibName:@"MMRequestViewController" bundle:nil];
+    requestVC.themeOptionsDictionary = themeOptionsDictionary;
     [requestVC setContentList:params];
     UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
     [presentingViewController.navigationController presentViewController:requestNavC animated:YES completion:NULL];
 }
 
-+ (void)displayMMSearchScreenFromPresentingViewController:(UIViewController*)presentingViewController {
++ (void)displayMMSearchScreenFromPresentingViewController:(UIViewController*)presentingViewController withThemeOptions:(NSDictionary*)themeOptionsDictionary {
     MMSearchViewController *searchVC = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
     searchVC.title = @"Search";
+    searchVC.themOptionsDictionary = themeOptionsDictionary;
     searchVC.pushedView = YES;
     [presentingViewController.navigationController pushViewController:searchVC animated:YES];
 }

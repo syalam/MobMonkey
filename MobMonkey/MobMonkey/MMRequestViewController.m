@@ -65,6 +65,23 @@ enum RequestDurationLengths {
     self.duration = @30;
     
     isRecurring = NO;
+    
+    //setup theme if available
+    if (_themeOptionsDictionary) {
+        if ([_themeOptionsDictionary valueForKey:@"buttonBackgoundImage"]) {
+            [_requestButton setBackgroundImage:[_themeOptionsDictionary valueForKey:@"buttonBackgroundImage"] forState:UIControlStateNormal];
+        }
+        if ([_themeOptionsDictionary valueForKey:@"backgroundColor"]) {
+            [self.view setBackgroundColor:[_themeOptionsDictionary valueForKey:@"backgroundColor"]];
+        }
+        if ([_themeOptionsDictionary valueForKey:@"navigationBarTintColor"]) {
+            [self.navigationController.navigationBar setTintColor:[_themeOptionsDictionary valueForKey:@"navigationBarTintColor"]];
+        }
+        if ([_themeOptionsDictionary valueForKey:@"navigationBarTitleImage"]) {
+            UIImage *image = [_themeOptionsDictionary valueForKey:@"navigationBarTitleImage"];
+            self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
+        }
+    }
 }
 
 - (void)viewDidUnload {
@@ -85,6 +102,9 @@ enum RequestDurationLengths {
 {
     if ([segue.identifier isEqualToString:@"MessageSegue"]) {
         MMRequestMessageViewController *messageVC = (MMRequestMessageViewController *)segue.destinationViewController;
+        if (_themeOptionsDictionary) {
+            messageVC.themeOptionsDictionary = _themeOptionsDictionary;
+        }
         messageVC.requestInfo = self.requestInfo;
         return;
     }

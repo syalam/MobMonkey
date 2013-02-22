@@ -11,5 +11,6 @@
 @interface MMRequestMessageViewController : UITableViewController <UITextViewDelegate>
 
 @property (weak, nonatomic) NSMutableDictionary  *requestInfo;
+@property (nonatomic, weak) NSDictionary *themeOptionsDictionary;
 
 @end

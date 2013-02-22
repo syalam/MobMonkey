@@ -108,6 +108,23 @@
     allCategoriesArray = [prefs objectForKey:@"allCategories"];
     [self.tableView reloadData];
     self.tableView.scrollEnabled = YES;
+    
+    //If the theme options dictionary is populated, update the theme of the current view
+    if (_themOptionsDictionary) {
+        if ([_themOptionsDictionary valueForKey:@"backgroundColor"]) {
+            [self.view setBackgroundColor:[_themOptionsDictionary valueForKey:@"backgroundColor"]];
+        }
+        if ([_themOptionsDictionary valueForKey:@"navigationBarTintColor"]) {
+            [self.navigationController.navigationBar setTintColor:[_themOptionsDictionary valueForKey:@"navigationBarTintColor"]];
+        }
+        if ([_themOptionsDictionary valueForKey:@"navigationBarTitleImage"]) {
+            UIImage *image = [_themOptionsDictionary valueForKey:@"navigationBarTitleImage"];
+            self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
+        }
+        if ([_themOptionsDictionary valueForKey:@"searchBarTintColor"]) {
+            [_searchBar setTintColor:[_themOptionsDictionary valueForKey:@"searchBarTintColor"]];
+        }
+    }
 }
 
 - (void)viewDidUnload {
@@ -208,6 +225,9 @@
         }
         
         //[params setValue:@"" forKey:@"categoryIds"];
+    }
+    if (_themOptionsDictionary) {
+        self.searchResultsViewController.themeOptionsDictionary = _themOptionsDictionary;
     }
     [params setValue:self.searchBar.text forKey:@"name"];
     
@@ -399,6 +419,9 @@
             MMSearchViewController *searchVC = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
             searchVC.parentId = category[@"categoryId"];
             searchVC.title = category[@"en"];
+            if (_themOptionsDictionary) {
+                searchVC.themOptionsDictionary = _themOptionsDictionary;
+            }
             [self.navigationController pushViewController:searchVC animated:YES];
         }
         else {
@@ -483,6 +506,10 @@
     [self.searchResultsViewController.tableView reloadData];
     self.searchResultsViewController.isHistory = YES;
     self.searchResultsViewController.title = @"History";
+    
+    if (_themOptionsDictionary) {
+        self.searchResultsViewController.themeOptionsDictionary = _themOptionsDictionary;
+    }
     
     [self.navigationController pushViewController:self.searchResultsViewController animated:YES];
 

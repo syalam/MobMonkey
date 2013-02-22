@@ -3765,6 +3765,7 @@
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.2.1\"",
 					"\"$(SRCROOT)/MobMonkey/Flurry\"",
 					"\"$(SRCROOT)/MMSDK/Dependencies\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/MobMonkey-gbifzdlziybonbgzcpeevjktwawv/Build/Products/Debug-iphonesimulator\"",
 				);
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3799,6 +3800,7 @@
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.2.1\"",
 					"\"$(SRCROOT)/MobMonkey/Flurry\"",
 					"\"$(SRCROOT)/MMSDK/Dependencies\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/MobMonkey-gbifzdlziybonbgzcpeevjktwawv/Build/Products/Debug-iphonesimulator\"",
 				);
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3854,7 +3856,10 @@
 		F76D8AC916D2F4BE00B3FCEE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					i386,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -3877,13 +3882,18 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				VALID_ARCHS = "armv7 armv7s i386";
 			};
 			name = Debug;
 		};
 		F76D8ACA16D2F4BE00B3FCEE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					i386,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -3905,6 +3915,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				VALID_ARCHS = "armv7 armv7s i386";
 			};
 			name = Release;
 		};

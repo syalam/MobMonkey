@@ -79,19 +79,31 @@
 ///---------------------------------------------
 /**
  Displays the MobMonkey Answered Requests Screen from a specified view controller.
- 
+ Params Dictionary params:
  @param locationId
  @param providerId
+
+ themeOptionDictionary params:
+ @param backgroundColor (UIColor)
+ @param buttonBackgoundImage (UIImage)
+ @param navigationBarTintColor (UIColor)
+ @param navigationBarTitleImage (UIImage)
  */
-+ (void)displayMMMakeARequestScreenFromPresentingViewController:(UIViewController*)presentingViewController withLocationParams:(NSDictionary*)params;
++ (void)displayMMMakeARequestScreenFromPresentingViewController:(UIViewController*)presentingViewController withLocationParams:(NSDictionary*)params withThemeOptions:(NSDictionary*)themeOptionsDictionary;
 
 ///---------------------------------------------
 /// @name displayMMSearchScreenFromPresentingViewController:presentingViewController
 ///---------------------------------------------
 /**
  Displays the MobMonkey Search Screen from a specified view controller
+ 
+ themeOptionDictionary params:
+ @param backgroundColor (UIColor)
+ @param buttonBackgoundImage (UIImage)
+ @param navigationBarTintColor (UIColor)
+ @param navigationBarTitleImage (UIImage)
  */
-+ (void)displayMMSearchScreenFromPresentingViewController:(UIViewController*)presentingViewController;
++ (void)displayMMSearchScreenFromPresentingViewController:(UIViewController*)presentingViewController withThemeOptions:(NSDictionary*)themeOptionsDictionary;
 
 
 @end
