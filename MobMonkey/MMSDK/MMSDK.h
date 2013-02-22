@@ -15,8 +15,14 @@
 ///---------------------------------------------
 /**
  Displays the MobMonkey Sign in Screen from a specified view controller
+ 
+ themeOptionDictionary params:
+ @param backgroundColor (UIColor)
+ @param buttonBackgoundImage (UIImage)
+ @param navigationBarTintColor (UIColor)
+ @param navigationBarTitleImage (UIImage)
  */
-+ (void)displayMMSignInScreenFromPresentingViewController:(UIViewController*)presentingViewController;
++ (void)displayMMSignInScreenFromPresentingViewController:(UIViewController*)presentingViewController withThemeOptions:(NSDictionary*)themeOptionsDictionary;
 
 
 ///---------------------------------------------
@@ -24,8 +30,14 @@
 ///---------------------------------------------
 /**
  Displays the MobMonkey Sign Up Screen from a specified view controller
+ 
+ themeOptionDictionary params:
+ @param backgroundColor (UIColor)
+ @param buttonBackgoundImage (UIImage)
+ @param navigationBarTintColor (UIColor)
+ @param navigationBarTitleImage (UIImage)
  */
-+ (void)displayMMSignUpScreenFromPresentingViewController:(UIViewController*)presentingViewController;
++ (void)displayMMSignUpScreenFromPresentingViewController:(UIViewController*)presentingViewController withThemeOptions:(NSDictionary*)themeOptionsDictionary;
 
 
 ///---------------------------------------------

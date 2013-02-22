@@ -18,15 +18,17 @@
 
 @implementation MMSDK
 
-+ (void)displayMMSignInScreenFromPresentingViewController:(UIViewController*)presentingViewController {
++ (void)displayMMSignInScreenFromPresentingViewController:(UIViewController*)presentingViewController withThemeOptions:(NSDictionary*)themeOptionsDictionary {
     MMLoginViewController *signInVc = [[MMLoginViewController alloc]initWithNibName:@"MMLoginViewController" bundle:nil];
     signInVc.title = @"Sign In";
+    signInVc.themeOptionsDictionary = themeOptionsDictionary;
     UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:signInVc];
     [presentingViewController.navigationController presentViewController:navC animated:YES completion:NULL];
 }
 
-+ (void)displayMMSignUpScreenFromPresentingViewController:(UIViewController*)presentingViewController{
++ (void)displayMMSignUpScreenFromPresentingViewController:(UIViewController*)presentingViewController withThemeOptions:(NSDictionary*)themeOptionsDictionary {
     MMSignUpViewController *signUpVC = [[MMSignUpViewController alloc]initWithNibName:@"MMSignUpViewController" bundle:nil];
+    signUpVC.themeOptionsDictionary = themeOptionsDictionary;
     signUpVC.title = @"Sign Up";
     [presentingViewController.navigationController pushViewController:signUpVC animated:YES];
 }

@@ -29,6 +29,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *facebookButton;
 @property (nonatomic, weak) IBOutlet UIButton *twitterButton;
 @property (nonatomic, retain) NSArray *twitterAccounts;
+@property (nonatomic, weak) NSDictionary *themeOptionsDictionary;
 @property (nonatomic) BOOL twitterSignIn;
 
 @end
