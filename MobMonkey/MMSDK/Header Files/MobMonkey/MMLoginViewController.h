@@ -21,5 +21,6 @@
 - (IBAction)twitterButtonTapped:(id)sender;
 
 @property (nonatomic, retain) NSArray* twitterAccounts;
+@property (nonatomic, weak) NSDictionary *themeOptionsDictionary;
 
 @end

@@ -318,6 +318,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <outlet property="datePicker" destination="zw3-Qd-fIa" id="ooM-Vj-Xkd"/>
                         <outlet property="frequencySelector" destination="S6o-ct-jH7" id="q4D-zB-CWI"/>
                         <outlet property="recurringSwitch" destination="kaL-Ok-fti" id="4vI-lS-F6T"/>
+                        <outlet property="setScheduleButton" destination="5al-qh-QAY" id="ev9-yK-qzu"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CF3-ht-Kvo" userLabel="First Responder" sceneMemberID="firstResponder"/>

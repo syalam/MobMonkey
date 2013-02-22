@@ -18,6 +18,7 @@
 @interface MMRequestScheduleViewController : UITableViewController {
     IBOutlet UISegmentedControl *frequencySelector;
     IBOutlet UISwitch *recurringSwitch;
+    IBOutlet UIButton *setScheduleButton;
     int frequency;
 }
 
@@ -26,5 +27,6 @@
 
 @property (weak, nonatomic) NSMutableDictionary *requestInfo;
 @property (nonatomic, assign)id<MMRequestScheduleDelegate> delegate;
+@property (nonatomic, weak) NSDictionary *themeOptionsDictionary;
 
 @end

@@ -27,6 +27,7 @@
     UITextField *stateTextField;
     UITextField *zipTextField;
     
+    IBOutlet UIButton *addLocationButton;
     
     UITextField *phoneNumberTextField;
     CLLocation *location;
@@ -43,6 +44,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *zipTextField;
 @property (strong, nonatomic) IBOutlet UITextField *phoneNumberTextField;
 @property (strong, nonatomic) NSDictionary *category;
+@property (nonatomic, weak) NSDictionary *themeOptionsDictionary;
 @property (nonatomic, assign) id<MMAddLocationDelegate>delegate;
 
 

@@ -23,6 +23,7 @@
 
 @property(nonatomic, retain)NSArray *contentList;
 @property(nonatomic, retain)NSString *inboxCategory;
+@property (nonatomic, weak)NSDictionary* themeOptionsDictionary;
 @property(nonatomic, assign)id<InboxDetailDelegate>delegate;
 
 @end

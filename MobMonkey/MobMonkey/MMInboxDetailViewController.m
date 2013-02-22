@@ -48,6 +48,19 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    if (_themeOptionsDictionary) {
+        if ([_themeOptionsDictionary valueForKey:@"backgroundColor"]) {
+            [self.view setBackgroundColor:[_themeOptionsDictionary valueForKey:@"backgroundColor"]];
+        }
+        if ([_themeOptionsDictionary valueForKey:@"navigationBarTintColor"]) {
+            [self.navigationController.navigationBar setTintColor:[_themeOptionsDictionary valueForKey:@"navigationBarTintColor"]];
+        }
+        if ([_themeOptionsDictionary valueForKey:@"navigationBarTitleImage"]) {
+            UIImage *image = [_themeOptionsDictionary valueForKey:@"navigationBarTitleImage"];
+            self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
+        }
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -16,5 +16,6 @@
 - (IBAction)submitButtonTapped:(id)sender;
 
 @property (nonatomic, retain) NSDictionary *requestObject;
+@property (nonatomic, retain) NSDictionary *themeOptionsDictionary;
 
 @end

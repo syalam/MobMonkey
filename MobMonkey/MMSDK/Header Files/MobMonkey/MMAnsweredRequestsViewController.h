@@ -26,6 +26,7 @@
 @property (nonatomic, retain) NSArray *contentList;
 @property (strong, nonatomic) IBOutlet UITableViewCell *acceptRejectCell;
 @property (nonatomic, retain) NSMutableDictionary *thumbnailCache;
+@property (nonatomic, weak) NSDictionary* themeOptionsDictionary;
 @property (nonatomic, assign) id<AnsweredRequestsDelegate>delegate;
 
 @end

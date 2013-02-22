@@ -71,6 +71,22 @@
     
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    if (_themeOptionsDictionary) {
+        if ([_themeOptionsDictionary valueForKey:@"buttonBackgoundImage"]) {
+            [addLocationButton setBackgroundImage:[_themeOptionsDictionary valueForKey:@"buttonBackgroundImage"] forState:UIControlStateNormal];
+        }
+        if ([_themeOptionsDictionary valueForKey:@"backgroundColor"]) {
+            [self.view setBackgroundColor:[_themeOptionsDictionary valueForKey:@"backgroundColor"]];
+        }
+        if ([_themeOptionsDictionary valueForKey:@"navigationBarTintColor"]) {
+            [self.navigationController.navigationBar setTintColor:[_themeOptionsDictionary valueForKey:@"navigationBarTintColor"]];
+        }
+        if ([_themeOptionsDictionary valueForKey:@"navigationBarTitleImage"]) {
+            UIImage *image = [_themeOptionsDictionary valueForKey:@"navigationBarTitleImage"];
+            self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
+        }
+    }
 }
 
 #pragma mark - Table view data source

@@ -20,5 +20,6 @@
 @property (nonatomic, weak) IBOutlet UIImageView *screenBackground;
 @property (nonatomic) BOOL categorySelected;
 @property (nonatomic) NSInteger currentAPICall;
+@property (nonatomic, weak) NSDictionary* themeOptionsDictionary;
 
 @end

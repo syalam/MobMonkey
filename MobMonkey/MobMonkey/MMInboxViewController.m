@@ -31,6 +31,7 @@
 @property (nonatomic, retain) NSMutableArray *contentList;
 @property (strong, nonatomic) MMLocationsViewController *locationsViewController;
 
+
 @end
 
 @implementation MMInboxViewController
@@ -56,6 +57,20 @@
                                                                            blue:36.0/255.0
                                                                           alpha:1.0]];
     self.locationsViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
+    
+    //setup theme if available
+    if (_themeOptionsDictionary) {
+        if ([_themeOptionsDictionary valueForKey:@"backgroundColor"]) {
+            [self.view setBackgroundColor:[_themeOptionsDictionary valueForKey:@"backgroundColor"]];
+        }
+        if ([_themeOptionsDictionary valueForKey:@"navigationBarTintColor"]) {
+            [self.navigationController.navigationBar setTintColor:[_themeOptionsDictionary valueForKey:@"navigationBarTintColor"]];
+        }
+        if ([_themeOptionsDictionary valueForKey:@"navigationBarTitleImage"]) {
+            UIImage *image = [_themeOptionsDictionary valueForKey:@"navigationBarTitleImage"];
+            self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
+        }
+    }
 }
 
 - (void)viewDidUnload
@@ -217,6 +232,9 @@
             case 0:
                 if ([[inboxCountDictionary valueForKey:@"openrequests"]intValue] > 0) {
                     inboxDetailVC.title = @"Open Requests";
+                    if (_themeOptionsDictionary) {
+                        inboxDetailVC.themeOptionsDictionary = _themeOptionsDictionary;
+                    }
                     [self.navigationController pushViewController:inboxDetailVC animated:YES];
                 }
                 break;
@@ -225,12 +243,18 @@
                     MMAnsweredRequestsViewController *answeredRequests = [[MMAnsweredRequestsViewController alloc]initWithNibName:@"MMAnsweredRequestsViewController" bundle:nil];
                     answeredRequests.delegate = self;
                     answeredRequests.title = @"Answered Requests";
+                    if (_themeOptionsDictionary) {
+                        inboxDetailVC.themeOptionsDictionary = _themeOptionsDictionary;
+                    }
                     [self.navigationController pushViewController:answeredRequests animated:YES];
                 }
                 break;
             case 2:
                 if ([[inboxCountDictionary valueForKey:@"assignedReadRequests"]intValue] + [[inboxCountDictionary valueForKey:@"assignedUnreadRequests"]intValue] > 0) {
                     inboxDetailVC.title = @"Assigned Requests";
+                    if (_themeOptionsDictionary) {
+                        inboxDetailVC.themeOptionsDictionary = _themeOptionsDictionary;
+                    }
                     [self.navigationController pushViewController:inboxDetailVC animated:YES];
                 }
                 break;

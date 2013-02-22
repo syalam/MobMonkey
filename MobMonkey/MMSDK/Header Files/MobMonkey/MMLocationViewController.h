@@ -69,6 +69,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *notificationSettingLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) MPMoviePlayerViewController *player;
+@property (weak, nonatomic) NSDictionary *themeOptionsDictionary;
 
 
 @property (nonatomic) int rowIndex;

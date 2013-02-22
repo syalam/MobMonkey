@@ -33,33 +33,57 @@
 ///---------------------------------------------
 /**
  Displays the MobMonkey inbox Screen from a specified view controller
+ 
+ themeOptionDictionary params:
+ @param backgroundColor (UIColor)
+ @param buttonBackgoundImage (UIImage)
+ @param navigationBarTintColor (UIColor)
+ @param navigationBarTitleImage (UIImage)
  */
-+ (void)displayMMInboxScreenFromPresentingViewController:(UIViewController*)presentingViewController;
++ (void)displayMMInboxScreenFromPresentingViewController:(UIViewController*)presentingViewController withThemeOptions:(NSDictionary*)themeOptionsDictionary;
 
 ///---------------------------------------------
 /// @name displayMMOpenRequestsScreenFromPresentingViewController
 ///---------------------------------------------
 /**
  Displays the MobMonkey Open Requests Screen from a specified view controller
+ 
+ themeOptionDictionary params:
+ @param backgroundColor (UIColor)
+ @param buttonBackgoundImage (UIImage)
+ @param navigationBarTintColor (UIColor)
+ @param navigationBarTitleImage (UIImage)
  */
-+ (void)displayMMOpenRequestsScreenFromPresentingViewController:(UIViewController*)presentingViewController;
++ (void)displayMMOpenRequestsScreenFromPresentingViewController:(UIViewController*)presentingViewController withThemeOptions:(NSDictionary*)themeOptionsDictionary;
 
 ///---------------------------------------------
 /// @name displayMMAnsweredRequestsScreenFromPresentingViewController
 ///---------------------------------------------
 /**
  Displays the MobMonkey Answered Requests Screen from a specified view controller
+ 
+ themeOptionDictionary params:
+ @param backgroundColor (UIColor)
+ @param buttonBackgoundImage (UIImage)
+ @param navigationBarTintColor (UIColor)
+ @param navigationBarTitleImage (UIImage)
  */
-+ (void)displayMMAnsweredRequestsScreenFromPresentingViewController:(UIViewController*)presentingViewController;
++ (void)displayMMAnsweredRequestsScreenFromPresentingViewController:(UIViewController*)presentingViewController withThemeOptions:(NSDictionary*)themeOptionsDictionary;
 
 ///---------------------------------------------
 /// @name displayMMAssignedRequestsScreenFromPresentingViewController
 ///---------------------------------------------
 /**
  Displays the MobMonkey Answered Requests Screen from a specified view controller
+ 
+ themeOptionDictionary params:
+ @param backgroundColor (UIColor)
+ @param buttonBackgoundImage (UIImage)
+ @param navigationBarTintColor (UIColor)
+ @param navigationBarTitleImage (UIImage)
  */
 
-+ (void)displayMMAssignedRequestsScreenFromPresentingViewController:(UIViewController*)presentingViewController;
++ (void)displayMMAssignedRequestsScreenFromPresentingViewController:(UIViewController*)presentingViewController withThemeOptions:(NSDictionary*)themeOptionsDictionary;
 
 
 ///---------------------------------------------
@@ -68,10 +92,17 @@
 /**
  Displays the MobMonkey Answered Requests Screen from a specified view controller.
  
+ Params params
  @param locationId
  @param providerId
+ 
+ themeOptionDictionary params:
+ @param backgroundColor (UIColor)
+ @param buttonBackgoundImage (UIImage)
+ @param navigationBarTintColor (UIColor)
+ @param navigationBarTitleImage (UIImage)
  */
-+ (void)displayMMLocationDetailScreenFromPresentingViewController:(UIViewController*)presentingViewController withLocationParams:(NSDictionary*)params;
++ (void)displayMMLocationDetailScreenFromPresentingViewController:(UIViewController*)presentingViewController withLocationParams:(NSDictionary*)params withThemeOptions:(NSDictionary*)themeOptionsDictionary;
 
 
 ///---------------------------------------------

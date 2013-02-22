@@ -111,6 +111,9 @@ enum RequestDurationLengths {
     if ([segue.identifier isEqualToString:@"ScheduleSegue"]) {
         MMRequestScheduleViewController *messageVC = (MMRequestScheduleViewController *)segue.destinationViewController;
         messageVC.requestInfo = self.requestInfo;
+        if (_themeOptionsDictionary) {
+            messageVC.themeOptionsDictionary = _themeOptionsDictionary;
+        }
         messageVC.delegate = self;
         return;
     }

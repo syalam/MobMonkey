@@ -31,32 +31,37 @@
     [presentingViewController.navigationController pushViewController:signUpVC animated:YES];
 }
 
-+ (void)displayMMInboxScreenFromPresentingViewController:(UIViewController*)presentingViewController {
++ (void)displayMMInboxScreenFromPresentingViewController:(UIViewController*)presentingViewController withThemeOptions:(NSDictionary*)themeOptionsDictionary {
     MMInboxViewController *inboxVC = [[MMInboxViewController alloc]initWithNibName:@"MMInboxViewController" bundle:nil];
     inboxVC.title = @"Inbox";
+    inboxVC.themeOptionsDictionary = themeOptionsDictionary;
     [presentingViewController.navigationController pushViewController:inboxVC animated:YES];
 }
 
-+ (void)displayMMOpenRequestsScreenFromPresentingViewController:(UIViewController*)presentingViewController {
++ (void)displayMMOpenRequestsScreenFromPresentingViewController:(UIViewController*)presentingViewController withThemeOptions:(NSDictionary*)themeOptionsDictionary {
     MMInboxDetailViewController *inboxDetailVC = [[MMInboxDetailViewController alloc]initWithNibName:@"MMInboxDetailViewController" bundle:nil];
     inboxDetailVC.title = @"Open Requests";
+    inboxDetailVC.themeOptionsDictionary = themeOptionsDictionary;
     [presentingViewController.navigationController pushViewController:inboxDetailVC animated:YES];
 }
 
-+ (void)displayMMAnsweredRequestsScreenFromPresentingViewController:(UIViewController*)presentingViewController {
++ (void)displayMMAnsweredRequestsScreenFromPresentingViewController:(UIViewController*)presentingViewController withThemeOptions:(NSDictionary*)themeOptionsDictionary {
     MMAnsweredRequestsViewController *answeredRequestsVC = [[MMAnsweredRequestsViewController alloc]initWithNibName:@"MMAnsweredRequestsViewController" bundle:nil];
     answeredRequestsVC.title = @"AnsweredRequests";
+    answeredRequestsVC.themeOptionsDictionary = themeOptionsDictionary;
     [presentingViewController.navigationController pushViewController:answeredRequestsVC animated:YES];
 }
 
-+ (void)displayMMAssignedRequestsScreenFromPresentingViewController:(UIViewController*)presentingViewController {
++ (void)displayMMAssignedRequestsScreenFromPresentingViewController:(UIViewController*)presentingViewController withThemeOptions:(NSDictionary*)themeOptionsDictionary {
     MMInboxDetailViewController *inboxDetailVC = [[MMInboxDetailViewController alloc]initWithNibName:@"MMInboxDetailViewController" bundle:nil];
     inboxDetailVC.title = @"Assigned Requests";
+    inboxDetailVC.themeOptionsDictionary = themeOptionsDictionary;
     [presentingViewController.navigationController pushViewController:inboxDetailVC animated:YES];
 }
 
-+ (void)displayMMLocationDetailScreenFromPresentingViewController:(UIViewController*)presentingViewController withLocationParams:(NSDictionary*)params {
++ (void)displayMMLocationDetailScreenFromPresentingViewController:(UIViewController*)presentingViewController withLocationParams:(NSDictionary*)params withThemeOptions:(NSDictionary*)themeOptionsDictionary {
     MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+    locationVC.themeOptionsDictionary = themeOptionsDictionary;
     [locationVC loadLocationDataWithLocationId:[params valueForKey:@"locationId"] providerId:[params valueForKey:@"providerId"]];
     [presentingViewController.navigationController pushViewController:locationVC animated:YES];
 }

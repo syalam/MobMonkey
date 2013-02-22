@@ -87,6 +87,22 @@
     [_locationLatestImageView addGestureRecognizer:expandImageGesture];
     
     
+    if (_themeOptionsDictionary) {
+        if ([_themeOptionsDictionary valueForKey:@"buttonBackgoundImage"]) {
+            [_makeRequestButton setBackgroundImage:[_themeOptionsDictionary valueForKey:@"buttonBackgroundImage"] forState:UIControlStateNormal];
+        }
+        if ([_themeOptionsDictionary valueForKey:@"backgroundColor"]) {
+            [self.view setBackgroundColor:[_themeOptionsDictionary valueForKey:@"backgroundColor"]];
+        }
+        if ([_themeOptionsDictionary valueForKey:@"navigationBarTintColor"]) {
+            [self.navigationController.navigationBar setTintColor:[_themeOptionsDictionary valueForKey:@"navigationBarTintColor"]];
+        }
+        if ([_themeOptionsDictionary valueForKey:@"navigationBarTitleImage"]) {
+            UIImage *image = [_themeOptionsDictionary valueForKey:@"navigationBarTitleImage"];
+            self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
+        }
+    }
+    
 }
 
 - (void)viewDidUnload
@@ -256,18 +272,10 @@
         UINavigationController *navVC = [storyboard instantiateInitialViewController];
         MMRequestViewController *requestVC = (MMRequestViewController *)navVC.viewControllers[0];
         [requestVC setContentList:self.contentList];
-        [self.navigationController presentViewController:navVC animated:YES completion:nil];
-        /*if ([[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Request" bundle:nil];
-            UINavigationController *navVC = [storyboard instantiateInitialViewController];
-            MMRequestViewController *requestVC = (MMRequestViewController *)navVC.viewControllers[0];
-            [requestVC setContentList:self.contentList];
-            [self.navigationController presentViewController:navVC animated:YES completion:nil];
+        if (_themeOptionsDictionary) {
+            requestVC.themeOptionsDictionary = _themeOptionsDictionary;
         }
-        else {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Sign up for MobMonkey to see whats happening now!" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"Subscribe", nil];
-            [alert show];
-        }*/
+        [self.navigationController presentViewController:navVC animated:YES completion:nil];
     }
     else {
         [[MMClientSDK sharedSDK] signInScreen:self];
