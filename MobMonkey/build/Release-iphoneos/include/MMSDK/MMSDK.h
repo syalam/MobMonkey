@@ -7,8 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface MMSDK : NSObject
+@interface MMSDK : NSObject <CLLocationManagerDelegate>
+
+///---------------------------------------------
+/// @name MMActivateLocationServices
+///---------------------------------------------
+/**
+ Activates location services. Should be called from appDidLaunch method in app delegate
+ */
++(void)MMActivateLocationServices;
+
 
 ///---------------------------------------------
 /// @name displayMMSignInScreenFromPresentingViewController

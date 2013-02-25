@@ -16,7 +16,28 @@
 #import "MMRequestViewController.h"
 #import "MMSearchViewController.h"
 
+
+
+@interface MMSDK ()
+
+- (void)MMActivateLocationServices;
+
+@end
+
 @implementation MMSDK
+
+#pragma mark - Class Methods
+
++ (MMSDK*)sharedSDK {
+    static dispatch_once_t once;
+    static MMSDK *sharedSDK;
+    dispatch_once(&once, ^ { sharedSDK = [[MMSDK alloc] init]; });
+    return sharedSDK;
+}
+
++ (void)MMActivateLocationServices {
+    [[MMSDK sharedSDK]MMActivateLocationServices];
+}
 
 + (void)displayMMSignInScreenFromPresentingViewController:(UIViewController*)presentingViewController withThemeOptions:(NSDictionary*)themeOptionsDictionary {
     MMLoginViewController *signInVc = [[MMLoginViewController alloc]initWithNibName:@"MMLoginViewController" bundle:nil];
@@ -82,6 +103,36 @@
     searchVC.themOptionsDictionary = themeOptionsDictionary;
     searchVC.pushedView = YES;
     [presentingViewController.navigationController pushViewController:searchVC animated:YES];
+}
+
+#pragma mark - Instance methods
+- (void)MMActivateLocationServices {
+    CLLocationManager *locationManager = [[CLLocationManager alloc]init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy =kCLLocationAccuracyBest;
+    locationManager.distanceFilter = 60.0f; // update every 200ft
+    [locationManager startUpdatingLocation];
+}
+
+#pragma mark - CLLocationServices Delegate Methods
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations {
+    // If it's a relatively recent event, turn off updates to save power
+    CLLocation* newLocation = [locations lastObject];
+    [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%f", newLocation.coordinate.latitude] forKey:@"latitude"];
+    [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%f", newLocation.coordinate.longitude] forKey:@"longitude"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    [params setObject:[NSNumber numberWithDouble:newLocation.coordinate.latitude] forKey:@"latitude"];
+    [params setObject:[NSNumber numberWithDouble:newLocation.coordinate.longitude] forKey:@"longitude"];
+    
+    NSLog(@"%@, %@", [[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"], [[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]);
+    
+    [MMAPI checkUserIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", @"Checked in");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", @"Unable to check in");
+    }];
 }
 
 

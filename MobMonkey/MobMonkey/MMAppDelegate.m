@@ -15,6 +15,7 @@
 #import "MMTabBarViewController.h"
 #import <Parse/Parse.h>
 #import "Flurry.h"
+#import "MMSDK.h"
 
 
 @implementation MMAppDelegate
@@ -163,7 +164,8 @@
         NSLog(@"%@", operation.responseString);
     }];
     
-    [self initializeLocationManager];
+    //[self initializeLocationManager];
+    [MMSDK MMActivateLocationServices];
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
     [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
     [params setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
@@ -238,7 +240,7 @@
     }
 }
 
-- (void)locationManager:(CLLocationManager *)manager
+/*- (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations {
     // If it's a relatively recent event, turn off updates to save power
     CLLocation* newLocation = [locations lastObject];
@@ -256,7 +258,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", @"Unable to check in");
     }];
-}
+}*/
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {

@@ -2,11 +2,11 @@ dependencies: \
   /Users/reyaad/Tappforce/MobMonkey/MobMonkey/MobMonkey/MMSubscriptionViewController.m \
   /Users/reyaad/Tappforce/MobMonkey/MobMonkey/MMSDK/Header\ Files/MobMonkey/MMSubscriptionViewController.h \
   /Users/reyaad/Tappforce/MobMonkey/MobMonkey/MobMonkey/MMAppDelegate.h \
-  /Users/reyaad/Tappforce/MobMonkey/MobMonkey/MMSDK/Dependencies/Adwhirl/AdWhirlView.h \
-  /Users/reyaad/Tappforce/MobMonkey/MobMonkey/MMSDK/Dependencies/Adwhirl/internal/AWNetworkReachabilityWrapper.h \
-  /Users/reyaad/Tappforce/MobMonkey/MobMonkey/MMSDK/Dependencies/Adwhirl/internal/AWNetworkReachabilityDelegate.h \
-  /Users/reyaad/Tappforce/MobMonkey/MobMonkey/MMSDK/Dependencies/Adwhirl/internal/AdWhirlConfig.h \
-  /Users/reyaad/Tappforce/MobMonkey/MobMonkey/MMSDK/Dependencies/Adwhirl/TouchJSON/JSON/CJSONDeserializer.h \
+  /Users/reyaad/Tappforce/MobMonkey/MobMonkey/MMSDK/Header\ Files/Adwhirl/AdWhirlView.h \
+  /Users/reyaad/Tappforce/MobMonkey/MobMonkey/MMSDK/Header\ Files/Adwhirl/internal/AWNetworkReachabilityWrapper.h \
+  /Users/reyaad/Tappforce/MobMonkey/MobMonkey/MMSDK/Header\ Files/Adwhirl/internal/AWNetworkReachabilityDelegate.h \
+  /Users/reyaad/Tappforce/MobMonkey/MobMonkey/MMSDK/Header\ Files/Adwhirl/internal/AdWhirlConfig.h \
+  /Users/reyaad/Tappforce/MobMonkey/MobMonkey/MMSDK/Header\ Files/Adwhirl/TouchJSON/JSON/CJSONDeserializer.h \
   /Users/reyaad/Tappforce/MobMonkey/MobMonkey/MMSDK/Dependencies/Parse.framework/Headers/Parse.h \
   /Users/reyaad/Tappforce/MobMonkey/MobMonkey/MMSDK/Dependencies/Parse.framework/Headers/PFACL.h \
   /Users/reyaad/Tappforce/MobMonkey/MobMonkey/MMSDK/Dependencies/Parse.framework/Headers/PFAnonymousUtils.h \
