@@ -636,7 +636,7 @@
             
             if([[NSUserDefaults standardUserDefaults] valueForKey:@"oauthUser"])
                {
-                   [self.userDictionary setValue:[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
+                   [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
                    [self.userDictionary setValue:@"true" forKey:@"useOAuth"];
                    [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"oauthToken"] forKey:@"oauthToken"];
                    [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"oauthProvider"] forKey:@"provider"];
