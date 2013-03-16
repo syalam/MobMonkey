@@ -122,8 +122,14 @@
     else {
         NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
         [params setValue:@"iOS" forKey:@"deviceType"];
-        [params setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
-        
+        [params setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"apnsToken"] forKey:@"deviceId"];
+        [params setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"firstName"] forKey:@"firstName"];
+        [params setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"lastName"] forKey:@"lastName"];
+        [params setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"birthday"] forKey:@"birthday"];
+        [params setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"gender"] forKey:@"gender"];
+
+//        if(![params valueForKey:@"deviceId"])
+//            [params setValue:[NSNumber numberWithInt:123] forKey:@"deviceId"];
         
         [SVProgressHUD showWithStatus:@"Signing In"];
         [MMAPI signInWithEmail:emailTextField.text password:passwordTextField.text params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

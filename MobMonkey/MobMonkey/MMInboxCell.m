@@ -17,6 +17,7 @@
 @property (strong, nonatomic) UILabel *messageLabel;
 @property (strong, nonatomic) UILabel *addressLabel;
 @property (strong, nonatomic) UILabel *distanceLabel;
+@property (strong, nonatomic) UILabel *requestTimeStamp;
 @property (strong, nonatomic) UIView *mediaIconsView;
 @property (strong, nonatomic) UIImageView *customBackgroundView;
 
@@ -39,6 +40,11 @@
         _timeStampLabel.numberOfLines = 1;
         _timeStampLabel.backgroundColor = [UIColor clearColor];
         _timeStampLabel.font = [UIFont boldSystemFontOfSize:12];
+        _requestTimeStamp = [[UILabel alloc]initWithFrame: CGRectMake(10, 50, 100, 30)];
+        _requestTimeStamp.numberOfLines = 1;
+        _requestTimeStamp.backgroundColor = [UIColor clearColor];
+        _requestTimeStamp.font = [UIFont boldSystemFontOfSize:10.5];
+        _requestTimeStamp.textColor = [UIColor colorWithHex:@"686868" alpha:1.0];
         _clockImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"timeIcnOverlayBlack"]];
         _messageLabel = [[UILabel alloc]initWithFrame:CGRectZero];
         _messageLabel.numberOfLines = 0;
@@ -50,9 +56,6 @@
         _distanceLabel.textColor = [UIColor colorWithHex:@"686868" alpha:1.0];
         _mediaIconsView = [[UIView alloc] initWithFrame:CGRectZero];
         
-        
-        
-        
         [self.contentView addSubview:_nameLabel];
         //[self.contentView addSubview:_timeStampLabel];
         //[self.contentView addSubview:_clockImageView];
@@ -60,6 +63,7 @@
         [self.contentView addSubview:_addressLabel];
         [self.contentView addSubview:_distanceLabel];
         [self.contentView addSubview:_mediaIconsView];
+        [self.contentView addSubview:_requestTimeStamp];
         self.backgroundView = nil;
         self.backgroundColor = [UIColor whiteColor];
         
@@ -99,6 +103,12 @@
         [_distanceLabel sizeToFit];
     }
     
+    if(![[_location valueForKey:@"requestDate"]isKindOfClass:[NSNull class]])
+    {
+        _requestTimeStamp.text = [self convertMillisecondsToDate:[_location valueForKey:@"requestDate"]];
+        [_requestTimeStamp sizeToFit];
+    }
+    
     CGFloat xPosition = CGRectGetMaxX(_mediaIconsView.bounds) - 16;
     UIImageView *imageView;
     if ([[_location valueForKey:@"mediaType"]intValue] == 1) {
@@ -114,6 +124,51 @@
     imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [_mediaIconsView addSubview:imageView];
     xPosition -= 20.0;
+}
+
+- (NSString *) convertMillisecondsToDate: (NSString *) actDate
+{
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) ([actDate floatValue]/1000)];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+    
+    NSString *fullString = [dateFormatter stringFromDate:date];
+    NSString *month = [fullString substringWithRange:NSMakeRange(5, 2)];
+    NSString *day = [fullString substringWithRange:NSMakeRange(8, 2)];
+    NSString *time = [fullString substringWithRange:NSMakeRange(11, 5)];
+    
+    /* Converting Month # into string */
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MM"];
+    NSDate* myDate = [formatter dateFromString:month];
+    
+    NSDateFormatter *form = [[NSDateFormatter alloc] init];
+    [form setDateFormat:@"MMM"];
+    NSString *stringFromDate = [form stringFromDate:myDate];
+    
+    /* Converting date into single digit if from it ranges from 1 - 9 */
+    formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd"];
+    myDate = [formatter dateFromString:day];
+    
+    form = [[NSDateFormatter alloc] init];
+    [form setDateFormat:@"d"];
+    day = [form stringFromDate:myDate];
+    
+    /* Converting the time into a 12-hour format */
+    formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm"];
+    myDate = [formatter dateFromString:time];
+    
+    form = [[NSDateFormatter alloc] init];
+    [form setDateFormat:@"hh:mm a"];
+    time = [form stringFromDate:myDate];
+    
+    /* Combining the separate strings */
+    stringFromDate = [stringFromDate stringByAppendingString:[NSString stringWithFormat:@" %@ %@", day, time]];
+    
+    return stringFromDate;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

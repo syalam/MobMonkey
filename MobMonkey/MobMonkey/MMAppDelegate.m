@@ -23,7 +23,7 @@
 {
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
-    
+
 #if TARGET_IPHONE_SIMULATOR
     [paramsCopy setValue:@"1234" forKey:@"deviceId"];
 #endif
@@ -199,7 +199,7 @@
                               stringByReplacingOccurrencesOfString: @">" withString: @""]
                              stringByReplacingOccurrencesOfString: @" " withString: @""];
     
-    NSLog(@"%@",tokenString);
+    NSLog(@"Token String: %@",tokenString);
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@", tokenString] forKey:@"apnsToken"];
     [[NSUserDefaults standardUserDefaults] synchronize];

@@ -101,7 +101,6 @@ enum RequestDurationLengths {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
     NSString *dateString = [dateFormatter stringFromDate:[self.requestInfo valueForKey:@"scheduleDate"]];
-    
 
     [self.requestInfo setValue:dateString forKey:@"scheduleDate"];
     [self.requestInfo setValue:[_contentList valueForKey:@"providerId"] forKey:@"providerId"];
