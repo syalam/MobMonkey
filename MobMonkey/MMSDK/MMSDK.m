@@ -107,11 +107,11 @@
 
 #pragma mark - Instance methods
 - (void)MMActivateLocationServices {
-    CLLocationManager *locationManager = [[CLLocationManager alloc]init];
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy =kCLLocationAccuracyBest;
-    locationManager.distanceFilter = 60.0f; // update every 200ft
-    [locationManager startUpdatingLocation];
+    _locationManager = [[CLLocationManager alloc]init];
+    _locationManager.delegate = self;
+    _locationManager.desiredAccuracy =kCLLocationAccuracyBest;
+    _locationManager.distanceFilter = 60.0f; // update every 200ft
+    [_locationManager startUpdatingLocation];
 }
 
 #pragma mark - CLLocationServices Delegate Methods
@@ -135,5 +135,8 @@
     }];
 }
 
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"%@", error);
+}
 
 @end

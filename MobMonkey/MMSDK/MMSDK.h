@@ -11,6 +11,8 @@
 
 @interface MMSDK : NSObject <CLLocationManagerDelegate>
 
+@property (nonatomic, retain)CLLocationManager *locationManager;
+
 ///---------------------------------------------
 /// @name MMActivateLocationServices
 ///---------------------------------------------

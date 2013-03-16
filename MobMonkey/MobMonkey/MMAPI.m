@@ -74,7 +74,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient setDefaultHeader:@"MobMonkey-user" value:email];
     [httpClient setDefaultHeader:@"MobMonkey-auth" value:password];
-    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"]];
+    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:kBMMMPartnerID];
     [httpClient postPath:urlString parameters:nil success:success failure:failure];
 }
 
