@@ -25,7 +25,8 @@
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
 
 #if TARGET_IPHONE_SIMULATOR
-    [[NSUserDefaults standardUserDefaults] setValue:@"1234" forKey:@"deviceId"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"1234" forKey:@"apnsToken"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 #endif
     
     //initialize testflight SDK

@@ -131,7 +131,7 @@
     if (!_twitterSignIn)
     {
         UIButton *backNavbutton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 39, 30)];
-        [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+        [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
         
         UIBarButtonItem* backButton = [[UIBarButtonItem alloc] initWithCustomView:backNavbutton];
@@ -313,6 +313,10 @@
     termsOfUseViewController.title = @"Terms of use";
     UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:termsOfUseViewController];
     [self.navigationController presentViewController:navC animated:YES completion:NULL];
+}
+
+- (void)backButtonTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Helper Methods
@@ -632,6 +636,23 @@
         }
         else
         {
+            NSLog(@"%@", self.userDictionary);
+            if (!self.userDictionary) {
+                self.userDictionary = [[NSMutableDictionary alloc]init];
+            }
+            if ([[self.userDictionary valueForKey:@"firstName"] isKindOfClass:[NSNull class]]) {
+                [self.userDictionary setValue:_firstNameTextField.text forKey:@"firstName"];
+            }
+            if ([[self.userDictionary valueForKey:@"lastName"]isKindOfClass:[NSNull class]]) {
+                [self.userDictionary setValue:_lastNameTextField.text forKey:@"lastName"];
+            }
+            if ([[self.userDictionary valueForKey:@"birthday"] isKindOfClass:[NSNull class]]) {
+                [self.userDictionary setValue:_birthdayTextField.text forKey:@"birthday"];
+            }
+            if ([[self.userDictionary valueForKey:@"gender"] isKindOfClass:[NSNull class]]) {
+                [self.userDictionary setValue:_genderTextField.text forKey:@"gender"];
+            }
+            NSLog(@"%@", [self.userDictionary valueForKey:@"birthday"]);
             NSString *birthdayValue = [NSDateFormatter localizedStringFromDate:[NSDate dateSinceJavaEpochTime:[self.userDictionary valueForKey:@"birthday"]] dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterNoStyle];
             NSString *genderValue = [[self.userDictionary valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
             
