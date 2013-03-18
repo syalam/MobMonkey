@@ -134,9 +134,9 @@
     }
     
     if (indexPath.section == 1) {
-        cell.textLabel.text = @"Bookmark";
+        cell.textLabel.text = @"Add to Favorites";
         if ([[_contentList valueForKey:@"bookmark"] boolValue]) {
-            cell.textLabel.text = @"Remove Bookmark";
+            cell.textLabel.text = @"Remove from Favorites";
         }
         cell.imageView.image = [UIImage imageNamed:@"bookmark"];
         return cell;

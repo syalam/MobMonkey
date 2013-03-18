@@ -132,7 +132,7 @@
     if (!_twitterSignIn)
     {
         UIButton *backNavbutton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 39, 30)];
-        [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+        [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
         
         UIBarButtonItem* backButton = [[UIBarButtonItem alloc] initWithCustomView:backNavbutton];
@@ -316,6 +316,10 @@
     [self.navigationController presentViewController:navC animated:YES completion:NULL];
 }
 
+- (void)backButtonTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark - Helper Methods
 - (void)showAlertView:(NSString*)message {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -400,8 +404,25 @@
 
 - (void)getAllCategories {
     [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-        [[NSUserDefaults standardUserDefaults] setObject:responseObject forKey:@"allCategories"];
+        //NSLog(@"%@", responseObject);
+        NSMutableArray *arrayToCleanUp = [responseObject mutableCopy];
+        NSMutableArray *cleanArray = [[NSMutableArray alloc]init];
+        for (NSDictionary *dictionaryToCleanUp in arrayToCleanUp) {
+            NSMutableDictionary *cleanDictionary = [[NSMutableDictionary alloc]init];
+            id const nul = [NSNull null];
+            for (NSString *key in dictionaryToCleanUp) {
+                id const obj = [dictionaryToCleanUp valueForKey:key];
+                if (nul == obj) {
+                    [cleanDictionary setValue:@"" forKey:key];
+                }
+                else {
+                    [cleanDictionary setValue:[dictionaryToCleanUp valueForKey:key] forKey:key];
+                }
+            }
+            [cleanArray addObject:cleanDictionary];
+        }
+        
+        [[NSUserDefaults standardUserDefaults]setObject:cleanArray forKey:@"allCategories"];
         [[NSUserDefaults standardUserDefaults]synchronize];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", operation.responseString);
@@ -616,6 +637,23 @@
         }
         else
         {
+            NSLog(@"%@", self.userDictionary);
+            if (!self.userDictionary) {
+                self.userDictionary = [[NSMutableDictionary alloc]init];
+            }
+            if ([[self.userDictionary valueForKey:@"firstName"] isKindOfClass:[NSNull class]]) {
+                [self.userDictionary setValue:_firstNameTextField.text forKey:@"firstName"];
+            }
+            if ([[self.userDictionary valueForKey:@"lastName"]isKindOfClass:[NSNull class]]) {
+                [self.userDictionary setValue:_lastNameTextField.text forKey:@"lastName"];
+            }
+            if ([[self.userDictionary valueForKey:@"birthday"] isKindOfClass:[NSNull class]]) {
+                [self.userDictionary setValue:_birthdayTextField.text forKey:@"birthday"];
+            }
+            if ([[self.userDictionary valueForKey:@"gender"] isKindOfClass:[NSNull class]]) {
+                [self.userDictionary setValue:_genderTextField.text forKey:@"gender"];
+            }
+            NSLog(@"%@", [self.userDictionary valueForKey:@"birthday"]);
             NSString *birthdayValue = [NSDateFormatter localizedStringFromDate:[NSDate dateSinceJavaEpochTime:[self.userDictionary valueForKey:@"birthday"]] dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterNoStyle];
             NSString *genderValue = [[self.userDictionary valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
             

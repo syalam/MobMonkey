@@ -101,13 +101,14 @@
         self.savedSearchTerm = nil;
     }
     allCategoriesArray = [prefs objectForKey:@"allCategories"];
+    NSLog(@"%@", allCategoriesArray);
     [self.tableView reloadData];
     self.tableView.scrollEnabled = YES;
 }
 
 - (void)viewDidUnload {
-    self.categories = nil;
-    self.filteredCategories = nil;
+    //self.categories = nil;
+    //self.filteredCategories = nil;
     [self setSearchBar:nil];
     [super viewDidUnload];
 }
@@ -119,14 +120,14 @@
     }
     else {
         if (_parentId) {
-            NSString *parent = [NSString stringWithFormat:@"[%@]", _parentId];
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents CONTAINS %@", parent];
+            NSString *parent = [NSString stringWithFormat:@"%@", _parentId];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents LIKE %@", parent];
             self.categories = [allCategoriesArray filteredArrayUsingPredicate:predicate];
             [self.tableView reloadData];
         }
         else {
-            NSString *parent = [NSString stringWithFormat:@"[%@]", @"1"];
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents CONTAINS %@", parent];
+            NSString *parent = [NSString stringWithFormat:@"%@", @"1"];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents LIKE %@", parent];
             self.categories = [allCategoriesArray filteredArrayUsingPredicate:predicate];
             [self.tableView reloadData];
         }
@@ -386,8 +387,8 @@
             category = self.categories[indexPath.row];
         }
         NSString *categoryId = category[@"categoryId"];
-        categoryId = [NSString stringWithFormat:@"[%@]", categoryId];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents CONTAINS %@", categoryId];
+        categoryId = [NSString stringWithFormat:@"%@", categoryId];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents == %@", categoryId];
         NSArray *subCategories = [allCategoriesArray filteredArrayUsingPredicate:predicate];
         
         if (subCategories.count > 0) {
