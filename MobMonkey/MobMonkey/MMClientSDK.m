@@ -266,11 +266,6 @@
                             @"iOS", @"deviceType",
                             [[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"], @"deviceId", nil];
     
-    [params setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"TwitterFirstName"] forKey:@"firstName"];
-    [params setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"TwitterLastName"] forKey:@"lastName"];
-    [params setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"TwitterBirthday"] forKey:@"birthday"];
-    [params setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"TwitterGender"] forKey:@"gender"];
-    
     [MMAPI oauthSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[NSUserDefaults standardUserDefaults]setValue:account.username forKey:@"userName"];
         [[NSUserDefaults standardUserDefaults]setValue:account.identifier forKey:@"oauthToken"];

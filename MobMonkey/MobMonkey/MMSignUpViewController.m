@@ -457,11 +457,11 @@
         [params setObject:@"iOS" forKey:@"deviceType"];
         
         [MMAPI registerTwitterUserDetails:params success:^(AFHTTPRequestOperation *operation, id responseObject) {            
-            [[NSUserDefaults standardUserDefaults]setValue:_firstNameTextField.text forKey:@"TwitterFirstName"];
-            [[NSUserDefaults standardUserDefaults]setValue:_lastNameTextField.text forKey:@"TwitterLastName"];
-            [[NSUserDefaults standardUserDefaults]setValue:[NSNumber numberWithInt:bdayUnixTime] forKey:@"TwitterBirthday"];
-            [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"gender"] forKey:@"TwitterGender"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+//            [[NSUserDefaults standardUserDefaults]setValue:_firstNameTextField.text forKey:@"TwitterFirstName"];
+//            [[NSUserDefaults standardUserDefaults]setValue:_lastNameTextField.text forKey:@"TwitterLastName"];
+//            [[NSUserDefaults standardUserDefaults]setValue:[NSNumber numberWithInt:bdayUnixTime] forKey:@"TwitterBirthday"];
+//            [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"gender"] forKey:@"TwitterGender"];
+//            [[NSUserDefaults standardUserDefaults] synchronize];
 
             [SVProgressHUD showSuccessWithStatus:[responseObject valueForKey:@"description"]];
             [self checkInUser];
@@ -607,89 +607,98 @@
 -(void) viewWillDisappear:(BOOL)animated {
     
     if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
-
-        NSString *birthdayValue = [NSDateFormatter localizedStringFromDate:[NSDate dateSinceJavaEpochTime:[self.userDictionary valueForKey:@"birthday"]] dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterNoStyle];
-        NSString *genderValue = [[self.userDictionary valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
         
-        if((![[self.userDictionary valueForKey:@"firstName"] isEqualToString:(_firstNameTextField.text)]) ||
-           (![[self.userDictionary valueForKey:@"lastName"] isEqualToString:(_lastNameTextField.text)]) ||
-            (![genderValue isEqualToString:(_genderTextField.text)]) ||
-            (![birthdayValue isEqualToString:(_birthdayTextField.text)]) ||
-           (_passwordTextField.text))
+        if (![self.title isEqualToString:@"My Info"])
         {
-            int gender = [_genderTextField.text isEqualToString:@"Male"] ? 1 : 0;
-            
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateFormat:@"MMM dd, yyyy"];
-            [dateFormatter setDateStyle:NSDateFormatterLongStyle];
-            [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-            
-            NSDate *birthdayDate = [[NSDate alloc] init];
-            birthdayDate = [dateFormatter dateFromString:_birthdayTextField.text];
-            NSTimeInterval bdayUnixTime = birthdayDate.timeIntervalSince1970;
-    
-            [self.userDictionary setValue:_firstNameTextField.text forKey:@"firstName"];
-            [self.userDictionary setValue:_lastNameTextField.text forKey:@"lastName"];
-            [self.userDictionary setValue:[NSNumber numberWithDouble:bdayUnixTime] forKey:@"birthday"];
-            [self.userDictionary setValue:[NSNumber numberWithInt:gender] forKey:@"gender"];
-            
-            
-            if([[NSUserDefaults standardUserDefaults] valueForKey:@"oauthUser"])
-               {
-                   [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
-                   [self.userDictionary setValue:@"true" forKey:@"useOAuth"];
-                   [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"oauthToken"] forKey:@"oauthToken"];
-                   [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"oauthProvider"] forKey:@"provider"];
-                   [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"userName"] forKey:@"providerUserName"];
+            [super viewWillDisappear:animated];
 
-                   [MMAPI oauthSignIn:self.userDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                       [SVProgressHUD showSuccessWithStatus:@"Updated User Information"];
-                   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                       NSLog(@"Operation: %@", operation);
-                       NSLog(@"Error: %@", error);
-                   }];
-                   
-                   [super viewWillDisappear:animated];
-               }
-               else
-               {
-                   if(_passwordTextField.text && _confirmPasswordTextField.text)
-                   {
-                       if([_passwordTextField.text isEqualToString:_confirmPasswordTextField.text])
-                       {
-                           [self.userDictionary setValue:_passwordTextField.text forKey:@"password"];
-                           
-                           [MMAPI updateUserOnSuccess:self.userDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                               [SVProgressHUD showSuccessWithStatus:@"Updated User Information"];
-                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                               NSLog(@"Operation: %@", operation);
-                               NSLog(@"Error: %@", error);
-                           }];
-                           
-                           [super viewWillDisappear:animated];
-                       }
-                       else
-                       {
-                           UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Password Mismatch" message:@"The passwords you have entered do not match. Please re-enter your password" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                           [alert show];
-                       }
-                   }
-                   else
-                   {
-                       [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"password"] forKey:@"password"];
-                       
-                       [MMAPI updateUserOnSuccess:self.userDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                           [SVProgressHUD showSuccessWithStatus:@"Updated User Information"];
-                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                           NSLog(@"Operation: %@", operation);
-                           NSLog(@"Error: %@", error);
-                       }];
-                       
-                       [super viewWillDisappear:animated];
-                   }
-                   
-               }
+        }
+        else
+        {
+            NSString *birthdayValue = [NSDateFormatter localizedStringFromDate:[NSDate dateSinceJavaEpochTime:[self.userDictionary valueForKey:@"birthday"]] dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterNoStyle];
+            NSString *genderValue = [[self.userDictionary valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
             
+            if((![[self.userDictionary valueForKey:@"firstName"] isEqualToString:(_firstNameTextField.text)]) ||
+               (![[self.userDictionary valueForKey:@"lastName"] isEqualToString:(_lastNameTextField.text)]) ||
+               (![genderValue isEqualToString:(_genderTextField.text)]) ||
+               (![birthdayValue isEqualToString:(_birthdayTextField.text)]) ||
+               (_passwordTextField.text))
+            {
+                int gender = [_genderTextField.text isEqualToString:@"Male"] ? 1 : 0;
+                
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"MMM dd, yyyy"];
+                [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+                [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+                
+                NSDate *birthdayDate = [[NSDate alloc] init];
+                birthdayDate = [dateFormatter dateFromString:_birthdayTextField.text];
+                NSTimeInterval bdayUnixTime = birthdayDate.timeIntervalSince1970;
+                
+                [self.userDictionary setValue:_firstNameTextField.text forKey:@"firstName"];
+                [self.userDictionary setValue:_lastNameTextField.text forKey:@"lastName"];
+                [self.userDictionary setValue:[NSNumber numberWithDouble:bdayUnixTime] forKey:@"birthday"];
+                [self.userDictionary setValue:[NSNumber numberWithInt:gender] forKey:@"gender"];
+                
+                
+                if([[NSUserDefaults standardUserDefaults] valueForKey:@"oauthUser"])
+                {
+                    [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
+                    [self.userDictionary setValue:@"true" forKey:@"useOAuth"];
+                    [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"oauthToken"] forKey:@"oauthToken"];
+                    [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"oauthProvider"] forKey:@"provider"];
+                    [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"userName"] forKey:@"providerUserName"];
+                    
+                    [MMAPI oauthSignIn:self.userDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        [SVProgressHUD showSuccessWithStatus:@"Updated User Information"];
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        NSLog(@"Operation: %@", operation);
+                        NSLog(@"Error: %@", error);
+                    }];
+                    
+                    [super viewWillDisappear:animated];
+                }
+                else
+                {
+                    if(_passwordTextField.text && _confirmPasswordTextField.text)
+                    {
+                        if([_passwordTextField.text isEqualToString:_confirmPasswordTextField.text])
+                        {
+                            [self.userDictionary setValue:_passwordTextField.text forKey:@"password"];
+                            
+                            [MMAPI updateUserOnSuccess:self.userDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                [SVProgressHUD showSuccessWithStatus:@"Updated User Information"];
+                            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                NSLog(@"Operation: %@", operation);
+                                NSLog(@"Error: %@", error);
+                            }];
+                            
+                            [super viewWillDisappear:animated];
+                        }
+                        else
+                        {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Password Mismatch" message:@"The passwords you have entered do not match. Please re-enter your password" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                            [alert show];
+                        }
+                    }
+                    else
+                    {
+                        [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"password"] forKey:@"password"];
+                        
+                        [MMAPI updateUserOnSuccess:self.userDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                            [SVProgressHUD showSuccessWithStatus:@"Updated User Information"];
+                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                            NSLog(@"Operation: %@", operation);
+                            NSLog(@"Error: %@", error);
+                        }];
+                        
+                        [super viewWillDisappear:animated];
+                    }
+                    
+                }
+                
+            }
+
         }
     }
 }
