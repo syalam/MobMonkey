@@ -93,14 +93,14 @@
     }];*/
     checkMarkCount = 0;
     if (!_parentId || [_parentId isEqualToString:@"1"]) {
-        NSString *parent = [NSString stringWithFormat:@"[%@]", @"1"];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents CONTAINS %@", parent];
+        NSString *parent = [NSString stringWithFormat:@"%@", @"1"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents LIKE %@", parent];
         categoriesArray = [allCategoriesArray filteredArrayUsingPredicate:predicate];
         [self setTableContent];
     }
     else {
-        NSString *parent = [NSString stringWithFormat:@"[%@]", _parentId];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents CONTAINS %@", parent];
+        NSString *parent = [NSString stringWithFormat:@"%@", _parentId];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents LIKE %@", parent];
         categoriesArray = [allCategoriesArray filteredArrayUsingPredicate:predicate];
         [self setTableContent];
 
@@ -144,8 +144,8 @@
             category = [_contentList objectAtIndex:indexPath.row];
             categoryName = [category[@"en"] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
             categoryId = category[@"categoryId"];
-            categoryId = [NSString stringWithFormat:@"[%@]", categoryId];
-            predicate = [NSPredicate predicateWithFormat:@"parents CONTAINS %@", categoryId];
+            categoryId = [NSString stringWithFormat:@"%@", categoryId];
+            predicate = [NSPredicate predicateWithFormat:@"parents LIKE %@", categoryId];
             subCategories = [allCategoriesArray filteredArrayUsingPredicate:predicate];
             if ([selectedItemsDictionary valueForKey:[NSString stringWithFormat:@"%@", categoryName]]) {
                 [selectedItemsDictionary setValue:nil forKey:[NSString stringWithFormat:@"%@", categoryName]];
@@ -179,8 +179,8 @@
             [_tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
             
             categoryId = category[@"categoryId"];
-            categoryId = [NSString stringWithFormat:@"[%@]", categoryId];
-            predicate = [NSPredicate predicateWithFormat:@"parents CONTAINS %@", categoryId];
+            categoryId = [NSString stringWithFormat:@"%@", categoryId];
+            predicate = [NSPredicate predicateWithFormat:@"parents LIKE %@", categoryId];
             subCategories = [allCategoriesArray filteredArrayUsingPredicate:predicate];
             for (int j = 0; j < subCategories.count; j++) {
                 category = [subCategories objectAtIndex:j];
@@ -227,8 +227,8 @@
     cell.imageView.image = [UIImage imageNamed:@"picture"];
     
     NSString *categoryId = category[@"categoryId"];
-    categoryId = [NSString stringWithFormat:@"[%@]", categoryId];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents CONTAINS %@", categoryId];
+    categoryId = [NSString stringWithFormat:@"%@", categoryId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents LIKE %@", categoryId];
     NSArray *subCategories = [allCategoriesArray filteredArrayUsingPredicate:predicate];
     
     if (indexPath.section == 0) {
@@ -270,8 +270,8 @@
         NSDictionary *category = [_contentList objectAtIndex:indexPath.row];
         NSString *categoryName = [category[@"en"] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
         NSString *categoryId = category[@"categoryId"];
-        categoryId = [NSString stringWithFormat:@"[%@]", categoryId];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents CONTAINS %@", categoryId];
+        categoryId = [NSString stringWithFormat:@"%@", categoryId];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents LIKE %@", categoryId];
         NSArray *subCategories = [allCategoriesArray filteredArrayUsingPredicate:predicate];
 
         NSLog(@"%@", selectedItemsDictionary);
