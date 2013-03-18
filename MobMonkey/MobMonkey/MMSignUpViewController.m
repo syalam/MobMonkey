@@ -88,6 +88,7 @@
         [fieldsToDisplay addObject:_passwordTextField];
         [fieldsToDisplay addObject:_confirmPasswordTextField];
     }
+    
     [fieldsToDisplay addObject:_birthdayTextField];
     [fieldsToDisplay addObject:_genderTextField];
     [self setContentList:fieldsToDisplay];
