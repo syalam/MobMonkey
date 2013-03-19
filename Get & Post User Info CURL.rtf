@@ -1,8 +1,7 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf510
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 Courier;\f2\fnil\fcharset0 Consolas;
 \f3\fnil\fcharset0 Consolas-Bold;}
-{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red246\green246\blue246;\red38\green38\blue38;
-\red246\green246\blue246;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red246\green246\blue246;}
 \margl1440\margr1440\vieww10800\viewh8400\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 
@@ -13,7 +12,7 @@ GET User Info:\
 
 \f1 \cf0 curl -v -H "Content-Type: application/json" -H "MobMonkey-partnerId: aba0007c-ebee-42db-bd52-7c9f02e3d371" -H "OauthProviderUserName: srkfan420@gmail.com" -H "OauthProvider: facebook"  -X GET http://staging.mobmonkey.com/rest/user\
 \
-curl -v -H "Content-Type: application/json" -H "MobMonkey-partnerId: aba0007c-ebee-42db-bd52-7c9f02e3d371" -H "OauthProviderUserName: AnuragKamas" -H "OauthProvider: twitter"  -X GET http://staging.mobmonkey.com/rest/user
+curl -v -H "Content-Type: application/json" -H "MobMonkey-partnerId: aba0007c-ebee-42db-bd52-7c9f02e3d371" -H "OauthProviderUserName: mmtwit05" -H "OauthProvider: twitter"  -X GET http://staging.mobmonkey.com/rest/user
 \f0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 \cf0 \
@@ -33,20 +32,20 @@ curl -v -H "Content-Type: application/json" -H "MobMonkey-partnerId: aba0007c-eb
 
 \f2\b0 \cf2 \cb3 curl -v -H "Content-Type: application/json" -H "MobMonkey-partnerId: aba0007c-ebee-42db-bd52-7c9f02e3d371" -X POST http://staging.mobmonkey.com/rest/signin?deviceId=123\\&deviceType=iOS\\&useOAuth=true\\&provider=facebook\\&providerUserName=srkfan420@gmail.com\\&firstName=Anurag\\&lastName=Kamasamudram\\&gender=1\\&birthday=381481200000\
 \
-curl -v -H "Content-Type: application/json" -H "MobMonkey-partnerId: aba0007c-ebee-42db-bd52-7c9f02e3d371" -X POST http://staging.mobmonkey.com/rest/signin?deviceId=123\\&deviceType=iOS\\&useOAuth=true\\&provider=twitter\\&providerUserName=AnuragKamas\\&firstName=Anurag\\&lastName=Kamasamudram\\&gender=1\\&birthday=381481200000\
+curl -v -H "Content-Type: application/json" -H "MobMonkey-partnerId: aba0007c-ebee-42db-bd52-7c9f02e3d371" -X POST http://staging.mobmonkey.com/rest/signin?deviceId=123\\&deviceType=iOS\\&useOAuth=true\\&provider=twitter\\&providerUserName=mmtwit05\\&firstName=Anurag\\&lastName=Kamasamudram\\&gender=1\\&birthday=381481200000\
 \
 \
 curl -v -H "Content-Type: application/json" -H "MobMonkey-partnerId: aba0007c-ebee-42db-bd52-7c9f02e3d371" -X POST http://staging.mobmonkey.com/rest/signin?deviceId=123\\&deviceType=iOS\\&useOAuth=true\\&provider=twitter\\&providerUserName=AnuragKamas
-\fs26 \
+\fs26 \cf2 \cb3 \
 
-\fs24 \
+\fs24 \cf2 \cb3 \
 \
 \pard\pardeftab720\sl380
 
-\f3\b \cf2 MM SignIn:\
+\f3\b \cf2 \cb3 MM SignIn:\
 \pard\pardeftab720\sl380
 
-\f2\b0 \cf2 curl -v -H "Content-Type: application/json" -H "MobMonkey-partnerId: aba0007c-ebee-42db-bd52-7c9f02e3d371" -H "MobMonkey-user: mmtwit07@mailinator.com" -H "MobMonkey-auth: helloworld" -X POST http://staging.mobmonkey.com/rest/signin?deviceId=123\\&deviceType=iOS\\&firstName=Anurag\\&lastName=Kamasamudram\\&birthday=381481200000\\&gender=1\
+\f2\b0 \cf2 \cb3 curl -v -H "Content-Type: application/json" -H "MobMonkey-partnerId: aba0007c-ebee-42db-bd52-7c9f02e3d371" -H "MobMonkey-user: mmtwit07@mailinator.com" -H "MobMonkey-auth: helloworld" -X POST http://staging.mobmonkey.com/rest/signin?deviceId=123\\&deviceType=iOS\\&firstName=Anurag\\&lastName=Kamasamudram\\&birthday=381481200000\\&gender=1\
 \
 MM SignUP:\
 \pard\pardeftab720
@@ -61,8 +60,8 @@ GET Categories\
 \
 \pard\pardeftab720\sl380
 
-\f3\b \cf2 Update MM User Info
-\f2\b0 \
+\f3\b \cf2 \cb3 Update MM User Info
+\f2\b0 \cf2 \cb3 \
 \pard\pardeftab720
 
 \f1 \cf0 \cb1 curl -v -H "Content-Type: application/json" -H "MobMonkey-partnerId: aba0007c-ebee-42db-bd52-7c9f02e3d371" -H "MobMonkey-user: mmtwit11@mailinator.com" -H "MobMonkey-auth: helloworld" -X POST -d '\{ "password":"helloworld","firstName":"Anurag","lastName":"Kamasamudram","birthday":381481200000,"gender":1,"phoneNumber":"480-442-3546","city":"Phoenix","state":"AZ","zip":"85083","acceptedtos":true\}' http://staging.mobmonkey.com/rest/user\
@@ -79,8 +78,8 @@ gender\
 \
 \pard\pardeftab720\sl380
 
-\f2 \cf4 \cb5 curl -v -H "Content-Type: application/json" -H "MobMonkey-partnerId: aba0007c-ebee-42db-bd52-7c9f02e3d371" -X POST http://staging.mobmonkey.com/rest/signin/registeremail?provider=twitter\\&deviceType=ios\\&deviceId=123\\&oauthToken=987654321\\&providerUserName=mmtwit06\\&eMailAddress=mmtwit06@mailinator.com\\&firstName=Foo\\&lastName=Bar\\&gender=1\\&birthday=381456000000
-\fs26 \
+\f2 \cf2 \cb3 curl -v -H "Content-Type: application/json" -H "MobMonkey-partnerId: aba0007c-ebee-42db-bd52-7c9f02e3d371" -X POST http://staging.mobmonkey.com/rest/signin/registeremail?provider=twitter\\&deviceType=ios\\&deviceId=123\\&oauthToken=987654321\\&providerUserName=mmtwit06\\&eMailAddress=mmtwit06@mailinator.com\\&firstName=Foo\\&lastName=Bar\\&gender=1\\&birthday=381456000000
+\fs26 \cf2 \cb3 \
 \pard\pardeftab720
 
 \f1\fs24 \cf0 \cb1 \

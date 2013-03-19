@@ -1,4 +1,4 @@
- //
+//
 //  MMSignUpViewController.m
 //  MobMonkey
 //
@@ -104,23 +104,45 @@
             self.userDictionary = [[NSMutableDictionary alloc] initWithDictionary: responseObject];
             
             if (![[responseObject valueForKey:@"firstName"]isKindOfClass:[NSNull class]]) {
-                self.firstNameTextField.text = [responseObject valueForKey:@"firstName"];
+                if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
+                    self.firstNameTextField.placeholder = [responseObject valueForKey:@"firstName"];
+                else
+                    self.firstNameTextField.text = [responseObject valueForKey:@"firstName"];
             }
             if (![[responseObject valueForKey:@"lastName"]isKindOfClass:[NSNull class]]) {
-                self.lastNameTextField.text = [responseObject valueForKey:@"lastName"];
+                if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
+                    self.lastNameTextField.placeholder = [responseObject valueForKey:@"lastName"];
+                else
+                    self.lastNameTextField.text = [responseObject valueForKey:@"lastName"];
             }
             if (![[responseObject valueForKey:@"eMailAddress"]isKindOfClass:[NSNull class]]) {
                 self.emailTextField.placeholder = [responseObject valueForKey:@"eMailAddress"];
                 self.emailTextField.enabled = NO;
             }
             if (![[responseObject valueForKey:@"gender"]isKindOfClass:[NSNull class]]) {
-                self.genderTextField.text = [[responseObject valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
+                if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
+                    self.genderTextField.placeholder = [[responseObject valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
+                else
+                    self.genderTextField.text = [[responseObject valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
+
             }
             if (![[responseObject valueForKey:@"birthday"]isKindOfClass:[NSNull class]]) {
-                NSString *birthdate = [NSDateFormatter localizedStringFromDate:[NSDate dateSinceJavaEpochTime:[responseObject valueForKey:@"birthday"]]
-                                                                     dateStyle:NSDateFormatterLongStyle
-                                                                     timeStyle:NSDateFormatterNoStyle];
-                self.birthdayTextField.text = birthdate;
+                NSLog(@"Milliseconds Birthday: %@", [responseObject valueForKey:@"birthday"]);
+                
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+                [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+                long unixTime = [[responseObject valueForKey:@"birthday"] longLongValue]/1000.0;
+                NSLog(@"Unix TIme: %ld", unixTime);
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) unixTime];
+                
+                NSString *displayDate = [NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterNoStyle];
+                
+                if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
+                    self.birthdayTextField.placeholder = displayDate;
+                else
+                    self.birthdayTextField.text = displayDate;
+
             }
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -128,6 +150,7 @@
         }];
     }
     termsOfUseAccepted =  NO;
+    
     //Add custom back button to the nav bar
     if (!_twitterSignIn)
     {
@@ -204,7 +227,8 @@
     }
     switch (index) {
         case 5:
-            [self createBirthdayActionSheet];
+            if(![[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
+                [self createBirthdayActionSheet];
             break;
         case 6:
             [self createGenderActionSheet];
@@ -455,13 +479,14 @@
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         // this is imporant - we set our input date format to match our input string
         // if format doesn't match you'll get nil from your string, so be careful
-        [dateFormatter setDateFormat:@"MM-dd-yyyy"];
+        [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+        [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
         NSDate *birthday = [[NSDate alloc] init];
         // voila!
         birthday = [dateFormatter dateFromString:_birthdayTextField.text];
         
-        NSTimeInterval bdayUnixTime = birthday.timeIntervalSince1970;
-         NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithCapacity:1];
+        NSTimeInterval bdayUnixTime = birthday.timeIntervalSince1970*1000;
+        NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithCapacity:1];
         [params setObject:_firstNameTextField.text forKey:@"firstName"];
         [params setObject:_lastNameTextField.text forKey:@"lastName"];
         [params setObject:_emailTextField.text forKey:@"eMailAddress"];
@@ -478,13 +503,7 @@
         
         [params setObject:@"iOS" forKey:@"deviceType"];
         
-        [MMAPI registerTwitterUserDetails:params success:^(AFHTTPRequestOperation *operation, id responseObject) {            
-//            [[NSUserDefaults standardUserDefaults]setValue:_firstNameTextField.text forKey:@"TwitterFirstName"];
-//            [[NSUserDefaults standardUserDefaults]setValue:_lastNameTextField.text forKey:@"TwitterLastName"];
-//            [[NSUserDefaults standardUserDefaults]setValue:[NSNumber numberWithInt:bdayUnixTime] forKey:@"TwitterBirthday"];
-//            [[NSUserDefaults standardUserDefaults]setValue:[params valueForKey:@"gender"] forKey:@"TwitterGender"];
-//            [[NSUserDefaults standardUserDefaults] synchronize];
-
+        [MMAPI registerTwitterUserDetails:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [SVProgressHUD showSuccessWithStatus:[responseObject valueForKey:@"description"]];
             [self checkInUser];
             [self getAllCategories];
@@ -526,12 +545,14 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     // this is imporant - we set our input date format to match our input string
     // if format doesn't match you'll get nil from your string, so be careful
-    [dateFormatter setDateFormat:@"MM-dd-yyyy"];
+    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     NSDate *birthday = [[NSDate alloc] init];
     // voila!
     birthday = [dateFormatter dateFromString:_birthdayTextField.text];
-    birthdayUnixTime = birthday.timeIntervalSince1970;
     
+    birthdayUnixTime = birthday.timeIntervalSince1970*1000;
+        
     [params setValue:_firstNameTextField.text forKey:@"firstName"];
     [params setValue:_lastNameTextField.text forKey:@"lastName"];
     [params setValue:_emailTextField.text forKey:@"eMailAddress"];
@@ -630,14 +651,12 @@
     
     if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
         
-        if (![self.title isEqualToString:@"My Info"])
+        if (![self.title isEqualToString:@"My Info"] || [[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
         {
             [super viewWillDisappear:animated];
-
         }
         else
         {
-            NSLog(@"%@", self.userDictionary);
             if (!self.userDictionary) {
                 self.userDictionary = [[NSMutableDictionary alloc]init];
             }
@@ -656,6 +675,7 @@
             NSLog(@"%@", [self.userDictionary valueForKey:@"birthday"]);
             NSString *birthdayValue = [NSDateFormatter localizedStringFromDate:[NSDate dateSinceJavaEpochTime:[self.userDictionary valueForKey:@"birthday"]] dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterNoStyle];
             NSString *genderValue = [[self.userDictionary valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
+                        
             
             if((![[self.userDictionary valueForKey:@"firstName"] isEqualToString:(_firstNameTextField.text)]) ||
                (![[self.userDictionary valueForKey:@"lastName"] isEqualToString:(_lastNameTextField.text)]) ||
@@ -666,13 +686,13 @@
                 int gender = [_genderTextField.text isEqualToString:@"Male"] ? 1 : 0;
                 
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                [dateFormatter setDateFormat:@"MMM dd, yyyy"];
+                //[dateFormatter setDateFormat:@"MMM dd, yyyy"];
                 [dateFormatter setDateStyle:NSDateFormatterLongStyle];
                 [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
                 
                 NSDate *birthdayDate = [[NSDate alloc] init];
                 birthdayDate = [dateFormatter dateFromString:_birthdayTextField.text];
-                NSTimeInterval bdayUnixTime = birthdayDate.timeIntervalSince1970;
+                NSTimeInterval bdayUnixTime = birthdayDate.timeIntervalSince1970*1000;
                 
                 [self.userDictionary setValue:_firstNameTextField.text forKey:@"firstName"];
                 [self.userDictionary setValue:_lastNameTextField.text forKey:@"lastName"];
@@ -680,7 +700,7 @@
                 [self.userDictionary setValue:[NSNumber numberWithInt:gender] forKey:@"gender"];
                 
                 
-                if([[NSUserDefaults standardUserDefaults] valueForKey:@"oauthUser"])
+                if([[NSUserDefaults standardUserDefaults] valueForKey:@"twitterEnabled"])
                 {
                     [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
                     [self.userDictionary setValue:@"true" forKey:@"useOAuth"];
@@ -722,6 +742,7 @@
                     }
                     else
                     {
+                        NSLog(@"Birthday: %@", [self.userDictionary valueForKey:@"birthday"]);
                         [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"password"] forKey:@"password"];
                         
                         [MMAPI updateUserOnSuccess:self.userDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {

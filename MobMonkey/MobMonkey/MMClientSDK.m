@@ -197,7 +197,7 @@
                     [dateFormatter setDateFormat:@"MM/dd/yyyy"];
                     NSDate *birthday = [[NSDate alloc] init];
                     birthday = [dateFormatter dateFromString:birthdayString];
-                    NSTimeInterval birthdayUnixTime = birthday.timeIntervalSince1970;
+                    NSTimeInterval birthdayUnixTime = birthday.timeIntervalSince1970*1000;
                     
                     NSNumber *gender;
                     if([[my valueForKey:@"gender"] isEqualToString:@"male"])
