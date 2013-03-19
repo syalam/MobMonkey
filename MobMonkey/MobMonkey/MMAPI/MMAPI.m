@@ -138,9 +138,9 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
     [httpClient setDefaultHeader:@"Content-Type" value:@"application/json"];
-    [httpClient setDefaultHeader:@"OauthProviderUserName" value:[params valueForKey:@"providerUsername"]];
-    [httpClient setDefaultHeader:@"OauthToken" value:[params valueForKey:@"oauthToken"]];
-    [httpClient setDefaultHeader:@"OauthProvider" value:@"twitter"];
+//    [httpClient setDefaultHeader:@"OauthProviderUserName" value:[params valueForKey:@"providerUsername"]];
+//    [httpClient setDefaultHeader:@"OauthToken" value:[params valueForKey:@"oauthToken"]];
+//    [httpClient setDefaultHeader:@"OauthProvider" value:@"twitter"];
     
     [httpClient postPath:urlString parameters:nil success:success failure:failure];
 }
@@ -184,7 +184,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
                           success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     MMHTTPClient *httpClient = [self setupHTTPClient];
-    [httpClient  getPath:@"category/all" parameters:nil success:success failure:failure];
+    [httpClient  getPath:@"category/all" parameters:nil success:success failure:failure]; //MODIFIED category/all to category
 }
 
 + (void)getCategoriesOnSuccess:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {

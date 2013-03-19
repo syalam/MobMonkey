@@ -171,7 +171,7 @@
         termsOfUseAccepted = YES;
         [termsOfUseAcceptanceButton setHidden:YES];
         [termsOfUseButton setHidden:YES];
-        _signUpButton.titleLabel.text = @"Sign In";
+        _signUpButton.titleLabel.text = @"Sign Up";
         [_facebookButton setHidden:YES];
         [_twitterButton setHidden:YES];
     }
@@ -477,6 +477,11 @@
         errorMessageText = @"Please enter your gender.";
     }
     
+    if(_emailTextField.text && ([_emailTextField.text rangeOfString:@" "].location != NSNotFound))
+    {
+            errorMessageText = @"Please remove spaces from your email";
+    }
+    
     if (errorMessageText) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:errorMessageText delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
@@ -493,8 +498,14 @@
         
         NSTimeInterval bdayUnixTime = birthday.timeIntervalSince1970*1000;
         NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithCapacity:1];
-        [params setObject:_firstNameTextField.text forKey:@"firstName"];
-        [params setObject:_lastNameTextField.text forKey:@"lastName"];
+        
+        NSMutableString *firstName = [_firstNameTextField.text mutableCopy];
+        [firstName replaceOccurrencesOfString:@" " withString:@"%20" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [firstName length])];
+        NSMutableString *lastName = [_lastNameTextField.text mutableCopy];
+        [lastName replaceOccurrencesOfString:@" " withString:@"%20" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [lastName length])];
+        
+        [params setObject:firstName forKey:@"firstName"];
+        [params setObject:lastName forKey:@"lastName"];
         [params setObject:_emailTextField.text forKey:@"eMailAddress"];
         [params setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
         [params setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"] forKey:@"providerUsername"];
@@ -508,8 +519,8 @@
         }
         
         [params setObject:@"iOS" forKey:@"deviceType"];
-        
-        [MMAPI registerTwitterUserDetails:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+               
+        [MMAPI registerTwitterUserDetails:params success:^(AFHTTPRequestOperation *operation, id responseObject) {            
             [SVProgressHUD showSuccessWithStatus:[responseObject valueForKey:@"description"]];
             [self checkInUser];
             [self getAllCategories];
@@ -758,7 +769,6 @@
                     }
                     else
                     {
-                        NSLog(@"Birthday: %@", [self.userDictionary valueForKey:@"birthday"]);
                         [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"password"] forKey:@"password"];
                         
                         [MMAPI updateUserOnSuccess:self.userDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
