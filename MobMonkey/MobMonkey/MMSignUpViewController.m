@@ -104,16 +104,22 @@
             self.userDictionary = [[NSMutableDictionary alloc] initWithDictionary: responseObject];
             
             if (![[responseObject valueForKey:@"firstName"]isKindOfClass:[NSNull class]]) {
+                NSMutableString *firstName = [[responseObject valueForKey:@"firstName"] mutableCopy];
+                [firstName replaceOccurrencesOfString:@"%20" withString:@" " options:NSCaseInsensitiveSearch range:NSMakeRange(0, [firstName length])];
+                [self.userDictionary setValue:firstName forKey:@"firstName"];
                 if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
-                    self.firstNameTextField.placeholder = [responseObject valueForKey:@"firstName"];
+                    self.firstNameTextField.placeholder = firstName;
                 else
-                    self.firstNameTextField.text = [responseObject valueForKey:@"firstName"];
+                    self.firstNameTextField.text = firstName;
             }
             if (![[responseObject valueForKey:@"lastName"]isKindOfClass:[NSNull class]]) {
+                NSMutableString *lastName = [[responseObject valueForKey:@"lastName"] mutableCopy];
+                [lastName replaceOccurrencesOfString:@"%20" withString:@" " options:NSCaseInsensitiveSearch range:NSMakeRange(0, [lastName length])];
+                [self.userDictionary setValue:lastName forKey:@"lastName"];
                 if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
-                    self.lastNameTextField.placeholder = [responseObject valueForKey:@"lastName"];
+                    self.lastNameTextField.placeholder = lastName;
                 else
-                    self.lastNameTextField.text = [responseObject valueForKey:@"lastName"];
+                    self.lastNameTextField.text = lastName;
             }
             if (![[responseObject valueForKey:@"eMailAddress"]isKindOfClass:[NSNull class]]) {
                 self.emailTextField.placeholder = [responseObject valueForKey:@"eMailAddress"];
@@ -672,10 +678,15 @@
             if ([[self.userDictionary valueForKey:@"gender"] isKindOfClass:[NSNull class]]) {
                 [self.userDictionary setValue:_genderTextField.text forKey:@"gender"];
             }
-            NSLog(@"%@", [self.userDictionary valueForKey:@"birthday"]);
-            NSString *birthdayValue = [NSDateFormatter localizedStringFromDate:[NSDate dateSinceJavaEpochTime:[self.userDictionary valueForKey:@"birthday"]] dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterNoStyle];
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+            [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+            long unixTime = [[self.userDictionary valueForKey:@"birthday"] longLongValue]/1000.0;
+            NSDate *date = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) unixTime];
+
+            NSString *birthdayValue = [NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterNoStyle];
             NSString *genderValue = [[self.userDictionary valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
-                        
             
             if((![[self.userDictionary valueForKey:@"firstName"] isEqualToString:(_firstNameTextField.text)]) ||
                (![[self.userDictionary valueForKey:@"lastName"] isEqualToString:(_lastNameTextField.text)]) ||
@@ -686,7 +697,6 @@
                 int gender = [_genderTextField.text isEqualToString:@"Male"] ? 1 : 0;
                 
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                //[dateFormatter setDateFormat:@"MMM dd, yyyy"];
                 [dateFormatter setDateStyle:NSDateFormatterLongStyle];
                 [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
                 
@@ -694,8 +704,14 @@
                 birthdayDate = [dateFormatter dateFromString:_birthdayTextField.text];
                 NSTimeInterval bdayUnixTime = birthdayDate.timeIntervalSince1970*1000;
                 
-                [self.userDictionary setValue:_firstNameTextField.text forKey:@"firstName"];
-                [self.userDictionary setValue:_lastNameTextField.text forKey:@"lastName"];
+                NSMutableString *firstName = [_firstNameTextField.text mutableCopy];
+                [firstName replaceOccurrencesOfString:@" " withString:@"%20" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [firstName length])];
+                
+                NSMutableString *lastName = [_lastNameTextField.text mutableCopy];
+                [lastName replaceOccurrencesOfString:@" " withString:@"%20" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [lastName length])];
+                
+                [self.userDictionary setValue:firstName forKey:@"firstName"];
+                [self.userDictionary setValue:lastName forKey:@"lastName"];
                 [self.userDictionary setValue:[NSNumber numberWithDouble:bdayUnixTime] forKey:@"birthday"];
                 [self.userDictionary setValue:[NSNumber numberWithInt:gender] forKey:@"gender"];
                 
