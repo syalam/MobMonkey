@@ -23,13 +23,14 @@
 {
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
-    
+
 #if TARGET_IPHONE_SIMULATOR
-    [[NSUserDefaults standardUserDefaults] setValue:@"1234" forKey:@"deviceId"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"1234" forKey:@"apnsToken"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 #endif
     
     //initialize testflight SDK
-    [TestFlight takeOff:@"e6432d80aed42a955243c8d93a493dea_MTAwODk2MjAxMi0wNi0yMyAxODoxNzoxOC45NjMzMjY"];
+    //[TestFlight takeOff:@"e6432d80aed42a955243c8d93a493dea_MTAwODk2MjAxMi0wNi0yMyAxODoxNzoxOC45NjMzMjY"];
 
     [Parse setApplicationId:@"LUASgbV2PjApFDOJabTZeE1Yj8D2keJhLLua1DDl"
                   clientKey:@"1L3iRNHfSsOKc58TxlkOEpD69rTGi9sf8FIBPNmp"];
@@ -90,7 +91,7 @@
     inboxVC.title = @"Inbox";
     searchVC.title = @"Search";
     trendingVC.title = @"What's Trending Now!";
-    bookmarksVC.title = @"Bookmarks";
+    bookmarksVC.title = @"Favorites";
     settingsVC.title = @"Settings";
     
 //    bookmarksVC.sectionSelected = YES;
@@ -158,7 +159,25 @@
     
     [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"%@", responseObject);
-        [[NSUserDefaults standardUserDefaults]setObject:responseObject forKey:@"allCategories"];
+        NSMutableArray *arrayToCleanUp = [responseObject mutableCopy];
+        NSMutableArray *cleanArray = [[NSMutableArray alloc]init];
+        for (NSDictionary *dictionaryToCleanUp in arrayToCleanUp) {
+            NSMutableDictionary *cleanDictionary = [[NSMutableDictionary alloc]init];
+            id const nul = [NSNull null];
+            for (NSString *key in dictionaryToCleanUp) {
+                id const obj = [dictionaryToCleanUp valueForKey:key];
+                if (nul == obj) {
+                    [cleanDictionary setValue:@"" forKey:key];
+                }
+                else {
+                    [cleanDictionary setValue:[dictionaryToCleanUp valueForKey:key] forKey:key];
+                }
+            }
+            [cleanArray addObject:cleanDictionary];
+        }
+        
+        [[NSUserDefaults standardUserDefaults]setObject:cleanArray forKey:@"allCategories"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", operation.responseString);
     }];
@@ -199,7 +218,7 @@
                               stringByReplacingOccurrencesOfString: @">" withString: @""]
                              stringByReplacingOccurrencesOfString: @" " withString: @""];
     
-    NSLog(@"%@",tokenString);
+    NSLog(@"Token String: %@",tokenString);
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@", tokenString] forKey:@"apnsToken"];
     [[NSUserDefaults standardUserDefaults] synchronize];

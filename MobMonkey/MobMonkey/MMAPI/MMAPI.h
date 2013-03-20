@@ -79,6 +79,10 @@ typedef enum OAuthProvider {
 + (void)getUserOnSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                  failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
++ (void)updateUserOnSuccess:(NSDictionary*)params
+                    success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 ///---------------------------------------------
 /// @name Signing in an existing user
 ///---------------------------------------------
@@ -140,7 +144,6 @@ typedef enum OAuthProvider {
 + (void)registerTwitterUserDetails:(NSDictionary*)params
                     success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
-
 
 ///---------------------------------------------
 /// @name Sign's a user in with Twitter
