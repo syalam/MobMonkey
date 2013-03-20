@@ -15,7 +15,7 @@
 #import "MMLocationViewController.h"
 #import "MMRequestViewController.h"
 #import "MMSearchViewController.h"
-
+#import "MMSubscriptionViewController.h"
 
 
 @interface MMSDK ()
@@ -103,6 +103,11 @@
     searchVC.themOptionsDictionary = themeOptionsDictionary;
     searchVC.pushedView = YES;
     [presentingViewController.navigationController pushViewController:searchVC animated:YES];
+}
+
++ (void)displayMMSubscriptionViewController:(UIViewController*)presentingViewController withThemeOptions:(NSDictionary*)themeOptionsDictionary {
+    MMSubscriptionViewController *subscriptionVC = [[MMSubscriptionViewController alloc]initWithNibName:@"MMSubscriptionViewController" bundle:nil];
+    [presentingViewController.navigationController pushViewController:subscriptionVC animated:YES];
 }
 
 #pragma mark - Instance methods

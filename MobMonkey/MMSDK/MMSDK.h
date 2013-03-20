@@ -160,5 +160,7 @@
  */
 + (void)displayMMSearchScreenFromPresentingViewController:(UIViewController*)presentingViewController withThemeOptions:(NSDictionary*)themeOptionsDictionary;
 
++ (void)displayMMSubscriptionViewController:(UIViewController*)presentingViewController withThemeOptions:(NSDictionary*)themeOptionsDictionary;
+
 
 @end
