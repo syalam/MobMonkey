@@ -108,7 +108,10 @@
                 [firstName replaceOccurrencesOfString:@"%20" withString:@" " options:NSCaseInsensitiveSearch range:NSMakeRange(0, [firstName length])];
                 [self.userDictionary setValue:firstName forKey:@"firstName"];
                 if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
+                {
                     self.firstNameTextField.placeholder = firstName;
+                    self.firstNameTextField.enabled = NO;
+                }
                 else
                     self.firstNameTextField.text = firstName;
             }
@@ -117,7 +120,10 @@
                 [lastName replaceOccurrencesOfString:@"%20" withString:@" " options:NSCaseInsensitiveSearch range:NSMakeRange(0, [lastName length])];
                 [self.userDictionary setValue:lastName forKey:@"lastName"];
                 if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
+                {
                     self.lastNameTextField.placeholder = lastName;
+                    self.lastNameTextField.enabled = NO;
+                }
                 else
                     self.lastNameTextField.text = lastName;
             }
@@ -237,7 +243,8 @@
                 [self createBirthdayActionSheet];
             break;
         case 6:
-            [self createGenderActionSheet];
+            if(![[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
+                [self createGenderActionSheet];
             break;
         default:
             break;
