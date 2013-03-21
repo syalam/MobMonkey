@@ -58,7 +58,7 @@
         self.navigationItem.rightBarButtonItem = doneBarButton;
     }
     else {
-        
+        selectedItemsDictionary = [[NSMutableDictionary alloc]initWithDictionary:[userDefaults valueForKey:SelectedInterestsKey]];
     }
     
     /*UIImage *selectAllButtonBG = [[UIImage imageNamed:@"navBarButtonBlank"]
