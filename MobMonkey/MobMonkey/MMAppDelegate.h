@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <AVFoundation/AVFoundation.h>
+#import <Foundation/Foundation.h>
 #import "MMAPI.h"
 
 @interface MMAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, CLLocationManagerDelegate, AdWhirlDelegate> {

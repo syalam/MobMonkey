@@ -75,7 +75,7 @@
     UIBarButtonItem *selectAllBarButton = [[UIBarButtonItem alloc] initWithCustomView:selectAllButton];
     self.navigationItem.rightBarButtonItem = selectAllBarButton;*/
     
-    allCategoriesArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"allCategories"];
+    allCategories = [[NSUserDefaults standardUserDefaults]objectForKey:@"allCategories"];
     
     NSLog(@"%@", selectedItemsDictionary);
 }
@@ -92,19 +92,15 @@
         //
     }];*/
     checkMarkCount = 0;
-    if (!_parentId || [_parentId isEqualToString:@"1"]) {
-        NSString *parent = [NSString stringWithFormat:@"%@", @"1"];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents LIKE %@", parent];
-        categoriesArray = [allCategoriesArray filteredArrayUsingPredicate:predicate];
+    if (_subCategoryIndex) {
+        categoriesArray = [[allCategories allValues] objectAtIndex:_subCategoryIndex];
         [self setTableContent];
     }
     else {
-        NSString *parent = [NSString stringWithFormat:@"%@", _parentId];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents LIKE %@", parent];
-        categoriesArray = [allCategoriesArray filteredArrayUsingPredicate:predicate];
+        categoriesArray = [allCategories allKeys];
         [self setTableContent];
-
     }
+
 
 }
 
@@ -131,8 +127,6 @@
     NSIndexPath *indexPath;
     NSDictionary *category;
     NSString *categoryName;
-    NSString *categoryId;;
-    NSPredicate *predicate;
     NSArray *subCategories;
     
     if ([[selectAllButton titleLabel].text isEqualToString: @"Deselect All"]) {
@@ -141,31 +135,38 @@
         for (int i = 0; i < _contentList.count; i++) {
             indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             cell = [_tableView cellForRowAtIndexPath:indexPath];
-            category = [_contentList objectAtIndex:indexPath.row];
-            categoryName = [category[@"en"] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-            categoryId = category[@"categoryId"];
-            categoryId = [NSString stringWithFormat:@"%@", categoryId];
-            predicate = [NSPredicate predicateWithFormat:@"parents LIKE %@", categoryId];
-            subCategories = [allCategoriesArray filteredArrayUsingPredicate:predicate];
-            if ([selectedItemsDictionary valueForKey:[NSString stringWithFormat:@"%@", categoryName]]) {
-                [selectedItemsDictionary setValue:nil forKey:[NSString stringWithFormat:@"%@", categoryName]];
-                if (subCategories.count == 0) {
-                    cell.accessoryType = UITableViewCellAccessoryNone;
-                }
-                else {
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                }
-                
-            }
-            for (int j = 0; j < subCategories.count; j++) {
-                category = [subCategories objectAtIndex:j];
-                categoryName = [category[@"en"] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+            if (!_subCategoryIndex) {
+                categoryName = [_contentList objectAtIndex:indexPath.row];
                 if ([selectedItemsDictionary valueForKey:[NSString stringWithFormat:@"%@", categoryName]]) {
                     [selectedItemsDictionary setValue:nil forKey:[NSString stringWithFormat:@"%@", categoryName]];
                 }
-
+                if ([[[allCategories allValues]objectAtIndex:indexPath.row] count] > 1) {
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    subCategories = [[allCategories allValues]objectAtIndex:indexPath.row];
+                    for (int j = 0; j < subCategories.count; j++) {
+                        category = [subCategories objectAtIndex:j];
+                        categoryName = category[@"en"];
+                        if ([selectedItemsDictionary valueForKey:[NSString stringWithFormat:@"%@", categoryName]]) {
+                            [selectedItemsDictionary setValue:nil forKey:[NSString stringWithFormat:@"%@", categoryName]];
+                        }
+                        
+                    }
+                    
+                }
+                else {
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                    
+                }
+                
             }
-
+            else {
+                categoryName = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"en"];
+                if ([selectedItemsDictionary valueForKey:[NSString stringWithFormat:@"%@", categoryName]]) {
+                    [selectedItemsDictionary setValue:nil forKey:[NSString stringWithFormat:@"%@", categoryName]];
+                }
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }
+            
         }
     }
     else {
@@ -173,21 +174,37 @@
         for (int i = 0; i < _contentList.count; i++) {
             indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             cell = [_tableView cellForRowAtIndexPath:indexPath];
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            if (!_subCategoryIndex) {
+                categoryName = [_contentList objectAtIndex:indexPath.row];
+                if (![selectedItemsDictionary valueForKey:[NSString stringWithFormat:@"%@", categoryName]]) {
+                    [selectedItemsDictionary setValue:categoryName forKey:[NSString stringWithFormat:@"%@", categoryName]];
+                }
+                if ([[[allCategories allValues]objectAtIndex:indexPath.row] count] > 1) {
+                    subCategories = [[allCategories allValues]objectAtIndex:indexPath.row];
+                    for (int j = 0; j < subCategories.count; j++) {
+                        category = [subCategories objectAtIndex:j];
+                        categoryName = category[@"en"];
+                        if (![selectedItemsDictionary valueForKey:[NSString stringWithFormat:@"%@", categoryName]]) {
+                            [selectedItemsDictionary setValue:categoryName forKey:[NSString stringWithFormat:@"%@", categoryName]];
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            else {
+                categoryName = [[_contentList objectAtIndex:indexPath.row]valueForKey:@"en"];
+                if (![selectedItemsDictionary valueForKey:[NSString stringWithFormat:@"%@", categoryName]]) {
+                    [selectedItemsDictionary setValue:categoryName forKey:[NSString stringWithFormat:@"%@", categoryName]];
+                }
+            }
+            
             category = [_contentList objectAtIndex:indexPath.row];
-            categoryName = [category[@"en"] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+            categoryName = category[@"en"];
             [selectedItemsDictionary setValue:[category[@"categoryId"] description] forKey:[NSString stringWithFormat:@"%@", categoryName]];
             [_tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
-            
-            categoryId = category[@"categoryId"];
-            categoryId = [NSString stringWithFormat:@"%@", categoryId];
-            predicate = [NSPredicate predicateWithFormat:@"parents LIKE %@", categoryId];
-            subCategories = [allCategoriesArray filteredArrayUsingPredicate:predicate];
-            for (int j = 0; j < subCategories.count; j++) {
-                category = [subCategories objectAtIndex:j];
-                categoryName = [category[@"en"] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-                [selectedItemsDictionary setValue:[category[@"categoryId"] description] forKey:[NSString stringWithFormat:@"%@", categoryName]];                
-            }
-
         }
     }
     [[NSUserDefaults standardUserDefaults] setValue:selectedItemsDictionary forKey:SelectedInterestsKey];
@@ -214,8 +231,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *category = [_contentList objectAtIndex:indexPath.row];
-    NSString *categoryName = [category[@"en"] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
     
     static NSString *CellIdentifier = @"Cell";
     MMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -226,20 +241,32 @@
     cell.textLabel.text = nil;
     cell.imageView.image = [UIImage imageNamed:@"picture"];
     
-    NSString *categoryId = category[@"categoryId"];
-    categoryId = [NSString stringWithFormat:@"%@", categoryId];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents LIKE %@", categoryId];
-    NSArray *subCategories = [allCategoriesArray filteredArrayUsingPredicate:predicate];
+    NSDictionary *category;
+    NSString *categoryName;
+    NSArray *subCategories = [[NSArray alloc]init];
+    
+    if (_subCategoryIndex) {
+        category = _contentList[indexPath.row];
+        categoryName = [category objectForKey:@"en"];
+    }
+    else {
+        categoryName = _contentList[indexPath.row];
+        subCategories = [[allCategories allValues]objectAtIndex:indexPath.row];
+        
+    }
+
+    cell.textLabel.text = categoryName;
+    cell.imageView.image = [self assignIconToSearchCategoryWithCategoryName:categoryName];
     
     if (indexPath.section == 0) {
         cell.textLabel.text = categoryName;
-        cell.imageView.image = [self assignIconToSearchCategoryWithCategoryName:[category[@"en"] stringByReplacingOccurrencesOfString:@"\"" withString:@""]];
+        cell.imageView.image = [self assignIconToSearchCategoryWithCategoryName:categoryName];
     }
     if ([selectedItemsDictionary valueForKey:[NSString stringWithFormat:@"%@", categoryName]]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         checkMarkCount++;
     }
-    else if (subCategories.count > 0) {
+    else if (subCategories.count > 1) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     else {
@@ -267,29 +294,34 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        NSDictionary *category = [_contentList objectAtIndex:indexPath.row];
-        NSString *categoryName = [category[@"en"] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-        NSString *categoryId = category[@"categoryId"];
-        categoryId = [NSString stringWithFormat:@"%@", categoryId];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents LIKE %@", categoryId];
-        NSArray *subCategories = [allCategoriesArray filteredArrayUsingPredicate:predicate];
+        NSDictionary *category;
+        NSString *categoryName;
+        NSArray *subCategories = [[NSArray alloc]init];
+        if (_subCategoryIndex) {
+            category = _contentList[indexPath.row];
+            categoryName = [category objectForKey:@"en"];
+        }
+        else {
+            categoryName = _contentList[indexPath.row];
+            subCategories = [[allCategories allValues]objectAtIndex:indexPath.row];
 
-        NSLog(@"%@", selectedItemsDictionary);
-        if ([selectedItemsDictionary valueForKey:[NSString stringWithFormat:@"%@", categoryName]]) {
-            [selectedItemsDictionary setValue:nil forKey:[NSString stringWithFormat:@"%@", categoryName]];
-            if (subCategories.count == 0) {
+        }
+
+
+        if ([selectedItemsDictionary valueForKey:categoryName]) {
+            [selectedItemsDictionary setValue:nil forKey:categoryName];
+            if (subCategories.count <= 1) {
                 [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
             }
             else {
                 [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            }
-            for (int j = 0; j < subCategories.count; j++) {
-                category = [subCategories objectAtIndex:j];
-                categoryName = [category[@"en"] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-                if ([selectedItemsDictionary valueForKey:[NSString stringWithFormat:@"%@", categoryName]]) {
-                    [selectedItemsDictionary setValue:nil forKey:[NSString stringWithFormat:@"%@", categoryName]];
+                for (int j = 0; j < subCategories.count; j++) {
+                    category = [subCategories objectAtIndex:j];
+                    categoryName = category[@"en"];
+                    if ([selectedItemsDictionary valueForKey:categoryName]) {
+                        [selectedItemsDictionary setValue:nil forKey:categoryName];
+                    }
                 }
-                
             }
             if (!_addingLocation) {
                 [[NSUserDefaults standardUserDefaults] setValue:selectedItemsDictionary forKey:SelectedInterestsKey];
@@ -297,8 +329,8 @@
             }
         }
         else {
-            if (subCategories.count == 0) {
-                [selectedItemsDictionary setValue:[category[@"categoryId"] description] forKey:[NSString stringWithFormat:@"%@", categoryName]];
+            if (subCategories.count <= 1) {
+                [selectedItemsDictionary setValue:categoryName forKey:categoryName];
                 [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
                 
                 if (!_addingLocation) {
@@ -308,8 +340,7 @@
             }
             else {
                 MMCategoryViewController *mmcvc = [[MMCategoryViewController alloc]initWithNibName:@"MMCategoryViewController" bundle:nil];
-                NSDictionary *category = [_contentList objectAtIndex:indexPath.row];
-                mmcvc.parentId = category[@"categoryId"];
+                mmcvc.subCategoryIndex = indexPath.row;
                 mmcvc.title = self.title;
                 if (_addingLocation) {
                     mmcvc.addingLocation = YES;
@@ -361,44 +392,44 @@
     if ([categoryName isEqualToString:@"Show All Nearby"]) {
         cellIconImage = [UIImage imageNamed:@"myLocationsIcon"];
     }
+    else if ([categoryName isEqualToString:@"Beaches"]) {
+        cellIconImage = [UIImage imageNamed:@"beachesIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Dog Parks"]) {
+        cellIconImage = [UIImage imageNamed:@"dogParksIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Restaurants"]) {
+        cellIconImage = [UIImage imageNamed:@"restaurantsIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Pubs/Bars"]) {
+        cellIconImage = [UIImage imageNamed:@"pubsIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Middle Schools & High Schools"]) {
+        cellIconImage = [UIImage imageNamed:@"schoolsIcon"];
+    }
+    else if (!([categoryName rangeOfString:@"Stadiums"].location == NSNotFound)) {
+        cellIconImage = [UIImage imageNamed:@"stadiumsIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Nightclubs"]) {
+        cellIconImage = [UIImage imageNamed:@"nightclubsIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Health Clubs"]) {
+        cellIconImage = [UIImage imageNamed:@"healthClubsIcon"];
+    }
     else if ([categoryName isEqualToString:@"Coffee Shops"]) {
         cellIconImage = [UIImage imageNamed:@"coffeeShopsIcon"];
     }
-    else if ([categoryName isEqualToString:@"Retail"]) {
-        cellIconImage = [UIImage imageNamed:@"supermarketsIcon"];
-    }
-    else if ([categoryName isEqualToString:@"Travel"]) {
-        cellIconImage = [UIImage imageNamed:@"beachesIcon"];
-    }
-    else if ([categoryName isEqualToString:@"Community and Government"] || [categoryName isEqualToString:@"Landmarks"]) {
-        cellIconImage = [UIImage imageNamed:@"schoolsIcon"];
-    }
-    else if ([categoryName isEqualToString:@"Services and Supplies"]) {
-        cellIconImage = [UIImage imageNamed:@"historyIcon"];
-    }
-    else if (!([categoryName rangeOfString:@"Automotive"].location == NSNotFound)) {
-        cellIconImage = [UIImage imageNamed:@"editedCinemasIcon"];
-    }
-    else if ([categoryName isEqualToString:@"Social"]) {
-        cellIconImage = [UIImage imageNamed:@"coffeeShopsIcon"];
-    }
-    else if ([categoryName isEqualToString:@"Healthcare"]) {
+    else if ([categoryName isEqualToString:@"Hotels"]) {
         cellIconImage = [UIImage imageNamed:@"hotelsIcon"];
     }
-    else if ([categoryName isEqualToString:@"Sports and Recreation"]) {
-        cellIconImage = [UIImage imageNamed:@"stadiumsIcon"];
+    else if ([categoryName isEqualToString:@"Supermarkets"]) {
+        cellIconImage = [UIImage imageNamed:@"supermarketsIcon"];
     }
-    else if ([categoryName isEqualToString:@"Transportation"]) {
-        cellIconImage = [UIImage imageNamed:@"locationsOfInterestIcon"];
-    }
-    else if ([categoryName isEqualToString:@"Education"]) {
+    else if ([categoryName isEqualToString:@"Conferences"]) {
         cellIconImage = [UIImage imageNamed:@"conferencesIcon"];
     }
-    else if ([categoryName isEqualToString:@"Art Dealers & Galleries"]) {
-        cellIconImage = [UIImage imageNamed:@"nightclubsIcon"];
-    }
-    else if ([categoryName isEqualToString:@"Pools & Spas"]) {
-        cellIconImage = [UIImage imageNamed:@"beachesIcon"];
+    else if ([categoryName isEqualToString:@"Cinemas"]) {
+        cellIconImage = [UIImage imageNamed:@"cinemasIcon"];
     }
     return cellIconImage;
 }

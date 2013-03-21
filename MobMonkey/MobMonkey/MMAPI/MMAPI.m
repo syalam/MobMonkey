@@ -184,7 +184,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
                           success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     MMHTTPClient *httpClient = [self setupHTTPClient];
-    [httpClient  getPath:@"category/all" parameters:nil success:success failure:failure]; //MODIFIED category/all to category
+    [httpClient  getPath:@"category" parameters:nil success:success failure:failure]; //MODIFIED category/all to category
 }
 
 + (void)getCategoriesOnSuccess:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
