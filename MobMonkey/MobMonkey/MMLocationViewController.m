@@ -138,7 +138,7 @@
         if ([[_contentList valueForKey:@"bookmark"] boolValue]) {
             cell.textLabel.text = @"Remove from Favorites";
         }
-        cell.imageView.image = [UIImage imageNamed:@"bookmark"];
+        cell.imageView.image = [UIImage imageNamed:@"favorite"];
         return cell;
     }
     switch (indexPath.row) {
