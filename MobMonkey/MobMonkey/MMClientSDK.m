@@ -328,7 +328,7 @@
 - (void)getAllCategories {
     [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"%@", responseObject);
-        NSMutableArray *arrayToCleanUp = [responseObject mutableCopy];
+        /*NSMutableArray *arrayToCleanUp = [responseObject mutableCopy];
         NSMutableArray *cleanArray = [[NSMutableArray alloc]init];
         for (NSDictionary *dictionaryToCleanUp in arrayToCleanUp) {
             NSMutableDictionary *cleanDictionary = [[NSMutableDictionary alloc]init];
@@ -343,9 +343,9 @@
                 }
             }
             [cleanArray addObject:cleanDictionary];
-        }
+        }*/
         
-        [[NSUserDefaults standardUserDefaults]setObject:cleanArray forKey:@"allCategories"];
+        [[NSUserDefaults standardUserDefaults]setObject:responseObject forKey:@"allCategories"];
         [[NSUserDefaults standardUserDefaults]synchronize];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", operation.responseString);
