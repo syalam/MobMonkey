@@ -117,7 +117,7 @@
     searchNavC.tabBarItem.title = nil;
     
     [bookmarksNavC.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"favoritesIconOn"] withFinishedUnselectedImage:[UIImage imageNamed:@"favoritesIcon"]];
-    [bookmarksNavC.tabBarItem setImageInsets:UIEdgeInsetsMake(inset, 0, -inset, 0)];
+    [bookmarksNavC.tabBarItem setImageInsets:UIEdgeInsetsMake(inset-1, 0, -inset+1, 0)];
     bookmarksNavC.tabBarItem.title = nil;
     
     [settingsNavC.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"settingsIcn"] withFinishedUnselectedImage:[UIImage imageNamed:@"settingsIcnOff"]];

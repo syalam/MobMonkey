@@ -51,32 +51,53 @@
     _firstNameTextField = [[UITextField alloc] initWithFrame:textFieldRect];
     _firstNameTextField.placeholder = @"First Name";
     _firstNameTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    _firstNameTextField.tag = 0;
+    _firstNameTextField.returnKeyType = UIReturnKeyNext;
+    _firstNameTextField.delegate = self;
     
     _lastNameTextField = [[UITextField alloc]initWithFrame:textFieldRect];
     _lastNameTextField.placeholder = @"Last Name";
     _lastNameTextField.autocorrectionType= UITextAutocorrectionTypeNo;
+    _lastNameTextField.tag = 1;
+    _lastNameTextField.returnKeyType = UIReturnKeyNext;
+    _lastNameTextField.delegate = self;
     
     _emailTextField = [[UITextField alloc] initWithFrame:textFieldRect];
     _emailTextField.placeholder = @"Email Address";
     _emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _emailTextField.autocorrectionType= UITextAutocorrectionTypeNo;
     _emailTextField.keyboardType = UIKeyboardTypeEmailAddress;
+    _emailTextField.tag = 2;
+    _emailTextField.returnKeyType = UIReturnKeyNext;
+    _emailTextField.delegate = self;
     
     _passwordTextField = [[UITextField alloc] initWithFrame:textFieldRect];
     _passwordTextField.placeholder = @"New Password";
     _passwordTextField.secureTextEntry = YES;
+    _passwordTextField.tag = 3;
+    _passwordTextField.returnKeyType = UIReturnKeyNext;
+    _passwordTextField.delegate = self;
     
     _confirmPasswordTextField = [[UITextField alloc] initWithFrame:textFieldRect];
     _confirmPasswordTextField.placeholder = @"Confirm Password";
     _confirmPasswordTextField.secureTextEntry = YES;
+    _confirmPasswordTextField.tag = 4;
+    _confirmPasswordTextField.returnKeyType = UIReturnKeyNext;
+    _confirmPasswordTextField.delegate = self;
     
     _birthdayTextField = [[UITextField alloc] initWithFrame:textFieldRect];
     _birthdayTextField.placeholder = @"Birthday";
     _birthdayTextField.enabled = NO;
+    _birthdayTextField.tag = 5;
+    _birthdayTextField.returnKeyType = UIReturnKeyNext;
+    _birthdayTextField.delegate = self;
     
     _genderTextField = [[UITextField alloc] initWithFrame:textFieldRect];
     _genderTextField.placeholder = @"Gender";
     _genderTextField.enabled = NO;
+    _genderTextField.tag = 6;
+    _genderTextField.returnKeyType = UIReturnKeyDefault;
+    _genderTextField.delegate = self;
     
     
     NSMutableArray *fieldsToDisplay = [[NSMutableArray alloc]init];
@@ -322,6 +343,7 @@
     
     _birthdayTextField.text = [NSString stringWithFormat:@"%@", dateString];
     [birthdayActionSheet dismissWithClickedButtonIndex:[sender tag] animated:YES];
+    [self createGenderActionSheet];
 }
 
 - (void)cancelDateButtonTapped:(id)sender {
@@ -787,6 +809,38 @@
 
         }
     }
+}
+
+#pragma mark - text field delegate methods
+-(BOOL)textFieldShouldReturn:(UITextField*)textField;
+{
+   
+    if (textField == _firstNameTextField) {
+        [_lastNameTextField becomeFirstResponder];
+    }
+    else if (textField == _lastNameTextField) {
+        [_emailTextField becomeFirstResponder];
+    }
+    else if (textField == _emailTextField) {
+        if ((_twitterSignIn) || [[NSUserDefaults standardUserDefaults] valueForKey:@"twitterEnabled"] || [[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"]) {
+            [textField resignFirstResponder];
+            [self createBirthdayActionSheet];
+        }
+        else {
+            [_passwordTextField becomeFirstResponder];
+        }
+    }
+    else if (textField == _passwordTextField) {
+        [_confirmPasswordTextField becomeFirstResponder];
+    }
+    else if (textField == _confirmPasswordTextField) {
+        [textField resignFirstResponder];
+        [self createBirthdayActionSheet];
+    }
+    else {
+        [textField resignFirstResponder];
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
 }
 
 @end

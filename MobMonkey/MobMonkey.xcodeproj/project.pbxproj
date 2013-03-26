@@ -85,6 +85,8 @@
 		1AC1D4461640545500C8162F /* navBarButtonBlank.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4421640545300C8162F /* navBarButtonBlank.png */; };
 		1AC1D4471640545500C8162F /* navBarButtonBlank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1D4431640545400C8162F /* navBarButtonBlank@2x.png */; };
 		1AE5965F16974BB100AD6707 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE5965E16974BB100AD6707 /* libFlurry.a */; };
+		1AF687E1170133770080F68E /* MobMonkey_Logo_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AF687E0170133760080F68E /* MobMonkey_Logo_2@2x.png */; };
+		1AF687E31701337D0080F68E /* MobMonkey_Logo_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AF687E21701337D0080F68E /* MobMonkey_Logo_2.png */; };
 		370D65071648E7B700D72154 /* NSString+URLParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D65061648E7B700D72154 /* NSString+URLParams.m */; };
 		37127408162BC61B000557D1 /* bookmarkIcn.png in Resources */ = {isa = PBXBuildFile; fileRef = 371273F0162BC61B000557D1 /* bookmarkIcn.png */; };
 		37127409162BC61B000557D1 /* bookmarkIcn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 371273F1162BC61B000557D1 /* bookmarkIcn@2x.png */; };
@@ -876,6 +878,8 @@
 		1AC1D4431640545400C8162F /* navBarButtonBlank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBarButtonBlank@2x.png"; sourceTree = "<group>"; };
 		1AE5965D16974BB100AD6707 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		1AE5965E16974BB100AD6707 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
+		1AF687E0170133760080F68E /* MobMonkey_Logo_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MobMonkey_Logo_2@2x.png"; sourceTree = "<group>"; };
+		1AF687E21701337D0080F68E /* MobMonkey_Logo_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MobMonkey_Logo_2.png; sourceTree = "<group>"; };
 		370D65051648E7B700D72154 /* NSString+URLParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLParams.h"; sourceTree = "<group>"; };
 		370D65061648E7B700D72154 /* NSString+URLParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLParams.m"; sourceTree = "<group>"; };
 		371273F0162BC61B000557D1 /* bookmarkIcn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookmarkIcn.png; sourceTree = "<group>"; };
@@ -2094,6 +2098,8 @@
 		F734A52815F11C3E0090E85A = {
 			isa = PBXGroup;
 			children = (
+				1AF687E21701337D0080F68E /* MobMonkey_Logo_2.png */,
+				1AF687E0170133760080F68E /* MobMonkey_Logo_2@2x.png */,
 				F734A53D15F11C3E0090E85A /* MobMonkey */,
 				F773D9EA16D1A46B006C4983 /* MobMonkeySDK */,
 				F7D3B17816CB75CE0014D5A7 /* MMSDK */,
@@ -3739,6 +3745,8 @@
 				1A250D6B16FBAD46001816DB /* favoritesIconOn@2x.png in Resources */,
 				1A250D6E16FBB00E001816DB /* favorite.png in Resources */,
 				1A250D6F16FBB00E001816DB /* favorite@2x.png in Resources */,
+				1AF687E1170133770080F68E /* MobMonkey_Logo_2@2x.png in Resources */,
+				1AF687E31701337D0080F68E /* MobMonkey_Logo_2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4104,8 +4112,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -4159,8 +4167,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

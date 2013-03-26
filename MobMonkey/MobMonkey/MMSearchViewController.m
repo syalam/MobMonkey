@@ -10,6 +10,7 @@
 #import "MMLocationsViewController.h"
 #import "MMFilterViewController.h"
 #import "MMLocationViewController.h"
+#import "SVProgressHUD.h"
 
 @interface MMSearchViewController ()
 
@@ -119,12 +120,33 @@
     }
     else {
         if (_subCategoryIndex) {
-            self.categories = [[allCategories allValues] objectAtIndex:_subCategoryIndex];
-            [self.tableView reloadData];
+            if (allCategories) {
+                self.categories = [[allCategories allValues] objectAtIndex:_subCategoryIndex];
+                [self.tableView reloadData];
+            }
+            
         }
         else {
-            self.categories = [allCategories allKeys];
-            [self.tableView reloadData];
+            if (allCategories) {
+                self.categories = [allCategories allKeys];
+                [self.tableView reloadData];
+            }
+            else {
+                [SVProgressHUD showWithStatus:@"Loading Categories"];
+                [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [SVProgressHUD dismiss];
+                    NSLog(@"%@", responseObject);
+                    [[NSUserDefaults standardUserDefaults]setObject:responseObject forKey:@"allCategories"];
+                    [[NSUserDefaults standardUserDefaults]synchronize];
+                    allCategories = responseObject;
+                    self.categories = [allCategories allKeys];
+                    [self.tableView reloadData];
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [SVProgressHUD showErrorWithStatus:@"Unable to load categories"];
+                    NSLog(@"%@", operation.responseString);
+                }];
+
+            }
         }
     }
 }

@@ -93,12 +93,31 @@
     }];*/
     checkMarkCount = 0;
     if (_subCategoryIndex) {
-        categoriesArray = [[allCategories allValues] objectAtIndex:_subCategoryIndex];
-        [self setTableContent];
+        if (allCategories) {
+            categoriesArray = [[allCategories allValues] objectAtIndex:_subCategoryIndex];
+            [self setTableContent];
+
+        }
     }
     else {
-        categoriesArray = [allCategories allKeys];
-        [self setTableContent];
+        if (allCategories) {
+            categoriesArray = [allCategories allKeys];
+            [self setTableContent];
+        }
+        else {
+            [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSLog(@"%@", responseObject);
+                [[NSUserDefaults standardUserDefaults]setObject:responseObject forKey:@"allCategories"];
+                [[NSUserDefaults standardUserDefaults]synchronize];
+                allCategories = responseObject;
+                categoriesArray = [allCategories allKeys];
+                [self setTableContent];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"%@", operation.responseString);
+            }];
+
+        }
+       
     }
 
 
