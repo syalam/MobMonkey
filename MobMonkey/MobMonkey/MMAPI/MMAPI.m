@@ -89,6 +89,8 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
             urlString = [NSString stringWithFormat:@"signin?%@=%@", key, [params valueForKey:key]];
         }
     }
+    
+    NSLog(@"%@", urlString);
         
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient setDefaultHeader:@"MobMonkey-user" value:email];

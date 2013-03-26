@@ -757,6 +757,8 @@
                     [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"oauthProvider"] forKey:@"provider"];
                     [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"userName"] forKey:@"providerUserName"];
                     
+                    NSLog(@"%@", self.userDictionary);
+                    
                     [MMAPI oauthSignIn:self.userDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         [SVProgressHUD showSuccessWithStatus:@"Updated User Information"];
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

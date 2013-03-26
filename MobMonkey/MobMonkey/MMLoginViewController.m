@@ -120,6 +120,7 @@
         [alert show];
     }
     else {
+        
         NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
         [params setValue:@"iOS" forKey:@"deviceType"];
         [params setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"apnsToken"] forKey:@"deviceId"];

@@ -265,6 +265,7 @@
                             @"true", @"useOAuth",
                             @"iOS", @"deviceType",
                             [[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"], @"deviceId", nil];
+    NSLog(@"%@", params);
     
     [MMAPI oauthSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[NSUserDefaults standardUserDefaults]setValue:account.username forKey:@"userName"];
