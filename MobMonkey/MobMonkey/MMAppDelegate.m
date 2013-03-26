@@ -40,21 +40,7 @@
     
     NSString *subscribedUserKey = [NSString stringWithFormat:@"%@ subscribed", [[NSUserDefaults standardUserDefaults] valueForKey:@"userName"]];
     
-    //TODO: UNCOMMENT WHEN iAD working
-    if (![[NSUserDefaults standardUserDefaults]boolForKey:subscribedUserKey]) {
-        _adView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
-        
-        [_adView setHidden:YES];
-        [self.window.rootViewController.view addSubview:_adView];
-    }
     
-    // Use the product identifier from iTunes to register a handler.
-    [PFPurchase addObserverForProduct:@"com.mobmonkey.MobMonkey.VK4524W4XL.1month" block:^(SKPaymentTransaction *transaction) {
-                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:subscribedUserKey];
-        [_adView removeFromSuperview];
-        
-    }];
-
         
     //REMOVE ME: Hardcode the partner ID
     [[NSUserDefaults standardUserDefaults]setObject:@"aba0007c-ebee-42db-bd52-7c9f02e3d371" forKey:@"mmPartnerId"];
@@ -125,6 +111,20 @@
     settingsNavC.tabBarItem.title = nil;
     
     self.window.rootViewController = self.tabBarController;
+    
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:subscribedUserKey]) {
+        _adView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
+        
+        [_adView setHidden:YES];
+        [self.window.rootViewController.view addSubview:_adView];
+    }
+    
+    // Use the product identifier from iTunes to register a handler.
+    [PFPurchase addObserverForProduct:@"com.mobmonkey.MobMonkey.VK4524W4XL.1month" block:^(SKPaymentTransaction *transaction) {
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:subscribedUserKey];
+        [_adView removeFromSuperview];
+        
+    }];
     
   
     [self.window makeKeyAndVisible];
@@ -307,10 +307,11 @@
     }
     CGSize adSize = [adWhirlView actualAdSize];
     CGRect newFrame = adWhirlView.frame;
+    CGRect screenSize = [[UIScreen mainScreen]bounds];
     
     newFrame.size = adSize;
     newFrame.origin.x = (self.window.rootViewController.view.bounds.size.width - adSize.width)/ 2;
-    newFrame.origin.y = (self.window.rootViewController.view.bounds.size.height - adSize.height - 49);
+    newFrame.origin.y = (screenSize.size.height - adSize.height - 49);
     
     adWhirlView.frame = newFrame;
 }
