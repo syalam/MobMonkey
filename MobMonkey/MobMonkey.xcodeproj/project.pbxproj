@@ -744,6 +744,8 @@
 		B9A11982170A57E60020C322 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E7568315FE06DA005C8D7C /* Twitter.framework */; };
 		B9A11983170A59220020C322 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5C415F12AF10090E85A /* SVProgressHUD.m */; };
 		B9A11984170A59E70020C322 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F734A5C515F12AF10090E85A /* SVProgressHUD.bundle */; };
+		B9A11988170A6C9A0020C322 /* MobMonkeyLogoLabs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A11987170A6C980020C322 /* MobMonkeyLogoLabs@2x.png */; };
+		B9A1198A170A6CA10020C322 /* MobMonkeyLogoLabs.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A11989170A6C9F0020C322 /* MobMonkeyLogoLabs.png */; };
 		C731E541167DE443002525C8 /* 187-pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = C731E540167DE443002525C8 /* 187-pencil.png */; };
 		C73F8A4C166F727B00DE6BA8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73F8A4B166F727A00DE6BA8 /* iAd.framework */; };
 		C75171EB1678C0DE009B4DE8 /* MMSubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75171E91678C0DE009B4DE8 /* MMSubscriptionViewController.m */; };
@@ -1568,6 +1570,8 @@
 		B9A1173C170A54FB0020C322 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B9A1173E170A54FB0020C322 /* MobMonkeyStagingTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobMonkeyStagingTests.h; sourceTree = "<group>"; };
 		B9A1173F170A54FB0020C322 /* MobMonkeyStagingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MobMonkeyStagingTests.m; sourceTree = "<group>"; };
+		B9A11987170A6C980020C322 /* MobMonkeyLogoLabs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MobMonkeyLogoLabs@2x.png"; sourceTree = "<group>"; };
+		B9A11989170A6C9F0020C322 /* MobMonkeyLogoLabs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MobMonkeyLogoLabs.png; sourceTree = "<group>"; };
 		C731E540167DE443002525C8 /* 187-pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "187-pencil.png"; sourceTree = "<group>"; };
 		C73F8A2B166F528500DE6BA8 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
 		C73F8A2C166F528500DE6BA8 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
@@ -2788,6 +2792,8 @@
 		F734A52815F11C3E0090E85A = {
 			isa = PBXGroup;
 			children = (
+				B9A11989170A6C9F0020C322 /* MobMonkeyLogoLabs.png */,
+				B9A11987170A6C980020C322 /* MobMonkeyLogoLabs@2x.png */,
 				1AF687E21701337D0080F68E /* MobMonkey_Logo_2.png */,
 				1AF687E0170133760080F68E /* MobMonkey_Logo_2@2x.png */,
 				F734A53D15F11C3E0090E85A /* MobMonkey */,
@@ -4482,6 +4488,8 @@
 				B9A11968170A574E0020C322 /* MMInboxDetailViewController.xib in Resources */,
 				B9A11974170A57A50020C322 /* FacebookSDKResources.bundle in Resources */,
 				B9A11984170A59E70020C322 /* SVProgressHUD.bundle in Resources */,
+				B9A11988170A6C9A0020C322 /* MobMonkeyLogoLabs@2x.png in Resources */,
+				B9A1198A170A6CA10020C322 /* MobMonkeyLogoLabs.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5426,7 +5434,8 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Michael Kral (79A5TTK5FV)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Kral (79A5TTK5FV)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -5443,6 +5452,8 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "465FF3DC-9C23-4FCC-876C-C22085C1A468";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "465FF3DC-9C23-4FCC-876C-C22085C1A468";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5456,7 +5467,8 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
