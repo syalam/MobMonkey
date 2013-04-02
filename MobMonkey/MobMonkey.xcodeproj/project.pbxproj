@@ -746,6 +746,8 @@
 		B9A11984170A59E70020C322 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F734A5C515F12AF10090E85A /* SVProgressHUD.bundle */; };
 		B9A11988170A6C9A0020C322 /* MobMonkeyLogoLabs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A11987170A6C980020C322 /* MobMonkeyLogoLabs@2x.png */; };
 		B9A1198A170A6CA10020C322 /* MobMonkeyLogoLabs.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A11989170A6C9F0020C322 /* MobMonkeyLogoLabs.png */; };
+		B9A1198C170B4AA10020C322 /* MobMonkeyLogoBeta@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A1198B170B4A9E0020C322 /* MobMonkeyLogoBeta@2x.png */; };
+		B9A1198E170B4AAA0020C322 /* MobMonkeyLogoBeta.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A1198D170B4AA80020C322 /* MobMonkeyLogoBeta.png */; };
 		C731E541167DE443002525C8 /* 187-pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = C731E540167DE443002525C8 /* 187-pencil.png */; };
 		C73F8A4C166F727B00DE6BA8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73F8A4B166F727A00DE6BA8 /* iAd.framework */; };
 		C75171EB1678C0DE009B4DE8 /* MMSubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75171E91678C0DE009B4DE8 /* MMSubscriptionViewController.m */; };
@@ -1561,7 +1563,6 @@
 		B9A11717170A54FB0020C322 /* MobMonkeyStaging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobMonkeyStaging.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9A1171D170A54FB0020C322 /* MobMonkeyStaging-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MobMonkeyStaging-Info.plist"; sourceTree = "<group>"; };
 		B9A1171F170A54FB0020C322 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		B9A11723170A54FB0020C322 /* MobMonkeyStaging-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobMonkeyStaging-Prefix.pch"; sourceTree = "<group>"; };
 		B9A11727170A54FB0020C322 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		B9A11729170A54FB0020C322 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		B9A1172B170A54FB0020C322 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -1572,6 +1573,8 @@
 		B9A1173F170A54FB0020C322 /* MobMonkeyStagingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MobMonkeyStagingTests.m; sourceTree = "<group>"; };
 		B9A11987170A6C980020C322 /* MobMonkeyLogoLabs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MobMonkeyLogoLabs@2x.png"; sourceTree = "<group>"; };
 		B9A11989170A6C9F0020C322 /* MobMonkeyLogoLabs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MobMonkeyLogoLabs.png; sourceTree = "<group>"; };
+		B9A1198B170B4A9E0020C322 /* MobMonkeyLogoBeta@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MobMonkeyLogoBeta@2x.png"; sourceTree = "<group>"; };
+		B9A1198D170B4AA80020C322 /* MobMonkeyLogoBeta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MobMonkeyLogoBeta.png; sourceTree = "<group>"; };
 		C731E540167DE443002525C8 /* 187-pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "187-pencil.png"; sourceTree = "<group>"; };
 		C73F8A2B166F528500DE6BA8 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
 		C73F8A2C166F528500DE6BA8 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
@@ -2521,7 +2524,6 @@
 			children = (
 				B9A1171D170A54FB0020C322 /* MobMonkeyStaging-Info.plist */,
 				B9A1171E170A54FB0020C322 /* InfoPlist.strings */,
-				B9A11723170A54FB0020C322 /* MobMonkeyStaging-Prefix.pch */,
 				B9A11727170A54FB0020C322 /* Default.png */,
 				B9A11729170A54FB0020C322 /* Default@2x.png */,
 				B9A1172B170A54FB0020C322 /* Default-568h@2x.png */,
@@ -2792,6 +2794,8 @@
 		F734A52815F11C3E0090E85A = {
 			isa = PBXGroup;
 			children = (
+				B9A1198D170B4AA80020C322 /* MobMonkeyLogoBeta.png */,
+				B9A1198B170B4A9E0020C322 /* MobMonkeyLogoBeta@2x.png */,
 				B9A11989170A6C9F0020C322 /* MobMonkeyLogoLabs.png */,
 				B9A11987170A6C980020C322 /* MobMonkeyLogoLabs@2x.png */,
 				1AF687E21701337D0080F68E /* MobMonkey_Logo_2.png */,
@@ -4490,6 +4494,8 @@
 				B9A11984170A59E70020C322 /* SVProgressHUD.bundle in Resources */,
 				B9A11988170A6C9A0020C322 /* MobMonkeyLogoLabs@2x.png in Resources */,
 				B9A1198A170A6CA10020C322 /* MobMonkeyLogoLabs.png in Resources */,
+				B9A1198C170B4AA10020C322 /* MobMonkeyLogoBeta@2x.png in Resources */,
+				B9A1198E170B4AAA0020C322 /* MobMonkeyLogoBeta.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5442,6 +5448,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobMonkey/MobMonkey-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"STAGING=1",
+				);
 				INFOPLIST_FILE = "MobMonkeyStaging/MobMonkeyStaging-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
@@ -5605,6 +5616,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobMonkey/MobMonkey-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"PRODUCTION=1",
+				);
 				INFOPLIST_FILE = "MobMonkey/MobMonkey-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5638,6 +5654,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobMonkey/MobMonkey-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "PRODUCTION=1";
 				INFOPLIST_FILE = "MobMonkey/MobMonkey-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
