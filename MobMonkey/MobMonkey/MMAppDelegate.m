@@ -14,6 +14,8 @@
 #import "MMSettingsViewController.h"
 #import "MMTabBarViewController.h"
 #import <Parse/Parse.h>
+#import "MMSDK.h"
+#import "UIAlertView+Blocks.h"
 #import "Flurry.h"
 
 
@@ -21,6 +23,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
 
@@ -218,7 +221,7 @@
                                stringByReplacingOccurrencesOfString: @"<" withString: @""]
                               stringByReplacingOccurrencesOfString: @">" withString: @""]
                              stringByReplacingOccurrencesOfString: @" " withString: @""];
-    
+
     NSLog(@"Token String: %@",tokenString);
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@", tokenString] forKey:@"apnsToken"];
@@ -228,6 +231,56 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     NSLog(@"%@", @"Push Notification Received");
     [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:userInfo];
+
+    
+#ifdef STAGING
+    
+    //Make sure the root view controller is a tab bar controller.
+    if([self.window.rootViewController isKindOfClass:[UITabBarController class]]){
+        
+        UITabBarController *tabBarController = (UITabBarController*)self.window.rootViewController;
+        
+        //Check if the app is already open or not.
+        if ( application.applicationState == UIApplicationStateActive ) {
+            // app was already in the foreground
+            
+            //Ask the user if they want to go to the request screen from the push notifications
+            
+            RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:@"Cancel"];
+            RIButtonItem *goToRequestButton = [RIButtonItem itemWithLabel:@"Go to Request"];
+            
+            // Display screen, when "Go to Request" button is selected
+            [goToRequestButton setAction:^{
+                
+                [tabBarController setSelectedIndex:1];
+                
+            }];
+            
+            UIAlertView *confirmGoToRequest = [[UIAlertView alloc] initWithTitle:@"New Request" message:@"You have a new request in your inbox. Would you like to go there now?" cancelButtonItem:cancelButton otherButtonItems:goToRequestButton, nil];
+            
+            //Present the alert view only if the user is signed in
+            if([[NSUserDefaults standardUserDefaults] stringForKey:@"userName"]){
+                [confirmGoToRequest show];
+            }
+            
+            
+        } else {
+            // app was just brought from background to foreground
+            
+            //open the app with the inbox screen selected.
+            [tabBarController setSelectedIndex:1];
+            
+        }
+    }
+    
+    
+    
+#else
+    // Production
+#endif
+    
+            
+    
 }
 
 

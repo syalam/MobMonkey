@@ -748,6 +748,14 @@
 		B9A1198A170A6CA10020C322 /* MobMonkeyLogoLabs.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A11989170A6C9F0020C322 /* MobMonkeyLogoLabs.png */; };
 		B9A1198C170B4AA10020C322 /* MobMonkeyLogoBeta@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A1198B170B4A9E0020C322 /* MobMonkeyLogoBeta@2x.png */; };
 		B9A1198E170B4AAA0020C322 /* MobMonkeyLogoBeta.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A1198D170B4AA80020C322 /* MobMonkeyLogoBeta.png */; };
+		B9A11997170C8C940020C322 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B9A11990170C8C940020C322 /* README.md */; };
+		B9A11998170C8C940020C322 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B9A11990170C8C940020C322 /* README.md */; };
+		B9A11999170C8C940020C322 /* RIButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A11992170C8C940020C322 /* RIButtonItem.m */; };
+		B9A1199A170C8C940020C322 /* RIButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A11992170C8C940020C322 /* RIButtonItem.m */; };
+		B9A1199B170C8C940020C322 /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A11994170C8C940020C322 /* UIActionSheet+Blocks.m */; };
+		B9A1199C170C8C940020C322 /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A11994170C8C940020C322 /* UIActionSheet+Blocks.m */; };
+		B9A1199D170C8C940020C322 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A11996170C8C940020C322 /* UIAlertView+Blocks.m */; };
+		B9A1199E170C8C940020C322 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A11996170C8C940020C322 /* UIAlertView+Blocks.m */; };
 		C731E541167DE443002525C8 /* 187-pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = C731E540167DE443002525C8 /* 187-pencil.png */; };
 		C73F8A4C166F727B00DE6BA8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73F8A4B166F727A00DE6BA8 /* iAd.framework */; };
 		C75171EB1678C0DE009B4DE8 /* MMSubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75171E91678C0DE009B4DE8 /* MMSubscriptionViewController.m */; };
@@ -1575,6 +1583,13 @@
 		B9A11989170A6C9F0020C322 /* MobMonkeyLogoLabs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MobMonkeyLogoLabs.png; sourceTree = "<group>"; };
 		B9A1198B170B4A9E0020C322 /* MobMonkeyLogoBeta@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MobMonkeyLogoBeta@2x.png"; sourceTree = "<group>"; };
 		B9A1198D170B4AA80020C322 /* MobMonkeyLogoBeta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MobMonkeyLogoBeta.png; sourceTree = "<group>"; };
+		B9A11990170C8C940020C322 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		B9A11991170C8C940020C322 /* RIButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIButtonItem.h; sourceTree = "<group>"; };
+		B9A11992170C8C940020C322 /* RIButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIButtonItem.m; sourceTree = "<group>"; };
+		B9A11993170C8C940020C322 /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
+		B9A11994170C8C940020C322 /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
+		B9A11995170C8C940020C322 /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
+		B9A11996170C8C940020C322 /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
 		C731E540167DE443002525C8 /* 187-pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "187-pencil.png"; sourceTree = "<group>"; };
 		C73F8A2B166F528500DE6BA8 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
 		C73F8A2C166F528500DE6BA8 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
@@ -2550,6 +2565,20 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		B9A1198F170C8C940020C322 /* UIAlertView+Blocks */ = {
+			isa = PBXGroup;
+			children = (
+				B9A11990170C8C940020C322 /* README.md */,
+				B9A11991170C8C940020C322 /* RIButtonItem.h */,
+				B9A11992170C8C940020C322 /* RIButtonItem.m */,
+				B9A11993170C8C940020C322 /* UIActionSheet+Blocks.h */,
+				B9A11994170C8C940020C322 /* UIActionSheet+Blocks.m */,
+				B9A11995170C8C940020C322 /* UIAlertView+Blocks.h */,
+				B9A11996170C8C940020C322 /* UIAlertView+Blocks.m */,
+			);
+			path = "UIAlertView+Blocks";
+			sourceTree = "<group>";
+		};
 		C73F8A2A166F528500DE6BA8 /* TouchJSON */ = {
 			isa = PBXGroup;
 			children = (
@@ -2963,6 +2992,7 @@
 		F734A59A15F12A570090E85A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				B9A1198F170C8C940020C322 /* UIAlertView+Blocks */,
 				370D65041648E79100D72154 /* NSString URLParams */,
 				37D6AB471644488A0070220D /* TestFlightSDK1 */,
 				F77D3E4D161A1EB7000A818F /* MMClientSDK */,
@@ -4496,6 +4526,7 @@
 				B9A1198A170A6CA10020C322 /* MobMonkeyLogoLabs.png in Resources */,
 				B9A1198C170B4AA10020C322 /* MobMonkeyLogoBeta@2x.png in Resources */,
 				B9A1198E170B4AAA0020C322 /* MobMonkeyLogoBeta.png in Resources */,
+				B9A11998170C8C940020C322 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4955,6 +4986,7 @@
 				1A250D6F16FBB00E001816DB /* favorite@2x.png in Resources */,
 				1AF687E1170133770080F68E /* MobMonkey_Logo_2@2x.png in Resources */,
 				1AF687E31701337D0080F68E /* MobMonkey_Logo_2.png in Resources */,
+				B9A11997170C8C940020C322 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5126,6 +5158,9 @@
 				B9A11939170A571B0020C322 /* NSDate+JavaEpochTime.m in Sources */,
 				B9A1193B170A57230020C322 /* main.m in Sources */,
 				B9A11969170A575B0020C322 /* MMSDK.m in Sources */,
+				B9A1199A170C8C940020C322 /* RIButtonItem.m in Sources */,
+				B9A1199C170C8C940020C322 /* UIActionSheet+Blocks.m in Sources */,
+				B9A1199E170C8C940020C322 /* UIAlertView+Blocks.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5243,6 +5278,9 @@
 				F7AAF5F5169E9ABD00760B4D /* MMTrendingDetailViewController.m in Sources */,
 				F773DB6A16B8F9FA00EF9EA4 /* MMTermsOfUseViewController.m in Sources */,
 				F773D9E616D1931A006C4983 /* MMSDK.m in Sources */,
+				B9A11999170C8C940020C322 /* RIButtonItem.m in Sources */,
+				B9A1199B170C8C940020C322 /* UIActionSheet+Blocks.m in Sources */,
+				B9A1199D170C8C940020C322 /* UIAlertView+Blocks.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5451,7 +5489,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"STAGING=1",
+					STAGING,
 				);
 				INFOPLIST_FILE = "MobMonkeyStaging/MobMonkeyStaging-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
@@ -5463,8 +5501,8 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "465FF3DC-9C23-4FCC-876C-C22085C1A468";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "465FF3DC-9C23-4FCC-876C-C22085C1A468";
+				PROVISIONING_PROFILE = "50BB39FD-6112-46A4-973E-4A3A98D420E7";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "50BB39FD-6112-46A4-973E-4A3A98D420E7";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5608,8 +5646,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Michael Kral (79A5TTK5FV)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Kral (79A5TTK5FV)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -5619,7 +5657,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"PRODUCTION=1",
+					PRODUCTION,
 				);
 				INFOPLIST_FILE = "MobMonkey/MobMonkey-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -5635,8 +5673,8 @@
 				);
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "842C8402-6826-4212-B047-2691047E1087";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "842C8402-6826-4212-B047-2691047E1087";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5834,6 +5872,7 @@
 				B9A11742170A54FB0020C322 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B9A11746170A54FB0020C322 /* Build configuration list for PBXNativeTarget "MobMonkeyStagingTests" */ = {
 			isa = XCConfigurationList;
@@ -5842,6 +5881,7 @@
 				B9A11744170A54FB0020C322 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F734A52D15F11C3E0090E85A /* Build configuration list for PBXProject "MobMonkey" */ = {
 			isa = XCConfigurationList;
