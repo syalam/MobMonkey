@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMTermsOfUseViewController : UIViewController
+@interface MMTermsOfUseViewController : UIViewController {
+    void (^ acceptAction)(void);
+    void (^ rejectAction)(void);
+}
+
+@property (copy, nonatomic) void (^ acceptAction)(void);
+@property (copy, nonatomic) void (^ rejectAction)(void);
+@property (nonatomic, assign) BOOL requiresResponse;
 
 @end
