@@ -9,6 +9,7 @@
 #import "MMRequestViewController.h"
 #import "MMTableViewCell.h"
 #import "MMRequestMessageViewController.h"
+#import "MMSubscriptionViewController.h"
 
 
 enum RequestDurationLengths {
@@ -154,12 +155,33 @@ enum RequestDurationLengths {
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         [SVProgressHUD showErrorWithStatus:@"Unable to make request. Please try again"];
                         NSLog(@"%@", operation.responseString);
+                        
+#warning This needs to match the server status code. Waiting to hear from manny
+                        //If the server response status code is XXX, display a modal view for subscription
+                        if(operation.response.statusCode == 403){
+                            
+                            [self overFreeRequestLimit];
+                            
+                        }
+                        
                     }];
                 });
             }
         }
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+-(void)overFreeRequestLimit{
+    
+    MMSubscriptionViewController *subscriptionViewController = [[MMSubscriptionViewController alloc] init];
+    
+    UINavigationController *subscriptionModal = [[UINavigationController alloc]initWithRootViewController:subscriptionViewController];
+    subscriptionModal.modalPresentationStyle = UIModalPresentationFullScreen;
+    subscriptionModal.modalTransitionStyle = UIModalTransitionStylePartialCurl;
+    
+    [self.navigationController presentViewController:subscriptionModal animated:YES completion:nil];
+    
 }
 
 - (IBAction)changeMediaRequestType:(id)sender
