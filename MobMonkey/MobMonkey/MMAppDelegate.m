@@ -250,7 +250,7 @@
             //Ask the user if they want to go to the request screen from the push notifications
             
             RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:@"Cancel"];
-            RIButtonItem *goToRequestButton = [RIButtonItem itemWithLabel:@"Go to Request"];
+            RIButtonItem *goToRequestButton = [RIButtonItem itemWithLabel:@"Go to Inbox"];
             
             // Display screen, when "Go to Request" button is selected
             [goToRequestButton setAction:^{
