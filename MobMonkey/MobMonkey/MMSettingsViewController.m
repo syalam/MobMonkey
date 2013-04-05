@@ -15,6 +15,7 @@
 #import "MMClientSDK.h"
 #import "MMAppDelegate.h"
 #import "MMSubscriptionViewController.h"
+#import "MMTermsOfUseViewController.h"
 
 
 @interface MMSettingsViewController ()
@@ -42,7 +43,7 @@
     selectionDictionary = [[NSMutableDictionary alloc]init];
     
     
-    NSArray *sectionOneArray = [NSArray arrayWithObjects:@"My Info", @"Social Networks", @"My Interests", @"Subscribe", nil];
+    NSArray *sectionOneArray = [NSArray arrayWithObjects:@"My Info", @"Social Networks", @"My Interests", @"Subscribe",@"Terms of Use", nil];
     
     NSArray *tableContentsArray = [NSArray arrayWithObjects:sectionOneArray, nil];
     
@@ -138,7 +139,14 @@
             subscriptionVC.title = @"Subscribe";
             UINavigationController *subscriptionNavC = [[UINavigationController alloc]initWithRootViewController:subscriptionVC];
             [self.navigationController presentModalViewController:subscriptionNavC animated:YES];
+        } case 4: {
+            MMTermsOfUseViewController *termsOfUseVC = [[MMTermsOfUseViewController alloc] initWithNibName:@"MMTermsOfUseViewController" bundle:nil];
+            termsOfUseVC.title = @"Terms of Use";
+            UINavigationController *termsOfUseNVC = [[UINavigationController alloc] initWithRootViewController:termsOfUseVC];
+            [self.navigationController presentViewController:termsOfUseNVC animated:YES completion:nil];
+            
         }
+            break;
         default:
             break;
     }

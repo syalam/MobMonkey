@@ -11,6 +11,8 @@
 #import "MMSetTitleImage.h"
 #import "SVProgressHUD.h"
 #import "MMClientSDK.h"
+#import "UIAlertView+Blocks.h"
+#import "MMTermsOfUseViewController.h"
 
 @interface MMLoginViewController () {
     UITextField *emailTextField;
@@ -162,41 +164,65 @@
     }
 }
 
+-(void)displayTermsOfUseAccept:(void(^)())accept reject:(void(^)())reject {
+    MMTermsOfUseViewController *termsOfUseVC = [[MMTermsOfUseViewController alloc] initWithNibName:@"MMTermsOfUseViewController" bundle:nil];
+    termsOfUseVC.requiresResponse = YES;
+    
+    termsOfUseVC.acceptAction = accept;
+    termsOfUseVC.rejectAction = reject;
+    
+    UINavigationController *termsOfUseNVC = [[UINavigationController alloc] initWithRootViewController:termsOfUseVC];
+    [self.navigationController presentViewController:termsOfUseNVC animated:YES completion:nil];
+    
+}
+
 - (IBAction)facebookButtonTapped:(id)sender {
-    [[MMClientSDK sharedSDK]signInViaFacebook:nil presentingViewController:self];
+    
+    [self displayTermsOfUseAccept:^{
+        [[MMClientSDK sharedSDK]signInViaFacebook:nil presentingViewController:self];
+    } reject:^{
+        NSLog(@"The User Rejected the Terms of Use");
+    }];
 }
 
 - (IBAction)twitterButtonTapped:(id)sender {
-    [SVProgressHUD showWithStatus:@"Loading Twitter Accounts"];
-    ACAccountStore* accountStore = [[ACAccountStore alloc] init];
-    ACAccountType *accountTypeTwitter = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    [accountStore requestAccessToAccountsWithType:accountTypeTwitter options:nil completion:^(BOOL granted, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD dismiss];
-            if (granted) {
-                _twitterAccounts = [accountStore accountsWithAccountType:accountTypeTwitter];
-                if (_twitterAccounts.count > 0) {
-                    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Twitter Accounts on This Device" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
-                    for (NSInteger i = 0; i < _twitterAccounts.count; i++) {
-                        ACAccount *account = [_twitterAccounts objectAtIndex:i];
-                        [actionSheet addButtonWithTitle:account.username];
+    
+    [self displayTermsOfUseAccept:^{
+        [SVProgressHUD showWithStatus:@"Loading Twitter Accounts"];
+        ACAccountStore* accountStore = [[ACAccountStore alloc] init];
+        ACAccountType *accountTypeTwitter = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+        [accountStore requestAccessToAccountsWithType:accountTypeTwitter options:nil completion:^(BOOL granted, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+                if (granted) {
+                    _twitterAccounts = [accountStore accountsWithAccountType:accountTypeTwitter];
+                    if (_twitterAccounts.count > 0) {
+                        UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Twitter Accounts on This Device" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+                        for (NSInteger i = 0; i < _twitterAccounts.count; i++) {
+                            ACAccount *account = [_twitterAccounts objectAtIndex:i];
+                            [actionSheet addButtonWithTitle:account.username];
+                        }
+                        actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
+                        
+                        actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+                        [actionSheet showInView:self.view];
                     }
-                    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
-                    
-                    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-                    [actionSheet showInView:self.view];
+                    else {
+                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"There are no Twitter accounts enabled on this device. Please go into your iOS settings menu to add a Twitter account" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                        [alert show];
+                    }
                 }
                 else {
                     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"There are no Twitter accounts enabled on this device. Please go into your iOS settings menu to add a Twitter account" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                     [alert show];
                 }
-            }
-            else {
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"There are no Twitter accounts enabled on this device. Please go into your iOS settings menu to add a Twitter account" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-            }
-        });
+            });
+        }];
+    } reject:^{
+        NSLog(@"The user reject the Terms of Use");
     }];
+    
+    
 }
 
 - (IBAction)signUpButtonClicked:(id)sender {

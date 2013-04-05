@@ -14,13 +14,16 @@
 #import "MMSettingsViewController.h"
 #import "MMTabBarViewController.h"
 #import <Parse/Parse.h>
+#import "MMSDK.h"
+#import "UIAlertView+Blocks.h"
 #import "Flurry.h"
-
+#import "AFNetworkActivityIndicatorManager.h"
 
 @implementation MMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
 
@@ -31,6 +34,9 @@
     
     //initialize testflight SDK
     //[TestFlight takeOff:@"e6432d80aed42a955243c8d93a493dea_MTAwODk2MjAxMi0wNi0yMyAxODoxNzoxOC45NjMzMjY"];
+    
+    //Add Activity Indicator when AFNetwork is making requests
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
     [Parse setApplicationId:@"LUASgbV2PjApFDOJabTZeE1Yj8D2keJhLLua1DDl"
                   clientKey:@"1L3iRNHfSsOKc58TxlkOEpD69rTGi9sf8FIBPNmp"];
@@ -218,7 +224,7 @@
                                stringByReplacingOccurrencesOfString: @"<" withString: @""]
                               stringByReplacingOccurrencesOfString: @">" withString: @""]
                              stringByReplacingOccurrencesOfString: @" " withString: @""];
-    
+
     NSLog(@"Token String: %@",tokenString);
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@", tokenString] forKey:@"apnsToken"];
@@ -228,6 +234,56 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     NSLog(@"%@", @"Push Notification Received");
     [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:userInfo];
+
+    
+//#ifdef PRODUCTION
+    
+    //Make sure the root view controller is a tab bar controller.
+    if([self.window.rootViewController isKindOfClass:[UITabBarController class]]){
+        
+        UITabBarController *tabBarController = (UITabBarController*)self.window.rootViewController;
+        
+        //Check if the app is already open or not.
+        if ( application.applicationState == UIApplicationStateActive ) {
+            // app was already in the foreground
+            
+            //Ask the user if they want to go to the request screen from the push notifications
+            
+            RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:@"Cancel"];
+            RIButtonItem *goToRequestButton = [RIButtonItem itemWithLabel:@"Go to Request"];
+            
+            // Display screen, when "Go to Request" button is selected
+            [goToRequestButton setAction:^{
+                
+                [tabBarController setSelectedIndex:1];
+                
+            }];
+            
+            UIAlertView *confirmGoToRequest = [[UIAlertView alloc] initWithTitle:@"New Request" message:@"You have a new request in your inbox. Would you like to go there now?" cancelButtonItem:cancelButton otherButtonItems:goToRequestButton, nil];
+            
+            //Present the alert view only if the user is signed in
+            if([[NSUserDefaults standardUserDefaults] stringForKey:@"userName"]){
+                [confirmGoToRequest show];
+            }
+            
+            
+        } else {
+            // app was just brought from background to foreground
+            
+            //open the app with the inbox screen selected.
+            [tabBarController setSelectedIndex:1];
+            
+        }
+    }
+    
+    
+    
+//#else
+    // Production
+//#endif
+    
+            
+    
 }
 
 
