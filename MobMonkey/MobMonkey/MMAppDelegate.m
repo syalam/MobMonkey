@@ -236,7 +236,7 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:userInfo];
 
     
-#ifdef STAGING
+//#ifdef PRODUCTION
     
     //Make sure the root view controller is a tab bar controller.
     if([self.window.rootViewController isKindOfClass:[UITabBarController class]]){
@@ -278,9 +278,9 @@
     
     
     
-#else
+//#else
     // Production
-#endif
+//#endif
     
             
     
