@@ -17,7 +17,7 @@
 #import "MMSDK.h"
 #import "UIAlertView+Blocks.h"
 #import "Flurry.h"
-
+#import "AFNetworkActivityIndicatorManager.h"
 
 @implementation MMAppDelegate
 
@@ -34,6 +34,9 @@
     
     //initialize testflight SDK
     //[TestFlight takeOff:@"e6432d80aed42a955243c8d93a493dea_MTAwODk2MjAxMi0wNi0yMyAxODoxNzoxOC45NjMzMjY"];
+    
+    //Add Activity Indicator when AFNetwork is making requests
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
     [Parse setApplicationId:@"LUASgbV2PjApFDOJabTZeE1Yj8D2keJhLLua1DDl"
                   clientKey:@"1L3iRNHfSsOKc58TxlkOEpD69rTGi9sf8FIBPNmp"];
