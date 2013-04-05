@@ -265,9 +265,9 @@
                             @"true", @"useOAuth",
                             @"iOS", @"deviceType",
                             [[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"], @"deviceId", nil];
-    NSLog(@"%@", params);
     
     [MMAPI oauthSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
         [[NSUserDefaults standardUserDefaults]setValue:account.username forKey:@"userName"];
         [[NSUserDefaults standardUserDefaults]setValue:account.identifier forKey:@"oauthToken"];
         [[NSUserDefaults standardUserDefaults]setValue:@"twitter" forKey:@"oauthProvider"];

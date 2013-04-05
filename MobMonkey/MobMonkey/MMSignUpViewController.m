@@ -123,7 +123,7 @@
         
         [MMAPI getUserOnSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             self.userDictionary = [[NSMutableDictionary alloc] initWithDictionary: responseObject];
-            
+            NSLog(@"%@", responseObject);
             if (![[responseObject valueForKey:@"firstName"]isKindOfClass:[NSNull class]]) {
                 NSMutableString *firstName = [[responseObject valueForKey:@"firstName"] mutableCopy];
                 [firstName replaceOccurrencesOfString:@"%20" withString:@" " options:NSCaseInsensitiveSearch range:NSMakeRange(0, [firstName length])];
@@ -173,6 +173,7 @@
             }
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@", [error description]);
             NSLog(@"Could not retrieve user info");
         }];
     }
@@ -548,6 +549,7 @@
             [self getAllCategories];
             [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@", [error description]);
             [SVProgressHUD showErrorWithStatus:[error description]];
         }];
         

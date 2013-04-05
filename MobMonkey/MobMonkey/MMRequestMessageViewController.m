@@ -41,7 +41,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.textFieldBackground.image = [self.textFieldBackground.image resizableImageWithCapInsets:UIEdgeInsetsMake(15, 156, 15, 156)];
-    self.savedMessages = [@[@"Do they serve Coke® or Pepsi® here?", @"I want to see a picture of the wings."] mutableCopy];
+    self.savedMessages = [@[@"How many people are there?", @"What is there to do there?"] mutableCopy];
     
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
     [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
