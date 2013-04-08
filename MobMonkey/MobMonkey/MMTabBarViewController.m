@@ -60,7 +60,7 @@
         [trendingBarItem setTitlePositionAdjustment:UIOffsetMake(0, 100)];
         [trendingNavC setTabBarItem:trendingBarItem];
         
-        UITabBarItem *bookmarksBarItem = [[UITabBarItem alloc]initWithTitle:@"Bookmarks" image:nil tag:0];
+        UITabBarItem *bookmarksBarItem = [[UITabBarItem alloc]initWithTitle:@"Favorites" image:nil tag:0];
         [bookmarksBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tabBtn4Selected"] withFinishedUnselectedImage:[UIImage imageNamed:@"tabBtn4"]];
         [bookmarksBarItem setTitlePositionAdjustment:UIOffsetMake(0, 100)];
         [bookmarksNavC setTabBarItem:bookmarksBarItem];
