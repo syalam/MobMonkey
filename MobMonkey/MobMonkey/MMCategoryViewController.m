@@ -414,7 +414,8 @@
     else if ([categoryName isEqualToString:@"Beaches"]) {
         cellIconImage = [UIImage imageNamed:@"beachesIcon"];
     }
-    else if ([categoryName isEqualToString:@"Dog Parks"]) {
+    //Currently the Web Service returns " Dog Parks" this should be "Dog Parks"
+    else if ([categoryName isEqualToString:@" Dog Parks"] || [categoryName isEqualToString:@"Dog Parks"]) {
         cellIconImage = [UIImage imageNamed:@"dogParksIcon"];
     }
     else if ([categoryName isEqualToString:@"Restaurants"]) {
@@ -449,6 +450,8 @@
     }
     else if ([categoryName isEqualToString:@"Cinemas"]) {
         cellIconImage = [UIImage imageNamed:@"cinemasIcon"];
+    }else{
+        NSLog(@"Unmatched Category: %@", categoryName);
     }
     return cellIconImage;
 }
