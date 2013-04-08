@@ -64,7 +64,6 @@
 		1A9F8EC0167ACB9B0077675B /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EBF167ACB9B0077675B /* Social.framework */; };
 		1A9F8EC2167ACBD20077675B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EC1167ACBD10077675B /* CFNetwork.framework */; };
 		1A9F8EC4167ACC430077675B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EC3167ACC430077675B /* Security.framework */; };
-		1A9F8EC6167ACC540077675B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EC5167ACC540077675B /* StoreKit.framework */; };
 		1A9F8EE0167EAEEB0077675B /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EDF167EAEEB0077675B /* EventKit.framework */; };
 		1A9F8EE2167EAF0D0077675B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9F8EE1167EAF0D0077675B /* MessageUI.framework */; };
 		1A9F8F32167F81B40077675B /* CloseButton2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F8F30167F81B30077675B /* CloseButton2.png */; };
@@ -2168,7 +2167,6 @@
 			files = (
 				1A9F8EE2167EAF0D0077675B /* MessageUI.framework in Frameworks */,
 				1A9F8EE0167EAEEB0077675B /* EventKit.framework in Frameworks */,
-				1A9F8EC6167ACC540077675B /* StoreKit.framework in Frameworks */,
 				1A9F8EC4167ACC430077675B /* Security.framework in Frameworks */,
 				F734A5CF15F12EBB0090E85A /* CoreLocation.framework in Frameworks */,
 				F734A53C15F11C3E0090E85A /* CoreGraphics.framework in Frameworks */,

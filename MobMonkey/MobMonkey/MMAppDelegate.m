@@ -13,7 +13,6 @@
 #import "MMSearchViewController.h"
 #import "MMSettingsViewController.h"
 #import "MMTabBarViewController.h"
-#import <Parse/Parse.h>
 #import "MMSDK.h"
 #import "UIAlertView+Blocks.h"
 #import "Flurry.h"
@@ -37,9 +36,6 @@
     
     //Add Activity Indicator when AFNetwork is making requests
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-
-    [Parse setApplicationId:@"LUASgbV2PjApFDOJabTZeE1Yj8D2keJhLLua1DDl"
-                  clientKey:@"1L3iRNHfSsOKc58TxlkOEpD69rTGi9sf8FIBPNmp"];
     
     [Flurry startSession:@"ZXW98Q8CBP2BNTRCCXHP"];
     
@@ -123,15 +119,7 @@
         
         [_adView setHidden:YES];
         [self.window.rootViewController.view addSubview:_adView];
-    }
-    
-    // Use the product identifier from iTunes to register a handler.
-    [PFPurchase addObserverForProduct:@"com.mobmonkey.MobMonkey.VK4524W4XL.1month" block:^(SKPaymentTransaction *transaction) {
-        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:subscribedUserKey];
-        [_adView removeFromSuperview];
-        
-    }];
-    
+    }    
   
     [self.window makeKeyAndVisible];
     return YES;
