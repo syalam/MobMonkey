@@ -233,10 +233,10 @@
     
     //if ([self.searchBar.text length] < 1) {
         if ([prefs valueForKey:@"savedSegmentValue"]) {
-            [params setObject:[prefs valueForKey:@"savedSegmentValue"] forKey:@"radiusInYards"];
+            [params setObject:[prefs valueForKey:@"savedSegmentValue"] forKey:kMMRadiusInYardsKey];
         }
         else {
-            [params setValue:[NSNumber numberWithInt:880] forKey:@"radiusInYards"];
+            [params setValue:[NSNumber numberWithInt:kMMRadiusInYards] forKey:kMMRadiusInYardsKey];
         }
     //}
     /*else {

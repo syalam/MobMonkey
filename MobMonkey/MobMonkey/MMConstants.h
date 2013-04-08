@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 
+#define kMMRadiusInYardsKey @"radiusInYards"
+#define kMMRadiusInYards 50
 
 @interface MMConstants : NSObject
 
