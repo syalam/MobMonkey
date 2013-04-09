@@ -246,7 +246,9 @@
         NSLog(@"%@", operation.responseString);
     }];
 }
-
+-(void)saveUserInfo {
+    
+}
 - (void)getAllCategories {
     [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"%@", responseObject);

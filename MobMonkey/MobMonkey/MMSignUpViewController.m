@@ -13,6 +13,7 @@
 #import "AFHTTPRequestOperation.h"
 #import "NSDate+JavaEpochTime.h"
 #import "MMTermsOfUseViewController.h"
+#import "MMMyInfo.h"
 
 @interface MMSignUpViewController () {
     UIActionSheet *birthdayActionSheet;
@@ -121,10 +122,20 @@
         [termsOfUseAcceptanceButton setHidden:YES];
         [termsOfUseButton setHidden:YES];
         
+        MMMyInfo *myInfo = [[MMMyInfo alloc] init];
+        
+        if(myInfo.myInfoDictionary)
+        
+        
+        
         [MMAPI getUserOnSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
             self.userDictionary = [[NSMutableDictionary alloc] initWithDictionary: responseObject];
+            
             NSLog(@"%@", responseObject);
+            
             if (![[responseObject valueForKey:@"firstName"]isKindOfClass:[NSNull class]]) {
+                
                 NSMutableString *firstName = [[responseObject valueForKey:@"firstName"] mutableCopy];
                 [firstName replaceOccurrencesOfString:@"%20" withString:@" " options:NSCaseInsensitiveSearch range:NSMakeRange(0, [firstName length])];
                 [self.userDictionary setValue:firstName forKey:@"firstName"];
@@ -133,6 +144,7 @@
                 else
                     self.firstNameTextField.text = firstName;
             }
+            
             if (![[responseObject valueForKey:@"lastName"]isKindOfClass:[NSNull class]]) {
                 NSMutableString *lastName = [[responseObject valueForKey:@"lastName"] mutableCopy];
                 [lastName replaceOccurrencesOfString:@"%20" withString:@" " options:NSCaseInsensitiveSearch range:NSMakeRange(0, [lastName length])];
