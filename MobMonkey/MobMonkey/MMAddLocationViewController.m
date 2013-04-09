@@ -289,7 +289,7 @@
         [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.latitude] forKey:@"latitude"];
         [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.longitude] forKey:@"longitude"];
         [locationDictionary setValue:[self country] forKey:@"countryCode"];
-        [locationDictionary setValue:[self address] forKey:@"ai donddress"];
+        [locationDictionary setValue:[self address] forKey:@"address"];
         
         NSString *providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181";
         [locationDictionary setValue:providerId forKey:@"providerId"];
