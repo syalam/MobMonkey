@@ -88,7 +88,12 @@
     
     
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if(self.locationID && self.providerID){
+        [self loadLocationDataWithLocationId:self.locationID providerId:self.providerID];
+    }
+}
 - (void)viewDidUnload
 {
     [self setTableView:nil];
@@ -407,7 +412,11 @@
 
 #pragma mark - Helper Methods
 - (void)setLocationDetailItems {
-    self.title = [_contentList valueForKey:@"name"];
+    
+    if([_contentList valueForKey:@"name"] && [[_contentList valueForKey:@"name"] length] > 0){
+        self.title = [_contentList valueForKey:@"name"];
+    }
+    
     _locationNameLabel.text = self.title;
     _phoneNumberLabel.text = [_contentList valueForKey:@"phoneNumber"];
     _addressLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", [_contentList valueForKey:@"streetAddress"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];

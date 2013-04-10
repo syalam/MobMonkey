@@ -11,13 +11,18 @@
 #import "MMLocationAnnotation.h"
 #import "MMSetTitleImage.h"
 #import "MMClientSDK.h"
+#import "MMLocationViewController.h"
 
 @interface MMMapViewController ()
+
+@property (nonatomic, assign, getter = isSelectingLocation) BOOL selectingLocation;
 
 @end
 
 @implementation MMMapViewController
 @synthesize searchBar;
+@synthesize selectingLocation;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -72,7 +77,46 @@
     
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithCustomView:searchNavButton];
     self.navigationItem.rightBarButtonItem = searchButton;*/
-
+    
+    
+    //Create add location button
+    UIButton *plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [plusButton setFrame:CGRectMake(0, 0, 31, 31)];
+    [plusButton setBackgroundImage:[UIImage imageNamed:@"navBarButtonBlank"] forState:UIControlStateNormal];
+    [plusButton addTarget:self action:@selector(addLocationBarButtonTapped:)
+         forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel *plusButtonLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, -3, plusButton.frame.size.width, plusButton.frame.size.height)];
+    [plusButtonLabel setBackgroundColor:[UIColor clearColor]];
+    [plusButtonLabel setText:@"+"];
+    [plusButtonLabel setTextColor:[UIColor whiteColor]];
+    [plusButtonLabel setShadowColor:[UIColor darkGrayColor]];
+    [plusButtonLabel setShadowOffset:CGSizeMake(0, -1)];
+    [plusButtonLabel setFont:[UIFont boldSystemFontOfSize:24]];
+    [plusButtonLabel setTextAlignment:NSTextAlignmentCenter];
+    [plusButton addSubview:plusButtonLabel];
+    
+    addLocationBarButton = [[UIBarButtonItem alloc] initWithCustomView:plusButton];
+    
+    //Create Cancel button
+    //cancel nav button
+    UIButton *cancelNavButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [cancelNavButton  setFrame:CGRectMake(0, 0, 50, 31)];
+    [cancelNavButton setBackgroundImage:[UIImage imageNamed:@"navBarButtonBlank"] forState:UIControlStateNormal];
+    [cancelNavButton addTarget:self action:@selector(cancelBarButtonTapped:)
+              forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel *cancelButtonLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, -1, cancelNavButton.frame.size.width, cancelNavButton.frame.size.height)];
+    [cancelButtonLabel setBackgroundColor:[UIColor clearColor]];
+    [cancelButtonLabel setText:@"Cancel"];
+    [cancelButtonLabel setTextColor:[UIColor whiteColor]];
+    [cancelButtonLabel setShadowColor:[UIColor darkGrayColor]];
+    [cancelButtonLabel setShadowOffset:CGSizeMake(0, -1)];
+    [cancelButtonLabel setFont:[UIFont boldSystemFontOfSize:11]];
+    [cancelButtonLabel setTextAlignment:NSTextAlignmentCenter];
+    [cancelNavButton addSubview:cancelButtonLabel];
+    
+    cancelBarButton = [[UIBarButtonItem alloc]initWithCustomView:cancelNavButton];
     
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
     [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
@@ -80,6 +124,8 @@
     
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    mapTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTapped:)];
     
     [_mapView showsUserLocation];
     prefs = [NSUserDefaults standardUserDefaults];
@@ -90,7 +136,7 @@
     lpgr.minimumPressDuration = 2.0; //user needs to press for 2 seconds
     [self.mapView addGestureRecognizer:lpgr];
     
-    
+    self.selectingLocation = NO;
     
     /*if (_address) {
         CLLocationCoordinate2D addressCoordinate = [self getLocationFromAddressString:_address];
@@ -131,6 +177,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [SVProgressHUD dismiss];
+    [self toggleBarButtons];
     //add nav bar view and button
 }
 
@@ -139,6 +186,15 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+-(void)toggleBarButtons {
+    
+    if(self.isSelectingLocation){
+        self.navigationItem.rightBarButtonItem = cancelBarButton;
+    }else{
+        self.navigationItem.rightBarButtonItem = addLocationBarButton;
+    }
+    
+}
 #pragma mark - Nav Bar Button Action Methods
 - (void)searchButtonClicked:(id)sender {
     [self.searchBar resignFirstResponder];
@@ -201,6 +257,24 @@
 
 - (void)cancelActionSheet:(id)sender {
     [radiusActionSheet dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+-(void)cancelBarButtonTapped:(id)sender {
+    self.selectingLocation = NO;
+    [self toggleBarButtons];
+    [self.mapView removeGestureRecognizer:mapTapGestureRecognizer];
+    [self.mapView setScrollEnabled:YES];
+    [self.mapView setZoomEnabled:YES];
+    [overlayImageView setHidden:YES];
+}
+-(void)addLocationBarButtonTapped:(id)sender {
+    self.selectingLocation = YES;
+    [self toggleBarButtons];
+    [self.mapView addGestureRecognizer:mapTapGestureRecognizer];
+    [SVProgressHUD showSuccessWithStatus:@"Tap on the location you'd like to add on the map"];
+    [overlayImageView setHidden:NO];
+    [self.mapView setScrollEnabled:NO];
+    [self.mapView setZoomEnabled:NO];
 }
 
 #pragma mark UIPickerView Delegate Methods
@@ -288,7 +362,19 @@
     annotation.coordinate = touchMapCoordinate;
     [self.mapView addAnnotation:(id)annotation];
 }
-
+- (void)mapTapped:(UIGestureRecognizer *)gestureRecognizer
+{
+    // TODO / FIXME - DRY this (duplicated in MMMapFilterViewController)
+    CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
+    CLLocationCoordinate2D touchMapCoordinate = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+    
+    MMAddLocationViewController *addLocationViewController = [[MMAddLocationViewController alloc] initWithLocation:touchMapCoordinate];
+    addLocationViewController.title =@"Add Location";
+    //addLocationViewController.category = self.category; // case in point for DRY - wasted almost an hour before realizing this is here and not in the MMAddLocationViewController..
+    addLocationViewController.delegate = self;
+    UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
+    [self.navigationController presentViewController:navc animated:YES completion:nil];
+}
 - (void)infoButtonTapped:(id)sender {
     [[MMClientSDK sharedSDK]locationScreen:self locationDetail:[_contentList objectAtIndex:[sender tag]]];
 }
@@ -320,5 +406,22 @@
     location.longitude = longitude;
     
     return location;
+}
+
+#pragma mark - AddLocationViewController Delegate
+-(void)locationAddedViaAddLocationViewWithLocationId:(NSString *)locationId providerId:(NSString *)providerId{
+    
+    UINavigationController *nav = self.navigationController;
+    
+    [nav popToRootViewControllerAnimated:NO];
+    
+    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+    locationViewController.locationID = locationId;
+    locationViewController.providerID = providerId;
+    locationViewController.title = @"Loading...";
+    
+    [nav pushViewController:locationViewController animated:YES];
+
+    
 }
 @end

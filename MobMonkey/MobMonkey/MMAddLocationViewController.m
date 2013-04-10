@@ -298,8 +298,10 @@
         [MMAPI addNewLocation:locationDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSString *locationId = [responseObject valueForKey:@"locationId"];
             NSString *responseProviderId = [responseObject valueForKey:@"providerId"];
+            if([_delegate respondsToSelector:@selector(locationAddedViaAddLocationViewWithLocationId:providerId:)]){
+                [_delegate locationAddedViaAddLocationViewWithLocationId:locationId providerId:responseProviderId];
+            }
             
-            [_delegate locationAddedViaAddLocationViewWithLocationId:locationId providerId:responseProviderId];
             
             [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
             

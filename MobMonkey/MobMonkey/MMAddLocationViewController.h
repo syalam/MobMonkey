@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "MMCategoryViewController.h"
 
-@protocol MMAddLocationDelegate
+@protocol MMAddLocationDelegate <NSObject>
 
 @optional
 - (void)locationAddedViaAddLocationViewWithLocationId:(NSString*)locationId providerId:(NSString*)providerId;

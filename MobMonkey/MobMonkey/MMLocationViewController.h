@@ -27,6 +27,8 @@
     
     IBOutlet UIImageView *liveStreamImage;
     IBOutlet UIImageView *playButtonImageView;
+    
+    
 }
 
 @property (nonatomic, retain) NSMutableDictionary* contentList;
@@ -69,6 +71,9 @@
 @property (nonatomic, weak) IBOutlet UILabel *notificationSettingLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) MPMoviePlayerViewController *player;
+
+@property (nonatomic, strong) NSString *locationID;
+@property (nonatomic, strong) NSString *providerID;
 
 
 @property (nonatomic) int rowIndex;
