@@ -755,6 +755,8 @@
 		B9A1199C170C8C940020C322 /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A11994170C8C940020C322 /* UIActionSheet+Blocks.m */; };
 		B9A1199D170C8C940020C322 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A11996170C8C940020C322 /* UIAlertView+Blocks.m */; };
 		B9A1199E170C8C940020C322 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A11996170C8C940020C322 /* UIAlertView+Blocks.m */; };
+		B9DE77471714E8DB007E3A45 /* MMMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9DE77461714E8DB007E3A45 /* MMMapView.m */; };
+		B9DE77481714E8DB007E3A45 /* MMMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9DE77461714E8DB007E3A45 /* MMMapView.m */; };
 		C731E541167DE443002525C8 /* 187-pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = C731E540167DE443002525C8 /* 187-pencil.png */; };
 		C73F8A4C166F727B00DE6BA8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73F8A4B166F727A00DE6BA8 /* iAd.framework */; };
 		C75171EB1678C0DE009B4DE8 /* MMSubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75171E91678C0DE009B4DE8 /* MMSubscriptionViewController.m */; };
@@ -1589,6 +1591,8 @@
 		B9A11994170C8C940020C322 /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
 		B9A11995170C8C940020C322 /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
 		B9A11996170C8C940020C322 /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
+		B9DE77451714E8DB007E3A45 /* MMMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMapView.h; sourceTree = "<group>"; };
+		B9DE77461714E8DB007E3A45 /* MMMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMapView.m; sourceTree = "<group>"; };
 		C731E540167DE443002525C8 /* 187-pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "187-pencil.png"; sourceTree = "<group>"; };
 		C73F8A2B166F528500DE6BA8 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
 		C73F8A2C166F528500DE6BA8 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
@@ -3627,6 +3631,8 @@
 			children = (
 				F77BD35215F5321A00E76CA5 /* Location Annotation */,
 				F77BD34515F52AA100E76CA5 /* MMMapViewController.m */,
+				B9DE77451714E8DB007E3A45 /* MMMapView.h */,
+				B9DE77461714E8DB007E3A45 /* MMMapView.m */,
 			);
 			name = "Map View";
 			sourceTree = "<group>";
@@ -5159,6 +5165,7 @@
 				B9A1199A170C8C940020C322 /* RIButtonItem.m in Sources */,
 				B9A1199C170C8C940020C322 /* UIActionSheet+Blocks.m in Sources */,
 				B9A1199E170C8C940020C322 /* UIAlertView+Blocks.m in Sources */,
+				B9DE77481714E8DB007E3A45 /* MMMapView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5279,6 +5286,7 @@
 				B9A11999170C8C940020C322 /* RIButtonItem.m in Sources */,
 				B9A1199B170C8C940020C322 /* UIActionSheet+Blocks.m in Sources */,
 				B9A1199D170C8C940020C322 /* UIAlertView+Blocks.m in Sources */,
+				B9DE77471714E8DB007E3A45 /* MMMapView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
