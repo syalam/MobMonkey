@@ -236,7 +236,7 @@
             [params setObject:[prefs valueForKey:@"savedSegmentValue"] forKey:kMMRadiusInYardsKey];
         }
         else {
-            [params setValue:[NSNumber numberWithInt:kMMRadiusInYards] forKey:kMMRadiusInYardsKey];
+            [params setValue:[NSNumber numberWithInt:kMMNearbyRadiusInYards] forKey:kMMRadiusInYardsKey];
         }
     //}
     /*else {
