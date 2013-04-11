@@ -21,7 +21,7 @@
 @synthesize myInfoDictionary = _myInfoDictionary;
 @synthesize firstName = _firstName, lastName = _lastName, email = _email, birthday = _birthday, gender = _gender;
 
--(NSDictionary *)myInfoDictionary{
+-(NSMutableDictionary *)myInfoDictionary{
     if(!_myInfoDictionary){
         _myInfoDictionary = [[NSUserDefaults standardUserDefaults] objectForKey:kMyInfoDictionaryKey];
         if(!_myInfoDictionary){
@@ -30,7 +30,7 @@
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
     }
-    return _myInfoDictionary;
+    return _myInfoDictionary.mutableCopy;
 }
 
 -(void)synchronize {
@@ -41,7 +41,7 @@
 
 -(void)setFirstName:(NSString *)firstName {
     
-    [self.myInfoDictionary setObject:firstName forKey:kFirstNameKey];
+    [self.myInfoDictionary setValue:firstName forKey:kFirstNameKey];
     _firstName = firstName;
     [self synchronize];
     
@@ -49,7 +49,7 @@
 
 -(void)setLastName:(NSString *)lastName {
     
-    [self.myInfoDictionary setObject:lastName forKey:kLastNameKey];
+    [self.myInfoDictionary setValue:lastName forKey:kLastNameKey];
     _lastName = lastName;
     [self synchronize];
 
@@ -57,21 +57,21 @@
 
 -(void)setEmail:(NSString *)email {
 
-    [self.myInfoDictionary setObject:email forKey:kEmailKey];
+    [self.myInfoDictionary setValue:email forKey:kEmailKey];
     _email = email;
     [self synchronize];
 
 }
--(void)setBirthday:(NSDate *)birthday {
+-(void)setBirthday:(NSString *)birthday {
 
-    [self.myInfoDictionary setObject:birthday forKey:kBirthdayKey];
+    [self.myInfoDictionary setValue:birthday forKey:kBirthdayKey];
     _birthday = birthday;
     [self synchronize];
 
 }
 -(void)setGender:(NSString *)gender {
 
-    [self.myInfoDictionary setObject:gender forKey:kGenderKey];
+    [self.myInfoDictionary setValue:gender forKey:kGenderKey];
     _gender = gender;
     [self synchronize];
 
@@ -97,7 +97,7 @@
 
 }
 
--(NSDate *)birthday {
+-(NSString *)birthday {
 
     return [self.myInfoDictionary objectForKey:kBirthdayKey];
 

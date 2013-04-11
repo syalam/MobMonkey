@@ -15,7 +15,7 @@
 @property(nonatomic, strong) NSString *firstName;
 @property(nonatomic, strong) NSString *lastName;
 @property(nonatomic, strong) NSString *email;
-@property(nonatomic, strong) NSDate *birthday;
+@property(nonatomic, strong) NSString *birthday;
 @property(nonatomic, strong) NSString *gender;
 
 @end
