@@ -13,6 +13,7 @@
 #import "AFHTTPRequestOperation.h"
 #import "NSDate+JavaEpochTime.h"
 #import "MMTermsOfUseViewController.h"
+#import "MMMyInfo.h"
 
 @interface MMSignUpViewController () {
     UIActionSheet *birthdayActionSheet;
@@ -121,36 +122,67 @@
         [termsOfUseAcceptanceButton setHidden:YES];
         [termsOfUseButton setHidden:YES];
         
+        MMMyInfo *myInfo = [[MMMyInfo alloc] init];
+        
+        if (myInfo.myInfoDictionary){
+            self.firstNameTextField.text = myInfo.firstName;
+            self.lastNameTextField.text = myInfo.lastName;
+            self.emailTextField.text = myInfo.email;
+            self.genderTextField.text = myInfo.gender;
+            self.birthdayTextField.text = myInfo.birthday;
+        }
+    
+        
         [MMAPI getUserOnSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
             self.userDictionary = [[NSMutableDictionary alloc] initWithDictionary: responseObject];
+            
             NSLog(@"%@", responseObject);
+            
             if (![[responseObject valueForKey:@"firstName"]isKindOfClass:[NSNull class]]) {
+                
                 NSMutableString *firstName = [[responseObject valueForKey:@"firstName"] mutableCopy];
                 [firstName replaceOccurrencesOfString:@"%20" withString:@" " options:NSCaseInsensitiveSearch range:NSMakeRange(0, [firstName length])];
                 [self.userDictionary setValue:firstName forKey:@"firstName"];
+                
+                
+                
                 if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
                     self.firstNameTextField.placeholder = firstName;
                 else
                     self.firstNameTextField.text = firstName;
+                
+                myInfo.firstName = firstName;
             }
+            
             if (![[responseObject valueForKey:@"lastName"]isKindOfClass:[NSNull class]]) {
                 NSMutableString *lastName = [[responseObject valueForKey:@"lastName"] mutableCopy];
                 [lastName replaceOccurrencesOfString:@"%20" withString:@" " options:NSCaseInsensitiveSearch range:NSMakeRange(0, [lastName length])];
                 [self.userDictionary setValue:lastName forKey:@"lastName"];
+                
+                
                 if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
                     self.lastNameTextField.placeholder = lastName;
                 else
                     self.lastNameTextField.text = lastName;
+                
+                myInfo.lastName = lastName;
             }
             if (![[responseObject valueForKey:@"eMailAddress"]isKindOfClass:[NSNull class]]) {
                 self.emailTextField.placeholder = [responseObject valueForKey:@"eMailAddress"];
                 self.emailTextField.enabled = NO;
+                
+                myInfo.email = [responseObject valueForKey:@"eMailAddress"];
             }
             if (![[responseObject valueForKey:@"gender"]isKindOfClass:[NSNull class]]) {
-                if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
+                if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"]) {
                     self.genderTextField.placeholder = [[responseObject valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
-                else
+                    myInfo.gender = [[responseObject valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
+                } else {
                     self.genderTextField.text = [[responseObject valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
+                    myInfo.gender = [[responseObject valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
+                }
+                
 
             }
             if (![[responseObject valueForKey:@"birthday"]isKindOfClass:[NSNull class]]) {
@@ -165,10 +197,13 @@
                 
                 NSString *displayDate = [NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterNoStyle];
                 
-                if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
+                if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"]) {
                     self.birthdayTextField.placeholder = displayDate;
-                else
+                    myInfo.birthday = displayDate;
+                } else {
                     self.birthdayTextField.text = displayDate;
+                    myInfo.birthday = displayDate;
+                }
 
             }
             

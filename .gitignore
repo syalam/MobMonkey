@@ -1,6 +1,16 @@
 # Mac OS X
 *.DS_Store
 
+#Git
+*.BACKUP.*
+*.LOCAL.*
+*.BASE.*
+*.REMOTE.*
+*.orig
+#emacs backup
+
+*~
+
 # Xcode
 *.pbxuser
 *.mode1v3
