@@ -114,6 +114,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [SVProgressHUD dismiss];
     [super viewWillAppear:animated];
     if (![prefs objectForKey:@"userName"]) {
         [[MMClientSDK sharedSDK]signInScreen:self];
@@ -127,7 +128,8 @@
             
         }
         else {
-            if (allCategories) {
+            if (allCategories.count > 0) {
+                NSLog(@"ARRAY: %@", allCategories);
                 self.categories = [allCategories allKeys];
                 [self.tableView reloadData];
             }
@@ -135,15 +137,16 @@
                 [SVProgressHUD showWithStatus:@"Loading Categories"];
                 [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     [SVProgressHUD dismiss];
-                    NSLog(@"%@", responseObject);
+                    NSLog(@"Response: %@", responseObject);
                     [[NSUserDefaults standardUserDefaults]setObject:responseObject forKey:@"allCategories"];
                     [[NSUserDefaults standardUserDefaults]synchronize];
                     allCategories = responseObject;
                     self.categories = [allCategories allKeys];
                     [self.tableView reloadData];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    [SVProgressHUD showErrorWithStatus:@"Unable to load categories"];
                     NSLog(@"%@", operation.responseString);
+                    [SVProgressHUD showErrorWithStatus:@"Unable to load categories"];
+                    
                 }];
 
             }
@@ -153,9 +156,10 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    
     [super viewDidAppear:animated];
     
-    [SVProgressHUD dismiss];
+    
     
     
 }
