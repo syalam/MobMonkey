@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MMMyInfo : NSObject
+@interface MMMyInfo : NSObject {
+    NSMutableDictionary *_myInfoDictionary;
+}
 
 @property(nonatomic, strong) NSMutableDictionary *myInfoDictionary;
 
