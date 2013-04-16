@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "MMAddLocationViewController.h"
 
-@interface MMMapViewController : UIViewController <UIActionSheetDelegate, UIPickerViewDataSource, UIPickerViewDelegate, MKMapViewDelegate, UISearchBarDelegate> {
+@interface MMMapViewController : UIViewController <UIActionSheetDelegate, UIPickerViewDataSource, UIPickerViewDelegate, MKMapViewDelegate, UISearchBarDelegate, MMAddLocationDelegate> {
     __weak IBOutlet UIButton *radiusButton;
     __weak IBOutlet UIButton *addLocationButton;
-    
+    IBOutlet UIImageView *overlayImageView;
     UIActionSheet *radiusActionSheet;
     UIPickerView *radiusPicker;
     
@@ -22,6 +23,11 @@
     NSMutableArray *radiusPickerItemsArray;
     NSUserDefaults* prefs;
     double _mapRadius;
+    
+    UIBarButtonItem *addLocationBarButton;
+    UIBarButtonItem *cancelBarButton;
+    
+    UITapGestureRecognizer *mapTapGestureRecognizer;
     
 }
 

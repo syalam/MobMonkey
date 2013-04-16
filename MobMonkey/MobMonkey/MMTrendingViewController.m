@@ -98,7 +98,7 @@
     
     switch (indexPath.row) {
         case 0:
-            cell.textLabel.text = @"Bookmarks";
+            cell.textLabel.text = @"Favorites";
             if ([[trendingCategoryCountsDictionary valueForKey:@"bookmarkCount"]intValue] > 0) {
                 cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[trendingCategoryCountsDictionary valueForKey:@"bookmarkCount"]intValue]];
             }
@@ -175,7 +175,7 @@
         case 0:
             if ([[trendingCategoryCountsDictionary valueForKey:@"bookmarkCount"]intValue] > 0) {
                 [params setValue:@"true" forKey:@"bookmarksonly"];
-                [self loadTrendingItem:params categoryTitle:@"Bookmarks"];
+                [self loadTrendingItem:params categoryTitle:@"Favorites"];
             }
             break;
         case 1: {

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MMSocialNetworksCell.h"
+#import <Twitter/Twitter.h>
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface MMSocialNetworksViewController : UIViewController <MMSocialNetworksCellDelegate, UITableViewDataSource, UITableViewDelegate>
 

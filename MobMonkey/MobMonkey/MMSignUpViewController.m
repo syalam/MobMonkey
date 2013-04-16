@@ -13,6 +13,7 @@
 #import "AFHTTPRequestOperation.h"
 #import "NSDate+JavaEpochTime.h"
 #import "MMTermsOfUseViewController.h"
+#import "MMMyInfo.h"
 
 @interface MMSignUpViewController () {
     UIActionSheet *birthdayActionSheet;
@@ -51,32 +52,53 @@
     _firstNameTextField = [[UITextField alloc] initWithFrame:textFieldRect];
     _firstNameTextField.placeholder = @"First Name";
     _firstNameTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    _firstNameTextField.tag = 0;
+    _firstNameTextField.returnKeyType = UIReturnKeyNext;
+    _firstNameTextField.delegate = self;
     
     _lastNameTextField = [[UITextField alloc]initWithFrame:textFieldRect];
     _lastNameTextField.placeholder = @"Last Name";
     _lastNameTextField.autocorrectionType= UITextAutocorrectionTypeNo;
+    _lastNameTextField.tag = 1;
+    _lastNameTextField.returnKeyType = UIReturnKeyNext;
+    _lastNameTextField.delegate = self;
     
     _emailTextField = [[UITextField alloc] initWithFrame:textFieldRect];
     _emailTextField.placeholder = @"Email Address";
     _emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _emailTextField.autocorrectionType= UITextAutocorrectionTypeNo;
     _emailTextField.keyboardType = UIKeyboardTypeEmailAddress;
+    _emailTextField.tag = 2;
+    _emailTextField.returnKeyType = UIReturnKeyNext;
+    _emailTextField.delegate = self;
     
     _passwordTextField = [[UITextField alloc] initWithFrame:textFieldRect];
     _passwordTextField.placeholder = @"New Password";
     _passwordTextField.secureTextEntry = YES;
+    _passwordTextField.tag = 3;
+    _passwordTextField.returnKeyType = UIReturnKeyNext;
+    _passwordTextField.delegate = self;
     
     _confirmPasswordTextField = [[UITextField alloc] initWithFrame:textFieldRect];
     _confirmPasswordTextField.placeholder = @"Confirm Password";
     _confirmPasswordTextField.secureTextEntry = YES;
+    _confirmPasswordTextField.tag = 4;
+    _confirmPasswordTextField.returnKeyType = UIReturnKeyNext;
+    _confirmPasswordTextField.delegate = self;
     
     _birthdayTextField = [[UITextField alloc] initWithFrame:textFieldRect];
     _birthdayTextField.placeholder = @"Birthday";
     _birthdayTextField.enabled = NO;
+    _birthdayTextField.tag = 5;
+    _birthdayTextField.returnKeyType = UIReturnKeyNext;
+    _birthdayTextField.delegate = self;
     
     _genderTextField = [[UITextField alloc] initWithFrame:textFieldRect];
     _genderTextField.placeholder = @"Gender";
     _genderTextField.enabled = NO;
+    _genderTextField.tag = 6;
+    _genderTextField.returnKeyType = UIReturnKeyDefault;
+    _genderTextField.delegate = self;
     
     
     NSMutableArray *fieldsToDisplay = [[NSMutableArray alloc]init];
@@ -100,13 +122,31 @@
         [termsOfUseAcceptanceButton setHidden:YES];
         [termsOfUseButton setHidden:YES];
         
+        MMMyInfo *myInfo = [[MMMyInfo alloc] init];
+        
+        if (myInfo.myInfoDictionary){
+            self.firstNameTextField.text = myInfo.firstName;
+            self.lastNameTextField.text = myInfo.lastName;
+            self.emailTextField.text = myInfo.email;
+            self.genderTextField.text = myInfo.gender;
+            self.birthdayTextField.text = myInfo.birthday;
+        }
+    
+        
         [MMAPI getUserOnSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
             self.userDictionary = [[NSMutableDictionary alloc] initWithDictionary: responseObject];
             
+            NSLog(@"%@", responseObject);
+            
             if (![[responseObject valueForKey:@"firstName"]isKindOfClass:[NSNull class]]) {
+                
                 NSMutableString *firstName = [[responseObject valueForKey:@"firstName"] mutableCopy];
                 [firstName replaceOccurrencesOfString:@"%20" withString:@" " options:NSCaseInsensitiveSearch range:NSMakeRange(0, [firstName length])];
                 [self.userDictionary setValue:firstName forKey:@"firstName"];
+                
+                
+                
                 if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
                 {
                     self.firstNameTextField.placeholder = firstName;
@@ -114,11 +154,16 @@
                 }
                 else
                     self.firstNameTextField.text = firstName;
+                
+                myInfo.firstName = firstName;
             }
+            
             if (![[responseObject valueForKey:@"lastName"]isKindOfClass:[NSNull class]]) {
                 NSMutableString *lastName = [[responseObject valueForKey:@"lastName"] mutableCopy];
                 [lastName replaceOccurrencesOfString:@"%20" withString:@" " options:NSCaseInsensitiveSearch range:NSMakeRange(0, [lastName length])];
                 [self.userDictionary setValue:lastName forKey:@"lastName"];
+                
+                
                 if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
                 {
                     self.lastNameTextField.placeholder = lastName;
@@ -126,16 +171,24 @@
                 }
                 else
                     self.lastNameTextField.text = lastName;
+                
+                myInfo.lastName = lastName;
             }
             if (![[responseObject valueForKey:@"eMailAddress"]isKindOfClass:[NSNull class]]) {
                 self.emailTextField.placeholder = [responseObject valueForKey:@"eMailAddress"];
                 self.emailTextField.enabled = NO;
+                
+                myInfo.email = [responseObject valueForKey:@"eMailAddress"];
             }
             if (![[responseObject valueForKey:@"gender"]isKindOfClass:[NSNull class]]) {
-                if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
+                if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"]) {
                     self.genderTextField.placeholder = [[responseObject valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
-                else
+                    myInfo.gender = [[responseObject valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
+                } else {
                     self.genderTextField.text = [[responseObject valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
+                    myInfo.gender = [[responseObject valueForKey:@"gender"] isEqualToNumber:@0] ? @"Female" : @"Male";
+                }
+                
 
             }
             if (![[responseObject valueForKey:@"birthday"]isKindOfClass:[NSNull class]]) {
@@ -150,14 +203,18 @@
                 
                 NSString *displayDate = [NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterNoStyle];
                 
-                if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"])
+                if([[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"]) {
                     self.birthdayTextField.placeholder = displayDate;
-                else
+                    myInfo.birthday = displayDate;
+                } else {
                     self.birthdayTextField.text = displayDate;
+                    myInfo.birthday = displayDate;
+                }
 
             }
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@", [error description]);
             NSLog(@"Could not retrieve user info");
         }];
     }
@@ -329,6 +386,7 @@
     
     _birthdayTextField.text = [NSString stringWithFormat:@"%@", dateString];
     [birthdayActionSheet dismissWithClickedButtonIndex:[sender tag] animated:YES];
+    [self createGenderActionSheet];
 }
 
 - (void)cancelDateButtonTapped:(id)sender {
@@ -442,7 +500,7 @@
 - (void)getAllCategories {
     [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"%@", responseObject);
-        NSMutableArray *arrayToCleanUp = [responseObject mutableCopy];
+        /*NSMutableArray *arrayToCleanUp = [responseObject mutableCopy];
         NSMutableArray *cleanArray = [[NSMutableArray alloc]init];
         for (NSDictionary *dictionaryToCleanUp in arrayToCleanUp) {
             NSMutableDictionary *cleanDictionary = [[NSMutableDictionary alloc]init];
@@ -457,9 +515,9 @@
                 }
             }
             [cleanArray addObject:cleanDictionary];
-        }
+        }*/
         
-        [[NSUserDefaults standardUserDefaults]setObject:cleanArray forKey:@"allCategories"];
+        [[NSUserDefaults standardUserDefaults]setObject:responseObject forKey:@"allCategories"];
         [[NSUserDefaults standardUserDefaults]synchronize];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", operation.responseString);
@@ -533,6 +591,7 @@
             [self getAllCategories];
             [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@", [error description]);
             [SVProgressHUD showErrorWithStatus:[error description]];
         }];
         
@@ -742,6 +801,8 @@
                     [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"oauthProvider"] forKey:@"provider"];
                     [self.userDictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"userName"] forKey:@"providerUserName"];
                     
+                    NSLog(@"%@", self.userDictionary);
+                    
                     [MMAPI oauthSignIn:self.userDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         [SVProgressHUD showSuccessWithStatus:@"Updated User Information"];
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -794,6 +855,38 @@
 
         }
     }
+}
+
+#pragma mark - text field delegate methods
+-(BOOL)textFieldShouldReturn:(UITextField*)textField;
+{
+   
+    if (textField == _firstNameTextField) {
+        [_lastNameTextField becomeFirstResponder];
+    }
+    else if (textField == _lastNameTextField) {
+        [_emailTextField becomeFirstResponder];
+    }
+    else if (textField == _emailTextField) {
+        if ((_twitterSignIn) || [[NSUserDefaults standardUserDefaults] valueForKey:@"twitterEnabled"] || [[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"]) {
+            [textField resignFirstResponder];
+            [self createBirthdayActionSheet];
+        }
+        else {
+            [_passwordTextField becomeFirstResponder];
+        }
+    }
+    else if (textField == _passwordTextField) {
+        [_confirmPasswordTextField becomeFirstResponder];
+    }
+    else if (textField == _confirmPasswordTextField) {
+        [textField resignFirstResponder];
+        [self createBirthdayActionSheet];
+    }
+    else {
+        [textField resignFirstResponder];
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
 }
 
 @end

@@ -10,6 +10,7 @@
 #import "MMLocationsViewController.h"
 #import "MMFilterViewController.h"
 #import "MMLocationViewController.h"
+#import "SVProgressHUD.h"
 
 @interface MMSearchViewController ()
 
@@ -46,7 +47,7 @@
     UIImage *customButtonImage = [[UIImage imageNamed:@"navBarButtonBlank"]
                             resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
     
-    if (_parentId) {
+    if (_subCategoryIndex) {
         UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
         [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
@@ -100,8 +101,7 @@
         
         self.savedSearchTerm = nil;
     }
-    allCategoriesArray = [prefs objectForKey:@"allCategories"];
-    NSLog(@"%@", allCategoriesArray);
+    allCategories = [prefs objectForKey:@"allCategories"];
     [self.tableView reloadData];
     self.tableView.scrollEnabled = YES;
 }
@@ -114,31 +114,52 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [SVProgressHUD dismiss];
     [super viewWillAppear:animated];
     if (![prefs objectForKey:@"userName"]) {
         [[MMClientSDK sharedSDK]signInScreen:self];
     }
     else {
-        if (_parentId) {
-            NSString *parent = [NSString stringWithFormat:@"%@", _parentId];
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents LIKE %@", parent];
-            self.categories = [allCategoriesArray filteredArrayUsingPredicate:predicate];
-            [self.tableView reloadData];
+        if (_subCategoryIndex) {
+            if (allCategories) {
+                self.categories = [[allCategories allValues] objectAtIndex:_subCategoryIndex];
+                [self.tableView reloadData];
+            }
+            
         }
         else {
-            NSString *parent = [NSString stringWithFormat:@"%@", @"1"];
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents LIKE %@", parent];
-            self.categories = [allCategoriesArray filteredArrayUsingPredicate:predicate];
-            [self.tableView reloadData];
+            if (allCategories.count > 0) {
+                NSLog(@"ARRAY: %@", allCategories);
+                self.categories = [allCategories allKeys];
+                [self.tableView reloadData];
+            }
+            else {
+                [SVProgressHUD showWithStatus:@"Loading Categories"];
+                [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [SVProgressHUD dismiss];
+                    NSLog(@"Response: %@", responseObject);
+                    [[NSUserDefaults standardUserDefaults]setObject:responseObject forKey:@"allCategories"];
+                    [[NSUserDefaults standardUserDefaults]synchronize];
+                    allCategories = responseObject;
+                    self.categories = [allCategories allKeys];
+                    [self.tableView reloadData];
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"%@", operation.responseString);
+                    [SVProgressHUD showErrorWithStatus:@"Unable to load categories"];
+                    
+                }];
+
+            }
         }
     }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    
     [super viewDidAppear:animated];
     
-    [SVProgressHUD dismiss];
+    
     
     
 }
@@ -216,10 +237,10 @@
     
     //if ([self.searchBar.text length] < 1) {
         if ([prefs valueForKey:@"savedSegmentValue"]) {
-            [params setObject:[prefs valueForKey:@"savedSegmentValue"] forKey:@"radiusInYards"];
+            [params setObject:[prefs valueForKey:@"savedSegmentValue"] forKey:kMMRadiusInYardsKey];
         }
         else {
-            [params setValue:[NSNumber numberWithInt:880] forKey:@"radiusInYards"];
+            [params setValue:[NSNumber numberWithInt:kMMNearbyRadiusInYards] forKey:kMMRadiusInYardsKey];
         }
     //}
     /*else {
@@ -261,7 +282,7 @@
         numberOfSections += self.filteredCategories.count > 0;
         return numberOfSections;
     }
-    else if (_parentId) {
+    else if (_subCategoryIndex) {
         return 1;
     }
     else {
@@ -286,7 +307,7 @@
         }
         return numberOfRows;
     }
-    else if (_parentId) {
+    else if (_subCategoryIndex) {
         numberOfRows = self.categories.count;
     }
     else {
@@ -331,7 +352,7 @@
     NSDictionary *category;
     NSString *categoryName;
     int section;
-    if (_parentId) {
+    if (_subCategoryIndex) {
         section = indexPath.section + 1;
     }
     else {
@@ -350,10 +371,16 @@
             if (tableView == self.searchDisplayController.searchResultsTableView) {
                 category = self.filteredCategories[indexPath.row];
             } else {
-                category = self.categories[indexPath.row];
+                if (_subCategoryIndex) {
+                    category = self.categories[indexPath.row];
+                    categoryName = [category objectForKey:@"en"];
+                }
+                else {
+                    categoryName = self.categories[indexPath.row];
+                }
+                
             }
             cell.imageView.image = [UIImage imageNamed:@"picture"];
-            categoryName = [category[@"en"] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
         }
             break;
         default:
@@ -372,7 +399,7 @@
     NSDictionary *category = nil;
 
     int section;
-    if (_parentId) {
+    if (_subCategoryIndex) {
         section = indexPath.section + 1;
     }
     else {
@@ -384,23 +411,28 @@
         if (tableView == self.searchDisplayController.searchResultsTableView) {
             category = self.filteredCategories[indexPath.row];
         } else {
-            category = self.categories[indexPath.row];
+            if (!_subCategoryIndex) {
+                
+                if ([[[allCategories allValues]objectAtIndex:indexPath.row] count] > 1) {
+                    MMSearchViewController *searchVC = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
+                    searchVC.subCategoryIndex = indexPath.row;
+                    searchVC.title = self.categories[indexPath.row];
+                    [self.navigationController pushViewController:searchVC animated:YES];
+                }
+                else {
+                    category = [[[allCategories allValues]objectAtIndex:indexPath.row] objectAtIndex:0];
+                    [self showSearchResultsForCategory:category];
+
+                }
+
+            }
+            else {
+                category = self.categories[indexPath.row];
+                [self showSearchResultsForCategory:category];
+
+            }
         }
-        NSString *categoryId = category[@"categoryId"];
-        categoryId = [NSString stringWithFormat:@"%@", categoryId];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parents == %@", categoryId];
-        NSArray *subCategories = [allCategoriesArray filteredArrayUsingPredicate:predicate];
-        
-        if (subCategories.count > 0) {
-            MMSearchViewController *searchVC = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
-            searchVC.parentId = category[@"categoryId"];
-            searchVC.title = category[@"en"];
-            [self.navigationController pushViewController:searchVC animated:YES];
-        }
-        else {
-            category = self.categories[indexPath.row];
-            [self showSearchResultsForCategory:category];
-        }
+                
     }
     else if (section == 0 && indexPath.row == 0) {
         [self showSearchResultsForCategory:category];
@@ -413,49 +445,55 @@
 
 #pragma mark - Helper Methods
 - (UIImage*)assignIconToSearchCategoryWithCategoryName:(NSString*)categoryName {
+    
     UIImage *cellIconImage;
+    
     cellIconImage = [UIImage imageNamed:@"picture"];
+   
     if ([categoryName isEqualToString:@"Show All Nearby"]) {
         cellIconImage = [UIImage imageNamed:@"myLocationsIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Beaches"]) {
+        cellIconImage = [UIImage imageNamed:@"beachesIcon"];
+    }
+    //Currently the Web Service returns " Dog Parks" this should be "Dog Parks"
+    else if ([categoryName isEqualToString:@" Dog Parks"] || [categoryName isEqualToString:@"Dog Parks"]) {
+        cellIconImage = [UIImage imageNamed:@"dogParksIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Restaurants"]) {
+        cellIconImage = [UIImage imageNamed:@"restaurantsIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Pubs/Bars"]) {
+        cellIconImage = [UIImage imageNamed:@"pubsIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Middle Schools & High Schools"]) {
+        cellIconImage = [UIImage imageNamed:@"schoolsIcon"];
+    }
+    else if (!([categoryName rangeOfString:@"Stadiums"].location == NSNotFound)) {
+        cellIconImage = [UIImage imageNamed:@"stadiumsIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Nightclubs"]) {
+        cellIconImage = [UIImage imageNamed:@"nightclubsIcon"];
+    }
+    else if ([categoryName isEqualToString:@"Health Clubs"]) {
+        cellIconImage = [UIImage imageNamed:@"healthClubsIcon"];
     }
     else if ([categoryName isEqualToString:@"Coffee Shops"]) {
         cellIconImage = [UIImage imageNamed:@"coffeeShopsIcon"];
     }
-    else if ([categoryName isEqualToString:@"Retail"]) {
-        cellIconImage = [UIImage imageNamed:@"supermarketsIcon"];
-    }
-    else if ([categoryName isEqualToString:@"Travel"]) {
-        cellIconImage = [UIImage imageNamed:@"beachesIcon"];
-    }
-    else if ([categoryName isEqualToString:@"Community and Government"] || [categoryName isEqualToString:@"Landmarks"]) {
-        cellIconImage = [UIImage imageNamed:@"schoolsIcon"];
-    }
-    else if ([categoryName isEqualToString:@"Services and Supplies"] || [categoryName isEqualToString:@"History"]) {
-        cellIconImage = [UIImage imageNamed:@"historyIcon"];
-    }
-    else if (!([categoryName rangeOfString:@"Automotive"].location == NSNotFound)) {
-        cellIconImage = [UIImage imageNamed:@"editedCinemasIcon"];
-    }
-    else if ([categoryName isEqualToString:@"Social"]) {
-        cellIconImage = [UIImage imageNamed:@"coffeeShopsIcon"];
-    }
-    else if ([categoryName isEqualToString:@"Healthcare"]) {
+    else if ([categoryName isEqualToString:@"Hotels"]) {
         cellIconImage = [UIImage imageNamed:@"hotelsIcon"];
     }
-    else if ([categoryName isEqualToString:@"Sports and Recreation"]) {
-        cellIconImage = [UIImage imageNamed:@"stadiumsIcon"];
+    else if ([categoryName isEqualToString:@"Supermarkets"]) {
+        cellIconImage = [UIImage imageNamed:@"supermarketsIcon"];
     }
-    else if ([categoryName isEqualToString:@"Transportation"]) {
-        cellIconImage = [UIImage imageNamed:@"locationsOfInterestIcon"];
-    }
-    else if ([categoryName isEqualToString:@"Education"]) {
+    else if ([categoryName isEqualToString:@"Conferences"]) {
         cellIconImage = [UIImage imageNamed:@"conferencesIcon"];
     }
-    else if ([categoryName isEqualToString:@"Art Dealers & Galleries"]) {
-        cellIconImage = [UIImage imageNamed:@"nightclubsIcon"];
-    }
-    else if ([categoryName isEqualToString:@"Pools & Spas"]) {
-        cellIconImage = [UIImage imageNamed:@"beachesIcon"];
+    else if ([categoryName isEqualToString:@"Cinemas"]) {
+        cellIconImage = [UIImage imageNamed:@"cinemasIcon"];
+    }else{
+        NSLog(@"Unmatched Category: %@", categoryName);
     }
     return cellIconImage;
 }
@@ -496,8 +534,15 @@
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
     self.savedSearchTerm = searchString;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name contains[C] %@", searchString];
-    self.filteredCategories = [self.categories filteredArrayUsingPredicate:predicate];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"en contains[C] %@", searchString];
+    if (_subCategoryIndex) {
+        self.filteredCategories = [self.categories filteredArrayUsingPredicate:predicate];
+    }
+    else {
+        predicate = [NSPredicate predicateWithFormat:@"SELF contains[C] %@", searchString];
+        self.filteredCategories = [self.categories filteredArrayUsingPredicate:predicate];
+    }
+    
     return YES;
 }
 

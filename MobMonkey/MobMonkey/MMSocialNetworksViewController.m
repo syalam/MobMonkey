@@ -172,6 +172,7 @@
     switch ([sender tag]) {
         case 0:
             if (toggleSwitch.on) {
+                
                 [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"facebookEnabled"];
             }
             else {

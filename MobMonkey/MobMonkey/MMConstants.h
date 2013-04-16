@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum UIActionSheetCalls {
-    twitterAccountsActionSheetCall,
-    genderActionSheetCall,
-}UIActionSheetCalls;
+
+#define kMMRadiusInYardsKey @"radiusInYards"
+#define kMMRadiusInYards 50
+#define kMMNearbyRadiusInYards 500
 
 @interface MMConstants : NSObject
 

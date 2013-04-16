@@ -289,7 +289,7 @@
         [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.latitude] forKey:@"latitude"];
         [locationDictionary setValue:[NSString stringWithFormat:@"%f",location.coordinate.longitude] forKey:@"longitude"];
         [locationDictionary setValue:[self country] forKey:@"countryCode"];
-        [locationDictionary setValue:[self address] forKey:@"ai donddress"];
+        [locationDictionary setValue:[self address] forKey:@"address"];
         
         NSString *providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181";
         [locationDictionary setValue:providerId forKey:@"providerId"];
@@ -298,8 +298,10 @@
         [MMAPI addNewLocation:locationDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSString *locationId = [responseObject valueForKey:@"locationId"];
             NSString *responseProviderId = [responseObject valueForKey:@"providerId"];
+            if([_delegate respondsToSelector:@selector(locationAddedViaAddLocationViewWithLocationId:providerId:)]){
+                [_delegate locationAddedViaAddLocationViewWithLocationId:locationId providerId:responseProviderId];
+            }
             
-            [_delegate locationAddedViaAddLocationViewWithLocationId:locationId providerId:responseProviderId];
             
             [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
             

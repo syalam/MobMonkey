@@ -13,14 +13,16 @@
 #import "MMSearchViewController.h"
 #import "MMSettingsViewController.h"
 #import "MMTabBarViewController.h"
-#import <Parse/Parse.h>
+#import "MMSDK.h"
+#import "UIAlertView+Blocks.h"
 #import "Flurry.h"
-
+#import "AFNetworkActivityIndicatorManager.h"
 
 @implementation MMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
 
@@ -31,30 +33,16 @@
     
     //initialize testflight SDK
     //[TestFlight takeOff:@"e6432d80aed42a955243c8d93a493dea_MTAwODk2MjAxMi0wNi0yMyAxODoxNzoxOC45NjMzMjY"];
-
-    [Parse setApplicationId:@"LUASgbV2PjApFDOJabTZeE1Yj8D2keJhLLua1DDl"
-                  clientKey:@"1L3iRNHfSsOKc58TxlkOEpD69rTGi9sf8FIBPNmp"];
+    
+    //Add Activity Indicator when AFNetwork is making requests
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
     [Flurry startSession:@"ZXW98Q8CBP2BNTRCCXHP"];
     
     
     NSString *subscribedUserKey = [NSString stringWithFormat:@"%@ subscribed", [[NSUserDefaults standardUserDefaults] valueForKey:@"userName"]];
     
-    //TODO: UNCOMMENT WHEN iAD working
-    if (![[NSUserDefaults standardUserDefaults]boolForKey:subscribedUserKey]) {
-        _adView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
-        
-        [_adView setHidden:YES];
-        [self.window.rootViewController.view addSubview:_adView];
-    }
     
-    // Use the product identifier from iTunes to register a handler.
-    [PFPurchase addObserverForProduct:@"com.mobmonkey.MobMonkey.VK4524W4XL.1month" block:^(SKPaymentTransaction *transaction) {
-                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:subscribedUserKey];
-        [_adView removeFromSuperview];
-        
-    }];
-
         
     //REMOVE ME: Hardcode the partner ID
     [[NSUserDefaults standardUserDefaults]setObject:@"aba0007c-ebee-42db-bd52-7c9f02e3d371" forKey:@"mmPartnerId"];
@@ -116,8 +104,8 @@
     [searchNavC.tabBarItem setImageInsets:UIEdgeInsetsMake(inset, 0, -inset, 0)];
     searchNavC.tabBarItem.title = nil;
     
-    [bookmarksNavC.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"bookmarkIcn"] withFinishedUnselectedImage:[UIImage imageNamed:@"bookmarkIcnOff"]];
-    [bookmarksNavC.tabBarItem setImageInsets:UIEdgeInsetsMake(inset, 0, -inset, 0)];
+    [bookmarksNavC.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"favoritesIconOn"] withFinishedUnselectedImage:[UIImage imageNamed:@"favoritesIcon"]];
+    [bookmarksNavC.tabBarItem setImageInsets:UIEdgeInsetsMake(inset-1, 0, -inset+1, 0)];
     bookmarksNavC.tabBarItem.title = nil;
     
     [settingsNavC.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"settingsIcn"] withFinishedUnselectedImage:[UIImage imageNamed:@"settingsIcnOff"]];
@@ -126,6 +114,12 @@
     
     self.window.rootViewController = self.tabBarController;
     
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:subscribedUserKey]) {
+        _adView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
+        
+        [_adView setHidden:YES];
+        [self.window.rootViewController.view addSubview:_adView];
+    }    
   
     [self.window makeKeyAndVisible];
     return YES;
@@ -158,8 +152,8 @@
     [[NSUserDefaults standardUserDefaults]synchronize];
     
     [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //NSLog(@"%@", responseObject);
-        NSMutableArray *arrayToCleanUp = [responseObject mutableCopy];
+        NSLog(@"%@", responseObject);
+        /*NSMutableArray *arrayToCleanUp = [responseObject mutableCopy];
         NSMutableArray *cleanArray = [[NSMutableArray alloc]init];
         for (NSDictionary *dictionaryToCleanUp in arrayToCleanUp) {
             NSMutableDictionary *cleanDictionary = [[NSMutableDictionary alloc]init];
@@ -174,9 +168,10 @@
                 }
             }
             [cleanArray addObject:cleanDictionary];
-        }
+        }*/
+
         
-        [[NSUserDefaults standardUserDefaults]setObject:cleanArray forKey:@"allCategories"];
+        [[NSUserDefaults standardUserDefaults]setObject:responseObject forKey:@"allCategories"];
         [[NSUserDefaults standardUserDefaults]synchronize];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", operation.responseString);
@@ -217,7 +212,7 @@
                                stringByReplacingOccurrencesOfString: @"<" withString: @""]
                               stringByReplacingOccurrencesOfString: @">" withString: @""]
                              stringByReplacingOccurrencesOfString: @" " withString: @""];
-    
+
     NSLog(@"Token String: %@",tokenString);
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@", tokenString] forKey:@"apnsToken"];
@@ -227,6 +222,56 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     NSLog(@"%@", @"Push Notification Received");
     [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:userInfo];
+
+    
+//#ifdef PRODUCTION
+    
+    //Make sure the root view controller is a tab bar controller.
+    if([self.window.rootViewController isKindOfClass:[UITabBarController class]]){
+        
+        UITabBarController *tabBarController = (UITabBarController*)self.window.rootViewController;
+        
+        //Check if the app is already open or not.
+        if ( application.applicationState == UIApplicationStateActive ) {
+            // app was already in the foreground
+            
+            //Ask the user if they want to go to the request screen from the push notifications
+            
+            RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:@"Cancel"];
+            RIButtonItem *goToRequestButton = [RIButtonItem itemWithLabel:@"Go to Inbox"];
+            
+            // Display screen, when "Go to Request" button is selected
+            [goToRequestButton setAction:^{
+                
+                [tabBarController setSelectedIndex:1];
+                
+            }];
+            
+            UIAlertView *confirmGoToRequest = [[UIAlertView alloc] initWithTitle:@"New Request" message:@"You have a new request in your inbox. Would you like to go there now?" cancelButtonItem:cancelButton otherButtonItems:goToRequestButton, nil];
+            
+            //Present the alert view only if the user is signed in
+            if([[NSUserDefaults standardUserDefaults] stringForKey:@"userName"]){
+                [confirmGoToRequest show];
+            }
+            
+            
+        } else {
+            // app was just brought from background to foreground
+            
+            //open the app with the inbox screen selected.
+            [tabBarController setSelectedIndex:1];
+            
+        }
+    }
+    
+    
+    
+//#else
+    // Production
+//#endif
+    
+            
+    
 }
 
 
@@ -306,10 +351,11 @@
     }
     CGSize adSize = [adWhirlView actualAdSize];
     CGRect newFrame = adWhirlView.frame;
+    CGRect screenSize = [[UIScreen mainScreen]bounds];
     
     newFrame.size = adSize;
     newFrame.origin.x = (self.window.rootViewController.view.bounds.size.width - adSize.width)/ 2;
-    newFrame.origin.y = (self.window.rootViewController.view.bounds.size.height - adSize.height - 49);
+    newFrame.origin.y = (screenSize.size.height - adSize.height - 49);
     
     adWhirlView.frame = newFrame;
 }

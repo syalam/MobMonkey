@@ -88,7 +88,12 @@
     
     
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if(self.locationID && self.providerID){
+        [self loadLocationDataWithLocationId:self.locationID providerId:self.providerID];
+    }
+}
 - (void)viewDidUnload
 {
     [self setTableView:nil];
@@ -138,7 +143,7 @@
         if ([[_contentList valueForKey:@"bookmark"] boolValue]) {
             cell.textLabel.text = @"Remove from Favorites";
         }
-        cell.imageView.image = [UIImage imageNamed:@"bookmark"];
+        cell.imageView.image = [UIImage imageNamed:@"favorite"];
         return cell;
     }
     switch (indexPath.row) {
@@ -257,17 +262,6 @@
         MMRequestViewController *requestVC = (MMRequestViewController *)navVC.viewControllers[0];
         [requestVC setContentList:self.contentList];
         [self.navigationController presentViewController:navVC animated:YES completion:nil];
-        /*if ([[NSUserDefaults standardUserDefaults]boolForKey:@"subscribedUser"]) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Request" bundle:nil];
-            UINavigationController *navVC = [storyboard instantiateInitialViewController];
-            MMRequestViewController *requestVC = (MMRequestViewController *)navVC.viewControllers[0];
-            [requestVC setContentList:self.contentList];
-            [self.navigationController presentViewController:navVC animated:YES completion:nil];
-        }
-        else {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Sign up for MobMonkey to see whats happening now!" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"Subscribe", nil];
-            [alert show];
-        }*/
     }
     else {
         [[MMClientSDK sharedSDK] signInScreen:self];
@@ -418,7 +412,11 @@
 
 #pragma mark - Helper Methods
 - (void)setLocationDetailItems {
-    self.title = [_contentList valueForKey:@"name"];
+    
+    if([_contentList valueForKey:@"name"] && [[_contentList valueForKey:@"name"] length] > 0){
+        self.title = [_contentList valueForKey:@"name"];
+    }
+    
     _locationNameLabel.text = self.title;
     _phoneNumberLabel.text = [_contentList valueForKey:@"phoneNumber"];
     _addressLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", [_contentList valueForKey:@"streetAddress"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];

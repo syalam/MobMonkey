@@ -10,12 +10,12 @@
 #import "MMMapFilterViewController.h"
 
 @interface MMSearchViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate, MMMapFilterDelegate> {
-    NSArray* allCategoriesArray;
+    NSDictionary* allCategories;
     NSUserDefaults *prefs;
 }
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSDictionary *filters;
-@property (nonatomic, strong) NSString *parentId;
+@property (nonatomic) int subCategoryIndex;
 
 @end

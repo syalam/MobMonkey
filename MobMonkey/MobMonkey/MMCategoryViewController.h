@@ -19,7 +19,7 @@
 @interface MMCategoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MMAPIDelegate, MMCategoryDelegate> {
     NSMutableDictionary *selectedItemsDictionary;
     NSArray *categoriesArray;
-    NSArray *allCategoriesArray;
+    NSDictionary *allCategories;
     UIButton *selectAllButton;
     int checkMarkCount;
     NSString  *SelectedInterestsKey;
@@ -28,7 +28,7 @@
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray *contentList;
 @property (nonatomic, retain) NSMutableDictionary *selectedItems;
-@property (nonatomic, retain) NSString *parentId;
+@property (nonatomic) int subCategoryIndex;
 @property (nonatomic) BOOL addingLocation;
 
 @property (nonatomic, assign)id<MMCategoryDelegate>delegate;

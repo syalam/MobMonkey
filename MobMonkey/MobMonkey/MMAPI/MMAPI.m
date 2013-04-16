@@ -89,6 +89,8 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
             urlString = [NSString stringWithFormat:@"signin?%@=%@", key, [params valueForKey:key]];
         }
     }
+    
+    NSLog(@"%@", urlString);
         
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient setDefaultHeader:@"MobMonkey-user" value:email];
@@ -107,7 +109,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     {
         urlString = [NSString stringWithFormat:@"signin?deviceType=ios&deviceId=%@&useOAuth=true&provider=%@&oauthToken=%@&providerUserName=%@&firstName=%@&lastName=%@&gender=%@&birthday=%@", [params valueForKey:@"deviceId"], [params valueForKey:@"provider"], [params valueForKey:@"oauthToken"], [params valueForKey:@"providerUserName"], [params valueForKey:@"firstName"], [params valueForKey:@"lastName"], [params valueForKey:@"gender"], [params valueForKey:@"birthday"]];
     }
-    else if([[params valueForKey:@"provider"] isEqualToString:@"twitter"])
+    else// if([[params valueForKey:@"provider"] isEqualToString:@"twitter"])
     {
         if([params valueForKey:@"firstName"] || [params valueForKey:@"lastName"] || [params valueForKey:@"birthday"] || [params valueForKey:@"gender"])
         {
@@ -184,7 +186,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
                           success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     MMHTTPClient *httpClient = [self setupHTTPClient];
-    [httpClient  getPath:@"category/all" parameters:nil success:success failure:failure]; //MODIFIED category/all to category
+    [httpClient  getPath:@"category" parameters:nil success:success failure:failure]; //MODIFIED category/all to category
 }
 
 + (void)getCategoriesOnSuccess:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
