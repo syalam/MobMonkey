@@ -182,10 +182,18 @@
     }
     switch (indexPath.row) {
         case 0: {
-            NSString *telNumber = [@"tel:" stringByAppendingString:[[[tableView cellForRowAtIndexPath:indexPath] textLabel] text]];
-            telNumber = [telNumber stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSString *telNumber = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
+            if(telNumber.length > 0){
+                telNumber = [@"tel:" stringByAppendingString:telNumber];
+                telNumber = [telNumber stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            }
+                       
             NSLog(@"%@", telNumber);
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telNumber]];
+            
+            if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:telNumber]]){
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telNumber]];
+            }
+            
         }
             break;
         case 1: {
