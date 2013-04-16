@@ -19,7 +19,7 @@
 #import <MapKit/MapKit.h>
 #import "MMLocationAnnotation.h"
 #import "GetRelativeTime.h"
-
+#import "UIActionSheet+Blocks.h"
 @interface MMLocationViewController ()
 
 
@@ -182,20 +182,52 @@
     }
     switch (indexPath.row) {
         case 0: {
+            
             NSString *telNumber = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
+            NSString *telURI;
             if(telNumber.length > 0){
-                telNumber = [@"tel:" stringByAppendingString:telNumber];
-                telNumber = [telNumber stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            }
-                       
-            NSLog(@"%@", telNumber);
-            
-            if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:telNumber]]){
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telNumber]];
+                telURI = [@"tel:" stringByAppendingString:telNumber];
+                telURI = [telURI stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            }else{
+                //Break switch, if there is no number.
+                break;
             }
             
-        }
+            //Create the ActionView Buttons (using +Blocks category)
+            RIButtonItem *copyButton = [RIButtonItem itemWithLabel:@"Copy"];
+            RIButtonItem *callButton = [RIButtonItem itemWithLabel:[NSString stringWithFormat:@"Call: %@", telNumber]];
+            RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:@"Cancel"];
+            
+            /*****
+             Set Action blocks for buttons
+            *****/
+            //Copy text to pasteboard
+            [copyButton setAction:^{
+                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                pasteboard.string = telNumber;
+            }];
+            
+            //Call number
+            [callButton setAction:^{
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telURI]];
+            }];
+
+            
+            UIActionSheet *copyCallActionsheet;
+            
+            //Only show call if phone has the capability
+            if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:telURI]]){
+                copyCallActionsheet = [[UIActionSheet alloc] initWithTitle:@"Options" cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:callButton, copyButton, nil];
+            }else{
+                copyCallActionsheet = [[UIActionSheet alloc] initWithTitle:@"Options" cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:copyButton, nil];
+            }
+            
+            //Show the action sheet
+            [copyCallActionsheet showFromTabBar:self.tabBarController.tabBar];
+            
             break;
+        }
+            
         case 1: {
             MMMapViewController *mapViewController = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
             mapViewController.title = [_contentList valueForKey:@"name"];
