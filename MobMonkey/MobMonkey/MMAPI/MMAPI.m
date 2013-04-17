@@ -12,9 +12,19 @@
 #import "NSString+URLParams.h"
 
 
+#ifdef STAGING
+
 static NSString * const kBMHTTPClientBaseURLString = @"http://staging.mobmonkey.com/rest/";
 static NSString * const kBMHTTPClientApplicationID = @"29C851C2-CF6F-11E1-A0EC-4CE76188709B";
 static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE33-4DE76188709B";
+
+#elif PRODUCTION
+
+static NSString * const kBMHTTPClientBaseURLString = @"http://api.mobmonkey.com/rest/";
+static NSString * const kBMHTTPClientApplicationID = @"29C851C2-CF6F-11E1-A0EC-4CE76188709B";
+static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE33-4DE76188709B";
+
+#endif
 
 @implementation MMAPI
 
