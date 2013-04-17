@@ -5678,7 +5678,7 @@
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "842C8402-6826-4212-B047-2691047E1087";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "842C8402-6826-4212-B047-2691047E1087";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "54363911-46A2-41C3-89CC-0AC5D4559E8B";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5688,8 +5688,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Michael Kral (79A5TTK5FV)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Kral (79A5TTK5FV)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -5711,8 +5711,8 @@
 				);
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "842C8402-6826-4212-B047-2691047E1087";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "54363911-46A2-41C3-89CC-0AC5D4559E8B";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
