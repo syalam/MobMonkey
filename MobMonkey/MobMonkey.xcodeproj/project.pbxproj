@@ -5493,7 +5493,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					STAGING,
+					"STAGING=1",
 				);
 				INFOPLIST_FILE = "MobMonkeyStaging/MobMonkeyStaging-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
