@@ -12,9 +12,19 @@
 #import "NSString+URLParams.h"
 
 
+#ifdef STAGING
+
 static NSString * const kBMHTTPClientBaseURLString = @"http://staging.mobmonkey.com/rest/";
 static NSString * const kBMHTTPClientApplicationID = @"29C851C2-CF6F-11E1-A0EC-4CE76188709B";
 static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE33-4DE76188709B";
+
+#elif PRODUCTION
+
+static NSString * const kBMHTTPClientBaseURLString = @"http://api.mobmonkey.com/rest/";
+static NSString * const kBMHTTPClientApplicationID = @"29C851C2-CF6F-11E1-A0EC-4CE76188709B";
+static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE33-4DE76188709B";
+
+#endif
 
 @implementation MMAPI
 
@@ -59,14 +69,14 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 
 + (void)getUserOnSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient  getPath:@"user" parameters:nil success:success failure:failure];
 }
 
 + (void)updateUserOnSuccess:(NSDictionary*)params
                     success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults] valueForKey:@"userName"]];
     [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults] valueForKey:@"password"]];
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"]];
@@ -150,7 +160,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 + (void)TwitterSignIn:(NSDictionary*)params
               success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient postPath:@"signin" parameters:params success:success failure:failure];
 }
 
@@ -166,7 +176,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 + (void)requestMedia:(NSString*)mediaType params:(NSMutableDictionary*)params
              success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {    
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient  postPath:[NSString stringWithFormat:@"requestmedia/%@", mediaType]
                parameters:params
                   success:success
@@ -175,8 +185,8 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 
 + (void)fulfillRequest:(NSString*)mediaType params:(NSMutableDictionary*)params
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {    
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient  postPath:[NSString stringWithFormat:@"media/%@", mediaType] parameters:params success:success failure:failure];
 }
 
@@ -185,12 +195,12 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 + (void)getAllCategories:(NSMutableDictionary*)params
                           success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient  getPath:@"category" parameters:nil success:success failure:failure]; //MODIFIED category/all to category
 }
 
 + (void)getCategoriesOnSuccess:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient  getPath:@"category?categoryId=1" parameters:nil success:success failure:failure];
 }
 
@@ -198,7 +208,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 + (void)addNewLocation:(NSDictionary*)params
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient putPath:@"location" parameters:params success:success failure:failure];
 }
 
@@ -206,7 +216,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 + (void)getInboxCounts:(NSMutableDictionary*)params
                  success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                  failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient  getPath:@"inbox/counts" parameters:nil success:success failure:failure];
 }
 
@@ -214,42 +224,42 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 + (void)getOpenRequests:(NSMutableDictionary*)params
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient getPath:@"inbox/openrequests" parameters:nil success:success failure:failure];
 }
 
 + (void)getAssignedRequests:(NSMutableDictionary*)params
                  success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                  failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient  getPath:@"inbox/assignedrequests" parameters:nil success:success failure:failure];
 }
 
 + (void)getFulfilledRequests:(NSMutableDictionary*)params
                      success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient getPath:@"inbox/fulfilledrequests" parameters:nil success:success failure:failure];
 }
 
 + (void)rejectMedia:(NSDictionary *)params
             success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient deletePath:[NSString stringWithFormat:@"media/request?requestId=%@&mediaId=%@", [params valueForKey:@"requestId"], [params valueForKey:@"mediaId"]] parameters:nil success:success failure:failure];
 }
 
 + (void)acceptMedia:(NSDictionary *)params
             success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient postPath:[NSString stringWithFormat:@"media/request?requestId=%@&mediaId=%@", [params valueForKey:@"requestId"], [params valueForKey:@"mediaId"]] parameters:nil success:success failure:failure];
 }
 
 + (void)deleteMediaRequest:(NSDictionary *)params
             success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient deletePath:[NSString stringWithFormat:@"requestmedia?requestId=%@&isRecurring=%@", [params valueForKey:@"requestId"], [params valueForKey:@"isRecurring"]] parameters:nil success:success failure:failure];
 }
 
@@ -258,7 +268,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 + (void)checkUserIn:(NSDictionary*)params
            success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
            failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient  postPath:@"checkin" parameters:params success:success failure:failure];
 }
 
@@ -266,7 +276,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 + (void)searchForLocation:(NSMutableDictionary*)params mediaType:(NSString*)mediaType
                   success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     NSString *urlString;
     if (mediaType) {
         urlString = [NSString stringWithFormat:@"search/location?mediaType=%@", mediaType];
@@ -283,14 +293,14 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
                       success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient getPath:@"media" parameters:@{ @"locationId" : locationID , @"providerId" : providerID } success:success failure:failure];
 }
 
 #pragma mark - Bookmarks
 + (void)getBookmarksOnSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient getPath:@"bookmarks" parameters:nil success:success failure:failure];
 }
 
@@ -298,7 +308,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
                           providerID:(NSString *)providerID
                              success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient postPath:@"bookmarks" parameters:@{ @"locationId" : locationID , @"providerId" : providerID } success:success failure:failure];
 }
 
@@ -307,7 +317,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
                           providerID:(NSString *)providerID
                              success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
                             locationID, @"locationId",
                             providerID, @"providerId", nil];
@@ -328,7 +338,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 + (void)getTrendingType:(NSString *)type params:(NSDictionary *)params
                 success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     NSString *urlParams = @"";
     for (NSString *key in params) {
         if (urlParams.length > 0) {
@@ -346,13 +356,14 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 + (void)getLocationInfo:(NSDictionary *)param
                 success:(void (^)(AFHTTPRequestOperation *, id))success
                 failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-    MMHTTPClient *httpClient = [self setupHTTPClient];
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     NSString *urlString = [NSString stringWithFormat:@"location?locationId=%@&providerId=%@", [param valueForKey:@"locationId"], [param valueForKey:@"providerId"]];
     [httpClient getPath:urlString parameters:nil success:success failure:failure];
 }
 
-#pragma mark - Helper Methods
+/*#pragma mark - Helper Methods
 + (MMHTTPClient*)setupHTTPClient {
+    
     MMHTTPClient *httpClient = [[MMHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBMHTTPClientBaseURLString]];
     
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
@@ -368,6 +379,6 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     }
 
     return httpClient;
-}
+}*/ //Modified this to use the sharedClient instead of initializing a new http client every call. 
 
 @end

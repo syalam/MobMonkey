@@ -234,6 +234,7 @@
 
 - (void)doneButtonTapped:(id)sender {
     [_delegate categoriesSelected:selectedItemsDictionary];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Table view data source

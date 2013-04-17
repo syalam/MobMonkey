@@ -2,9 +2,20 @@
 
 #import "AFJSONRequestOperation.h"
 
+#ifdef STAGING
+
 static NSString * const kBMHTTPClientBaseURLString = @"http://staging.mobmonkey.com/rest/";
 static NSString * const kBMHTTPClientApplicationID = @"29C851C2-CF6F-11E1-A0EC-4CE76188709B";
 static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE33-4DE76188709B";
+
+#elif PRODUCTION
+
+static NSString * const kBMHTTPClientBaseURLString = @"http://api.mobmonkey.com/rest/";
+static NSString * const kBMHTTPClientApplicationID = @"29C851C2-CF6F-11E1-A0EC-4CE76188709B";
+static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE33-4DE76188709B";
+
+#endif
+
 
 @implementation MMHTTPClient
 
@@ -13,7 +24,21 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedClient = [[MMHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBMHTTPClientBaseURLString]];
+        
+        [_sharedClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults]objectForKey:@"mmPartnerId"]];
+        
+        [_sharedClient setDefaultHeader:@"Content-Type" value:@"application/json"];
     });
+    
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:@"oauthUser"]) {
+        [_sharedClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"password"]];
+        [_sharedClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+    }
+    else {
+        [_sharedClient setDefaultHeader:@"OauthProviderUserName" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+        [_sharedClient setDefaultHeader:@"OauthProvider" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"oauthProvider"]];
+        [_sharedClient setDefaultHeader:@"OauthToken" value:[[NSUserDefaults standardUserDefaults]valueForKey:@"oauthToken"]];
+    }
 
     return _sharedClient;
 }
