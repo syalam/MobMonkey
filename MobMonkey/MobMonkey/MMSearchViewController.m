@@ -37,7 +37,12 @@
     }
     return self;
 }
-
+-(void)setSearchBarAsHeaderView{
+    
+}
+-(void)setRadiusAsHeaderView{
+    
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];

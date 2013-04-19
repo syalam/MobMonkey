@@ -10,7 +10,7 @@
 
 
 #define kMMRadiusInYardsKey @"radiusInYards"
-#define kMMRadiusInYards 50
+#define kMMRadiusInYards 500
 #define kMMNearbyRadiusInYards 500
 
 @interface MMConstants : NSObject
