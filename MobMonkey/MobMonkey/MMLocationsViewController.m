@@ -10,8 +10,19 @@
 #import "MMLocationViewController.h"
 #import "MMLocationListCell.h"
 #import "MMLocationAnnotation.h"
+#import "MMLocationSearch.h"
+
+
 
 @interface MMLocationsViewController ()
+
+@property (nonatomic, strong) UIBarButtonItem * radius5mileButton;
+@property (nonatomic, strong) UIBarButtonItem * radius10mileButton;
+@property (nonatomic, strong) UIBarButtonItem * radius20mileButton;
+
+@property (nonatomic, strong) UIColor *itemNormalTint;
+@property (nonatomic, strong) UIColor *itemSelectedTint;
+
 
 - (void)flipView:(id)sender;
 - (void)reloadMapView;
@@ -22,39 +33,47 @@
 @implementation MMLocationsViewController
 @synthesize mapView;
 @synthesize category;
+@synthesize radius5mileButton, radius10mileButton, radius20mileButton, itemNormalTint, itemSelectedTint;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    self.itemSelectedTint = [UIColor colorWithRed:0.934 green:0.480 blue:0.200 alpha:1.000];
+    self.itemNormalTint = [UIColor colorWithRed:1.000 green:0.558 blue:0.286 alpha:1.000];
+    
     
     //Set up radius Toolbar
     
-    UIColor *toolbarTintColor = [UIColor colorWithRed:1.000 green:0.558 blue:0.286 alpha:1.000];
-    
     radiusToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     [self.view addSubview:radiusToolbar];
-    radiusToolbar.tintColor = toolbarTintColor;
+    radiusToolbar.tintColor = self.itemNormalTint;
     
+    UILabel *radiusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 20)];
+    radiusLabel.backgroundColor = [UIColor clearColor];
+    radiusLabel.textColor = [UIColor whiteColor];
+    radiusLabel.text = @"radius:";
     
-    UIBarButtonItem *radius5mileButton = [[UIBarButtonItem alloc] initWithTitle:@"5" style:UIBarButtonItemStyleBordered target:self action:@selector(radiusButtonPressed:)];
+    UIBarButtonItem *radiusText = [[UIBarButtonItem alloc] initWithCustomView:radiusLabel];
+    
+    radius5mileButton = [[UIBarButtonItem alloc] initWithTitle:@"5" style:UIBarButtonItemStyleBordered target:self action:@selector(radiusButtonPressed:)];
     radius5mileButton.width = 44;
     radius5mileButton.tag = 5;
-    radius5mileButton.tintColor = toolbarTintColor;
+    radius5mileButton.tintColor = self.itemSelectedTint;
     
-    UIBarButtonItem *radius10mileButton = [[UIBarButtonItem alloc] initWithTitle:@"10" style:UIBarButtonItemStyleBordered target:self action:@selector(radiusButtonPressed:)];
+    radius10mileButton = [[UIBarButtonItem alloc] initWithTitle:@"10" style:UIBarButtonItemStyleBordered target:self action:@selector(radiusButtonPressed:)];
     radius10mileButton.tag = 10;
     radius10mileButton.width = 44;
-    radius10mileButton.tintColor = toolbarTintColor;
+    radius10mileButton.tintColor = self.itemNormalTint;
     
-    UIBarButtonItem *radius20mileButton = [[UIBarButtonItem alloc] initWithTitle:@"20" style:UIBarButtonItemStyleBordered target:self action:@selector(radiusButtonPressed:)];
+    radius20mileButton = [[UIBarButtonItem alloc] initWithTitle:@"20" style:UIBarButtonItemStyleBordered target:self action:@selector(radiusButtonPressed:)];
     radius20mileButton.tag = 20;
     radius20mileButton.width = 44;
-    radius20mileButton.tintColor = toolbarTintColor;
+    radius20mileButton.tintColor = self.itemNormalTint;
     
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    radiusToolbar.items = @[radius5mileButton, radius10mileButton, radius20mileButton];
+    radiusToolbar.items = @[radiusText,radius5mileButton,flexibleSpace, radius10mileButton, flexibleSpace ,radius20mileButton, flexibleSpace, flexibleSpace];
     
     
 
@@ -446,7 +465,47 @@
 }
 
 #pragma mark - UIToolbar Button
--(void)radiusButtonPressed:(id)sender{
+-(void)clearSelectionColors{
+    radius5mileButton.tintColor = self.itemNormalTint;
+    radius10mileButton.tintColor = self.itemNormalTint;
+    radius20mileButton.tintColor = self.itemNormalTint;
+
+}
+-(void)radiusButtonPressed:(UIBarButtonItem *)sender{
     
+    [self clearSelectionColors];
+    NSUInteger tag = [sender tag];
+    sender.tintColor = self.itemSelectedTint;
+    
+    NSNumber * radiusSelected;
+    switch (tag) {
+        case 5:
+            radiusSelected = @8800;
+            break;
+        case 10:
+            radiusSelected = @17600;
+            break;
+        case 20:
+            radiusSelected = @35200;
+            break;
+        default:
+            radiusSelected = @8800;
+            break;
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:radiusSelected forKey:@"savedSegmentValue"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self reloadLocations];
+    
+    [self.tableView reloadData];
+
+}
+-(void)reloadLocations{
+    MMLocationSearch *locationSearch = [[MMLocationSearch alloc] init];
+    
+    [locationSearch locationsForCategory:self.category success:^(NSArray *locations) {
+        self.locations = locations.mutableCopy;
+    } failure:^(NSError *error) {
+        NSLog(@"There was an error getting location data: %@", error);
+    }];
 }
 @end

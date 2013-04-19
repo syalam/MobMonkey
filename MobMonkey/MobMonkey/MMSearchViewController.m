@@ -258,6 +258,9 @@
     }
     NSLog(@"%@", params);
     [SVProgressHUD showWithStatus:@"Searching"];
+    
+    
+    NSLog(@"Params: %@", params);
     [MMAPI searchForLocation:params mediaType:mediaType success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.searchResultsViewController.isSearching = NO;
         [SVProgressHUD dismiss];
@@ -266,6 +269,8 @@
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"No locations found" delegate:self.searchResultsViewController cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
         }
+        
+    
         self.searchResultsViewController.locations = responseObject;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
