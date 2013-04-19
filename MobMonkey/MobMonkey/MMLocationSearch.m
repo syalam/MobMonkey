@@ -12,7 +12,7 @@
 
 @implementation MMLocationSearch
 
--(void)locationsForCategory:(NSDictionary *)category success:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure {
+-(void)locationsForCategory:(NSDictionary *)category searchString:(NSString *)searchString success:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure {
     
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
 
@@ -30,6 +30,7 @@
     NSNumber *latitude = [NSNumber numberWithDouble:lat];
     NSNumber *longitude = [NSNumber numberWithDouble:lng];
     
+    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     
     if(category){
@@ -38,7 +39,13 @@
     
     [parameters setObject:latitude forKey:@"latitude"];
     [parameters setObject:longitude forKey:@"longitude"];
-    [parameters setObject:@"" forKey:@"name"];
+    
+    if(searchString){
+        [parameters setObject:searchString forKey:@"name"];
+    }else{
+        [parameters setObject:@"" forKey:@"name"];
+    }
+    
     
     if(!radius){
         radius = [NSNumber numberWithInt:8800];
@@ -51,8 +58,6 @@
     NSLog(@"Parameters: %@", parameters);
     [MMAPI searchForLocation:parameters.mutableCopy mediaType:mediaType success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if(success){
-            
-            NSSortDescriptor *sortByDistance = [NSSortDescriptor alloc] initWithKey:@" ascending:<#(BOOL)#>
             
             success(responseObject);
         }

@@ -224,6 +224,8 @@
     } else {
         if ([self.searchBar.text length] > 0) {
             self.searchResultsViewController.title = [NSString stringWithFormat:@"“%@”", self.searchBar.text];
+            self.searchResultsViewController.searchString = [NSString stringWithFormat:@"%@", self.searchBar.text];
+
         }
         else {
             self.searchResultsViewController.title = @"All Nearby";

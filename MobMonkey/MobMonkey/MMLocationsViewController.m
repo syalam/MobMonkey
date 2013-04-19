@@ -24,6 +24,8 @@
 @property (nonatomic, strong) UIColor *itemSelectedTint;
 
 
+
+
 - (void)flipView:(id)sender;
 - (void)reloadMapView;
 - (void)infoButtonTapped:(id)sender;
@@ -43,6 +45,10 @@
     self.itemNormalTint = [UIColor colorWithRed:1.000 green:0.558 blue:0.286 alpha:1.000];
     
     
+    
+    [[NSUserDefaults standardUserDefaults] setObject:@8800 forKey:@"savedSegmentValue"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     //Set up radius Toolbar
     
     radiusToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
@@ -52,7 +58,7 @@
     UILabel *radiusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 20)];
     radiusLabel.backgroundColor = [UIColor clearColor];
     radiusLabel.textColor = [UIColor whiteColor];
-    radiusLabel.text = @"radius:";
+    radiusLabel.text = @"Search Radius:";
     
     UIBarButtonItem *radiusText = [[UIBarButtonItem alloc] initWithCustomView:radiusLabel];
     
@@ -494,6 +500,7 @@
     }
     [[NSUserDefaults standardUserDefaults] setObject:radiusSelected forKey:@"savedSegmentValue"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    [SVProgressHUD showWithStatus:@"Searching..."];
     [self reloadLocations];
     
     [self.tableView reloadData];
@@ -502,10 +509,12 @@
 -(void)reloadLocations{
     MMLocationSearch *locationSearch = [[MMLocationSearch alloc] init];
     
-    [locationSearch locationsForCategory:self.category success:^(NSArray *locations) {
+    [locationSearch locationsForCategory:self.category searchString:self.searchString success:^(NSArray *locations) {
         self.locations = locations.mutableCopy;
+        [SVProgressHUD dismiss];
     } failure:^(NSError *error) {
         NSLog(@"There was an error getting location data: %@", error);
+        [SVProgressHUD dismiss];
     }];
 }
 @end

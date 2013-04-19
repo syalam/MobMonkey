@@ -34,6 +34,8 @@
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (assign, nonatomic) BOOL isHistory;
 
+@property (nonatomic, strong) NSString *searchString;
+
 - (void)handleTap:(UIGestureRecognizer *)gestureRecognizer;
 
 @end

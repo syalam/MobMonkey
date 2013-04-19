@@ -16,5 +16,6 @@ typedef enum {
 
 @interface MMLocationSearch : NSObject
 
--(void)locationsForCategory:(NSDictionary *)category success:(void(^)(NSArray * locations))success failure:(void(^)(NSError *error))failure;
+-(void)locationsForCategory:(NSDictionary *)category searchString:(NSString *)searchString success:(void(^)(NSArray * locations))success failure:(void(^)(NSError *error))failure;
+
 @end
