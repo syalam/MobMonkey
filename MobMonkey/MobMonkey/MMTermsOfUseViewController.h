@@ -13,6 +13,7 @@
     void (^ rejectAction)(void);
 }
 
+@property (nonatomic, strong) IBOutlet UIWebView *webView;
 @property (copy, nonatomic) void (^ acceptAction)(void);
 @property (copy, nonatomic) void (^ rejectAction)(void);
 @property (nonatomic, assign) BOOL requiresResponse;
