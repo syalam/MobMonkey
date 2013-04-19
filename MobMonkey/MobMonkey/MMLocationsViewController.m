@@ -58,7 +58,7 @@
     UILabel *radiusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 20)];
     radiusLabel.backgroundColor = [UIColor clearColor];
     radiusLabel.textColor = [UIColor whiteColor];
-    radiusLabel.text = @"Search Radius:";
+    radiusLabel.text = @"Radius:";
     
     UIBarButtonItem *radiusText = [[UIBarButtonItem alloc] initWithCustomView:radiusLabel];
     
