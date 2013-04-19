@@ -26,37 +26,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    
-    //Set up radius Toolbar
-    
-    UIColor *toolbarTintColor = [UIColor colorWithRed:1.000 green:0.558 blue:0.286 alpha:1.000];
-    
-    radiusToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
-    [self.view addSubview:radiusToolbar];
-    radiusToolbar.tintColor = toolbarTintColor;
-    
-    
-    UIBarButtonItem *radius5mileButton = [[UIBarButtonItem alloc] initWithTitle:@"5" style:UIBarButtonItemStyleBordered target:self action:@selector(radiusButtonPressed:)];
-    radius5mileButton.width = 44;
-    radius5mileButton.tag = 5;
-    radius5mileButton.tintColor = toolbarTintColor;
-    
-    UIBarButtonItem *radius10mileButton = [[UIBarButtonItem alloc] initWithTitle:@"10" style:UIBarButtonItemStyleBordered target:self action:@selector(radiusButtonPressed:)];
-    radius10mileButton.tag = 10;
-    radius10mileButton.width = 44;
-    radius10mileButton.tintColor = toolbarTintColor;
-    
-    UIBarButtonItem *radius20mileButton = [[UIBarButtonItem alloc] initWithTitle:@"20" style:UIBarButtonItemStyleBordered target:self action:@selector(radiusButtonPressed:)];
-    radius20mileButton.tag = 20;
-    radius20mileButton.width = 44;
-    radius20mileButton.tintColor = toolbarTintColor;
-    
-    UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    
-    radiusToolbar.items = @[radius5mileButton, radius10mileButton, radius20mileButton];
-    
-    
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -445,8 +414,4 @@
     [self.navigationController pushViewController:locationViewController animated:YES];
 }
 
-#pragma mark - UIToolbar Button
--(void)radiusButtonPressed:(id)sender{
-    
-}
 @end

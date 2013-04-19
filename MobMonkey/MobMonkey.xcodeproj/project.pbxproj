@@ -755,7 +755,6 @@
 		B9A1199D170C8C940020C322 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A11996170C8C940020C322 /* UIAlertView+Blocks.m */; };
 		B9A1199E170C8C940020C322 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A11996170C8C940020C322 /* UIAlertView+Blocks.m */; };
 		B9BE4A5E17134AEF0016B916 /* MMMyInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B9BE4A5D17134AEF0016B916 /* MMMyInfo.m */; };
-		B9F9EC7D1721AB84006A78F3 /* MMMyInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B9BE4A5D17134AEF0016B916 /* MMMyInfo.m */; };
 		B9FC4FC9171CD12E00FF9B17 /* healthClubsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9FC4FC8171CD12E00FF9B17 /* healthClubsIcon@2x.png */; };
 		B9FC4FCA171CD12E00FF9B17 /* healthClubsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9FC4FC8171CD12E00FF9B17 /* healthClubsIcon@2x.png */; };
 		C731E541167DE443002525C8 /* 187-pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = C731E540167DE443002525C8 /* 187-pencil.png */; };
@@ -5165,7 +5164,6 @@
 				B9A1199A170C8C940020C322 /* RIButtonItem.m in Sources */,
 				B9A1199C170C8C940020C322 /* UIActionSheet+Blocks.m in Sources */,
 				B9A1199E170C8C940020C322 /* UIAlertView+Blocks.m in Sources */,
-				B9F9EC7D1721AB84006A78F3 /* MMMyInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5679,7 +5677,7 @@
 				);
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "54363911-46A2-41C3-89CC-0AC5D4559E8B";
+				PROVISIONING_PROFILE = "842C8402-6826-4212-B047-2691047E1087";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "54363911-46A2-41C3-89CC-0AC5D4559E8B";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -5713,7 +5711,7 @@
 				);
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "54363911-46A2-41C3-89CC-0AC5D4559E8B";
+				PROVISIONING_PROFILE = "842C8402-6826-4212-B047-2691047E1087";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "54363911-46A2-41C3-89CC-0AC5D4559E8B";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;

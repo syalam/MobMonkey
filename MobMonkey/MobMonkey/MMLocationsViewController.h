@@ -24,7 +24,6 @@
     UIBarButtonItem* addLocationButton;
     UIBarButtonItem* cancelButton;
     UIBarButtonItem *clearBarButton;
-    IBOutlet UIToolbar *radiusToolbar;
 }
 
 @property (strong, nonatomic) NSMutableArray *locations;

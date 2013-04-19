@@ -12,7 +12,6 @@
 @interface MMSearchViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate, MMMapFilterDelegate> {
     NSDictionary* allCategories;
     NSUserDefaults *prefs;
-    UIToolbar *radiusToolbar;
 }
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
