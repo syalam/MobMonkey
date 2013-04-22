@@ -116,6 +116,15 @@
     [self setContentList:fieldsToDisplay];
 
     if ([self.title isEqualToString:@"My Info"]) {
+        
+        UIBarButtonItem * doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButtonPressed:)];
+        doneButton.tintColor = [UIColor colorWithRed:200.0/255.0
+                                               green:80.0/225.0
+                                                blue:10.0/255.0
+                                               alpha:1.0];
+        self.navigationItem.rightBarButtonItem = doneButton;
+        
+        
         [_signUpButton setHidden:YES];
         [_facebookButton setHidden:YES];
         [_twitterButton setHidden:YES];
@@ -238,12 +247,7 @@
         [_twitterButton setHidden:YES];
     }
     
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButtonPressed:)];
-    doneButton.tintColor = [UIColor colorWithRed:200.0/255.0
-                                           green:80.0/225.0
-                                            blue:10.0/255.0
-                                           alpha:1.0];
-    self.navigationItem.rightBarButtonItem = doneButton;
+    
     
 }
 
