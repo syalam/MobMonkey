@@ -10,6 +10,7 @@
 #import "MMTableViewCell.h"
 #import "MMRequestMessageViewController.h"
 #import "MMSubscriptionViewController.h"
+#import "UIAlertView+Blocks.h"
 
 
 enum RequestDurationLengths {
@@ -151,24 +152,35 @@ enum RequestDurationLengths {
                     [MMAPI requestMedia:mediaType params:self.requestInfo success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         NSLog(@"%@", responseObject);
                         [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:nil];
+                        [self dismissViewControllerAnimated:YES completion:nil];
                         
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        [SVProgressHUD showErrorWithStatus:@"Unable to make request. Please try again"];
-                        NSLog(@"%@", operation.responseString);
                         
-#warning This needs to match the server status code. Waiting to hear from manny
-                        //If the server response status code is XXX, display a modal view for subscription
                         if(operation.response.statusCode == 403){
                             
-                            [self overFreeRequestLimit];
+                            RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:@"Cancel Request"];
+                            RIButtonItem *subscribeButton = [RIButtonItem itemWithLabel:@"Subsribe"];
                             
+                            [subscribeButton setAction:^{
+                                [self overFreeRequestLimit];
+                            }];
+                            
+                            UIAlertView *subscribeAlertView = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"You've reached your free request limit. Would you like to subscribe?" cancelButtonItem:cancelButton otherButtonItems:subscribeButton, nil];
+                            
+                            [subscribeAlertView show];
+                            
+                        }else{
+                            
+                            [SVProgressHUD showErrorWithStatus:@"Unable to make request. Please try again"];
+                            NSLog(@"%@", operation.responseString);
+                            [self dismissViewControllerAnimated:YES completion:nil];
                         }
-                        
+                                                
                     }];
                 });
             }
         }
-        [self dismissViewControllerAnimated:YES completion:nil];
+        //
     }
 }
 

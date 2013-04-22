@@ -381,4 +381,27 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     return httpClient;
 }*/ //Modified this to use the sharedClient instead of initializing a new http client every call. 
 
+#pragma mark - Subscription
+
++(void)subscribeUserEmail:(NSString *)userEmail partnerId:(NSString *)partnerId success:(void (^)(void))success failure:(void (^)(NSError *))failure {
+    
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+    
+    //[httpClient setDefaultHeader:@"MobMonkey-user" value:@"manny.a.huerta@gmail.com"];
+    //[httpClient setDefaultHeader:@"MobMonkey-auth" value:@"trustno1"];
+    NSString *urlString = [NSString stringWithFormat:@"user/paidsubscription?email=%@&partnerId=%@", userEmail, partnerId ];
+    //NSDictionary *parameters = @{@"email":userEmail, @"partnerId":partnerId};
+    
+    [httpClient postPath:urlString parameters:nil data:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Subscription was successful");
+        if(success){
+            success();
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed Subscription");
+        if(failure){
+            failure(error);
+        }
+    }];
+}
 @end

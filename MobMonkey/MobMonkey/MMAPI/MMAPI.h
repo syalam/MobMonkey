@@ -385,4 +385,19 @@ Fetches livestreaming URLs for a location
             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 
+///---------------------------------------------
+/// @name Subscribe User
+///---------------------------------------------
+/**
+    Subscribe User
+ 
+ @param userEmail This is the user's id email
+ @param partnerId This is the user's partner ID
+ @param Returns success block if subscription was successful
+ @param Returns failure block if subscription was unsucceful
+ 
+ */
++(void)subscribeUserEmail:(NSString *)userEmail partnerId:(NSString *)partnerId success:(void(^)(void))success failure:(void(^)(NSError * error))failure;
+
+
 @end

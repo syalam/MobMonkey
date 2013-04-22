@@ -238,6 +238,14 @@
         [_facebookButton setHidden:YES];
         [_twitterButton setHidden:YES];
     }
+    
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButtonPressed:)];
+    doneButton.tintColor = [UIColor colorWithRed:219.0/255.0
+                                           green:100.0/225.0
+                                            blue:24.0/255.0
+                                           alpha:1.0];
+    self.navigationItem.rightBarButtonItem = doneButton;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -309,6 +317,11 @@
 }
 
 #pragma mark - IBAction Methods
+
+-(void)doneButtonPressed:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (IBAction)signUpButtonTapped:(id)sender {
     if (_twitterSignIn) {
         [self signUpTwitterUser];
