@@ -219,16 +219,6 @@
     [self.tableView reloadData];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    //[SVProgressHUD dismiss];
-}
-
 #pragma mark - IBAction Methods
 - (void)backButtonTapped:(id)sender {
     [SVProgressHUD dismiss];

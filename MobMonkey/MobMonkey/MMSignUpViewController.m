@@ -843,9 +843,6 @@
     
     
 }
--(void) viewWillDisappear:(BOOL)animated {
-
-}
 
 #pragma mark - text field delegate methods
 -(BOOL)textFieldShouldReturn:(UITextField*)textField;

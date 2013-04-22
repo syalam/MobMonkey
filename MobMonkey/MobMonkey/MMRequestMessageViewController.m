@@ -48,14 +48,20 @@
     [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
     
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButtonPressed:)];
+    
     self.navigationItem.leftBarButtonItem = backButton;
+    self.navigationItem.rightBarButtonItem = doneButton;
 }
-
+-(void)doneButtonPressed:(id)sender{
+    self.textView.text = [self.requestInfo valueForKey:@"message"];
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [SVProgressHUD dismiss];
-    self.textView.text = [self.requestInfo valueForKey:@"message"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
