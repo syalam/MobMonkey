@@ -119,8 +119,17 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [SVProgressHUD dismiss];
+    
     [super viewWillAppear:animated];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    [super viewDidAppear:animated];
+    
+    [SVProgressHUD dismiss];
     if (![prefs objectForKey:@"userName"]) {
         [[MMClientSDK sharedSDK]signInScreen:self];
     }
@@ -153,27 +162,13 @@
                     [SVProgressHUD showErrorWithStatus:@"Unable to load categories"];
                     
                 }];
-
+                
             }
         }
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    
-    [super viewDidAppear:animated];
     
     
     
-    
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    self.searchWasActive = [self.searchDisplayController isActive];
-    self.savedSearchTerm = [self.searchDisplayController.searchBar text];
 }
 
 - (void)didReceiveMemoryWarning
@@ -201,6 +196,16 @@
 }
 
 - (void)backButtonTapped:(id)sender {
+    
+    NSUInteger currentViewControllerIndex = [self.navigationController.viewControllers indexOfObject:self];
+    
+    if([[self.navigationController.viewControllers objectAtIndex:currentViewControllerIndex - 1] isKindOfClass:[MMSearchViewController class]]){
+        MMSearchViewController *previousViewControl = [self.navigationController.viewControllers objectAtIndex:currentViewControllerIndex - 1];
+        
+        previousViewControl.searchWasActive = [self.searchDisplayController isActive];
+        previousViewControl.savedSearchTerm = [self.searchDisplayController.searchBar text];
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
