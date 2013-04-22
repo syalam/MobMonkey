@@ -57,7 +57,6 @@
     if ([UINavigationBar respondsToSelector:@selector(appearance)]) {
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar~iphone"] forBarMetrics:UIBarMetricsDefault];
     }
-    //if([UIBarButtonItem appearance] setTintColor:<#(UIColor *)#>)
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.

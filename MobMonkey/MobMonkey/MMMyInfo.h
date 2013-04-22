@@ -20,4 +20,8 @@
 @property(nonatomic, strong) NSString *birthday;
 @property(nonatomic, strong) NSString *gender;
 
++(id)myInfo;
+-(void)saveInfo;
+-(void)eraseInfo;
+
 @end

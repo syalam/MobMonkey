@@ -8,7 +8,7 @@
 
 #import "MMMyInfo.h"
 
-#define kMyInfoDictionaryKey @"myInfoDictionary"
+#define kMyInfoKey @"myInfo"
 
 #define kFirstNameKey @"firstName"
 #define kLastNameKey @"lastName"
@@ -21,92 +21,54 @@
 @synthesize myInfoDictionary = _myInfoDictionary;
 @synthesize firstName = _firstName, lastName = _lastName, email = _email, birthday = _birthday, gender = _gender;
 
--(NSMutableDictionary *)myInfoDictionary{
-    if(!_myInfoDictionary){
-        _myInfoDictionary = [[[NSUserDefaults standardUserDefaults] objectForKey:kMyInfoDictionaryKey] mutableCopy];
-        if(!_myInfoDictionary){
-            _myInfoDictionary = [NSMutableDictionary dictionary];
-            [[NSUserDefaults standardUserDefaults] setObject:_myInfoDictionary forKey:kMyInfoDictionaryKey];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
++(id)myInfo{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *myEncodedObject = [defaults objectForKey:kMyInfoKey];
+    MMMyInfo *myInfo = (MMMyInfo *)[NSKeyedUnarchiver unarchiveObjectWithData: myEncodedObject];
+    
+    if(!myInfo){
+        myInfo = [[self alloc] init];
     }
-    return _myInfoDictionary.mutableCopy;
+    
+    return myInfo;
 }
-
--(void)synchronize {
-    [[NSUserDefaults standardUserDefaults] setObject:self.myInfoDictionary forKey:kMyInfoDictionaryKey];
+-(void)saveInfo{
+    NSData *myEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:self];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:myEncodedObject forKey:kMyInfoKey];
+}
+-(void)eraseInfo{
+    self.firstName = nil;
+    self.lastName = nil;
+    self.email = nil;
+    self.birthday = nil;
+    self.gender = nil;
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kMyInfoKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
-#pragma mark Setter Methods
-
--(void)setFirstName:(NSString *)firstName {
-    
-    [_myInfoDictionary setValue:firstName forKey:kFirstNameKey];
-    _firstName = firstName;
-    [self synchronize];
-    
+-(void)encodeWithCoder:(NSCoder *)encoder
+{
+    //Encode the properties of the object
+    [encoder encodeObject:self.firstName forKey:@"firstName"];
+    [encoder encodeObject:self.lastName forKey:@"lastName"];
+    [encoder encodeObject:self.email forKey:@"email"];
+    [encoder encodeObject:self.birthday forKey:@"birthday"];
+    [encoder encodeObject:self.gender forKey:@"gender"];
 }
 
--(void)setLastName:(NSString *)lastName {
-    
-    [_myInfoDictionary setValue:lastName forKey:kLastNameKey];
-    _lastName = lastName;
-    [self synchronize];
-    
-}
-
--(void)setEmail:(NSString *)email {
-    
-    [_myInfoDictionary setValue:email forKey:kEmailKey];
-    _email = email;
-    [self synchronize];
-    
-}
--(void)setBirthday:(NSString *)birthday {
-    
-    [_myInfoDictionary setValue:birthday forKey:kBirthdayKey];
-    _birthday = birthday;
-    [self synchronize];
-    
-}
--(void)setGender:(NSString *)gender {
-    
-    [_myInfoDictionary setValue:gender forKey:kGenderKey];
-    _gender = gender;
-    [self synchronize];
-    
-}
-
-#pragma mark Getter Methods
-
--(NSString *)firstName{
-    
-    return [self.myInfoDictionary objectForKey:kFirstNameKey];
-    
-}
-
--(NSString *)lastName {
-    
-    return [self.myInfoDictionary objectForKey:kLastNameKey];
-    
-}
-
--(NSString *)email {
-    
-    return [self.myInfoDictionary objectForKey:kEmailKey];
-    
-}
-
--(NSString *)birthday {
-    
-    return [self.myInfoDictionary objectForKey:kBirthdayKey];
-    
-}
-
--(NSString *)gender {
-    
-    return [self.myInfoDictionary objectForKey:kGenderKey];
-    
+-(id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super init];
+    if ( self != nil )
+    {
+        //decode the properties
+        self.firstName = [decoder decodeObjectForKey:@"firstName"];
+        self.lastName = [decoder decodeObjectForKey:@"lastName"];
+        self.email = [decoder decodeObjectForKey:@"email"];
+        self.birthday = [decoder decodeObjectForKey:@"birthday"];
+        self.gender = [decoder decodeObjectForKey:@"gender"];
+    }
+    return self;
 }
 
 @end

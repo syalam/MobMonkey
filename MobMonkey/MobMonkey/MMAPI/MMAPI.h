@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import "AFJSONRequestOperation.h"
-
+#import "MMMyInfo.h"
 
 typedef enum apiCall {
     kAPICallOpenRequests,
@@ -28,6 +28,15 @@ typedef enum OAuthProvider {
     OAuthProviderTwitter
 } OAuthProvider;
 
+@interface MMOAuth : NSObject
+
+@property (nonatomic, strong) NSString *token;
+@property (nonatomic, assign) OAuthProvider provider;
+@property (nonatomic, strong) NSString *username;
+@property (nonatomic, strong) NSString *deviceID;
+@property (nonatomic, strong) NSString *providerString;
+
+@end
 @protocol MMAPIDelegate
 
 @optional
@@ -83,6 +92,12 @@ typedef enum OAuthProvider {
                     success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+//Newer version without dictionary
++ (void) updateUserInfo:(MMMyInfo *)userInfo
+                    newPassword:(NSString *)newPassword
+                     success:(void (^)(AFHTTPRequestOperation *, id))success
+                     failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
+
 ///---------------------------------------------
 /// @name Signing in an existing user
 ///---------------------------------------------
@@ -131,6 +146,14 @@ typedef enum OAuthProvider {
 + (void)oauthSignIn:(NSDictionary*)params
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+
+//This is a non-dictionary dependant version of the oauthSignIn method
+
++ (void)oauthSignIn:(MMOAuth *)oauth
+           userInfo:(MMMyInfo *)userInfo
+            success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+            failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 
 ///---------------------------------------------

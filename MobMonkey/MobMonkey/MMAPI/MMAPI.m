@@ -26,6 +26,35 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 
 #endif
 
+@implementation MMOAuth
+
+@synthesize provider = _provider, providerString = _providerString;
+
+-(void)setProvider:(OAuthProvider)provider{
+    
+    if(provider == OAuthProviderTwitter){
+        _providerString = @"twitter";
+    }else if(provider == OAuthProviderFacebook){
+        _providerString = @"facebook";
+    }else {
+        _providerString = nil;
+    }
+    _provider = provider;
+}
+-(void)setProviderString:(NSString *)providerString{
+    
+    if([providerString isEqualToString:@"twitter"]){
+        _provider = OAuthProviderTwitter;
+    }else if([providerString isEqualToString:@"facebook"]){
+        _provider = OAuthProviderFacebook;
+    }else{
+        _provider = OAuthProviderNone;
+    }
+    
+    _providerString = providerString;
+}
+@end
+
 @implementation MMAPI
 
 + (NSURL *)baseURL
@@ -81,6 +110,56 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults] valueForKey:@"password"]];
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"]];
     [httpClient postPath:@"user" parameters:params success:success failure:failure];
+}
++ (void) updateUserInfo:(MMMyInfo *)userInfo newPassword:(NSString *)newPassword success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    
+    NSNumber * gender = [userInfo.gender isEqualToString:@"Male"] ? @1 : @0;
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    
+    NSDate *birthdayDate = [dateFormatter dateFromString:userInfo.birthday];
+    NSTimeInterval bdayUnixTime = birthdayDate.timeIntervalSince1970*1000;
+    NSNumber * birthday = [NSNumber numberWithDouble:bdayUnixTime];
+    
+    [parameters setValue:userInfo.firstName forKey:@"firstName"];
+    [parameters setValue:birthday forKey:@"birthday"];
+    [parameters setValue:userInfo.lastName forKey:@"lastName"];
+    [parameters setValue:gender forKey:@"gender"];
+    
+    if (newPassword) {
+        [parameters setValue:newPassword forKey:@"password"];
+    }else{
+        [parameters setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"password"] forKey:@"password"];
+    }
+    
+    
+    
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+    
+    NSLog(@"PARAMETERS: %@", parameters);
+    
+    [httpClient postPath:@"user" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        if(newPassword){
+            [[NSUserDefaults standardUserDefaults] setObject:newPassword forKey:@"password"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
+        if(success){
+            success(operation, responseObject);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if(failure){
+            failure(operation, error);
+        }
+    }];
+
+    
+    
 }
 
 + (void)signInWithEmail:(NSString *)email
@@ -141,7 +220,49 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     //[httpClient setDefaultHeader:@"OauthProvider" value:[params valueForKey:@"provider"]];
     [httpClient postPath:urlString parameters:nil success:success failure:failure];
 }
++(void)oauthSignIn:(MMOAuth *)oauth userInfo:(MMMyInfo *)userInfo success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+    
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    
+    NSNumber * gender = [userInfo.gender isEqualToString:@"Male"] ? @1 : @0;
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    
+    NSDate *birthdayDate = [dateFormatter dateFromString:userInfo.birthday];
+    NSTimeInterval bdayUnixTime = birthdayDate.timeIntervalSince1970*1000;
+    NSNumber * birthday = [NSNumber numberWithDouble:bdayUnixTime];
+    
+    [parameters setValue:userInfo.firstName forKey:@"firstName"];
+    [parameters setValue:birthday forKey:@"birthday"];
+    [parameters setValue:userInfo.lastName forKey:@"lastName"];
+    [parameters setValue:gender forKey:@"gender"];
+    [parameters setValue:oauth.username forKey:@"providerUserName"];
+    [parameters setValue:oauth.deviceID forKey:@"deviceId"];
+    [parameters setObject:@YES forKey:@"useOAuth"];
+    [parameters setObject:@"iOS" forKey:@"deviceType"];
+    
+    if(oauth.providerString){
+        [parameters setObject:oauth.providerString forKey:@"provider"];
 
+    }
+        
+    
+    if(oauth.provider == OAuthProviderFacebook)
+    {
+        [parameters setValue:oauth.token forKey:@"oauthToken"];
+    
+    }
+    
+    //I'm doing this to create the GET parameters in the url, it's kind of sloppy but backend is requiring post, but we are not using post parameters.
+    NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET" path:@"signin" parameters:parameters data:nil];
+    
+    [httpClient postPath:request.URL.absoluteString parameters:nil success:success failure:failure];
+    
+}
 + (void)registerTwitterUserDetails:(NSDictionary*)params
                            success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                            failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
