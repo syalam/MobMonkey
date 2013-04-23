@@ -237,7 +237,9 @@
 
 - (void)getTrendingCounts {
     NSDictionary *params = [NSDictionary dictionaryWithObject:@"true" forKey:@"countsonly"];
+    NSLog(@"Start");
     [MMAPI getTrendingType:@"topviewed" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Stop");
         NSLog(@"%@", responseObject);
         trendingCategoryCountsDictionary = responseObject;
         [self.tableView reloadData];
@@ -257,6 +259,7 @@
         [params setValue:favoritesParams forKey:@"categoryIds"];
         [params setValue:@"true" forKey:@"myinterests"];
         [MMAPI getTrendingType:@"topviewed" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
             myInterestsArray = responseObject;
             NSLog(@"My Interests Count: %d", myInterestsArray.count);
             [self.tableView reloadData];

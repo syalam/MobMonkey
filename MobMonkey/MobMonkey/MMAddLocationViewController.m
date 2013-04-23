@@ -211,8 +211,8 @@
 }
 
 -(void)addressSwitchChanged:(UISwitch *)sender{
-    
-    if(sender.on){
+
+    if(sender.on && [self.tableView numberOfRowsInSection:0] == 4){
         self.hasAddress = YES;
         [self.tableView beginUpdates];
         
@@ -224,8 +224,7 @@
         [self.tableView insertRowsAtIndexPaths:@[streetIndex, cityIndex, stateIndex, zipIndex] withRowAnimation:UITableViewRowAnimationTop];
         [self.tableView endUpdates];
         
-        
-    }else{
+    }else if(!sender.on && [self.tableView numberOfRowsInSection:0] == 8){
         self.hasAddress = NO;
         
         

@@ -469,6 +469,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
             urlParams = [NSString stringWithFormat:@"trending/%@?%@=%@", type, key, [params valueForKey:key]];
         }
     }
+    NSLog(@"URL: %@", urlParams);
     [httpClient getPath:urlParams parameters:nil success:success failure:failure];
 }
 
