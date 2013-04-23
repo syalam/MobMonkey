@@ -10,6 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "AFJSONRequestOperation.h"
 #import "MMMyInfo.h"
+#import "MMLocationInformation.h"
 
 typedef enum apiCall {
     kAPICallOpenRequests,
@@ -378,6 +379,12 @@ Fetches livestreaming URLs for a location
 + (void)getLocationInfo:(NSDictionary *)param
                 success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+//Newer Method
++(void)getLocationWithID:(NSString *)locationID
+              providerID:(NSString *)providerID
+                 success:(void(^)(AFHTTPRequestOperation *operation , MMLocationInformation *locationInformation))success
+                 failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 
 ///---------------------------------------------

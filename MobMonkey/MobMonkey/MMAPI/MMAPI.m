@@ -482,6 +482,49 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient getPath:urlString parameters:nil success:success failure:failure];
 }
 
++(void)getLocationWithID:(NSString *)locationID providerID:(NSString *)providerID success:(void (^)(AFHTTPRequestOperation *, MMLocationInformation *))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+    
+    NSDictionary *parameters = @{@"locationId":locationID,@"providerId":providerID};
+    
+    [[MMHTTPClient sharedClient] getPath:@"location" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+         MMLocationInformation *locationInformation = [[MMLocationInformation alloc] init];
+        
+        if([responseObject isKindOfClass:[NSDictionary class]]){
+            NSDictionary *json = responseObject;
+            
+            locationInformation.locationID = [json objectForKey:@"locationId"];
+            locationInformation.providerID = [json objectForKey:@"providerId"];
+            locationInformation.street = [json objectForKey:@"address"];
+            locationInformation.details = [json objectForKey:@"description"];
+            locationInformation.unitNumber = [json objectForKey:@"address_ext"];
+            locationInformation.categories = [json objectForKey:@"categoryIds"];
+            locationInformation.country = [json objectForKey:@"countryCode"];
+            locationInformation.latitude = [json objectForKey:@"latitude"]; //warn
+            locationInformation.longitude = [json objectForKey:@"longitude"];//warn
+            locationInformation.locality = [json objectForKey:@"locality"];
+            locationInformation.name = [json objectForKey:@"name"];
+            locationInformation.neighborhood = [json objectForKey:@"neighborhood"];
+            locationInformation.phoneNumber = [json objectForKey:@"phoneNumber"];
+            locationInformation.zipCode = [json objectForKey:@"postCode"];
+            locationInformation.region = [json objectForKey:@"region"];
+            locationInformation.state = [json objectForKey:@"region"];
+            locationInformation.website = [json objectForKey:@"webSite"];
+            
+            if(success){
+                success(operation, locationInformation);
+            }
+            
+        } 
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if(failure){
+            failure(operation, error);
+        }
+    }];
+    
+}
+
 /*#pragma mark - Helper Methods
 + (MMHTTPClient*)setupHTTPClient {
     

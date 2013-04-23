@@ -9,6 +9,20 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "MMCategoryViewController.h"
+#import "MMLocationInformation.h"
+
+typedef enum {
+    
+    LocationCellTypeName = 100,
+    LocationCellTypeCategories,
+    LocationCellTypeStreet,
+    LocationCellTypeCity,
+    LocationCellTypeState,
+    LocationCellTypeZip,
+    LocationCellTypePhoneNumber,
+    LocationCellTypeAddressBOOL
+    
+} LocationCellType;
 
 @protocol MMAddLocationDelegate <NSObject>
 
@@ -19,16 +33,8 @@
 
 @interface MMAddLocationViewController : UITableViewController <UITextFieldDelegate, MMCategoryDelegate>
 {
-    UITextField *nameTextField;
-    UITextField *categoryTextField;
-    NSDictionary *addressDictionary;
-    UITextField *streetTextField;
-    UITextField *cityTextField;
-    UITextField *stateTextField;
-    UITextField *zipTextField;
+    MMLocationInformation *locationInformation;
     
-    
-    UITextField *phoneNumberTextField;
     CLLocation *location;
     
     NSDictionary *categories;
@@ -44,7 +50,8 @@
 @property (strong, nonatomic) IBOutlet UITextField *phoneNumberTextField;
 @property (strong, nonatomic) NSDictionary *category;
 @property (nonatomic, assign) id<MMAddLocationDelegate>delegate;
-
+@property (nonatomic, assign) BOOL hasAddress;
+@property (nonatomic, strong) UISwitch * addressSwitch;
 
 -(id)initWithLocation:(CLLocationCoordinate2D)location;
 -(IBAction)addLocation:(id)sender;

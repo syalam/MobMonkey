@@ -125,6 +125,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    
     return section == 0 ? 3 : 1;
 }
 
@@ -535,6 +537,13 @@
         NSLog(@"%@", operation.responseString);
         [SVProgressHUD showErrorWithStatus:@"Unable to load location data"];
         [self.navigationController popViewControllerAnimated:YES];
+    }];
+    
+#warning this is where I'm leaving off
+    [MMAPI getLocationWithID:locationId providerID:providerId success:^(AFHTTPRequestOperation *operation, MMLocationInformation *locationInformation) {
+        NSLog(@"Success");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed: %@", error);
     }];
 }
 
