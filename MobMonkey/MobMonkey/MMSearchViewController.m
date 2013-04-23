@@ -480,8 +480,8 @@
         cellIconImage = [UIImage imageNamed:@"beachesIcon"];
     }
     //Currently the Web Service returns " Dog Parks" this should be "Dog Parks"
-    else if ([categoryName isEqualToString:@" Dog Parks"] || [categoryName isEqualToString:@"Dog Parks"]) {
-        cellIconImage = [UIImage imageNamed:@"dogParksIcon"];
+    else if ([categoryName isEqualToString:@"Parks"] || [categoryName isEqualToString:@" Parks"]) {
+        cellIconImage = [UIImage imageNamed:@"pineTree"];
     }
     else if ([categoryName isEqualToString:@"Restaurants"]) {
         cellIconImage = [UIImage imageNamed:@"restaurantsIcon"];

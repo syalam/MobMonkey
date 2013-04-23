@@ -171,6 +171,10 @@
 		B99B7D531725F19E000BF3AB /* MMLocationInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = B99B7D511725F19E000BF3AB /* MMLocationInformation.m */; };
 		B99B7D5B1727185A000BF3AB /* MMSocialNetworkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B99B7D5A1727185A000BF3AB /* MMSocialNetworkModel.m */; };
 		B99B7D5C1727185A000BF3AB /* MMSocialNetworkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B99B7D5A1727185A000BF3AB /* MMSocialNetworkModel.m */; };
+		B99B7D641727473C000BF3AB /* pineTree.png in Resources */ = {isa = PBXBuildFile; fileRef = B99B7D621727473C000BF3AB /* pineTree.png */; };
+		B99B7D651727473C000BF3AB /* pineTree.png in Resources */ = {isa = PBXBuildFile; fileRef = B99B7D621727473C000BF3AB /* pineTree.png */; };
+		B99B7D661727473C000BF3AB /* pineTree@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B99B7D631727473C000BF3AB /* pineTree@2x.png */; };
+		B99B7D671727473C000BF3AB /* pineTree@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B99B7D631727473C000BF3AB /* pineTree@2x.png */; };
 		B9A11718170A54FB0020C322 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53715F11C3E0090E85A /* UIKit.framework */; };
 		B9A11719170A54FB0020C322 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53915F11C3E0090E85A /* Foundation.framework */; };
 		B9A1171A170A54FB0020C322 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53B15F11C3E0090E85A /* CoreGraphics.framework */; };
@@ -1589,6 +1593,8 @@
 		B99B7D511725F19E000BF3AB /* MMLocationInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationInformation.m; sourceTree = "<group>"; };
 		B99B7D591727185A000BF3AB /* MMSocialNetworkModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSocialNetworkModel.h; sourceTree = "<group>"; };
 		B99B7D5A1727185A000BF3AB /* MMSocialNetworkModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSocialNetworkModel.m; sourceTree = "<group>"; };
+		B99B7D621727473C000BF3AB /* pineTree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pineTree.png; sourceTree = "<group>"; };
+		B99B7D631727473C000BF3AB /* pineTree@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pineTree@2x.png"; sourceTree = "<group>"; };
 		B9A11717170A54FB0020C322 /* MobMonkeyStaging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobMonkeyStaging.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9A1171D170A54FB0020C322 /* MobMonkeyStaging-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MobMonkeyStaging-Info.plist"; sourceTree = "<group>"; };
 		B9A1171F170A54FB0020C322 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -2327,6 +2333,8 @@
 		1A6784B316419BB400A45AC5 /* Search Icons */ = {
 			isa = PBXGroup;
 			children = (
+				B99B7D621727473C000BF3AB /* pineTree.png */,
+				B99B7D631727473C000BF3AB /* pineTree@2x.png */,
 				1A6784B416419BB400A45AC5 /* beachesIcon.png */,
 				1A6784B516419BB400A45AC5 /* beachesIcon@2x.png */,
 				1A6784B616419BB400A45AC5 /* cinemasIcon.png */,
@@ -4572,6 +4580,8 @@
 				B977AE8F1721E73300528A94 /* TermsOfService.html in Resources */,
 				B977AE9717220A0F00528A94 /* whiteCircleX.png in Resources */,
 				B977AE9917220A0F00528A94 /* whiteCircleX@2x.png in Resources */,
+				B99B7D651727473C000BF3AB /* pineTree.png in Resources */,
+				B99B7D671727473C000BF3AB /* pineTree@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5035,6 +5045,8 @@
 				B977AE8E1721E73300528A94 /* TermsOfService.html in Resources */,
 				B977AE9617220A0F00528A94 /* whiteCircleX.png in Resources */,
 				B977AE9817220A0F00528A94 /* whiteCircleX@2x.png in Resources */,
+				B99B7D641727473C000BF3AB /* pineTree.png in Resources */,
+				B99B7D661727473C000BF3AB /* pineTree@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
