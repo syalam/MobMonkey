@@ -282,7 +282,13 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", operation.responseString);
-        [SVProgressHUD showErrorWithStatus:[error description]];
+        if(operation.response.statusCode == 500){
+#warning Remove Debug message from status
+            [SVProgressHUD showErrorWithStatus:@"We're having techincal difficulties at this time. Please try again later. DEBUG: Server at Capacity Status:503 (from factual)"];
+        }else{
+            [SVProgressHUD showErrorWithStatus:[error description]];
+        }
+        
     }];
 
     
