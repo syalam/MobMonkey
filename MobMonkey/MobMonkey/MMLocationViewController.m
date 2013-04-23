@@ -540,11 +540,11 @@
     }];
     
 #warning this is where I'm leaving off
-    [MMAPI getLocationWithID:locationId providerID:providerId success:^(AFHTTPRequestOperation *operation, MMLocationInformation *locationInformation) {
+    /*[MMAPI getLocationWithID:locationId providerID:providerId success:^(AFHTTPRequestOperation *operation, MMLocationInformation *locationInformation) {
         NSLog(@"Success");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed: %@", error);
-    }];
+    }];*/
 }
 
 - (void)fetchLatestMediaForLocation {

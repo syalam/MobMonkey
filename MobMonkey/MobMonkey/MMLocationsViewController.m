@@ -52,7 +52,7 @@
     //Set up radius Toolbar
     
     radiusToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
-    [self.view addSubview:radiusToolbar];
+        
     radiusToolbar.tintColor = self.itemNormalTint;
     
     UILabel *radiusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 20)];
@@ -191,6 +191,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [radiusToolbar removeFromSuperview];
+    if([self.title isEqualToString:@"All Nearby"]){
+        [self.view addSubview:radiusToolbar];
+    }\
+
+    
     if (!_isHistory) {
         self.navigationItem.rightBarButtonItem = nil;
         self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:addLocationButton, globeButton, nil];
