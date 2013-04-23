@@ -139,8 +139,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     //No Rows if there is no location information
-    if(!self.locationInformation){
-        return 0;
+    if(!self.locationInformation && section == 0){
+        return 1;
     }
     
     NSUInteger rowCount = 0;
