@@ -101,6 +101,10 @@
     
     
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     if(self.locationID && self.providerID){

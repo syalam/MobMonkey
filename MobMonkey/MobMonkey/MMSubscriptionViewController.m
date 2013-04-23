@@ -59,6 +59,7 @@
 }
 
 - (IBAction) dismissButtonTapped:(id)sender {
+    [SVProgressHUD dismiss];
         [self.navigationController dismissModalViewControllerAnimated:YES];
 
 }
