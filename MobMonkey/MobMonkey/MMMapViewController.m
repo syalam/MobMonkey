@@ -22,6 +22,7 @@
 @implementation MMMapViewController
 @synthesize searchBar;
 @synthesize selectingLocation;
+@synthesize locationInformationCollection = _locationInformationCollection;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -49,6 +50,36 @@
             coordinate.latitude = [[[_contentList objectAtIndex:i]valueForKey:@"latitude"]floatValue];
             coordinate.longitude = [[[_contentList objectAtIndex:i]valueForKey:@"longitude"]floatValue];
             MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc]initWithName:[[_contentList objectAtIndex:i]valueForKey:@"name"]address:[[_contentList objectAtIndex:i]valueForKey:@"streetAddress"] coordinate:coordinate arrayIndex:i];
+            [_mapView addAnnotation:(id)annotation];
+        }
+        
+        MKMapRect zoomRect = MKMapRectNull;
+        for (id <MKAnnotation> annotation in _mapView.annotations)
+        {
+            MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+            MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
+            if (MKMapRectIsNull(zoomRect)) {
+                zoomRect = pointRect;
+            } else {
+                zoomRect = MKMapRectUnion(zoomRect, pointRect);
+            }
+        }
+        [_mapView setVisibleMapRect:zoomRect animated:YES];
+    } else if(self.locationInformationCollection) {
+        for (MMLocationInformation *locationInformation in self.locationInformationCollection) {
+            
+            NSUInteger index = [self.locationInformationCollection indexOfObject:locationInformation];
+            
+            CLLocationCoordinate2D coordinate;
+            
+            coordinate.latitude = locationInformation.latitude.floatValue;
+            coordinate.longitude = locationInformation.longitude.floatValue;
+            
+            MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc]initWithName:locationInformation.name
+                                                                                 address:locationInformation.formattedAddressString
+                                                                              coordinate:coordinate
+                                                                              arrayIndex:index];
+            
             [_mapView addAnnotation:(id)annotation];
         }
         

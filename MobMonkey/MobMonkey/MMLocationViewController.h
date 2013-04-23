@@ -14,7 +14,15 @@
 #import "MMAPI.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <Twitter/Twitter.h>
+#import "MMLocationInformation.h"
 
+@interface MMlocationDetailCellData : NSObject
+
+@property (nonatomic, strong) NSString *text;
+@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, assign) LocationCellType cellType;
+
+@end
 
 @interface MMLocationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MMNotificationSettingsDelegate, MMAPIDelegate, UIGestureRecognizerDelegate, NSURLConnectionDelegate> {
     NSArray *mediaArray;
@@ -74,6 +82,7 @@
 
 @property (nonatomic, strong) NSString *locationID;
 @property (nonatomic, strong) NSString *providerID;
+@property (nonatomic, strong) MMLocationInformation *locationInformation;
 
 
 @property (nonatomic) int rowIndex;

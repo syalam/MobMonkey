@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "MMAddLocationViewController.h"
-
+#import "MMLocationInformation.h"
 @interface MMMapViewController : UIViewController <UIActionSheetDelegate, UIPickerViewDataSource, UIPickerViewDelegate, MKMapViewDelegate, UISearchBarDelegate, MMAddLocationDelegate> {
     __weak IBOutlet UIButton *radiusButton;
     __weak IBOutlet UIButton *addLocationButton;
@@ -35,6 +35,7 @@
 - (IBAction)addLocationButtonClicked:(id)sender;
 
 @property (nonatomic, retain)NSArray *contentList;
+@property (nonatomic, strong) NSArray *locationInformationCollection;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, retain) NSString* address;

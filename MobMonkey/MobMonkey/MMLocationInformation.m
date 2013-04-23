@@ -37,5 +37,33 @@
         }
     }];
 }
+-(NSString *)formattedAddressString {
+    
+    NSMutableString * formattedString = [NSMutableString string];
+    
+    if(self.street && self.street != (id)[NSNull null]){
+        [formattedString appendFormat:@"%@ ",self.street];
+        
+        if(self.unitNumber && self.unitNumber != (id)[NSNull null]){
+            [formattedString appendString:self.unitNumber];
+        }
+        
+        [formattedString appendString:@"\n"];
+    }
+    
+    if(self.locality && self.locality != (id)[NSNull null]){
+        [formattedString appendFormat:@"%@, ", self.locality];
+    }
+    
+    if(self.region && self.region != (id)[NSNull null]) {
+        [formattedString appendString:self.region];
+    }
+    
+    if(self.zipCode && self.zipCode != (id)[NSNull null]){
+        [formattedString appendString:self.zipCode];
+    }
+    
+    return formattedString.length > 0 ? formattedString : nil;
+}
 
 @end

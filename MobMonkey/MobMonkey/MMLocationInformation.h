@@ -9,6 +9,20 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
+typedef enum {
+    
+    LocationCellTypeName = 100,
+    LocationCellTypeCategories,
+    LocationCellTypeStreet,
+    LocationCellTypeCity,
+    LocationCellTypeState,
+    LocationCellTypeZip,
+    LocationCellTypePhoneNumber,
+    LocationCellTypeAddressBOOL,
+    LocationCellTypeNotification
+    
+} LocationCellType;
+
 @interface MMLocationInformation : NSObject
 
 @property (nonatomic, strong) NSString *name;
@@ -29,7 +43,9 @@
 @property (nonatomic, strong) NSString *details;
 @property (nonatomic, strong) NSString *unitNumber;
 @property (nonatomic, strong) NSString *neighborhood;
+@property (nonatomic, assign) BOOL isBookmark;
 
 -(void)geocodeLocationWithCompletionHandler:(void(^)(NSArray * placemarks, NSError * error))completion;
+-(NSString *)formattedAddressString;
 
 @end

@@ -510,6 +510,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
             locationInformation.region = [json objectForKey:@"region"];
             locationInformation.state = [json objectForKey:@"region"];
             locationInformation.website = [json objectForKey:@"webSite"];
+            locationInformation.isBookmark = ((NSNumber*)[json objectForKey:@"bookmark"]).boolValue;
             
             if(success){
                 success(operation, locationInformation);

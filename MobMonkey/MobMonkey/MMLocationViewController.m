@@ -20,12 +20,22 @@
 #import "MMLocationAnnotation.h"
 #import "GetRelativeTime.h"
 #import "UIActionSheet+Blocks.h"
-@interface MMLocationViewController ()
+
+@implementation MMlocationDetailCellData
 
 
 @end
 
+
+@interface MMLocationViewController ()
+
+@property (nonatomic, strong) NSArray *locationCellData;
+
+@end
+
 @implementation MMLocationViewController
+@synthesize locationInformation = _locationInformation;
+@synthesize locationCellData = _locationCellData;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -86,6 +96,9 @@
     
     [_locationLatestImageView addGestureRecognizer:expandImageGesture];
     
+    self.tableView.backgroundView = nil;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    
     
 }
 -(void)viewDidAppear:(BOOL)animated{
@@ -119,17 +132,68 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    tableView.backgroundView = nil;
-    tableView.backgroundColor = [UIColor clearColor];
+    
     return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    //No Rows if there is no location information
+    if(!self.locationInformation){
+        return 0;
+    }
     
-    return section == 0 ? 3 : 1;
+    NSUInteger rowCount = 0;
+    if(section == 0){
+        rowCount = self.locationCellData.count;
+    }else if(section == 1){
+        
+        // Row for "Add to Favorites
+        rowCount  = 1; 
+    }
+    
+    return rowCount;
+    
 }
-
+-(void)loadCellData{
+    NSMutableArray *cellData = [NSMutableArray array];
+    
+    if(_locationInformation.phoneNumber && _locationInformation.phoneNumber !=(id)[NSNull null]){
+        MMlocationDetailCellData *phoneData = [[MMlocationDetailCellData alloc] init];
+        phoneData.text = _locationInformation.phoneNumber;
+        phoneData.cellType = LocationCellTypePhoneNumber;
+        phoneData.image = [UIImage imageNamed:@"telephone"];
+        [cellData addObject:phoneData];
+    }
+    
+    NSString *addressString = [_locationInformation formattedAddressString];
+    if(addressString){
+        MMlocationDetailCellData *addressData = [[MMlocationDetailCellData alloc] init];
+        addressData.text = addressString;
+        addressData.cellType = LocationCellTypeAddressBOOL;
+        addressData.image = [UIImage imageNamed:@"mapPin"];
+        [cellData addObject:addressData];
+        
+    }
+    
+    MMlocationDetailCellData *notifcationsData = [[MMlocationDetailCellData alloc] init];
+    notifcationsData.text = @"Add Notifications";
+    notifcationsData.image = [UIImage imageNamed:@"alarmClock"];
+    notifcationsData.cellType = LocationCellTypeNotification;
+    [cellData addObject:notifcationsData];
+    
+    self.locationCellData = cellData;
+}
+-(void)setLocationInformation:(MMLocationInformation *)locationInformation{
+    
+    _locationInformation = locationInformation;
+    
+    [self loadCellData];
+    
+    
+    [self.tableView reloadData];
+    
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -139,16 +203,32 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.font = [UIFont systemFontOfSize:17.0];
     }
-    
-    if (indexPath.section == 1) {
+    if(indexPath.section == 0){
+        
+        MMlocationDetailCellData *cellData = [self.locationCellData objectAtIndex:indexPath.row];
+        cell.imageView.image = cellData.image;
+        cell.textLabel.text = cellData.text;
+        
+        if(cellData.cellType == LocationCellTypeAddressBOOL){
+            cell.textLabel.numberOfLines = 2;
+            cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }else if(cellData.cellType == LocationCellTypeNotification){
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+    }
+    else if (indexPath.section == 1) {
         cell.textLabel.text = @"Add to Favorites";
-        if ([[_contentList valueForKey:@"bookmark"] boolValue]) {
+        if (_locationInformation.isBookmark) {
             cell.textLabel.text = @"Remove from Favorites";
         }
         cell.imageView.image = [UIImage imageNamed:@"favorite"];
         return cell;
     }
-    switch (indexPath.row) {
+    
+    
+    
+    /*switch (indexPath.row) {
         case 0:
             cell.textLabel.text = [[PhoneNumberFormatter alloc] stringForObjectValue:[_contentList valueForKey:@"phoneNumber"]];
             cell.imageView.image = [UIImage imageNamed:@"telephone"];
@@ -172,7 +252,7 @@
             break;
         default:
             break;
-    }
+    }*/
     return cell;
 }
 
@@ -182,79 +262,87 @@
         [self bookmarkButtonTapped:nil];
         return;
     }
-    switch (indexPath.row) {
-        case 0: {
-            
-            NSString *telNumber = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
-            NSString *telURI;
-            if(telNumber.length > 0){
-                telURI = [@"tel:" stringByAppendingString:telNumber];
-                telURI = [telURI stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            }else{
-                //Break switch, if there is no number.
+    if(indexPath.section == 0){
+        
+        MMlocationDetailCellData *cellData = [self.locationCellData objectAtIndex:indexPath.row];
+        
+        switch (cellData.cellType) {
+            case LocationCellTypePhoneNumber: {
+                
+                NSString *telNumber = cellData.text;
+                NSString *telURI;
+                if(telNumber.length > 0){
+                    telURI = [@"tel:" stringByAppendingString:telNumber];
+                    telURI = [telURI stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                }else{
+                    //Break switch, if there is no number.
+                    break;
+                }
+                
+                //Create the ActionView Buttons (using +Blocks category)
+                RIButtonItem *copyButton = [RIButtonItem itemWithLabel:@"Copy"];
+                RIButtonItem *callButton = [RIButtonItem itemWithLabel:[NSString stringWithFormat:@"Call: %@", telNumber]];
+                RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:@"Cancel"];
+                
+                /*****
+                 Set Action blocks for buttons
+                 *****/
+                //Copy text to pasteboard
+                [copyButton setAction:^{
+                    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                    pasteboard.string = telNumber;
+                }];
+                
+                //Call number
+                [callButton setAction:^{
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telURI]];
+                }];
+                
+                
+                UIActionSheet *copyCallActionsheet;
+                
+                //Only show call if phone has the capability
+                if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:telURI]]){
+                    copyCallActionsheet = [[UIActionSheet alloc] initWithTitle:@"Options" cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:callButton, copyButton, nil];
+                }else{
+                    copyCallActionsheet = [[UIActionSheet alloc] initWithTitle:@"Options" cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:copyButton, nil];
+                }
+                
+                //Show the action sheet
+                [copyCallActionsheet showFromTabBar:self.tabBarController.tabBar];
                 break;
             }
-            
-            //Create the ActionView Buttons (using +Blocks category)
-            RIButtonItem *copyButton = [RIButtonItem itemWithLabel:@"Copy"];
-            RIButtonItem *callButton = [RIButtonItem itemWithLabel:[NSString stringWithFormat:@"Call: %@", telNumber]];
-            RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:@"Cancel"];
-            
-            /*****
-             Set Action blocks for buttons
-            *****/
-            //Copy text to pasteboard
-            [copyButton setAction:^{
-                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-                pasteboard.string = telNumber;
-            }];
-            
-            //Call number
-            [callButton setAction:^{
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telURI]];
-            }];
-
-            
-            UIActionSheet *copyCallActionsheet;
-            
-            //Only show call if phone has the capability
-            if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:telURI]]){
-                copyCallActionsheet = [[UIActionSheet alloc] initWithTitle:@"Options" cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:callButton, copyButton, nil];
-            }else{
-                copyCallActionsheet = [[UIActionSheet alloc] initWithTitle:@"Options" cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:copyButton, nil];
+            case LocationCellTypeAddressBOOL: {
+                MMMapViewController *mapViewController = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
+                mapViewController.title = [_contentList valueForKey:@"name"];
+                //mapViewController.contentList = [NSArray arrayWithObject:_contentList];
+                mapViewController.locationInformationCollection = @[self.locationInformation];
+                [self.navigationController pushViewController:mapViewController animated:YES];
+                break;
             }
-            
-            //Show the action sheet
-            [copyCallActionsheet showFromTabBar:self.tabBarController.tabBar];
-            
-            break;
+            case LocationCellTypeNotification: {
+                [self notificationSettingsButtonTapped:nil];
+                break;
+            }
+                
+            default:
+                break;
         }
-            
-        case 1: {
-            MMMapViewController *mapViewController = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
-            mapViewController.title = [_contentList valueForKey:@"name"];
-            mapViewController.contentList = [NSArray arrayWithObject:_contentList];
-            [self.navigationController pushViewController:mapViewController animated:YES];
-            break;
-        }
-        case 2: {
-            [self notificationSettingsButtonTapped:nil];
-            break;
-        }
-        default:
-            break;
     }
-   
+    
 }
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    switch (indexPath.row) {
-        case 1:
-            return 88;
-            break;
-        default:
-            return 44;
-            break;
+    
+    if(indexPath.section == 0){
+        MMlocationDetailCellData *cellData = [self.locationCellData objectAtIndex:indexPath.row];
+
+        if(cellData.cellType == LocationCellTypeAddressBOOL){
+            return 65;
+        }
+        
     }
+        
+    return 44;
 }
 
 #pragma mark - IBAction Methods
@@ -389,25 +477,20 @@
 }
 
 - (IBAction)bookmarkButtonTapped:(id)sender {
-    _contentList = [_contentList mutableCopy];
-    if ([[_contentList valueForKey:@"bookmark"] boolValue]) {
-        [_contentList setValue:[NSNumber numberWithBool:NO] forKey:@"bookmark"];
+    if (self.locationInformation.isBookmark) {
+        self.locationInformation.isBookmark = NO;
         [self.tableView reloadData];
-        [MMAPI deleteBookmarkWithLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MMAPI deleteBookmarkWithLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID  success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"Removed bookmark");
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"%@", operation.responseString);
         }];
-        /*[MMAPI deleteBookmarkWithLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(id responseObject) {
-            NSLog(@"Removed bookmark");
-        } failure:^(NSError *error) {
-            NSLog(@"Could not remove! %@", [error description]);
-        }];*/
+
         return;
     }
-    [_contentList setValue:[NSNumber numberWithBool:YES] forKey:@"bookmark"];
+    self.locationInformation.isBookmark = YES;
     [self.tableView reloadData];
-    [MMAPI createBookmarkWithLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MMAPI createBookmarkWithLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Added Bookmark!");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Could not add Bookmark!");
@@ -527,8 +610,8 @@
                             locationId, @"locationId",
                             providerId, @"providerId", nil];
     [SVProgressHUD showWithStatus:@"Loading location information"];
-    [MMAPI getLocationInfo:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [SVProgressHUD dismiss];
+    /*[MMAPI getLocationInfo:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
         [self setContentList:responseObject];
         [self setLocationDetailItems];
         [self fetchLatestMediaForLocation];
@@ -537,14 +620,16 @@
         NSLog(@"%@", operation.responseString);
         [SVProgressHUD showErrorWithStatus:@"Unable to load location data"];
         [self.navigationController popViewControllerAnimated:YES];
-    }];
-    
-#warning this is where I'm leaving off
-    /*[MMAPI getLocationWithID:locationId providerID:providerId success:^(AFHTTPRequestOperation *operation, MMLocationInformation *locationInformation) {
-        NSLog(@"Success");
+    }];*/
+    [MMAPI getLocationWithID:locationId providerID:providerId success:^(AFHTTPRequestOperation *operation, MMLocationInformation *locationInformation) {
+        
+        [SVProgressHUD dismiss];
+        self.locationInformation = locationInformation;
+        [self.tableView reloadData];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed: %@", error);
-    }];*/
+    }];
 }
 
 - (void)fetchLatestMediaForLocation {

@@ -11,18 +11,7 @@
 #import "MMCategoryViewController.h"
 #import "MMLocationInformation.h"
 
-typedef enum {
-    
-    LocationCellTypeName = 100,
-    LocationCellTypeCategories,
-    LocationCellTypeStreet,
-    LocationCellTypeCity,
-    LocationCellTypeState,
-    LocationCellTypeZip,
-    LocationCellTypePhoneNumber,
-    LocationCellTypeAddressBOOL
-    
-} LocationCellType;
+
 
 @protocol MMAddLocationDelegate <NSObject>
 
