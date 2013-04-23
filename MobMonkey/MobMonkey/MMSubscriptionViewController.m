@@ -82,7 +82,7 @@
             [SVProgressHUD showSuccessWithStatus:@"You are subscribed!"];
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"mmSubscribed"];
             [[NSUserDefaults standardUserDefaults] synchronize];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self dismissViewControllerAnimated:YES completion:nil];
             
         } failure:^(NSError *error) {
             [SVProgressHUD showErrorWithStatus:@"Failed to subscribe"];
