@@ -192,10 +192,15 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [overlayImageView setHidden:YES];
+    [mapView setScrollEnabled:YES];
+    [mapView setZoomEnabled:YES];
+    [mapView removeGestureRecognizer:tapGestureRecognizer];
+    
     [radiusToolbar removeFromSuperview];
     if([self.title isEqualToString:@"All Nearby"]){
         [self.view addSubview:radiusToolbar];
-    }\
+    }
 
     
     if (!_isHistory) {
@@ -222,6 +227,8 @@
     if (![[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
         [[MMClientSDK sharedSDK]signInScreen:self];
     }
+    
+    
 
     [self.tableView reloadData];
 }
