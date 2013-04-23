@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMAPI.h"
 
-@protocol MMSocialNetworksCellDelegate
+@class MMSocialNetworksCell;
 
-- (void)mmSocialNetworksSwitchTapped:(id)sender;
+@protocol MMSocialNetworksCellDelegate <NSObject>
+
+-(void)mmSocialNetworksSwitchTapped:(id)sender;
+-(void)socialNetworkCell:(MMSocialNetworksCell *)cell switchChanges:(UISwitch*)sender;
 
 @end
 
@@ -19,5 +23,6 @@
 @property (nonatomic, retain) UISwitch *mmSocialNetworkSwitch;
 @property (nonatomic, retain) UILabel *mmSocialNetworkTextLabel;
 @property (nonatomic, retain) id<MMSocialNetworksCellDelegate> delegate;
+@property (nonatomic, assign) OAuthProvider cellType;
 
 @end

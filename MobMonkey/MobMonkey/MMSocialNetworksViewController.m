@@ -7,12 +7,15 @@
 //
 
 #import "MMSocialNetworksViewController.h"
+#import "MMSocialNetworkModel.h"
 
 @interface MMSocialNetworksViewController ()
-
+@property (nonatomic, assign) OAuthProvider loginProvider;
 @end
 
 @implementation MMSocialNetworksViewController
+
+@synthesize loginProvider = _loginProvider;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,11 +45,24 @@
 
 
 }
-
+-(void)setSwitchValues{
+    NSString *loginNetwork = [[NSUserDefaults standardUserDefaults] objectForKey:@"oauthProvider"];
+    
+    if([loginNetwork isEqualToString:@"twitter"]){
+        self.loginProvider = OAuthProviderTwitter;
+    }else if([loginNetwork isEqualToString:@"facebook"]){
+        self.loginProvider = OAuthProviderFacebook;
+    }else{
+        self.loginProvider = OAuthProviderNone;
+    }
+    [self.tableView reloadData];
+}
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [SVProgressHUD dismiss];
+    [self setSwitchValues];
+    
+    //[SVProgressHUD dismiss];
 }
 
 - (void)viewDidUnload
@@ -80,30 +96,69 @@
     id contentForThisRow = [sectionContent objectAtIndex:indexPath.row];
     
     static NSString *CellIdentifier = @"Cell";
-    MMSocialNetworksCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UISwitch *connectedSwitch;
     if (!cell) {
-        cell = [[MMSocialNetworksCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.delegate = self;
+        
+         connectedSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+        
+        [connectedSwitch addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
+        
+        cell.accessoryView = connectedSwitch;
+        
+    }else{
+        connectedSwitch = (UISwitch*)cell.accessoryView;
     }
-    cell.mmSocialNetworkTextLabel.text = contentForThisRow;
-    cell.mmSocialNetworkSwitch.tag = indexPath.row;
+    cell.accessoryView.tag = indexPath.row;
+    
+    cell.textLabel.text = contentForThisRow;
     switch (indexPath.row) {
         case 0:
+            
+            if(self.loginProvider == OAuthProviderFacebook){
+                connectedSwitch.enabled = NO;
+                cell.textLabel.textColor = [UIColor grayColor];
+                cell.detailTextLabel.text = @"Needed for Authentication";
+            }else{
+                connectedSwitch.enabled = YES;
+                cell.textLabel.textColor = [UIColor blackColor];
+                cell.detailTextLabel.text = nil;
+            }
+            
             if ([[NSUserDefaults standardUserDefaults]boolForKey:@"facebookEnabled"]) {
-                cell.mmSocialNetworkSwitch.on = YES;
+                connectedSwitch.on = YES;
             }
             else {
-                cell.mmSocialNetworkSwitch.on = NO;
+               connectedSwitch.on = NO;
             }
+            
+           
+            
             break;
         case 1:
+            
+            if(self.loginProvider == OAuthProviderTwitter){
+                connectedSwitch.enabled = NO;
+                cell.textLabel.textColor = [UIColor grayColor];
+                cell.detailTextLabel.text = @"Needed for Authentication";
+            }else{
+                connectedSwitch.enabled = YES;
+                cell.textLabel.textColor = [UIColor blackColor];
+                cell.detailTextLabel.text = nil;
+            }
+        
+            
             if ([[NSUserDefaults standardUserDefaults]boolForKey:@"twitterEnabled"]) {
-                cell.mmSocialNetworkSwitch.on = YES;
+                connectedSwitch.on = YES;
             }
             else {
-                cell.mmSocialNetworkSwitch.on = NO;
+                connectedSwitch.on = NO;
             }
+            
+            
+
             break;
         default:
             break;
@@ -113,7 +168,87 @@
     
     return cell;
 }
+-(void)switchValueChanged:(UISwitch *)aSwitch{
+    
+    if(aSwitch.tag == 0){
+        NSLog(@"Switch One");
+        if([aSwitch isOn]){
+            NSLog(@"ON");
+            [SVProgressHUD showWithStatus:@"Authenticating"];
+            [MMSocialNetworkModel authenticateFacebookWithSuccess:^{
+                
+                [SVProgressHUD showSuccessWithStatus:@"Authenticated Successfully"];
+                
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"facebookEnabled"];
+                
+                [[NSUserDefaults standardUserDefaults]synchronize];
+                
+                [self.tableView reloadData];
+                
+                return;
+            } failure:^(NSError *error) {
+                
+                [SVProgressHUD showErrorWithStatus:@"Failed Authentication"];
+                
+                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"facebookEnabled"];
+                
+                [[NSUserDefaults standardUserDefaults]synchronize];
+                
+                [self.tableView reloadData];
+                
+                return ;
+            }];
+        }else{
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"facebookEnabled"];
+            
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            
+            [SVProgressHUD showSuccessWithStatus:@"Disconnected"];
+            
+            [self.tableView reloadData];
 
+        }
+        
+    }else if(aSwitch.tag == 1){
+        if([aSwitch isOn]){
+            NSLog(@"ON");
+            [SVProgressHUD showWithStatus:@"Authenticating"];
+            [MMSocialNetworkModel authenticateTwitterWithSuccess:^{
+                
+                [SVProgressHUD showSuccessWithStatus:@"Authenticated Successfully"];
+                
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"twitterEnabled"];
+                
+                [[NSUserDefaults standardUserDefaults]synchronize];
+                
+                [self.tableView reloadData];
+                
+                return;
+            } failure:^(NSError *error) {
+                
+                [SVProgressHUD showErrorWithStatus:@"Failed Authentication"];
+                
+                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"twitterEnabled"];
+                
+                [[NSUserDefaults standardUserDefaults]synchronize];
+                
+                [self.tableView reloadData];
+                
+                return ;
+            }];
+        }else{
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"twitterEnabled"];
+            
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            
+            [SVProgressHUD showSuccessWithStatus:@"Disconnected"];
+            
+            [self.tableView reloadData];
+
+        }
+    }
+    
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -165,33 +300,76 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 }
-
-#pragma mark - MMSocialNetworksCell delegate
-- (void)mmSocialNetworksSwitchTapped:(id)sender {
-    UISwitch *toggleSwitch = sender;
-    switch ([sender tag]) {
-        case 0:
-            if (toggleSwitch.on) {
+/*-(void)socialNetworkCell:(MMSocialNetworksCell *)cell switchChanges:(UISwitch *)sender {
+    
+    
+    MMSocialNetworkModel *socialNetworkModel = [MMSocialNetworkModel authentication];
+    
+    switch (cell.cellType) {
+        case OAuthProviderFacebook:
+            if (sender.on) {
+                [SVProgressHUD showWithStatus:@"Authenticating"];
+                [socialNetworkModel authenticateFacebookWithSuccess:^{
+                    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"facebookEnabled"];
+                    [SVProgressHUD showSuccessWithStatus:@"Authenticated Successfully"];
+                    [[NSUserDefaults standardUserDefaults]synchronize];
+                    [self.tableView reloadData];
+                    return;
+                } failure:^(NSError *error) {
+                    NSLog(@"Error: %@", error);
+                    sender.on = NO;
+                    [SVProgressHUD showErrorWithStatus:@"Failed Authentication"];
+                    [[NSUserDefaults standardUserDefaults]synchronize];
+                    [self.tableView reloadData];
+                    return;
+                }];
                 
-                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"facebookEnabled"];
             }
             else {
+                [SVProgressHUD showWithStatus:@"Disconnecting"];
                 [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"facebookEnabled"];
+                [SVProgressHUD showSuccessWithStatus:@"Disconnected"];
             }
             break;
-        case 1:
-            if (toggleSwitch.on) {
-                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"twitterEnabled"];
+        case OAuthProviderTwitter:
+            if (sender.on) {
+                [SVProgressHUD showWithStatus:@"Authenticating"];
+                [socialNetworkModel authenticateTwitterWithSuccess:^{
+                    
+                    [SVProgressHUD showSuccessWithStatus:@"Authenticated Successfully"];
+                    
+                    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"twitterEnabled"];
+                    
+                    [[NSUserDefaults standardUserDefaults]synchronize];
+
+                    [self.tableView reloadData];
+                    
+                    return;
+                } failure:^(NSError *error) {
+                    
+                    [SVProgressHUD showErrorWithStatus:@"Failed Authentication"];
+                    
+                    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"twitterEnabled"];
+                    
+                    [[NSUserDefaults standardUserDefaults]synchronize];
+                    
+                    [self.tableView reloadData];
+                    
+                    return ;
+                }];
             }
             else {
+                [SVProgressHUD showWithStatus:@"Disconnecting"];
                 [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"twitterEnabled"];
+                [SVProgressHUD showSuccessWithStatus:@"Disconnected"];
+
             }
             break;
         default:
             break;
     }
-    [[NSUserDefaults standardUserDefaults]synchronize];
-}
+    
+}*/
 
 #pragma mark - UINavBar Action Methods
 

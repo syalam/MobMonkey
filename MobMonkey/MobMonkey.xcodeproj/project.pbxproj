@@ -169,6 +169,8 @@
 		B977AE9917220A0F00528A94 /* whiteCircleX@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B977AE9517220A0F00528A94 /* whiteCircleX@2x.png */; };
 		B99B7D521725F19E000BF3AB /* MMLocationInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = B99B7D511725F19E000BF3AB /* MMLocationInformation.m */; };
 		B99B7D531725F19E000BF3AB /* MMLocationInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = B99B7D511725F19E000BF3AB /* MMLocationInformation.m */; };
+		B99B7D5B1727185A000BF3AB /* MMSocialNetworkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B99B7D5A1727185A000BF3AB /* MMSocialNetworkModel.m */; };
+		B99B7D5C1727185A000BF3AB /* MMSocialNetworkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B99B7D5A1727185A000BF3AB /* MMSocialNetworkModel.m */; };
 		B9A11718170A54FB0020C322 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53715F11C3E0090E85A /* UIKit.framework */; };
 		B9A11719170A54FB0020C322 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53915F11C3E0090E85A /* Foundation.framework */; };
 		B9A1171A170A54FB0020C322 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53B15F11C3E0090E85A /* CoreGraphics.framework */; };
@@ -1585,6 +1587,8 @@
 		B977AE9517220A0F00528A94 /* whiteCircleX@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "whiteCircleX@2x.png"; path = "Resources/Images/whiteCircleX@2x.png"; sourceTree = "<group>"; };
 		B99B7D501725F19E000BF3AB /* MMLocationInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationInformation.h; sourceTree = "<group>"; };
 		B99B7D511725F19E000BF3AB /* MMLocationInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationInformation.m; sourceTree = "<group>"; };
+		B99B7D591727185A000BF3AB /* MMSocialNetworkModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSocialNetworkModel.h; sourceTree = "<group>"; };
+		B99B7D5A1727185A000BF3AB /* MMSocialNetworkModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSocialNetworkModel.m; sourceTree = "<group>"; };
 		B9A11717170A54FB0020C322 /* MobMonkeyStaging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobMonkeyStaging.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9A1171D170A54FB0020C322 /* MobMonkeyStaging-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MobMonkeyStaging-Info.plist"; sourceTree = "<group>"; };
 		B9A1171F170A54FB0020C322 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -2546,6 +2550,15 @@
 			path = TestFlightSDK1;
 			sourceTree = "<group>";
 		};
+		B99B7D5817271843000BF3AB /* Social Network Model */ = {
+			isa = PBXGroup;
+			children = (
+				B99B7D591727185A000BF3AB /* MMSocialNetworkModel.h */,
+				B99B7D5A1727185A000BF3AB /* MMSocialNetworkModel.m */,
+			);
+			name = "Social Network Model";
+			sourceTree = "<group>";
+		};
 		B9A1171B170A54FB0020C322 /* MobMonkeyStaging */ = {
 			isa = PBXGroup;
 			children = (
@@ -2914,6 +2927,7 @@
 		F734A53D15F11C3E0090E85A /* MobMonkey */ = {
 			isa = PBXGroup;
 			children = (
+				B99B7D5817271843000BF3AB /* Social Network Model */,
 				1A458C5A16A8797300118699 /* Default-568h@2x.png */,
 				1A458C5B16A8797300118699 /* Default.png */,
 				1A458C5C16A8797300118699 /* Default@2x.png */,
@@ -5198,6 +5212,7 @@
 				B9F9EC7D1721AB84006A78F3 /* MMMyInfo.m in Sources */,
 				B977AE931721F31D00528A94 /* MMLocationSearch.m in Sources */,
 				B99B7D531725F19E000BF3AB /* MMLocationInformation.m in Sources */,
+				B99B7D5C1727185A000BF3AB /* MMSocialNetworkModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5321,6 +5336,7 @@
 				B9BE4A5E17134AEF0016B916 /* MMMyInfo.m in Sources */,
 				B977AE921721F31D00528A94 /* MMLocationSearch.m in Sources */,
 				B99B7D521725F19E000BF3AB /* MMLocationInformation.m in Sources */,
+				B99B7D5B1727185A000BF3AB /* MMSocialNetworkModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

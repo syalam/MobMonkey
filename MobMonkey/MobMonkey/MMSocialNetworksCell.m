@@ -10,20 +10,22 @@
 
 @implementation MMSocialNetworksCell
 
+@synthesize cellType;
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
         _mmSocialNetworkTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 9, 190, 25)];
-        _mmSocialNetworkSwitch = [[UISwitch alloc]initWithFrame:CGRectMake(210, 9, 30, 30)];
-        [_mmSocialNetworkSwitch addTarget:self action:@selector(mmSocialNetworksSwitchTapped:) forControlEvents:UIControlEventTouchUpInside];
+        _mmSocialNetworkSwitch = [[UISwitch alloc]initWithFrame:CGRectZero];
+        [_mmSocialNetworkSwitch addTarget:self action:@selector(mmSocialNetworksSwitchTapped:) forControlEvents:UIControlEventValueChanged];
         
         [_mmSocialNetworkTextLabel setBackgroundColor:[UIColor clearColor]];
         [_mmSocialNetworkTextLabel setFont:[UIFont boldSystemFontOfSize:17]];
         
         [self.contentView addSubview:_mmSocialNetworkTextLabel];
-        [self.contentView addSubview:_mmSocialNetworkSwitch];
+        self.accessoryView = _mmSocialNetworkSwitch;
     }
     return self;
 }
@@ -36,8 +38,15 @@
 }
 
 #pragma mark - Action Methods
-- (void)mmSocialNetworksSwitchTapped:(id)sender {
-    [_delegate mmSocialNetworksSwitchTapped:sender];
+- (void)mmSocialNetworksSwitchTapped:(UISwitch*)sender {
+    if([self.delegate respondsToSelector:@selector(mmSocialNetworksSwitchTapped:)]){
+        [_delegate mmSocialNetworksSwitchTapped:sender];
+
+    }
+        
+    if([self.delegate respondsToSelector:@selector(socialNetworkCell:switchChanges:)]){
+        [self.delegate socialNetworkCell:self switchChanges:sender];
+    }
 }
 
 @end
