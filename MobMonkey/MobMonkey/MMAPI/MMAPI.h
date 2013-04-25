@@ -169,6 +169,12 @@ typedef enum OAuthProvider {
                     success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+//NEW MTHOD -- NO Dictionaries
+
++ (void) registerTwitterWithOauth:(MMOAuth*)oauth userInfo:(MMMyInfo *)userInfo
+                          success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 ///---------------------------------------------
 /// @name Sign's a user in with Twitter
 ///---------------------------------------------
@@ -314,6 +320,11 @@ typedef enum OAuthProvider {
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+//NEW METHOD
++ (void)searchForLocations:(NSMutableDictionary*)params mediaType:(NSString*)mediaType
+                  success:(void (^)(AFHTTPRequestOperation *operation, NSArray *locationInformations))success
+                  failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 
 @property (nonatomic, assign)id<MMAPIDelegate> delegate;
 
@@ -336,6 +347,12 @@ Fetches livestreaming URLs for a location
  Fetches Bookmarks
  */
 + (void)getBookmarksOnSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+
+//NEW METHOD
+
++ (void)getBookmarkLocationInformationOnSuccess:(void (^)(AFHTTPRequestOperation *operation, NSArray *locationInformations ))success
                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 ///---------------------------------------------
@@ -429,5 +446,8 @@ Fetches livestreaming URLs for a location
  */
 +(void)subscribeUserEmail:(NSString *)userEmail partnerId:(NSString *)partnerId success:(void(^)(void))success failure:(void(^)(NSError * error))failure;
 
+
++(MMLocationInformation *)locationInformationForLocationDictionary:(NSDictionary *)locationDictionary;
++(NSDictionary *)locationDictionaryForLocationInformation:(MMLocationInformation *)locationInformation;
 
 @end

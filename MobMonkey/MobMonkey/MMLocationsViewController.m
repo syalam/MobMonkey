@@ -153,8 +153,8 @@
         UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
         self.navigationItem.leftBarButtonItem = backButton;
     }
-    if (!self.locations) {
-        self.locations = [NSMutableArray array];
+    if (!self.locationsInformationCollection) {
+        self.locationsInformationCollection = [NSMutableArray array];
     }
     
     mapFilterViewController = [[MMMapFilterViewController alloc] initWithMapView:mapView];
@@ -210,7 +210,7 @@
     else {
         self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:nil, nil, nil];
         self.navigationItem.rightBarButtonItem = clearBarButton;
-        if (_locations.count == 0) {
+        if (_locationsInformationCollection.count == 0) {
             [clearBarButton setEnabled:NO];
         }
         else {
@@ -253,8 +253,9 @@
     [sender setTitle:@"Map"];
 }
 
-- (void)addLocationButtonTapped:(id)sender {
-    if ([self.mapView isHidden]) {
+-(void)addLocationFromMap:(BOOL)fromMap{
+    
+    if (!fromMap) {
         MMAddLocationViewController *addLocationViewController = [[MMAddLocationViewController alloc] initWithNibName:@"MMAddLocationViewController" bundle:nil];
         addLocationViewController.title = @"Add Location";
         addLocationViewController.category = self.category;
@@ -271,6 +272,13 @@
         
         self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:cancelButton, globeButton, nil];
     }
+    
+}
+- (void)addLocationButtonTapped:(id)sender {
+    BOOL fromMap = self.mapView.hidden ? NO : YES;
+    
+    [self addLocationFromMap:fromMap];
+    
 }
 
 - (void)cancelButtonTapped:(id)sender {
@@ -281,12 +289,17 @@
     [mapView removeGestureRecognizer:tapGestureRecognizer];
 }
 
-- (void)setLocations:(NSMutableArray *)locations
+-(void)setLocationsInformationCollection:(NSMutableArray *)locationsInformationCollection{
+    _locationsInformationCollection = locationsInformationCollection;
+    [self.tableView reloadData];
+    [self reloadMapView];
+}
+/*- (void)setLocations:(NSMutableArray *)locations
 {
     _locations = locations;
     [self.tableView reloadData];
     [self reloadMapView];
-}
+}*/
 
 - (void)clearButtonTapped:(id)sender {
     UIAlertView *clearHistoryAlert = [[UIAlertView alloc]initWithTitle:@"Clear your history" message:@"Are you sure you want to clear you recently viewed results?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
@@ -303,28 +316,54 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.locations.count;
+    return [self.title isEqualToString:@"Favorites"] ? self.locationsInformationCollection.count + 1 : self.locationsInformationCollection.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    MMLocationListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[MMLocationListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    
+    
+    if(indexPath.row + 1 == [self.tableView numberOfRowsInSection:0] && [self.title isEqualToString:@"Favorites"]){
+        static NSString *AddLocationCellIdentifier = @"AddLocationCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:AddLocationCellIdentifier];
+        
+        if(!cell){
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AddLocationCellIdentifier];
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            cell.textLabel.text = @"Add a New Location";
+        }
+        
+        return cell;
+        
+    }else{
+        static NSString *CellIdentifier = @"Cell";
+        MMLocationListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[MMLocationListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
+        
+        [cell setLocationInformation:[self.locationsInformationCollection objectAtIndex:indexPath.row]];
+        
+        return cell;
     }
     
-    [cell setLocation:[self.locations objectAtIndex:indexPath.row]];
     //cell.location = [self.locations objectAtIndex:indexPath.row];
     
-    return cell;
+    
 }
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (![[[_locations objectAtIndex:indexPath.row]valueForKey:@"locationId"] isKindOfClass:[NSNull class]] && ![[[_locations objectAtIndex:indexPath.row]valueForKey:@"providerId"]isKindOfClass:[NSNull class]]) {
+    if(indexPath.row + 1 == [tableView numberOfRowsInSection:0] && [self.title isEqualToString:@"Favorites"]){
+        [self addLocationFromMap:NO];
+        return;
+    }
+    
+    MMLocationInformation *locationInformation = [self.locationsInformationCollection objectAtIndex:indexPath.row];
+    
+    if (![locationInformation.locationID isKindOfClass:[NSNull class]] && ![locationInformation.providerID isKindOfClass:[NSNull class]]) {
         NSString *historyKey = [NSString stringWithFormat:@"%@ history", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
         if (!self.isHistory) {
             NSMutableArray *searchHistory;
@@ -334,14 +373,16 @@
             else {
                 searchHistory = [[NSMutableArray alloc]init];
             }
-            NSMutableDictionary *locationDictionary = [[_locations objectAtIndex:indexPath.row] mutableCopy];
-            NSString *locationId = [locationDictionary objectForKey:@"locationId"];
-            NSString *providerId = [locationDictionary objectForKey:@"providerId"];
+            //NSMutableDictionary *locationDictionary = [[_locations objectAtIndex:indexPath.row] mutableCopy];
+            NSString *locationId = locationInformation.locationID;
+            NSString *providerId = locationInformation.providerID;
             NSPredicate *locationPredicate = [NSPredicate predicateWithFormat:@"(locationId MATCHES %@) AND (providerId MATCHES %@)", locationId, providerId];
             NSArray *matchingLocations = [searchHistory filteredArrayUsingPredicate:locationPredicate];
             if (matchingLocations.count == 0) {
                 id const nul = [NSNull null];
-                NSDictionary *dictionaryToCleanUp = [locationDictionary copy];
+                NSMutableDictionary *locationDictionary = [MMAPI locationDictionaryForLocationInformation:locationInformation].mutableCopy;
+                NSMutableDictionary *dictionaryToCleanUp = [locationDictionary mutableCopy];
+                
                 for (NSString *key in dictionaryToCleanUp) {
                     id const obj = [locationDictionary valueForKey:key];
                     if (nul == obj) {
@@ -356,8 +397,8 @@
             }
             
         }
-        NSString *locationId = [[_locations objectAtIndex:indexPath.row]valueForKey:@"locationId"];
-        NSString *providerId = [[_locations objectAtIndex:indexPath.row]valueForKey:@"providerId"];
+        NSString *locationId = locationInformation.locationID;
+        NSString *providerId = locationInformation.providerID;
         
         MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
         [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
@@ -379,12 +420,13 @@
 - (void)reloadMapView
 {
     [self.mapView removeAnnotations:self.mapView.annotations];
-    for (NSMutableDictionary *location in self.locations) {
-        if (![[location valueForKey:@"latitude"]isKindOfClass:[NSNull class]] && ![[location valueForKey:@"longitude"]isKindOfClass:[NSNull class]]) {
+    for (MMLocationInformation *locationInformation in self.locationsInformationCollection) {
+        if (![locationInformation.latitude isKindOfClass:[NSNull class]] && ![locationInformation.longitude isKindOfClass:[NSNull class]]) {
             CLLocationCoordinate2D coordinate;
-            coordinate.latitude = [[location valueForKey:@"latitude"] floatValue];
-            coordinate.longitude = [[location valueForKey:@"longitude"] floatValue];
-            MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc] initWithName:[location valueForKey:@"name"] address:[location valueForKey:@"address"] coordinate:coordinate arrayIndex:[self.locations indexOfObject:location]];
+            coordinate.latitude = [locationInformation.latitude floatValue];
+            coordinate.longitude = [locationInformation.longitude floatValue];
+            MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc] initWithName:locationInformation.name address:
+                                                [locationInformation formattedAddressString] coordinate:coordinate arrayIndex:[self.locationsInformationCollection indexOfObject:locationInformation]];
             [self.mapView addAnnotation:(id)annotation];
         }
     }
@@ -404,7 +446,9 @@
 }
 
 - (void)infoButtonTapped:(id)sender {
-    [[MMClientSDK sharedSDK] locationScreen:self locationDetail:[self.locations objectAtIndex:[sender tag]]];
+    
+    //[[MMClientSDK sharedSDK] locationScreen:self locationDetail:[self.locations objectAtIndex:[sender tag]]];
+    [[MMClientSDK sharedSDK] locationScreen:self locationInformation:[self.locationsInformationCollection objectAtIndex:[sender tag]]];
 }
 
 - (void)handleTap:(UIGestureRecognizer *)gestureRecognizer
@@ -457,7 +501,7 @@
     switch (buttonIndex) {
         case 1:
             [[NSUserDefaults standardUserDefaults]removeObjectForKey:historyKey];
-            [_locations removeAllObjects];
+            [_locationsInformationCollection removeAllObjects];
             [_tableView reloadData];
             [clearBarButton setEnabled:NO];
             break;
@@ -513,12 +557,20 @@
 -(void)reloadLocations{
     MMLocationSearch *locationSearch = [[MMLocationSearch alloc] init];
     
-    [locationSearch locationsForCategory:self.category searchString:self.searchString success:^(NSArray *locations) {
-        self.locations = locations.mutableCopy;
+    [locationSearch locationsInfoForCategory:self.category searchString:self.searchString success:^(NSArray *locationInformations) {
+        self.locationsInformationCollection = locationInformations.mutableCopy;
         [SVProgressHUD dismiss];
     } failure:^(NSError *error) {
         NSLog(@"There was an error getting location data: %@", error);
         [SVProgressHUD dismiss];
     }];
+    
+    /*[locationSearch locationsForCategory:self.category searchString:self.searchString success:^(NSArray *locations) {
+        self.locationsInformationCollection = locations.mutableCopy;
+        [SVProgressHUD dismiss];
+    } failure:^(NSError *error) {
+        NSLog(@"There was an error getting location data: %@", error);
+        [SVProgressHUD dismiss];
+    }];*/
 }
 @end

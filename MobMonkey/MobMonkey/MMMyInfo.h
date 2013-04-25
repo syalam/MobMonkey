@@ -20,6 +20,8 @@
 @property(nonatomic, strong) NSString *birthday;
 @property(nonatomic, strong) NSString *gender;
 
+@property(nonatomic, assign) BOOL isEmpty;
+
 +(id)myInfo;
 -(void)saveInfo;
 -(void)eraseInfo;

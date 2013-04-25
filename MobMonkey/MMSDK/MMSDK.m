@@ -61,9 +61,10 @@
     [presentingViewController.navigationController pushViewController:locationVC animated:YES];
 }
 
-+ (void)displayMMMakeARequestScreenFromPresentingViewController:(UIViewController*)presentingViewController withLocationParams:(NSDictionary*)params {
++ (void)displayMMMakeARequestScreenFromPresentingViewController:(UIViewController*)presentingViewController withLocationInformation:(MMLocationInformation*)locationInformation {
     MMRequestViewController *requestVC = [[MMRequestViewController alloc]initWithNibName:@"MMRequestViewController" bundle:nil];
-    [requestVC setContentList:params];
+    requestVC.locationInformation = locationInformation;
+    //[requestVC setContentList:params];
     UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
     [presentingViewController.navigationController presentViewController:requestNavC animated:YES completion:NULL];
 }

@@ -222,6 +222,9 @@
             [myInfo saveInfo];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            
+                      
             NSLog(@"%@", [error description]);
             NSLog(@"Could not retrieve user info");
         }];
@@ -412,7 +415,10 @@
     
     _birthdayTextField.text = [NSString stringWithFormat:@"%@", dateString];
     [birthdayActionSheet dismissWithClickedButtonIndex:[sender tag] animated:YES];
-    [self createGenderActionSheet];
+    if (![self.title isEqualToString:@"My Info"]) {
+        [self createGenderActionSheet];
+    }
+    
 }
 
 - (void)cancelDateButtonTapped:(id)sender {
@@ -786,10 +792,26 @@
     oauth.deviceID = [defaults objectForKey:@"apnsToken"];
     oauth.token = [defaults objectForKey:@"oauthToken"];
     oauth.username = [defaults objectForKey:@"userName"];
+
     
     
     if([[NSUserDefaults standardUserDefaults] valueForKey:@"twitterEnabled"])
     {
+        [MMAPI registerTwitterWithOauth:oauth userInfo:myInfoModel success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if(success){
+                success();
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if(failure){
+                failure(error);
+            }
+            NSLog(@"Failure: %@", error);
+        }];
+        /*[MMAPI registerTwitterUserDetails:<> success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            <#code#>
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            <#code#>
+        }];
         [MMAPI oauthSignIn:oauth userInfo:myInfoModel success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             if(success){
@@ -802,7 +824,7 @@
             }
             NSLog(@"Failure: %@", error);
             
-        }];
+        }];*/
     }else if(oauth.provider != OAuthProviderFacebook){
         
         NSString *newPassword;

@@ -52,7 +52,10 @@
         [self getTrendingCounts];
     }
 }
-
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];

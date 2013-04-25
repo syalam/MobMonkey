@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
-
+ 
 typedef enum {
     
     LocationCellTypeName = 100,
@@ -44,6 +44,11 @@ typedef enum {
 @property (nonatomic, strong) NSString *unitNumber;
 @property (nonatomic, strong) NSString *neighborhood;
 @property (nonatomic, assign) BOOL isBookmark;
+@property (nonatomic, strong) NSString *message;
+@property (nonatomic, strong) NSNumber *livestreaming;
+@property (nonatomic, strong) NSNumber *videos;
+@property (nonatomic, strong) NSNumber *images;
+@property (nonatomic, strong) NSNumber *monkeys;
 
 -(void)geocodeLocationWithCompletionHandler:(void(^)(NSArray * placemarks, NSError * error))completion;
 -(NSString *)formattedAddressString;

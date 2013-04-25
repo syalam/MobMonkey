@@ -12,7 +12,7 @@
 #import "MMLocationMediaCell.h"
 #import "GSAdDelegate.h"
 #import "GSFullscreenAd.h"
-
+#import "MMLocationInformation.h"
 
 typedef enum {
     MMLiveCameraMediaType,
@@ -29,7 +29,8 @@ typedef enum {
     int selectedRow;
 }
 
-@property (nonatomic, strong) NSDictionary *location;
+//@property (nonatomic, strong) NSDictionary *location;
+@property (nonatomic, strong) MMLocationInformation *locationInformation;
 @property (assign, nonatomic) MobMonkeyMediaType mediaType;
 @property (nonatomic, retain) NSMutableDictionary *thumbnailCache;
 @property (strong, nonatomic) GSFullscreenAd* myFullscreenAd;

@@ -18,6 +18,7 @@
 #import "MMFullScreenImageViewController.h"
 
 #import "MMRequestViewController.h"
+#import "MMLocationInformation.h"
 
 @implementation MMClientSDK
 
@@ -80,12 +81,16 @@
     [presentingViewController.navigationController pushViewController:trendingVC animated:YES];
 }
 
-- (void)locationScreen:(UIViewController*)presentingViewController locationDetail:(NSMutableDictionary*)locationDetail {
+/*- (void)locationScreen:(UIViewController*)presentingViewController locationDetail:(NSMutableDictionary*)locationDetail {
     MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
     locationVC.contentList = locationDetail;
     [presentingViewController.navigationController pushViewController:locationVC animated:YES];
+}*/
+-(void)locationScreen:(UIViewController *)presentingViewController locationInformation:(MMLocationInformation *)locationInformation {
+    MMLocationViewController *locationVC = [[MMLocationViewController alloc] initWithNibName:@"MMLocationViewController" bundle:nil];
+    locationVC.locationInformation = locationInformation;
+    [presentingViewController.navigationController pushViewController:locationVC animated:YES];
 }
-
 //- (void)makeARequestScreen:(UIViewController*)presentingViewController locationDetail:(NSDictionary*)locationDetail {
 //    MMMakeRequestViewController *requestVC = [[MMMakeRequestViewController alloc]initWithNibName:@"MMMakeRequestViewController" bundle:nil];
 //    requestVC.title = @"Make a Request";
@@ -94,12 +99,12 @@
 //    [presentingViewController.navigationController presentViewController:requestNavC animated:YES completion:NULL];
 //}
 
-- (void)makeARequestScreen:(UIViewController*)presentingViewController locationDetail:(NSDictionary*)locationDetail {
+- (void)makeARequestScreen:(UIViewController*)presentingViewController locationDetail:(MMLocationInformation *)locationInformation {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Request" bundle:nil];
     UINavigationController *navVC = [storyboard instantiateInitialViewController];
     MMRequestViewController *requestVC = navVC.viewControllers[0];
     requestVC.title = @"Make Request";
-    requestVC.contentList = locationDetail;
+    requestVC.locationInformation = locationInformation;
     //UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
     [presentingViewController presentViewController:navVC animated:YES completion:NULL];
 }

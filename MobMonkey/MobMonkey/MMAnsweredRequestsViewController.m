@@ -285,7 +285,7 @@
                 NSURL *url = [NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
                 NSLog(@"%@", url);
                 MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-                [self.navigationController presentMoviePlayerViewControllerAnimated:player];
+                [self presentMoviePlayerViewControllerAnimated:player];
             }
         }
     }

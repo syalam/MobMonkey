@@ -103,6 +103,7 @@
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    
     [SVProgressHUD dismiss];
 }
 -(void)viewDidAppear:(BOOL)animated{
@@ -230,33 +231,6 @@
         return cell;
     }
     
-    
-    
-    /*switch (indexPath.row) {
-        case 0:
-            cell.textLabel.text = [[PhoneNumberFormatter alloc] stringForObjectValue:[_contentList valueForKey:@"phoneNumber"]];
-            cell.imageView.image = [UIImage imageNamed:@"telephone"];
-            break;
-        case 1:
-            cell.textLabel.numberOfLines = 2;
-            cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
-            cell.textLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@",
-                                   [_contentList valueForKey:@"address"],
-                                   [_contentList valueForKey:@"locality"],
-                                   [_contentList valueForKey:@"region"],
-                                   [_contentList valueForKey:@"postcode"]];
-            cell.imageView.image = [UIImage imageNamed:@"mapPin"];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            break;
-            
-        case 2:
-            cell.textLabel.text = @"Add Notifications";
-            cell.imageView.image = [UIImage imageNamed:@"alarmClock"];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            break;
-        default:
-            break;
-    }*/
     return cell;
 }
 
@@ -318,8 +292,7 @@
             }
             case LocationCellTypeAddressBOOL: {
                 MMMapViewController *mapViewController = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
-                mapViewController.title = [_contentList valueForKey:@"name"];
-                //mapViewController.contentList = [NSArray arrayWithObject:_contentList];
+                mapViewController.title = self.locationInformation.name;
                 mapViewController.locationInformationCollection = @[self.locationInformation];
                 [self.navigationController pushViewController:mapViewController animated:YES];
                 break;
@@ -354,19 +327,19 @@
 {
   switch ([sender tag]) {
     case MMLiveCameraMediaType:
-      if ([[[self.contentList valueForKey:@"livestreaming"] description] intValue] == 0)
+      if ([[self.locationInformation.livestreaming description] intValue] == 0)
         return;
       
       break;
       
     case MMVideoMediaType:
-      if ([[[self.contentList valueForKey:@"videos"] description] intValue] == 0)
+      if ([[self.locationInformation.videos description] intValue] == 0)
         return;
       
       break;
       
     case MMPhotoMediaType:
-      if ([[[self.contentList valueForKey:@"images"] description] intValue] == 0)
+      if ([[self.locationInformation.images description] intValue] == 0)
         return;
 
       break;
@@ -376,10 +349,11 @@
   }
 
     MMLocationMediaViewController *lmvc = [[MMLocationMediaViewController alloc] initWithNibName:@"MMLocationMediaViewController" bundle:nil];
-    lmvc.location = self.contentList;
+    //lmvc.location = self.contentList;
+    lmvc.locationInformation = self.locationInformation;
     lmvc.title = self.title;
-    lmvc.providerId = [_contentList valueForKey:@"providerId"];
-    lmvc.locationId = [_contentList valueForKey:@"locationId"];
+    lmvc.providerId = self.locationInformation.locationID;
+    lmvc.locationId = self.locationInformation.providerID;
     lmvc.mediaType = [sender tag];
   
     UINavigationController *locationMediaNavC = [[UINavigationController alloc] initWithRootViewController:lmvc];
@@ -394,7 +368,8 @@
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Request" bundle:nil];
         UINavigationController *navVC = [storyboard instantiateInitialViewController];
         MMRequestViewController *requestVC = (MMRequestViewController *)navVC.viewControllers[0];
-        [requestVC setContentList:self.contentList];
+        requestVC.locationInformation = self.locationInformation;
+        //[requestVC setContentList:self.contentList];
         [self.navigationController presentViewController:navVC animated:YES completion:nil];
     }
     else {
@@ -410,7 +385,7 @@
 }
 - (IBAction)addressButtonTapped:(id)sender {
     MMMapViewController *mmmVc = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
-    mmmVc.address = [NSString stringWithFormat:@"%@ %@, %@ %@", [_contentList valueForKey:@"address"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];
+    mmmVc.address = [self.locationInformation formattedAddressString];
     mmmVc.contentList = @[mmmVc.address];
     [self.navigationController pushViewController:mmmVc animated:YES];
     UIViewController *mapViewController = [[UIViewController alloc] init];
@@ -419,9 +394,9 @@
     [mapView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
     [view addSubview:mapView];
     CLLocationCoordinate2D coordinate;
-    coordinate.latitude = [[_contentList valueForKey:@"latitude"] floatValue];
-    coordinate.longitude = [[_contentList valueForKey:@"longitude"] floatValue];
-    id annotation = [[MMLocationAnnotation alloc] initWithName:[_contentList valueForKey:@"name"] address:[_contentList valueForKey:@"address"] coordinate:coordinate arrayIndex:0];
+    coordinate.latitude = self.locationInformation.latitude.floatValue;
+    coordinate.longitude = self.locationInformation.longitude.floatValue;
+    id annotation = [[MMLocationAnnotation alloc] initWithName:self.locationInformation.name address:[self.locationInformation formattedAddressString] coordinate:coordinate arrayIndex:0];
     [mapView addAnnotation:annotation];
 }
 
@@ -444,8 +419,8 @@
             [params setValue:_locationLatestImageView.image forKey:@"image"];
         }
     }
-    if (![[_contentList valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[_contentList valueForKey:@"webSite"]isEqualToString:@""] && !isVideo) {
-        [params setValue:[_contentList valueForKey:@"webSite"] forKey:@"url"];
+    if (![self.locationInformation.website isKindOfClass:[NSNull class]] && ![self.locationInformation.website isEqualToString:@""] && !isVideo) {
+        [params setValue:self.locationInformation.website forKey:@"url"];
     }
     
     [[MMClientSDK sharedSDK]showMoreActionSheet:self showFromTabBar:YES paramsForPublishingToSocialNetwork:params];
@@ -542,18 +517,18 @@
 #pragma mark - Helper Methods
 - (void)setLocationDetailItems {
     
-    if([_contentList valueForKey:@"name"] && [[_contentList valueForKey:@"name"] length] > 0){
-        self.title = [_contentList valueForKey:@"name"];
+    if(self.locationInformation.name && [self.locationInformation.name length] > 0){
+        self.title = self.locationInformation.name;
     }
     
     _locationNameLabel.text = self.title;
-    _phoneNumberLabel.text = [_contentList valueForKey:@"phoneNumber"];
-    _addressLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", [_contentList valueForKey:@"streetAddress"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];
-    NSLog(@"%@", _contentList);
-    NSString *message = [_contentList valueForKey:@"message"];
+    _phoneNumberLabel.text = self.locationInformation.phoneNumber;
+    _addressLabel.text = [self.locationInformation formattedAddressString];
+    //NSLog(@"%@", _contentList);
+    NSString *message = self.locationInformation.message;
     if (![message isKindOfClass:[NSNull class]]) {
         _messageLabel.adjustsFontSizeToFitWidth = YES;
-        _messageLabel.text = [_contentList valueForKey:@"message"];
+        _messageLabel.text = message;
         _mediaToolbarView.backgroundColor = [UIColor clearColor];
     }
    
@@ -564,7 +539,7 @@
     [_videosButton setEnabled:YES];
     [_photosButton setEnabled:YES];
   
-    int streamingCount = [[self.contentList valueForKey:@"livestreaming"] intValue];
+    int streamingCount = [self.locationInformation.livestreaming intValue];
     if (streamingCount == 0) {
         self.streamingCountLabel.hidden = YES;
         [_liveStreamButton setEnabled:NO];
@@ -575,7 +550,7 @@
         self.streamingCountLabel.text = [NSString stringWithFormat:@"%d", streamingCount];
     }
     
-    int videoCount = [[self.contentList valueForKey:@"videos"] intValue];
+    int videoCount = [self.locationInformation.videos intValue];
     if (videoCount == 0) {
         self.videoCountLabel.hidden = YES;
         [self.videosButton setEnabled:NO];
@@ -585,7 +560,7 @@
         self.videoCountLabel.text = [NSString stringWithFormat:@"%d", videoCount];
     }
   
-    int photoCount = [[self.contentList valueForKey:@"images"] intValue];
+    int photoCount = [self.locationInformation.images intValue];
     if (photoCount == 0) {
         self.photoCountLabel.hidden = YES;
         [self.photosButton setEnabled:NO];
@@ -596,7 +571,7 @@
         self.photoCountLabel.text = [NSString stringWithFormat:@"%d", photoCount];
     }
   
-  int monkeyCount = [[self.contentList valueForKey:@"monkeys"] intValue];
+  int monkeyCount = [self.locationInformation.monkeys intValue];
     if (monkeyCount == 0) {
         _monkeyCountLabel.text = @"No members found";
         
@@ -610,34 +585,32 @@
 }
 
 - (void)loadLocationDataWithLocationId:(NSString*)locationId providerId:(NSString*)providerId {
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            locationId, @"locationId",
-                            providerId, @"providerId", nil];
-    [SVProgressHUD showWithStatus:@"Loading location information"];
-    /*[MMAPI getLocationInfo:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        [self setContentList:responseObject];
-        [self setLocationDetailItems];
-        [self fetchLatestMediaForLocation];
-        [self.tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", operation.responseString);
-        [SVProgressHUD showErrorWithStatus:@"Unable to load location data"];
-        [self.navigationController popViewControllerAnimated:YES];
-    }];*/
+    
+    
+    [SVProgressHUD showWithStatus:@"Loading"];
+    
+   
     [MMAPI getLocationWithID:locationId providerID:providerId success:^(AFHTTPRequestOperation *operation, MMLocationInformation *locationInformation) {
         
         [SVProgressHUD dismiss];
         self.locationInformation = locationInformation;
+        [self setLocationDetailItems];
         [self.tableView reloadData];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        if(operation.response.statusCode == 401){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Confirm Email Address" message:@"Please check your email and confirm the registration." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+        }
+        
         NSLog(@"Failed: %@", error);
     }];
+    
 }
 
 - (void)fetchLatestMediaForLocation {
-    [MMAPI getMediaForLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MMAPI getMediaForLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         mediaArray = [responseObject valueForKey:@"media"];
         if (mediaArray.count > 0) {
@@ -698,8 +671,8 @@
             [params setValue:_locationLatestImageView.image forKey:@"image"];
         }
     }
-    if (![[_contentList valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[_contentList valueForKey:@"webSite"]isEqualToString:@""] && !isVideo) {
-        [params setValue:[_contentList valueForKey:@"webSite"] forKey:@"url"];
+    if (![self.locationInformation.website isKindOfClass:[NSNull class]] && ![self.locationInformation.website isEqualToString:@""] && !isVideo) {
+        [params setValue:self.locationInformation.website forKey:@"url"];
     }
     
     [[MMClientSDK sharedSDK]shareViaFacebook:params presentingViewController:self];
@@ -718,8 +691,8 @@
             [params setValue:_locationLatestImageView.image forKey:@"image"];
         }
     }
-    if (![[_contentList valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[_contentList valueForKey:@"webSite"]isEqualToString:@""] && !isVideo) {
-        [params setValue:[_contentList valueForKey:@"webSite"] forKey:@"url"];
+    if (![self.locationInformation.website isKindOfClass:[NSNull class]] && ![self.locationInformation.website isEqualToString:@""] && !isVideo) {
+        [params setValue:self.locationInformation.website forKey:@"url"];
     }
     
     [[MMClientSDK sharedSDK]shareViaTwitter:params presentingViewController:self];

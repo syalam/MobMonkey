@@ -219,7 +219,7 @@
     }
   
     self.searchResultsViewController.category = category;
-    self.searchResultsViewController.locations = [NSMutableArray array];
+    //self.searchResultsViewController.locations = [NSMutableArray array];
     [self.searchResultsViewController.tableView reloadData];
     self.searchResultsViewController.isSearching = YES;
     self.searchResultsViewController.isHistory = NO;
@@ -268,7 +268,32 @@
     
     
     NSLog(@"Params: %@", params);
-    [MMAPI searchForLocation:params mediaType:mediaType success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    [MMAPI searchForLocations:params mediaType:mediaType success:^(AFHTTPRequestOperation *operation, NSArray *locationInformations) {
+        
+        self.searchResultsViewController.isSearching = NO;
+        [SVProgressHUD dismiss];
+        if (locationInformations.count <= 0) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"No locations found" delegate:self.searchResultsViewController cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
+        
+        self.searchResultsViewController.locationsInformationCollection = locationInformations.mutableCopy;
+     
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"%@", operation.responseString);
+        if(operation.response.statusCode == 500){
+#warning Remove Debug message from status
+            [SVProgressHUD showErrorWithStatus:@"We're having techincal difficulties at this time. Please try again later. DEBUG: Server at Capacity Status:503 (from factual)"];
+        }else{
+            [SVProgressHUD showErrorWithStatus:[error description]];
+        }
+        
+    }];
+    
+    /*[MMAPI searchForLocation:params mediaType:mediaType success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.searchResultsViewController.isSearching = NO;
         [SVProgressHUD dismiss];
         NSArray *responseObjectArray = responseObject;
@@ -289,7 +314,7 @@
             [SVProgressHUD showErrorWithStatus:[error description]];
         }
         
-    }];
+    }];*/
 
     
     [self.navigationController pushViewController:self.searchResultsViewController animated:YES];
@@ -536,7 +561,15 @@
     else {
         searchHistory = [[NSMutableArray alloc]init];
     }
-    self.searchResultsViewController.locations = searchHistory;
+    
+    NSMutableArray *locationInformations = [NSMutableArray array];
+    
+    for(NSDictionary *locationDictionary in searchHistory){
+        MMLocationInformation *locationInformation = [MMAPI locationInformationForLocationDictionary:locationDictionary];
+        [locationInformations addObject:locationInformation];
+    }
+    
+    self.searchResultsViewController.locationsInformationCollection = locationInformations;
     [self.searchResultsViewController.tableView reloadData];
     self.searchResultsViewController.isHistory = YES;
     self.searchResultsViewController.title = @"History";

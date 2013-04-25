@@ -79,8 +79,11 @@ enum RequestDurationLengths {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [SVProgressHUD dismiss];
     [self.tableView reloadData];
+}
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -105,12 +108,12 @@ enum RequestDurationLengths {
     NSString *dateString = [dateFormatter stringFromDate:[self.requestInfo valueForKey:@"scheduleDate"]];
 
     [self.requestInfo setValue:dateString forKey:@"scheduleDate"];
-    [self.requestInfo setValue:[_contentList valueForKey:@"providerId"] forKey:@"providerId"];
-    [self.requestInfo setValue:[_contentList valueForKey:@"locationId"] forKey:@"locationId"];
+    [self.requestInfo setValue:self.locationInformation.providerID forKey:@"providerId"];
+    [self.requestInfo setValue:self.locationInformation.locationID forKey:@"locationId"];
     [self.requestInfo setValue:self.duration forKey:@"duration"];
     [self.requestInfo setValue:[NSNumber numberWithInt:kMMRadiusInYards] forKey:kMMRadiusInYardsKey];
     [self.requestInfo setValue:[NSNumber numberWithBool:isRecurring] forKey:@"recurring"];
-    
+
     
     NSString *mediaType;
     switch (_mediaTypeSegmentedControl.selectedSegmentIndex) {
