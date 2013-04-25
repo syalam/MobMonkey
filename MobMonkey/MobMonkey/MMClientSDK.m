@@ -16,6 +16,7 @@
 #import "MMInboxFullScreenImageViewController.h"
 #import "MMAnsweredRequestsViewController.h"
 #import "MMFullScreenImageViewController.h"
+#import "MMSocialNetworkModel.h"
 
 #import "MMRequestViewController.h"
 
@@ -388,7 +389,16 @@
         }
     }
     if ([buttonTitle isEqualToString:@"Share on Facebook"]) {
-        [self shareViaFacebook:storyToPublishToSocialNetworkDictionary presentingViewController:presentingVC];
+        
+        UIImage *image = [UIImage imageNamed:@"icons"];
+        
+        if(image){
+            [MMSocialNetworkModel uploadImage:image toSocialNetwork:SocialNetworkFacebook success:^{
+                NSLog(@"Success");
+            } failure:^(NSError *error) {
+                NSLog(@"Failure");
+            }];
+        }
     }
     else if ([buttonTitle isEqualToString:@"Share on Twitter"]) {
         [self shareViaTwitter:storyToPublishToSocialNetworkDictionary presentingViewController:presentingVC];

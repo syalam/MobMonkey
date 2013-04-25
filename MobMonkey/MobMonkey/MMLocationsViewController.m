@@ -296,15 +296,46 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+<<<<<<< Updated upstream
     return self.locations.count;
+=======
+    return ![self.title isEqualToString:@"Favorites"] ? self.locationsInformationCollection.count + 1 : self.locationsInformationCollection.count;
+>>>>>>> Stashed changes
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+<<<<<<< Updated upstream
     static NSString *CellIdentifier = @"Cell";
     MMLocationListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[MMLocationListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+=======
+    
+    
+    if(indexPath.row + 1 == [self.tableView numberOfRowsInSection:0] && ![self.title isEqualToString:@"Favorites"]){
+        static NSString *AddLocationCellIdentifier = @"AddLocationCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:AddLocationCellIdentifier];
+        
+        if(!cell){
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AddLocationCellIdentifier];
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            cell.textLabel.text = @"Add a New Location";
+        }
+        
+        return cell;
+        
+    }else{
+        static NSString *CellIdentifier = @"Cell";
+        MMLocationListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[MMLocationListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
+        
+        [cell setLocationInformation:[self.locationsInformationCollection objectAtIndex:indexPath.row]];
+        
+        return cell;
+>>>>>>> Stashed changes
     }
     
     [cell setLocation:[self.locations objectAtIndex:indexPath.row]];
@@ -317,7 +348,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+<<<<<<< Updated upstream
     if (![[[_locations objectAtIndex:indexPath.row]valueForKey:@"locationId"] isKindOfClass:[NSNull class]] && ![[[_locations objectAtIndex:indexPath.row]valueForKey:@"providerId"]isKindOfClass:[NSNull class]]) {
+=======
+    if(indexPath.row + 1 == [tableView numberOfRowsInSection:0] && ![self.title isEqualToString:@"Favorites"]){
+        [self addLocationFromMap:NO];
+        return;
+    }
+    
+    MMLocationInformation *locationInformation = [self.locationsInformationCollection objectAtIndex:indexPath.row];
+    
+    if (![locationInformation.locationID isKindOfClass:[NSNull class]] && ![locationInformation.providerID isKindOfClass:[NSNull class]]) {
+>>>>>>> Stashed changes
         NSString *historyKey = [NSString stringWithFormat:@"%@ history", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
         if (!self.isHistory) {
             NSMutableArray *searchHistory;

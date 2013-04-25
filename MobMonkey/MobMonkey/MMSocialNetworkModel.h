@@ -9,12 +9,24 @@
 #import <Foundation/Foundation.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <Twitter/Twitter.h>
+#import "MMAPI.h"
 
+typedef enum {
+    SocialNetworkTwitter,
+    SocialNetworkFacebook
+} SocialNetwork;
 @interface MMSocialNetworkModel : NSObject <FBLoginViewDelegate>
 
 
+//Authentication
 +(void)authenticateFacebookWithSuccess:(void(^)(void))success failure:(void(^)(NSError *error))failure;
 +(void)authenticateTwitterWithSuccess:(void(^)(void))success failure:(void(^)(NSError *error))failure;
+
+//Upload Media Facebook
++(void)uploadImage:(UIImage*)image toSocialNetwork:(SocialNetwork)socialNetwork success:(void(^)(void))success failure:(void(^)(NSError* error))failure;
++(void)uploadVideo:(id)video toSocialNetwork:(SocialNetwork)socialNetwork success:(void(^)(void))success failure:(void(^)(NSError* error))failure;
+
+//Up
 
 +(MMSocialNetworkModel*)authentication;
 @end

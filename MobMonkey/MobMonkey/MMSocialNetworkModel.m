@@ -8,6 +8,7 @@
 
 #import "MMSocialNetworkModel.h"
 #import <Accounts/Accounts.h>
+#import <FacebookSDK/FBSession.h>
 
 @implementation MMSocialNetworkModel
 
@@ -91,4 +92,99 @@
     
     
 }
+
+
++(void)uploadImage:(UIImage *)image
+   toSocialNetwork:(SocialNetwork)socialNetwork
+           success:(void (^)(void))success
+           failure:(void (^)(NSError * error))failure {
+    
+    if(socialNetwork == SocialNetworkFacebook){
+        [self facebookPostImage:image success:^{
+            success();
+        } failure:^(NSError *error) {
+            failure(error);
+            NSLog(@"error");
+        }];
+    }
+}
+
+//Facebook
+
++(void)facebookPostImage:(UIImage*)image success:(void(^)(void))success failure:(void(^)(NSError * error))failure {
+    [self performPublishAction:^{
+        
+        [FBRequestConnection startForUploadPhoto:image
+                               completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                                   
+                                   if(!error){
+                                       [SVProgressHUD showSuccessWithStatus:@"Photo Posted to Facebook Successfully"];
+                                       if(success){
+                                           success();
+                                       }
+                                   }else{
+                                       [SVProgressHUD showErrorWithStatus:@"Facebook Publish Failed"];
+                                       if(failure){
+                                           failure(error);
+                                       }
+                                   }
+                                   
+                               }];
+    }];
+}
+
++ (void) performPublishAction:(void (^)(void)) action {
+    // we defer request for permission to post to the moment of post, then we check for the permission
+    //NSArray *permissions = [NSArray arrayWithObject:@"publish_actions",nil];
+    [FBSession openActiveSessionWithPublishPermissions:@[@"publish_actions"] defaultAudience:FBSessionDefaultAudienceOnlyMe allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        
+        
+        NSLog(@"STATE: %d", status);
+        
+        if(status == FBSessionStateOpen || status== FBSessionStateOpenTokenExtended || status==FBSessionStateCreatedOpening || status==FBSessionStateCreated){
+            NSLog(@"ok");
+        }
+        
+        if([[FBSession activeSession] state] != FBSessionStateOpen){
+            [self authenticateFacebookWithSuccess:^{
+                if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
+                    
+                    // if we don't already have the permission, then we request it now
+                    [[FBSession activeSession] reauthorizeWithPublishPermissions:@[@"publish_actions", @"publish_streams"] defaultAudience:FBSessionDefaultAudienceEveryone completionHandler:^(FBSession *session, NSError *error) {
+                        if (!error) {
+                            action();
+                        }
+                        else{
+                            NSLog(@"error: %@", error);
+                        }
+                    }];
+                    
+                } else {
+                    action();
+                }
+            } failure:^(NSError *error) {
+                NSLog(@"Failed Authenticating");
+            }];
+        }else{
+            if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
+                
+                // if we don't already have the permission, then we request it now
+                [[FBSession activeSession] reauthorizeWithPublishPermissions:@[@"publish_actions", @"publish_streams"] defaultAudience:FBSessionDefaultAudienceEveryone completionHandler:^(FBSession *session, NSError *error) {
+                    if (!error) {
+                        action();
+                    }
+                }];
+                
+            } else {
+                action();
+            }
+        }
+    }];
+    
+    
+    
+    
+}
+
+
 @end
