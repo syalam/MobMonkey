@@ -163,6 +163,66 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     
 }
 
++(void)updateUserInfo:(MMMyInfo *)userInfo
+            withOauth:(MMOAuth *)oauth
+          newPassword:(NSString *)newPassword
+              success:(void (^)(AFHTTPRequestOperation * operation, id responseObject))success
+              failure:(void (^)(AFHTTPRequestOperation * opertaion, NSError * error))failure
+{
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    
+    //Device Type and ID
+    [parameters setObject:@"ios" forKey:@"deviceType"];
+    [parameters setObject:oauth.deviceID forKey:@"deviceId"];
+    [parameters setObject:@"true" forKey:@"useOAuth"];
+    [parameters setObject:oauth.providerString forKey:@"provider"];
+    [parameters setObject:oauth.token forKey:@"oauthToken"];
+    [parameters setObject:oauth.username forKey:@"providerUserName"];
+    
+    
+    // Editted Information
+    NSNumber * gender = [userInfo.gender isEqualToString:@"Male"] ? @1 : @0;
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    
+    NSDate *birthdayDate = [dateFormatter dateFromString:userInfo.birthday];
+    NSTimeInterval bdayUnixTime = birthdayDate.timeIntervalSince1970*1000;
+    NSNumber * birthday = [NSNumber numberWithDouble:bdayUnixTime];
+    
+    [parameters setValue:userInfo.firstName forKey:@"firstName"];
+    [parameters setValue:birthday forKey:@"birthday"];
+    [parameters setValue:userInfo.lastName forKey:@"lastName"];
+    [parameters setValue:gender forKey:@"gender"];
+
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+    
+    [httpClient setDefaultHeader:@"MobMonkey-user" value:nil];
+    [httpClient setDefaultHeader:@"MobMonkey-auth" value:nil];
+    [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"]];
+    NSString *path = [[[httpClient requestWithMethod:@"GET" path:@"signin" parameters:parameters data:nil] URL] absoluteString];
+    
+
+    [httpClient postPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if(success){
+            success(operation, responseObject);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if(failure){
+            failure(operation, error);
+        }
+    }];
+}
+
+
+
+
+
+
+
+
 + (void)signInWithEmail:(NSString *)email
                password:(NSString *)password
                  params:(NSDictionary*)params

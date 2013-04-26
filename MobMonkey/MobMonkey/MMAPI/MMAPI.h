@@ -100,6 +100,11 @@ typedef enum OAuthProvider {
                      success:(void (^)(AFHTTPRequestOperation *, id))success
                      failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
 
++(void)updateUserInfo:(MMMyInfo *)userInfo
+            withOauth:(MMOAuth *)oauth
+          newPassword:(NSString *)newPassword
+              success:(void (^)(AFHTTPRequestOperation * operation, id responseObject))success
+              failure:(void (^)(AFHTTPRequestOperation * opertaion, NSError * error))failure;
 ///---------------------------------------------
 /// @name Signing in an existing user
 ///---------------------------------------------
@@ -157,6 +162,7 @@ typedef enum OAuthProvider {
         forService:(SocialNetwork)socialNetwork
            success:(void (^)(AFHTTPRequestOperation *, id))success
            failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
+
 
 
 ///---------------------------------------------

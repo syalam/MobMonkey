@@ -326,6 +326,7 @@
 
 -(void)doneButtonPressed:(id)sender{
     
+    [SVProgressHUD showWithStatus:@"Saving Changes"];
     if (![[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"]) {
         [self updateUserInfoWithSuccess:^{
             [SVProgressHUD showSuccessWithStatus:@"Updated User Info"];
@@ -797,44 +798,18 @@
     
     if(oauth.provider == OAuthProviderTwitter)
     {
-        [MMAPI oauthSignIn:oauth userInfo:myInfoModel forService:SocialNetworkTwitter success:^(AFHTTPRequestOperation * operation, id responseObject) {
+    
+        [MMAPI updateUserInfo:myInfoModel withOauth:oauth newPassword:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"Success");
             if(success){
                 success();
             }
-        } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        } failure:^(AFHTTPRequestOperation *operation, NSError * error) {
+            NSLog(@"Failed");
             if(failure){
-                NSLog(@"error: %@", error);
                 failure(error);
             }
         }];
-        /*[MMAPI registerTwitterWithOauth:oauth userInfo:myInfoModel success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            if(success){
-                success();
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            if(failure){
-                failure(error);
-            }
-            NSLog(@"Failure: %@", error);
-        }];*/
-        /*[MMAPI registerTwitterUserDetails:<> success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            <#code#>
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            <#code#>
-        }];
-        [MMAPI oauthSignIn:oauth userInfo:myInfoModel success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            if(success){
-                success();
-            }
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            if(failure){
-                failure(error);
-            }
-            NSLog(@"Failure: %@", error);
-            
-        }];*/
     }else if(oauth.provider != OAuthProviderFacebook){
         
         NSString *newPassword;
@@ -867,8 +842,10 @@
             }
         }];
         
-        
     }
+    
+        
+    
     
     
     
