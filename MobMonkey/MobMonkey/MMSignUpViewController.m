@@ -795,9 +795,19 @@
 
     
     
-    if([[NSUserDefaults standardUserDefaults] valueForKey:@"twitterEnabled"])
+    if(oauth.provider == OAuthProviderTwitter)
     {
-        [MMAPI registerTwitterWithOauth:oauth userInfo:myInfoModel success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MMAPI oauthSignIn:oauth userInfo:myInfoModel forService:SocialNetworkTwitter success:^(AFHTTPRequestOperation * operation, id responseObject) {
+            if(success){
+                success();
+            }
+        } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+            if(failure){
+                NSLog(@"error: %@", error);
+                failure(error);
+            }
+        }];
+        /*[MMAPI registerTwitterWithOauth:oauth userInfo:myInfoModel success:^(AFHTTPRequestOperation *operation, id responseObject) {
             if(success){
                 success();
             }
@@ -806,7 +816,7 @@
                 failure(error);
             }
             NSLog(@"Failure: %@", error);
-        }];
+        }];*/
         /*[MMAPI registerTwitterUserDetails:<> success:^(AFHTTPRequestOperation *operation, id responseObject) {
             <#code#>
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

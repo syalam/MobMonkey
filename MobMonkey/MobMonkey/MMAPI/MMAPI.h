@@ -11,6 +11,7 @@
 #import "AFJSONRequestOperation.h"
 #import "MMMyInfo.h"
 #import "MMLocationInformation.h"
+#import "MMSocialNetworkModel.h"
 
 typedef enum apiCall {
     kAPICallOpenRequests,
@@ -151,10 +152,11 @@ typedef enum OAuthProvider {
 
 //This is a non-dictionary dependant version of the oauthSignIn method
 
-+ (void)oauthSignIn:(MMOAuth *)oauth
-           userInfo:(MMMyInfo *)userInfo
-            success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-            failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
++(void)oauthSignIn:(MMOAuth *)oauth
+          userInfo:(MMMyInfo *)userInfo
+        forService:(SocialNetwork)socialNetwork
+           success:(void (^)(AFHTTPRequestOperation *, id))success
+           failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
 
 
 ///---------------------------------------------

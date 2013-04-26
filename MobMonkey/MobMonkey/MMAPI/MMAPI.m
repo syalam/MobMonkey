@@ -10,6 +10,7 @@
 #import "MMHTTPClient.h"
 #import "SVProgressHUD.h"
 #import "NSString+URLParams.h"
+#import "MMSocialNetworkModel.h"
 
 
 #ifdef STAGING
@@ -220,7 +221,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     //[httpClient setDefaultHeader:@"OauthProvider" value:[params valueForKey:@"provider"]];
     [httpClient postPath:urlString parameters:nil success:success failure:failure];
 }
-+(void)oauthSignIn:(MMOAuth *)oauth userInfo:(MMMyInfo *)userInfo success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
++(void)oauthSignIn:(MMOAuth *)oauth userInfo:(MMMyInfo *)userInfo forService:(SocialNetwork)socialNetwork success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
     
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     
@@ -240,22 +241,29 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [parameters setValue:birthday forKey:@"birthday"];
     [parameters setValue:userInfo.lastName forKey:@"lastName"];
     [parameters setValue:gender forKey:@"gender"];
+    
+    [parameters setObject:@"ios" forKey:@"deviceType"];
+    [parameters setObject:@YES forKey:@"useOAuth"];
+    [parameters setObject:oauth.providerString forKey:@"provider"];
+    [parameters setObject:oauth.username forKey:@"providerUserName"]; 
+
+    
+    if(socialNetwork == SocialNetworkFacebook){
+                
+        [parameters setObject:oauth.token forKey:@"oauthToken"];
+                
+    }else if(socialNetwork == SocialNetworkTwitter){
+        
+        [parameters setObject:oauth.deviceID forKey:@"deviceId"];
+        
+    }
+    
+    
     [parameters setValue:oauth.username forKey:@"providerUserName"];
     [parameters setValue:oauth.deviceID forKey:@"deviceId"];
     [parameters setObject:@YES forKey:@"useOAuth"];
     [parameters setObject:@"iOS" forKey:@"deviceType"];
     
-    if(oauth.providerString){
-        [parameters setObject:oauth.providerString forKey:@"provider"];
-
-    }
-        
-    
-    if(oauth.provider == OAuthProviderFacebook)
-    {
-        [parameters setValue:oauth.token forKey:@"oauthToken"];
-    
-    }
     
     //I'm doing this to create the GET parameters in the url, it's kind of sloppy but backend is requiring post, but we are not using post parameters.
     NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET" path:@"signin" parameters:parameters data:nil];

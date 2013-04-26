@@ -316,36 +316,25 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.title isEqualToString:@"Favorites"] ? self.locationsInformationCollection.count + 1 : self.locationsInformationCollection.count;
+    return self.locationsInformationCollection.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     
-    if(indexPath.row + 1 == [self.tableView numberOfRowsInSection:0] && [self.title isEqualToString:@"Favorites"]){
-        static NSString *AddLocationCellIdentifier = @"AddLocationCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:AddLocationCellIdentifier];
-        
-        if(!cell){
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AddLocationCellIdentifier];
-            cell.textLabel.textAlignment = NSTextAlignmentCenter;
-            cell.textLabel.text = @"Add a New Location";
-        }
-        
-        return cell;
-        
-    }else{
-        static NSString *CellIdentifier = @"Cell";
-        MMLocationListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[MMLocationListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        }
-        
-        [cell setLocationInformation:[self.locationsInformationCollection objectAtIndex:indexPath.row]];
-        
-        return cell;
+    static NSString *CellIdentifier = @"Cell";
+    
+    MMLocationListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[MMLocationListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    
+    [cell setLocationInformation:[self.locationsInformationCollection objectAtIndex:indexPath.row]];
+    
+    return cell;
+    
     
     //cell.location = [self.locations objectAtIndex:indexPath.row];
     
@@ -356,10 +345,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row + 1 == [tableView numberOfRowsInSection:0] && [self.title isEqualToString:@"Favorites"]){
-        [self addLocationFromMap:NO];
-        return;
-    }
     
     MMLocationInformation *locationInformation = [self.locationsInformationCollection objectAtIndex:indexPath.row];
     
@@ -410,9 +395,11 @@
 }
 
 - (void)viewDidUnload {
+    
     [self setTableView:nil];
     [self setMapView:nil];
     [super viewDidUnload];
+    
 }
 
 #pragma mark - Manage map view
