@@ -24,7 +24,7 @@ typedef enum {
 
 //Upload Media Facebook
 +(void)uploadImage:(UIImage*)image toSocialNetwork:(SocialNetwork)socialNetwork success:(void(^)(void))success failure:(void(^)(NSError* error))failure;
-+(void)uploadVideo:(id)video toSocialNetwork:(SocialNetwork)socialNetwork success:(void(^)(void))success failure:(void(^)(NSError* error))failure;
++(void)uploadVideo:(NSData *)videoData title:(NSString*)title details:(NSString*)details toSocialNetwork:(SocialNetwork)socialNetwork success:(void (^)(void))success failure:(void (^)(NSError *))failure;
 
 //Up
 

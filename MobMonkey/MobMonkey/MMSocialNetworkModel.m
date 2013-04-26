@@ -93,6 +93,26 @@
     
 }
 
++(void)uploadVideo:(NSData *)videoData title:(NSString*)title details:(NSString*)details toSocialNetwork:(SocialNetwork)socialNetwork success:(void (^)(void))success failure:(void (^)(NSError *))failure {
+    
+    if(socialNetwork == SocialNetworkFacebook){
+        
+        [self facebookPostVideo:videoData title:title details:details success:^{
+            
+            if(success){
+                success();
+            }
+            
+        } failure:^(NSError *error) {
+            
+            if(failure){
+                failure(error);
+            }
+            
+        }];
+    }
+    
+}
 
 +(void)uploadImage:(UIImage *)image
    toSocialNetwork:(SocialNetwork)socialNetwork
@@ -110,7 +130,33 @@
 }
 
 //Facebook
-
++(void)facebookPostVideo:(NSData*)videoData title:(NSString *)title details:(NSString *)details success:(void(^)(void))success failure:(void(^)(NSError *error))failure {
+    
+    [self performPublishAction:^{
+        
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        
+        [parameters setObject:videoData forKey:@"video.mov"];
+        [parameters setObject:@"video/quicktime" forKey:@"contentType"];
+        [parameters setObject:title forKey:@"title"];
+        [parameters setObject:details forKey:@"description"];
+        
+        FBRequest *uploadVideoRequest = [FBRequest requestWithGraphPath:@"me/videos" parameters:parameters HTTPMethod:@"POST"];
+        
+        [uploadVideoRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+            NSLog(@"result: %@, error: %@", result, error);
+            if(!error){
+                if (success) {
+                    success();
+                }else{
+                    failure(error);
+                }
+            }
+        }];
+        
+    } video:NO];
+    
+}
 +(void)facebookPostImage:(UIImage*)image success:(void(^)(void))success failure:(void(^)(NSError * error))failure {
     [self performPublishAction:^{
         
@@ -134,34 +180,54 @@
 }
 
 + (void) performPublishAction:(void (^)(void)) action {
+    [self performPublishAction:action video:NO];
+}
+
++ (void)authenticateFacebookIfNeeded:(void(^)(NSError *error))completion{
+    if (FBSession.activeSession.state != FBSessionStateOpen) {
+        [FBSession openActiveSessionWithPublishPermissions:@[@"publish_actions"] defaultAudience:FBSessionDefaultAudienceOnlyMe allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+            completion(error);
+        }];
+    }else{
+        completion(nil);
+    }
+}
++ (void) performPublishAction:(void (^)(void)) action video:(BOOL)video {
     // we defer request for permission to post to the moment of post, then we check for the permission
     //NSArray *permissions = [NSArray arrayWithObject:@"publish_actions",nil];
-    [FBSession openActiveSessionWithPublishPermissions:@[@"publish_actions"] defaultAudience:FBSessionDefaultAudienceOnlyMe allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-        
-        
-        NSLog(@"STATE: %d", status);
-        
-        if(status == FBSessionStateOpen || status== FBSessionStateOpenTokenExtended || status==FBSessionStateCreatedOpening || status==FBSessionStateCreated){
-            NSLog(@"ok");
+    
+    
+    [self authenticateFacebookIfNeeded:^(NSError *error) {
+        if(!error){
+            if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
+                
+                // if we don't already have the permission, then we request it now
+                [[FBSession activeSession] reauthorizeWithPublishPermissions:@[@"publish_actions"] defaultAudience:FBSessionDefaultAudienceEveryone completionHandler:^(FBSession *session, NSError *error) {
+                    if (!error) {
+                        action();
+                    }
+                    else{
+                        NSLog(@"error: %@", error);
+                    }
+                }];
+                
+            }else{
+                action();
+            }
+        }else{
+            NSLog(@"error: %@", error);
         }
         
-        if([[FBSession activeSession] state] != FBSessionStateOpen){
+    }];
+    
+
+    
+    
+    /*[FBSession openActiveSessionWithPublishPermissions:permissions defaultAudience:FBSessionDefaultAudienceOnlyMe allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        
+        if([[FBSession activeSession] state] == FBSessionStateClosed){
             [self authenticateFacebookWithSuccess:^{
-                if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
-                    
-                    // if we don't already have the permission, then we request it now
-                    [[FBSession activeSession] reauthorizeWithPublishPermissions:@[@"publish_actions", @"publish_streams"] defaultAudience:FBSessionDefaultAudienceEveryone completionHandler:^(FBSession *session, NSError *error) {
-                        if (!error) {
-                            action();
-                        }
-                        else{
-                            NSLog(@"error: %@", error);
-                        }
-                    }];
-                    
-                } else {
-                    action();
-                }
+                
             } failure:^(NSError *error) {
                 NSLog(@"Failed Authenticating");
             }];
@@ -169,7 +235,7 @@
             if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
                 
                 // if we don't already have the permission, then we request it now
-                [[FBSession activeSession] reauthorizeWithPublishPermissions:@[@"publish_actions", @"publish_streams"] defaultAudience:FBSessionDefaultAudienceEveryone completionHandler:^(FBSession *session, NSError *error) {
+                [[FBSession activeSession] reauthorizeWithPublishPermissions:@[@"publish_actions"] defaultAudience:FBSessionDefaultAudienceEveryone completionHandler:^(FBSession *session, NSError *error) {
                     if (!error) {
                         action();
                     }
@@ -179,7 +245,7 @@
                 action();
             }
         }
-    }];
+    }];*/
     
     
     

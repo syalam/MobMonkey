@@ -395,13 +395,32 @@
     }
     if ([buttonTitle isEqualToString:@"Share on Facebook"]) {
         
-        UIImage *image = [UIImage imageNamed:@"icons"];
+        UIImage *image = [storyToPublishToSocialNetworkDictionary objectForKey:@"image"];
         
         if(image){
+            [SVProgressHUD showWithStatus:@"Uploading Photo to Facebook"];
             [MMSocialNetworkModel uploadImage:image toSocialNetwork:SocialNetworkFacebook success:^{
                 NSLog(@"Success");
+                [SVProgressHUD showSuccessWithStatus:@"Success"];
             } failure:^(NSError *error) {
                 NSLog(@"Failure");
+                [SVProgressHUD showErrorWithStatus:@"Request Failed"];
+            }];
+        }else{
+            NSURL *videoURLPath = [ NSURL URLWithString:[storyToPublishToSocialNetworkDictionary valueForKey:@"url"]];
+            NSString *videoTitle = [NSString stringWithFormat:@"MobMonkey Video: %@", [storyToPublishToSocialNetworkDictionary objectForKey:@"initialText"]];
+            [SVProgressHUD showWithStatus:@"Uploading Video to Facebook"];
+            [self downloadVideoFromURL:videoURLPath completion:^(NSData *videoData, NSError *error) {
+                if(!error){
+                    
+                    [MMSocialNetworkModel uploadVideo:videoData title:videoTitle details:@"" toSocialNetwork:SocialNetworkFacebook success:^{
+                        NSLog(@"Upload Video Success");
+                        [SVProgressHUD showSuccessWithStatus:@"Success"];
+                    } failure:^(NSError * error) {
+                        NSLog(@"Upload Video failed");
+                        [SVProgressHUD showErrorWithStatus:@"Request Failed"];
+                    }];
+                }
             }];
         }
     }
@@ -412,6 +431,30 @@
         
     }
     
+}
+
+-(void)downloadVideoFromURL:(NSURL *)videoURL completion:(void(^)(NSData *videoData, NSError *error))completion{
+    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.MobMonkey.SaveVideo", NULL);
+    dispatch_async(backgroundQueue, ^(void) {
+        NSString *stringURL = [storyToPublishToSocialNetworkDictionary valueForKey:@"url"];
+        NSURL  *url = [NSURL URLWithString:stringURL];
+        NSData *urlData = [NSData dataWithContentsOfURL:url];
+        
+        NSError *error = nil;
+        
+        if(!urlData){
+            error = [NSError errorWithDomain:@"com.MobMonkey" code:1251 userInfo:@{@"error":@"video was not downloaded successfully"}];
+        }
+        
+        
+        if (completion) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                completion(urlData, error);
+            });
+        }
+                    
+        
+    });
 }
 
 #pragma mark - Helper Methods
