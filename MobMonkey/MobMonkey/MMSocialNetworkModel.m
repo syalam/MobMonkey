@@ -9,6 +9,8 @@
 #import "MMSocialNetworkModel.h"
 #import <Accounts/Accounts.h>
 #import <FacebookSDK/FBSession.h>
+#import <Accounts/Accounts.h>
+#import <Social/Social.h>
 
 @implementation MMSocialNetworkModel
 
@@ -115,6 +117,8 @@
 }
 
 +(void)uploadImage:(UIImage *)image
+             title:(NSString *)title
+           details:(NSString *)details
    toSocialNetwork:(SocialNetwork)socialNetwork
            success:(void (^)(void))success
            failure:(void (^)(NSError * error))failure {
@@ -125,6 +129,12 @@
         } failure:^(NSError *error) {
             failure(error);
             NSLog(@"error");
+        }];
+    }else if(socialNetwork == SocialNetworkTwitter){
+        [self twitterPostImage:image status:title success:^{
+            success();
+        } failure:^(NSError *error) {
+            failure(error);
         }];
     }
 }
@@ -185,7 +195,7 @@
 
 + (void)authenticateFacebookIfNeeded:(void(^)(NSError *error))completion{
     if (FBSession.activeSession.state != FBSessionStateOpen) {
-        [FBSession openActiveSessionWithPublishPermissions:@[@"publish_actions"] defaultAudience:FBSessionDefaultAudienceOnlyMe allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        [FBSession openActiveSessionWithPublishPermissions:@[@"publish_actions"] defaultAudience:FBSessionDefaultAudienceEveryone allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
             completion(error);
         }];
     }else{
@@ -219,37 +229,72 @@
         }
         
     }];
-    
+}
 
++(void)twitterPostImage:(UIImage *)image status:(NSString *)status success:(void(^)(void))success failure:(void(^)(NSError * error))failure{
     
+    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+    ACAccountType *twitterType =
+    [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
     
-    /*[FBSession openActiveSessionWithPublishPermissions:permissions defaultAudience:FBSessionDefaultAudienceOnlyMe allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-        
-        if([[FBSession activeSession] state] == FBSessionStateClosed){
-            [self authenticateFacebookWithSuccess:^{
-                
-            } failure:^(NSError *error) {
-                NSLog(@"Failed Authenticating");
-            }];
-        }else{
-            if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
-                
-                // if we don't already have the permission, then we request it now
-                [[FBSession activeSession] reauthorizeWithPublishPermissions:@[@"publish_actions"] defaultAudience:FBSessionDefaultAudienceEveryone completionHandler:^(FBSession *session, NSError *error) {
-                    if (!error) {
-                        action();
-                    }
-                }];
-                
-            } else {
-                action();
+    SLRequestHandler requestHandler =
+    ^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+        if (responseData) {
+            NSInteger statusCode = urlResponse.statusCode;
+            if (statusCode >= 200 && statusCode < 300) {
+                NSDictionary *postResponseData =
+                [NSJSONSerialization JSONObjectWithData:responseData
+                                                options:NSJSONReadingMutableContainers
+                                                  error:NULL];
+                NSLog(@"[SUCCESS!] Created Tweet with ID: %@", postResponseData[@"id_str"]);
+                if(success){
+                    success();
+                }
+            }
+            else {
+                NSLog(@"[ERROR] Server responded: status code %d %@", statusCode,
+                      [NSHTTPURLResponse localizedStringForStatusCode:statusCode]);
+                if(failure){
+                    failure(error);
+                }
             }
         }
-    }];*/
+        else {
+            NSLog(@"[ERROR] An error occurred while posting: %@", [error localizedDescription]);
+            if(failure){
+                failure(error);
+            }
+        }
+    };
     
+    ACAccountStoreRequestAccessCompletionHandler accountStoreHandler =
+    ^(BOOL granted, NSError *error) {
+        if (granted) {
+            NSArray *accounts = [accountStore accountsWithAccountType:twitterType];
+            NSURL *url = [NSURL URLWithString:@"https://api.twitter.com"
+                          @"/1.1/statuses/update_with_media.json"];
+            NSDictionary *params = @{@"status" : status};
+            SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                                    requestMethod:SLRequestMethodPOST
+                                                              URL:url
+                                                       parameters:params];
+            NSData *imageData = UIImageJPEGRepresentation(image, 1.f);
+            [request addMultipartData:imageData
+                             withName:@"media[]"
+                                 type:@"image/jpeg"
+                             filename:@"image.jpg"];
+            [request setAccount:[accounts lastObject]];
+            [request performRequestWithHandler:requestHandler];
+        }
+        else {
+            NSLog(@"[ERROR] An error occurred while asking for user authorization: %@",
+                  [error localizedDescription]);
+        }
+    };
     
-    
-    
+    [accountStore requestAccessToAccountsWithType:twitterType
+                                               options:NULL
+                                            completion:accountStoreHandler];
 }
 
 

@@ -369,7 +369,7 @@
     if ([prefs boolForKey:@"facebookEnabled"]) {
         [actionSheet addButtonWithTitle:@"Share on Facebook"];
     }
-    if ([prefs boolForKey:@"twitterEnabled"]) {
+    if ([prefs boolForKey:@"twitterEnabled"] && [storyToPublishToSocialNetworkDictionary valueForKey:@"image"]) {
         [actionSheet addButtonWithTitle:@"Share on Twitter"];
     }
     [actionSheet addButtonWithTitle:@"Flag for Review"];
@@ -399,7 +399,8 @@
         
         if(image){
             [SVProgressHUD showWithStatus:@"Uploading Photo to Facebook"];
-            [MMSocialNetworkModel uploadImage:image toSocialNetwork:SocialNetworkFacebook success:^{
+            NSString *imageTitle = [NSString stringWithFormat:@"MobMonkey Image: %@", [storyToPublishToSocialNetworkDictionary objectForKey:@"initialText"]];
+            [MMSocialNetworkModel uploadImage:image title:imageTitle details:nil toSocialNetwork:SocialNetworkFacebook success:^{
                 NSLog(@"Success");
                 [SVProgressHUD showSuccessWithStatus:@"Success"];
             } failure:^(NSError *error) {
@@ -425,7 +426,20 @@
         }
     }
     else if ([buttonTitle isEqualToString:@"Share on Twitter"]) {
-        [self shareViaTwitter:storyToPublishToSocialNetworkDictionary presentingViewController:presentingVC];
+        //[self shareViaTwitter:storyToPublishToSocialNetworkDictionary presentingViewController:presentingVC];
+        UIImage *image = [storyToPublishToSocialNetworkDictionary objectForKey:@"image"];
+        
+        if(image){
+            [SVProgressHUD showWithStatus:@"Uploading Photo to Twitter"];
+            NSString *imageTitle = [NSString stringWithFormat:@"MobMonkey Image: %@ #MobMonkey http://mobmonkey.com", [storyToPublishToSocialNetworkDictionary objectForKey:@"initialText"]];
+            [MMSocialNetworkModel uploadImage:image title:imageTitle details:nil toSocialNetwork:SocialNetworkTwitter success:^{
+                NSLog(@"Success");
+                [SVProgressHUD showSuccessWithStatus:@"Success"];
+            } failure:^(NSError *error) {
+                NSLog(@"Failure");
+                [SVProgressHUD showErrorWithStatus:@"Request Failed"];
+            }];
+        }
     }
     else if ([buttonTitle isEqualToString:@"Flag for Review"]) {
         
