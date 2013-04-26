@@ -208,6 +208,7 @@
                         [actionSheet showInView:self.view];
                     }
                     else {
+                        [TestFlight passCheckpoint:@"NO_TWITTER_ACCOUNTS"];
                         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"There are no Twitter accounts enabled on this device. Please go into your iOS settings menu to add a Twitter account" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                         [alert show];
                     }

@@ -1,3 +1,43 @@
+## 1.2.4 - February 19, 2013
+
+- Fixed bug that caused crash reports to sometimes not send immediately (they would be resent later)
+
+## 1.2.3 - January 8, 2013
+
+- Fixed typos in readme
+- Fixed bug where logs not sent on crash
+- Fixed bug where empty crash files were created (but not sent)
+- Cache cache path
+- Use consts for `setOptions:`
+- Updated `setDeviceIdentifier:` comments to make them clearer
+- Remove potentially conflicting function name `UIColorFromRGB`
+- Fixed crash on bad in app update data
+
+## 1.2.2 - December 26, 2012
+
+- Fix typo in app token error message
+
+## 1.2.1 - December 26, 2012
+
+- The max number of concurrent network connections has been reduced from 4 to 2.
+
+##1.2 - November 12, 2012
+
+* Removed Team Token support. As of version 1.2 takeOff must be called with the Application Token, https://testflightapp.com/dashboard/applications/, choose your application, select SDK, get the Token for this Application.
+
+##1.2 BETA 3 - October 11, 2012
+
+* Added application token support. Application Tokens are currently optional if you do not have one you do not need one
+
+##1.2 BETA 2 - October 9, 2012
+
+* Resolved an instance of close_file being called on a bad file descriptor
+
+##1.2 BETA 1 - October 1, 2012
+
+* Removed support for armv6
+* Exception handler now returns instead of raising a SIGTRAP
+
 ##1.1 - September 13, 2012
 
 * armv7s and iOS 6 support

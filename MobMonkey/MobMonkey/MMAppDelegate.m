@@ -17,6 +17,7 @@
 #import "UIAlertView+Blocks.h"
 #import "Flurry.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import "TestFlight.h"
 
 @implementation MMAppDelegate
 
@@ -27,12 +28,15 @@
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
 
 #if TARGET_IPHONE_SIMULATOR
-    //[[NSUserDefaults standardUserDefaults] setValue:@"1234" forKey:@"apnsToken"];
-    //[[NSUserDefaults standardUserDefaults]synchronize];
+    [[NSUserDefaults standardUserDefaults] setValue:@"1234" forKey:@"apnsToken"];
+    
+    [[NSUserDefaults standardUserDefaults]synchronize];
 #endif
     
     //initialize testflight SDK
-    //[TestFlight takeOff:@"e6432d80aed42a955243c8d93a493dea_MTAwODk2MjAxMi0wNi0yMyAxODoxNzoxOC45NjMzMjY"];
+    // !!!: Use the next line only during beta
+    //[TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+    [TestFlight takeOff:@"c02622dc-9b14-438f-add8-c3247da6261f"];
     
     //Add Activity Indicator when AFNetwork is making requests
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];

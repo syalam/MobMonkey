@@ -151,14 +151,17 @@
 		37D261801628AC370093938A /* searchScreenBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D261741628AC370093938A /* searchScreenBg@2x.png */; };
 		37D261811628AC370093938A /* searchTableViewCellBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D261751628AC370093938A /* searchTableViewCellBg.png */; };
 		37D261821628AC370093938A /* searchTableViewCellBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D261761628AC370093938A /* searchTableViewCellBg@2x.png */; };
-		37D6AB4C1644488A0070220D /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37D6AB481644488A0070220D /* libTestFlight.a */; };
-		37D6AB4D1644488A0070220D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 37D6AB491644488A0070220D /* README.md */; };
-		37D6AB4E1644488A0070220D /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 37D6AB4A1644488A0070220D /* release_notes.md */; };
 		37D6AB51164448D10070220D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 37D6AB50164448D10070220D /* libz.dylib */; };
 		37E5233C163F3E97003AC7E5 /* peopleIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 37E52338163F3E97003AC7E5 /* peopleIcon.png */; };
 		37E5233D163F3E97003AC7E5 /* peopleIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37E52339163F3E97003AC7E5 /* peopleIcon@2x.png */; };
 		37E5241316418AD4003AC7E5 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7716D55161D114A00578A90 /* MediaPlayer.framework */; };
 		37E524AD16430376003AC7E5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E524AC16430376003AC7E5 /* SystemConfiguration.framework */; };
+		B924B4A5172B3EE500FC4924 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B924B4A1172B3EE500FC4924 /* libTestFlight.a */; };
+		B924B4A6172B3EE500FC4924 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B924B4A1172B3EE500FC4924 /* libTestFlight.a */; };
+		B924B4A7172B3EE500FC4924 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B924B4A2172B3EE500FC4924 /* README.md */; };
+		B924B4A8172B3EE500FC4924 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B924B4A2172B3EE500FC4924 /* README.md */; };
+		B924B4A9172B3EE500FC4924 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = B924B4A3172B3EE500FC4924 /* release_notes.md */; };
+		B924B4AA172B3EE500FC4924 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = B924B4A3172B3EE500FC4924 /* release_notes.md */; };
 		B977AE8E1721E73300528A94 /* TermsOfService.html in Resources */ = {isa = PBXBuildFile; fileRef = B977AE8D1721E73300528A94 /* TermsOfService.html */; };
 		B977AE8F1721E73300528A94 /* TermsOfService.html in Resources */ = {isa = PBXBuildFile; fileRef = B977AE8D1721E73300528A94 /* TermsOfService.html */; };
 		B977AE921721F31D00528A94 /* MMLocationSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = B977AE911721F31C00528A94 /* MMLocationSearch.m */; };
@@ -657,9 +660,6 @@
 		B9A1191D170A568D0020C322 /* MMTrendingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7AAF5F3169E9ABD00760B4D /* MMTrendingDetailViewController.m */; };
 		B9A1191E170A568D0020C322 /* MMTrendingDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7AAF5F4169E9ABD00760B4D /* MMTrendingDetailViewController.xib */; };
 		B9A1191F170A56B50020C322 /* NSString+URLParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D65061648E7B700D72154 /* NSString+URLParams.m */; };
-		B9A11920170A56BA0020C322 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37D6AB481644488A0070220D /* libTestFlight.a */; };
-		B9A11921170A56C00020C322 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 37D6AB491644488A0070220D /* README.md */; };
-		B9A11922170A56C40020C322 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 37D6AB4A1644488A0070220D /* release_notes.md */; };
 		B9A11923170A56CB0020C322 /* MMClientSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = F77D3E50161A1ED2000A818F /* MMClientSDK.m */; };
 		B9A11924170A56CF0020C322 /* MMAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5A115F12AAF0090E85A /* MMAPI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B9A11925170A56D30020C322 /* MMHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F71B9B341602A163003BED33 /* MMHTTPClient.m */; };
@@ -1584,6 +1584,10 @@
 		37E52338163F3E97003AC7E5 /* peopleIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = peopleIcon.png; sourceTree = "<group>"; };
 		37E52339163F3E97003AC7E5 /* peopleIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "peopleIcon@2x.png"; sourceTree = "<group>"; };
 		37E524AC16430376003AC7E5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		B924B4A1172B3EE500FC4924 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		B924B4A2172B3EE500FC4924 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		B924B4A3172B3EE500FC4924 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		B924B4A4172B3EE500FC4924 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		B977AE8D1721E73300528A94 /* TermsOfService.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = TermsOfService.html; sourceTree = "<group>"; };
 		B977AE901721F31C00528A94 /* MMLocationSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationSearch.h; sourceTree = "<group>"; };
 		B977AE911721F31C00528A94 /* MMLocationSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationSearch.m; sourceTree = "<group>"; };
@@ -2154,7 +2158,6 @@
 				B9A1171A170A54FB0020C322 /* CoreGraphics.framework in Frameworks */,
 				B9A1174D170A551C0020C322 /* libFlurry.a in Frameworks */,
 				B9A1174E170A55240020C322 /* libGreystripeSDK.a in Frameworks */,
-				B9A11920170A56BA0020C322 /* libTestFlight.a in Frameworks */,
 				B9A1196A170A576F0020C322 /* FacebookSDK.framework in Frameworks */,
 				B9A1196B170A577E0020C322 /* Accounts.framework in Frameworks */,
 				B9A1196C170A57830020C322 /* AddressBook.framework in Frameworks */,
@@ -2179,6 +2182,7 @@
 				B9A11980170A57E10020C322 /* StoreKit.framework in Frameworks */,
 				B9A11981170A57E40020C322 /* SystemConfiguration.framework in Frameworks */,
 				B9A11982170A57E60020C322 /* Twitter.framework in Frameworks */,
+				B924B4A6172B3EE500FC4924 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2220,11 +2224,11 @@
 				F734A53815F11C3E0090E85A /* UIKit.framework in Frameworks */,
 				F734A53A15F11C3E0090E85A /* Foundation.framework in Frameworks */,
 				37E5241316418AD4003AC7E5 /* MediaPlayer.framework in Frameworks */,
-				37D6AB4C1644488A0070220D /* libTestFlight.a in Frameworks */,
 				1A9F8EB7167AC3F10077675B /* Parse.framework in Frameworks */,
 				1A9F8F3E167F9F180077675B /* libGreystripeSDK.a in Frameworks */,
 				1A25820D169289D20057EAAD /* FacebookSDK.framework in Frameworks */,
 				1AE5965F16974BB100AD6707 /* libFlurry.a in Frameworks */,
+				B924B4A5172B3EE500FC4924 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2556,6 +2560,18 @@
 				37D6AB4B1644488A0070220D /* TestFlight.h */,
 			);
 			path = TestFlightSDK1;
+			sourceTree = "<group>";
+		};
+		B924B4A0172B3EE500FC4924 /* TestFlightSDK1.2.4 */ = {
+			isa = PBXGroup;
+			children = (
+				B924B4A1172B3EE500FC4924 /* libTestFlight.a */,
+				B924B4A2172B3EE500FC4924 /* README.md */,
+				B924B4A3172B3EE500FC4924 /* release_notes.md */,
+				B924B4A4172B3EE500FC4924 /* TestFlight.h */,
+			);
+			name = TestFlightSDK1.2.4;
+			path = "TestFlightSDK1.2.4 (1) 2";
 			sourceTree = "<group>";
 		};
 		B99B7D5817271843000BF3AB /* Social Network Model */ = {
@@ -2935,6 +2951,7 @@
 		F734A53D15F11C3E0090E85A /* MobMonkey */ = {
 			isa = PBXGroup;
 			children = (
+				B924B4A0172B3EE500FC4924 /* TestFlightSDK1.2.4 */,
 				B99B7D5817271843000BF3AB /* Social Network Model */,
 				1A458C5A16A8797300118699 /* Default-568h@2x.png */,
 				1A458C5B16A8797300118699 /* Default.png */,
@@ -4521,8 +4538,6 @@
 				B9A11917170A568D0020C322 /* MMTabBarViewController.xib in Resources */,
 				B9A1191C170A568D0020C322 /* MMTrendingViewController.xib in Resources */,
 				B9A1191E170A568D0020C322 /* MMTrendingDetailViewController.xib in Resources */,
-				B9A11921170A56C00020C322 /* README.md in Resources */,
-				B9A11922170A56C40020C322 /* release_notes.md in Resources */,
 				B9A1193A170A57200020C322 /* InfoPlist.strings in Resources */,
 				B9A1193C170A57360020C322 /* compose.png in Resources */,
 				B9A1193D170A57360020C322 /* compose@2x.png in Resources */,
@@ -4582,6 +4597,8 @@
 				B977AE9917220A0F00528A94 /* whiteCircleX@2x.png in Resources */,
 				B99B7D651727473C000BF3AB /* pineTree.png in Resources */,
 				B99B7D671727473C000BF3AB /* pineTree@2x.png in Resources */,
+				B924B4A8172B3EE500FC4924 /* README.md in Resources */,
+				B924B4AA172B3EE500FC4924 /* release_notes.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4823,8 +4840,6 @@
 				1AC1D4471640545500C8162F /* navBarButtonBlank@2x.png in Resources */,
 				1A6784AD1640C49900A45AC5 /* CloseButton.png in Resources */,
 				1A6784AE1640C49900A45AC5 /* CloseButton@2x.png in Resources */,
-				37D6AB4D1644488A0070220D /* README.md in Resources */,
-				37D6AB4E1644488A0070220D /* release_notes.md in Resources */,
 				1A0055911652B83B003836F4 /* fiveMileFilterOff.png in Resources */,
 				1A0055921652B83B003836F4 /* fiveMileFilterOff@2x.png in Resources */,
 				1A0055931652B83B003836F4 /* fiveMileFilterOn.png in Resources */,
@@ -5047,6 +5062,8 @@
 				B977AE9817220A0F00528A94 /* whiteCircleX@2x.png in Resources */,
 				B99B7D641727473C000BF3AB /* pineTree.png in Resources */,
 				B99B7D661727473C000BF3AB /* pineTree@2x.png in Resources */,
+				B924B4A7172B3EE500FC4924 /* README.md in Resources */,
+				B924B4A9172B3EE500FC4924 /* release_notes.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5566,6 +5583,8 @@
 					"\"$(SRCROOT)/MobMonkey/Flurry\"",
 					"\"$(SRCROOT)/MobMonkey/iOSSDK4.1\"",
 					"\"$(SRCROOT)/MobMonkey/TestFlightSDK1\"",
+					"\"$(SRCROOT)/MobMonkey/TestFlight\"",
+					"\"$(SRCROOT)/MobMonkey/TestFlightSDK1.2.4 (1) 2\"",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5599,6 +5618,8 @@
 					"\"$(SRCROOT)/MobMonkey/Flurry\"",
 					"\"$(SRCROOT)/MobMonkey/iOSSDK4.1\"",
 					"\"$(SRCROOT)/MobMonkey/TestFlightSDK1\"",
+					"\"$(SRCROOT)/MobMonkey/TestFlight\"",
+					"\"$(SRCROOT)/MobMonkey/TestFlightSDK1.2.4 (1) 2\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5738,6 +5759,8 @@
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.2.1\"",
 					"\"$(SRCROOT)/MobMonkey/Flurry\"",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/MobMonkey-gbifzdlziybonbgzcpeevjktwawv/Build/Products/Debug-iphonesimulator\"",
+					"\"$(SRCROOT)/MobMonkey/TestFlight\"",
+					"\"$(SRCROOT)/MobMonkey/TestFlightSDK1.2.4 (1) 2\"",
 				);
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5772,6 +5795,8 @@
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.2.1\"",
 					"\"$(SRCROOT)/MobMonkey/Flurry\"",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/MobMonkey-gbifzdlziybonbgzcpeevjktwawv/Build/Products/Debug-iphonesimulator\"",
+					"\"$(SRCROOT)/MobMonkey/TestFlight\"",
+					"\"$(SRCROOT)/MobMonkey/TestFlightSDK1.2.4 (1) 2\"",
 				);
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
