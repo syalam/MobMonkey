@@ -195,7 +195,7 @@
 
 + (void)authenticateFacebookIfNeeded:(void(^)(NSError *error))completion{
     if (FBSession.activeSession.state != FBSessionStateOpen) {
-        [FBSession openActiveSessionWithPublishPermissions:@[@"publish_actions"] defaultAudience:FBSessionDefaultAudienceEveryone allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        [FBSession openActiveSessionWithPublishPermissions:@[@"publish_actions"] defaultAudience:FBSessionDefaultAudienceOnlyMe allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
             completion(error);
         }];
     }else{
@@ -212,7 +212,7 @@
             if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
                 
                 // if we don't already have the permission, then we request it now
-                [[FBSession activeSession] reauthorizeWithPublishPermissions:@[@"publish_actions"] defaultAudience:FBSessionDefaultAudienceEveryone completionHandler:^(FBSession *session, NSError *error) {
+                [[FBSession activeSession] reauthorizeWithPublishPermissions:@[@"publish_actions"] defaultAudience:FBSessionDefaultAudienceOnlyMe completionHandler:^(FBSession *session, NSError *error) {
                     if (!error) {
                         action();
                     }

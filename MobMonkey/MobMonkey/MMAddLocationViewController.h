@@ -20,7 +20,7 @@
 
 @end
 
-@interface MMAddLocationViewController : UITableViewController <UITextFieldDelegate, MMCategoryDelegate>
+@interface MMAddLocationViewController : UITableViewController <UITextFieldDelegate, MMCategoryDelegate, CLLocationManagerDelegate>
 {
     MMLocationInformation *locationInformation;
     
@@ -29,6 +29,8 @@
     NSDictionary *categories;
     
     CLGeocoder *geocoder;
+    
+    CLLocationManager *locationManager;
 }
 
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;

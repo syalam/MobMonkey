@@ -326,8 +326,9 @@
 
 -(void)doneButtonPressed:(id)sender{
     
-    [SVProgressHUD showWithStatus:@"Saving Changes"];
+    
     if (![[NSUserDefaults standardUserDefaults] valueForKey:@"facebookEnabled"]) {
+        [SVProgressHUD showWithStatus:@"Saving Changes"];
         [self updateUserInfoWithSuccess:^{
             [SVProgressHUD showSuccessWithStatus:@"Updated User Info"];
             [self.navigationController popViewControllerAnimated:YES];

@@ -10,6 +10,7 @@
 #import "MMAPI.h"
 #import "MMLocationViewController.h"
 #import "MMTextFieldCell.h"
+#import "UIAlertView+Blocks.h"
 
 @interface MMAddLocationViewController ()
 
@@ -32,6 +33,11 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        locationManager = [[CLLocationManager alloc] init];
+        locationManager.delegate = self;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        locationManager.distanceFilter = kCLDistanceFilterNone;
+        [locationManager startUpdatingLocation];
     }
     return self;
 }
@@ -213,6 +219,8 @@
 -(void)addressSwitchChanged:(UISwitch *)sender{
 
     if(sender.on && [self.tableView numberOfRowsInSection:0] == 4){
+        
+        
         self.hasAddress = YES;
         [self.tableView beginUpdates];
         
@@ -281,12 +289,37 @@
         name = @"Unnamed Location";
     }
     
-    [locationInformation geocodeLocationWithCompletionHandler:^(NSArray *placemarks, NSError *error) {
-        if ([placemarks count] > 0) {
-            CLPlacemark *placemark = [placemarks objectAtIndex:0];
-            [self addAndJumpToLocation:placemark.location];
-        }
-    }];
+    if(!locationInformation.latitude || locationInformation.longitude){
+     
+        locationInformation.latitude = [NSNumber numberWithDouble:location.coordinate.latitude];
+        locationInformation.longitude = [NSNumber numberWithDouble:location.coordinate.longitude];
+    }
+    
+    if(self.hasAddress){
+        [locationInformation geocodeLocationWithCompletionHandler:^(NSArray *placemarks, NSError *error) {
+            if ([placemarks count] > 0) {
+                CLPlacemark *placemark = [placemarks objectAtIndex:0];
+                [locationManager stopUpdatingLocation];
+                [self addAndJumpToLocation:placemark.location];
+            }else{
+                UIAlertView *addressNotFoundAlert = [[ UIAlertView alloc] initWithTitle:@"No Location Found" message:@"Could not geocode this address, please fix the address" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [addressNotFoundAlert show];
+            }
+        }];
+    }else{
+        RIButtonItem * cancelItem = [RIButtonItem itemWithLabel:@"Cancel"];
+        RIButtonItem * currentLocationItem = [RIButtonItem itemWithLabel:@"Current Location"];
+        
+        [currentLocationItem setAction:^{
+            [self addAndJumpToLocation:location];
+        }];
+        
+        UIAlertView *currentLocationAlert = [[UIAlertView alloc] initWithTitle:@"No Address" message:@"You didn't enter an address for this location, would you like to use your current position?" cancelButtonItem:cancelItem otherButtonItems:currentLocationItem, nil];
+        
+        [currentLocationAlert show];
+    }
+    
+    
     
 }
 
@@ -440,4 +473,9 @@
     }
 }
 
+-(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    
+    location = newLocation;
+    
+}
 @end
