@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MMRequestScheduleViewController.h"
+#import "MMLocationInformation.h"
 
 @class MMTableViewCell;
 
@@ -15,6 +16,7 @@
     BOOL isRecurring;
 }
 
-@property (nonatomic, retain)NSDictionary *contentList;
+//@property (nonatomic, retain)NSDictionary *contentList;
+@property (nonatomic, strong) MMLocationInformation *locationInformation;
 
 @end

@@ -83,7 +83,7 @@
  @param locationId
  @param providerId
  */
-+ (void)displayMMMakeARequestScreenFromPresentingViewController:(UIViewController*)presentingViewController withLocationParams:(NSDictionary*)params;
++ (void)displayMMMakeARequestScreenFromPresentingViewController:(UIViewController*)presentingViewController withLocationInformation:(MMLocationInformation*)locationInformation;
 
 ///---------------------------------------------
 /// @name displayMMSearchScreenFromPresentingViewController

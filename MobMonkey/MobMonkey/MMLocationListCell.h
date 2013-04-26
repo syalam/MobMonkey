@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "MMTableViewCell.h"
-
+#import "MMLocationInformation.h"
 
 @interface MMLocationListCell : MMTableViewCell
 
 @property (strong, nonatomic) NSDictionary *location;
+@property (nonatomic, strong) MMLocationInformation *locationInformation;
 
 - (void)setLocation:(NSDictionary *)location;
+-(void)setLocationInformation:(MMLocationInformation*)locationInformation;
 
 @end

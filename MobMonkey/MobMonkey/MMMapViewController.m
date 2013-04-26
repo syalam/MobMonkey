@@ -407,7 +407,13 @@
     [self.navigationController presentViewController:navc animated:YES completion:nil];
 }
 - (void)infoButtonTapped:(id)sender {
-    [[MMClientSDK sharedSDK]locationScreen:self locationDetail:[_contentList objectAtIndex:[sender tag]]];
+    
+    if(_contentList){
+        //[[MMClientSDK sharedSDK]locationScreen:self locationDetail:[_contentList objectAtIndex:[sender tag]]];
+    }else{
+        [[MMClientSDK sharedSDK] locationScreen:self locationInformation:[self.locationInformationCollection objectAtIndex:[sender tag]]];
+    }
+    
 }
 
 #pragma mark - UISearchBar Delegate Methods

@@ -204,7 +204,7 @@ BOOL awDoubleVal(double *var, id val) {
     }
     else {
       CLLocationManager* locMan = [[CLLocationManager alloc] init];
-      bLocationServiceEnabled = locMan.locationServicesEnabled;
+        bLocationServiceEnabled = [CLLocationManager locationServicesEnabled];
       [locMan release], locMan = nil;
     }
 

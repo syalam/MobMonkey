@@ -263,6 +263,54 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient postPath:request.URL.absoluteString parameters:nil success:success failure:failure];
     
 }
++ (void) registerTwitterWithOauth:(MMOAuth*)oauth userInfo:(MMMyInfo *)userInfo
+                          success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    
+    NSNumber * gender = [userInfo.gender isEqualToString:@"Male"] ? @1 : @0;
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    
+    NSDate *birthdayDate = [dateFormatter dateFromString:userInfo.birthday];
+    NSTimeInterval bdayUnixTime = birthdayDate.timeIntervalSince1970*1000;
+    NSNumber * birthday = [NSNumber numberWithDouble:bdayUnixTime];
+    
+    userInfo.firstName ? [parameters setValue:userInfo.firstName forKey:@"firstName"]: nil;
+    birthday ? [parameters setValue:birthday forKey:@"birthday"] : nil;
+    userInfo.lastName ? [parameters setValue:userInfo.lastName forKey:@"lastName"]: nil;
+    gender ? [parameters setValue:gender forKey:@"gender"] : nil;
+    oauth.username ? [parameters setValue:oauth.username forKey:@"providerUserName"] : nil;
+    oauth.deviceID ? [parameters setValue:oauth.deviceID forKey:@"deviceId"] : nil;
+    
+    /*if(oauth.providerString){
+        [parameters setObject:oauth.providerString forKey:@"provider"];
+        
+    }*/
+    
+    
+    if(oauth.provider == OAuthProviderTwitter)
+    {
+        //[parameters setValue:oauth.token forKey:@"oauthToken"];
+        
+    }
+    
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+    
+    NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET" path:@"signin" parameters:parameters];
+    
+    NSString *urlstring = request.URL.absoluteString;
+    
+    [httpClient postPath:urlstring parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation, responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+    }];
+    
+}
 + (void)registerTwitterUserDetails:(NSDictionary*)params
                            success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                            failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
@@ -408,6 +456,36 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient postPath:urlString parameters:params success:success failure:failure];
 }
 
+//NEW METHOD
++ (void)searchForLocations:(NSMutableDictionary*)params mediaType:(NSString*)mediaType
+                   success:(void (^)(AFHTTPRequestOperation *operation, NSArray *locationInformations))success
+                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+    NSString *urlString;
+    if (mediaType) {
+        urlString = [NSString stringWithFormat:@"search/location?mediaType=%@", mediaType];
+    }
+    else {
+        urlString = @"search/location";
+    }
+    [httpClient postPath:urlString parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSMutableArray *locationInformations = [NSMutableArray array];
+        
+        for(NSDictionary *locationDictionary in responseObject){
+            MMLocationInformation *locationInformation = [self locationInformationForLocationDictionary:locationDictionary];
+            [locationInformations addObject:locationInformation];
+        }
+        
+        success(operation, locationInformations);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+    }];
+    
+}
+
 #pragma marl - Media
 + (void)getMediaForLocationID:(NSString *)locationID
                    providerID:(NSString *)providerID
@@ -424,6 +502,34 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient getPath:@"bookmarks" parameters:nil success:success failure:failure];
 }
+
++ (void)getBookmarkLocationInformationOnSuccess:(void (^)(AFHTTPRequestOperation *operation, NSArray *locationInformations ))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+    [[MMHTTPClient sharedClient] getPath:@"bookmarks" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSMutableArray *locationInformations = [NSMutableArray array];
+        
+        for(NSDictionary *locationDictionary in responseObject){
+            MMLocationInformation *locationInformation = [self locationInformationForLocationDictionary:locationDictionary];
+            
+            [locationInformations addObject:locationInformation];
+        }
+        
+        success(operation, locationInformations);
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        failure(operation, error);
+        
+    }];
+    
+    
+}
+    
+
+
+
 
 + (void)createBookmarkWithLocationID:(NSString *)locationID
                           providerID:(NSString *)providerID
@@ -469,6 +575,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
             urlParams = [NSString stringWithFormat:@"trending/%@?%@=%@", type, key, [params valueForKey:key]];
         }
     }
+    NSLog(@"URL: %@", urlParams);
     [httpClient getPath:urlParams parameters:nil success:success failure:failure];
 }
 
@@ -481,6 +588,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     NSString *urlString = [NSString stringWithFormat:@"location?locationId=%@&providerId=%@", [param valueForKey:@"locationId"], [param valueForKey:@"providerId"]];
     [httpClient getPath:urlString parameters:nil success:success failure:failure];
 }
+
 
 +(void)getLocationWithID:(NSString *)locationID providerID:(NSString *)providerID success:(void (^)(AFHTTPRequestOperation *, MMLocationInformation *))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
     
@@ -511,6 +619,11 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
             locationInformation.state = [json objectForKey:@"region"];
             locationInformation.website = [json objectForKey:@"webSite"];
             locationInformation.isBookmark = ((NSNumber*)[json objectForKey:@"bookmark"]).boolValue;
+            locationInformation.message = [json objectForKey:@"message"];
+            locationInformation.livestreaming = [json objectForKey:@"livestreaming"];
+            locationInformation.videos = [json objectForKey:@"videos"];
+            locationInformation.images = [json objectForKey:@"images"];
+            locationInformation.monkeys = [json objectForKey:@"monkeys"];
             
             if(success){
                 success(operation, locationInformation);
@@ -569,4 +682,77 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
         }
     }];
 }
+
+
+
+
+
++(NSDictionary *)locationDictionaryForLocationInformation:(MMLocationInformation *)locationInformation{
+    
+    NSMutableDictionary *locationDictionary = [NSMutableDictionary dictionary];
+    
+    locationInformation.locationID ? [locationDictionary setObject:locationInformation.locationID forKey:@"locationId"] : nil;
+    locationInformation.providerID ? [locationDictionary setObject:locationInformation.providerID forKey:@"providerId"] : nil;
+    locationInformation.street ? [locationDictionary setObject:locationInformation.street forKey:@"address"] : nil;
+    locationInformation.details ? [locationDictionary setObject:locationInformation.details forKey:@"description"] : nil;
+    locationInformation.unitNumber ? [locationDictionary setObject:locationInformation.unitNumber forKey:@"address_ext"] : nil;
+    locationInformation.categories ? [locationDictionary setObject:locationInformation.categories forKey:@"categoryIds"] : nil;
+    locationInformation.country ? [locationDictionary setObject:locationInformation.country forKey:@"countryCode"] : nil;
+    locationInformation.latitude ? [locationDictionary setObject:locationInformation.latitude forKey:@"latitude"] : nil;
+    locationInformation.longitude ? [locationDictionary setObject:locationInformation.longitude forKey:@"longitude"] : nil;
+    locationInformation.locality ? [locationDictionary setObject:locationInformation.locality forKey:@"locality"] : nil;
+    locationInformation.name ? [locationDictionary setObject:locationInformation.name forKey:@"name"] : nil;
+    locationInformation.neighborhood ? [locationDictionary setObject:locationInformation.neighborhood forKey:@"neighborhood"] : nil;
+    locationInformation.phoneNumber ? [locationDictionary setObject:locationInformation.phoneNumber forKey:@"phoneNumber"] : nil;
+    locationInformation.zipCode ? [locationDictionary setObject:locationInformation.zipCode forKey:@"postCode"] : nil;
+    locationInformation.state ? [locationDictionary setObject:locationInformation.state forKey:@"region"] : nil;
+    locationInformation.region ? [locationDictionary setObject:locationInformation.region forKey:@"region"] : nil;
+    locationInformation.website ? [locationDictionary setObject:locationInformation.website forKey:@"webSite"] : nil;
+    locationInformation.isBookmark ? [locationDictionary setObject:locationInformation.isBookmark forKey:@"bookmark"] : nil;
+    locationInformation.message ? [locationDictionary setObject:locationInformation.message forKey:@"message"] : nil;
+    locationInformation.livestreaming ? [locationDictionary setObject:locationInformation.livestreaming forKey:@"livestreaming"] : nil;
+    locationInformation.videos ? [locationDictionary setObject:locationInformation.videos forKey:@"videos"] : nil;
+    locationInformation.images ? [locationDictionary setObject:locationInformation.images forKey:@"images"] : nil;
+    locationInformation.monkeys ? [locationDictionary setObject:locationInformation.monkeys forKey:@"monkeys"] : nil;
+    
+   
+    return locationDictionary;
+    
+    
+    
+}
+
+
++(MMLocationInformation *)locationInformationForLocationDictionary:(NSDictionary *)locationDictionary{
+    
+    MMLocationInformation *locationInformation = [[MMLocationInformation alloc] init];
+    
+    locationInformation.locationID = [locationDictionary objectForKey:@"locationId"];
+    locationInformation.providerID = [locationDictionary objectForKey:@"providerId"];
+    locationInformation.street = [locationDictionary objectForKey:@"address"];
+    locationInformation.details = [locationDictionary objectForKey:@"description"];
+    locationInformation.unitNumber = [locationDictionary objectForKey:@"address_ext"];
+    locationInformation.categories = [locationDictionary objectForKey:@"categoryIds"];
+    locationInformation.country = [locationDictionary objectForKey:@"countryCode"];
+    locationInformation.latitude = [locationDictionary objectForKey:@"latitude"]; //warn
+    locationInformation.longitude = [locationDictionary objectForKey:@"longitude"];//warn
+    locationInformation.locality = [locationDictionary objectForKey:@"locality"];
+    locationInformation.name = [locationDictionary objectForKey:@"name"];
+    locationInformation.neighborhood = [locationDictionary objectForKey:@"neighborhood"];
+    locationInformation.phoneNumber = [locationDictionary objectForKey:@"phoneNumber"];
+    locationInformation.zipCode = [locationDictionary objectForKey:@"postCode"];
+    locationInformation.region = [locationDictionary objectForKey:@"region"];
+    locationInformation.state = [locationDictionary objectForKey:@"region"];
+    locationInformation.website = [locationDictionary objectForKey:@"webSite"];
+    locationInformation.isBookmark = ((NSNumber*)[locationDictionary objectForKey:@"bookmark"]).boolValue;
+    locationInformation.message = [locationDictionary objectForKey:@"message"];
+    locationInformation.livestreaming = [locationDictionary objectForKey:@"livestreaming"];
+    locationInformation.videos = [locationDictionary objectForKey:@"videos"];
+    locationInformation.images = [locationDictionary objectForKey:@"images"];
+    locationInformation.monkeys = [locationDictionary objectForKey:@"monkeys"];
+    
+    return locationInformation;
+    
+}
+
 @end

@@ -27,7 +27,8 @@
     IBOutlet UIToolbar *radiusToolbar;
 }
 
-@property (strong, nonatomic) NSMutableArray *locations;
+@property (nonatomic, strong) NSMutableArray *locationsInformationCollection;
+//@property (strong, nonatomic) NSMutableArray *locations;
 @property (assign, nonatomic) BOOL isSearching;
 @property (strong, nonatomic) NSDictionary *category;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

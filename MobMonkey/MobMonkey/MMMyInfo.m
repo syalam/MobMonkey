@@ -8,7 +8,7 @@
 
 #import "MMMyInfo.h"
 
-#define kMyInfoKey @"myInfo"
+#define kMyInfoKey @"MyInfo"
 
 #define kFirstNameKey @"firstName"
 #define kLastNameKey @"lastName"
@@ -19,14 +19,16 @@
 @implementation MMMyInfo
 
 @synthesize myInfoDictionary = _myInfoDictionary;
-@synthesize firstName = _firstName, lastName = _lastName, email = _email, birthday = _birthday, gender = _gender;
+@synthesize firstName = _firstName, lastName = _lastName, email = _email, birthday = _birthday, gender = _gender, isEmpty = _isEmpty;
 
 +(id)myInfo{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSData *myEncodedObject = [defaults objectForKey:kMyInfoKey];
     MMMyInfo *myInfo = (MMMyInfo *)[NSKeyedUnarchiver unarchiveObjectWithData: myEncodedObject];
     
-    if(!myInfo){
+    
+    
+    if((!myInfo) || myInfo.isEmpty ){
         myInfo = [[self alloc] init];
     }
     
@@ -38,11 +40,14 @@
     [defaults setObject:myEncodedObject forKey:kMyInfoKey];
 }
 -(void)eraseInfo{
+    
     self.firstName = nil;
     self.lastName = nil;
     self.email = nil;
     self.birthday = nil;
     self.gender = nil;
+    self.isEmpty = YES;
+    
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kMyInfoKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

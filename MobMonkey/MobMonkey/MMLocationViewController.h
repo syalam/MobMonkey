@@ -39,7 +39,7 @@
     
 }
 
-@property (nonatomic, retain) NSMutableDictionary* contentList;
+//@property (nonatomic, retain) NSMutableDictionary* contentList;
 
 @property (nonatomic, weak, readonly)IBOutlet UIScrollView *scrollView;
 
