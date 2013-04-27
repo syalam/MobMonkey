@@ -35,7 +35,7 @@
     
     //initialize testflight SDK
     // !!!: Use the next line only during beta
-    //[TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
     [TestFlight takeOff:@"c02622dc-9b14-438f-add8-c3247da6261f"];
     
     //Add Activity Indicator when AFNetwork is making requests
