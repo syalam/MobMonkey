@@ -142,7 +142,8 @@
             
         }
         else {
-            if (allCategories.count > 0) {
+            if ([allCategories isKindOfClass:[NSDictionary class]] && [[allCategories allKeys] count] > 0) {
+            //if(allCategories.count > 0) {
                 NSLog(@"ARRAY: %@", allCategories);
                 self.categories = [allCategories allKeys];
                 [self.tableView reloadData];

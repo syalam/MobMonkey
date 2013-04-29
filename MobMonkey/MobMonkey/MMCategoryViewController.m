@@ -100,7 +100,7 @@
         }
     }
     else {
-        if (allCategories) {
+        if ([allCategories isKindOfClass:[NSDictionary class]] && [[allCategories allKeys] count] > 0) {
             categoriesArray = [allCategories allKeys];
             [self setTableContent];
         }
