@@ -105,6 +105,9 @@
             [self setTableContent];
         }
         else {
+            if(![allCategories isKindOfClass:[NSDictionary class]]){
+                [TestFlight passCheckpoint:@"allCategories not dictionary"];
+            }
             [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"%@", responseObject);
                 [[NSUserDefaults standardUserDefaults]setObject:responseObject forKey:@"allCategories"];
