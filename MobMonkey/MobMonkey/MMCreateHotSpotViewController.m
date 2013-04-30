@@ -8,6 +8,7 @@
 
 #import "MMCreateHotSpotViewController.h"
 #import "MMLocationSearch.h"
+#import "MMLocationHotSpotsViewController.h"
 
 @interface MMCreateHotSpotViewController ()
 
@@ -211,6 +212,11 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    if(indexPath.section == 0 && indexPath.row != self.nearbyLocations.count){
+        MMLocationHotSpotsViewController *hotSpotsLocationVC = [[MMLocationHotSpotsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        [self.navigationController pushViewController:hotSpotsLocationVC animated:YES];
+    }
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];

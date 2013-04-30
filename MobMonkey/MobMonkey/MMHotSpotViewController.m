@@ -51,7 +51,7 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     //Create MapView
-    mapView = [[MKMapView alloc] initWithFrame:CGRectMake(10, 5 , 300, 220)];
+    mapView = [[MKMapView alloc] initWithFrame:CGRectMake(10, 20 , 300, 220)];
     [mapView setScrollEnabled:NO];
     [mapView setZoomEnabled:NO];
     mapView.layer.cornerRadius = 8.0f;
@@ -61,7 +61,7 @@
     mapView.delegate = self;
     
     //Create Pan Label
-    mapPanLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, 300, 20)];
+    mapPanLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 300, 20)];
     mapPanLabel.text = @"Hold to Enable Pan and Zoom";
     mapPanLabel.backgroundColor = [UIColor clearColor];
     mapPanLabel.textColor = [UIColor grayColor];
@@ -329,7 +329,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if(section == 1){
-        return 242;
+        return 257;
     }
     return UITableViewAutomaticDimension ;
 }

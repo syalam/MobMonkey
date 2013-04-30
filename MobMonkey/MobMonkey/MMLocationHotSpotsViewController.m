@@ -29,6 +29,10 @@
     [super viewDidLoad];
     
 
+    if(self.hotSpots.count <= 0){
+        self.hotSpots = [MMHotSpots testHotSpots];
+        [self.tableView reloadData];
+    }
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  

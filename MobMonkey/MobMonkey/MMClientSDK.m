@@ -476,17 +476,19 @@
     dispatch_queue_t backgroundQueue = dispatch_queue_create("com.MobMonkey.SaveVideo", NULL);
     dispatch_async(backgroundQueue, ^(void) {
         NSString *stringURL = [storyToPublishToSocialNetworkDictionary valueForKey:@"url"];
-        NSURL  *url = [NSURL URLWithString:stringURL];
-        NSData *urlData = [NSData dataWithContentsOfURL:url];
-        if ( urlData )
-        {
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *documentsDirectory = [paths objectAtIndex:0];
-            
-            NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"filename.mp4"];
-            [urlData writeToFile:filePath atomically:YES];
-            
-            UISaveVideoAtPathToSavedPhotosAlbum(filePath, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+        if(stringURL){
+            NSURL  *url = [NSURL URLWithString:stringURL];
+            NSData *urlData = [NSData dataWithContentsOfURL:url];
+            if ( urlData )
+            {
+                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                NSString *documentsDirectory = [paths objectAtIndex:0];
+                
+                NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"filename.mp4"];
+                [urlData writeToFile:filePath atomically:YES];
+                
+                UISaveVideoAtPathToSavedPhotosAlbum(filePath, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+            }
         }
     });
 }
