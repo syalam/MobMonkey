@@ -162,6 +162,16 @@
 		B924B4A8172B3EE500FC4924 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B924B4A2172B3EE500FC4924 /* README.md */; };
 		B924B4A9172B3EE500FC4924 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = B924B4A3172B3EE500FC4924 /* release_notes.md */; };
 		B924B4AA172B3EE500FC4924 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = B924B4A3172B3EE500FC4924 /* release_notes.md */; };
+		B924B4B6172EDD9B00FC4924 /* MMHotSpotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B924B4B4172EDD9B00FC4924 /* MMHotSpotViewController.m */; };
+		B924B4B7172EDD9B00FC4924 /* MMHotSpotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B924B4B4172EDD9B00FC4924 /* MMHotSpotViewController.m */; };
+		B924B4C2172EDE4900FC4924 /* MMHotSpotHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B924B4C1172EDE4900FC4924 /* MMHotSpotHeaderView.m */; };
+		B924B4C3172EDE4900FC4924 /* MMHotSpotHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B924B4C1172EDE4900FC4924 /* MMHotSpotHeaderView.m */; };
+		B924B4C6172EFF1000FC4924 /* MMCreateHotSpotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B924B4C5172EFF1000FC4924 /* MMCreateHotSpotViewController.m */; };
+		B924B4C7172EFF1000FC4924 /* MMCreateHotSpotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B924B4C5172EFF1000FC4924 /* MMCreateHotSpotViewController.m */; };
+		B924B4CA172F21D300FC4924 /* MMHotSpotInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = B924B4C9172F21D300FC4924 /* MMHotSpotInformation.m */; };
+		B924B4CB172F21D300FC4924 /* MMHotSpotInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = B924B4C9172F21D300FC4924 /* MMHotSpotInformation.m */; };
+		B924B4CE172F41D600FC4924 /* MMLocationHotSpotsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B924B4CD172F41D600FC4924 /* MMLocationHotSpotsViewController.m */; };
+		B924B4CF172F41D600FC4924 /* MMLocationHotSpotsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B924B4CD172F41D600FC4924 /* MMLocationHotSpotsViewController.m */; };
 		B977AE8E1721E73300528A94 /* TermsOfService.html in Resources */ = {isa = PBXBuildFile; fileRef = B977AE8D1721E73300528A94 /* TermsOfService.html */; };
 		B977AE8F1721E73300528A94 /* TermsOfService.html in Resources */ = {isa = PBXBuildFile; fileRef = B977AE8D1721E73300528A94 /* TermsOfService.html */; };
 		B977AE921721F31D00528A94 /* MMLocationSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = B977AE911721F31C00528A94 /* MMLocationSearch.m */; };
@@ -1588,6 +1598,16 @@
 		B924B4A2172B3EE500FC4924 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		B924B4A3172B3EE500FC4924 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
 		B924B4A4172B3EE500FC4924 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		B924B4B3172EDD9B00FC4924 /* MMHotSpotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMHotSpotViewController.h; sourceTree = "<group>"; };
+		B924B4B4172EDD9B00FC4924 /* MMHotSpotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMHotSpotViewController.m; sourceTree = "<group>"; };
+		B924B4C0172EDE4900FC4924 /* MMHotSpotHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMHotSpotHeaderView.h; sourceTree = "<group>"; };
+		B924B4C1172EDE4900FC4924 /* MMHotSpotHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMHotSpotHeaderView.m; sourceTree = "<group>"; };
+		B924B4C4172EFF1000FC4924 /* MMCreateHotSpotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCreateHotSpotViewController.h; sourceTree = "<group>"; };
+		B924B4C5172EFF1000FC4924 /* MMCreateHotSpotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCreateHotSpotViewController.m; sourceTree = "<group>"; };
+		B924B4C8172F21D300FC4924 /* MMHotSpotInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMHotSpotInformation.h; sourceTree = "<group>"; };
+		B924B4C9172F21D300FC4924 /* MMHotSpotInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMHotSpotInformation.m; sourceTree = "<group>"; };
+		B924B4CC172F41D600FC4924 /* MMLocationHotSpotsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationHotSpotsViewController.h; sourceTree = "<group>"; };
+		B924B4CD172F41D600FC4924 /* MMLocationHotSpotsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationHotSpotsViewController.m; sourceTree = "<group>"; };
 		B977AE8D1721E73300528A94 /* TermsOfService.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = TermsOfService.html; sourceTree = "<group>"; };
 		B977AE901721F31C00528A94 /* MMLocationSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationSearch.h; sourceTree = "<group>"; };
 		B977AE911721F31C00528A94 /* MMLocationSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationSearch.m; sourceTree = "<group>"; };
@@ -2574,6 +2594,23 @@
 			path = "TestFlightSDK1.2.4 (1) 2";
 			sourceTree = "<group>";
 		};
+		B924B4AB172EDD2D00FC4924 /* HotSpots */ = {
+			isa = PBXGroup;
+			children = (
+				B924B4B3172EDD9B00FC4924 /* MMHotSpotViewController.h */,
+				B924B4B4172EDD9B00FC4924 /* MMHotSpotViewController.m */,
+				B924B4C0172EDE4900FC4924 /* MMHotSpotHeaderView.h */,
+				B924B4C1172EDE4900FC4924 /* MMHotSpotHeaderView.m */,
+				B924B4C4172EFF1000FC4924 /* MMCreateHotSpotViewController.h */,
+				B924B4C5172EFF1000FC4924 /* MMCreateHotSpotViewController.m */,
+				B924B4C8172F21D300FC4924 /* MMHotSpotInformation.h */,
+				B924B4C9172F21D300FC4924 /* MMHotSpotInformation.m */,
+				B924B4CC172F41D600FC4924 /* MMLocationHotSpotsViewController.h */,
+				B924B4CD172F41D600FC4924 /* MMLocationHotSpotsViewController.m */,
+			);
+			name = HotSpots;
+			sourceTree = "<group>";
+		};
 		B99B7D5817271843000BF3AB /* Social Network Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -2951,6 +2988,7 @@
 		F734A53D15F11C3E0090E85A /* MobMonkey */ = {
 			isa = PBXGroup;
 			children = (
+				B924B4AB172EDD2D00FC4924 /* HotSpots */,
 				B924B4A0172B3EE500FC4924 /* TestFlightSDK1.2.4 */,
 				B99B7D5817271843000BF3AB /* Social Network Model */,
 				1A458C5A16A8797300118699 /* Default-568h@2x.png */,
@@ -5242,6 +5280,11 @@
 				B977AE931721F31D00528A94 /* MMLocationSearch.m in Sources */,
 				B99B7D531725F19E000BF3AB /* MMLocationInformation.m in Sources */,
 				B99B7D5C1727185A000BF3AB /* MMSocialNetworkModel.m in Sources */,
+				B924B4B7172EDD9B00FC4924 /* MMHotSpotViewController.m in Sources */,
+				B924B4C3172EDE4900FC4924 /* MMHotSpotHeaderView.m in Sources */,
+				B924B4C7172EFF1000FC4924 /* MMCreateHotSpotViewController.m in Sources */,
+				B924B4CB172F21D300FC4924 /* MMHotSpotInformation.m in Sources */,
+				B924B4CF172F41D600FC4924 /* MMLocationHotSpotsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5366,6 +5409,11 @@
 				B977AE921721F31D00528A94 /* MMLocationSearch.m in Sources */,
 				B99B7D521725F19E000BF3AB /* MMLocationInformation.m in Sources */,
 				B99B7D5B1727185A000BF3AB /* MMSocialNetworkModel.m in Sources */,
+				B924B4B6172EDD9B00FC4924 /* MMHotSpotViewController.m in Sources */,
+				B924B4C2172EDE4900FC4924 /* MMHotSpotHeaderView.m in Sources */,
+				B924B4C6172EFF1000FC4924 /* MMCreateHotSpotViewController.m in Sources */,
+				B924B4CA172F21D300FC4924 /* MMHotSpotInformation.m in Sources */,
+				B924B4CE172F41D600FC4924 /* MMLocationHotSpotsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

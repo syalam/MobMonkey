@@ -11,6 +11,7 @@
 #import "MMInboxViewController.h"
 #import "MMSearchViewController.h"
 #import "MMSettingsViewController.h"
+#import "MMHotSpotViewController.h"
 
 @interface MMTabBarViewController ()
 
@@ -25,19 +26,20 @@
         // Custom initialization
         // Override point for customization after application launch.
         UIViewController *inboxVC = [[MMInboxViewController alloc] initWithNibName:@"MMInboxViewController" bundle:nil];
-        UIViewController *searchVC = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
+        //UIViewController *searchVC = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
+        UIViewController *hotSpot = [[MMHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
         UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithNibName:@"MMTrendingViewController" bundle:nil];
         MMTrendingViewController *bookmarksVC = [[MMTrendingViewController alloc]initWithNibName:@"MMTrendingViewController" bundle:nil];
         UIViewController *settingsVC = [[MMSettingsViewController alloc]initWithNibName:@"MMSettingsViewController" bundle:nil];
         
         UINavigationController *inboxNavC = [[UINavigationController alloc]initWithRootViewController:inboxVC];
-        UINavigationController *searchNavC = [[UINavigationController alloc]initWithRootViewController:searchVC];
+        UINavigationController *searchNavC = [[UINavigationController alloc]initWithRootViewController:hotSpot];
         UINavigationController *trendingNavC = [[UINavigationController alloc]initWithRootViewController:trendingVC];
         UINavigationController *bookmarksNavC = [[UINavigationController alloc]initWithRootViewController:bookmarksVC];
         UINavigationController *settingsNavC = [[UINavigationController alloc]initWithRootViewController:settingsVC];
         
         inboxVC.title = @"Inbox";
-        searchVC.title = @"Search";
+        hotSpot.title = @"Hot Spots";
         trendingVC.title = @"Trending";
         bookmarksVC.title = @"Bookmarks";
         settingsVC.title = @"Settings";

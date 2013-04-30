@@ -20,4 +20,6 @@ typedef enum {
 
 -(void)locationsInfoForCategory:(NSDictionary *)category searchString:(NSString *)searchString success:(void(^)(NSArray * locationInformations))success failure:(void(^)(NSError *error))failure;
 
+-(void)testLocationsComplete:(void(^)(NSArray * locations))completion;
+
 @end

@@ -18,7 +18,7 @@
 #import "Flurry.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "TestFlight.h"
-
+#import "MMHotSpotViewController.h"
 @implementation MMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -65,14 +65,14 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     UIViewController *inboxVC = [[MMInboxViewController alloc] initWithNibName:@"MMInboxViewController" bundle:nil];
-  
-    UIViewController *searchVC = [[MMSearchViewController alloc] initWithNibName:@"MMSearchViewController" bundle:nil];
+    UIViewController *hotSpotVC = [[MMHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
+   // UIViewController *searchVC = [[MMSearchViewController alloc] initWithNibName:@"MMSearchViewController" bundle:nil];
     UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithNibName:@"MMTrendingViewController" bundle:nil];
     UIViewController *bookmarksVC = [[MMBookmarksViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
     UIViewController *settingsVC = [[MMSettingsViewController alloc] initWithNibName:@"MMSettingsViewController" bundle:nil];
     
     UINavigationController *inboxNavC = [[UINavigationController alloc] initWithRootViewController:inboxVC];
-    UINavigationController *searchNavC = [[UINavigationController alloc] initWithRootViewController:searchVC];
+    UINavigationController *searchNavC = [[UINavigationController alloc] initWithRootViewController:hotSpotVC];
 
     UINavigationController *trendingNavC = [[UINavigationController alloc] initWithRootViewController:trendingVC];
 
@@ -81,7 +81,7 @@
     UINavigationController *settingsNavC = [[UINavigationController alloc] initWithRootViewController:settingsVC];
 
     inboxVC.title = @"Inbox";
-    searchVC.title = @"Search";
+    hotSpotVC.title = @"Locations";
     trendingVC.title = @"What's Trending Now!";
     bookmarksVC.title = @"Favorites";
     settingsVC.title = @"Settings";
