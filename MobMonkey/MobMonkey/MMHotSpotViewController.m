@@ -15,6 +15,7 @@
 #import "MMCreateHotSpotViewController.h"
 #import "MMLocationAnnotation.h"
 
+
 @interface MMHotSpotViewController ()
 
 @end
@@ -66,6 +67,13 @@
     mapPanLabel.backgroundColor = [UIColor clearColor];
     mapPanLabel.textColor = [UIColor grayColor];
     mapPanLabel.font = [UIFont fontWithName:@"HelveticaNeue-BoldItalic" size:14.0f];
+    
+    
+    //Search bar controller
+    [[UISearchDisplayController alloc] initWithSearchBar:headerView.searchBar contentsController:self];
+    self.searchDisplayController.searchResultsDelegate = self;
+    self.searchDisplayController.searchResultsDataSource = self;
+    self.searchDisplayController.delegate = self;
     
     loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     loadingIndicator.hidden = YES;

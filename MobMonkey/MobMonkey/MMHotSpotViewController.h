@@ -11,7 +11,7 @@
 #import "AdWhirlAdapterIAd.h"
 #import "MMHotSpotHeaderView.h"
 
-@interface MMHotSpotViewController : UITableViewController <UIGestureRecognizerDelegate, AdWhirlDelegate, MKMapViewDelegate> {
+@interface MMHotSpotViewController : UITableViewController <UIGestureRecognizerDelegate, AdWhirlDelegate, MKMapViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate> {
     MKMapView *mapView;
     UILabel *mapPanLabel;
     UIActivityIndicatorView *loadingIndicator;
