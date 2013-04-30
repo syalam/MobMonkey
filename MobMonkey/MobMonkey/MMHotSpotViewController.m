@@ -14,6 +14,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MMCreateHotSpotViewController.h"
 #import "MMLocationAnnotation.h"
+#import "MMLocationsViewController.h"
+#import "MMSearchViewController.h"
 
 
 @interface MMHotSpotViewController ()
@@ -109,6 +111,44 @@
     
     
 }
+-(void)showCategorySearch{
+    MMSearchViewController *categorySearchViewController = [[MMSearchViewController alloc] initWithNibName:@"MMSearchViewController" bundle:nil];
+    categorySearchViewController.title = @"Categories";
+    [self.navigationController pushViewController:categorySearchViewController animated:YES];
+}
+
+- (void)showSearchHistory {
+    
+    MMLocationsViewController *searchHistoryViewController = [[MMLocationsViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
+    
+    NSMutableArray *searchHistory;
+    NSString *historyKey = [NSString stringWithFormat:@"%@ history", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:historyKey]) {
+        searchHistory = [[NSUserDefaults standardUserDefaults]  mutableArrayValueForKey:historyKey];
+        //reverse order of items in array so that its displayed as latest viewed to oldest
+        NSArray *reverse = [[searchHistory reverseObjectEnumerator]allObjects];
+        searchHistory = [reverse mutableCopy];
+    }
+    else {
+        searchHistory = [[NSMutableArray alloc]init];
+    }
+    
+    NSMutableArray *locationInformations = [NSMutableArray array];
+    
+    for(NSDictionary *locationDictionary in searchHistory){
+        MMLocationInformation *locationInformation = [MMAPI locationInformationForLocationDictionary:locationDictionary];
+        [locationInformations addObject:locationInformation];
+    }
+    
+    searchHistoryViewController.locationsInformationCollection = locationInformations;
+    [searchHistoryViewController.tableView reloadData];
+    searchHistoryViewController.isHistory = YES;
+    searchHistoryViewController.title = @"History";
+    
+    [self.navigationController pushViewController:searchHistoryViewController animated:YES];
+    
+}
+
 -(MKCoordinateRegion)zoomRegionFromLocations:(NSArray *)locations{
     
     CLLocationCoordinate2D currentLocation = mapView.userLocation.coordinate;
@@ -177,6 +217,55 @@
     }];
 }
 
+-(void)showMoreLocations {
+    
+    int numberOfCellsToAdd;
+    
+    
+    
+    if (numberOfLocations + 25 < nearbyLocations.count) {
+        numberOfCellsToAdd = 25;
+    }else{
+        numberOfCellsToAdd =  nearbyLocations.count - numberOfLocations;
+    }
+    
+    NSMutableArray *cellIndexPaths = [NSMutableArray array];
+    NSIndexPath *lastCellIndex = nil;
+    
+    for(int i=0; i < numberOfCellsToAdd; i++){
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:numberOfLocations + i inSection:0];
+        
+        if(numberOfLocations + i == nearbyLocations.count - 1){
+            lastCellIndex = indexPath;
+        }else{
+            [cellIndexPaths addObject:indexPath];
+        }
+       
+    }
+    
+    numberOfLocations += numberOfCellsToAdd ;
+    
+    if(numberOfCellsToAdd > 0){
+        
+        [self.tableView beginUpdates];
+        
+        if(cellIndexPaths.count > 0){
+            [self.tableView insertRowsAtIndexPaths:cellIndexPaths withRowAnimation:UITableViewRowAnimationBottom];
+        }
+        
+        
+        if(lastCellIndex){
+            NSIndexPath *lastIndex = [NSIndexPath indexPathForItem:[self.tableView numberOfRowsInSection:0]-1 inSection:0];
+            [self.tableView reloadRowsAtIndexPaths:@[lastIndex] withRowAnimation:UITableViewRowAnimationFade];
+        }
+        
+        [self.tableView endUpdates];
+        
+    }
+   
+    
+}
+
 -(void)handleLongPressOnMap:(UILongPressGestureRecognizer *)sender{
     
     if(sender.state == UIGestureRecognizerStateBegan){
@@ -228,8 +317,12 @@
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
     
+    if(nearbyLocations.count <= 0){
+        return numberOfLocations;
+    }
     if(section == 0){
-        return nearbyLocations.count > numberOfLocations ? numberOfLocations + 1 : nearbyLocations.count;
+        return nearbyLocations.count > numberOfLocations ? numberOfLocations + 1 : nearbyLocations.count
+        ;
     }else if (section == 1){
         return 2;
     }
@@ -247,7 +340,7 @@
     if(indexPath.section == 0) {
         
         
-        if(nearbyLocations.count > 4 && indexPath.row == 4){
+        if(nearbyLocations.count > numberOfLocations && indexPath.row == numberOfLocations){
             cell.textLabel.text = @"Load More";
             cell.textLabel.textColor = [UIColor darkGrayColor];
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
@@ -366,11 +459,36 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    int lastRowInSectionZero = [tableView numberOfRowsInSection:0] - 1;
-    if(indexPath.section == 0 && indexPath.row == lastRowInSectionZero){
-               
-        //[loadingIndicator startAnimating];
+    switch (indexPath.section) {
+        case 0:
+        {
+            int lastRowInSectionZero = [tableView numberOfRowsInSection:0] - 1;
+            if(indexPath.section == 0 && indexPath.row == lastRowInSectionZero){
+                
+                [self showMoreLocations];
+            }
+            break;
+        }
+        case 1:
+        {
+            if (indexPath.row == 0) {
+                [self showSearchHistory];
+            }else if(indexPath.row == 1){
+                [self showCategorySearch];
+            }
+            break;
+        }
+            
+            
+        default:
+            break;
     }
+    
+    
+    
+    
+    
+    
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];

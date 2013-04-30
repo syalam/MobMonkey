@@ -33,13 +33,27 @@
         self.hotSpots = [MMHotSpots testHotSpots];
         [self.tableView reloadData];
     }
+    
+    self.title = [NSString stringWithFormat:@"Hot Spots at %@", @"Mike"];
+    
+    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+    [backNavbutton addTarget:self action:@selector(backButtonTapped:)
+            forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"]
+                             forState:UIControlStateNormal];
+    
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    self.navigationItem.leftBarButtonItem = backButton;
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-
+-(void)backButtonTapped:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -75,11 +89,36 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
+    switch (indexPath.section) {
+        case 0: {
+            MMHotSpotInformation *hotSpot = [self.hotSpots objectAtIndex:indexPath.row];
+            cell.textLabel.text = hotSpot.name;
+            break;
+        }
+        case 1:
+            cell.textLabel.text = @"Create a New Hot-Spot";
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            
+        default:
+            break;
+    }
     
     
     // Configure the cell...
     
     return cell;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    switch (section) {
+        case 0:
+            return @"Existing Hot Spots";
+            break;
+            
+        default:
+            return nil;
+            break;
+    }
 }
 
 /*

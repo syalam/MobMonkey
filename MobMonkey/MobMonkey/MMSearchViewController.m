@@ -52,27 +52,15 @@
     UIImage *customButtonImage = [[UIImage imageNamed:@"navBarButtonBlank"]
                             resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
     
-    if (_subCategoryIndex) {
+    
         UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
         [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
         
         UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
         self.navigationItem.leftBarButtonItem = backButton;
-    }
-    else {
-        UIButton *customButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        customButton.bounds = CGRectMake(0, 0, 52, 31);
-        [customButton setBackgroundImage:customButtonImage forState:UIControlStateNormal];
-        [customButton setTitle:@"Filter" forState:UIControlStateNormal];
-        [customButton.titleLabel setTextColor:[UIColor whiteColor]];
-        [customButton.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
-        [customButton.titleLabel setShadowColor:[UIColor darkGrayColor]];
-        [customButton.titleLabel setShadowOffset:CGSizeMake(0, -1)];
-        [customButton addTarget:self action:@selector(showFilterView:) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem* filterButton = [[UIBarButtonItem alloc] initWithCustomView:customButton];
-        self.navigationItem.leftBarButtonItem = filterButton;
-    }
+    
+
   
     UIButton *plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [plusButton setFrame:CGRectMake(0, 0, 31, 31)];
@@ -331,11 +319,8 @@
         numberOfSections += self.filteredCategories.count > 0;
         return numberOfSections;
     }
-    else if (_subCategoryIndex) {
-        return 1;
-    }
     else {
-        return 2;
+        return 1;
     }
 }
 
@@ -356,22 +341,10 @@
         }
         return numberOfRows;
     }
-    else if (_subCategoryIndex) {
+    else {
         numberOfRows = self.categories.count;
     }
-    else {
-        switch (section) {
-            case 0:
-                numberOfRows = 2;
-                break;
-            case 1:
-                numberOfRows = self.categories.count;
-                break;
-            default:
-                numberOfRows = 0;
-                break;
-        }
-    }
+    
     return numberOfRows;
 }
 
@@ -400,41 +373,20 @@
     }
     NSDictionary *category;
     NSString *categoryName;
-    int section;
-    if (_subCategoryIndex) {
-        section = indexPath.section + 1;
-    }
-    else {
-        section = indexPath.section;
-    }
-    switch (section) {
-        case 0:
-            if (indexPath.row == 0) {
-                categoryName = @"Show All Nearby";
-            }
-            else {
-                categoryName = @"History";
-            }
-            break;
-        case 1: {
-            if (tableView == self.searchDisplayController.searchResultsTableView) {
-                category = self.filteredCategories[indexPath.row];
-            } else {
-                if (_subCategoryIndex) {
-                    category = self.categories[indexPath.row];
-                    categoryName = [category objectForKey:@"en"];
-                }
-                else {
-                    categoryName = self.categories[indexPath.row];
-                }
-                
-            }
-            cell.imageView.image = [UIImage imageNamed:@"picture"];
+
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        category = self.filteredCategories[indexPath.row];
+    } else {
+        if (_subCategoryIndex) {
+            category = self.categories[indexPath.row];
+            categoryName = [category objectForKey:@"en"];
         }
-            break;
-        default:
-            break;
+        else {
+            categoryName = self.categories[indexPath.row];
+        }
+        
     }
+    
     cell.textLabel.text = categoryName;
     cell.imageView.image = [self assignIconToSearchCategoryWithCategoryName:categoryName];
     return cell;
@@ -447,48 +399,32 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSDictionary *category = nil;
 
-    int section;
-    if (_subCategoryIndex) {
-        section = indexPath.section + 1;
-    }
-    else {
-        section = indexPath.section;
-    }
-
-    
-    if (section == 1) {
-        if (tableView == self.searchDisplayController.searchResultsTableView) {
-            category = self.filteredCategories[indexPath.row];
-        } else {
-            if (!_subCategoryIndex) {
-                
-                if ([[[allCategories allValues]objectAtIndex:indexPath.row] count] > 1) {
-                    MMSearchViewController *searchVC = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
-                    searchVC.subCategoryIndex = indexPath.row;
-                    searchVC.title = self.categories[indexPath.row];
-                    [self.navigationController pushViewController:searchVC animated:YES];
-                }
-                else {
-                    category = [[[allCategories allValues]objectAtIndex:indexPath.row] objectAtIndex:0];
-                    [self showSearchResultsForCategory:category];
-
-                }
-
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        category = self.filteredCategories[indexPath.row];
+    } else {
+        if (!_subCategoryIndex) {
+            
+            if ([[[allCategories allValues]objectAtIndex:indexPath.row] count] > 1) {
+                MMSearchViewController *searchVC = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
+                searchVC.subCategoryIndex = indexPath.row;
+                searchVC.title = self.categories[indexPath.row];
+                [self.navigationController pushViewController:searchVC animated:YES];
             }
             else {
-                category = self.categories[indexPath.row];
+                category = [[[allCategories allValues]objectAtIndex:indexPath.row] objectAtIndex:0];
                 [self showSearchResultsForCategory:category];
 
             }
+
         }
-                
+        else {
+            category = self.categories[indexPath.row];
+            [self showSearchResultsForCategory:category];
+
+        }
     }
-    else if (section == 0 && indexPath.row == 0) {
-        [self showSearchResultsForCategory:category];
-    }
-    else {
-        [self showSearchHistory];
-    }
+    
+    
 
 }
 
