@@ -50,6 +50,11 @@ typedef enum {
 @property (nonatomic, strong) NSNumber *images;
 @property (nonatomic, strong) NSNumber *monkeys;
 @property (nonatomic, strong) NSURL *messageURL;
+@property (nonatomic, strong) NSString *parentLocationID;
+@property (nonatomic, strong) NSSet *sublocations;
+@property (nonatomic, strong) MMLocationInformation *parentLocation;
+
+
 
 -(void)geocodeLocationWithCompletionHandler:(void(^)(NSArray * placemarks, NSError * error))completion;
 -(NSString *)formattedAddressString;

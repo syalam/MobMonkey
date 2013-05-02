@@ -606,6 +606,14 @@
 
 - (void)loadLocationDataWithLocationId:(NSString*)locationId providerId:(NSString*)providerId {
     
+    if(self.locationInformation){
+        [self setLocationDetailItems];
+        [self fetchLatestMediaForLocation];
+        [self.tableView reloadData];
+        return;
+    }
+
+
 #warning THIS IS HARD CODED, NEEDS TO BE REMOVED
    /* locationId = @"5d44fab0-6f4f-4fe7-8351-aa4fb695d764";
     providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181";

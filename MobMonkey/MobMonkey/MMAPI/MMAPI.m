@@ -540,11 +540,45 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient postPath:urlString parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSMutableArray *locationInformations = [NSMutableArray array];
+        NSMutableArray *sublocations = [NSMutableArray array];
         
         for(NSDictionary *locationDictionary in responseObject){
+            
             MMLocationInformation *locationInformation = [self locationInformationForLocationDictionary:locationDictionary];
-            [locationInformations addObject:locationInformation];
+            
+            
+            //Add the sublocations to a seperate array
+            if(locationInformation.parentLocationID && ![locationInformation.parentLocationID isKindOfClass:[NSNull class]]&& locationInformation.parentLocationID.length > 0){
+                [sublocations addObject:locationInformation];
+            }else{
+                [locationInformations addObject:locationInformation];
+            }
+            
+            
         }
+        
+        if(sublocations.count > 0){
+            for(MMLocationInformation *subLocation in sublocations){
+                
+                NSPredicate *parentIdPredicate = [NSPredicate predicateWithFormat:@"locationID = %@", subLocation.parentLocationID];
+                MMLocationInformation *parentLocation = [[locationInformations filteredArrayUsingPredicate:parentIdPredicate] lastObject];
+                subLocation.parentLocation = parentLocation;
+                
+                NSMutableSet *subLocationsSet = [NSMutableSet set];
+                [subLocationsSet addObjectsFromArray:parentLocation.sublocations.allObjects];
+                
+                [subLocationsSet addObject:subLocation];
+                
+                parentLocation.sublocations = subLocationsSet;
+                
+                NSUInteger parentIndex = [locationInformations indexOfObject:parentLocation];
+                
+                [locationInformations replaceObjectAtIndex:parentIndex withObject:parentLocation];
+                
+            
+            }
+        }
+        
         
         success(operation, locationInformations);
         
@@ -823,6 +857,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     locationInformation.videos = [locationDictionary objectForKey:@"videos"];
     locationInformation.images = [locationDictionary objectForKey:@"images"];
     locationInformation.monkeys = [locationDictionary objectForKey:@"monkeys"];
+    locationInformation.parentLocationID = [locationDictionary objectForKey:@"parentLocationId"];
     
     return locationInformation;
     
