@@ -111,7 +111,7 @@ enum RequestDurationLengths {
     [self.requestInfo setValue:self.locationInformation.providerID forKey:@"providerId"];
     [self.requestInfo setValue:self.locationInformation.locationID forKey:@"locationId"];
     [self.requestInfo setValue:self.duration forKey:@"duration"];
-    [self.requestInfo setValue:[NSNumber numberWithInt:kMMRadiusInYards] forKey:kMMRadiusInYardsKey];
+//self.requestInfo setValue:[NSNumber numberWithInt:kMMRadiusInYards] forKey:kMMRadiusInYardsKey]; This is hard coded to 30yards on server
     [self.requestInfo setValue:[NSNumber numberWithBool:isRecurring] forKey:@"recurring"];
 
     

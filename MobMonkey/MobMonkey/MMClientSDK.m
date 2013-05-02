@@ -512,7 +512,7 @@
 
 - (void)video: (NSString *) videoPath didFinishSavingWithError: (NSError *) error contextInfo: (void *) contextInfo {
     dispatch_async(dispatch_get_main_queue(), ^(void) {
-        if (error != NULL)
+        if (error)
         {
             [SVProgressHUD showErrorWithStatus:@"Unable to save. Please try again"];
             
