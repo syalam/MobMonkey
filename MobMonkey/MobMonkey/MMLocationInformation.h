@@ -49,6 +49,7 @@ typedef enum {
 @property (nonatomic, strong) NSNumber *videos;
 @property (nonatomic, strong) NSNumber *images;
 @property (nonatomic, strong) NSNumber *monkeys;
+@property (nonatomic, strong) NSURL *messageURL;
 
 -(void)geocodeLocationWithCompletionHandler:(void(^)(NSArray * placemarks, NSError * error))completion;
 -(NSString *)formattedAddressString;

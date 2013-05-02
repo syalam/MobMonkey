@@ -20,6 +20,7 @@
 #import "MMLocationAnnotation.h"
 #import "GetRelativeTime.h"
 #import "UIActionSheet+Blocks.h"
+#import "BrowserViewController.h"
 
 @implementation MMlocationDetailCellData
 
@@ -49,6 +50,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    /*NSString *locationId = @"5d44fab0-6f4f-4fe7-8351-aa4fb695d764";
+    NSString *providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181";
+    self.locationInformation.locationID = locationId;
+    self.locationInformation.providerID = providerId;*/
+    
     // Do any additional setup after loading the view from its nib.
     
     backgroundQueue = dispatch_queue_create("com.MobMonkey.GenerateThumbnail", NULL);
@@ -96,6 +104,11 @@
     
     [_locationLatestImageView addGestureRecognizer:expandImageGesture];
     
+    
+    UITapGestureRecognizer *tapRegister = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pressedMessageLink:)];
+    [self.messageLabel addGestureRecognizer:tapRegister];
+    self.messageLabel.userInteractionEnabled = YES;
+    
     self.tableView.backgroundView = nil;
     self.tableView.backgroundColor = [UIColor clearColor];
     
@@ -109,6 +122,8 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     if(self.locationID && self.providerID){
+        /*self.locationID = self.locationInformation.locationID;
+        self.providerID = self.locationInformation.providerID;*/
         [self loadLocationDataWithLocationId:self.locationID providerId:self.providerID];
     }
 }
@@ -475,7 +490,6 @@
         NSLog(@"Could not add Bookmark!");
     }];
 }
-
 - (IBAction)clearNotificationSettingButtonTapped:(id)sender {
     uiAdjustedForNotificationSetting = NO;
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -486,6 +500,11 @@
     [_notificationSettingView setHidden:YES];
     [_bookmarkView setFrame:CGRectMake(_bookmarkView.frame.origin.x, _bookmarkView.frame.origin.y - 46, _bookmarkView.frame.size.width, _bookmarkView.frame.size.height)];
     [UIView commitAnimations];
+}
+-(void)pressedMessageLink:(id)sender{
+    if(self.locationInformation.messageURL && ![self.locationInformation.messageURL isKindOfClass:[NSNull class]]){
+        [self openURL: self.locationInformation.messageURL];
+    }
 }
 
 #pragma mark - Action Sheet Delegate Methods
@@ -526,12 +545,13 @@
     _addressLabel.text = [self.locationInformation formattedAddressString];
     //NSLog(@"%@", _contentList);
     NSString *message = self.locationInformation.message;
-    if (![message isKindOfClass:[NSNull class]]) {
-        _messageLabel.adjustsFontSizeToFitWidth = YES;
-        _messageLabel.text = message;
-        _mediaToolbarView.backgroundColor = [UIColor clearColor];
+    if (!message || [message isKindOfClass:[NSNull class]]) {
+        message = @"Check out MobMonkey!";
     }
    
+    _messageLabel.adjustsFontSizeToFitWidth = YES;
+    _messageLabel.text = message;
+    _mediaToolbarView.backgroundColor = [UIColor clearColor];
   
     
     [_liveStreamButton setEnabled:YES];
@@ -586,6 +606,12 @@
 
 - (void)loadLocationDataWithLocationId:(NSString*)locationId providerId:(NSString*)providerId {
     
+#warning THIS IS HARD CODED, NEEDS TO BE REMOVED
+   /* locationId = @"5d44fab0-6f4f-4fe7-8351-aa4fb695d764";
+    providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181";
+    self.locationInformation.locationID = locationId;
+    self.locationInformation.providerID = providerId;*/
+    
     
     [SVProgressHUD showWithStatus:@"Loading"];
     
@@ -595,6 +621,7 @@
         [SVProgressHUD dismiss];
         self.locationInformation = locationInformation;
         [self setLocationDetailItems];
+        [self fetchLatestMediaForLocation];
         [self.tableView reloadData];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -645,18 +672,22 @@
                 });
                 
             }
-            [_makeRequestButton setFrame:CGRectMake(9, 349, 302, 66)];
-            [_makeRequestLabel setFrame:CGRectMake(10, 361, 300, 21)];
-            [_numberOfPeopleLabel setFrame:CGRectMake(10, 380, 300, 22)];
-            [_tableView setFrame:CGRectMake(0, 427,320, 440)];
+            
+            [self resizeTableView];
             [_mediaView setHidden:NO];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", operation.responseString);
+        NSLog(@"ERROR: %@", operation.responseString);
     }];
 
 }
 
+-(void)resizeTableView {
+    [_makeRequestButton setFrame:CGRectMake(9, 349, 302, 66)];
+    [_makeRequestLabel setFrame:CGRectMake(10, 361, 300, 21)];
+    [_numberOfPeopleLabel setFrame:CGRectMake(10, 380, 300, 22)];
+    [_tableView setFrame:CGRectMake(0, 427,320, 440)];
+}
 - (void)publishStoryToFacebook
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
@@ -698,6 +729,10 @@
     [[MMClientSDK sharedSDK]shareViaTwitter:params presentingViewController:self];
 }
 
-
+-(void)openURL:(NSURL*)url{
+    BrowserViewController *bvc = [[BrowserViewController alloc] initWithUrls:url];
+    [self.navigationController pushViewController:bvc animated:YES];
+    
+}
 
 @end

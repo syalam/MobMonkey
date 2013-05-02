@@ -660,10 +660,14 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 
 +(void)getLocationWithID:(NSString *)locationID providerID:(NSString *)providerID success:(void (^)(AFHTTPRequestOperation *, MMLocationInformation *))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
     
+    
+        
     NSDictionary *parameters = @{@"locationId":locationID,@"providerId":providerID};
     
     [[MMHTTPClient sharedClient] getPath:@"location" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
+        NSLog(@"JSON for Location: %@", responseObject);
+
          MMLocationInformation *locationInformation = [[MMLocationInformation alloc] init];
         
         if([responseObject isKindOfClass:[NSDictionary class]]){
@@ -692,6 +696,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
             locationInformation.videos = [json objectForKey:@"videos"];
             locationInformation.images = [json objectForKey:@"images"];
             locationInformation.monkeys = [json objectForKey:@"monkeys"];
+            locationInformation.messageURL = [NSURL URLWithString:@"http://mobmonkey.com"];
             
             if(success){
                 success(operation, locationInformation);
