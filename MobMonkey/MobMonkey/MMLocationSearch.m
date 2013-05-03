@@ -115,6 +115,7 @@
     NSLog(@"Parameters: %@", parameters);
     
     [MMAPI searchForLocations:parameters.mutableCopy mediaType:mediaType success:^(AFHTTPRequestOperation *operation, NSArray *locationInformations) {
+        
         if(success){
             success(locationInformations);
         }

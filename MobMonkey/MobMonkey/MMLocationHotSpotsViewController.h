@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMLocationInformation.h"
 
 @interface MMLocationHotSpotsViewController : UITableViewController
 
+@property (nonatomic, strong) MMLocationInformation *parentLocation;
 @property (nonatomic, strong) NSArray *hotSpots;
 
 @end

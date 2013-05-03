@@ -476,7 +476,8 @@
     dispatch_queue_t backgroundQueue = dispatch_queue_create("com.MobMonkey.SaveVideo", NULL);
     dispatch_async(backgroundQueue, ^(void) {
         NSString *stringURL = [storyToPublishToSocialNetworkDictionary valueForKey:@"url"];
-        if(stringURL){
+        if(stringURL && stringURL.length > 0)
+        {
             NSURL  *url = [NSURL URLWithString:stringURL];
             NSData *urlData = [NSData dataWithContentsOfURL:url];
             if ( urlData )
@@ -490,6 +491,7 @@
                 UISaveVideoAtPathToSavedPhotosAlbum(filePath, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
             }
         }
+        
     });
 }
 
@@ -510,7 +512,7 @@
 
 - (void)video: (NSString *) videoPath didFinishSavingWithError: (NSError *) error contextInfo: (void *) contextInfo {
     dispatch_async(dispatch_get_main_queue(), ^(void) {
-        if (error != NULL)
+        if (error)
         {
             [SVProgressHUD showErrorWithStatus:@"Unable to save. Please try again"];
             

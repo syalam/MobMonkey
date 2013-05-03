@@ -16,13 +16,14 @@
 #import "MMLocationAnnotation.h"
 #import "MMLocationsViewController.h"
 #import "MMSearchViewController.h"
-
+#import "MMLocationViewController.h"
 
 @interface MMHotSpotViewController ()
 
 @end
 
 @implementation MMHotSpotViewController
+
 @synthesize nearbyLocations;
 
 //s@synthesize mapView = _mapView;
@@ -42,7 +43,7 @@
     
     numberOfLocations = 4;
 
-    headerView = [[MMHotSpotHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, 120)];
+    headerView = [[MMHotSpotHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, 137)];
     self.tableView.tableHeaderView = headerView;
     
     
@@ -92,7 +93,7 @@
     
     
     [SVProgressHUD showWithStatus:@"Searching for Locations"];
-    [self loadNearbyLocations];
+    
     
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -106,7 +107,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
+    [self loadNearbyLocations];
     
     
     
@@ -223,8 +224,8 @@
     
     
     
-    if (numberOfLocations + 25 < nearbyLocations.count) {
-        numberOfCellsToAdd = 25;
+    if (numberOfLocations + 5 < nearbyLocations.count) {
+        numberOfCellsToAdd = 5;
     }else{
         numberOfCellsToAdd =  nearbyLocations.count - numberOfLocations;
     }
@@ -466,6 +467,15 @@
             if(indexPath.section == 0 && indexPath.row == lastRowInSectionZero){
                 
                 [self showMoreLocations];
+            }else{
+                
+                MMLocationInformation *locationInformation = [nearbyLocations objectAtIndex:indexPath.row];
+                
+                MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithNibName:@"MMLocationViewController" bundle:nil];
+                
+                locationViewController.locationInformation = locationInformation;
+                
+                [self.navigationController pushViewController:locationViewController animated:YES];
             }
             break;
         }

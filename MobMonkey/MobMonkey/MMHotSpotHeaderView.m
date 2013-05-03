@@ -21,8 +21,16 @@
         
         float padding = 10.0f;
         
-        _createHotSpotButton = [[UIButton alloc] initWithFrame:CGRectMake(padding, padding+ 5, frame.size.width - (padding * 2), 50)];
-        _createHotSpotButton.backgroundColor = [UIColor colorWithRed:1.000 green:0.590 blue:0.360 alpha:1.000];
+        _createHotSpotButton = [[UIButton alloc] initWithFrame:CGRectMake(padding, padding+ 5, frame.size.width - (padding * 2), 67)];
+        [_createHotSpotButton setTitle:@"Create a Hot Spot" forState:UIControlStateNormal];
+        [_createHotSpotButton setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+        _createHotSpotButton.titleEdgeInsets = UIEdgeInsetsMake(0, 45, 0, 0);
+        
+        UIImage *backgroundImage = [[UIImage imageNamed:@"LocationButtonStretch"] stretchableImageWithLeftCapWidth:60 topCapHeight:0];
+        
+        [_createHotSpotButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
+        
+        //_createHotSpotButton.backgroundColor = [UIColor colorWithRed:1.000 green:0.590 blue:0.360 alpha:1.000];
         [self addSubview:_createHotSpotButton];
         
         _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(padding - 5, _createHotSpotButton.frame.origin.y + _createHotSpotButton.frame.size.height + 20, frame.size.width - ((padding - 5) * 2), 30)];

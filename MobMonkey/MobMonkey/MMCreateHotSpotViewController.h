@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MMLocationInformation.h"
 
-@interface MMCreateHotSpotViewController : UITableViewController
+@interface MMCreateHotSpotViewController : UITableViewController {
+    NSUInteger numberOfLocations;
+}
 
 @property (nonatomic, strong) NSArray *nearbyLocations;
 

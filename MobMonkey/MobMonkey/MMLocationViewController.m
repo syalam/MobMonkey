@@ -20,6 +20,7 @@
 #import "MMLocationAnnotation.h"
 #import "GetRelativeTime.h"
 #import "UIActionSheet+Blocks.h"
+#import "BrowserViewController.h"
 
 @implementation MMlocationDetailCellData
 
@@ -49,12 +50,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    /*NSString *locationId = @"5d44fab0-6f4f-4fe7-8351-aa4fb695d764";
+    NSString *providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181";
+    self.locationInformation.locationID = locationId;
+    self.locationInformation.providerID = providerId;*/
+    
     // Do any additional setup after loading the view from its nib.
     
     backgroundQueue = dispatch_queue_create("com.MobMonkey.GenerateThumbnail", NULL);
     
     //setup scrollview size
-    [_scrollView setContentSize:CGSizeMake(320, 815)];
+    [_scrollView setContentSize:CGSizeMake(320, 945)];
     
     //set background color
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
@@ -90,11 +98,20 @@
     //initialize variables
     uiAdjustedForNotificationSetting = NO;
     
+    
+    UITapGestureRecognizer *tapRegister = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pressedMessageLink:)];
+    tapRegister.numberOfTapsRequired = 1;
+    [self.messageLabel addGestureRecognizer:tapRegister];
+    self.messageLabel.userInteractionEnabled = YES;
+    
     //initialize gesture recognizer
     expandImageGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(enlargeButtonTapped:)];
     expandImageGesture.numberOfTapsRequired = 1;
     
     [_locationLatestImageView addGestureRecognizer:expandImageGesture];
+    
+    
+    
     
     self.tableView.backgroundView = nil;
     self.tableView.backgroundColor = [UIColor clearColor];
@@ -107,10 +124,8 @@
     [SVProgressHUD dismiss];
 }
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    if(self.locationID && self.providerID){
+    
         [self loadLocationDataWithLocationId:self.locationID providerId:self.providerID];
-    }
 }
 - (void)viewDidUnload
 {
@@ -138,7 +153,7 @@
 {
     // Return the number of sections.
     
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -151,10 +166,12 @@
     NSUInteger rowCount = 0;
     if(section == 0){
         rowCount = self.locationCellData.count;
-    }else if(section == 1){
+    }else if(section == 2){
         
         // Row for "Add to Favorites
         rowCount  = 1; 
+    }else if(section == 1){
+        return self.locationInformation.sublocations.count ;
     }
     
     return rowCount;
@@ -222,21 +239,30 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
     }
-    else if (indexPath.section == 1) {
+    else if (indexPath.section == 2) {
         cell.textLabel.text = @"Add to Favorites";
         if (_locationInformation.isBookmark) {
             cell.textLabel.text = @"Remove from Favorites";
         }
         cell.imageView.image = [UIImage imageNamed:@"favorite"];
         return cell;
+    }else if (indexPath.section == 1){
+        MMLocationInformation *subLocation = [self.locationInformation.sublocations.allObjects objectAtIndex:indexPath.row];
+        cell.textLabel.text = subLocation.name;
+        cell.imageView.image = nil;
     }
     
     return cell;
 }
 
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if(section == 1 && self.locationInformation.sublocations.count > 0) return @"Hot Spots";
+    if(section == 0) return @"Location Information";
+    return nil;
+}
 #pragma mark - UITableView Delegate Methods
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1) {
+    if (indexPath.section == 2) {
         [self bookmarkButtonTapped:nil];
         return;
     }
@@ -305,6 +331,11 @@
             default:
                 break;
         }
+    }else if(indexPath.section == 1){
+        MMLocationInformation *subLocation = [self.locationInformation.sublocations.allObjects objectAtIndex:indexPath.row];
+        MMLocationViewController *subLocationViewController = [[MMLocationViewController alloc] initWithNibName:@"MMLocationViewController" bundle:nil];
+        subLocationViewController.locationInformation = subLocation;
+        [self.navigationController pushViewController:subLocationViewController animated:YES];
     }
     
 }
@@ -475,7 +506,6 @@
         NSLog(@"Could not add Bookmark!");
     }];
 }
-
 - (IBAction)clearNotificationSettingButtonTapped:(id)sender {
     uiAdjustedForNotificationSetting = NO;
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -486,6 +516,11 @@
     [_notificationSettingView setHidden:YES];
     [_bookmarkView setFrame:CGRectMake(_bookmarkView.frame.origin.x, _bookmarkView.frame.origin.y - 46, _bookmarkView.frame.size.width, _bookmarkView.frame.size.height)];
     [UIView commitAnimations];
+}
+-(void)pressedMessageLink:(id)sender{
+    if(self.locationInformation.messageURL && ![self.locationInformation.messageURL isKindOfClass:[NSNull class]]){
+        [self openURL: self.locationInformation.messageURL];
+    }
 }
 
 #pragma mark - Action Sheet Delegate Methods
@@ -518,7 +553,13 @@
 - (void)setLocationDetailItems {
     
     if(self.locationInformation.name && [self.locationInformation.name length] > 0){
-        self.title = self.locationInformation.name;
+        
+        if(self.locationInformation.parentLocation){
+            self.title = [NSString stringWithFormat:@"HOT SPOT: %@", self.locationInformation.name];
+        }else{
+            self.title = self.locationInformation.name;
+        }
+        
     }
     
     _locationNameLabel.text = self.title;
@@ -526,12 +567,13 @@
     _addressLabel.text = [self.locationInformation formattedAddressString];
     //NSLog(@"%@", _contentList);
     NSString *message = self.locationInformation.message;
-    if (![message isKindOfClass:[NSNull class]]) {
-        _messageLabel.adjustsFontSizeToFitWidth = YES;
-        _messageLabel.text = message;
-        _mediaToolbarView.backgroundColor = [UIColor clearColor];
+    if (!message || [message isKindOfClass:[NSNull class]]) {
+        message = @"Check out MobMonkey!";
     }
    
+    _messageLabel.adjustsFontSizeToFitWidth = YES;
+    _messageLabel.text = message;
+    _mediaToolbarView.backgroundColor = [UIColor clearColor];
   
     
     [_liveStreamButton setEnabled:YES];
@@ -583,18 +625,48 @@
         self.monkeyCountLabel.text = [NSString stringWithFormat:@"%d members found", monkeyCount];
     }
 }
-
 - (void)loadLocationDataWithLocationId:(NSString*)locationId providerId:(NSString*)providerId {
     
+    if(!locationId && !providerId) {
+     
+        if(!self.locationInformation)return;
+        
+        locationId = self.locationInformation.locationID;
+        providerId = self.locationInformation.providerID;
+    }
     
-    [SVProgressHUD showWithStatus:@"Loading"];
+    /*if(self.locationInformation){
+        
+        [self setLocationDetailItems];
+        [self fetchLatestMediaForLocation];
+        [self.tableView reloadData];
+        return;
+    }*/
+
+    if(!self.locationInformation){
+        [SVProgressHUD showWithStatus:@"Loading"];
+    }else{
+        self.monkeyCountLabel.text = @"Finding Members...";
+        [self resizeTableViewForMediaLoadingView];
+        self.mediaLoadingView.hidden = NO;
+        [self.mediaIndicatorView startAnimating];
+    }
+    
     
    
     [MMAPI getLocationWithID:locationId providerID:providerId success:^(AFHTTPRequestOperation *operation, MMLocationInformation *locationInformation) {
         
         [SVProgressHUD dismiss];
-        self.locationInformation = locationInformation;
+        
+        if(!self.locationInformation){
+            self.locationInformation = locationInformation;
+        }else{
+            self.locationInformation.monkeys = locationInformation.monkeys;
+        }
+        
+        
         [self setLocationDetailItems];
+        [self fetchLatestMediaForLocation];
         [self.tableView reloadData];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -610,6 +682,11 @@
 }
 
 - (void)fetchLatestMediaForLocation {
+    
+    [self resizeTableViewForMediaLoadingView];
+    self.mediaLoadingView.hidden = NO;
+    [self.mediaIndicatorView startAnimating];
+    
     [MMAPI getMediaForLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         mediaArray = [responseObject valueForKey:@"media"];
@@ -645,18 +722,47 @@
                 });
                 
             }
-            [_makeRequestButton setFrame:CGRectMake(9, 349, 302, 66)];
-            [_makeRequestLabel setFrame:CGRectMake(10, 361, 300, 21)];
-            [_numberOfPeopleLabel setFrame:CGRectMake(10, 380, 300, 22)];
-            [_tableView setFrame:CGRectMake(0, 427,320, 440)];
+            [self.mediaIndicatorView stopAnimating];
+            self.mediaLoadingView.hidden = YES;
+            [self resizeTableViewForMediaView];
             [_mediaView setHidden:NO];
+        }else{
+            [self.mediaIndicatorView stopAnimating];
+            self.mediaLoadingView.hidden = YES;
+            [self resizeTableViewToDefault];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", operation.responseString);
+        NSLog(@"ERROR: %@", operation.responseString);
+        [self.mediaIndicatorView stopAnimating];
+        self.mediaLoadingView.hidden = YES;
+        [self resizeTableViewToDefault];
     }];
 
 }
+-(void)adjustContentSize {
+    float newHeight = _tableView.frame.origin.y + _tableView.frame.size.height;
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, newHeight);
+}
+-(void)resizeTableViewToDefault {
+    [_makeRequestButton setFrame:CGRectMake(9, 39, 302, 66)];
+    [_makeRequestLabel setFrame:CGRectMake(10, 51, 300, 21)];
+    [_numberOfPeopleLabel setFrame:CGRectMake(10, 70, 300, 22)];
 
+    [_tableView setFrame:CGRectMake(0, 117,320, 440)];
+    
+}
+-(void)resizeTableViewForMediaLoadingView { //30
+    [_makeRequestButton setFrame:CGRectMake(9, 69, 302, 66)];
+    [_makeRequestLabel setFrame:CGRectMake(10, 81, 300, 21)];
+    [_numberOfPeopleLabel setFrame:CGRectMake(10, 100, 300, 22)];
+    [_tableView setFrame:CGRectMake(0, 147,320,440)];
+}
+-(void)resizeTableViewForMediaView { //320
+    [_makeRequestButton setFrame:CGRectMake(9, 349, 302, 66)];
+    [_makeRequestLabel setFrame:CGRectMake(10, 361, 300, 21)];
+    [_numberOfPeopleLabel setFrame:CGRectMake(10, 380, 300, 22)];
+    [_tableView setFrame:CGRectMake(0, 427,320,440)];
+}
 - (void)publishStoryToFacebook
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
@@ -698,6 +804,17 @@
     [[MMClientSDK sharedSDK]shareViaTwitter:params presentingViewController:self];
 }
 
-
+-(void)openURL:(NSURL*)url{
+    BrowserViewController *bvc = [[BrowserViewController alloc] initWithUrls:url];
+    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+    [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    bvc.navigationItem.leftBarButtonItem = backButton;
+    
+    [self.navigationController pushViewController:bvc animated:YES];
+    
+}
 
 @end

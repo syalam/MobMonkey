@@ -9,6 +9,8 @@
 #import "MMCreateHotSpotViewController.h"
 #import "MMLocationSearch.h"
 #import "MMLocationHotSpotsViewController.h"
+#import "MMEditHotSpotViewController.h"
+
 
 @interface MMCreateHotSpotViewController ()
 
@@ -61,6 +63,8 @@
     self.view.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
     self.tableView.backgroundView = nil;
     
+    numberOfLocations = 5;
+    
     
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
     [backNavbutton addTarget:self action:@selector(backButtonTapped:)
@@ -76,6 +80,55 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void)showMoreLocations {
+    
+    int numberOfCellsToAdd;
+    
+    
+    
+    if (numberOfLocations + 5 < self.nearbyLocations.count) {
+        numberOfCellsToAdd = 5;
+    }else{
+        numberOfCellsToAdd =  self.nearbyLocations.count - numberOfLocations;
+    }
+    
+    NSMutableArray *cellIndexPaths = [NSMutableArray array];
+    NSIndexPath *lastCellIndex = nil;
+    
+    for(int i=0; i < numberOfCellsToAdd; i++){
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:numberOfLocations + i inSection:0];
+        
+        if(numberOfLocations + i == self.nearbyLocations.count - 1){
+            lastCellIndex = indexPath;
+        }else{
+            [cellIndexPaths addObject:indexPath];
+        }
+        
+    }
+    
+    numberOfLocations += numberOfCellsToAdd ;
+    
+    if(numberOfCellsToAdd > 0){
+        
+        [self.tableView beginUpdates];
+        
+        if(cellIndexPaths.count > 0){
+            [self.tableView insertRowsAtIndexPaths:cellIndexPaths withRowAnimation:UITableViewRowAnimationBottom];
+        }
+        
+        
+        if(lastCellIndex){
+            NSIndexPath *lastIndex = [NSIndexPath indexPathForItem:[self.tableView numberOfRowsInSection:0]-1 inSection:0];
+            [self.tableView reloadRowsAtIndexPaths:@[lastIndex] withRowAnimation:UITableViewRowAnimationFade];
+        }
+        
+        [self.tableView endUpdates];
+        
+    }
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -94,7 +147,7 @@
 {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -102,7 +155,8 @@
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
     if(section == 0){
-        return self.nearbyLocations.count > 4 ? 5 : self.nearbyLocations.count;
+        return self.nearbyLocations.count > numberOfLocations ? numberOfLocations + 1 : self.nearbyLocations.count;
+
     }else if(section == 1){
         return 1;
     }else{
@@ -124,27 +178,16 @@
         }
         
         int lastRowInSectionZero = [tableView numberOfRowsInSection:0] - 1;
-        if(indexPath.section == 0 && indexPath.row == lastRowInSectionZero){
+        if(indexPath.section == 0 && indexPath.row == lastRowInSectionZero && indexPath.row != self.nearbyLocations.count-1){
             cell.textLabel.text = @"Load More";
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }else{
+            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
             MMLocationInformation *locationInformation = [self.nearbyLocations objectAtIndex:indexPath.row];
             cell.textLabel.text = locationInformation.name;
             cell.textLabel.textAlignment = NSTextAlignmentLeft;
         }
-        return cell;
-    }else{
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifierSection2];
-        
-        if(cell == nil){
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifierSection2];
-        }
-        
-        cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.text = @"Add a New Location";
-        cell.textLabel.textColor = [UIColor darkGrayColor];
-        cell.textLabel.backgroundColor = [UIColor colorWithRed:1.000 green:0.645 blue:0.337 alpha:1.000];
-        cell.backgroundColor = [UIColor colorWithRed:1.000 green:0.645 blue:0.337 alpha:1.000];
         return cell;
     }
     
@@ -200,22 +243,29 @@
     return nil;
 }
 #pragma mark - Table view delegate
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if(indexPath.section == 1){
-        cell.backgroundColor = [UIColor colorWithRed:0.866 green:0.888 blue:0.901 alpha:1.000];
-        for (UIView* view in cell.contentView.subviews) {
-            view.backgroundColor = cell.backgroundColor;
-        }
-    }
-    
-}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if(indexPath.section == 0 && indexPath.row != self.nearbyLocations.count){
-        MMLocationHotSpotsViewController *hotSpotsLocationVC = [[MMLocationHotSpotsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        [self.navigationController pushViewController:hotSpotsLocationVC animated:YES];
+    if(indexPath.section == 0 && indexPath.row != numberOfLocations){
+        MMLocationInformation *parentLocation = [self.nearbyLocations objectAtIndex:indexPath.row];
+        
+        
+        if(parentLocation.sublocations.count > 0){
+            MMLocationHotSpotsViewController *hotSpotsLocationVC = [[MMLocationHotSpotsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            hotSpotsLocationVC.parentLocation = parentLocation;
+            hotSpotsLocationVC.hotSpots = parentLocation.sublocations.allObjects;
+            [self.navigationController pushViewController:hotSpotsLocationVC animated:YES];
+        }else{
+            [SVProgressHUD showSuccessWithStatus:@"No Hot Spots Found. Creating a New One"];
+            MMEditHotSpotViewController *editHotSpotVC = [[MMEditHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            editHotSpotVC.parentLocation = parentLocation;
+            [self.navigationController pushViewController:editHotSpotVC animated:YES];
+
+        }
+        
+    }else{
+        [self showMoreLocations];
     }
     // Navigation logic may go here. Create and push another view controller.
     /*

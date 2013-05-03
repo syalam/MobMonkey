@@ -63,6 +63,8 @@
 @property (nonatomic, weak) IBOutlet UILabel *messageLabel;
 @property (nonatomic, weak) IBOutlet UIView *mediaToolbarView;
 @property (nonatomic, weak) IBOutlet UIView *mediaView;
+@property (nonatomic, strong) IBOutlet UIView *mediaLoadingView;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *mediaIndicatorView;
 
 @property (nonatomic, retain) IBOutlet TCImageView *locationLatestImageView;
 

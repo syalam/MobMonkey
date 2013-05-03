@@ -386,6 +386,7 @@
         NSString *providerId = locationInformation.providerID;
         
         MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+        locationViewController.locationInformation = locationInformation;
         [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
         [self.navigationController pushViewController:locationViewController animated:YES];
     }

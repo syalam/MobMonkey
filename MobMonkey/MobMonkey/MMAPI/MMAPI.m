@@ -540,11 +540,45 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient postPath:urlString parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSMutableArray *locationInformations = [NSMutableArray array];
+        NSMutableArray *sublocations = [NSMutableArray array];
         
         for(NSDictionary *locationDictionary in responseObject){
+            
             MMLocationInformation *locationInformation = [self locationInformationForLocationDictionary:locationDictionary];
-            [locationInformations addObject:locationInformation];
+            
+            
+            //Add the sublocations to a seperate array
+            if(locationInformation.parentLocationID && ![locationInformation.parentLocationID isKindOfClass:[NSNull class]]&& locationInformation.parentLocationID.length > 0){
+                [sublocations addObject:locationInformation];
+            }else{
+                [locationInformations addObject:locationInformation];
+            }
+            
+            
         }
+        
+        if(sublocations.count > 0){
+            for(MMLocationInformation *subLocation in sublocations){
+                
+                NSPredicate *parentIdPredicate = [NSPredicate predicateWithFormat:@"locationID = %@", subLocation.parentLocationID];
+                MMLocationInformation *parentLocation = [[locationInformations filteredArrayUsingPredicate:parentIdPredicate] lastObject];
+                subLocation.parentLocation = parentLocation;
+                
+                NSMutableSet *subLocationsSet = [NSMutableSet set];
+                [subLocationsSet addObjectsFromArray:parentLocation.sublocations.allObjects];
+                
+                [subLocationsSet addObject:subLocation];
+                
+                parentLocation.sublocations = subLocationsSet;
+                
+                NSUInteger parentIndex = [locationInformations indexOfObject:parentLocation];
+                
+                [locationInformations replaceObjectAtIndex:parentIndex withObject:parentLocation];
+                
+            
+            }
+        }
+        
         
         success(operation, locationInformations);
         
@@ -660,10 +694,14 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 
 +(void)getLocationWithID:(NSString *)locationID providerID:(NSString *)providerID success:(void (^)(AFHTTPRequestOperation *, MMLocationInformation *))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
     
+    
+        
     NSDictionary *parameters = @{@"locationId":locationID,@"providerId":providerID};
     
     [[MMHTTPClient sharedClient] getPath:@"location" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
+        NSLog(@"JSON for Location: %@", responseObject);
+
          MMLocationInformation *locationInformation = [[MMLocationInformation alloc] init];
         
         if([responseObject isKindOfClass:[NSDictionary class]]){
@@ -692,6 +730,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
             locationInformation.videos = [json objectForKey:@"videos"];
             locationInformation.images = [json objectForKey:@"images"];
             locationInformation.monkeys = [json objectForKey:@"monkeys"];
+            locationInformation.messageURL = [NSURL URLWithString:@"http://mobmonkey.com"];
             
             if(success){
                 success(operation, locationInformation);
@@ -752,7 +791,43 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 }
 
 
++(void)createSubLocationWithLocationInformation:(MMLocationInformation *)locationInformation success:(void (^)(void))success failure:(void (^)(NSError *))failure {
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if(!locationInformation.latitude){
+        [parameters setObject:locationInformation.parentLocation.latitude forKey:@"latitude"];
+    } else {
+        [parameters setObject:locationInformation.latitude forKey:@"latitude"];
+    }
+    if(!locationInformation.longitude){
+        [parameters setObject:locationInformation.parentLocation.longitude forKey:@"longitude"];
+    } else {
+        [parameters setObject:locationInformation.longitude forKey:@"longitude"];
+    }
+   // if(locationInformation.parentLocation.street)[parameters setObject:locationInformation.parentLocation.street forKey:@"address"];
+    if(locationInformation.parentLocation.categories)[parameters setObject:locationInformation.parentLocation.categories forKey:@"categoryIds"];
+    if(locationInformation.parentLocation.country)[parameters setObject:locationInformation.parentLocation.country forKey:@"countryCode"];
+    if(locationInformation.parentLocation.locality)[parameters setObject:locationInformation.parentLocation.locality forKey:@"locality"];
+    if(locationInformation.parentLocation.phoneNumber)[parameters setObject:locationInformation.parentLocation.phoneNumber forKey:@"phoneNumber"];
+    if(locationInformation.parentLocation.zipCode)[parameters setObject:locationInformation.parentLocation.zipCode forKey:@"postcode"];
+    [parameters setObject:@"e048acf0-9e61-4794-b901-6a4bb49c3181" forKey:@"providerId"];
+    if(locationInformation.parentLocation.region)[parameters setObject:locationInformation.parentLocation.region forKey:@"region"];
+    if(locationInformation.parentLocation.website)[parameters setObject:locationInformation.parentLocation.website forKey:@"webSite"];
+    
+    if(locationInformation.name)
+    [parameters setObject:locationInformation.name forKey:@"name"];
+    
+    
+    [parameters setObject:locationInformation.parentLocation.locationID forKey:@"parentLocationId"];
+    
+    [[MMHTTPClient sharedClient] putPath:@"location" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success();
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"ERROR: %@", error);
+        failure(error);
+    }];
 
+}
 
 
 +(NSDictionary *)locationDictionaryForLocationInformation:(MMLocationInformation *)locationInformation{
@@ -782,6 +857,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     locationInformation.videos ? [locationDictionary setObject:locationInformation.videos forKey:@"videos"] : nil;
     locationInformation.images ? [locationDictionary setObject:locationInformation.images forKey:@"images"] : nil;
     locationInformation.monkeys ? [locationDictionary setObject:locationInformation.monkeys forKey:@"monkeys"] : nil;
+    locationInformation.messageURL ? [locationDictionary setObject:locationInformation.messageURL forKey:@"messageURL"] : nil;
     
    
     return locationDictionary;
@@ -818,6 +894,8 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     locationInformation.videos = [locationDictionary objectForKey:@"videos"];
     locationInformation.images = [locationDictionary objectForKey:@"images"];
     locationInformation.monkeys = [locationDictionary objectForKey:@"monkeys"];
+    locationInformation.parentLocationID = [locationDictionary objectForKey:@"parentLocationId"];
+    locationInformation.messageURL = [NSURL URLWithString:@"http://mobmonkey.com"];
     
     return locationInformation;
     

@@ -454,6 +454,8 @@ Fetches livestreaming URLs for a location
  */
 +(void)subscribeUserEmail:(NSString *)userEmail partnerId:(NSString *)partnerId success:(void(^)(void))success failure:(void(^)(NSError * error))failure;
 
++(void)createSubLocationWithLocationInformation:(MMLocationInformation*)locationInformation success:(void(^)(void))success failure:(void(^)(NSError * error))failure;
+
 
 +(MMLocationInformation *)locationInformationForLocationDictionary:(NSDictionary *)locationDictionary;
 +(NSDictionary *)locationDictionaryForLocationInformation:(MMLocationInformation *)locationInformation;
