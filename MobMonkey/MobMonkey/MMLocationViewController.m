@@ -52,11 +52,14 @@
     [super viewDidLoad];
     
     
-    /*NSString *locationId = @"5d44fab0-6f4f-4fe7-8351-aa4fb695d764";
-    NSString *providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181";
-    self.locationInformation.locationID = locationId;
-    self.locationInformation.providerID = providerId;*/
-    
+   // NSString *locationId = @"5d44fab0-6f4f-4fe7-8351-aa4fb695d764";
+   // NSString *providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181";
+    //self.locationID = locationId;
+    //self.providerID = providerId;
+    //[self loadLocationDataWithLocationId:locationId providerId:providerId];
+    //self.locationInformation.locationID = locationId;
+    //self.locationInformation.providerID = providerId;
+    //self.locationInformation = nil;
     // Do any additional setup after loading the view from its nib.
     
     backgroundQueue = dispatch_queue_create("com.MobMonkey.GenerateThumbnail", NULL);
@@ -567,13 +570,13 @@
     _addressLabel.text = [self.locationInformation formattedAddressString];
     //NSLog(@"%@", _contentList);
     NSString *message = self.locationInformation.message;
-    if (!message || [message isKindOfClass:[NSNull class]]) {
-        message = @"Check out MobMonkey!";
+    
+    if(message && ![message isEqual:[NSNull null]]){
+        _messageLabel.adjustsFontSizeToFitWidth = YES;
+        _messageLabel.text = message;
+        _mediaToolbarView.backgroundColor = [UIColor clearColor];
     }
    
-    _messageLabel.adjustsFontSizeToFitWidth = YES;
-    _messageLabel.text = message;
-    _mediaToolbarView.backgroundColor = [UIColor clearColor];
   
     
     [_liveStreamButton setEnabled:YES];
@@ -626,6 +629,9 @@
     }
 }
 - (void)loadLocationDataWithLocationId:(NSString*)locationId providerId:(NSString*)providerId {
+    
+    //locationId = self.locationInformation.locationID;
+    //providerId = self.locationInformation.providerID;
     
     if(!locationId && !providerId) {
      
@@ -688,7 +694,7 @@
     [self.mediaIndicatorView startAnimating];
     
     [MMAPI getMediaForLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+        NSLog(@"DATA: %@", responseObject);
         mediaArray = [responseObject valueForKey:@"media"];
         if (mediaArray.count > 0) {
             [_uploadDateLabel setHidden:NO];

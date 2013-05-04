@@ -177,7 +177,7 @@
 		B93EBD731733007300884663 /* gradientBackgroundBottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B93EBD701733007300884663 /* gradientBackgroundBottom@2x.png */; };
 		B93EBD741733007300884663 /* gradientBackgroundBottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B93EBD701733007300884663 /* gradientBackgroundBottom@2x.png */; };
 		B93EBD861733036500884663 /* BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B93EBD7E1733036500884663 /* BrowserViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		B93EBD871733036500884663 /* BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B93EBD7E1733036500884663 /* BrowserViewController.m */; };
+		B93EBD871733036500884663 /* BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B93EBD7E1733036500884663 /* BrowserViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B93EBD881733036500884663 /* BrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B93EBD7F1733036500884663 /* BrowserViewController.xib */; };
 		B93EBD891733036500884663 /* BrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B93EBD7F1733036500884663 /* BrowserViewController.xib */; };
 		B93EBD8A1733036500884663 /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = B93EBD801733036500884663 /* left.png */; };

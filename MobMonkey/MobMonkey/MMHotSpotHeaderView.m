@@ -38,6 +38,7 @@
         
         [[_searchBar.subviews objectAtIndex:0] removeFromSuperview];
         [_searchBar setBackgroundColor:[UIColor clearColor]];
+        //_searchBar.userInteractionEnabled = NO;
         
     }
     return self;

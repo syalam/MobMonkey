@@ -10,6 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "AdWhirlAdapterIAd.h"
 #import "MMHotSpotHeaderView.h"
+#import "MMLocationSearch.h"
 
 @interface MMHotSpotViewController : UITableViewController <UIGestureRecognizerDelegate, AdWhirlDelegate, MKMapViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate> {
     MKMapView *mapView;
@@ -17,6 +18,10 @@
     UIActivityIndicatorView *loadingIndicator;
     MMHotSpotHeaderView *headerView;
     NSUInteger numberOfLocations;
+    NSArray *searchResults;
+    UISearchDisplayController *searchDisplayController;
+    BOOL loadFromServer;
+    MMLocationSearch *searchModel;
 }
 
 @property (nonatomic, strong) NSArray *nearbyLocations;
