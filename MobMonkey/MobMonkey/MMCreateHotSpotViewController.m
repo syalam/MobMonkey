@@ -10,7 +10,7 @@
 #import "MMLocationSearch.h"
 #import "MMLocationHotSpotsViewController.h"
 #import "MMEditHotSpotViewController.h"
-
+#import "MMLocationListCell.h"
 
 @interface MMCreateHotSpotViewController ()
 
@@ -170,24 +170,30 @@
     static NSString *CellIdentifierSection1 = @"Section1";
     static NSString *CellIdentifierSection2 = @"Section2";
     
-    if(indexPath.section == 0){
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifierSection1];
+    if(indexPath.section == 0 && (indexPath.row != numberOfLocations || indexPath.row == self.nearbyLocations.count-1)){
+        MMLocationListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifierSection1];
         
         if(cell == nil){
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifierSection1];
+            cell = [[MMLocationListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifierSection1];
         }
         
-        int lastRowInSectionZero = [tableView numberOfRowsInSection:0] - 1;
-        if(indexPath.section == 0 && indexPath.row == lastRowInSectionZero && indexPath.row != self.nearbyLocations.count-1){
-            cell.textLabel.text = @"Load More";
-            cell.textLabel.textAlignment = NSTextAlignmentCenter;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }else{
-            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-            MMLocationInformation *locationInformation = [self.nearbyLocations objectAtIndex:indexPath.row];
-            cell.textLabel.text = locationInformation.name;
-            cell.textLabel.textAlignment = NSTextAlignmentLeft;
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+        MMLocationInformation *locationInformation = [self.nearbyLocations objectAtIndex:indexPath.row];
+        [cell setLocationInformation:locationInformation];
+        
+        return cell;
+    }else{
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifierSection2];
+        
+        if(!cell){
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifierSection2];
         }
+        
+        cell.textLabel.text = @"Load More";
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         return cell;
     }
     
@@ -196,7 +202,15 @@
     
    
 }
-
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.section == 0 && (indexPath.row != numberOfLocations || indexPath.row == self.nearbyLocations.count-1)){
+        return 80;
+    }
+    return UITableViewAutomaticDimension;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 55;
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -238,7 +252,7 @@
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if(section == 0){
-        return @"Choose the Hot-Spot Location";
+        return @"Choose the Hot Spot Location";
     }
     return nil;
 }
