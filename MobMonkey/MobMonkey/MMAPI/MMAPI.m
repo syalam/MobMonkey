@@ -546,6 +546,9 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
             
             MMLocationInformation *locationInformation = [self locationInformationForLocationDictionary:locationDictionary];
             
+            if(!locationInformation.name){
+                locationInformation.name = @"Unnamed Location";
+            }
             
             //Add the sublocations to a seperate array
             if(locationInformation.parentLocationID && ![locationInformation.parentLocationID isKindOfClass:[NSNull class]]&& locationInformation.parentLocationID.length > 0){
@@ -560,8 +563,13 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
         if(sublocations.count > 0){
             for(MMLocationInformation *subLocation in sublocations){
                 
-                NSPredicate *parentIdPredicate = [NSPredicate predicateWithFormat:@"locationID = %@", subLocation.parentLocationID];
+                                NSPredicate *parentIdPredicate = [NSPredicate predicateWithFormat:@"locationID = %@", subLocation.parentLocationID];
                 MMLocationInformation *parentLocation = [[locationInformations filteredArrayUsingPredicate:parentIdPredicate] lastObject];
+                
+                if(!parentLocation){
+                    continue;
+                }
+
                 subLocation.parentLocation = parentLocation;
                 
                 NSMutableSet *subLocationsSet = [NSMutableSet set];
@@ -730,8 +738,11 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
             locationInformation.videos = [json objectForKey:@"videos"];
             locationInformation.images = [json objectForKey:@"images"];
             locationInformation.monkeys = [json objectForKey:@"monkeys"];
-            locationInformation.messageURL = [NSURL URLWithString:@"http://mobmonkey.com"];
-            
+            NSString *urlPath = [json objectForKey:@"messageUrl"];
+            if(urlPath && ![urlPath isEqual:[NSNull null]]){
+                locationInformation.messageURL = [NSURL URLWithString:urlPath];
+            }
+        
             if(success){
                 success(operation, locationInformation);
             }

@@ -17,6 +17,8 @@
 #import "MMLocationsViewController.h"
 #import "MMSearchViewController.h"
 #import "MMLocationViewController.h"
+#import "MMLocationSearch.h"
+#import "MMLocationListCell.h"
 
 @interface MMHotSpotViewController ()
 
@@ -40,11 +42,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    loadFromServer = NO;
     numberOfLocations = 4;
 
     headerView = [[MMHotSpotHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, 137)];
+    headerView.searchBar.delegate = self;
     self.tableView.tableHeaderView = headerView;
+    
+    searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:headerView.searchBar contentsController:self];
+    searchDisplayController.delegate = self;
+    searchDisplayController.searchResultsDataSource = self;
+    searchDisplayController.searchResultsDelegate = self;
+    
+    //[searchDisplayController setActive:YES];
+    //self.searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:headerView.searchBar contentsController:self];
     
     
     [headerView.createHotSpotButton addTarget:self action:@selector(createHotSpotButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -73,10 +84,7 @@
     
     
     //Search bar controller
-    [[UISearchDisplayController alloc] initWithSearchBar:headerView.searchBar contentsController:self];
-    self.searchDisplayController.searchResultsDelegate = self;
-    self.searchDisplayController.searchResultsDataSource = self;
-    self.searchDisplayController.delegate = self;
+
     
     loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     loadingIndicator.hidden = YES;
@@ -303,12 +311,26 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+{
+    NSPredicate *resultPredicate = [NSPredicate
+                                    predicateWithFormat:@"SELF.name contains[cd] %@",
+                                    searchText];
+    
+    searchResults = [self.nearbyLocations filteredArrayUsingPredicate:resultPredicate];
+    NSLog(@"STOP");
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
+    
+    if(tableView == self.searchDisplayController.searchResultsTableView){
+        return 1;
+    }
+    
     return 2;
     
 }
@@ -318,48 +340,109 @@
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
     
-    if(nearbyLocations.count <= 0){
-        return numberOfLocations;
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return loadFromServer ? searchResults.count : searchResults.count + 1;
+        
+    } else {
+        if(nearbyLocations.count <= 0){
+            return numberOfLocations;
+        }
+        if(section == 0){
+            return nearbyLocations.count > numberOfLocations ? numberOfLocations + 1 : nearbyLocations.count
+            ;
+        }else if (section == 1){
+            return 2;
+        }
+        return 0;
+        
     }
-    if(section == 0){
-        return nearbyLocations.count > numberOfLocations ? numberOfLocations + 1 : nearbyLocations.count
-        ;
-    }else if (section == 1){
-        return 2;
-    }
-    return 0;
+    
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    static NSString *LocationCellIdentifier = @"LocationCell";
+    static NSString *NormalCellIdentifier = @"NormalCell";
+    
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        
+        if(indexPath.row == searchResults.count && !loadFromServer){
+            
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NormalCellIdentifier];
+            
+            if(!cell){
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NormalCellIdentifier];
+            }
+            
+            cell.textLabel.text = @"Load More From Server";
+            cell.textLabel.textColor = [UIColor grayColor];
+            cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Oblique" size:20];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            return cell;
+            
+        }else{
+            
+            MMLocationListCell *cell = [tableView dequeueReusableCellWithIdentifier:LocationCellIdentifier];
+            
+            if(!cell){
+                cell = [[MMLocationListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LocationCellIdentifier];
+            }
+        
+            MMLocationInformation *locationInfoSearch = [searchResults objectAtIndex:indexPath.row];
+            [cell setLocationInformation:locationInfoSearch];
+            
+             return cell;
+        }
+        
+        
+       
     }
+    
     
     if(indexPath.section == 0) {
         
         
         if(nearbyLocations.count > numberOfLocations && indexPath.row == numberOfLocations){
+            
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NormalCellIdentifier];
+            
+            if(!cell){
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NormalCellIdentifier];
+            }
+            
             cell.textLabel.text = @"Load More";
             cell.textLabel.textColor = [UIColor darkGrayColor];
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
-             cell.accessoryView = loadingIndicator;
+            cell.accessoryView = loadingIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            return cell;
+            
         }else{
+            MMLocationListCell *cell = [tableView dequeueReusableCellWithIdentifier:LocationCellIdentifier];
+            
+            if(!cell){
+                cell = [[MMLocationListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LocationCellIdentifier];
+            }
             
             MMLocationInformation *locationInformation = [nearbyLocations objectAtIndex:indexPath.row];
-            cell.textLabel.text = locationInformation.name;
-            cell.textLabel.textColor = [UIColor blackColor];
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            cell.textLabel.textAlignment = NSTextAlignmentLeft;
-            cell.accessoryView = nil;
-            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            [cell setLocationInformation:locationInformation];
+            return cell;
         }
         
         
     }else{
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NormalCellIdentifier];
+        
+        if(!cell){
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NormalCellIdentifier];
+        }
+        
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.textAlignment = NSTextAlignmentLeft;
         cell.textLabel.textColor = [UIColor blackColor];
@@ -378,11 +461,10 @@
             default:
                 break;
         }
+        return cell;
     }
     
-    // Configure the cell...
-    
-    return cell;
+    // Configure the ce
 }
 
 /*
@@ -435,8 +517,14 @@
     }
     return UITableViewAutomaticDimension ;
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.section == 0 && indexPath.row != numberOfLocations){
+        return 80;
+    }
+    return UITableViewAutomaticDimension;
+}
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if(section == 1){
+    if(section == 1 && tableView != self.searchDisplayController.searchResultsTableView){
         UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 220)];
         
         [containerView addSubview:mapView];
@@ -455,10 +543,65 @@
     else return  nil;
 }
 
+-(void)searchFromServer{
+    
+    if (!searchModel) {
+        searchModel = [[MMLocationSearch alloc] init];
+        
+    }
+    
+    [SVProgressHUD showWithStatus:@"Downloading Locations from Server"];
+    [searchModel locationsInfoForCategory:nil searchString:self.searchDisplayController.searchBar.text rangeInYards:@88000 success:^(NSArray *locationInformations) {
+        
+        
+        NSMutableArray *locationsToAdd = [NSMutableArray array];
+        
+        for (MMLocationInformation *location in locationInformations){
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.locationID = %@", location.locationID];
+            
+            MMLocationInformation *locationExists = [[searchResults filteredArrayUsingPredicate:predicate] lastObject];
+            
+            if(!locationExists){
+                [locationsToAdd addObject:location];
+            }
+        }
+        
+     NSMutableArray *updatedSearchResults = [NSMutableArray arrayWithArray:searchResults];
+     [updatedSearchResults addObjectsFromArray:locationsToAdd];
+     searchResults = updatedSearchResults;
+    loadFromServer = YES;
+     [self.searchDisplayController.searchResultsTableView reloadData];
+     [SVProgressHUD dismiss];
+     
+    } failure:^(NSError *error) {
+        NSLog(@"Success");
+        [SVProgressHUD showErrorWithStatus:@"Couldn't Search for Locations on Server"];
+    }];
+    
+    
+}
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        
+        if(indexPath.row < searchResults.count){
+            MMLocationInformation *locationInformation = [searchResults objectAtIndex:indexPath.row];
+            
+            MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithNibName:@"MMLocationViewController" bundle:nil];
+            
+            locationViewController.locationInformation = locationInformation;
+            
+            [self.navigationController pushViewController:locationViewController animated:YES];
+            return;
+        }else{
+            [self searchFromServer];
+        }
+        
+        
+    }
     
     switch (indexPath.section) {
         case 0:
@@ -510,6 +653,19 @@
 
 #pragma mark - MapViewDelegate
 
+#pragma mark - Search Bar 
+
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller
+shouldReloadTableForSearchString:(NSString *)searchString
+{
+    loadFromServer = NO;
+    [self filterContentForSearchText:searchString
+                               scope:[[self.searchDisplayController.searchBar scopeButtonTitles]
+                                      objectAtIndex:[self.searchDisplayController.searchBar
+                                                     selectedScopeButtonIndex]]];
+    
+    return YES;
+}
 
 
 @end
