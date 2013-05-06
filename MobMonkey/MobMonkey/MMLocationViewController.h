@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMLocationHeaderView.h"
+#import "MMLocationInformation.h"
+#import "MMLocationMediaViewController.h"
 
-@interface MMLocationViewController : UITableViewController
+@interface MMLocationViewController : UITableViewController {
+    MMLocationHeaderView *headerView;
+}
 
+@property (nonatomic, strong) MMLocationInformation *locationInformation;
+@property (nonatomic, strong) NSArray *mediaArray;
 @end

@@ -204,6 +204,8 @@
 		B995D7E2173837A400B57077 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B995D7DF173837A400B57077 /* MMLocationViewController.m */; };
 		B995D7E3173837A400B57077 /* MMLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B995D7E0173837A400B57077 /* MMLocationViewController.xib */; };
 		B995D7E4173837A400B57077 /* MMLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B995D7E0173837A400B57077 /* MMLocationViewController.xib */; };
+		B995D7E917383A7A00B57077 /* MMLocationMediaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B995D7E817383A7A00B57077 /* MMLocationMediaView.xib */; };
+		B995D7EA17383A7A00B57077 /* MMLocationMediaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B995D7E817383A7A00B57077 /* MMLocationMediaView.xib */; };
 		B9960ECA17334686003348FC /* MMEditHotSpotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9960EC917334686003348FC /* MMEditHotSpotViewController.m */; };
 		B9960ECB17334686003348FC /* MMEditHotSpotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9960EC917334686003348FC /* MMEditHotSpotViewController.m */; };
 		B9960ECE17342A60003348FC /* LocationButtonStretch.png in Resources */ = {isa = PBXBuildFile; fileRef = B9960ECC17342A60003348FC /* LocationButtonStretch.png */; };
@@ -1658,6 +1660,7 @@
 		B995D7DE173837A400B57077 /* MMLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationViewController.h; sourceTree = "<group>"; };
 		B995D7DF173837A400B57077 /* MMLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationViewController.m; sourceTree = "<group>"; };
 		B995D7E0173837A400B57077 /* MMLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLocationViewController.xib; sourceTree = "<group>"; };
+		B995D7E817383A7A00B57077 /* MMLocationMediaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLocationMediaView.xib; sourceTree = "<group>"; };
 		B9960EC817334686003348FC /* MMEditHotSpotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMEditHotSpotViewController.h; sourceTree = "<group>"; };
 		B9960EC917334686003348FC /* MMEditHotSpotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMEditHotSpotViewController.m; sourceTree = "<group>"; };
 		B9960ECC17342A60003348FC /* LocationButtonStretch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LocationButtonStretch.png; sourceTree = "<group>"; };
@@ -2699,6 +2702,7 @@
 			children = (
 				B9960EDF17382B37003348FC /* MMLocationMediaView.h */,
 				B9960EE017382B37003348FC /* MMLocationMediaView.m */,
+				B995D7E817383A7A00B57077 /* MMLocationMediaView.xib */,
 				B9960EE317382B50003348FC /* MMLocationHeaderView.h */,
 				B9960EE417382B50003348FC /* MMLocationHeaderView.m */,
 			);
@@ -4749,6 +4753,7 @@
 				B9960ECF17342A60003348FC /* LocationButtonStretch.png in Resources */,
 				B9960ED117342A60003348FC /* LocationButtonStretch@2x.png in Resources */,
 				B995D7E4173837A400B57077 /* MMLocationViewController.xib in Resources */,
+				B995D7EA17383A7A00B57077 /* MMLocationMediaView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5225,6 +5230,7 @@
 				B9960ECE17342A60003348FC /* LocationButtonStretch.png in Resources */,
 				B9960ED017342A60003348FC /* LocationButtonStretch@2x.png in Resources */,
 				B995D7E3173837A400B57077 /* MMLocationViewController.xib in Resources */,
+				B995D7E917383A7A00B57077 /* MMLocationMediaView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
