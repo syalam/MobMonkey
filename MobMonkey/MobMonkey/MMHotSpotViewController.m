@@ -43,7 +43,7 @@
 {
     [super viewDidLoad];
     loadFromServer = NO;
-    numberOfLocations = 4;
+    
 
     
     
@@ -121,9 +121,15 @@
     [self.navigationController pushViewController:createHotSpotVC animated:YES];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    numberOfLocations = 5;
+    [self loadNearbyLocations];
+}
+
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self loadNearbyLocations];
     
     
     

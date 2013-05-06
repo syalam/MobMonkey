@@ -94,7 +94,7 @@
             break;
         }
         case 1:
-            cell.textLabel.text = @"Create a New Hot-Spot";
+            cell.textLabel.text = @"Created Hot-Spot";
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
             
         default:
