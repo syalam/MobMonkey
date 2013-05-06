@@ -339,8 +339,7 @@
         }
     }else if(indexPath.section == 1){
         MMLocationInformation *subLocation = [self.locationInformation.sublocations.allObjects objectAtIndex:indexPath.row];
-        MMLocationViewController *subLocationViewController = [[MMLocationViewController alloc] initWithNibName:@"MMLocationViewController" bundle:nil];
-        subLocationViewController.locationInformation = subLocation;
+        MMLocationViewController *subLocationViewController = [[MMLocationViewController alloc] initWithStyle:UITableViewStyleGrouped];        subLocationViewController.locationInformation = subLocation;
         [self.navigationController pushViewController:subLocationViewController animated:YES];
     }
     

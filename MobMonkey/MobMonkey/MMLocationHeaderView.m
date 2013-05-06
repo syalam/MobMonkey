@@ -17,8 +17,10 @@
         
         self.clipsToBounds = YES;
         
+        self.backgroundColor = [UIColor redColor];
+        
         // Initialization code
-        _locationTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 30)];
+        _locationTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, frame.size.width, 30)];
         
         [self addSubview:_locationTitleLabel];
         

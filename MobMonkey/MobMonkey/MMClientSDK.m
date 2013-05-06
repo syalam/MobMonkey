@@ -88,7 +88,7 @@
     [presentingViewController.navigationController pushViewController:locationVC animated:YES];
 }*/
 -(void)locationScreen:(UIViewController *)presentingViewController locationInformation:(MMLocationInformation *)locationInformation {
-    MMLocationViewController *locationVC = [[MMLocationViewController alloc] initWithNibName:@"MMLocationViewController" bundle:nil];
+    MMLocationViewController *locationVC = [[MMLocationViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
     #warning FIX THIS BEFORE OYU IMPLEMENT NEW VIEW CONTROLLER LOCATION
     //locationVC.locationInformation = locationInformation;

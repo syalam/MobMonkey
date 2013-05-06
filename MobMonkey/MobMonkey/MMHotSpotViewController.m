@@ -604,7 +604,7 @@
         if(indexPath.row < searchResults.count){
             MMLocationInformation *locationInformation = [searchResults objectAtIndex:indexPath.row];
             
-            MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithNibName:@"MMLocationViewController" bundle:nil];
+            MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithStyle:UITableViewStyleGrouped];
             #warning FIX THIS BEFORE OYU IMPLEMENT NEW VIEW CONTROLLER LOCATION
             //locationViewController.locationInformation = locationInformation;
             

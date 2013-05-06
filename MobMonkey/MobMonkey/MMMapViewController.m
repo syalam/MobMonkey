@@ -452,7 +452,7 @@
     
     [nav popToRootViewControllerAnimated:NO];
     
-    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithStyle:UITableViewStyleGrouped];
 #warning FIX THIS AFTER IMPLEMENTING NEW LOCATION VIEW CONTROLLER
     //locationViewController.locationID = locationId;
     //locationViewController.providerID = providerId;

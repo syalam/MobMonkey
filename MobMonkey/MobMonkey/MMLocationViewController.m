@@ -30,7 +30,6 @@
     
     MMLocationHeaderView *headerView = [[MMLocationHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, 120)];
     [self.tableView setTableHeaderView:headerView];
-    
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
