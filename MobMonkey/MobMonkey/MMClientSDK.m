@@ -231,10 +231,11 @@
                         [[NSUserDefaults standardUserDefaults]setValue:accessToken forKey:@"oauthToken"];
                         [[NSUserDefaults standardUserDefaults]synchronize];
                         
-                        [self checkInUser];
+                        
                         [self getAllCategories];
                         [SVProgressHUD showSuccessWithStatus:@"Signed in with Facebook"];
                         [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:nil];
+                        [self checkInUser];
                         [presentingViewController.navigationController dismissViewControllerAnimated:YES completion:NULL];
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         

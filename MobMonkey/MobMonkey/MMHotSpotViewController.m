@@ -45,9 +45,17 @@
     loadFromServer = NO;
     numberOfLocations = 4;
 
+    
+    
     headerView = [[MMHotSpotHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, 137)];
+    headerView.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
+    headerView.layer.zPosition = 100;
     headerView.searchBar.delegate = self;
-    self.tableView.tableHeaderView = headerView;
+   
+    [self.tableView addSubview:headerView];
+    
+    UIView *headerSpace = [[UIView alloc] initWithFrame:headerView.frame];
+    [self.tableView setTableHeaderView:headerSpace];
     
     searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:headerView.searchBar contentsController:self];
     searchDisplayController.delegate = self;
@@ -667,5 +675,13 @@ shouldReloadTableForSearchString:(NSString *)searchString
     return YES;
 }
 
+#pragma mark - ScrollView Delegate
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGRect newFrame = headerView.frame;
+    newFrame.origin.x = 0;
+    newFrame.origin.y = self.tableView.contentOffset.y;
+    headerView.frame = newFrame;
+}
 
 @end

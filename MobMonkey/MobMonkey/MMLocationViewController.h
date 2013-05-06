@@ -15,6 +15,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <Twitter/Twitter.h>
 #import "MMLocationInformation.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface MMlocationDetailCellData : NSObject
 
@@ -66,7 +67,7 @@
 @property (nonatomic, strong) IBOutlet UIView *mediaLoadingView;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *mediaIndicatorView;
 
-@property (nonatomic, retain) IBOutlet TCImageView *locationLatestImageView;
+@property (nonatomic, retain) IBOutlet UIImageView *locationLatestImageView;
 
 @property (nonatomic, weak) IBOutlet UIView *notificationSettingView;
 @property (nonatomic, weak) IBOutlet UIView *bookmarkView;
@@ -80,6 +81,8 @@
 @property (nonatomic, weak) IBOutlet UILabel *addressLabel;
 @property (nonatomic, weak) IBOutlet UILabel *notificationSettingLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) IBOutlet UIImageView *topBlackGradient;
+@property (nonatomic, strong) IBOutlet UIImageView *bottonBlackGradient;
 @property (strong, nonatomic) MPMoviePlayerViewController *player;
 
 @property (nonatomic, strong) NSString *locationID;

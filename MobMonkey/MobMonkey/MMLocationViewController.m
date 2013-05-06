@@ -21,6 +21,7 @@
 #import "GetRelativeTime.h"
 #import "UIActionSheet+Blocks.h"
 #import "BrowserViewController.h"
+#import "UIImageView+AFNetworking.h"
 
 @implementation MMlocationDetailCellData
 
@@ -37,7 +38,7 @@
 @implementation MMLocationViewController
 @synthesize locationInformation = _locationInformation;
 @synthesize locationCellData = _locationCellData;
-
+@synthesize topBlackGradient, bottonBlackGradient;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -52,8 +53,8 @@
     [super viewDidLoad];
     
     
-   // NSString *locationId = @"5d44fab0-6f4f-4fe7-8351-aa4fb695d764";
-   // NSString *providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181";
+    //NSString *locationId = @"5d44fab0-6f4f-4fe7-8351-aa4fb695d764";
+    //NSString *providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181";
     //self.locationID = locationId;
     //self.providerID = providerId;
     //[self loadLocationDataWithLocationId:locationId providerId:providerId];
@@ -63,6 +64,8 @@
     // Do any additional setup after loading the view from its nib.
     
     backgroundQueue = dispatch_queue_create("com.MobMonkey.GenerateThumbnail", NULL);
+    self.topBlackGradient.hidden = YES;
+    self.bottonBlackGradient.hidden = YES;
     
     //setup scrollview size
     [_scrollView setContentSize:CGSizeMake(320, 945)];
@@ -93,7 +96,7 @@
     [_notificationSettingLabel setHidden:YES];
     
     //Get Counts of photos and videos for this location
-    [_locationLatestImageView setCaching:YES];
+    //[_locationLatestImageView setCaching:YES];
     
     //Set location detail items to display
     [self setLocationDetailItems];
@@ -706,11 +709,24 @@
             _uploadDateLabel.text = [GetRelativeTime getRelativeTime:dateAnswered];
             
             NSString *mediaUrl = [[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"];
+            __weak typeof(self) weakSelf = self;
             if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"image"]) {
-                [_locationLatestImageView reloadWithUrl:mediaUrl];
+                NSURLRequest *imageRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:mediaUrl]];
+                [_locationLatestImageView setImageWithURLRequest:imageRequest placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                    
+                    NSLog(@"Starting");
+                        weakSelf.locationLatestImageView.image = image;
+                        [weakSelf showGradients];
+                    
+                    
+                } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                    NSLog(@"Failed Loading Image");
+                }];
+                //self.bottonBlackGradient.hid
             }
             else if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"livestreaming"]) {
                 _locationLatestImageView.image = [UIImage imageNamed:@"liveFeedPlaceholder"];
+                self.bottonBlackGradient.hidden = NO;
                 [playButtonImageView setHidden:NO];
             }
             else {
@@ -724,6 +740,7 @@
                     CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
                     dispatch_async(dispatch_get_main_queue(), ^(void) {
                         _locationLatestImageView.image =  [UIImage imageWithCGImage:imgRef];
+                        self.bottonBlackGradient.hidden = NO;
                     });
                 });
                 
@@ -744,6 +761,10 @@
         [self resizeTableViewToDefault];
     }];
 
+}
+-(void)showGradients{
+    self.bottonBlackGradient.hidden = NO;
+    self.topBlackGradient.hidden = NO;
 }
 -(void)adjustContentSize {
     float newHeight = _tableView.frame.origin.y + _tableView.frame.size.height;
