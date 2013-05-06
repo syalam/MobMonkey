@@ -453,8 +453,9 @@
     [nav popToRootViewControllerAnimated:NO];
     
     MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
-    locationViewController.locationID = locationId;
-    locationViewController.providerID = providerId;
+#warning FIX THIS AFTER IMPLEMENTING NEW LOCATION VIEW CONTROLLER
+    //locationViewController.locationID = locationId;
+    //locationViewController.providerID = providerId;
     locationViewController.title = @"Loading...";
     
     [nav pushViewController:locationViewController animated:YES];

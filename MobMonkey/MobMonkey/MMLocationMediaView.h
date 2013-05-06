@@ -1,5 +1,5 @@
 //
-//  MMLocationViewController.h
+//  MMLocationMediaView.h
 //  MobMonkey
 //
 //  Created by Michael Kral on 5/6/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMLocationViewController : UITableViewController
+@interface MMLocationMediaView : UIView
 
 @end

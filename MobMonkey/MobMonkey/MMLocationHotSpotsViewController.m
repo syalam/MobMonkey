@@ -170,7 +170,8 @@
     }else if(indexPath.section == 0){
         MMLocationInformation *subLocationInformation = [self.hotSpots objectAtIndex:indexPath.row];
         MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithNibName:@"MMLocationViewController" bundle:nil];
-        locationViewController.locationInformation = subLocationInformation;
+        #warning FIX THIS BEFORE OYU IMPLEMENT NEW VIEW CONTROLLER LOCATION
+        //locationViewController.locationInformation = subLocationInformation;
         UINavigationController *navController = self.navigationController;
         [self.navigationController popToRootViewControllerAnimated:NO];
         [navController pushViewController:locationViewController animated:YES];
