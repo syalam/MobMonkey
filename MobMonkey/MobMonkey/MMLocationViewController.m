@@ -387,6 +387,7 @@
 
     MMLocationMediaViewController *lmvc = [[MMLocationMediaViewController alloc] initWithNibName:@"MMLocationMediaViewController" bundle:nil];
     //lmvc.location = self.contentList;
+    lmvc.allMedia = mediaArray;
     lmvc.locationInformation = self.locationInformation;
     lmvc.title = self.title;
     lmvc.providerId = self.locationInformation.locationID;
@@ -671,6 +672,9 @@
             self.locationInformation = locationInformation;
         }else{
             self.locationInformation.monkeys = locationInformation.monkeys;
+            self.locationInformation.livestreaming = locationInformation.livestreaming;
+            self.locationInformation.videos = locationInformation.videos;
+            self.locationInformation.images = locationInformation.images;
         }
         
         

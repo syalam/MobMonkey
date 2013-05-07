@@ -34,7 +34,8 @@ typedef enum {
 @property (assign, nonatomic) MobMonkeyMediaType mediaType;
 @property (nonatomic, retain) NSMutableDictionary *thumbnailCache;
 @property (strong, nonatomic) GSFullscreenAd* myFullscreenAd;
-@property (strong, nonatomic) NSArray *mediaArray;
+@property (strong, nonatomic) NSArray *allMedia;
+@property (nonatomic, strong) NSArray *selectedMedia;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) NSString* providerId;
 @property (nonatomic, retain) NSString* locationId;

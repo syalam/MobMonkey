@@ -82,20 +82,22 @@
          sublocationInformation.longitude = self.parentLocation.longitude;
     }
     
-   
-    
-    
     sublocationInformation.name = [[((MMTextFieldCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]])textField]text];
     sublocationInformation.details = [[((MMTextFieldCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]])textField]text];
     sublocationInformation.parentLocation = self.parentLocation;
     sublocationInformation.locationID = nil;
     
     [SVProgressHUD showWithStatus:@"Creating Hot Spot"];
+    
     [MMAPI createSubLocationWithLocationInformation:sublocationInformation success:^{
+        
         [SVProgressHUD showSuccessWithStatus:@"Hot Spot Created"];
         [self.navigationController popToRootViewControllerAnimated:YES];
+    
     } failure:^(NSError *error) {
+    
         [SVProgressHUD showErrorWithStatus:@"Hot Spot Creation Failed"];
+    
     }];
     
 }
