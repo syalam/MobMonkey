@@ -12,6 +12,9 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MMRequestViewController.h"
 #import "UIImageView+AFNetworking.h"
+#import "UIActionSheet+Blocks.h"
+#import "MMMapViewController.h"
+#import "MMNotificationSettingsViewController.h"
 
 @implementation MMLocationDetailCellData
 
@@ -82,6 +85,10 @@
     [self.headerView.mediaView.videosButton addTarget:self action:@selector(mediaButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self.headerView.mediaView.liveStreamButton addTarget:self action:@selector(mediaButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self.headerView.mediaView.photosButton addTarget:self action:@selector(mediaButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UITapGestureRecognizer *tapMediaGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(enlargeButtonTapped:)];
+    tapMediaGesture.numberOfTapsRequired = 1;
+    [self.headerView.mediaView.mediaImageView addGestureRecognizer:tapMediaGesture];
     
     [self.headerView.makeARequestButton addTarget:self action:@selector(makeRequestButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -265,23 +272,93 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    if (indexPath.section == 2) {
+        [self bookmarkButtonTapped:nil];
+        return;
+    }
+    if(indexPath.section == 0){
+        
+        MMLocationDetailCellData *cellData = [self.locationCellData objectAtIndex:indexPath.row];
+        
+        switch (cellData.cellType) {
+            case LocationCellTypePhoneNumber: {
+                
+                NSString *telNumber = cellData.text;
+                NSString *telURI;
+                if(telNumber.length > 0){
+                    telURI = [@"tel:" stringByAppendingString:telNumber];
+                    telURI = [telURI stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                }else{
+                    //Break switch, if there is no number.
+                    break;
+                }
+                
+                //Create the ActionView Buttons (using +Blocks category)
+                RIButtonItem *copyButton = [RIButtonItem itemWithLabel:@"Copy"];
+                RIButtonItem *callButton = [RIButtonItem itemWithLabel:[NSString stringWithFormat:@"Call: %@", telNumber]];
+                RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:@"Cancel"];
+                
+                /*****
+                 Set Action blocks for buttons
+                 *****/
+                //Copy text to pasteboard
+                [copyButton setAction:^{
+                    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                    pasteboard.string = telNumber;
+                }];
+                
+                //Call number
+                [callButton setAction:^{
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telURI]];
+                }];
+                
+                
+                UIActionSheet *copyCallActionsheet;
+                
+                //Only show call if phone has the capability
+                if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:telURI]]){
+                    copyCallActionsheet = [[UIActionSheet alloc] initWithTitle:@"Options" cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:callButton, copyButton, nil];
+                }else{
+                    copyCallActionsheet = [[UIActionSheet alloc] initWithTitle:@"Options" cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:copyButton, nil];
+                }
+                
+                //Show the action sheet
+                [copyCallActionsheet showFromTabBar:self.tabBarController.tabBar];
+                break;
+            }
+            case LocationCellTypeAddressBOOL: {
+                MMMapViewController *mapViewController = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
+                mapViewController.title = self.locationInformation.name;
+                mapViewController.locationInformationCollection = @[self.locationInformation];
+                [self.navigationController pushViewController:mapViewController animated:YES];
+                break;
+            }
+            case LocationCellTypeNotification: {
+                [self notificationSettingsButtonTapped:nil];
+                break;
+            }
+                
+            default:
+                break;
+        }
+    }else if(indexPath.section == 1){
+        MMLocationInformation *subLocation = [self.locationInformation.sublocations.allObjects objectAtIndex:indexPath.row];
+        MMLocationViewController *subLocationViewController = [[MMLocationViewController alloc] initWithNibName:@"MMLocationViewController" bundle:nil];
+        subLocationViewController.locationInformation = subLocation;
+        [self.navigationController pushViewController:subLocationViewController animated:YES];
+    }
 }
 
 #pragma mark - ScrollView Delegate
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+
     CGRect newFrame = self.headerView.frame;
     newFrame.origin.x = 0;
     newFrame.origin.y = self.tableView.contentOffset.y;
     self.headerView.frame = newFrame;
+    
 }
 
 #pragma mark Button methods
@@ -354,6 +431,44 @@
     
     [[MMClientSDK sharedSDK]showMoreActionSheet:self showFromTabBar:YES paramsForPublishingToSocialNetwork:params];
 }
+- (void)enlargeButtonTapped:(id)sender {
+    if (mediaArray.count > 0) {
+        if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"video"] || [[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"livestreaming"]) {
+            NSURL *url = [NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
+            _player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+            [self.navigationController presentMoviePlayerViewControllerAnimated:_player];
+        }
+        else {
+            [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:self.headerView.mediaView.mediaImageView.image locationName:self.title];
+        }
+    }
+}
+- (IBAction)bookmarkButtonTapped:(id)sender {
+    if (self.locationInformation.isBookmark) {
+        self.locationInformation.isBookmark = NO;
+        [self.tableView reloadData];
+        [MMAPI deleteBookmarkWithLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"Removed bookmark");
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@", operation.responseString);
+        }];
+        
+        return;
+    }
+    self.locationInformation.isBookmark = YES;
+    [self.tableView reloadData];
+    [MMAPI createBookmarkWithLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Added Bookmark!");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Could not add Bookmark!");
+    }];
+}
+
+- (IBAction)notificationSettingsButtonTapped:(id)sender {
+    MMNotificationSettingsViewController *noticiationSettingsVC = [[MMNotificationSettingsViewController alloc]initWithNibName:@"MMNotificationSettingsViewController" bundle:nil];
+    noticiationSettingsVC.delegate = self;
+    [self.navigationController pushViewController:noticiationSettingsVC animated:YES];
+}
 
 #pragma  mark Load Location Data
 - (void)loadLocationDataWithLocationId:(NSString*)locationId providerId:(NSString*)providerId {
@@ -377,6 +492,7 @@
         self.mediaLoadingView.hidden = NO;
         [self.mediaIndicatorView startAnimating];*/
     }
+    [self.headerView showLoadingView];
     
     [MMAPI getLocationWithID:locationId providerID:providerId success:^(AFHTTPRequestOperation *operation, MMLocationInformation *locationInformation) {
         
@@ -399,7 +515,7 @@
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Confirm Email Address" message:@"Please check your email and confirm the registration." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alertView show];
         }
-        
+        [self.headerView hideLoadingViewShowMedia:NO];
         NSLog(@"Failed: %@", error);
     }];
     
@@ -485,8 +601,7 @@
     //self.mediaLoadingView.hidden = NO;
     //[self.mediaIndicatorView startAnimating];
     
-    [self.headerView showMediaView];
-    
+        
     [MMAPI getMediaForLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"DATA: %@", responseObject);
         mediaArray = [responseObject valueForKey:@"media"];
@@ -537,16 +652,20 @@
                 });
                 
             }
-            //[self.headerView.mediaView setHidden:YES];
-            //[self.headerView mediaViewHidden:NO];
+            [self.headerView hideLoadingViewShowMedia:YES];
         }else{
-            //self.headerView.mediaView = nil;
+            [self.headerView hideLoadingViewShowMedia:NO];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", operation.responseString);
-        
+        [self.headerView hideLoadingViewShowMedia:NO];
     }];
     
 }
 
+#pragma mark - header view delegate
+-(void)headerViewNeedsToBeSetOnSuperView:(MMLocationHeaderView *)headerView{
+    self.headerView = headerView;
+    self.tableView.tableHeaderView = self.headerView;
+}
 @end

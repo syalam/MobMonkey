@@ -8,6 +8,9 @@
 
 #import "MMLocationHeaderView.h"
 #import "MMLocationMediaView.h"
+#import <QuartzCore/QuartzCore.h>
+
+#define origHeaderHeight 120;
 
 @implementation MMLocationHeaderView
 
@@ -17,7 +20,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
+        originalFrame = frame;
         self.clipsToBounds = YES;
         
         // Initialization code
@@ -63,6 +66,22 @@
         
         [self addSubview:_makeARequestButton];
         
+        _loadingView = [[UIView alloc] initWithFrame:CGRectMake(_mediaView.frame.origin.x, _locationTitleLabel.frame.size.height , self.frame.size.width, 30)];
+        
+        _indicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(50, 4, 22, 22)];
+        
+        UILabel *loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(_indicatorView.frame.origin.x + 10, 4, 100, 22)];
+        
+        loadingLabel.backgroundColor = [UIColor clearColor];
+        loadingLabel.text = @"Loading";
+        
+        [_loadingView addSubview:_indicatorView];
+        [_loadingView addSubview:loadingLabel];
+        
+        _loadingView.hidden = YES;
+        
+        [self addSubview:_loadingView];
+        
         
         
     }
@@ -90,47 +109,57 @@
     
 }
 
--(void)closeMediaView{
-    
-}
--(void)openMediaView{
-    
-    self.mediaView.frame = CGRectMake((self.frame.size.width - self.mediaView.frame.size.width)/2, self.makeARequestButton.frame.origin.y + self.makeARequestButton.frame.size.height + 10, self.mediaView.frame.size.width, self.mediaView.frame.size.height);
-    
-    self.mediaView.transform = CGAffineTransformMakeScale(0.01, 0.01);
-    [self addSubview: _mediaView];
-    [UIView animateWithDuration:1.0 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        self.mediaView.transform = CGAffineTransformIdentity;
-        
-        if(self.mediaView.isHidden){
-            
-            CGRect newFrame = self.frame;
-            
-            newFrame.size.height += 20 + self.mediaView.frame.size.height;
-            
-            self.frame = newFrame;
-            
-        }
-        
-    } completion:^(BOOL finished) {
-        
-    }];
-    
-}
-
--(void)mediaViewHidden:(BOOL)hidden{
-    
-    if(hidden){
-        [self closeMediaView];
-    }else{
-        [self openMediaView];
-    }
-}
-
 
 - (void)showMediaView{
     NSUInteger oldHeight = self.frame.size.height;
     NSUInteger newHeight = self.frame.size.height + 320 + 20;
+    NSInteger originChange = oldHeight - newHeight;
+    self.mediaView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    [UIView beginAnimations:nil context:nil];
+    
+    [UIView setAnimationDuration:0.6f];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+    
+    self.frame = CGRectMake(self.frame.origin.x,
+                            self.frame.origin.y,
+                            self.frame.size.width,
+                            newHeight);
+    
+    self.gradientSpacer.frame = CGRectMake(self.gradientSpacer.frame.origin.x,
+                                           self.gradientSpacer.frame.origin.y - originChange,
+                                           self.gradientSpacer.frame.size.width,
+                                           self.gradientSpacer.frame.size.height);
+    
+    self.makeARequestButton.frame = CGRectMake(self.makeARequestButton.frame.origin.x,
+                                               self.makeARequestButton.frame.origin.y - originChange,
+                                               self.makeARequestButton.frame.size.width,
+                                               self.makeARequestButton.frame.size.height);
+    
+    self.mediaView.transform = CGAffineTransformIdentity;
+    
+    for (UIView *view in [(UITableView *)self.superview subviews]) {
+        if ([view isKindOfClass:[self class]] ||
+            [view isEqual:self.gradientSpacer] ||
+            [view isEqual:self.makeARequestButton]||
+            [view isEqual:self.mediaView]) {
+            continue;
+        }
+        view.frame = CGRectMake(view.frame.origin.x,
+                                view.frame.origin.y - originChange,
+                                view.frame.size.width,
+                                view.frame.size.height);
+    }
+
+    
+    
+    [UIView commitAnimations];
+    
+    self.mediaView.hidden = NO;
+}
+-(void)hideMediaView {
+    NSUInteger oldHeight = self.frame.size.height;
+    NSUInteger newHeight = self.frame.size.height - 340;
     NSInteger originChange = oldHeight - newHeight;
     
     [UIView beginAnimations:nil context:nil];
@@ -154,30 +183,139 @@
                                                self.makeARequestButton.frame.size.width,
                                                self.makeARequestButton.frame.size.height);
     
-    self.mediaView.frame = CGRectMake(self.mediaView.frame.origin.x,
-                                      self.mediaView.frame.origin.y,
-                                      self.mediaView.frame.size.width,
-                                      self.mediaView.frame.size.height);
-    
-    /*for (UIView *view in [(UITableView *)self.superview subviews]) {
-        if ([view isKindOfClass:[self class]]) {
+    for (UIView *view in [(UITableView *)self.superview subviews]) {
+        if ([view isKindOfClass:[self class]] ||
+            [view isEqual:self.gradientSpacer] ||
+            [view isEqual:self.makeARequestButton]||
+            [view isEqual:self.mediaView]) {
             continue;
         }
         view.frame = CGRectMake(view.frame.origin.x,
                                 view.frame.origin.y - originChange,
                                 view.frame.size.width,
                                 view.frame.size.height);
-    }*/
+    }
+    
     
     [UIView commitAnimations];
     
-    self.mediaView.hidden = NO;
+    self.mediaView.hidden = YES;
 }
 
+-(void)showLoadingView {
+    
+    NSUInteger oldHeight = self.frame.size.height;
+    NSUInteger newHeight = self.frame.size.height + 30;
+    NSInteger originChange = oldHeight - newHeight;
+    
+    [UIView beginAnimations:nil context:nil];
+    
+    [UIView setAnimationDuration:0.4f];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(setHeaderView)];
+    
+    self.frame = CGRectMake(self.frame.origin.x,
+                            self.frame.origin.y,
+                            self.frame.size.width,
+                            newHeight);
+    
+    self.gradientSpacer.frame = CGRectMake(self.gradientSpacer.frame.origin.x,
+                                           self.gradientSpacer.frame.origin.y - originChange,
+                                           self.gradientSpacer.frame.size.width,
+                                           self.gradientSpacer.frame.size.height);
+    
+    self.makeARequestButton.frame = CGRectMake(self.makeARequestButton.frame.origin.x,
+                                               self.makeARequestButton.frame.origin.y - originChange,
+                                               self.makeARequestButton.frame.size.width,
+                                               self.makeARequestButton.frame.size.height);
+    
+    for (UIView *view in [(UITableView *)self.superview subviews]) {
+        if ([view isKindOfClass:[self class]] ||
+            [view isEqual:self.gradientSpacer] ||
+            [view isEqual:self.makeARequestButton]||
+            [view isEqual:self.mediaView]) {
+            continue;
+        }
+        view.frame = CGRectMake(view.frame.origin.x,
+                                view.frame.origin.y - originChange,
+                                view.frame.size.width,
+                                view.frame.size.height);
+    }
+    
+    
+    [UIView commitAnimations];
+    
+    self.loadingView.hidden = NO;
+    
+}
+
+-(void)hideLoadingViewShowMedia:(BOOL)showMedia {
+    
+        
+    NSUInteger oldHeight = self.frame.size.height;
+    NSUInteger newHeight = self.frame.size.height - 30;
+    NSInteger originChange = oldHeight - newHeight;
+    
+    [UIView animateWithDuration:0.4f delay:0.0f options:UIViewAnimationCurveEaseIn animations:^{
+        self.frame = CGRectMake(self.frame.origin.x,
+                                self.frame.origin.y,
+                                self.frame.size.width,
+                                newHeight);
+        
+        self.gradientSpacer.frame = CGRectMake(self.gradientSpacer.frame.origin.x,
+                                               self.gradientSpacer.frame.origin.y - originChange,
+                                               self.gradientSpacer.frame.size.width,
+                                               self.gradientSpacer.frame.size.height);
+        
+        self.makeARequestButton.frame = CGRectMake(self.makeARequestButton.frame.origin.x,
+                                                   self.makeARequestButton.frame.origin.y - originChange,
+                                                   self.makeARequestButton.frame.size.width,
+                                                   self.makeARequestButton.frame.size.height);
+        
+        for (UIView *view in [(UITableView *)self.superview subviews]) {
+            if ([view isKindOfClass:[self class]] ||
+                [view isEqual:self.gradientSpacer] ||
+                [view isEqual:self.makeARequestButton]||
+                [view isEqual:self.mediaView]) {
+                continue;
+            }
+            //view.frame = CGRectMake(view.frame.origin.x,
+            //                        view.frame.origin.y - originChange,
+            //                        view.frame.size.width,
+            //                        view.frame.size.height);
+        }
+        
+        self.loadingView.layer.opacity = 0.01;
+    } completion:^(BOOL finished) {
+        self.loadingView.hidden = YES;
+        self.loadingView.layer.opacity = 1.0f;
+        
+        self.loadingView.hidden = YES;
+        if(showMedia){
+            
+            self.loadingView.hidden = YES;
+            [self showMediaView];
+            
+        }
+        [self setHeaderView];
+        //[(UITableView *)self.superview setTableHeaderView:self];
+        
+
+    }];
+    
+}
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context{
+   // [(UITableView *)self.superview setTableHeaderView:self];
     [(UITableView *)self.superview setTableHeaderView:self];
 }
 
+
+-(void)setHeaderView{
+    if([self.delegate respondsToSelector:@selector(headerViewNeedsToBeSetOnSuperView:)]){
+        [self.delegate headerViewNeedsToBeSetOnSuperView:self];
+    }
+    //[(UITableView *)self.superview setTableHeaderView:self];
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

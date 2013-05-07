@@ -11,6 +11,7 @@
 #import "MMLocationInformation.h"
 #import "MMLocationMediaViewController.h"
 
+
 @interface MMLocationDetailCellData : NSObject
 
 @property (nonatomic, strong) NSString *text;
@@ -20,12 +21,15 @@
 @end
 
 
-@interface MMLocationViewController : UITableViewController {
+@interface MMLocationViewController : UITableViewController <MMLocationHeaderViewDelegate> {
     MMLocationHeaderView *_headerView;
     dispatch_queue_t  backgroundQueue;
+    BOOL uiAdjustedForNotificationSetting;
 }
 
 @property (nonatomic, strong) MMLocationHeaderView *headerView;
 @property (nonatomic, strong) MMLocationInformation *locationInformation;
 @property (nonatomic, strong) NSArray *mediaArray;
+@property (strong, nonatomic) MPMoviePlayerViewController *player;
+
 @end
