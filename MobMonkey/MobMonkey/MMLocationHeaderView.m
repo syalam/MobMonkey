@@ -30,14 +30,20 @@
         _locationTitleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
         _locationTitleLabel.backgroundColor = [UIColor clearColor];
         
+        _locationDetailLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, _locationTitleLabel.frame.size.height, frame.size.width - 46 - 25, 30)];
+        _locationDetailLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        _locationDetailLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
+        _locationDetailLabel.backgroundColor = [UIColor clearColor];
+        
         _hotSpotBadge = [[MMHotSpotBadge alloc] init];
         _hotSpotBadge.frame = CGRectMake(_locationTitleLabel.frame.size.width + 5, 14, 36, 22);
         _hotSpotBadge.hidden = YES;
         [self addSubview:_hotSpotBadge];
         
         [self addSubview:_locationTitleLabel];
+        [self addSubview:_locationDetailLabel];
         
-        CGFloat makeARequestOriginY = self.locationTitleLabel.frame.origin.y + self.locationTitleLabel.frame.size.height + 10;
+        CGFloat makeARequestOriginY = self.locationDetailLabel.frame.origin.y + self.locationDetailLabel.frame.size.height + 10;
         
         _makeARequestButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _makeARequestButton.frame = CGRectMake(10, makeARequestOriginY, 300, 66);
@@ -67,13 +73,13 @@
         [self addSubview:_gradientSpacer];
 
         _mediaView = [[[NSBundle mainBundle] loadNibNamed:@"MMLocationMediaView" owner:self options:0] lastObject];
-        _mediaView.frame = CGRectMake(0, _locationTitleLabel.frame.size.height + 10, 320, 320);
+        _mediaView.frame = CGRectMake(0, _locationTitleLabel.frame.size.height + 30, 320, 320);
         _mediaView.hidden = YES;
         [self addSubview:_mediaView];
         
         [self addSubview:_makeARequestButton];
         
-        CGRect loadingViewFrame = _locationTitleLabel.frame;
+        CGRect loadingViewFrame = _locationDetailLabel.frame;
         loadingViewFrame.origin.y += _locationTitleLabel.frame.size.height;
         loadingViewFrame.size.width = self.frame.size.width;
         
@@ -320,7 +326,7 @@
 }
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context{
    // [(UITableView *)self.superview setTableHeaderView:self];
-    [(UITableView *)self.superview setTableHeaderView:self];
+    [self setHeaderView];
 }
 
 

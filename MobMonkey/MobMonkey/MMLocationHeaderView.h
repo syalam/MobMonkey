@@ -29,6 +29,7 @@
 }
 
 @property (nonatomic, strong) UILabel * locationTitleLabel;
+@property (nonatomic, strong) UILabel * locationDetailLabel;
 @property (nonatomic, strong) UIButton * makeARequestButton;
 @property (nonatomic, strong) UILabel *makeARequestLabel;
 @property (nonatomic, strong) UILabel *makeARequestSubLabel;

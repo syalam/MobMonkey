@@ -18,6 +18,7 @@
         // Initialization code
         self.autoresizesSubviews = YES;
         self.backgroundColor = [UIColor clearColor];
+        [self setTranslatesAutoresizingMaskIntoConstraints:NO];
         
         UIImage *backgroundImage = [[UIImage imageNamed:@"hotSpotBadgeStretch"] stretchableImageWithLeftCapWidth:15 topCapHeight:0];
         

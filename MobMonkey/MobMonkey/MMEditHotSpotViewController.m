@@ -8,6 +8,8 @@
 
 #import "MMEditHotSpotViewController.h"
 #import "MMTextFieldCell.h"
+#import "UIAlertView+Blocks.h"
+#import "UIActionSheet+Blocks.h"
 
 @interface MMEditHotSpotViewController ()
 
@@ -74,6 +76,8 @@
 
 -(void)createSubLocation:(id)sender{
     
+    [self.view endEditing:YES];
+    
     if(!sublocationInformation.latitude){
         sublocationInformation.latitude = self.parentLocation.latitude;
     }
@@ -82,8 +86,22 @@
          sublocationInformation.longitude = self.parentLocation.longitude;
     }
     
-    sublocationInformation.name = [[((MMTextFieldCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]])textField]text];
-    sublocationInformation.details = [[((MMTextFieldCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]])textField]text];
+
+    if (!self.nameText || self.nameText.length <= 0) {
+        UIAlertView *noNameAlert = [[UIAlertView alloc] initWithTitle:@"Enter Name" message:@"Each Hot Spot must have a name" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [noNameAlert show];
+        return;
+    }
+    sublocationInformation.name =  self.nameText;
+    
+    sublocationInformation.details = self.descriptionText;
+    
+    if(!self.rangeText || self.rangeText.length <= 0){
+        UIAlertView *noNameAlert = [[UIAlertView alloc] initWithTitle:@"Enter Range" message:@"Each Hot Spot must have a range" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [noNameAlert show];
+        return;
+    }
+    
     sublocationInformation.parentLocation = self.parentLocation;
     sublocationInformation.locationID = nil;
     
@@ -107,7 +125,49 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)selectRange:(NSNumber*)rangeInMeters {
+    
+    MMTextFieldCell *cell = (MMTextFieldCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
+    
+    NSString *rangeText = [NSString stringWithFormat:@"%d meters", rangeInMeters.integerValue];
+    
+    cell.textField.text = rangeText;
+    
+    self.rangeText = rangeText;
+}
+-(void)showRangeActionSheet {
+    RIButtonItem *meter5 = [RIButtonItem itemWithLabel:@"5 meters"];
+    RIButtonItem *meter10 = [RIButtonItem itemWithLabel:@"10 meters"];
+    RIButtonItem *meter30 = [RIButtonItem itemWithLabel:@"30 meters"];
+    RIButtonItem *meter50 = [RIButtonItem itemWithLabel:@"50 meters"];
+    RIButtonItem *meter100 = [RIButtonItem itemWithLabel:@"100 meters"];
+    
+    RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:@"Cancel"];
+    
+    [meter5 setAction:^{
+        [self selectRange:@5];
+    }];
+    
+    [meter10 setAction:^{
+        [self selectRange:@10];
+    }];
+    
+    [meter30 setAction:^{
+        [self selectRange:@30];
+    }];
+    
+    [meter50 setAction:^{
+        [self selectRange:@50];
+    }];
+    
+    [meter100 setAction:^{
+        [self selectRange:@100];
+    }];
+    
+    UIActionSheet *selectRangeAction = [[UIActionSheet alloc] initWithTitle:@"Select a Range" cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:meter5, meter10, meter30, meter50, meter100, nil];
+    
+    [selectRangeAction showFromTabBar:self.tabBarController.tabBar];
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -133,6 +193,16 @@
         cell = [[MMTextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     cell.textField.placeholder = [self.cellLabels objectAtIndex:indexPath.row];
+    cell.textField.delegate = self;
+    cell.textField.tag = indexPath.row;
+    
+    if(indexPath.row == 2){
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        cell.textField.enabled = NO;
+    }else{
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.textField.enabled = YES;
+    }
     
     // Configure the cell...
     
@@ -140,6 +210,13 @@
 }
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return @"Hot Spot Details";
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.section == 0 && indexPath.row == 2){
+        NSLog(@"TOUCHED");
+        [self showRangeActionSheet];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 /*
 // Override to support conditional editing of the table view.
@@ -180,23 +257,34 @@
 }
 */
 
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-}
 #pragma mark - Map Select View Delegate
 -(void)mapSelectView:(MMMapSelectView *)mapSelectView didSelectLocation:(CLLocationCoordinate2D)coordinate{
     
     self.sublocationInformation.latitude = [NSNumber numberWithFloat:coordinate.latitude];
     self.sublocationInformation.longitude = [NSNumber numberWithFloat:coordinate.longitude];
 
+}
+
+#pragma mark - TextField Delegate
+
+-(void)textFieldDidEndEditing:(UITextField *)textField {
+    
+    switch (textField.tag) {
+        case 0:
+            self.nameText = textField.text;
+            break;
+        case 1:
+            self.descriptionText = textField.text;
+            break;
+        case 2:
+            self.rangeText = textField.text;
+            break;
+            
+        default:
+            break;
+    }
+    
+
+    
 }
 @end

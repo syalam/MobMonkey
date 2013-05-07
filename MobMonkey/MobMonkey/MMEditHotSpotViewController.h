@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MMLocationInformation.h"
 #import "MMMapSelectView.h"
+#import "MMTextFieldCell.h"
 
-@interface MMEditHotSpotViewController : UITableViewController<MMMapSelectViewDelegate> {
+@interface MMEditHotSpotViewController : UITableViewController<MMMapSelectViewDelegate, UITextFieldDelegate> {
     UIButton *createSubLocationButton;
 }
 
@@ -18,5 +19,9 @@
 @property (nonatomic, strong) NSArray *cellLabels;
 @property (nonatomic, strong) MMMapSelectView *mapSelectView;
 @property (nonatomic, strong) MMLocationInformation *sublocationInformation;
+
+@property (nonatomic, strong) NSString *nameText;
+@property (nonatomic, strong) NSString *descriptionText;
+@property (nonatomic, strong) NSString *rangeText;
 
 @end

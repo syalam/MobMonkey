@@ -16,6 +16,8 @@
 #import "MMMapViewController.h"
 #import "MMNotificationSettingsViewController.h"
 #import "MMHotSpotBadge.h"
+#import "BrowserViewController.h"
+#import "MMEditHotSpotViewController.h"
 
 @implementation MMLocationDetailCellData
 
@@ -53,9 +55,11 @@
     self.view.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
     self.tableView.backgroundView = nil;
     
-    self.headerView = [[MMLocationHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, 130)];
+    self.headerView = [[MMLocationHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
     self.headerView.layer.zPosition = 100;
     self.headerView.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
+    self.headerView.delegate = self;
+    
     
     UIView *headerViewSpacer = [[UIView alloc] initWithFrame:self.headerView.frame];
     [self.tableView addSubview:self.headerView];
@@ -97,6 +101,10 @@
     
     [self.headerView.makeARequestButton addTarget:self action:@selector(makeRequestButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
+    UITapGestureRecognizer *tapRegister = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pressedMessageLink:)];
+    tapRegister.numberOfTapsRequired = 1;
+    [self.headerView.mediaView.messageLabel addGestureRecognizer:tapRegister];
+    self.headerView.mediaView.messageLabel.userInteractionEnabled = YES;
     
     if(self.locationInformation){
         [self setLocationDetailItems];
@@ -174,13 +182,17 @@
         // Row for "Add to Favorites
         rowCount  = 1;
     }else if(section == 1){
-        return self.locationInformation.sublocations.count ;
+        return self.locationInformation.parentLocation ? 0 : self.locationInformation.sublocations.count +1 ;
     }
     
     return rowCount;
     
 }
-
+-(void)createHotSpotAtLocation{
+    MMEditHotSpotViewController *hotSpotEditViewController = [[MMEditHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    hotSpotEditViewController.parentLocation = self.locationInformation;
+    [self.navigationController pushViewController:hotSpotEditViewController animated:YES];
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -195,13 +207,20 @@
         MMLocationDetailCellData *cellData = [self.locationCellData objectAtIndex:indexPath.row];
         cell.imageView.image = cellData.image;
         cell.textLabel.text = cellData.text;
+        cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+        cell.textLabel.textAlignment = NSTextAlignmentLeft;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         if(cellData.cellType == LocationCellTypeAddressBOOL){
             cell.textLabel.numberOfLines = 2;
             cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+            cell.textLabel.textAlignment = NSTextAlignmentLeft;
         }else if(cellData.cellType == LocationCellTypeNotification){
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+            cell.textLabel.textAlignment = NSTextAlignmentLeft;
         }
     } else if (indexPath.section == 2) {
         cell.textLabel.text = @"Add to Favorites";
@@ -211,9 +230,20 @@
         cell.imageView.image = [UIImage imageNamed:@"favorite"];
         return cell;
     } else if (indexPath.section == 1){
-        MMLocationInformation *subLocation = [self.locationInformation.sublocations.allObjects objectAtIndex:indexPath.row];
-        cell.textLabel.text = subLocation.name;
+        
+        if(indexPath.row != self.locationInformation.sublocations.allObjects.count){
+            MMLocationInformation *subLocation = [self.locationInformation.sublocations.allObjects objectAtIndex:indexPath.row];
+            cell.textLabel.text = subLocation.name;
+            cell.textLabel.textAlignment = NSTextAlignmentLeft;
+            cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+            
+        }else{
+            cell.textLabel.text = @"Create Hot Spot";
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+        }
         cell.imageView.image = nil;
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
     return cell;
@@ -351,10 +381,17 @@
                 break;
         }
     }else if(indexPath.section == 1){
-        MMLocationInformation *subLocation = [self.locationInformation.sublocations.allObjects objectAtIndex:indexPath.row];
-        MMLocationViewController *subLocationViewController = [[MMLocationViewController alloc] initWithNibName:@"MMLocationViewController" bundle:nil];
-        subLocationViewController.locationInformation = subLocation;
-        [self.navigationController pushViewController:subLocationViewController animated:YES];
+        
+        if(indexPath.row != self.locationInformation.sublocations.count){
+            MMLocationInformation *subLocation = [self.locationInformation.sublocations.allObjects objectAtIndex:indexPath.row];
+            MMLocationViewController *subLocationViewController = [[MMLocationViewController alloc] initWithNibName:@"MMLocationViewController" bundle:nil];
+            subLocationViewController.locationInformation = subLocation;
+            [self.navigationController pushViewController:subLocationViewController animated:YES];
+        }else{
+            [self createHotSpotAtLocation];
+        }
+        
+        
     }
 }
 
@@ -363,10 +400,14 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
 
-    CGRect newFrame = self.headerView.frame;
-    newFrame.origin.x = 0;
-    newFrame.origin.y = self.tableView.contentOffset.y;
-    self.headerView.frame = newFrame;
+    if(self.headerView.frame.size.height < 230){
+        
+        CGRect newFrame = self.headerView.frame;
+        newFrame.origin.x = 0;
+        newFrame.origin.y = self.tableView.contentOffset.y;
+        self.headerView.frame = newFrame;
+        
+    }
     
 }
 
@@ -420,6 +461,11 @@
     }
     else {
         [[MMClientSDK sharedSDK] signInScreen:self];
+    }
+}
+-(void)pressedMessageLink:(id)sender{
+    if(self.locationInformation.messageURL && ![self.locationInformation.messageURL isKindOfClass:[NSNull class]]){
+        [self openURL: self.locationInformation.messageURL];
     }
 }
 - (IBAction)shareButtonTapped:(id)sender {
@@ -553,6 +599,7 @@
     }
     
     self.headerView.locationTitleLabel.text = self.title;
+    self.headerView.locationDetailLabel.text = self.locationInformation.details;
     /*_phoneNumberLabel.text = self.locationInformation.phoneNumber;
     _addressLabel.text = [self.locationInformation formattedAddressString];
     //NSLog(@"%@", _contentList);*/
@@ -571,37 +618,7 @@
     [self.headerView.mediaView.videosButton setEnabled:YES];
     [self.headerView.mediaView.photosButton setEnabled:YES];
     
-    int streamingCount = [self.locationInformation.livestreaming intValue];
-    if (streamingCount == 0) {
-        self.headerView.mediaView.liveStreamCountLabel.hidden = YES;
-        [self.headerView.mediaView.liveStreamButton setEnabled:NO];
-        [self.headerView.mediaView.liveVideoButtonImageView setImage:[UIImage imageNamed:@"location-liveVideoIcnOff"]];
-    }
-    else {
-        self.headerView.mediaView.liveStreamCountLabel.hidden = NO;
-        self.headerView.mediaView.liveStreamCountLabel.text = [NSString stringWithFormat:@"%d", streamingCount];
-    }
-    
-    int videoCount = [self.locationInformation.videos intValue];
-    if (videoCount == 0) {
-        self.headerView.mediaView.videoCountLabel.hidden = YES;
-        [self.headerView.mediaView.videosButton setEnabled:NO];
-        
-    } else {
-        self.headerView.mediaView.videoCountLabel.hidden = NO;
-        self.headerView.mediaView.videoCountLabel.text = [NSString stringWithFormat:@"%d", videoCount];
-    }
-    
-    int photoCount = [self.locationInformation.images intValue];
-    if (photoCount == 0) {
-        self.headerView.mediaView.photoCountLabel.hidden = YES;
-        [self.headerView.mediaView.photosButton setEnabled:NO];
-        
-    }
-    else {
-        self.headerView.mediaView.photoCountLabel.hidden = NO;
-        self.headerView.mediaView.photoCountLabel.text = [NSString stringWithFormat:@"%d", photoCount];
-    }
+   
     
     int monkeyCount = [self.locationInformation.monkeys intValue];
     if (monkeyCount == 0) {
@@ -615,16 +632,71 @@
         self.headerView.makeARequestSubLabel.text = [NSString stringWithFormat:@"%d members found", monkeyCount];
     }
 }
+
+-(void)showMediaNumbers{
+    
+    
+    NSUInteger videoCount = 0;
+    NSUInteger photoCount = 0;
+    NSUInteger liveVideoCount = 0;
+    
+    
+    for (NSDictionary *media in mediaArray) {
+        if([[media objectForKey:@"type"] isEqualToString:@"video"]){
+            videoCount++;
+        }else if([[media objectForKey:@"type"] isEqualToString:@"livestreaming"]){
+            liveVideoCount++;
+        }else if([[media objectForKey:@"type"] isEqualToString:@"image"]){
+            photoCount++;
+        }
+    }
+    
+    
+    if (liveVideoCount == 0) {
+        self.headerView.mediaView.liveStreamCountLabel.hidden = YES;
+        [self.headerView.mediaView.liveStreamButton setEnabled:NO];
+        [self.headerView.mediaView.liveVideoButtonImageView setImage:[UIImage imageNamed:@"location-liveVideoIcnOff"]];
+    }
+    else {
+        self.headerView.mediaView.liveStreamCountLabel.hidden = NO;
+        self.headerView.mediaView.liveStreamCountLabel.text = [NSString stringWithFormat:@"%d", liveVideoCount];
+    }
+    
+    if (videoCount == 0) {
+        self.headerView.mediaView.videoCountLabel.hidden = YES;
+        [self.headerView.mediaView.videosButton setEnabled:NO];
+        
+    } else {
+        self.headerView.mediaView.videoCountLabel.hidden = NO;
+        self.headerView.mediaView.videoCountLabel.text = [NSString stringWithFormat:@"%d", videoCount];
+    }
+    
+    if (photoCount == 0) {
+        self.headerView.mediaView.photoCountLabel.hidden = YES;
+        [self.headerView.mediaView.photosButton setEnabled:NO];
+        
+    }
+    else {
+        self.headerView.mediaView.photoCountLabel.hidden = NO;
+        self.headerView.mediaView.photoCountLabel.text = [NSString stringWithFormat:@"%d", photoCount];
+    }
+}
 - (void)fetchLatestMediaForLocation {
     
     //self.mediaLoadingView.hidden = NO;
     //[self.mediaIndicatorView startAnimating];
     
-        
+    self.headerView.mediaView.topGradientView.hidden = YES;
+    self.headerView.mediaView.bottomGradientView.hidden = YES;
+    
     [MMAPI getMediaForLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"DATA: %@", responseObject);
         mediaArray = [responseObject valueForKey:@"media"];
         if (mediaArray.count > 0) {
+            
+            [self showMediaNumbers];
+            
+            
             //self.headerView.mediaView = [[MMLocationMediaView alloc] init];
             [self.headerView.mediaView.clockLabel setHidden:NO];
             double unixTime = [[[mediaArray objectAtIndex:0]valueForKey:@"uploadedDate"] floatValue]/1000;
@@ -640,9 +712,12 @@
                 [self.headerView.mediaView.mediaImageView setImageWithURLRequest:imageRequest placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                     
                     NSLog(@"Starting");
-                    weakSelf.headerView.mediaView.mediaImageView.image = image;
-                    weakSelf.headerView.mediaView.topGradientView.hidden = NO;
-                    weakSelf.headerView.mediaView.bottomGradientView.hidden = NO;
+                    
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        self.headerView.mediaView.mediaImageView.image = image;
+                        self.headerView.mediaView.topGradientView.hidden = NO;
+                        self.headerView.mediaView.bottomGradientView.hidden = NO;
+                    });
                     
                     
                 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
@@ -686,5 +761,19 @@
 -(void)headerViewNeedsToBeSetOnSuperView:(MMLocationHeaderView *)headerView{
     self.headerView = headerView;
     self.tableView.tableHeaderView = self.headerView;
+}
+
+#pragma mark - browser
+-(void)openURL:(NSURL*)url{
+    BrowserViewController *bvc = [[BrowserViewController alloc] initWithUrls:url];
+    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+    [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    bvc.navigationItem.leftBarButtonItem = backButton;
+    
+    [self.navigationController pushViewController:bvc animated:YES];
+    
 }
 @end

@@ -561,7 +561,7 @@
     if(self.locationInformation.name && [self.locationInformation.name length] > 0){
         
         if(self.locationInformation.parentLocation){
-            self.title = [NSString stringWithFormat:@"HOT SPOT: %@", self.locationInformation.name];
+            self.title = [NSString stringWithFormat:@"Hot Spot: %@", self.locationInformation.name];
         }else{
             self.title = self.locationInformation.name;
         }

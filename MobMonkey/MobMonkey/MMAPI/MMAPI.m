@@ -734,14 +734,22 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
             locationInformation.website = [json objectForKey:@"webSite"];
             locationInformation.isBookmark = ((NSNumber*)[json objectForKey:@"bookmark"]).boolValue;
             locationInformation.message = [json objectForKey:@"message"];
+            
+            if([locationInformation.message isEqual:[NSNull null]] || locationInformation.message.length <= 0){
+                locationInformation.message = @"See what's happening now on MobMonkey!";
+                locationInformation.messageURL = [NSURL URLWithString:@"http://mobmonkey.com"];
+            }else{
+                NSString *urlPath = [json objectForKey:@"messageUrl"];
+                if(urlPath && ![urlPath isEqual:[NSNull null]]){
+                    locationInformation.messageURL = [NSURL URLWithString:urlPath];
+                }
+            }
+            
             locationInformation.livestreaming = [json objectForKey:@"livestreaming"];
             locationInformation.videos = [json objectForKey:@"videos"];
             locationInformation.images = [json objectForKey:@"images"];
             locationInformation.monkeys = [json objectForKey:@"monkeys"];
-            NSString *urlPath = [json objectForKey:@"messageUrl"];
-            if(urlPath && ![urlPath isEqual:[NSNull null]]){
-                locationInformation.messageURL = [NSURL URLWithString:urlPath];
-            }
+            
         
             if(success){
                 success(operation, locationInformation);
