@@ -60,13 +60,13 @@
         [self addSubview:_gradientSpacer];
 
         _mediaView = [[[NSBundle mainBundle] loadNibNamed:@"MMLocationMediaView" owner:self options:0] lastObject];
-        _mediaView.frame = CGRectMake(0, _locationTitleLabel.frame.size.height + 20, 320, 320);
+        _mediaView.frame = CGRectMake(0, _locationTitleLabel.frame.size.height + 10, 320, 320);
         _mediaView.hidden = YES;
         [self addSubview:_mediaView];
         
         [self addSubview:_makeARequestButton];
         
-        _loadingView = [[UIView alloc] initWithFrame:CGRectMake(_mediaView.frame.origin.x, _locationTitleLabel.frame.size.height , self.frame.size.width, 30)];
+        _loadingView = [[UIView alloc] initWithFrame:_locationTitleLabel.frame];
         
         _indicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(50, 4, 22, 22)];
         

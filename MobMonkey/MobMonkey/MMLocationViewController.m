@@ -86,6 +86,8 @@
     [self.headerView.mediaView.liveStreamButton addTarget:self action:@selector(mediaButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self.headerView.mediaView.photosButton addTarget:self action:@selector(mediaButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
+    [self.headerView.mediaView.shareButton addTarget:self action:@selector(shareButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
     UITapGestureRecognizer *tapMediaGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(enlargeButtonTapped:)];
     tapMediaGesture.numberOfTapsRequired = 1;
     [self.headerView.mediaView.mediaImageView addGestureRecognizer:tapMediaGesture];
@@ -463,6 +465,7 @@
         NSLog(@"Could not add Bookmark!");
     }];
 }
+
 
 - (IBAction)notificationSettingsButtonTapped:(id)sender {
     MMNotificationSettingsViewController *noticiationSettingsVC = [[MMNotificationSettingsViewController alloc]initWithNibName:@"MMNotificationSettingsViewController" bundle:nil];

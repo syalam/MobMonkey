@@ -36,7 +36,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *clockLabel;
 
 //Other Options Button
-@property (nonatomic, strong) IBOutlet UIButton *optionsButton;
+@property (nonatomic, strong) IBOutlet UIButton *shareButton;
 
 //Message Label
 @property (nonatomic, strong) IBOutlet UILabel *messageLabel;
