@@ -505,6 +505,9 @@
             self.locationInformation = locationInformation;
         }else{
             self.locationInformation.monkeys = locationInformation.monkeys;
+            self.locationInformation.videos = locationInformation.videos;
+            self.locationInformation.images = locationInformation.images;
+            self.locationInformation.livestreaming = locationInformation.livestreaming;
         }
         
         
@@ -550,10 +553,10 @@
     
     
     
-    /*[_liveStreamButton setEnabled:YES];
-    [liveStreamImage setImage:[UIImage imageNamed:@"location-liveVideoIcn"]];
-    [_videosButton setEnabled:YES];
-    [_photosButton setEnabled:YES];*/
+    [self.headerView.mediaView.liveStreamButton setEnabled:YES];
+    [self.headerView.mediaView.liveVideoButtonImageView setImage:[UIImage imageNamed:@"location-liveVideoIcn"]];
+    [self.headerView.mediaView.videosButton setEnabled:YES];
+    [self.headerView.mediaView.photosButton setEnabled:YES];
     
     int streamingCount = [self.locationInformation.livestreaming intValue];
     if (streamingCount == 0) {
