@@ -63,7 +63,11 @@
 
 #pragma mark - UINavigationBar button tap methods
 - (void)backButtonTapped:(id)sender {
-    [_delegate selectedSetting:@"Today"];
+    
+    if([self.delegate respondsToSelector:@selector(selectedSetting:)]){
+        [_delegate selectedSetting:@"Today"];
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -35,7 +35,7 @@
         
         self.opaque = NO;
         _createHotSpotButton = [[UIButton alloc] initWithFrame:CGRectMake(padding, padding+ 5, frame.size.width - (padding * 2), 67)];
-        [_createHotSpotButton setTitle:@"Create a Hot Spot" forState:UIControlStateNormal];
+        [_createHotSpotButton setTitle:@"Create Hot Spot" forState:UIControlStateNormal];
         [_createHotSpotButton setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
         _createHotSpotButton.titleEdgeInsets = UIEdgeInsetsMake(0, 45, 0, 0);
         

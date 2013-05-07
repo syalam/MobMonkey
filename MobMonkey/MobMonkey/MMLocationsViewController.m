@@ -385,9 +385,10 @@
         NSString *locationId = locationInformation.locationID;
         NSString *providerId = locationInformation.providerID;
         
-        MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
-        locationViewController.locationInformation = locationInformation;
-        [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
+        MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithStyle:UITableViewStyleGrouped];
+#warning FIX THIS BEFORE OYU IMPLEMENT NEW VIEW CONTROLLER LOCATION
+        //locationViewController.locationInformation = locationInformation;
+        //[locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
         [self.navigationController pushViewController:locationViewController animated:YES];
     }
     else {
@@ -501,8 +502,9 @@
 
 #pragma mark - MMAddLocation Delegate methods
 - (void)locationAddedViaAddLocationViewWithLocationId:(NSString*)locationId providerId:(NSString*)providerId {
-    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
-    [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
+    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithStyle:UITableViewStyleGrouped];
+#warning FIX THIS BEFORE OYU IMPLEMENT NEW VIEW CONTROLLER LOCATION
+    //[locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
     [self.navigationController pushViewController:locationViewController animated:YES];
 }
 

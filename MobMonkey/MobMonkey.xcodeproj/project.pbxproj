@@ -200,6 +200,12 @@
 		B977AE9717220A0F00528A94 /* whiteCircleX.png in Resources */ = {isa = PBXBuildFile; fileRef = B977AE9417220A0F00528A94 /* whiteCircleX.png */; };
 		B977AE9817220A0F00528A94 /* whiteCircleX@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B977AE9517220A0F00528A94 /* whiteCircleX@2x.png */; };
 		B977AE9917220A0F00528A94 /* whiteCircleX@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B977AE9517220A0F00528A94 /* whiteCircleX@2x.png */; };
+		B995D7E1173837A400B57077 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B995D7DF173837A400B57077 /* MMLocationViewController.m */; };
+		B995D7E2173837A400B57077 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B995D7DF173837A400B57077 /* MMLocationViewController.m */; };
+		B995D7E3173837A400B57077 /* MMLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B995D7E0173837A400B57077 /* MMLocationViewController.xib */; };
+		B995D7E4173837A400B57077 /* MMLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B995D7E0173837A400B57077 /* MMLocationViewController.xib */; };
+		B995D7E917383A7A00B57077 /* MMLocationMediaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B995D7E817383A7A00B57077 /* MMLocationMediaView.xib */; };
+		B995D7EA17383A7A00B57077 /* MMLocationMediaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B995D7E817383A7A00B57077 /* MMLocationMediaView.xib */; };
 		B9960ECA17334686003348FC /* MMEditHotSpotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9960EC917334686003348FC /* MMEditHotSpotViewController.m */; };
 		B9960ECB17334686003348FC /* MMEditHotSpotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9960EC917334686003348FC /* MMEditHotSpotViewController.m */; };
 		B9960ECE17342A60003348FC /* LocationButtonStretch.png in Resources */ = {isa = PBXBuildFile; fileRef = B9960ECC17342A60003348FC /* LocationButtonStretch.png */; };
@@ -208,6 +214,10 @@
 		B9960ED117342A60003348FC /* LocationButtonStretch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9960ECD17342A60003348FC /* LocationButtonStretch@2x.png */; };
 		B9960ED41734349F003348FC /* MMMapSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9960ED31734349F003348FC /* MMMapSelectView.m */; };
 		B9960ED51734349F003348FC /* MMMapSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9960ED31734349F003348FC /* MMMapSelectView.m */; };
+		B9960EE117382B37003348FC /* MMLocationMediaView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9960EE017382B37003348FC /* MMLocationMediaView.m */; };
+		B9960EE217382B37003348FC /* MMLocationMediaView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9960EE017382B37003348FC /* MMLocationMediaView.m */; };
+		B9960EE517382B50003348FC /* MMLocationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9960EE417382B50003348FC /* MMLocationHeaderView.m */; };
+		B9960EE617382B50003348FC /* MMLocationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9960EE417382B50003348FC /* MMLocationHeaderView.m */; };
 		B99B7D521725F19E000BF3AB /* MMLocationInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = B99B7D511725F19E000BF3AB /* MMLocationInformation.m */; };
 		B99B7D531725F19E000BF3AB /* MMLocationInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = B99B7D511725F19E000BF3AB /* MMLocationInformation.m */; };
 		B99B7D5B1727185A000BF3AB /* MMSocialNetworkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B99B7D5A1727185A000BF3AB /* MMSocialNetworkModel.m */; };
@@ -644,7 +654,6 @@
 		B9A118E5170A56190020C322 /* MMInboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A58115F122FF0090E85A /* MMInboxViewController.m */; };
 		B9A118E6170A56190020C322 /* MMInboxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F77D3E5D161A9F6C000A818F /* MMInboxCell.m */; };
 		B9A118E7170A56190020C322 /* MMInboxDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F75A8736165573F800AF83EA /* MMInboxDetailViewController.m */; };
-		B9A118E8170A56190020C322 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F10715F426F8002E5567 /* MMLocationViewController.m */; };
 		B9A118E9170A56190020C322 /* MMLocationMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F76DFE95161F543100B5683F /* MMLocationMediaCell.m */; };
 		B9A118EA170A56190020C322 /* MMLocationMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F76DFE8F161F540D00B5683F /* MMLocationMediaViewController.m */; };
 		B9A118EB170A56190020C322 /* MMLocationListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D2615D1627DD230093938A /* MMLocationListCell.m */; };
@@ -759,7 +768,6 @@
 		B9A1195D170A574E0020C322 /* MMLocationMediaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F76DFE90161F540D00B5683F /* MMLocationMediaViewController.xib */; };
 		B9A1195E170A574E0020C322 /* MMFullScreenImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F745181715F9F3AA0049277C /* MMFullScreenImageViewController.xib */; };
 		B9A1195F170A574E0020C322 /* MMSubscriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C75171EA1678C0DE009B4DE8 /* MMSubscriptionViewController.xib */; };
-		B9A11960170A574E0020C322 /* MMLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F10815F426F8002E5567 /* MMLocationViewController.xib */; };
 		B9A11961170A574E0020C322 /* MMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F16215F4742C002E5567 /* MMLoginViewController.xib */; };
 		B9A11962170A574E0020C322 /* MMSignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F15D15F4740B002E5567 /* MMSignUpViewController.xib */; };
 		B9A11963170A574E0020C322 /* MMInboxViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F734A58215F122FF0090E85A /* MMInboxViewController.xib */; };
@@ -1017,8 +1025,6 @@
 		F745180115F918980049277C /* MMNotificationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F74517FF15F918980049277C /* MMNotificationSettingsViewController.xib */; };
 		F745181815F9F3AA0049277C /* MMFullScreenImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F745181615F9F3AA0049277C /* MMFullScreenImageViewController.m */; };
 		F745181915F9F3AA0049277C /* MMFullScreenImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F745181715F9F3AA0049277C /* MMFullScreenImageViewController.xib */; };
-		F747F10915F426F8002E5567 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F10715F426F8002E5567 /* MMLocationViewController.m */; };
-		F747F10A15F426F8002E5567 /* MMLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F747F10815F426F8002E5567 /* MMLocationViewController.xib */; };
 		F747F10C15F42B5A002E5567 /* monkey.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F747F10B15F42B5A002E5567 /* monkey.jpg */; };
 		F747F10E15F4376A002E5567 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F747F10D15F4376A002E5567 /* MapKit.framework */; };
 		F747F11115F4382B002E5567 /* TCImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F11015F4382B002E5567 /* TCImageView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1280,7 +1286,6 @@
 		F7D3B1BF16CB76660014D5A7 /* MMFullScreenImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F745181615F9F3AA0049277C /* MMFullScreenImageViewController.m */; };
 		F7D3B1C016CB766C0014D5A7 /* MMInboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A58115F122FF0090E85A /* MMInboxViewController.m */; };
 		F7D3B1C116CB76740014D5A7 /* MMInboxDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F75A8736165573F800AF83EA /* MMInboxDetailViewController.m */; };
-		F7D3B1C216CB76860014D5A7 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F747F10715F426F8002E5567 /* MMLocationViewController.m */; };
 		F7D3B1C316CB76860014D5A7 /* MMLocationMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F76DFE8F161F540D00B5683F /* MMLocationMediaViewController.m */; };
 		F7D3B1C416CB76860014D5A7 /* MMLocationListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D2615D1627DD230093938A /* MMLocationListCell.m */; };
 		F7D3B1C516CB76860014D5A7 /* MMLocationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 379EA06A162D227500A1BD2E /* MMLocationsViewController.m */; };
@@ -1652,12 +1657,20 @@
 		B977AE911721F31C00528A94 /* MMLocationSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationSearch.m; sourceTree = "<group>"; };
 		B977AE9417220A0F00528A94 /* whiteCircleX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteCircleX.png; path = Resources/Images/whiteCircleX.png; sourceTree = "<group>"; };
 		B977AE9517220A0F00528A94 /* whiteCircleX@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "whiteCircleX@2x.png"; path = "Resources/Images/whiteCircleX@2x.png"; sourceTree = "<group>"; };
+		B995D7DE173837A400B57077 /* MMLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationViewController.h; sourceTree = "<group>"; };
+		B995D7DF173837A400B57077 /* MMLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationViewController.m; sourceTree = "<group>"; };
+		B995D7E0173837A400B57077 /* MMLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLocationViewController.xib; sourceTree = "<group>"; };
+		B995D7E817383A7A00B57077 /* MMLocationMediaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLocationMediaView.xib; sourceTree = "<group>"; };
 		B9960EC817334686003348FC /* MMEditHotSpotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMEditHotSpotViewController.h; sourceTree = "<group>"; };
 		B9960EC917334686003348FC /* MMEditHotSpotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMEditHotSpotViewController.m; sourceTree = "<group>"; };
 		B9960ECC17342A60003348FC /* LocationButtonStretch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LocationButtonStretch.png; sourceTree = "<group>"; };
 		B9960ECD17342A60003348FC /* LocationButtonStretch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationButtonStretch@2x.png"; sourceTree = "<group>"; };
 		B9960ED21734349E003348FC /* MMMapSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMapSelectView.h; sourceTree = "<group>"; };
 		B9960ED31734349F003348FC /* MMMapSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMapSelectView.m; sourceTree = "<group>"; };
+		B9960EDF17382B37003348FC /* MMLocationMediaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationMediaView.h; sourceTree = "<group>"; };
+		B9960EE017382B37003348FC /* MMLocationMediaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationMediaView.m; sourceTree = "<group>"; };
+		B9960EE317382B50003348FC /* MMLocationHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationHeaderView.h; sourceTree = "<group>"; };
+		B9960EE417382B50003348FC /* MMLocationHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationHeaderView.m; sourceTree = "<group>"; };
 		B99B7D501725F19E000BF3AB /* MMLocationInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationInformation.h; sourceTree = "<group>"; };
 		B99B7D511725F19E000BF3AB /* MMLocationInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationInformation.m; sourceTree = "<group>"; };
 		B99B7D591727185A000BF3AB /* MMSocialNetworkModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSocialNetworkModel.h; sourceTree = "<group>"; };
@@ -1979,9 +1992,8 @@
 		F745181515F9F3AA0049277C /* MMFullScreenImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMFullScreenImageViewController.h; path = ../MobMonkey/MMFullScreenImageViewController.h; sourceTree = "<group>"; };
 		F745181615F9F3AA0049277C /* MMFullScreenImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMFullScreenImageViewController.m; sourceTree = "<group>"; };
 		F745181715F9F3AA0049277C /* MMFullScreenImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MMFullScreenImageViewController.xib; path = MobMonkey/MMFullScreenImageViewController.xib; sourceTree = "<group>"; };
-		F747F10615F426F8002E5567 /* MMLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMLocationViewController.h; path = ../MobMonkey/MMLocationViewController.h; sourceTree = "<group>"; };
-		F747F10715F426F8002E5567 /* MMLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationViewController.m; sourceTree = "<group>"; };
-		F747F10815F426F8002E5567 /* MMLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MMLocationViewController.xib; path = MobMonkey/MMLocationViewController.xib; sourceTree = "<group>"; };
+		F747F10615F426F8002E5567 /* _MMLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _MMLocationViewController.h; path = ../MobMonkey/_MMLocationViewController.h; sourceTree = "<group>"; };
+		F747F10715F426F8002E5567 /* _MMLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _MMLocationViewController.m; sourceTree = "<group>"; };
 		F747F10B15F42B5A002E5567 /* monkey.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = monkey.jpg; sourceTree = "<group>"; };
 		F747F10D15F4376A002E5567 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F747F10F15F4382B002E5567 /* TCImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCImageView.h; sourceTree = "<group>"; };
@@ -2672,6 +2684,29 @@
 				B93EBD851733036500884663 /* right@2x.png */,
 			);
 			name = Browser;
+			sourceTree = "<group>";
+		};
+		B9960ED617382ABB003348FC /* New Location View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B9960EDE17382B0B003348FC /* Header View */,
+				B995D7DE173837A400B57077 /* MMLocationViewController.h */,
+				B995D7DF173837A400B57077 /* MMLocationViewController.m */,
+				B995D7E0173837A400B57077 /* MMLocationViewController.xib */,
+			);
+			name = "New Location View Controller";
+			sourceTree = "<group>";
+		};
+		B9960EDE17382B0B003348FC /* Header View */ = {
+			isa = PBXGroup;
+			children = (
+				B9960EDF17382B37003348FC /* MMLocationMediaView.h */,
+				B9960EE017382B37003348FC /* MMLocationMediaView.m */,
+				B995D7E817383A7A00B57077 /* MMLocationMediaView.xib */,
+				B9960EE317382B50003348FC /* MMLocationHeaderView.h */,
+				B9960EE417382B50003348FC /* MMLocationHeaderView.m */,
+			);
+			name = "Header View";
 			sourceTree = "<group>";
 		};
 		B99B7D5817271843000BF3AB /* Social Network Model */ = {
@@ -3478,8 +3513,9 @@
 		F747F0C815F42433002E5567 /* Location */ = {
 			isa = PBXGroup;
 			children = (
+				B9960ED617382ABB003348FC /* New Location View Controller */,
 				372E64B3164C11490075AB60 /* location-full slices */,
-				F747F10715F426F8002E5567 /* MMLocationViewController.m */,
+				F747F10715F426F8002E5567 /* _MMLocationViewController.m */,
 				F76DFE93161F541200B5683F /* LocationMedia */,
 				37D261591627DC0B0093938A /* LocationListCell */,
 				379EA06A162D227500A1BD2E /* MMLocationsViewController.m */,
@@ -3680,7 +3716,7 @@
 				F734A58015F122FF0090E85A /* MMInboxViewController.h */,
 				F77D3E5C161A9F6C000A818F /* MMInboxCell.h */,
 				F75A8735165573F800AF83EA /* MMInboxDetailViewController.h */,
-				F747F10615F426F8002E5567 /* MMLocationViewController.h */,
+				F747F10615F426F8002E5567 /* _MMLocationViewController.h */,
 			);
 			name = "MMSDK Header Files";
 			sourceTree = "<group>";
@@ -3694,7 +3730,6 @@
 				F76DFE90161F540D00B5683F /* MMLocationMediaViewController.xib */,
 				F745181715F9F3AA0049277C /* MMFullScreenImageViewController.xib */,
 				C75171EA1678C0DE009B4DE8 /* MMSubscriptionViewController.xib */,
-				F747F10815F426F8002E5567 /* MMLocationViewController.xib */,
 				F747F16215F4742C002E5567 /* MMLoginViewController.xib */,
 				F747F15D15F4740B002E5567 /* MMSignUpViewController.xib */,
 				F734A58215F122FF0090E85A /* MMInboxViewController.xib */,
@@ -4683,7 +4718,6 @@
 				B9A1195D170A574E0020C322 /* MMLocationMediaViewController.xib in Resources */,
 				B9A1195E170A574E0020C322 /* MMFullScreenImageViewController.xib in Resources */,
 				B9A1195F170A574E0020C322 /* MMSubscriptionViewController.xib in Resources */,
-				B9A11960170A574E0020C322 /* MMLocationViewController.xib in Resources */,
 				B9A11961170A574E0020C322 /* MMLoginViewController.xib in Resources */,
 				B9A11962170A574E0020C322 /* MMSignUpViewController.xib in Resources */,
 				B9A11963170A574E0020C322 /* MMInboxViewController.xib in Resources */,
@@ -4718,6 +4752,8 @@
 				B93EBDA1173316A800884663 /* gradientBackgroundTop@2x.png in Resources */,
 				B9960ECF17342A60003348FC /* LocationButtonStretch.png in Resources */,
 				B9960ED117342A60003348FC /* LocationButtonStretch@2x.png in Resources */,
+				B995D7E4173837A400B57077 /* MMLocationViewController.xib in Resources */,
+				B995D7EA17383A7A00B57077 /* MMLocationMediaView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4834,7 +4870,6 @@
 				F79B504C15F3EEC50004BE01 /* SmallVideoIcn~iphone.png in Resources */,
 				F79B505115F3F45E0004BE01 /* logo@2x~iphone.png in Resources */,
 				F79B505215F3F45E0004BE01 /* logo~iphone.png in Resources */,
-				F747F10A15F426F8002E5567 /* MMLocationViewController.xib in Resources */,
 				F747F10C15F42B5A002E5567 /* monkey.jpg in Resources */,
 				F747F13315F4509C002E5567 /* AddItBtn@2x~iphone.png in Resources */,
 				F747F13415F4509C002E5567 /* AddItBtn~iphone.png in Resources */,
@@ -5194,6 +5229,8 @@
 				B93EBDA0173316A800884663 /* gradientBackgroundTop@2x.png in Resources */,
 				B9960ECE17342A60003348FC /* LocationButtonStretch.png in Resources */,
 				B9960ED017342A60003348FC /* LocationButtonStretch@2x.png in Resources */,
+				B995D7E3173837A400B57077 /* MMLocationViewController.xib in Resources */,
+				B995D7E917383A7A00B57077 /* MMLocationMediaView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5310,7 +5347,6 @@
 				B9A118E5170A56190020C322 /* MMInboxViewController.m in Sources */,
 				B9A118E6170A56190020C322 /* MMInboxCell.m in Sources */,
 				B9A118E7170A56190020C322 /* MMInboxDetailViewController.m in Sources */,
-				B9A118E8170A56190020C322 /* MMLocationViewController.m in Sources */,
 				B9A118E9170A56190020C322 /* MMLocationMediaCell.m in Sources */,
 				B9A118EA170A56190020C322 /* MMLocationMediaViewController.m in Sources */,
 				B9A118EB170A56190020C322 /* MMLocationListCell.m in Sources */,
@@ -5380,6 +5416,9 @@
 				B924B4CF172F41D600FC4924 /* MMLocationHotSpotsViewController.m in Sources */,
 				B9960ECB17334686003348FC /* MMEditHotSpotViewController.m in Sources */,
 				B9960ED51734349F003348FC /* MMMapSelectView.m in Sources */,
+				B9960EE217382B37003348FC /* MMLocationMediaView.m in Sources */,
+				B9960EE617382B50003348FC /* MMLocationHeaderView.m in Sources */,
+				B995D7E2173837A400B57077 /* MMLocationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5414,7 +5453,6 @@
 				F734A63215F16B740090E85A /* MMSettingsViewController.m in Sources */,
 				F734A64015F17A5C0090E85A /* GetRelativeTime.m in Sources */,
 				F79B505615F3F81F0004BE01 /* MMSetTitleImage.m in Sources */,
-				F747F10915F426F8002E5567 /* MMLocationViewController.m in Sources */,
 				F747F11115F4382B002E5567 /* TCImageView.m in Sources */,
 				F747F15E15F4740B002E5567 /* MMSignUpViewController.m in Sources */,
 				F747F16315F4742D002E5567 /* MMLoginViewController.m in Sources */,
@@ -5512,6 +5550,9 @@
 				B924B4CE172F41D600FC4924 /* MMLocationHotSpotsViewController.m in Sources */,
 				B9960ECA17334686003348FC /* MMEditHotSpotViewController.m in Sources */,
 				B9960ED41734349F003348FC /* MMMapSelectView.m in Sources */,
+				B9960EE117382B37003348FC /* MMLocationMediaView.m in Sources */,
+				B9960EE517382B50003348FC /* MMLocationHeaderView.m in Sources */,
+				B995D7E1173837A400B57077 /* MMLocationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5568,7 +5609,6 @@
 				F7D3B1BF16CB76660014D5A7 /* MMFullScreenImageViewController.m in Sources */,
 				F7D3B1C016CB766C0014D5A7 /* MMInboxViewController.m in Sources */,
 				F7D3B1C116CB76740014D5A7 /* MMInboxDetailViewController.m in Sources */,
-				F7D3B1C216CB76860014D5A7 /* MMLocationViewController.m in Sources */,
 				F7D3B1C316CB76860014D5A7 /* MMLocationMediaViewController.m in Sources */,
 				F7D3B1C416CB76860014D5A7 /* MMLocationListCell.m in Sources */,
 				F7D3B1C516CB76860014D5A7 /* MMLocationsViewController.m in Sources */,

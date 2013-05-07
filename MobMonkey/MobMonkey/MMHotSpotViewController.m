@@ -43,7 +43,7 @@
 {
     [super viewDidLoad];
     loadFromServer = NO;
-    numberOfLocations = 4;
+    
 
     
     
@@ -121,9 +121,15 @@
     [self.navigationController pushViewController:createHotSpotVC animated:YES];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    numberOfLocations = 5;
+    [self loadNearbyLocations];
+}
+
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self loadNearbyLocations];
     
     
     
@@ -598,14 +604,15 @@
         if(indexPath.row < searchResults.count){
             MMLocationInformation *locationInformation = [searchResults objectAtIndex:indexPath.row];
             
-            MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithNibName:@"MMLocationViewController" bundle:nil];
-            
+            MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            #warning FIX THIS BEFORE OYU IMPLEMENT NEW VIEW CONTROLLER LOCATION
             locationViewController.locationInformation = locationInformation;
             
             [self.navigationController pushViewController:locationViewController animated:YES];
             return;
         }else{
             [self searchFromServer];
+            return;
         }
         
         
@@ -622,8 +629,8 @@
                 
                 MMLocationInformation *locationInformation = [nearbyLocations objectAtIndex:indexPath.row];
                 
-                MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithNibName:@"MMLocationViewController" bundle:nil];
-                
+                MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithStyle:UITableViewStyleGrouped];
+                #warning FIX THIS BEFORE OYU IMPLEMENT NEW VIEW CONTROLLER LOCATION
                 locationViewController.locationInformation = locationInformation;
                 
                 [self.navigationController pushViewController:locationViewController animated:YES];

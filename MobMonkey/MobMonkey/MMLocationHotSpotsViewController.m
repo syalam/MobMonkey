@@ -94,7 +94,7 @@
             break;
         }
         case 1:
-            cell.textLabel.text = @"Create a New Hot-Spot";
+            cell.textLabel.text = @"Created Hot-Spot";
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
             
         default:
@@ -169,8 +169,9 @@
         [self.navigationController pushViewController:editHotSpotVC animated:YES];
     }else if(indexPath.section == 0){
         MMLocationInformation *subLocationInformation = [self.hotSpots objectAtIndex:indexPath.row];
-        MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithNibName:@"MMLocationViewController" bundle:nil];
-        locationViewController.locationInformation = subLocationInformation;
+        MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithStyle:UITableViewStyleGrouped];
+#warning FIX THIS BEFORE OYU IMPLEMENT NEW VIEW CONTROLLER LOCATION
+        //locationViewController.locationInformation = subLocationInformation;
         UINavigationController *navController = self.navigationController;
         [self.navigationController popToRootViewControllerAnimated:NO];
         [navController pushViewController:locationViewController animated:YES];

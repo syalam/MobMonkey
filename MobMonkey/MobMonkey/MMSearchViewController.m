@@ -548,8 +548,9 @@
 
 #pragma mark - MMMapFilterDelegate
 - (void)locationAddedViaMapViewWithLocationID:(NSString*)locationId providerId:(NSString*)providerId {
-    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
-    [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
+    MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithStyle:UITableViewStyleGrouped];
+#warning FIX THIS BEFORE OYU IMPLEMENT NEW VIEW CONTROLLER LOCATION
+    //[locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
     [self.navigationController pushViewController:locationViewController animated:YES];
 }
 

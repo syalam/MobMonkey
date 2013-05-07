@@ -81,7 +81,7 @@
     UINavigationController *settingsNavC = [[UINavigationController alloc] initWithRootViewController:settingsVC];
 
     inboxVC.title = @"Inbox";
-    hotSpotVC.title = @"Locations";
+    hotSpotVC.title = @"Search Locations";
     trendingVC.title = @"What's Trending Now!";
     bookmarksVC.title = @"Favorites";
     settingsVC.title = @"Settings";
