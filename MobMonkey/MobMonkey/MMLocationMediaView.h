@@ -15,9 +15,12 @@
 @property (nonatomic, strong) IBOutlet UIImageView *mediaImageView;
 
 //Media Buttons
-@property (nonatomic, weak) IBOutlet UIButton *videosButton;
-@property (nonatomic, weak) IBOutlet UIButton *photosButton;
-@property (nonatomic, weak) IBOutlet UIButton *liveStreamButton;
+@property (nonatomic, strong) IBOutlet UIButton *videosButton;
+@property (nonatomic, strong) IBOutlet UIButton *photosButton;
+@property (nonatomic, strong) IBOutlet UIButton *liveStreamButton;
+@property (nonatomic, strong) IBOutlet UIImageView *videoButtonImageView;
+@property (nonatomic, strong) IBOutlet UIImageView *liveVideoButtonImageView;
+@property (nonatomic, strong) IBOutlet UIImageView *photoButtonImageView;
 
 //Media Count Labels
 @property (nonatomic, strong) IBOutlet UILabel *liveStreamCountLabel;
@@ -34,5 +37,8 @@
 
 //Other Options Button
 @property (nonatomic, strong) IBOutlet UIButton *optionsButton;
+
+//Message Label
+@property (nonatomic, strong) IBOutlet UILabel *messageLabel;
 
 @end

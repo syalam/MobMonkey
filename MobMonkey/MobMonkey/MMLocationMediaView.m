@@ -10,9 +10,6 @@
 
 @implementation MMLocationMediaView
 
--(id)init {
-    
-}
 
 - (id)initWithFrame:(CGRect)frame
 {

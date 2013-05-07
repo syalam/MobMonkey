@@ -20,7 +20,9 @@
 @property (nonatomic, strong) UILabel *makeARequestLabel;
 @property (nonatomic, strong) UILabel *makeARequestSubLabel;
 @property (nonatomic, strong) MMLocationMediaView *mediaView;
+@property (nonatomic, strong) UIImageView *gradientSpacer;
 
-
+-(void)mediaViewHidden:(BOOL)hidden;
+- (void)showMediaView;
 
 @end

@@ -606,12 +606,13 @@
             
             MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithStyle:UITableViewStyleGrouped];
             #warning FIX THIS BEFORE OYU IMPLEMENT NEW VIEW CONTROLLER LOCATION
-            //locationViewController.locationInformation = locationInformation;
+            locationViewController.locationInformation = locationInformation;
             
             [self.navigationController pushViewController:locationViewController animated:YES];
             return;
         }else{
             [self searchFromServer];
+            return;
         }
         
         
@@ -630,7 +631,7 @@
                 
                 MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithStyle:UITableViewStyleGrouped];
                 #warning FIX THIS BEFORE OYU IMPLEMENT NEW VIEW CONTROLLER LOCATION
-                //locationViewController.locationInformation = locationInformation;
+                locationViewController.locationInformation = locationInformation;
                 
                 [self.navigationController pushViewController:locationViewController animated:YES];
             }

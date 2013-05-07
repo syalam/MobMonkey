@@ -11,10 +11,21 @@
 #import "MMLocationInformation.h"
 #import "MMLocationMediaViewController.h"
 
+@interface MMLocationDetailCellData : NSObject
+
+@property (nonatomic, strong) NSString *text;
+@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, assign) LocationCellType cellType;
+
+@end
+
+
 @interface MMLocationViewController : UITableViewController {
-    MMLocationHeaderView *headerView;
+    MMLocationHeaderView *_headerView;
+    dispatch_queue_t  backgroundQueue;
 }
 
+@property (nonatomic, strong) MMLocationHeaderView *headerView;
 @property (nonatomic, strong) MMLocationInformation *locationInformation;
 @property (nonatomic, strong) NSArray *mediaArray;
 @end

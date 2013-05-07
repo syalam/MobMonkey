@@ -11,14 +11,25 @@
 #import "MMLocationMediaView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "MMRequestViewController.h"
+#import "UIImageView+AFNetworking.h"
+
+@implementation MMLocationDetailCellData
+
+
+@end
+
+
 
 @interface MMLocationViewController ()
+
+@property (nonatomic, strong) NSArray *locationCellData;
 
 @end
 
 @implementation MMLocationViewController
 
 @synthesize mediaArray;
+@synthesize headerView = _headerView;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -36,12 +47,12 @@
     self.view.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
     self.tableView.backgroundView = nil;
     
-    headerView = [[MMLocationHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, 130)];
-    headerView.layer.zPosition = 100;
-    headerView.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
+    self.headerView = [[MMLocationHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, 130)];
+    self.headerView.layer.zPosition = 100;
+    self.headerView.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
     
-    UIView *headerViewSpacer = [[UIView alloc] initWithFrame:headerView.frame];
-    [self.tableView addSubview:headerView];
+    UIView *headerViewSpacer = [[UIView alloc] initWithFrame:self.headerView.frame];
+    [self.tableView addSubview:self.headerView];
     [self.tableView setTableHeaderView:headerViewSpacer];
     
     
@@ -64,16 +75,18 @@
     self.navigationItem.leftBarButtonItem = backButton;
     
     
-    headerView.mediaView.liveStreamButton.tag = MMLiveCameraMediaType;
-    headerView.mediaView.videosButton.tag = MMVideoMediaType;
-    headerView.mediaView.photosButton.tag = MMPhotoMediaType;
+    self.headerView.mediaView.liveStreamButton.tag = MMLiveCameraMediaType;
+    self.headerView.mediaView.videosButton.tag = MMVideoMediaType;
+    self.headerView.mediaView.photosButton.tag = MMPhotoMediaType;
     
-    [headerView.mediaView.videosButton addTarget:self action:@selector(mediaButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [headerView.mediaView.liveStreamButton addTarget:self action:@selector(mediaButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [headerView.mediaView.photosButton addTarget:self action:@selector(mediaButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.headerView.mediaView.videosButton addTarget:self action:@selector(mediaButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.headerView.mediaView.liveStreamButton addTarget:self action:@selector(mediaButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.headerView.mediaView.photosButton addTarget:self action:@selector(mediaButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
-    [headerView.makeARequestButton addTarget:self action:@selector(makeRequestButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-
+    [self.headerView.makeARequestButton addTarget:self action:@selector(makeRequestButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    [self loadLocationDataWithLocationId:self.locationInformation.locationID providerId:self.locationInformation.providerID];
     
 }
 
@@ -82,7 +95,45 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)loadCellData{
+    NSMutableArray *cellData = [NSMutableArray array];
+    
+    if(_locationInformation.phoneNumber && _locationInformation.phoneNumber !=(id)[NSNull null]){
+        MMLocationDetailCellData *phoneData = [[MMLocationDetailCellData alloc] init];
+        phoneData.text = _locationInformation.phoneNumber;
+        phoneData.cellType = LocationCellTypePhoneNumber;
+        phoneData.image = [UIImage imageNamed:@"telephone"];
+        [cellData addObject:phoneData];
+    }
+    
+    NSString *addressString = [_locationInformation formattedAddressString];
+    if(addressString){
+        MMLocationDetailCellData *addressData = [[MMLocationDetailCellData alloc] init];
+        addressData.text = addressString;
+        addressData.cellType = LocationCellTypeAddressBOOL;
+        addressData.image = [UIImage imageNamed:@"mapPin"];
+        [cellData addObject:addressData];
+        
+    }
+    
+    MMLocationDetailCellData *notifcationsData = [[MMLocationDetailCellData alloc] init];
+    notifcationsData.text = @"Add Notifications";
+    notifcationsData.image = [UIImage imageNamed:@"alarmClock"];
+    notifcationsData.cellType = LocationCellTypeNotification;
+    [cellData addObject:notifcationsData];
+    
+    self.locationCellData = cellData;
+}
+-(void)setLocationInformation:(MMLocationInformation *)locationInformation{
+    
+    _locationInformation = locationInformation;
+    
+    [self loadCellData];
+    
+    
+    [self.tableView reloadData];
+    
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -118,18 +169,59 @@
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.textLabel.font = [UIFont systemFontOfSize:17.0];
+    }
+    if(indexPath.section == 0){
+        
+        MMLocationDetailCellData *cellData = [self.locationCellData objectAtIndex:indexPath.row];
+        cell.imageView.image = cellData.image;
+        cell.textLabel.text = cellData.text;
+        
+        if(cellData.cellType == LocationCellTypeAddressBOOL){
+            cell.textLabel.numberOfLines = 2;
+            cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }else if(cellData.cellType == LocationCellTypeNotification){
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+    } else if (indexPath.section == 2) {
+        cell.textLabel.text = @"Add to Favorites";
+        if (_locationInformation.isBookmark) {
+            cell.textLabel.text = @"Remove from Favorites";
+        }
+        cell.imageView.image = [UIImage imageNamed:@"favorite"];
+        return cell;
+    } else if (indexPath.section == 1){
+        MMLocationInformation *subLocation = [self.locationInformation.sublocations.allObjects objectAtIndex:indexPath.row];
+        cell.textLabel.text = subLocation.name;
+        cell.imageView.image = nil;
     }
     
-    cell.textLabel.text = @"Test";
-    
-    
-    // Configure the cell...
-    
     return cell;
+
+}
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if(section == 1 && self.locationInformation.sublocations.count > 0) return @"Hot Spots";
+    if(section == 0) return @"Location Information";
+    return nil;
 }
 
+- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if(indexPath.section == 0){
+        MMLocationDetailCellData *cellData = [self.locationCellData objectAtIndex:indexPath.row];
+        
+        if(cellData.cellType == LocationCellTypeAddressBOOL){
+            return 65;
+        }
+        
+    }
+    
+    return 44;
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -186,10 +278,10 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGRect newFrame = headerView.frame;
+    CGRect newFrame = self.headerView.frame;
     newFrame.origin.x = 0;
     newFrame.origin.y = self.tableView.contentOffset.y;
-    headerView.frame = newFrame;
+    self.headerView.frame = newFrame;
 }
 
 #pragma mark Button methods
@@ -230,10 +322,6 @@
     UINavigationController *locationMediaNavC = [[UINavigationController alloc] initWithRootViewController:lmvc];
     [self presentViewController:locationMediaNavC animated:YES completion:NULL];
 }
-- (IBAction)videoMediaButtonTapped:(id)sender {
-    
-}
-
 - (IBAction)makeRequestButtonTapped:(id)sender {
     if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Request" bundle:nil];
@@ -250,14 +338,14 @@
 - (IBAction)shareButtonTapped:(id)sender {
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
     BOOL isVideo = NO;
-    [params setValue:headerView.locationTitleLabel.text forKey:@"initialText"];
+    [params setValue:self.headerView.locationTitleLabel.text forKey:@"initialText"];
     if (mediaArray.count > 0) {
         if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"video"]) {
             [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
             isVideo = YES;
         }
         else {
-            [params setValue:headerView.mediaView.mediaImageView.image forKey:@"image"];
+            [params setValue:self.headerView.mediaView.mediaImageView.image forKey:@"image"];
         }
     }
     if (![self.locationInformation.website isKindOfClass:[NSNull class]] && ![self.locationInformation.website isEqualToString:@""] && !isVideo) {
@@ -267,5 +355,198 @@
     [[MMClientSDK sharedSDK]showMoreActionSheet:self showFromTabBar:YES paramsForPublishingToSocialNetwork:params];
 }
 
+#pragma  mark Load Location Data
+- (void)loadLocationDataWithLocationId:(NSString*)locationId providerId:(NSString*)providerId {
+    
+    //locationId = self.locationInformation.locationID;
+    //providerId = self.locationInformation.providerID;
+    
+    if(!locationId && !providerId) {
+        
+        if(!self.locationInformation)return;
+        
+        locationId = self.locationInformation.locationID;
+        providerId = self.locationInformation.providerID;
+    }
+    
+    if(!self.locationInformation){
+        [SVProgressHUD showWithStatus:@"Loading"];
+    }else{
+        self.headerView.makeARequestSubLabel.text = @"Finding Members...";
+        /*[self resizeTableViewForMediaLoadingView];
+        self.mediaLoadingView.hidden = NO;
+        [self.mediaIndicatorView startAnimating];*/
+    }
+    
+    [MMAPI getLocationWithID:locationId providerID:providerId success:^(AFHTTPRequestOperation *operation, MMLocationInformation *locationInformation) {
+        
+        [SVProgressHUD dismiss];
+        
+        if(!self.locationInformation){
+            self.locationInformation = locationInformation;
+        }else{
+            self.locationInformation.monkeys = locationInformation.monkeys;
+        }
+        
+        
+        [self setLocationDetailItems];
+        [self fetchLatestMediaForLocation];
+        [self.tableView reloadData];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        if(operation.response.statusCode == 401){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Confirm Email Address" message:@"Please check your email and confirm the registration." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+        }
+        
+        NSLog(@"Failed: %@", error);
+    }];
+    
+}
+
+- (void)setLocationDetailItems {
+    
+    if(self.locationInformation.name && [self.locationInformation.name length] > 0){
+        
+        if(self.locationInformation.parentLocation){
+            self.title = [NSString stringWithFormat:@"HOT SPOT: %@", self.locationInformation.name];
+        }else{
+            self.title = self.locationInformation.name;
+        }
+        
+    }
+    
+    self.headerView.locationTitleLabel.text = self.title;
+    /*_phoneNumberLabel.text = self.locationInformation.phoneNumber;
+    _addressLabel.text = [self.locationInformation formattedAddressString];
+    //NSLog(@"%@", _contentList);*/
+    NSString *message = self.locationInformation.message;
+    
+    if(message && ![message isEqual:[NSNull null]]){
+        self.headerView.mediaView.messageLabel.adjustsFontSizeToFitWidth = YES;
+        self.headerView.mediaView.messageLabel.text = message;
+        self.headerView.mediaView.messageLabel.backgroundColor = [UIColor clearColor];
+    }
+    
+    
+    
+    /*[_liveStreamButton setEnabled:YES];
+    [liveStreamImage setImage:[UIImage imageNamed:@"location-liveVideoIcn"]];
+    [_videosButton setEnabled:YES];
+    [_photosButton setEnabled:YES];*/
+    
+    int streamingCount = [self.locationInformation.livestreaming intValue];
+    if (streamingCount == 0) {
+        self.headerView.mediaView.liveStreamCountLabel.hidden = YES;
+        [self.headerView.mediaView.liveStreamButton setEnabled:NO];
+        [self.headerView.mediaView.liveVideoButtonImageView setImage:[UIImage imageNamed:@"location-liveVideoIcnOff"]];
+    }
+    else {
+        self.headerView.mediaView.liveStreamCountLabel.hidden = NO;
+        self.headerView.mediaView.liveStreamCountLabel.text = [NSString stringWithFormat:@"%d", streamingCount];
+    }
+    
+    int videoCount = [self.locationInformation.videos intValue];
+    if (videoCount == 0) {
+        self.headerView.mediaView.videoCountLabel.hidden = YES;
+        [self.headerView.mediaView.videosButton setEnabled:NO];
+        
+    } else {
+        self.headerView.mediaView.videoCountLabel.hidden = NO;
+        self.headerView.mediaView.videoCountLabel.text = [NSString stringWithFormat:@"%d", videoCount];
+    }
+    
+    int photoCount = [self.locationInformation.images intValue];
+    if (photoCount == 0) {
+        self.headerView.mediaView.photoCountLabel.hidden = YES;
+        [self.headerView.mediaView.photosButton setEnabled:NO];
+        
+    }
+    else {
+        self.headerView.mediaView.photoCountLabel.hidden = NO;
+        self.headerView.mediaView.photoCountLabel.text = [NSString stringWithFormat:@"%d", photoCount];
+    }
+    
+    int monkeyCount = [self.locationInformation.monkeys intValue];
+    if (monkeyCount == 0) {
+        self.headerView.makeARequestSubLabel.text = @"No members found";
+        
+    }
+    else if (monkeyCount == 1) {
+        self.headerView.makeARequestSubLabel.text = @"1 member found";
+    }
+    else {
+        self.headerView.makeARequestSubLabel.text = [NSString stringWithFormat:@"%d members found", monkeyCount];
+    }
+}
+- (void)fetchLatestMediaForLocation {
+    
+    //self.mediaLoadingView.hidden = NO;
+    //[self.mediaIndicatorView startAnimating];
+    
+    [self.headerView showMediaView];
+    
+    [MMAPI getMediaForLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"DATA: %@", responseObject);
+        mediaArray = [responseObject valueForKey:@"media"];
+        if (mediaArray.count > 0) {
+            //self.headerView.mediaView = [[MMLocationMediaView alloc] init];
+            [self.headerView.mediaView.clockLabel setHidden:NO];
+            double unixTime = [[[mediaArray objectAtIndex:0]valueForKey:@"uploadedDate"] floatValue]/1000;
+            NSDate *dateAnswered = [NSDate dateWithTimeIntervalSince1970:
+                                    (NSTimeInterval)unixTime];
+            
+            //TODO: _uploadDateLabel.text = [GetRelativeTime getRelativeTime:dateAnswered];
+            
+            NSString *mediaUrl = [[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"];
+            __weak typeof(self) weakSelf = self;
+            if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"image"]) {
+                NSURLRequest *imageRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:mediaUrl]];
+                [self.headerView.mediaView.mediaImageView setImageWithURLRequest:imageRequest placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                    
+                    NSLog(@"Starting");
+                    weakSelf.headerView.mediaView.mediaImageView.image = image;
+                    weakSelf.headerView.mediaView.topGradientView.hidden = NO;
+                    weakSelf.headerView.mediaView.bottomGradientView.hidden = NO;
+                    
+                    
+                } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                    NSLog(@"Failed Loading Image");
+                }];
+                //self.bottonBlackGradient.hid
+            }
+            else if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"livestreaming"]) {
+                self.headerView.mediaView.mediaImageView.image = [UIImage imageNamed:@"liveFeedPlaceholder"];
+                self.headerView.mediaView.bottomGradientView.hidden = NO;
+                [self.headerView.mediaView.playButtonOverlay setHidden:NO];
+            }
+            else {
+                [self.headerView.mediaView.playButtonOverlay setHidden:NO];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+                    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]] options:nil];
+                    AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+                    generate.appliesPreferredTrackTransform = YES;
+                    NSError *err = NULL;
+                    CMTime time = CMTimeMake(0, 60);
+                    CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
+                    dispatch_async(dispatch_get_main_queue(), ^(void) {
+                        self.headerView.mediaView.mediaImageView.image =  [UIImage imageWithCGImage:imgRef];
+                        self.headerView.mediaView.bottomGradientView.hidden = NO;
+                    });
+                });
+                
+            }
+            //[self.headerView.mediaView setHidden:YES];
+            //[self.headerView mediaViewHidden:NO];
+        }else{
+            //self.headerView.mediaView = nil;
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"ERROR: %@", operation.responseString);
+        
+    }];
+    
+}
 
 @end
