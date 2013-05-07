@@ -816,6 +816,12 @@
 		B9A1199C170C8C940020C322 /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A11994170C8C940020C322 /* UIActionSheet+Blocks.m */; };
 		B9A1199D170C8C940020C322 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A11996170C8C940020C322 /* UIAlertView+Blocks.m */; };
 		B9A1199E170C8C940020C322 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A11996170C8C940020C322 /* UIAlertView+Blocks.m */; };
+		B9AAD912173976EE00159B26 /* MMHotSpotBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = B9AAD911173976EE00159B26 /* MMHotSpotBadge.m */; };
+		B9AAD913173976EE00159B26 /* MMHotSpotBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = B9AAD911173976EE00159B26 /* MMHotSpotBadge.m */; };
+		B9AAD916173977A800159B26 /* hotSpotBadgeStretch.png in Resources */ = {isa = PBXBuildFile; fileRef = B9AAD914173977A800159B26 /* hotSpotBadgeStretch.png */; };
+		B9AAD917173977A800159B26 /* hotSpotBadgeStretch.png in Resources */ = {isa = PBXBuildFile; fileRef = B9AAD914173977A800159B26 /* hotSpotBadgeStretch.png */; };
+		B9AAD918173977A800159B26 /* hotSpotBadgeStretch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9AAD915173977A800159B26 /* hotSpotBadgeStretch@2x.png */; };
+		B9AAD919173977A800159B26 /* hotSpotBadgeStretch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9AAD915173977A800159B26 /* hotSpotBadgeStretch@2x.png */; };
 		B9BE4A5E17134AEF0016B916 /* MMMyInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B9BE4A5D17134AEF0016B916 /* MMMyInfo.m */; };
 		B9F9EC7D1721AB84006A78F3 /* MMMyInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B9BE4A5D17134AEF0016B916 /* MMMyInfo.m */; };
 		B9FC4FC9171CD12E00FF9B17 /* healthClubsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9FC4FC8171CD12E00FF9B17 /* healthClubsIcon@2x.png */; };
@@ -1699,6 +1705,10 @@
 		B9A11994170C8C940020C322 /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
 		B9A11995170C8C940020C322 /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
 		B9A11996170C8C940020C322 /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
+		B9AAD910173976EE00159B26 /* MMHotSpotBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMHotSpotBadge.h; sourceTree = "<group>"; };
+		B9AAD911173976EE00159B26 /* MMHotSpotBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMHotSpotBadge.m; sourceTree = "<group>"; };
+		B9AAD914173977A800159B26 /* hotSpotBadgeStretch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hotSpotBadgeStretch.png; sourceTree = "<group>"; };
+		B9AAD915173977A800159B26 /* hotSpotBadgeStretch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hotSpotBadgeStretch@2x.png"; sourceTree = "<group>"; };
 		B9BE4A5C17134AEF0016B916 /* MMMyInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMyInfo.h; sourceTree = "<group>"; };
 		B9BE4A5D17134AEF0016B916 /* MMMyInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMyInfo.m; sourceTree = "<group>"; };
 		B9FC4FC8171CD12E00FF9B17 /* healthClubsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "healthClubsIcon@2x.png"; sourceTree = "<group>"; };
@@ -2654,6 +2664,7 @@
 		B924B4AB172EDD2D00FC4924 /* HotSpots */ = {
 			isa = PBXGroup;
 			children = (
+				B9AAD90F173976CE00159B26 /* HotSpotBadge */,
 				B924B4B3172EDD9B00FC4924 /* MMHotSpotViewController.h */,
 				B924B4B4172EDD9B00FC4924 /* MMHotSpotViewController.m */,
 				B924B4C0172EDE4900FC4924 /* MMHotSpotHeaderView.h */,
@@ -2769,6 +2780,17 @@
 				B9A11996170C8C940020C322 /* UIAlertView+Blocks.m */,
 			);
 			path = "UIAlertView+Blocks";
+			sourceTree = "<group>";
+		};
+		B9AAD90F173976CE00159B26 /* HotSpotBadge */ = {
+			isa = PBXGroup;
+			children = (
+				B9AAD914173977A800159B26 /* hotSpotBadgeStretch.png */,
+				B9AAD915173977A800159B26 /* hotSpotBadgeStretch@2x.png */,
+				B9AAD910173976EE00159B26 /* MMHotSpotBadge.h */,
+				B9AAD911173976EE00159B26 /* MMHotSpotBadge.m */,
+			);
+			name = HotSpotBadge;
 			sourceTree = "<group>";
 		};
 		C73F8A2A166F528500DE6BA8 /* TouchJSON */ = {
@@ -4754,6 +4776,8 @@
 				B9960ED117342A60003348FC /* LocationButtonStretch@2x.png in Resources */,
 				B995D7E4173837A400B57077 /* MMLocationViewController.xib in Resources */,
 				B995D7EA17383A7A00B57077 /* MMLocationMediaView.xib in Resources */,
+				B9AAD917173977A800159B26 /* hotSpotBadgeStretch.png in Resources */,
+				B9AAD919173977A800159B26 /* hotSpotBadgeStretch@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5231,6 +5255,8 @@
 				B9960ED017342A60003348FC /* LocationButtonStretch@2x.png in Resources */,
 				B995D7E3173837A400B57077 /* MMLocationViewController.xib in Resources */,
 				B995D7E917383A7A00B57077 /* MMLocationMediaView.xib in Resources */,
+				B9AAD916173977A800159B26 /* hotSpotBadgeStretch.png in Resources */,
+				B9AAD918173977A800159B26 /* hotSpotBadgeStretch@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5419,6 +5445,7 @@
 				B9960EE217382B37003348FC /* MMLocationMediaView.m in Sources */,
 				B9960EE617382B50003348FC /* MMLocationHeaderView.m in Sources */,
 				B995D7E2173837A400B57077 /* MMLocationViewController.m in Sources */,
+				B9AAD913173976EE00159B26 /* MMHotSpotBadge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5553,6 +5580,7 @@
 				B9960EE117382B37003348FC /* MMLocationMediaView.m in Sources */,
 				B9960EE517382B50003348FC /* MMLocationHeaderView.m in Sources */,
 				B995D7E1173837A400B57077 /* MMLocationViewController.m in Sources */,
+				B9AAD912173976EE00159B26 /* MMHotSpotBadge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

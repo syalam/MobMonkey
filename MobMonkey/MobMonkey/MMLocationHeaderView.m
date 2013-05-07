@@ -9,6 +9,7 @@
 #import "MMLocationHeaderView.h"
 #import "MMLocationMediaView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "MMHotSpotBadge.h"
 
 #define origHeaderHeight 120;
 
@@ -24,9 +25,15 @@
         self.clipsToBounds = YES;
         
         // Initialization code
-        _locationTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, frame.size.width - 10, 30)];
+        _locationTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, frame.size.width - 46, 30)];
+        _locationTitleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         _locationTitleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
         _locationTitleLabel.backgroundColor = [UIColor clearColor];
+        
+        _hotSpotBadge = [[MMHotSpotBadge alloc] init];
+        _hotSpotBadge.frame = CGRectMake(_locationTitleLabel.frame.size.width + 5, 14, 36, 22);
+        _hotSpotBadge.hidden = YES;
+        [self addSubview:_hotSpotBadge];
         
         [self addSubview:_locationTitleLabel];
         
@@ -66,14 +73,21 @@
         
         [self addSubview:_makeARequestButton];
         
-        _loadingView = [[UIView alloc] initWithFrame:_locationTitleLabel.frame];
+        CGRect loadingViewFrame = _locationTitleLabel.frame;
+        loadingViewFrame.origin.y += _locationTitleLabel.frame.size.height;
+        loadingViewFrame.size.width = self.frame.size.width;
         
-        _indicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(50, 4, 22, 22)];
+        _loadingView = [[UIView alloc] initWithFrame:loadingViewFrame];
+        
+        _indicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake((self.frame.size.width -44 )/2, 4, 22, 22)];
+        _indicatorView.color = [UIColor blackColor];
+        [_indicatorView startAnimating];
+
         
         UILabel *loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(_indicatorView.frame.origin.x + 10, 4, 100, 22)];
         
         loadingLabel.backgroundColor = [UIColor clearColor];
-        loadingLabel.text = @"Loading";
+        //loadingLabel.text = @"Loading";
         
         [_loadingView addSubview:_indicatorView];
         [_loadingView addSubview:loadingLabel];

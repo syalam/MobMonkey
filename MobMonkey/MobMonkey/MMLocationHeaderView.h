@@ -19,6 +19,7 @@
 #import <UIKit/UIKit.h>
 #import "MMLocationMediaView.h"
 #import "MMLocationViewController.h"
+#import "MMHotSpotBadge.h"
 
 @interface MMLocationHeaderView : UIView {
     
@@ -36,6 +37,7 @@
 @property (nonatomic, strong) UIView *loadingView;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 @property (assign) id <MMLocationHeaderViewDelegate> delegate;
+@property (nonatomic, strong) MMHotSpotBadge *hotSpotBadge;
 
 
 -(void)showMediaView;

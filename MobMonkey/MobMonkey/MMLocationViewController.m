@@ -15,6 +15,7 @@
 #import "UIActionSheet+Blocks.h"
 #import "MMMapViewController.h"
 #import "MMNotificationSettingsViewController.h"
+#import "MMHotSpotBadge.h"
 
 @implementation MMLocationDetailCellData
 
@@ -46,6 +47,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
     self.tableView.backgroundView = nil;
@@ -94,6 +97,10 @@
     
     [self.headerView.makeARequestButton addTarget:self action:@selector(makeRequestButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    if(self.locationInformation){
+        [self setLocationDetailItems];
+    }
     
     [self loadLocationDataWithLocationId:self.locationInformation.locationID providerId:self.locationInformation.providerID];
     
@@ -509,9 +516,14 @@
             self.locationInformation.videos = locationInformation.videos;
             self.locationInformation.images = locationInformation.images;
             self.locationInformation.livestreaming = locationInformation.livestreaming;
+            self.locationInformation.message = locationInformation.message;
+            self.locationInformation.messageURL = locationInformation.messageURL;
         }
         
-        
+        if(self.locationInformation.sublocations.count > 0){
+            self.headerView.hotSpotBadge.badgeNumber = [NSNumber numberWithInt:self.locationInformation.sublocations.count];
+            self.headerView.hotSpotBadge.hidden = NO;
+        }
         [self setLocationDetailItems];
         [self fetchLatestMediaForLocation];
         [self.tableView reloadData];

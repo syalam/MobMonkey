@@ -23,6 +23,7 @@
 #import "BrowserViewController.h"
 #import "UIImageView+AFNetworking.h"
 
+
 @implementation MMlocationDetailCellData
 
 
