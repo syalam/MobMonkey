@@ -57,8 +57,7 @@
 
 + (void)displayMMLocationDetailScreenFromPresentingViewController:(UIViewController*)presentingViewController withLocationParams:(NSDictionary*)params {
     MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithStyle:UITableViewStyleGrouped];
-    #warning FIX THIS BEFORE OYU IMPLEMENT NEW VIEW CONTROLLER LOCATION
-    //[locationVC loadLocationDataWithLocationId:[params valueForKey:@"locationId"] providerId:[params valueForKey:@"providerId"]];
+    [locationVC loadLocationDataWithLocationId:[params valueForKey:@"locationId"] providerId:[params valueForKey:@"providerId"]];
     [presentingViewController.navigationController pushViewController:locationVC animated:YES];
 }
 

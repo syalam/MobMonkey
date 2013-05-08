@@ -263,7 +263,7 @@
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if(section == 1 && self.locationInformation.sublocations.count > 0) return @"Hot Spots";
+    if(section == 1 && !self.locationInformation.parentLocation) return @"Hot Spots";
     if(section == 0) return @"Location Information";
     return nil;
 }

@@ -50,7 +50,7 @@
 {
     [super viewDidLoad];
     
-    
+    loadingInfo = YES;
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
     self.tableView.backgroundView = nil;
@@ -109,7 +109,7 @@
     if(self.locationInformation){
         [self setLocationDetailItems];
     }
-    
+
     [self loadLocationDataWithLocationId:self.locationInformation.locationID providerId:self.locationInformation.providerID];
     
 }
@@ -182,7 +182,7 @@
         // Row for "Add to Favorites
         rowCount  = 1;
     }else if(section == 1){
-        return self.locationInformation.parentLocation ? 0 : self.locationInformation.sublocations.count +1 ;
+        return ((!self.locationInformation.parentLocationID || [self.locationInformation.parentLocationID isKindOfClass:[NSNull class]]) && !loadingInfo) ?  self.locationInformation.sublocations.count +1 :  0;
     }
     
     return rowCount;
@@ -530,6 +530,7 @@
 #pragma  mark Load Location Data
 - (void)loadLocationDataWithLocationId:(NSString*)locationId providerId:(NSString*)providerId {
     
+    loadingInfo = YES;
     //locationId = self.locationInformation.locationID;
     //providerId = self.locationInformation.providerID;
     
@@ -564,6 +565,8 @@
             self.locationInformation.livestreaming = locationInformation.livestreaming;
             self.locationInformation.message = locationInformation.message;
             self.locationInformation.messageURL = locationInformation.messageURL;
+            self.locationInformation.parentLocationID = locationInformation.parentLocationID;
+        
         }
         
         if(self.locationInformation.sublocations.count > 0){
@@ -572,7 +575,9 @@
         }
         [self setLocationDetailItems];
         [self fetchLatestMediaForLocation];
+        loadingInfo = NO;
         [self.tableView reloadData];
+        
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -757,11 +762,13 @@
     
 }
 
-#pragma mark - header view delegate
+/*#pragma mark - header view delegate
 -(void)headerViewNeedsToBeSetOnSuperView:(MMLocationHeaderView *)headerView{
+    
     self.headerView = headerView;
+    self.headerView.delegate = self;
     self.tableView.tableHeaderView = self.headerView;
-}
+}*/
 
 #pragma mark - browser
 -(void)openURL:(NSURL*)url{

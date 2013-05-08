@@ -453,9 +453,8 @@
     [nav popToRootViewControllerAnimated:NO];
     
     MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithStyle:UITableViewStyleGrouped];
-#warning FIX THIS AFTER IMPLEMENTING NEW LOCATION VIEW CONTROLLER
-    //locationViewController.locationID = locationId;
-    //locationViewController.providerID = providerId;
+    locationViewController.locationID = locationId;
+    locationViewController.providerID = providerId;
     locationViewController.title = @"Loading...";
     
     [nav pushViewController:locationViewController animated:YES];

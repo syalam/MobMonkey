@@ -25,11 +25,17 @@
     MMLocationHeaderView *_headerView;
     dispatch_queue_t  backgroundQueue;
     BOOL uiAdjustedForNotificationSetting;
+    BOOL loadingInfo;
 }
 
 @property (nonatomic, strong) MMLocationHeaderView *headerView;
 @property (nonatomic, strong) MMLocationInformation *locationInformation;
 @property (nonatomic, strong) NSArray *mediaArray;
 @property (strong, nonatomic) MPMoviePlayerViewController *player;
+
+@property (nonatomic, strong) NSString *locationID;
+@property (nonatomic, strong) NSString *providerID;
+
+- (void)loadLocationDataWithLocationId:(NSString*)locationId providerId:(NSString*)providerId;
 
 @end

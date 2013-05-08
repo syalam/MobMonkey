@@ -16,6 +16,7 @@
 @implementation MMLocationHeaderView
 
 @synthesize mediaView = _mediaView;
+@synthesize delegate = _delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -331,10 +332,10 @@
 
 
 -(void)setHeaderView{
-    if([self.delegate respondsToSelector:@selector(headerViewNeedsToBeSetOnSuperView:)]){
-        [self.delegate headerViewNeedsToBeSetOnSuperView:self];
-    }
-    //[(UITableView *)self.superview setTableHeaderView:self];
+   // if([self.delegate respondsToSelector:@selector(headerViewNeedsToBeSetOnSuperView:)]){
+   //     [self.delegate headerViewNeedsToBeSetOnSuperView:self];
+    //}
+    [(UITableView *)self.superview setTableHeaderView:self];
 }
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -206,8 +206,7 @@
     NSString *providerId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"providerId"];
     
     MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithStyle:UITableViewStyleGrouped];
-#warning FIX THIS BEFORE OYU IMPLEMENT NEW VIEW CONTROLLER LOCATION
-    //[locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
+    [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
     [self.navigationController pushViewController:locationViewController animated:YES];
 }
 
@@ -285,9 +284,8 @@
             if (mediaArray.count > 0) {
                 NSURL *url = [NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
                 NSLog(@"%@", url);
-                #warning FIX THIS BEFORE OYU IMPLEMENT NEW VIEW CONTROLLER LOCATION
-                //MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-                //[self presentMoviePlayerViewControllerAnimated:player];
+                MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+                [self presentMoviePlayerViewControllerAnimated:player];
             }
         }
     }
