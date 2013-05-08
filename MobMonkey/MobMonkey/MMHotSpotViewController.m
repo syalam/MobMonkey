@@ -605,7 +605,6 @@
             MMLocationInformation *locationInformation = [searchResults objectAtIndex:indexPath.row];
             
             MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithStyle:UITableViewStyleGrouped];
-            #warning FIX THIS BEFORE OYU IMPLEMENT NEW VIEW CONTROLLER LOCATION
             locationViewController.locationInformation = locationInformation;
             
             [self.navigationController pushViewController:locationViewController animated:YES];
@@ -630,7 +629,6 @@
                 MMLocationInformation *locationInformation = [nearbyLocations objectAtIndex:indexPath.row];
                 
                 MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithStyle:UITableViewStyleGrouped];
-                #warning FIX THIS BEFORE OYU IMPLEMENT NEW VIEW CONTROLLER LOCATION
                 locationViewController.locationInformation = locationInformation;
                 
                 [self.navigationController pushViewController:locationViewController animated:YES];

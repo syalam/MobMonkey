@@ -620,6 +620,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
         NSMutableArray *locationInformations = [NSMutableArray array];
         
         for(NSDictionary *locationDictionary in responseObject){
+            NSLog(@"Location Dictionary: %@", locationDictionary);
             MMLocationInformation *locationInformation = [self locationInformationForLocationDictionary:locationDictionary];
             
             [locationInformations addObject:locationInformation];
@@ -734,6 +735,8 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
             locationInformation.website = [json objectForKey:@"webSite"];
             locationInformation.isBookmark = ((NSNumber*)[json objectForKey:@"bookmark"]).boolValue;
             locationInformation.message = [json objectForKey:@"message"];
+            locationInformation.parentLocationID = [json objectForKey:@"parentLocationId"];
+            locationInformation.parentProviderID = [json objectForKey:@"parentProviderId"];
             
             if([locationInformation.message isEqual:[NSNull null]] || locationInformation.message.length <= 0){
                 locationInformation.message = @"See what's happening now on MobMonkey!";
@@ -838,6 +841,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     
     
     [parameters setObject:locationInformation.parentLocation.locationID forKey:@"parentLocationId"];
+    [parameters setObject:locationInformation.parentLocation.providerID forKey:@"parentProviderId"];
     
     [[MMHTTPClient sharedClient] putPath:@"location" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success();

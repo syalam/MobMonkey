@@ -10,8 +10,8 @@
 
 @protocol MMLocationHeaderViewDelegate <NSObject>
 
-@optional
--(void)headerViewNeedsToBeSetOnSuperView:(MMLocationHeaderView *)headerView;
+//@optional
+//-(void)headerViewNeedsToBeSetOnSuperView:(MMLocationHeaderView *)headerView;
 
 @end
 
