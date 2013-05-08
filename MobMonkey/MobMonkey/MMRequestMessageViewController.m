@@ -55,7 +55,8 @@
     self.navigationItem.rightBarButtonItem = doneButton;
 }
 -(void)doneButtonPressed:(id)sender{
-    self.textView.text = [self.requestInfo valueForKey:@"message"];
+    [self.requestInfo setValue:self.textView.text forKey:@"message"];
+    //self.textView.text = [self.requestInfo valueForKey:@"message"];
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)viewWillAppear:(BOOL)animated
@@ -100,11 +101,27 @@
     return cell;
 }
 
+-(void)insertTextAtCursor:(NSString*)text {
+    NSRange range = self.textView.selectedRange;
+    NSString * firstHalfString = [self.textView.text substringToIndex:range.location];
+    NSString * secondHalfString = [self.textView.text substringFromIndex: range.location];
+    self.textView.scrollEnabled = NO;  // turn off scrolling
+    self.textView.text = [NSString stringWithFormat: @"%@%@%@",
+                       firstHalfString,
+                       text,
+                       secondHalfString];
+    
+    range.location += [text length];
+    self.textView.selectedRange = range;
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UITableViewRowAnimationTop animated:YES];
+    self.textView.scrollEnabled = YES;
+}
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.textView.text = self.savedMessages[indexPath.row];
+    self.textView.text = [self.savedMessages objectAtIndex:indexPath.row];
+    //[self insertTextAtCursor: [self.savedMessages objectAtIndex:indexPath.row]];
 }
 
 
@@ -119,17 +136,5 @@
     [super viewDidUnload];
 }
 
-#pragma mark - UITextView Delegate
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)aRange replacementText:(NSString *)aText {
-    
-    NSString* newText = [textView.text stringByReplacingCharactersInRange:aRange withString:aText];
-    
-    if([newText length] > 100)
-    {
-        return NO; // can't enter more text
-    }
-    else
-        return YES; // let the textView know that it should handle the inserted text
-}
 
 @end
