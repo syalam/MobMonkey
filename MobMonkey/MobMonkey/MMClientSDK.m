@@ -20,6 +20,7 @@
 
 #import "MMRequestViewController.h"
 #import "MMLocationInformation.h"
+#import "UAPush.h"
 
 @implementation MMClientSDK
 
@@ -228,6 +229,10 @@
                                             [NSNumber numberWithDouble:birthdayUnixTime], @"birthday",
                                             [[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"], @"deviceId", nil];
                     [MMAPI oauthSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        
+                        [[UAPush shared] setAlias:[my valueForKey:@"email"]];
+                        [[UAPush shared] updateRegistration];
+                        
                         [[NSUserDefaults standardUserDefaults]setValue:[my valueForKey:@"email"] forKey:@"userName"];
                         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"oauthUser"];
                         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"facebookEnabled"];
@@ -283,6 +288,9 @@
     
     [MMAPI oauthSignIn:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        [[UAPush shared] setAlias:account.username];
+        [[UAPush shared] updateRegistration];
+        
         [[NSUserDefaults standardUserDefaults]setValue:account.username forKey:@"userName"];
         [[NSUserDefaults standardUserDefaults]setValue:account.identifier forKey:@"oauthToken"];
         [[NSUserDefaults standardUserDefaults]setValue:@"twitter" forKey:@"oauthProvider"];
@@ -301,6 +309,10 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         //twitter auth passed, but user is new and needs to enter additional info to become a valid user
         if ([operation.response statusCode] == 404) {
+            
+            [[UAPush shared] setAlias:account.username];
+            [[UAPush shared] updateRegistration];
+            
             [[NSUserDefaults standardUserDefaults]setValue:account.username forKey:@"userName"];
             [[NSUserDefaults standardUserDefaults]setValue:account.identifier forKey:@"oauthToken"];            
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"oauthUser"];

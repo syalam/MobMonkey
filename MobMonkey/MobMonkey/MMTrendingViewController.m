@@ -16,6 +16,7 @@
 #import "MMLocationsViewController.h"
 #import "MMInboxCategoryCell.h"
 #import "MMTrendingDetailViewController.h"
+#import "UAPush.h"
 
 @interface MMTrendingViewController ()
 
@@ -50,6 +51,8 @@
     }
     else {
         [self getTrendingCounts];
+        [[UAPush shared] setAlias:[[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]];
+        [[UAPush shared] updateRegistration];
     }
 }
 -(void)viewWillDisappear:(BOOL)animated {

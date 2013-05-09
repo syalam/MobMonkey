@@ -13,7 +13,7 @@
 #import "MMClientSDK.h"
 #import "UIAlertView+Blocks.h"
 #import "MMTermsOfUseViewController.h"
-
+#import "UAPush.h"
 @interface MMLoginViewController () {
     UITextField *emailTextField;
     UITextField *passwordTextField;
@@ -43,6 +43,7 @@
   if ([prefs objectForKey:@"userName"]) {
     emailTextField.text = [prefs objectForKey:@"userName"];
   }
+    
     [prefs setObject:emailTextField.text forKey:@"userName"];
   
     passwordTextField = [[UITextField alloc]initWithFrame:textFieldRect];
@@ -142,6 +143,10 @@
             [SVProgressHUD showSuccessWithStatus:@"Signed In"];
             NSLog(@"%@", responseObject);
             [prefs setObject:emailTextField.text forKey:@"userName"];
+            
+            [[UAPush shared] setAlias:emailTextField.text];
+            [[UAPush shared] updateRegistration];
+            
             [prefs setObject:passwordTextField.text forKey:@"password"];
             [prefs setBool:NO forKey:@"oauthUser"];
             [prefs synchronize];
@@ -284,6 +289,10 @@
 - (void)MMAPICallSuccessful:(id)response {
     NSLog(@"%@", response);
     [SVProgressHUD showSuccessWithStatus:@"Signed In"];
+    
+    [[UAPush shared] setAlias:emailTextField.text];
+    [[UAPush shared] updateRegistration];
+    
     [prefs setObject:emailTextField.text forKey:@"userName"];
     [prefs setObject:passwordTextField.text forKey:@"password"];
     [prefs synchronize];

@@ -14,6 +14,7 @@
 #import "NSDate+JavaEpochTime.h"
 #import "MMTermsOfUseViewController.h"
 #import "MMMyInfo.h"
+#import "UAPush.h"
 
 @interface MMSignUpViewController () {
     UIActionSheet *birthdayActionSheet;
@@ -702,6 +703,10 @@
         [MMAPI signUpNewUser:params
                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
                          [SVProgressHUD showSuccessWithStatus:@"Sign Up Successful"];
+                         
+                         [[UAPush shared] setAlias:_emailTextField.text];
+                         [[UAPush shared] updateRegistration];
+                         
                          [[NSUserDefaults standardUserDefaults]setValue:_emailTextField.text forKey:@"userName"];
                          [[NSUserDefaults standardUserDefaults]setValue:_passwordTextField.text forKey:@"password"];
                          

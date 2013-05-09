@@ -11,7 +11,7 @@
 #import "SVProgressHUD.h"
 #import "NSString+URLParams.h"
 #import "MMSocialNetworkModel.h"
-
+#import "UAPush.h"
 
 #ifdef STAGING
 
@@ -281,7 +281,13 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     //[httpClient setDefaultHeader:@"OauthProviderUserName" value:[params valueForKey:@"providerUsername"]];
     //[httpClient setDefaultHeader:@"OauthToken" value:[params valueForKey:@"oauthToken"]];
     //[httpClient setDefaultHeader:@"OauthProvider" value:[params valueForKey:@"provider"]];
-    [httpClient postPath:urlString parameters:nil success:success failure:failure];
+    [httpClient postPath:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[UAPush shared] setAlias: [params valueForKey:@"providerUserName"]];
+        [[UAPush shared] updateRegistration];
+        success(operation, responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+    }];
 }
 +(void)oauthSignIn:(MMOAuth *)oauth userInfo:(MMMyInfo *)userInfo forService:(SocialNetwork)socialNetwork success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
     
@@ -310,6 +316,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [parameters setObject:oauth.username forKey:@"providerUserName"]; 
 
     
+    
     if(socialNetwork == SocialNetworkFacebook){
                 
         [parameters setObject:oauth.token forKey:@"oauthToken"];
@@ -330,7 +337,12 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     //I'm doing this to create the GET parameters in the url, it's kind of sloppy but backend is requiring post, but we are not using post parameters.
     NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET" path:@"signin" parameters:parameters data:nil];
     
-    [httpClient postPath:request.URL.absoluteString parameters:nil success:success failure:failure];
+    [httpClient postPath:request.URL.absoluteString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[UAPush shared] setAlias:oauth.username];
+        success(operation, responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+    }];
     
 }
 + (void) registerTwitterWithOauth:(MMOAuth*)oauth userInfo:(MMMyInfo *)userInfo

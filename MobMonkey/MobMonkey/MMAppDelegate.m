@@ -19,10 +19,30 @@
 #import "AFNetworkActivityIndicatorManager.h"
 #import "TestFlight.h"
 #import "MMHotSpotViewController.h"
+#import "UAirship.h"
+#import "UAPush.h"
+
 @implementation MMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    //Urban Airship
+    NSMutableDictionary *takeOffOptions = [NSMutableDictionary dictionary];
+    [takeOffOptions setValue:launchOptions forKey:UAirshipTakeOffOptionsLaunchOptionsKey];
+    
+    // Call takeOff (which creates the UAirship singleton), passing in the launch options so the
+    // library can properly record when the app i launched from a push notification. This call is
+    // required.
+    
+    [[UAPush shared]
+     registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                         UIRemoteNotificationTypeSound |
+                                         UIRemoteNotificationTypeAlert)];
+    //
+    // Populate AirshipConfig.plist with your app's info from https://go.urbanairship.com
+    [UAirship takeOff:takeOffOptions];
+    
     
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
@@ -44,6 +64,21 @@
     [Flurry startSession:@"ZXW98Q8CBP2BNTRCCXHP"];
     
     
+    
+    
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     NSString *subscribedUserKey = [NSString stringWithFormat:@"%@ subscribed", [[NSUserDefaults standardUserDefaults] valueForKey:@"userName"]];
     
     
@@ -54,9 +89,9 @@
     
     [FBProfilePictureView class];
     
-    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
+    /*[application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
      UIRemoteNotificationTypeAlert|
-     UIRemoteNotificationTypeSound];
+     UIRemoteNotificationTypeSound];*/
     
     if ([UINavigationBar respondsToSelector:@selector(appearance)]) {
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar~iphone"] forBarMetrics:UIBarMetricsDefault];
@@ -200,6 +235,7 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     [FBSession.activeSession close];
+     [UAirship land];
 }
 
 - (void) initializeLocationManager {
@@ -212,6 +248,10 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
 {
+    
+    [[UAPush shared] registerDeviceToken:newDeviceToken];
+    
+    
     NSString* tokenString = [[[[newDeviceToken description]
                                stringByReplacingOccurrencesOfString: @"<" withString: @""]
                               stringByReplacingOccurrencesOfString: @">" withString: @""]
@@ -223,7 +263,7 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-/*- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     NSLog(@"%@", @"Push Notification Received");
     [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:userInfo];
 
@@ -276,7 +316,7 @@
     
             
     
-}*/
+}
 
 
 #pragma mark CLLocationManagerDelegate methods
