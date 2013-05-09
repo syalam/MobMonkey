@@ -140,11 +140,7 @@
         
     }
     
-    MMLocationDetailCellData *notifcationsData = [[MMLocationDetailCellData alloc] init];
-    notifcationsData.text = @"Add Notifications";
-    notifcationsData.image = [UIImage imageNamed:@"alarmClock"];
-    notifcationsData.cellType = LocationCellTypeNotification;
-    [cellData addObject:notifcationsData];
+    
     
     self.locationCellData = cellData;
 }
@@ -179,8 +175,8 @@
         rowCount = self.locationCellData.count;
     }else if(section == 2){
         
-        // Row for "Add to Favorites
-        rowCount  = 1;
+        // Row for "Add to Favorites and notifications
+        rowCount  = 2;
     }else if(section == 1){
         return ((!self.locationInformation.parentLocationID || [self.locationInformation.parentLocationID isKindOfClass:[NSNull class]]) && !loadingInfo) ?  self.locationInformation.sublocations.count +1 :  0;
     }
@@ -223,12 +219,20 @@
             cell.textLabel.textAlignment = NSTextAlignmentLeft;
         }
     } else if (indexPath.section == 2) {
-        cell.textLabel.text = @"Add to Favorites";
-        if (_locationInformation.isBookmark) {
-            cell.textLabel.text = @"Remove from Favorites";
+        
+        if(indexPath.row == 1){
+            cell.textLabel.text = @"Add to Favorites";
+            if (_locationInformation.isBookmark) {
+                cell.textLabel.text = @"Remove from Favorites";
+            }
+            cell.imageView.image = [UIImage imageNamed:@"favorite"];
+            return cell;
+        } else if (indexPath.row == 0){
+            cell.textLabel.text = @"Add Notifications";
+            cell.imageView.image = [UIImage imageNamed:@"alarmClock"];
+            return cell;
         }
-        cell.imageView.image = [UIImage imageNamed:@"favorite"];
-        return cell;
+        
     } else if (indexPath.section == 1){
         
         if(indexPath.row != self.locationInformation.sublocations.allObjects.count){
@@ -312,7 +316,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 2) {
-        [self bookmarkButtonTapped:nil];
+        if(indexPath.row == 1){
+            [self bookmarkButtonTapped:nil];
+        }else if(indexPath.row == 0){
+            [self notificationSettingsButtonTapped:nil];
+        }
+        
         return;
     }
     if(indexPath.section == 0){

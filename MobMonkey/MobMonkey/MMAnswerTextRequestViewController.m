@@ -55,7 +55,8 @@
                                        textView.text, @"text",
                                        @"text/plain", @"contentType",
                                        [NSNumber numberWithInt:0], @"requestType",
-                                       [_requestObject valueForKey:@"requestId"], @"requestId", nil];
+                                       [_requestObject valueForKey:@"requestId"], @"requestId",
+                                       @"", @"mediaData", nil];
         NSLog(@"%@", params);
         [MMAPI fulfillRequest:@"text" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [SVProgressHUD showSuccessWithStatus:@"Response submitted"];
@@ -69,6 +70,7 @@
             else {
                 [SVProgressHUD showErrorWithStatus:@"Unable to submit response at this time. Please try again later"];
             }
+            NSLog(@"ERROR: %@", error);
         }];
     }
     else {

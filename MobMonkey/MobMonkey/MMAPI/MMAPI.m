@@ -719,7 +719,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
             locationInformation.locationID = [json objectForKey:@"locationId"];
             locationInformation.providerID = [json objectForKey:@"providerId"];
             locationInformation.street = [json objectForKey:@"address"];
-            locationInformation.details = [json objectForKey:@"description"];
+            locationInformation.details = [json objectForKey:@"details"];
             locationInformation.unitNumber = [json objectForKey:@"address_ext"];
             locationInformation.categories = [json objectForKey:@"categoryIds"];
             locationInformation.country = [json objectForKey:@"countryCode"];
@@ -860,7 +860,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     locationInformation.locationID ? [locationDictionary setObject:locationInformation.locationID forKey:@"locationId"] : nil;
     locationInformation.providerID ? [locationDictionary setObject:locationInformation.providerID forKey:@"providerId"] : nil;
     locationInformation.street ? [locationDictionary setObject:locationInformation.street forKey:@"address"] : nil;
-    locationInformation.details ? [locationDictionary setObject:locationInformation.details forKey:@"description"] : nil;
+    locationInformation.details ? [locationDictionary setObject:locationInformation.details forKey:@"details"] : nil;
     locationInformation.unitNumber ? [locationDictionary setObject:locationInformation.unitNumber forKey:@"address_ext"] : nil;
     locationInformation.categories ? [locationDictionary setObject:locationInformation.categories forKey:@"categoryIds"] : nil;
     locationInformation.country ? [locationDictionary setObject:locationInformation.country forKey:@"countryCode"] : nil;
@@ -897,7 +897,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     locationInformation.locationID = [locationDictionary objectForKey:@"locationId"];
     locationInformation.providerID = [locationDictionary objectForKey:@"providerId"];
     locationInformation.street = [locationDictionary objectForKey:@"address"];
-    locationInformation.details = [locationDictionary objectForKey:@"description"];
+    locationInformation.details = [locationDictionary objectForKey:@"details"];
     locationInformation.unitNumber = [locationDictionary objectForKey:@"address_ext"];
     locationInformation.categories = [locationDictionary objectForKey:@"categoryIds"];
     locationInformation.country = [locationDictionary objectForKey:@"countryCode"];
