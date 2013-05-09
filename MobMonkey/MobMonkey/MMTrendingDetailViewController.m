@@ -1,5 +1,5 @@
 //
-//  MMTrendingDetailViewController.m
+//  d.m
 //  MobMonkey
 //
 //  Created by Reyaad Sidique on 1/9/13.

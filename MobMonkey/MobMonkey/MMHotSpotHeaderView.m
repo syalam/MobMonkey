@@ -44,16 +44,16 @@
         [_createHotSpotButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
         
         //_createHotSpotButton.backgroundColor = [UIColor colorWithRed:1.000 green:0.590 blue:0.360 alpha:1.000];
-        [opaqueView addSubview:_createHotSpotButton];
+        [self addSubview:_createHotSpotButton];
         
         _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(padding - 5, _createHotSpotButton.frame.origin.y + _createHotSpotButton.frame.size.height  + 10, frame.size.width - ((padding - 5) * 2), 30)];
-        [opaqueView addSubview:_searchBar];
+        [self addSubview:_searchBar];
         
         [[_searchBar.subviews objectAtIndex:0] removeFromSuperview];
         [_searchBar setBackgroundColor:[UIColor clearColor]];
         //_searchBar.userInteractionEnabled = NO;
         
-        [self addSubview:opaqueView];
+       // [self addSubview:opaqueView];
         [self addSubview:translucentView];
         
     }

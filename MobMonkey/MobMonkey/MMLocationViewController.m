@@ -723,20 +723,9 @@
             __weak typeof(self) weakSelf = self;
             if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"image"]) {
                 NSURLRequest *imageRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:mediaUrl]];
-                [self.headerView.mediaView.mediaImageView setImageWithURLRequest:imageRequest placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                    
-                    NSLog(@"Starting");
-                    
-                    dispatch_sync(dispatch_get_main_queue(), ^{
-                        self.headerView.mediaView.mediaImageView.image = image;
-                        self.headerView.mediaView.topGradientView.hidden = NO;
-                        self.headerView.mediaView.bottomGradientView.hidden = NO;
-                    });
-                    
-                    
-                } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                    NSLog(@"Failed Loading Image");
-                }];
+                [self.headerView.mediaView.mediaImageView setImageWithURL:[NSURL URLWithString:mediaUrl]];
+                self.headerView.mediaView.topGradientView.hidden = NO;
+                self.headerView.mediaView.bottomGradientView.hidden = NO;
                 //self.bottonBlackGradient.hid
             }
             else if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"livestreaming"]) {

@@ -44,18 +44,18 @@
     [super viewDidLoad];
     loadFromServer = NO;
     
-
+    UIView *headerSpace = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 137)];
+    [self.tableView setTableHeaderView:headerSpace];
     
     
     headerView = [[MMHotSpotHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, 137)];
     headerView.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
-    headerView.layer.zPosition = 100;
+    headerView.layer.zPosition = 10000;
     headerView.searchBar.delegate = self;
    
     [self.tableView addSubview:headerView];
     
-    UIView *headerSpace = [[UIView alloc] initWithFrame:headerView.frame];
-    [self.tableView setTableHeaderView:headerSpace];
+    
     
     searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:headerView.searchBar contentsController:self];
     searchDisplayController.delegate = self;
