@@ -15,6 +15,8 @@
 
 @interface MMMapViewController ()
 
+
+
 @property (nonatomic, assign, getter = isSelectingLocation) BOOL selectingLocation;
 
 @end
@@ -66,35 +68,7 @@
         }
         [_mapView setVisibleMapRect:zoomRect animated:YES];
     } else if(self.locationInformationCollection) {
-        for (MMLocationInformation *locationInformation in self.locationInformationCollection) {
-            
-            NSUInteger index = [self.locationInformationCollection indexOfObject:locationInformation];
-            
-            CLLocationCoordinate2D coordinate;
-            
-            coordinate.latitude = locationInformation.latitude.floatValue;
-            coordinate.longitude = locationInformation.longitude.floatValue;
-            
-            MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc]initWithName:locationInformation.name
-                                                                                 address:locationInformation.formattedAddressString
-                                                                              coordinate:coordinate
-                                                                              arrayIndex:index];
-            
-            [_mapView addAnnotation:(id)annotation];
-        }
-        
-        MKMapRect zoomRect = MKMapRectNull;
-        for (id <MKAnnotation> annotation in _mapView.annotations)
-        {
-            MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
-            MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
-            if (MKMapRectIsNull(zoomRect)) {
-                zoomRect = pointRect;
-            } else {
-                zoomRect = MKMapRectUnion(zoomRect, pointRect);
-            }
-        }
-        [_mapView setVisibleMapRect:zoomRect animated:YES];
+        [self loadAnnotations];
     }
     
     
@@ -194,7 +168,63 @@
     [radiusButton setHidden:YES];
 }
 
-
+-(void)loadAnnotations{
+    for (MMLocationInformation *locationInformation in self.locationInformationCollection) {
+        
+        NSUInteger index = [self.locationInformationCollection indexOfObject:locationInformation];
+        
+        CLLocationCoordinate2D coordinate;
+        
+        coordinate.latitude = locationInformation.latitude.floatValue;
+        coordinate.longitude = locationInformation.longitude.floatValue;
+        
+        MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc]initWithName:locationInformation.name
+                                                                             address:locationInformation.formattedAddressString
+                                                                          coordinate:coordinate
+                                                                          arrayIndex:index];
+        annotation.pinColor = MKPinAnnotationColorGreen;
+        
+        [_mapView addAnnotation:(id)annotation];
+        
+        
+        if(self.showHotSpots){
+            
+            for(MMLocationInformation *subLocationInformation in locationInformation.sublocations){
+                
+                NSUInteger index = [locationInformation.sublocations.allObjects indexOfObject:subLocationInformation];
+                
+                CLLocationCoordinate2D coordinate;
+                
+                coordinate.latitude = subLocationInformation.latitude.floatValue;
+                coordinate.longitude = subLocationInformation.longitude.floatValue;
+                
+                MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc]initWithName:subLocationInformation.name
+                                                                                     address:subLocationInformation.formattedAddressString
+                                                                                  coordinate:coordinate
+                                                                                  arrayIndex:index];
+                annotation.pinColor = MKPinAnnotationColorPurple;
+                
+                [_mapView addAnnotation:(id)annotation];
+            }
+            
+        }
+        
+        
+    }
+    
+    MKMapRect zoomRect = MKMapRectNull;
+    for (id <MKAnnotation> annotation in _mapView.annotations)
+    {
+        MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
+        if (MKMapRectIsNull(zoomRect)) {
+            zoomRect = pointRect;
+        } else {
+            zoomRect = MKMapRectUnion(zoomRect, pointRect);
+        }
+    }
+    [_mapView setVisibleMapRect:zoomRect animated:YES];
+}
 
 - (void)viewDidUnload
 {
@@ -362,6 +392,7 @@
         
         annotationView.enabled = YES;
         annotationView.canShowCallout = YES;
+        annotationView.pinColor = myAnnotation.pinColor;
         UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         infoButton.tag = [myAnnotation arrayIndex];
 

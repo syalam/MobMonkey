@@ -378,6 +378,7 @@
                 MMMapViewController *mapViewController = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
                 mapViewController.title = self.locationInformation.name;
                 mapViewController.locationInformationCollection = @[self.locationInformation];
+                mapViewController.showHotSpots = YES;
                 [self.navigationController pushViewController:mapViewController animated:YES];
                 break;
             }
