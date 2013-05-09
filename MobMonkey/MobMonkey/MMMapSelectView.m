@@ -51,7 +51,7 @@
     [self setCenterPointCoordinates:parentLocationCoord];
     
     MMLocationAnnotation *parentPin = [[MMLocationAnnotation alloc] initWithName:parentLocation.name address:parentLocation.formattedAddressString coordinate:parentLocationCoord arrayIndex:0];
-    
+    parentPin.pinColor = MKPinAnnotationColorGreen;
     [self.mapView addAnnotation:(id)parentPin];
 
     
@@ -158,6 +158,7 @@
         [self.mapView removeAnnotation:(id)selectedLocation];
     
     selectedLocation = [[MMLocationAnnotation alloc] initWithName:@"NEW HOT SPOT" address:nil coordinate:touchMapCoordinate arrayIndex:1];
+    selectedLocation.pinColor = MKPinAnnotationColorRed;
     [self.mapView addAnnotation:(id)selectedLocation];
     
 }
@@ -169,5 +170,30 @@
     // Drawing code
 }
 */
-
+-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    
+    static NSString *AnnotationIdentifier = @"Pin";
+    
+    MKPinAnnotationColor pinColor = ((MMLocationAnnotation*)annotation).pinColor;
+    
+    MKPinAnnotationView *pv = (MKPinAnnotationView *)[mapView
+                                                      dequeueReusableAnnotationViewWithIdentifier:AnnotationIdentifier];
+    if (!pv)
+    {
+        pv = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
+                                             reuseIdentifier:AnnotationIdentifier];
+        
+        [pv setCanShowCallout:YES];
+        [pv setRightCalloutAccessoryView:[UIButton buttonWithType:UIButtonTypeDetailDisclosure]];
+    }
+    else
+    {
+        //we're re-using an annotation view
+        //update annotation property in case re-used view was for another
+        pv.annotation = annotation;
+    }
+    [pv setPinColor:pinColor];
+    
+    return pv;
+}
 @end

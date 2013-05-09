@@ -19,6 +19,8 @@
 @property (copy) NSString *address;
 @property (nonatomic) int arrayIndex;
 @property (nonatomic) CLLocationCoordinate2D coordinate;
+@property (nonatomic, assign) MKPinAnnotationColor pinColor;
+//@property (nonatomic, strong) UIColor * pinColor;
 
 - (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate arrayIndex:(int)arrayIndex;
 
