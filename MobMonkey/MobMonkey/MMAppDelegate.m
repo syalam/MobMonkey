@@ -223,7 +223,7 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+/*- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     NSLog(@"%@", @"Push Notification Received");
     [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:userInfo];
 
@@ -276,7 +276,7 @@
     
             
     
-}
+}*/
 
 
 #pragma mark CLLocationManagerDelegate methods

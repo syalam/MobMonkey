@@ -606,6 +606,10 @@
         [params setObject:firstName forKey:@"firstName"];
         [params setObject:lastName forKey:@"lastName"];
         [params setObject:_emailTextField.text forKey:@"eMailAddress"];
+        
+        NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"apnsToken"];
+        NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
+        
         [params setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
         [params setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"] forKey:@"providerUsername"];
         [params setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"oauthToken"] forKey:@"oauthToken"];
@@ -681,6 +685,10 @@
     else {
         [params setValue:[NSNumber numberWithInt:0] forKey:@"gender"];
     }
+    
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"apnsToken"];
+    NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
+    
     [params setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];    
     [params setValue:@"iOS" forKey:@"deviceType"];
     
@@ -791,6 +799,10 @@
     MMOAuth *oauth = [[MMOAuth alloc] init];
     
     oauth.providerString = [defaults objectForKey:@"oauthProvider"];
+    
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"apnsToken"];
+    NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
+    
     oauth.deviceID = [defaults objectForKey:@"apnsToken"];
     oauth.token = [defaults objectForKey:@"oauthToken"];
     oauth.username = [defaults objectForKey:@"userName"];
