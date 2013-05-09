@@ -874,7 +874,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     locationInformation.state ? [locationDictionary setObject:locationInformation.state forKey:@"region"] : nil;
     locationInformation.region ? [locationDictionary setObject:locationInformation.region forKey:@"region"] : nil;
     locationInformation.website ? [locationDictionary setObject:locationInformation.website forKey:@"webSite"] : nil;
-    locationInformation.isBookmark ? [locationDictionary setObject:locationInformation.isBookmark forKey:@"bookmark"] : nil;
+    locationInformation.isBookmark ? [locationDictionary setObject:[NSNumber numberWithBool:locationInformation.isBookmark] forKey:@"bookmark"] : nil;
     locationInformation.message ? [locationDictionary setObject:locationInformation.message forKey:@"message"] : nil;
     locationInformation.livestreaming ? [locationDictionary setObject:locationInformation.livestreaming forKey:@"livestreaming"] : nil;
     locationInformation.videos ? [locationDictionary setObject:locationInformation.videos forKey:@"videos"] : nil;

@@ -202,7 +202,7 @@
                                                                                      address:subLocationInformation.formattedAddressString
                                                                                   coordinate:coordinate
                                                                                   arrayIndex:index];
-                annotation.pinColor = MKPinAnnotationColorPurple;
+                annotation.pinColor = MKPinAnnotationColorRed;
                 
                 [_mapView addAnnotation:(id)annotation];
             }

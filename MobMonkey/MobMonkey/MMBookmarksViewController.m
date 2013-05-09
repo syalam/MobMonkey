@@ -37,7 +37,14 @@
 {
     [MMAPI getBookmarkLocationInformationOnSuccess:^(AFHTTPRequestOperation *operation, NSArray *locationInformations) {
        
-        self.locationsInformationCollection = locationInformations.mutableCopy;
+        NSMutableArray *bookmarks = [NSMutableArray arrayWithCapacity:locationInformations.count];
+        for(MMLocationInformation *locationInformation in locationInformations){
+            locationInformation.isBookmark = YES;
+            [bookmarks addObject:locationInformation];
+        }
+        
+        self.locationsInformationCollection = bookmarks.mutableCopy;
+        
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (operation.responseData) {
