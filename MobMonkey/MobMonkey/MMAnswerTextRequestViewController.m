@@ -55,8 +55,7 @@
                                        textView.text, @"text",
                                        @"text/plain", @"contentType",
                                        [NSNumber numberWithInt:0], @"requestType",
-                                       [_requestObject valueForKey:@"requestId"], @"requestId",
-                                       @"", @"mediaData", nil];
+                                       [_requestObject valueForKey:@"requestId"], @"requestId", nil];
         NSLog(@"%@", params);
         [MMAPI fulfillRequest:@"text" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [SVProgressHUD showSuccessWithStatus:@"Response submitted"];
