@@ -16,10 +16,15 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        
     }
     return self;
 }
 
+-(void)awakeFromNib{
+    [super awakeFromNib];
+    [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
