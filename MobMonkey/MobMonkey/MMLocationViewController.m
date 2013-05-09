@@ -576,6 +576,7 @@
             self.locationInformation.message = locationInformation.message;
             self.locationInformation.messageURL = locationInformation.messageURL;
             self.locationInformation.parentLocationID = locationInformation.parentLocationID;
+            self.locationInformation.isBookmark = locationInformation.isBookmark;
         
         }
         
