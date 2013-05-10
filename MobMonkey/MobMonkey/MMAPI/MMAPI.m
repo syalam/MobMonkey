@@ -509,6 +509,9 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 + (void)checkUserIn:(NSDictionary*)params
            success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
            failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+    NSLog(@"params: %@", params);
+    
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient  postPath:@"checkin" parameters:params success:success failure:failure];
 }

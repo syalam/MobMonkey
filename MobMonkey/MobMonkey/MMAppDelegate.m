@@ -151,9 +151,9 @@
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     //42.029486, -87.680550
-    [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%f", 33.421098] forKey:@"latitude"];
+    /*[[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%f", 33.421098] forKey:@"latitude"];
     [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%f", -111.942648] forKey:@"longitude"];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+    [[NSUserDefaults standardUserDefaults]synchronize];*/
     
     [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
