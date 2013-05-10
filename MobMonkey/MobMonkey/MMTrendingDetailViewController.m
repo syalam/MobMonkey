@@ -222,7 +222,9 @@
         else {
             NSURL *url = [NSURL URLWithString:[mediaDictionary valueForKey:@"mediaURL"]];
             NSLog(@"%@", url);
+            UIGraphicsBeginImageContext(CGSizeMake(1,1));
             MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+            UIGraphicsEndImageContext();
             [self.navigationController presentMoviePlayerViewControllerAnimated:player];
         }
     }

@@ -346,7 +346,10 @@
     NSLog(@"viewsThisMonth: %i", viewsThisMonth);
     
     if ([self.segmentedControl selectedSegmentIndex] != MMPhotoMediaType) {
+        
+        UIGraphicsBeginImageContext(CGSizeMake(1,1));
         self.moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:urlString]];
+        UIGraphicsEndImageContext();
         [self.navigationController presentMoviePlayerViewControllerAnimated:self.moviePlayerViewController];
     } else {
         [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:cell.locationImageView.image locationName:nil];

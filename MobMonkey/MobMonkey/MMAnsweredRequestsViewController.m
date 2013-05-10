@@ -289,8 +289,10 @@
             if (mediaArray.count > 0) {
                 NSURL *url = [NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
                 NSLog(@"%@", url);
+                UIGraphicsBeginImageContext(CGSizeMake(1,1));
                 MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
                 [self presentMoviePlayerViewControllerAnimated:player];
+                UIGraphicsEndImageContext();
             }
         }
     }
