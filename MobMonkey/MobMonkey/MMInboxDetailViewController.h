@@ -25,4 +25,6 @@
 @property(nonatomic, retain)NSString *inboxCategory;
 @property(nonatomic, assign)id<InboxDetailDelegate>delegate;
 
+
+
 @end

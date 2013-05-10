@@ -21,6 +21,7 @@
 #import "MMHotSpotViewController.h"
 #import "UAirship.h"
 #import "UAPush.h"
+#import "MMInboxViewController.h"
 
 @implementation MMAppDelegate
 
@@ -268,12 +269,17 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:userInfo];
 
     
+    NSString *requestType = [userInfo objectForKey:@"requestType"];
+    NSLog(@"Request Type: %@", requestType);
 //#ifdef PRODUCTION
     
     //Make sure the root view controller is a tab bar controller.
     if([self.window.rootViewController isKindOfClass:[UITabBarController class]]){
         
         UITabBarController *tabBarController = (UITabBarController*)self.window.rootViewController;
+        UINavigationController *inboxViewController = (UINavigationController*)tabBarController.selectedViewController;
+        
+        //UIViewController *visibleViewController = [inboxViewController.childViewControllers lastObject];
         
         //Check if the app is already open or not.
         if ( application.applicationState == UIApplicationStateActive ) {
@@ -288,15 +294,34 @@
             [goToRequestButton setAction:^{
                 
                 [tabBarController setSelectedIndex:1];
+                [inboxViewController popToRootViewControllerAnimated:YES];
                 
             }];
             
             UIAlertView *confirmGoToRequest = [[UIAlertView alloc] initWithTitle:@"New Request" message:@"You have a new request in your inbox. Would you like to go there now?" cancelButtonItem:cancelButton otherButtonItems:goToRequestButton, nil];
             
-            //Present the alert view only if the user is signed in
-            if([[NSUserDefaults standardUserDefaults] stringForKey:@"userName"]){
-                [confirmGoToRequest show];
+            
+            if([requestType isEqualToString:@"Assigned"]){
+                //Present the alert view only if the user is signed in
+                if(([[NSUserDefaults standardUserDefaults] stringForKey:@"userName"] &&
+                    ![inboxViewController.title isEqualToString:@"Inbox"])){
+                    [confirmGoToRequest show];
+                }else{
+                    NSLog(@"NOT LOGGED IN OR ON INBOX");
+                    if(![inboxViewController.visibleViewController.title isEqualToString:@"Inbox"]){
+                        [confirmGoToRequest show];
+                        NSLog(@"TITLE: %@", inboxViewController.visibleViewController.title);
+                    }else{
+                        
+                        if([inboxViewController.visibleViewController isKindOfClass:[MMInboxViewController class]]){
+                            [((MMInboxViewController *)inboxViewController.visibleViewController) getInboxCounts];
+                        }else{
+                            NSLog(@"CLASS: %@", inboxViewController.visibleViewController.class);
+                        }
+                    }
+                }
             }
+            
             
             
         } else {

@@ -21,4 +21,5 @@
 @property (nonatomic) BOOL categorySelected;
 @property (nonatomic) NSInteger currentAPICall;
 
+- (void)getInboxCounts;
 @end
