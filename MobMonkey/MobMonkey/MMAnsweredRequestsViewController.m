@@ -12,6 +12,7 @@
 #import "MMLocationViewController.h"
 #import "MMLocationListCell.h"
 #import <AVFoundation/AVFoundation.h>
+#import "UIImageView+AFNetworking.h"
 @interface MMAnsweredRequestsViewController ()
 
 @end
@@ -160,9 +161,13 @@
             }
         }
         else {
-            dispatch_async(backgroundQueue, ^(void) {
-                cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row cell:cell];
-            });
+            
+            [cell.locationImageView setImageWithURL:[NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"thumbURL"]]];
+            
+            NSLog(@"URL: %@", [[mediaArray objectAtIndex:0]valueForKey:@"thumbURL"]);
+            //dispatch_async(backgroundQueue, ^(void) {
+            //    cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row cell:cell];
+            //});
             cell.playButtonImageView.hidden = NO;
         }
     }

@@ -737,7 +737,9 @@
             }
             else {
                 [self.headerView.mediaView.playButtonOverlay setHidden:NO];
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+                [self.headerView.mediaView.mediaImageView setImageWithURL:[NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"thumbURL"]]];
+                
+                /*dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
                     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]] options:nil];
                     AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
                     generate.appliesPreferredTrackTransform = YES;
@@ -748,7 +750,7 @@
                         self.headerView.mediaView.mediaImageView.image =  [UIImage imageWithCGImage:imgRef];
                         self.headerView.mediaView.bottomGradientView.hidden = NO;
                     });
-                });
+                });*/
                 
             }
             [self.headerView hideLoadingViewShowMedia:YES];
