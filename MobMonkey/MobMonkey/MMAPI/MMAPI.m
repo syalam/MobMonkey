@@ -427,6 +427,22 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 + (void)fulfillRequest:(NSString*)mediaType params:(NSMutableDictionary*)params
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+    NSString *requestID = [params objectForKey:@"requestId"];
+    NSArray *respondedRequests = [[NSUserDefaults standardUserDefaults] objectForKey:@"tempRequests"];
+    
+    NSMutableArray * newRespondedRequests = [NSMutableArray array];
+    
+    if(respondedRequests){
+        [newRespondedRequests addObjectsFromArray:respondedRequests];
+    }
+    [newRespondedRequests addObject:requestID];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:newRespondedRequests forKey:@"tempRequests"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    
+    
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient  postPath:[NSString stringWithFormat:@"media/%@", mediaType] parameters:params success:success failure:failure];
 }
