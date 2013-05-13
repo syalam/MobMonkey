@@ -213,7 +213,7 @@
                     
                     
                     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"apnsToken"];
-                    NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
+                    //NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
                     
                     NSString* accessToken = me.session.accessToken;
                     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -271,7 +271,7 @@
 - (void)signInViaTwitter:(ACAccount*)account presentingViewController:(UIViewController*)presentingViewController {
     
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"apnsToken"];
-    NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
+    //NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                             account.username, @"providerUserName",

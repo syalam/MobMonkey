@@ -124,7 +124,7 @@
     else {
         
         NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"apnsToken"];
-        NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
+        //NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
         
         NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
         [params setValue:@"iOS" forKey:@"deviceType"];

@@ -82,7 +82,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     NSMutableDictionary *paramsCopy = [params mutableCopy];
     
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"apnsToken"];
-    NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
+    //NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
     [paramsCopy setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
 	[paramsCopy setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
@@ -416,7 +416,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     MMHTTPClient  *httpClient = [MMHTTPClient sharedClient];
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"apnsToken"];
-    NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
+    //NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
     [httpClient postPath:[NSString stringWithFormat:@"signout/iOS/%@", [[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"]] parameters:params success:success failure:failure];
 }
 

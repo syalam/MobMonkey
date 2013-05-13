@@ -608,7 +608,7 @@
         [params setObject:_emailTextField.text forKey:@"eMailAddress"];
         
         NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"apnsToken"];
-        NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
+        //NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
         
         [params setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];
         [params setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"userName"] forKey:@"providerUsername"];
@@ -687,7 +687,7 @@
     }
     
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"apnsToken"];
-    NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
+    //NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
     
     [params setValue:[[NSUserDefaults standardUserDefaults]valueForKey:@"apnsToken"] forKey:@"deviceId"];    
     [params setValue:@"iOS" forKey:@"deviceType"];
@@ -801,7 +801,7 @@
     oauth.providerString = [defaults objectForKey:@"oauthProvider"];
     
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"apnsToken"];
-    NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
+    //NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
     
     oauth.deviceID = [defaults objectForKey:@"apnsToken"];
     oauth.token = [defaults objectForKey:@"oauthToken"];
