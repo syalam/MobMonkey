@@ -522,6 +522,8 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if(section == 1){
         return 60;
+    }else if(section==0){
+        return 55;
     }
     return UITableViewAutomaticDimension;
 }
@@ -549,6 +551,35 @@
         return containerView;
     }
     return nil;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    if(section == 0){
+        
+        UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44 )];
+        UIButton *createHotSpotButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 10 , self.view.frame.size.width - (10 * 2), 32)];
+        [createHotSpotButton setTitle:@"Add a Location" forState:UIControlStateNormal];
+        [createHotSpotButton setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+        createHotSpotButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+        [createHotSpotButton addTarget:self action:@selector(addLocationTapped:) forControlEvents:UIControlEventTouchUpInside];
+        UIImage *backgroundImage = [[UIImage imageNamed:@"navBarButtonBlank"] stretchableImageWithLeftCapWidth:10 topCapHeight:0];
+        
+        [createHotSpotButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
+        
+        [containerView addSubview:createHotSpotButton];
+        
+        return containerView;
+    }
+    
+    return nil;
+}
+-(void)addLocationTapped:(id)sender{
+    MMAddLocationViewController *addLocationViewController = [[MMAddLocationViewController alloc] initWithNibName:@"MMAddLocationViewController" bundle:nil];
+    addLocationViewController.title = @"Add Location";
+    //addLocationViewController.category = self.category;
+    addLocationViewController.delegate = self;
+    UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:addLocationViewController];
+    [self.navigationController presentViewController:navc animated:YES completion:nil];
 }
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if(section == 0){
@@ -687,6 +718,13 @@ shouldReloadTableForSearchString:(NSString *)searchString
     newFrame.origin.x = 0;
     newFrame.origin.y = self.tableView.contentOffset.y;
     headerView.frame = newFrame;
+}
+
+#pragma mark - MMAddLocation Delegate methods
+- (void)locationAddedViaAddLocationViewWithLocationId:(NSString*)locationId providerId:(NSString*)providerId {
+    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithStyle:UITableViewStyleGrouped];
+    [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
+    [self.navigationController pushViewController:locationViewController animated:YES];
 }
 
 @end
