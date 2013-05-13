@@ -48,7 +48,7 @@
     self.tableView.backgroundView = nil;
     
     
-    self.mapSelectView = [[MMMapSelectView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 200)];
+    self.mapSelectView = [[MMMapSelectView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 250)];
     self.tableView.tableHeaderView = self.mapSelectView;
     self.mapSelectView.parentLocation = self.parentLocation;
     self.mapSelectView.delegate =self;
@@ -79,11 +79,11 @@
     [self.view endEditing:YES];
     
     if(!sublocationInformation.latitude){
-        sublocationInformation.latitude = self.parentLocation.latitude;
+        sublocationInformation.latitude = [NSNumber numberWithDouble: self.mapSelectView.mapView.userLocation.coordinate.latitude];
     }
     
     if(!sublocationInformation.longitude){
-         sublocationInformation.longitude = self.parentLocation.longitude;
+         sublocationInformation.longitude = [NSNumber numberWithDouble: self.mapSelectView.mapView.userLocation.coordinate.longitude];
     }
     
 
@@ -263,6 +263,10 @@
     self.sublocationInformation.latitude = [NSNumber numberWithFloat:coordinate.latitude];
     self.sublocationInformation.longitude = [NSNumber numberWithFloat:coordinate.longitude];
 
+}
+-(void)mapSelectViewUseCurrentLocation:(MMMapSelectView *)mapSelectView {
+    self.sublocationInformation.latitude = nil;
+    self.sublocationInformation.longitude = nil;
 }
 
 #pragma mark - TextField Delegate

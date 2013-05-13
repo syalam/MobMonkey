@@ -112,7 +112,11 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient setDefaultHeader:@"MobMonkey-user" value:[[NSUserDefaults standardUserDefaults] valueForKey:@"userName"]];
     [httpClient setDefaultHeader:@"MobMonkey-auth" value:[[NSUserDefaults standardUserDefaults] valueForKey:@"password"]];
     [httpClient setDefaultHeader:@"MobMonkey-partnerId" value:[[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"]];
-    [httpClient postPath:@"user" parameters:params success:success failure:failure];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:params];
+    [parameters setValue:[NSUserDefaults standardUserDefaults] forKey:@"apnsToken"];
+    
+    [httpClient postPath:@"user" parameters:parameters success:success failure:failure];
 }
 + (void) updateUserInfo:(MMMyInfo *)userInfo newPassword:(NSString *)newPassword success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
     
@@ -132,7 +136,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [parameters setValue:birthday forKey:@"birthday"];
     [parameters setValue:userInfo.lastName forKey:@"lastName"];
     [parameters setValue:gender forKey:@"gender"];
-    
+    [parameters setValue:[NSUserDefaults standardUserDefaults] forKey:@"apnsToken"];
     if (newPassword) {
         [parameters setValue:newPassword forKey:@"password"];
     }else{
@@ -257,6 +261,9 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     //construct url
     NSString *urlString;
     
+    
+    NSLog(@"DEVICE ID: %@", [params valueForKey:@"deviceId"]);
+    
     if([[params valueForKey:@"provider"] isEqualToString:@"facebook"])
     {
         urlString = [NSString stringWithFormat:@"signin?deviceType=ios&deviceId=%@&useOAuth=true&provider=%@&oauthToken=%@&providerUserName=%@&firstName=%@&lastName=%@&gender=%@&birthday=%@", [params valueForKey:@"deviceId"], [params valueForKey:@"provider"], [params valueForKey:@"oauthToken"], [params valueForKey:@"providerUserName"], [params valueForKey:@"firstName"], [params valueForKey:@"lastName"], [params valueForKey:@"gender"], [params valueForKey:@"birthday"]];
@@ -317,6 +324,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     }else if(socialNetwork == SocialNetworkTwitter){
         
         [parameters setObject:oauth.deviceID forKey:@"deviceId"];
+        NSLog(@"TOKEN: %@", oauth.deviceID);
         
     }
     
@@ -525,6 +533,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
 + (void)checkUserIn:(NSDictionary*)params
            success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
            failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
     
     NSLog(@"params: %@", params);
     

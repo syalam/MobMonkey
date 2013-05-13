@@ -18,22 +18,36 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 30)];
-        label.text = @"Touch the Hot Spot Location on the map";
-        label.textAlignment = NSTextAlignmentCenter;
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(13, 6, frame.size.width - 100, 30)];
+        label.text = @"Use Current Location";
+        label.textAlignment = NSTextAlignmentLeft;
+        label.numberOfLines = 0;
+        label.lineBreakMode = NSLineBreakByWordWrapping;
         label.backgroundColor = [UIColor clearColor];
         [self addSubview:label];
+        
+        useCurrentLocationSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(label.frame.size.width - 15 + label.frame.origin.x + 10, label.frame.origin.y, 90, 30)];
+        [useCurrentLocationSwitch addTarget:self action:@selector(currentSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+        [self userCurrentLocation:YES];
+        [self addSubview:useCurrentLocationSwitch];
         
         
         CGRect newFrame = frame;
         newFrame.size.width *= 0.94;
         newFrame.size.height *= 0.94;
-        newFrame.size.height -= 30;
-        self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake((frame.size.width - newFrame.size.width)/2, (frame.size.height - newFrame.size.height)/2 + 5, newFrame.size.width, newFrame.size.height)];
+        newFrame.size.height -= 50;
+        self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake((frame.size.width - newFrame.size.width)/2, (frame.size.height - newFrame.size.height)/2 + 5, newFrame.size.width, newFrame.size.height - 20)];
         self.mapView.delegate = self;
         self.mapView.layer.cornerRadius = 8.0;
         self.mapView.layer.borderColor = [UIColor grayColor].CGColor;
         self.mapView.layer.borderWidth = 1.0;
+        [self.mapView setShowsUserLocation:YES];
+        
+        UILabel * pressMapLabel = [[UILabel alloc] initWithFrame:CGRectMake(13, self.mapView.frame.origin.y + self.mapView.frame.size.height +3, frame.size.width, 30)];
+        pressMapLabel.backgroundColor = [UIColor clearColor];
+        pressMapLabel.text = @"Tap on the map to select a manual location.";
+        pressMapLabel.font = [UIFont fontWithName:@"HelveticaNeue-LightItalic" size:14.0f];
+        [self addSubview:pressMapLabel];
         
         
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTapped:)];
@@ -45,6 +59,28 @@
     }
     return self;
 }
+-(void)currentSwitchChanged:(UISwitch *)sender {
+    [self userCurrentLocation:sender.on];
+}
+-(void)userCurrentLocation:(BOOL)currentLocation {
+    
+    useCurrentLocationSwitch.on = currentLocation;
+    useCurrentLocationSwitch.enabled = !currentLocation;
+    self.mapView.showsUserLocation = currentLocation;
+    
+    if(selectedLocation && currentLocation) {
+        
+        [self.mapView removeAnnotation:(id)selectedLocation];
+    
+    }
+    
+    if(currentLocation && [self.delegate respondsToSelector:@selector(mapSelectViewUseCurrentLocation:)]){
+        [self.delegate mapSelectViewUseCurrentLocation:self];
+    }
+        
+    
+}
+
 -(void)setParentLocation:(MMLocationInformation *)parentLocation{
     
     CLLocationCoordinate2D parentLocationCoord = CLLocationCoordinate2DMake(parentLocation.latitude.floatValue, parentLocation.longitude.floatValue);
@@ -156,10 +192,11 @@
     
     if(selectedLocation)
         [self.mapView removeAnnotation:(id)selectedLocation];
-    
+    [self userCurrentLocation:NO];
     selectedLocation = [[MMLocationAnnotation alloc] initWithName:@"NEW HOT SPOT" address:nil coordinate:touchMapCoordinate arrayIndex:1];
     selectedLocation.pinColor = MKPinAnnotationColorRed;
     [self.mapView addAnnotation:(id)selectedLocation];
+    [self.mapView setShowsUserLocation:NO];
     
 }
 /*
@@ -171,6 +208,12 @@
 }
 */
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    
+    if( [[annotation title] isEqualToString:@"Current Location"] )
+    {
+        return nil;
+    }
+    
     
     static NSString *AnnotationIdentifier = @"Pin";
     

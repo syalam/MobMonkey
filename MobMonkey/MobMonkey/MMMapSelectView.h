@@ -17,10 +17,13 @@
 
 @optional
 -(void)mapSelectView:(MMMapSelectView *)mapSelectView didSelectLocation:(CLLocationCoordinate2D)coordinate;
+-(void)mapSelectViewUseCurrentLocation:(MMMapSelectView *)mapSelectView;
 @end
 
 @interface MMMapSelectView : UIView <MKMapViewDelegate> {
     MMLocationAnnotation *selectedLocation;
+    UISwitch * useCurrentLocationSwitch;
+    
 }
 
 @property (nonatomic, strong) MKMapView *mapView;

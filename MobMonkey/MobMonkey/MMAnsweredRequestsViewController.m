@@ -162,7 +162,12 @@
         }
         else {
             
-            [cell.locationImageView setImageWithURL:[NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"thumbURL"]]];
+            NSString *thumbURL = [[mediaArray objectAtIndex:0] objectForKey:@"thumbURL"];
+            
+            if(thumbURL && ![thumbURL isEqual:[NSNull null]] && thumbURL.length > 0){
+                [cell.locationImageView setImageWithURL:[NSURL URLWithString: thumbURL]];
+            }
+            
             
             NSLog(@"URL: %@", [[mediaArray objectAtIndex:0]valueForKey:@"thumbURL"]);
             //dispatch_async(backgroundQueue, ^(void) {

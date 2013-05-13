@@ -9,7 +9,7 @@
 #import "MMTrendingDetailViewController.h"
 #import "MMLocationMediaViewController.h"
 #import "GetRelativeTime.h"
-
+#import "UIImageView+AFNetworking.h"
 @interface MMTrendingDetailViewController ()
 
 @end
@@ -98,9 +98,14 @@
             [cell.playButtonImageView setHidden:NO];
         }
         else {
-            dispatch_async(backgroundQueue, ^(void) {
-                cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row cell:cell];
-            });
+            NSString * thumbURLPath = [mediaDictionary objectForKey:@"thumbURL"];
+            if(thumbURLPath && ![thumbURLPath isEqual:[NSNull null]]){
+                NSURL *thumbnailURL = [NSURL URLWithString:thumbURLPath];
+                [cell.locationImageView setImageWithURL:thumbnailURL];
+            }
+            
+            //    cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row cell:cell];
+            //});
             [cell.playButtonImageView setHidden:NO];
         }
     }

@@ -51,7 +51,6 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
     if ([self.title isEqualToString:@"Assigned Requests"]) {
         [self fetchAssignedRequests];
     }

@@ -332,6 +332,10 @@
 
 - (void)checkInUser {
     NSMutableDictionary *checkinParams = [[NSMutableDictionary alloc]init];
+    
+    
+    
+    
     [checkinParams setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
     [checkinParams setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
     [MMAPI checkUserIn:checkinParams success:^(AFHTTPRequestOperation *operation, id responseObject) {

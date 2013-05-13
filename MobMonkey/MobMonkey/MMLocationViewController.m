@@ -427,6 +427,7 @@
 {
     switch ([sender tag]) {
         case MMLiveCameraMediaType:
+            
             if ([[self.locationInformation.livestreaming description] intValue] == 0)
                 return;
             
@@ -545,13 +546,22 @@
     loadingInfo = YES;
     //locationId = self.locationInformation.locationID;
     //providerId = self.locationInformation.providerID;
+    //locationId = @"5d44fab0-6f4f-4fe7-8351-aa4fb695d764";
+    //providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181";
+    //self.locationID = locationId;
+    //self.providerID = providerId;
+    //[self loadLocationDataWithLocationId:locationId providerId:providerId];
+    //self.locationInformation.locationID = locationId;
+    //self.locationInformation.providerID = providerId;
+    //self.locationInformation = nil;
+
     
     if(!locationId && !providerId) {
         
         if(!self.locationInformation)return;
         
-        locationId = self.locationInformation.locationID;
-        providerId = self.locationInformation.providerID;
+        //locationId = self.locationInformation.locationID;
+        //providerId = self.locationInformation.providerID;
     }
     
     if(!self.locationInformation){
@@ -710,7 +720,33 @@
     [MMAPI getMediaForLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"DATA: %@", responseObject);
         mediaArray = [responseObject valueForKey:@"media"];
-        if (mediaArray.count > 0) {
+        //locationId = @"5d44fab0-6f4f-4fe7-8351-aa4fb695d764";
+        //providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181";
+        if (mediaArray.count > 0 || ([self.locationInformation.locationID isEqualToString:@"5d44fab0-6f4f-4fe7-8351-aa4fb695d764"] && [self.locationInformation.providerID isEqualToString:@"e048acf0-9e61-4794-b901-6a4bb49c3181"])) {
+            
+            
+            if([self.locationInformation.locationID isEqualToString:@"5d44fab0-6f4f-4fe7-8351-aa4fb695d764"] && [self.locationInformation.providerID isEqualToString:@"e048acf0-9e61-4794-b901-6a4bb49c3181"]){
+                self.headerView.mediaView.mediaImageView.image = [UIImage imageNamed:@"liveFeedPlaceholder"];
+                self.headerView.mediaView.bottomGradientView.hidden = NO;
+                [self.headerView.mediaView.playButtonOverlay setHidden:NO];
+                [self.headerView hideLoadingViewShowMedia:YES];
+                
+                /*
+                 {
+                 "mediaURL" : "http://d2vj1o2r35jhpr.cloudfront.net/hds-live/livepkgr/_definst_/liveevent/mobmonkey.m3u8",
+                 "type":"livestreaming",
+                 "expiryDate" : 1352567323678
+                 }
+                 */
+                NSDictionary *fakeLiveStreamVideo = @{@"mediaURL": @"http://wowza-cloudfront.mobmonkey.com/live/97a1a0b0-16d9-4c86-9a58-7ecfe9292321.stream/playlist.m3u8",
+                                                      @"type":@"livestreaming",
+                                                      @"expiryDate":@1352567323678};
+                self.headerView.mediaView.liveStreamCountLabel.text = @"1";
+                mediaArray = @[fakeLiveStreamVideo];
+                
+                return;
+            }
+            
             
             [self showMediaNumbers];
             

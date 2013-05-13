@@ -104,6 +104,7 @@ enum RequestDurationLengths {
 - (IBAction)sendRequest:(id)sender
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    //NSLog(@"MY DEVICE ID: %@", [NSUserDefaults standardUserDefaults] objectForKey:@"")
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
     NSString *dateString = [dateFormatter stringFromDate:[self.requestInfo valueForKey:@"scheduleDate"]];
 

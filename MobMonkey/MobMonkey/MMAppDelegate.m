@@ -54,9 +54,11 @@
     
     [FBProfilePictureView class];
     
-    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
-     UIRemoteNotificationTypeAlert|
-     UIRemoteNotificationTypeSound];
+    [[UIApplication sharedApplication]
+     registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeAlert |
+      UIRemoteNotificationTypeBadge |
+      UIRemoteNotificationTypeSound)];
     
     if ([UINavigationBar respondsToSelector:@selector(appearance)]) {
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar~iphone"] forBarMetrics:UIBarMetricsDefault];
@@ -206,10 +208,16 @@
     _locationManager = [[CLLocationManager alloc]init];
     _locationManager.delegate = self;
     _locationManager.desiredAccuracy =kCLLocationAccuracyBest;
-    _locationManager.distanceFilter = 60.0f; // update every 200ft
+    _locationManager.distanceFilter = 15.0f; // update every 200ft
     [_locationManager startUpdatingLocation];
 }
 
+
+-(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"FAILED TO REGISTER DEVICE");
+    [TestFlight passCheckpoint:[NSString stringWithFormat:@"ERROR: %@", error]];
+    TFLog(@"FAILED TO REEGISTER DEVICE: %@", error);
+}
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
 {
     NSString* tokenString = [[[[newDeviceToken description]
@@ -223,7 +231,8 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-/*- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+
     NSLog(@"%@", @"Push Notification Received");
     [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:userInfo];
 
@@ -276,7 +285,7 @@
     
             
     
-}*/
+}
 
 
 #pragma mark CLLocationManagerDelegate methods
