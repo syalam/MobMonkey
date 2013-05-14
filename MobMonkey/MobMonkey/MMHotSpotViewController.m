@@ -67,6 +67,7 @@
     
     
     [headerView.createHotSpotButton addTarget:self action:@selector(createHotSpotButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    headerView.createHotSpotButton.exclusiveTouch = YES;
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
     self.tableView.backgroundView = nil;
@@ -131,7 +132,9 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
+    headerView.layer.zPosition = 10000;
     
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UITableViewRowAnimationTop animated:NO];
     
 }
 -(void)showCategorySearch{
