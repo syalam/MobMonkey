@@ -154,10 +154,13 @@
     }
     else {
         
-        NSString *imagePath = [[self.selectedMedia objectAtIndex:indexPath.row] objectForKey:@"mediaURL"];
+        NSString *imagePath = [[self.selectedMedia objectAtIndex:indexPath.row] objectForKey:@"thumbURL"];
+        NSString *thumbURLPath = [[self.selectedMedia objectAtIndex:indexPath.row] objectForKey:@"thumbURL"];
         if(imagePath){
             [cell.locationImageView setImageWithURL:[NSURL URLWithString:imagePath]];
         }
+        
+        
         
         [cell.playButtonImageView setHidden:NO];
     }
@@ -355,6 +358,11 @@
     if ([self.segmentedControl selectedSegmentIndex] != MMPhotoMediaType) {
         
         UIGraphicsBeginImageContext(CGSizeMake(1,1));
+        
+        if([self.segmentedControl selectedSegmentIndex] == MMVideoMediaType){
+            urlString =  [urlString stringByReplacingOccurrencesOfString:@"http://vod-cdn.mobmonkey.com" withString:@"https://s3.amazonaws.com/mobmonkeyvod"];
+        }
+        
         self.moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:urlString]];
         UIGraphicsEndImageContext();
         [self.navigationController presentMoviePlayerViewControllerAnimated:self.moviePlayerViewController];

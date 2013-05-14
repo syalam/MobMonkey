@@ -501,7 +501,17 @@
 - (void)enlargeButtonTapped:(id)sender {
     if (mediaArray.count > 0) {
         if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"video"] || [[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"livestreaming"]) {
+            
+            
+            
+            
             NSString *mediaURLPath = [[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"];
+            
+            //http://vod-cdn.mobmonkey.com with https://s3.amazonaws.com/mobmonkeyvod
+            if([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"video"]){
+               mediaURLPath =  [mediaURLPath stringByReplacingOccurrencesOfString:@"http://vod-cdn.mobmonkey.com" withString:@"https://s3.amazonaws.com/mobmonkeyvod"];
+            }
+            
             NSURL *url = [NSURL URLWithString:mediaURLPath];
             UIGraphicsBeginImageContext(CGSizeMake(1,1));
             _player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
@@ -849,5 +859,17 @@
     
     [self.navigationController pushViewController:bvc animated:YES];
     
+}
+
+
+
+
+
+
+
+
+
+-(void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker {
+    NSLog(@"CANCELED");
 }
 @end

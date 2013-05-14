@@ -228,9 +228,16 @@
             [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:cell.locationImageView.image locationName:cell.locationNameLabel.text];
         }
         else {
-            NSURL *url = [NSURL URLWithString:[mediaDictionary valueForKey:@"mediaURL"]];
-            NSLog(@"%@", url);
+            NSString *urlPath = [mediaDictionary valueForKey:@"mediaURL"];
+            //NSLog(@"%@", url);
+            
+            if([[mediaDictionary valueForKey:@"type"]isEqualToString:@"video"]){
+                urlPath =  [urlPath stringByReplacingOccurrencesOfString:@"http://vod-cdn.mobmonkey.com" withString:@"https://s3.amazonaws.com/mobmonkeyvod"];
+            }
+            NSURL *url = [NSURL URLWithString:urlPath];
+            
             UIGraphicsBeginImageContext(CGSizeMake(1,1));
+            
             MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
             UIGraphicsEndImageContext();
             [self.navigationController presentMoviePlayerViewControllerAnimated:player];

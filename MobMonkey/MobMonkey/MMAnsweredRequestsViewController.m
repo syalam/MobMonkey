@@ -292,7 +292,13 @@
         else {
             NSArray *mediaArray  = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"media"];
             if (mediaArray.count > 0) {
-                NSURL *url = [NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
+                
+                NSString *urlPath = [[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"];
+                
+                if([[[_contentList objectAtIndex:[sender tag]]valueForKey:@"mediaType"]intValue] == 2){
+                    urlPath = [urlPath stringByReplacingOccurrencesOfString:@"http://vod-cdn.mobmonkey.com" withString:@"https://s3.amazonaws.com/mobmonkeyvod"];
+                }
+                NSURL *url = [NSURL URLWithString:urlPath];
                 NSLog(@"%@", url);
                 UIGraphicsBeginImageContext(CGSizeMake(1,1));
                 MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];

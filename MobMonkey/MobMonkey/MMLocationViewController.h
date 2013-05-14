@@ -21,7 +21,7 @@
 @end
 
 
-@interface MMLocationViewController : UITableViewController <MMLocationHeaderViewDelegate> {
+@interface MMLocationViewController : UITableViewController <MMLocationHeaderViewDelegate, MPMediaPickerControllerDelegate> {
     MMLocationHeaderView *_headerView;
     dispatch_queue_t  backgroundQueue;
     BOOL uiAdjustedForNotificationSetting;
