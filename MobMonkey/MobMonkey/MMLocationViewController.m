@@ -723,7 +723,8 @@
         mediaArray = [responseObject valueForKey:@"media"];
         //locationId = @"5d44fab0-6f4f-4fe7-8351-aa4fb695d764";
         //providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181";
-        if (mediaArray.count > 0 || ([self.locationInformation.locationID isEqualToString:@"5d44fab0-6f4f-4fe7-8351-aa4fb695d764"] && [self.locationInformation.providerID isEqualToString:@"e048acf0-9e61-4794-b901-6a4bb49c3181"])) {
+        if (mediaArray.count > 0 || ([self.locationInformation.locationID isEqualToString:@"5d44fab0-6f4f-4fe7-8351-aa4fb695d764"] &&
+                                     [self.locationInformation.providerID isEqualToString:@"e048acf0-9e61-4794-b901-6a4bb49c3181"]) || ([self.locationInformation.locationID isEqualToString:@"9153ef25-4c49-47da-b3ba-324e5f8e5acd"] && [self.locationInformation.providerID isEqualToString:@"222e736f-c7fa-4c40-b78e-d99243441fae"])) {
             
             
             if([self.locationInformation.locationID isEqualToString:@"5d44fab0-6f4f-4fe7-8351-aa4fb695d764"] && [self.locationInformation.providerID isEqualToString:@"e048acf0-9e61-4794-b901-6a4bb49c3181"]){
@@ -740,6 +741,31 @@
                  }
                  */
                 NSDictionary *fakeLiveStreamVideo = @{@"mediaURL": @"http://wowza-cloudfront.mobmonkey.com/live/97a1a0b0-16d9-4c86-9a58-7ecfe9292321.stream/playlist.m3u8",
+                                                      @"type":@"livestreaming",
+                                                      @"expiryDate":@1352567323678};
+                self.headerView.mediaView.liveStreamCountLabel.text = @"1";
+                mediaArray = @[fakeLiveStreamVideo];
+                
+                return;
+            }
+            
+            
+            
+            
+            if([self.locationInformation.locationID isEqualToString:@"9153ef25-4c49-47da-b3ba-324e5f8e5acd"] && [self.locationInformation.providerID isEqualToString:@"222e736f-c7fa-4c40-b78e-d99243441fae"]){
+                self.headerView.mediaView.mediaImageView.image = [UIImage imageNamed:@"liveFeedPlaceholder"];
+                self.headerView.mediaView.bottomGradientView.hidden = NO;
+                [self.headerView.mediaView.playButtonOverlay setHidden:NO];
+                [self.headerView hideLoadingViewShowMedia:YES];
+                
+                /*
+                 {
+                 "mediaURL" : "http://d2vj1o2r35jhpr.cloudfront.net/hds-live/livepkgr/_definst_/liveevent/mobmonkey.m3u8",
+                 "type":"livestreaming",
+                 "expiryDate" : 1352567323678
+                 }
+                 */
+                NSDictionary *fakeLiveStreamVideo = @{@"mediaURL": @"http://wowza-cloudfront.mobmonkey.com/live/e70c51cd-8461-4ac7-86e5-00c35abb9693.stream/playlist.m3u8",
                                                       @"type":@"livestreaming",
                                                       @"expiryDate":@1352567323678};
                 self.headerView.mediaView.liveStreamCountLabel.text = @"1";
