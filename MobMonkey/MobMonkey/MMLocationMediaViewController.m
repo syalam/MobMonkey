@@ -14,6 +14,7 @@
 #import "MMAppDelegate.h"
 #import "GetRelativeTime.h"
 #import "AdWhirlView.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface MMLocationMediaViewController ()
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
@@ -152,9 +153,12 @@
         [cell.playButtonImageView setHidden:NO];
     }
     else {
-        dispatch_async(backgroundQueue, ^(void) {
-            cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row cell:cell];
-        });
+        
+        NSString *imagePath = [[self.selectedMedia objectAtIndex:indexPath.row] objectForKey:@"mediaURL"];
+        if(imagePath){
+            [cell.locationImageView setImageWithURL:[NSURL URLWithString:imagePath]];
+        }
+        
         [cell.playButtonImageView setHidden:NO];
     }
     

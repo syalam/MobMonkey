@@ -102,7 +102,24 @@
 {
     return NO;
 }
+- (void)getInboxCountsWithComplete:(void(^)(void))complete {
+    
+    [MMAPI getInboxCounts:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        inboxCountDictionary = responseObject;
+        [self.tableView reloadData];
+        int  answeredRequests = [[inboxCountDictionary valueForKey:@"fulfilledCount"]intValue];
+        int assignedRequests = [[inboxCountDictionary valueForKey:@"assignedrequests"]intValue];
+        [[UIApplication sharedApplication]setApplicationIconBadgeNumber:assignedRequests + answeredRequests];
+        if(complete)
+            complete();
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
+        if(complete)
+            complete();
 
+    }];
+}
 - (void)getInboxCounts {
     [MMAPI getInboxCounts:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);

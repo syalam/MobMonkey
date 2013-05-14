@@ -17,6 +17,7 @@
     CLLocationManager *_locationManager;
     
     int locationUpdateCounter;
+    BOOL popUpVisible;
 }
 
 @property (strong, nonatomic) UIWindow *window;

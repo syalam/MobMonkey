@@ -180,7 +180,7 @@
     double minLong = 0;
     double maxLong= 0;
     
-    for(int i=0; i< numberOfLocations; i++){
+    for(int i=0; i < numberOfLocations; i++){
         MMLocationInformation *locationInfo = [nearbyLocations objectAtIndex:i];
         if(minLat == 0 || minLat > locationInfo.latitude.doubleValue) {
             minLat = locationInfo.latitude.doubleValue;
@@ -231,7 +231,10 @@
         [self.tableView reloadData];
         // [mapView setCenterCoordinate:mapView.userLocation.location.coordinate animated:YES];
         
-        [mapView setRegion:[self zoomRegionFromLocations:locationInformations] animated:YES];
+        if(nearbyLocations.count > 0){
+             [mapView setRegion:[self zoomRegionFromLocations:locationInformations] animated:YES];
+        }
+       
         [self addAnotationsToMap:locationInformations];
         [SVProgressHUD dismiss];
     } failure:^(NSError *error) {

@@ -91,7 +91,8 @@
     }
     if (![[mediaDictionary valueForKey:@"mediaURL"] isKindOfClass:[NSNull class]]) {
         if ([[mediaDictionary valueForKey:@"type"] isEqualToString:@"image"]) {
-            [cell.locationImageView reloadWithUrl:[mediaDictionary valueForKey:@"mediaURL"]];
+            [cell.locationImageView setImageWithURL:[NSURL URLWithString:[mediaDictionary valueForKey:@"mediaURL"]]]
+            ;
         }
         else if([[mediaDictionary valueForKey:@"type"] isEqualToString:@"livestreaming"]) {
             cell.locationImageView.image = [UIImage imageNamed:@"liveFeedPlaceholder"];
@@ -102,6 +103,8 @@
             if(thumbURLPath && ![thumbURLPath isEqual:[NSNull null]]){
                 NSURL *thumbnailURL = [NSURL URLWithString:thumbURLPath];
                 [cell.locationImageView setImageWithURL:thumbnailURL];
+            }else{
+                NSLog(@"NO THUMBNAIL!");
             }
             
             //    cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row cell:cell];
