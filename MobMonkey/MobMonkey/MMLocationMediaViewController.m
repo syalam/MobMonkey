@@ -340,8 +340,8 @@
     didShowAd = NO;
     NSString *urlString = [[self.selectedMedia objectAtIndex:[sender tag]] valueForKey:@"mediaURL"];
     
-    NSString *newURL = [urlString stringByReplacingOccurrencesOfString:@"http" withString:@"rtmp"];
-    newURL = [newURL stringByReplacingOccurrencesOfString:@".com" withString:@".com:1935"];
+    //NSString *newURL = [urlString stringByReplacingOccurrencesOfString:@"http" withString:@"rtmp"];
+    //newURL = [newURL stringByReplacingOccurrencesOfString:@".com" withString:@".com:1935"];
     
     NSInteger viewsThisMonth = 0;
     viewsThisMonth = [self viewsThisMonth];
@@ -351,7 +351,7 @@
     if ([self.segmentedControl selectedSegmentIndex] != MMPhotoMediaType) {
         
         UIGraphicsBeginImageContext(CGSizeMake(1,1));
-        self.moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:newURL]];
+        self.moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:urlString]];
         UIGraphicsEndImageContext();
         [self.navigationController presentMoviePlayerViewControllerAnimated:self.moviePlayerViewController];
     } else {
