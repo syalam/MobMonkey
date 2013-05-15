@@ -2,31 +2,12 @@
 //  MMTrendingViewController.h
 //  MobMonkey
 //
-//  Created by Reyaad Sidique on 8/31/12.
-//  Copyright (c) 2012 Reyaad Sidique. All rights reserved.
+//  Created by Michael Kral on 5/15/13.
+//  Copyright (c) 2013 Reyaad Sidique. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import <MapKit/MapKit.h>
-#import <CoreLocation/CoreLocation.h>
-#import "MMResultCell.h"
-#import "SectionHeaderView.h"
 
-
-@interface MMTrendingViewController : UITableViewController <MMResultCellDelegate, MKMapViewDelegate, UIActionSheetDelegate, SectionHeaderViewDelegate> {
-    CLLocation* _queryLocation;
-    NSMutableDictionary* _cellToggleOnState;
-    NSMutableArray *sectionTitleArray;
-    NSDictionary *trendingCategoryCountsDictionary;
-    NSArray *myInterestsArray;
-    
-    int selectedRow;
-}
-
-@property (nonatomic, retain) NSMutableArray *sectionInfoArray;
-@property (nonatomic, retain) NSMutableArray *contentList;
-@property (nonatomic)BOOL sectionSelected;
-@property (nonatomic)BOOL bookmarkTab;
-
+@interface MMTrendingViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @end

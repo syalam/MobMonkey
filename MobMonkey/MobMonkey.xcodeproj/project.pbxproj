@@ -200,6 +200,8 @@
 		B977AE9717220A0F00528A94 /* whiteCircleX.png in Resources */ = {isa = PBXBuildFile; fileRef = B977AE9417220A0F00528A94 /* whiteCircleX.png */; };
 		B977AE9817220A0F00528A94 /* whiteCircleX@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B977AE9517220A0F00528A94 /* whiteCircleX@2x.png */; };
 		B977AE9917220A0F00528A94 /* whiteCircleX@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B977AE9517220A0F00528A94 /* whiteCircleX@2x.png */; };
+		B98B375B17441B9F00C96962 /* MMTrendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B375A17441B9F00C96962 /* MMTrendingViewController.m */; };
+		B98B375C17441B9F00C96962 /* MMTrendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B375A17441B9F00C96962 /* MMTrendingViewController.m */; };
 		B995D7E1173837A400B57077 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B995D7DF173837A400B57077 /* MMLocationViewController.m */; };
 		B995D7E2173837A400B57077 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B995D7DF173837A400B57077 /* MMLocationViewController.m */; };
 		B995D7E3173837A400B57077 /* MMLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B995D7E0173837A400B57077 /* MMLocationViewController.xib */; };
@@ -702,8 +704,8 @@
 		B9A11918170A568D0020C322 /* MMTrendingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7038688169D5BD6005724E2 /* MMTrendingCell.m */; };
 		B9A11919170A568D0020C322 /* SectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F71B9B281602517E003BED33 /* SectionInfo.m */; };
 		B9A1191A170A568D0020C322 /* SectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F71B9B261602517E003BED33 /* SectionHeaderView.m */; };
-		B9A1191B170A568D0020C322 /* MMTrendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A57C15F1226C0090E85A /* MMTrendingViewController.m */; };
-		B9A1191C170A568D0020C322 /* MMTrendingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F734A57D15F1226C0090E85A /* MMTrendingViewController.xib */; };
+		B9A1191B170A568D0020C322 /* _MMTrendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A57C15F1226C0090E85A /* _MMTrendingViewController.m */; };
+		B9A1191C170A568D0020C322 /* _MMTrendingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F734A57D15F1226C0090E85A /* _MMTrendingViewController.xib */; };
 		B9A1191D170A568D0020C322 /* MMTrendingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7AAF5F3169E9ABD00760B4D /* MMTrendingDetailViewController.m */; };
 		B9A1191E170A568D0020C322 /* MMTrendingDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7AAF5F4169E9ABD00760B4D /* MMTrendingDetailViewController.xib */; };
 		B9A1191F170A56B50020C322 /* NSString+URLParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D65061648E7B700D72154 /* NSString+URLParams.m */; };
@@ -894,8 +896,8 @@
 		F734A56615F11C3E0090E85A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53915F11C3E0090E85A /* Foundation.framework */; };
 		F734A56E15F11C3E0090E85A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F734A56C15F11C3E0090E85A /* InfoPlist.strings */; };
 		F734A57115F11C3E0090E85A /* MobMonkeyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A57015F11C3E0090E85A /* MobMonkeyTests.m */; };
-		F734A57E15F1226C0090E85A /* MMTrendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A57C15F1226C0090E85A /* MMTrendingViewController.m */; };
-		F734A57F15F1226C0090E85A /* MMTrendingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F734A57D15F1226C0090E85A /* MMTrendingViewController.xib */; };
+		F734A57E15F1226C0090E85A /* _MMTrendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A57C15F1226C0090E85A /* _MMTrendingViewController.m */; };
+		F734A57F15F1226C0090E85A /* _MMTrendingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F734A57D15F1226C0090E85A /* _MMTrendingViewController.xib */; };
 		F734A58315F122FF0090E85A /* MMInboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A58115F122FF0090E85A /* MMInboxViewController.m */; };
 		F734A58415F122FF0090E85A /* MMInboxViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F734A58215F122FF0090E85A /* MMInboxViewController.xib */; };
 		F734A5A315F12AAF0090E85A /* MMAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5A115F12AAF0090E85A /* MMAPI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1315,7 +1317,7 @@
 		F7D3B1D816CB76C50014D5A7 /* MMSubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75171E91678C0DE009B4DE8 /* MMSubscriptionViewController.m */; };
 		F7D3B1D916CB76C50014D5A7 /* MMTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D41BA616234B4E00DBA87D /* MMTabBarViewController.m */; };
 		F7D3B1DA16CB76ED0014D5A7 /* MMTrendingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7038688169D5BD6005724E2 /* MMTrendingCell.m */; };
-		F7D3B1DB16CB76ED0014D5A7 /* MMTrendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A57C15F1226C0090E85A /* MMTrendingViewController.m */; };
+		F7D3B1DB16CB76ED0014D5A7 /* _MMTrendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A57C15F1226C0090E85A /* _MMTrendingViewController.m */; };
 		F7D3B1DC16CB76ED0014D5A7 /* MMTrendingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7AAF5F3169E9ABD00760B4D /* MMTrendingDetailViewController.m */; };
 		F7D3B1DE16CB77090014D5A7 /* MMClientSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = F77D3E50161A1ED2000A818F /* MMClientSDK.m */; };
 		F7D3B1DF16CB77090014D5A7 /* MMAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F734A5A115F12AAF0090E85A /* MMAPI.m */; };
@@ -1663,6 +1665,8 @@
 		B977AE911721F31C00528A94 /* MMLocationSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationSearch.m; sourceTree = "<group>"; };
 		B977AE9417220A0F00528A94 /* whiteCircleX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteCircleX.png; path = Resources/Images/whiteCircleX.png; sourceTree = "<group>"; };
 		B977AE9517220A0F00528A94 /* whiteCircleX@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "whiteCircleX@2x.png"; path = "Resources/Images/whiteCircleX@2x.png"; sourceTree = "<group>"; };
+		B98B375917441B9F00C96962 /* MMTrendingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTrendingViewController.h; sourceTree = "<group>"; };
+		B98B375A17441B9F00C96962 /* MMTrendingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTrendingViewController.m; sourceTree = "<group>"; };
 		B995D7DE173837A400B57077 /* MMLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationViewController.h; sourceTree = "<group>"; };
 		B995D7DF173837A400B57077 /* MMLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationViewController.m; sourceTree = "<group>"; };
 		B995D7E0173837A400B57077 /* MMLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLocationViewController.xib; sourceTree = "<group>"; };
@@ -1845,9 +1849,9 @@
 		F734A56D15F11C3E0090E85A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F734A56F15F11C3E0090E85A /* MobMonkeyTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobMonkeyTests.h; sourceTree = "<group>"; };
 		F734A57015F11C3E0090E85A /* MobMonkeyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MobMonkeyTests.m; sourceTree = "<group>"; };
-		F734A57B15F1226C0090E85A /* MMTrendingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTrendingViewController.h; sourceTree = "<group>"; };
-		F734A57C15F1226C0090E85A /* MMTrendingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTrendingViewController.m; sourceTree = "<group>"; };
-		F734A57D15F1226C0090E85A /* MMTrendingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMTrendingViewController.xib; sourceTree = "<group>"; };
+		F734A57B15F1226C0090E85A /* _MMTrendingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _MMTrendingViewController.h; sourceTree = "<group>"; };
+		F734A57C15F1226C0090E85A /* _MMTrendingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _MMTrendingViewController.m; sourceTree = "<group>"; };
+		F734A57D15F1226C0090E85A /* _MMTrendingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = _MMTrendingViewController.xib; sourceTree = "<group>"; };
 		F734A58015F122FF0090E85A /* MMInboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMInboxViewController.h; path = ../MobMonkey/MMInboxViewController.h; sourceTree = "<group>"; };
 		F734A58115F122FF0090E85A /* MMInboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMInboxViewController.m; sourceTree = "<group>"; };
 		F734A58215F122FF0090E85A /* MMInboxViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MMInboxViewController.xib; path = MobMonkey/MMInboxViewController.xib; sourceTree = "<group>"; };
@@ -2697,6 +2701,28 @@
 			name = Browser;
 			sourceTree = "<group>";
 		};
+		B98B375717441B5100C96962 /* Old Trending */ = {
+			isa = PBXGroup;
+			children = (
+				F78776FD16731B2500CBDCD1 /* Trending Cell */,
+				F71B9B221601ED77003BED33 /* Collapsable TableView Classes */,
+				F734A57B15F1226C0090E85A /* _MMTrendingViewController.h */,
+				F734A57C15F1226C0090E85A /* _MMTrendingViewController.m */,
+				F734A57D15F1226C0090E85A /* _MMTrendingViewController.xib */,
+				F7AAF5F8169E9AE600760B4D /* Trending Detail */,
+			);
+			name = "Old Trending";
+			sourceTree = "<group>";
+		};
+		B98B375817441B5D00C96962 /* New Trending */ = {
+			isa = PBXGroup;
+			children = (
+				B98B375917441B9F00C96962 /* MMTrendingViewController.h */,
+				B98B375A17441B9F00C96962 /* MMTrendingViewController.m */,
+			);
+			name = "New Trending";
+			sourceTree = "<group>";
+		};
 		B9960ED617382ABB003348FC /* New Location View Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -3183,12 +3209,8 @@
 		F734A57A15F1224E0090E85A /* Trending */ = {
 			isa = PBXGroup;
 			children = (
-				F78776FD16731B2500CBDCD1 /* Trending Cell */,
-				F71B9B221601ED77003BED33 /* Collapsable TableView Classes */,
-				F734A57B15F1226C0090E85A /* MMTrendingViewController.h */,
-				F734A57C15F1226C0090E85A /* MMTrendingViewController.m */,
-				F734A57D15F1226C0090E85A /* MMTrendingViewController.xib */,
-				F7AAF5F8169E9AE600760B4D /* Trending Detail */,
+				B98B375817441B5D00C96962 /* New Trending */,
+				B98B375717441B5100C96962 /* Old Trending */,
 			);
 			name = Trending;
 			sourceTree = "<group>";
@@ -4701,7 +4723,7 @@
 				B9A11912170A568D0020C322 /* MMCategoryViewController.xib in Resources */,
 				B9A11914170A568D0020C322 /* MMSettingsViewController.xib in Resources */,
 				B9A11917170A568D0020C322 /* MMTabBarViewController.xib in Resources */,
-				B9A1191C170A568D0020C322 /* MMTrendingViewController.xib in Resources */,
+				B9A1191C170A568D0020C322 /* _MMTrendingViewController.xib in Resources */,
 				B9A1191E170A568D0020C322 /* MMTrendingDetailViewController.xib in Resources */,
 				B9A1193A170A57200020C322 /* InfoPlist.strings in Resources */,
 				B9A1193C170A57360020C322 /* compose.png in Resources */,
@@ -4794,7 +4816,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F734A54215F11C3E0090E85A /* InfoPlist.strings in Resources */,
-				F734A57F15F1226C0090E85A /* MMTrendingViewController.xib in Resources */,
+				F734A57F15F1226C0090E85A /* _MMTrendingViewController.xib in Resources */,
 				F734A58415F122FF0090E85A /* MMInboxViewController.xib in Resources */,
 				F734A5C815F12AF10090E85A /* SVProgressHUD.bundle in Resources */,
 				F734A60415F1465B0090E85A /* Background@2x~iphone.png in Resources */,
@@ -5399,7 +5421,7 @@
 				B9A11918170A568D0020C322 /* MMTrendingCell.m in Sources */,
 				B9A11919170A568D0020C322 /* SectionInfo.m in Sources */,
 				B9A1191A170A568D0020C322 /* SectionHeaderView.m in Sources */,
-				B9A1191B170A568D0020C322 /* MMTrendingViewController.m in Sources */,
+				B9A1191B170A568D0020C322 /* _MMTrendingViewController.m in Sources */,
 				B9A1191D170A568D0020C322 /* MMTrendingDetailViewController.m in Sources */,
 				B9A1191F170A56B50020C322 /* NSString+URLParams.m in Sources */,
 				B9A11923170A56CB0020C322 /* MMClientSDK.m in Sources */,
@@ -5446,6 +5468,7 @@
 				B9960EE617382B50003348FC /* MMLocationHeaderView.m in Sources */,
 				B995D7E2173837A400B57077 /* MMLocationViewController.m in Sources */,
 				B9AAD913173976EE00159B26 /* MMHotSpotBadge.m in Sources */,
+				B98B375C17441B9F00C96962 /* MMTrendingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5463,7 +5486,7 @@
 			files = (
 				F734A54415F11C3E0090E85A /* main.m in Sources */,
 				F734A54815F11C3E0090E85A /* MMAppDelegate.m in Sources */,
-				F734A57E15F1226C0090E85A /* MMTrendingViewController.m in Sources */,
+				F734A57E15F1226C0090E85A /* _MMTrendingViewController.m in Sources */,
 				F734A58315F122FF0090E85A /* MMInboxViewController.m in Sources */,
 				F734A5A315F12AAF0090E85A /* MMAPI.m in Sources */,
 				F734A5BB15F12AC00090E85A /* AFHTTPRequestOperation.m in Sources */,
@@ -5581,6 +5604,7 @@
 				B9960EE517382B50003348FC /* MMLocationHeaderView.m in Sources */,
 				B995D7E1173837A400B57077 /* MMLocationViewController.m in Sources */,
 				B9AAD912173976EE00159B26 /* MMHotSpotBadge.m in Sources */,
+				B98B375B17441B9F00C96962 /* MMTrendingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5660,7 +5684,7 @@
 				F7D3B1D816CB76C50014D5A7 /* MMSubscriptionViewController.m in Sources */,
 				F7D3B1D916CB76C50014D5A7 /* MMTabBarViewController.m in Sources */,
 				F7D3B1DA16CB76ED0014D5A7 /* MMTrendingCell.m in Sources */,
-				F7D3B1DB16CB76ED0014D5A7 /* MMTrendingViewController.m in Sources */,
+				F7D3B1DB16CB76ED0014D5A7 /* _MMTrendingViewController.m in Sources */,
 				F7D3B1DC16CB76ED0014D5A7 /* MMTrendingDetailViewController.m in Sources */,
 				F7D3B1DE16CB77090014D5A7 /* MMClientSDK.m in Sources */,
 				F7D3B1DF16CB77090014D5A7 /* MMAPI.m in Sources */,

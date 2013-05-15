@@ -2,37 +2,24 @@
 //  MMTrendingViewController.m
 //  MobMonkey
 //
-//  Created by Reyaad Sidique on 8/31/12.
-//  Copyright (c) 2012 Reyaad Sidique. All rights reserved.
+//  Created by Michael Kral on 5/15/13.
+//  Copyright (c) 2013 Reyaad Sidique. All rights reserved.
 //
 
 #import "MMTrendingViewController.h"
-#import "MMSetTitleImage.h"
-#import "MMLocationViewController.h"
-#import "MMFullScreenImageViewController.h"
 #import "MMAppDelegate.h"
-#import "SectionInfo.h"
-#import "MMClientSDK.h"
-#import "MMLocationsViewController.h"
-#import "MMInboxCategoryCell.h"
-#import "MMTrendingDetailViewController.h"
 
 @interface MMTrendingViewController ()
 
-@property (strong, nonatomic) MMLocationsViewController *locationsViewController;
-
 @end
-
-#define DEFAULT_ROW_HEIGHT 78
-#define HEADER_HEIGHT 80
 
 @implementation MMTrendingViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithStyle:style];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        // Custom initialization
     }
     return self;
 }
@@ -40,241 +27,86 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
     
-    if (![[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
-        [[MMClientSDK sharedSDK]signInScreen:self];
-    }
-    else {
-        [self getTrendingCounts];
-    }
+    // Do any additional setup after loading the view from its nib.
+    
+    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"TrendingCollectionViewCell"];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(adWhirlChangedValue:)
+                                                 name:@"AdWhirlChange" object:nil];
 }
--(void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [SVProgressHUD dismiss];
+-(void)adWhirlChangedValue:(id)sender{
+
+    [self.collectionView reloadData];   
+    
 }
-- (void)viewDidUnload
-{
+-(void)viewDidUnload {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AdWhirlChange" object:nil];
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (void)didReceiveMemoryWarning
 {
-    return UIInterfaceOrientationMaskPortrait;
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
--(BOOL)shouldAutorotate
-{
-    return NO;
-}
+#pragma mark - Collection View Data Source
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 4;
 }
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    MMInboxCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 3;
+}
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (!cell) {
-        cell = [[MMInboxCategoryCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
-        cell.detailTextLabel.textColor = [UIColor blackColor];
-        cell.detailTextLabel.font = [UIFont systemFontOfSize:17.0];
-    }
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.textLabel.textColor = [UIColor blackColor];
+    static NSString *CellIdentifier = @"TrendingCollectionViewCell";
     
-    switch (indexPath.row) {
-        case 0:
-            cell.textLabel.text = @"Favorites";
-            if ([[trendingCategoryCountsDictionary valueForKey:@"bookmarkCount"]intValue] > 0) {
-                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[trendingCategoryCountsDictionary valueForKey:@"bookmarkCount"]intValue]];
-            }
-            else {
-                cell.categoryItemCountLabel.text = @"";
-                cell.textLabel.textColor = [UIColor lightGrayColor];
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            }
-            break;
-        case 1:
-            cell.textLabel.text = @"My Interests";
-            if (myInterestsArray.count > 0) {
-                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", myInterestsArray.count];
-            }
-            else {
-                cell.categoryItemCountLabel.text = @"";
-                cell.textLabel.textColor = [UIColor lightGrayColor];
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            }
-            break;
-        case 2:
-            cell.textLabel.text = @"Top Viewed";
-            if ([[trendingCategoryCountsDictionary valueForKey:@"topviewedCount"]intValue] > 0) {
-                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[trendingCategoryCountsDictionary valueForKey:@"topviewedCount"]intValue]];
-            }
-            else {
-                cell.categoryItemCountLabel.text = @"";
-                cell.textLabel.textColor = [UIColor lightGrayColor];
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            }
-            break;
-        case 3:
-            cell.textLabel.text = @"Near Me";
-            if ([[trendingCategoryCountsDictionary valueForKey:@"nearbyCount"]intValue] > 0) {
-                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[trendingCategoryCountsDictionary valueForKey:@"nearbyCount"]intValue]];
-            }
-            else {
-                cell.categoryItemCountLabel.text = @"";
-                cell.textLabel.textColor = [UIColor lightGrayColor];
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            }
-            break;
-        default:
-            break;
-    }
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    cell.pillboxImageView.image = nil;
     
-    if (cell.categoryItemCountLabel.text.length == 1) {
-        cell.pillboxImageView.image = [UIImage imageNamed:@"pillBoxSmall"];
-    }
-    else if (cell.categoryItemCountLabel.text.length == 2) {
-        cell.pillboxImageView.image = [UIImage imageNamed:@"pillBoxMed"];
-    }
-    else if (cell.categoryItemCountLabel.text.length == 3) {
-        cell.pillboxImageView.image = [UIImage imageNamed:@"pillBoxLarge"];
-    }
+    cell.backgroundColor = [UIColor whiteColor];
     
     return cell;
 }
 
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    double latitude, longitude;
-    NSMutableDictionary *params = [@{@"timeSpan":@"week"} mutableCopy];
-    
-    
-    latitude = [[[NSUserDefaults standardUserDefaults] valueForKey:@"latitude"]doubleValue];
-    longitude = [[[NSUserDefaults standardUserDefaults] valueForKey:@"longitude"]doubleValue];
-    
-    switch (indexPath.row) {
-        case 0:
-            if ([[trendingCategoryCountsDictionary valueForKey:@"bookmarkCount"]intValue] > 0) {
-                [params setValue:@"true" forKey:@"bookmarksonly"];
-                [self loadTrendingItem:params categoryTitle:@"Favorites"];
-            }
-            break;
-        case 1: {
-            if (myInterestsArray.count > 0) {
-                NSString *selectedInterestsKey = [NSString stringWithFormat:@"%@ selectedInterests", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
-                NSDictionary *favorites = [[NSUserDefaults standardUserDefaults] valueForKey:selectedInterestsKey];                NSString *favoritesParams = [[favorites allValues] componentsJoinedByString:@","];
-                if (favoritesParams && ![favoritesParams isEqualToString:@""]) {
-                    [params setValue:favoritesParams forKey:@"categoryIds"];
-                    [params setValue:@"true" forKey:@"myinterests"];
-                }
-                [self loadTrendingItem:params categoryTitle:@"My Interests"];
-            }
-        }
-            break;
-        case 2:
-            if ([[trendingCategoryCountsDictionary valueForKey:@"topviewedCount"]intValue] > 0) {
-                [self loadTrendingItem:params categoryTitle:@"Top Viewed"];
-            }
-            break;
-        case 3:
-            if ([[trendingCategoryCountsDictionary valueForKey:@"nearbyCount"]intValue] > 0) {
-                [params setValue:@"true" forKey:@"nearby"];
-                [params setValue:[NSNumber numberWithDouble:latitude] forKey:@"latitude"];
-                [params setValue:[NSNumber numberWithDouble:longitude] forKey:@"longitude"];
-                [params setValue:[NSNumber numberWithInt:10000] forKey:@"radius"];
-                
-                [self loadTrendingItem:params categoryTitle:@"Nearby"];
-            }
-            break;
-        default:
-            break;
+#pragma mark - CollectionView Layout 
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    //First row in each section will be larger
+    if(indexPath.row == 0){
+        return CGSizeMake(280, 280);
+    }
+    else{
+        return CGSizeMake(128, 128);
     }
 }
-
-
-#pragma mark - Helper Methods
-- (void)loadTrendingItem:(NSDictionary*)params categoryTitle:(NSString*)categoryTitle {
-    MMTrendingDetailViewController *trendingDetailViewController = [[MMTrendingDetailViewController alloc]initWithNibName:@"MMTrendingDetailViewController" bundle:nil];
-    trendingDetailViewController.title = categoryTitle;
-    [self.navigationController pushViewController:trendingDetailViewController animated:YES];
-   
+-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return 22;
+}
+-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 20;
+}
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    return CGSizeMake(self.view.frame.size.width, 40);
+}
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     
-    NSLog(@"%@", params);
-    
-    [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Loading %@", categoryTitle]];
-    [MMAPI getTrendingType:@"topviewed" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.locationsViewController.isSearching = NO;
-        [SVProgressHUD dismiss];
-        NSLog(@"%@", responseObject);
-        trendingDetailViewController.contentList = responseObject;
-        [trendingDetailViewController.tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%d", [operation.response statusCode]);
-        NSLog(@"%@", operation.responseString);
-        [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Unable to load %@", categoryTitle]];
-        [trendingDetailViewController.navigationController popViewControllerAnimated:YES];
-    }];
+    return UIEdgeInsetsMake(0, 20, 0, 20);
 }
 
-- (void)getTrendingCounts {
-    NSDictionary *params = [NSDictionary dictionaryWithObject:@"true" forKey:@"countsonly"];
-    NSLog(@"Start");
-    [MMAPI getTrendingType:@"topviewed" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Stop");
-        NSLog(@"%@", responseObject);
-        trendingCategoryCountsDictionary = responseObject;
-        [self.tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", operation.responseString);
-    }];
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
     
-    [self getMyInterestsCount];
-}
-
-- (void)getMyInterestsCount {
-    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-    NSString *selectedInterestsKey = [NSString stringWithFormat:@"%@ selectedInterests", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
-    NSDictionary *favorites = [[NSUserDefaults standardUserDefaults] valueForKey:selectedInterestsKey];
-    NSString *favoritesParams = [[favorites allValues] componentsJoinedByString:@","];
-    if (favoritesParams && ![favoritesParams isEqualToString:@""]) {
-        [params setValue:favoritesParams forKey:@"categoryIds"];
-        [params setValue:@"true" forKey:@"myinterests"];
-        [MMAPI getTrendingType:@"topviewed" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    MMAppDelegate *appDelegate = (MMAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-            myInterestsArray = responseObject;
-            NSLog(@"My Interests Count: %d", myInterestsArray.count);
-            [self.tableView reloadData];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"%@", operation.responseString);
-        }];
+    if(section == [collectionView numberOfSections] - 1 && appDelegate.adView.adExists){
+        return CGSizeMake(self.view.frame.size.width, 15 + appDelegate.adView.frame.size.height);
     }
-    else {
-        myInterestsArray = [[NSArray alloc]init];
-        [self.tableView reloadData];
-    }
-    
+    return CGSizeMake(self.view.frame.size.width, 15);
 }
+
+#
 
 @end

@@ -76,8 +76,17 @@
 }
 
 - (void)trendingScreen:(UIViewController*)presentingViewController selectedCategory:(NSString*)selectedCategory {
-    MMTrendingViewController *trendingVC = [[MMTrendingViewController alloc]initWithNibName:@"MMTrendingViewController" bundle:nil];
-    trendingVC.sectionSelected = YES;
+    
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+    [flowLayout setItemSize:CGSizeMake(128 , 128)];
+    [flowLayout setMinimumInteritemSpacing:0.f];
+    [flowLayout setMinimumLineSpacing:0.f];
+    
+    UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithCollectionViewLayout:flowLayout];
+    
+#warning  FIX THIS BEFORE RELEASE
+    //trendingVC.sectionSelected = YES;
     trendingVC.title = selectedCategory;
     [presentingViewController.navigationController pushViewController:trendingVC animated:YES];
 }
