@@ -417,7 +417,6 @@
     
     
 }
-
 -(void)adWhirlDidFailToReceiveAd:(AdWhirlView *)adWhirlView usingBackup:(BOOL)yesOrNo {
     
     [[NSNotificationCenter defaultCenter]

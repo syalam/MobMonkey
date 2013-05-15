@@ -101,7 +101,7 @@
     
     MMAppDelegate *appDelegate = (MMAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    if(section == [collectionView numberOfSections] - 1 && appDelegate.adView.adExists){
+    if(section == [collectionView numberOfSections] - 1 && !appDelegate.adView.hidden){
         return CGSizeMake(self.view.frame.size.width, 15 + appDelegate.adView.frame.size.height);
     }
     return CGSizeMake(self.view.frame.size.width, 15);
