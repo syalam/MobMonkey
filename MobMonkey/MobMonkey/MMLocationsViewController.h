@@ -33,6 +33,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (assign, nonatomic) BOOL isHistory;
+@property (nonatomic, strong) IBOutlet UIToolbar *radiusToolbar;
 
 @property (nonatomic, strong) NSString *searchString;
 

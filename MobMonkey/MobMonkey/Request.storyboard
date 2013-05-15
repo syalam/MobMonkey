@@ -304,8 +304,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                             </subviews>
                             <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="deviceRGB"/>
                             <constraints>
-                                <constraint firstItem="S6o-ct-jH7" firstAttribute="centerX" secondItem="Vfn-iI-BhB" secondAttribute="centerX" type="default" id="Dy2-0Q-wbb"/>
-                                <constraint firstItem="S6o-ct-jH7" firstAttribute="top" secondItem="Vfn-iI-BhB" secondAttribute="top" type="default" id="Oxv-4C-JaD"/>
+                                <constraint firstItem="S6o-ct-jH7" firstAttribute="top" secondItem="Vfn-iI-BhB" secondAttribute="top" constant="-1" id="2cQ-x8-nuj"/>
+                                <constraint firstItem="5al-qh-QAY" firstAttribute="centerX" secondItem="Vfn-iI-BhB" secondAttribute="centerX" type="default" id="5be-lO-2V0"/>
                                 <constraint firstItem="S6o-ct-jH7" firstAttribute="leading" secondItem="5al-qh-QAY" secondAttribute="leading" type="default" id="Wsd-uZ-uOp"/>
                                 <constraint firstItem="S6o-ct-jH7" firstAttribute="trailing" secondItem="5al-qh-QAY" secondAttribute="trailing" type="default" id="qk6-kt-ckT"/>
                                 <constraint firstItem="5al-qh-QAY" firstAttribute="top" secondItem="S6o-ct-jH7" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="wm4-dS-utP"/>

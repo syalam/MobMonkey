@@ -35,7 +35,7 @@
 @implementation MMLocationsViewController
 @synthesize mapView;
 @synthesize category;
-@synthesize radius5mileButton, radius10mileButton, radius20mileButton, itemNormalTint, itemSelectedTint;
+@synthesize radius5mileButton, radius10mileButton, radius20mileButton, itemNormalTint, itemSelectedTint, radiusToolbar;
 
 - (void)viewDidLoad
 {
