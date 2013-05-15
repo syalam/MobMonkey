@@ -27,7 +27,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        //self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.font = [UIFont boldSystemFontOfSize:18.0];
@@ -123,6 +123,61 @@
         xPosition -= 20.0;
     }
     if ([[_location valueForKey:@"livestreaming"] compare:@0] == NSOrderedDescending) {
+        imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellVideoCameraBtn"]];
+        imageView.frame = CGRectMake(xPosition, 1, 16.0, 14.0);
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        [_mediaIconsView addSubview:imageView];
+    }
+}
+
+
+- (void)setLocationInformation:(MMLocationInformation *)locationInformation
+{
+    for (UIView *view in _mediaIconsView.subviews) {
+        [view removeFromSuperview];
+    }
+    _locationInformation = locationInformation;
+    
+    if (![locationInformation.name isKindOfClass:[NSNull class]]) {
+        _nameLabel.text = locationInformation.name;
+        [_nameLabel sizeToFit];
+    }
+    else {
+        [_nameLabel setHidden:YES];
+    }
+    
+    NSString *addressLabelText = [locationInformation formattedAddressString];
+    
+    if(addressLabelText){
+        _addressLabel.text = addressLabelText;
+    }
+    
+    
+    if (![locationInformation.latitude isKindOfClass:[NSNull class]] && ![ locationInformation.longitude isKindOfClass:[NSNull class]]) {
+        CGFloat distance = [[MMUtilities sharedUtilities] calculateDistance:[NSString stringWithFormat:@"%f", locationInformation.latitude.floatValue]
+                                                                  longitude:[NSString stringWithFormat:@"%f", locationInformation.longitude.floatValue]];
+        
+        _distanceLabel.text = [NSString stringWithFormat:@"%.2f miles", distance];
+        [_distanceLabel sizeToFit];
+    }
+    
+    CGFloat xPosition = CGRectGetMaxX(_mediaIconsView.bounds) - 16;
+    UIImageView *imageView;
+    if ([locationInformation.images compare:@0] == NSOrderedDescending) {
+        imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellPictureBtn"]];
+        imageView.frame = CGRectMake(xPosition, 0, 16.0, 16.0);
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        [_mediaIconsView addSubview:imageView];
+        xPosition -= 20.0;
+    }
+    if ([locationInformation.videos compare:@0] == NSOrderedDescending) {
+        imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellVideoBtn"]];
+        imageView.frame = CGRectMake(xPosition, 0, 16.0, 16.0);
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        [_mediaIconsView addSubview:imageView];
+        xPosition -= 20.0;
+    }
+    if ([locationInformation.livestreaming compare:@0] == NSOrderedDescending) {
         imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellVideoCameraBtn"]];
         imageView.frame = CGRectMake(xPosition, 1, 16.0, 14.0);
         imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;

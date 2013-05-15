@@ -69,6 +69,7 @@
             else {
                 [SVProgressHUD showErrorWithStatus:@"Unable to submit response at this time. Please try again later"];
             }
+            NSLog(@"ERROR: %@", error);
         }];
     }
     else {

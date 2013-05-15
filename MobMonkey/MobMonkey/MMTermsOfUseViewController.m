@@ -33,6 +33,9 @@
     self.title = @"Terms of Use";
     
     
+    NSString *filePath=[[NSBundle mainBundle]pathForResource:@"TermsOfService" ofType:@"html" inDirectory:nil];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:filePath]]];
+    
     if(!self.requiresResponse){
         UIButton *backNavbutton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 39, 30)];
         [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol MMNotificationSettingsDelegate
+@protocol MMNotificationSettingsDelegate <NSObject>
 
 - (void)selectedSetting:(id)selectedNotificationSetting;
 

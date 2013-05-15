@@ -10,6 +10,7 @@
 #import "MMTableViewCell.h"
 #import "MMRequestMessageViewController.h"
 #import "MMSubscriptionViewController.h"
+#import "UIAlertView+Blocks.h"
 
 
 enum RequestDurationLengths {
@@ -78,8 +79,11 @@ enum RequestDurationLengths {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [SVProgressHUD dismiss];
     [self.tableView reloadData];
+}
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -100,16 +104,17 @@ enum RequestDurationLengths {
 - (IBAction)sendRequest:(id)sender
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    //NSLog(@"MY DEVICE ID: %@", [NSUserDefaults standardUserDefaults] objectForKey:@"")
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
     NSString *dateString = [dateFormatter stringFromDate:[self.requestInfo valueForKey:@"scheduleDate"]];
 
     [self.requestInfo setValue:dateString forKey:@"scheduleDate"];
-    [self.requestInfo setValue:[_contentList valueForKey:@"providerId"] forKey:@"providerId"];
-    [self.requestInfo setValue:[_contentList valueForKey:@"locationId"] forKey:@"locationId"];
+    [self.requestInfo setValue:self.locationInformation.providerID forKey:@"providerId"];
+    [self.requestInfo setValue:self.locationInformation.locationID forKey:@"locationId"];
     [self.requestInfo setValue:self.duration forKey:@"duration"];
-    [self.requestInfo setValue:[NSNumber numberWithInt:kMMRadiusInYards] forKey:kMMRadiusInYardsKey];
+//self.requestInfo setValue:[NSNumber numberWithInt:kMMRadiusInYards] forKey:kMMRadiusInYardsKey]; This is hard coded to 30yards on server
     [self.requestInfo setValue:[NSNumber numberWithBool:isRecurring] forKey:@"recurring"];
-    
+
     
     NSString *mediaType;
     switch (_mediaTypeSegmentedControl.selectedSegmentIndex) {
@@ -151,24 +156,35 @@ enum RequestDurationLengths {
                     [MMAPI requestMedia:mediaType params:self.requestInfo success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         NSLog(@"%@", responseObject);
                         [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:nil];
+                        [self dismissViewControllerAnimated:YES completion:nil];
                         
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        [SVProgressHUD showErrorWithStatus:@"Unable to make request. Please try again"];
-                        NSLog(@"%@", operation.responseString);
                         
-#warning This needs to match the server status code. Waiting to hear from manny
-                        //If the server response status code is XXX, display a modal view for subscription
                         if(operation.response.statusCode == 403){
                             
-                            [self overFreeRequestLimit];
+                            RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:@"Cancel Request"];
+                            RIButtonItem *subscribeButton = [RIButtonItem itemWithLabel:@"Subsribe"];
                             
+                            [subscribeButton setAction:^{
+                                [self overFreeRequestLimit];
+                            }];
+                            
+                            UIAlertView *subscribeAlertView = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"You've reached your free request limit. Would you like to subscribe?" cancelButtonItem:cancelButton otherButtonItems:subscribeButton, nil];
+                            
+                            [subscribeAlertView show];
+                            
+                        }else{
+                            
+                            [SVProgressHUD showErrorWithStatus:@"Unable to make request. Please try again"];
+                            NSLog(@"%@", operation.responseString);
+                            [self dismissViewControllerAnimated:YES completion:nil];
                         }
-                        
+                                                
                     }];
                 });
             }
         }
-        [self dismissViewControllerAnimated:YES completion:nil];
+        //
     }
 }
 

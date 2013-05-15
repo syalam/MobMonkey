@@ -49,14 +49,18 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
     if ([self.title isEqualToString:@"Assigned Requests"]) {
         [self fetchAssignedRequests];
     }
+
+    
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+   }
 
 - (void)didReceiveMemoryWarning
 {
@@ -80,7 +84,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"InboxCell";
     MMInboxCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[MMInboxCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -213,6 +217,9 @@
     [SVProgressHUD showWithStatus:@"Loading Open Requests"];
     [MMAPI getOpenRequests:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [SVProgressHUD dismiss];
+        
+        
+        
         [self setContentList:responseObject];
         [self.tableView reloadData];
         if (_contentList.count == 0) {
@@ -226,8 +233,30 @@
 - (void)fetchAssignedRequests {
     [SVProgressHUD showWithStatus:@"Loading Assigned Requests"];
     [MMAPI getAssignedRequests:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSMutableArray *filteredResults = [NSMutableArray array];
+        NSArray *respondedRequests = [[NSUserDefaults standardUserDefaults] objectForKey:@"tempRequests"];
+        NSLog(@"CLASS: %@", [[[NSUserDefaults standardUserDefaults] objectForKey:@"tempRequests"] class]);
+        if([responseObject isKindOfClass:[NSArray class]] && respondedRequests){
+            for(NSDictionary *request in responseObject){
+                NSString *requestID = [request objectForKey:@"requestId"];
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF = %@", requestID];
+                NSArray *objectExists = [respondedRequests filteredArrayUsingPredicate:predicate];
+                if(objectExists.count == 0){
+                    [filteredResults addObject:request];
+                }else{
+                    NSLog(@"REUQEST ALREADY ANSWERED");
+                    
+                }
+            }
+            [self setContentList:filteredResults];
+        }else{
+            [self setContentList:responseObject];
+        }
+        
+        
         [SVProgressHUD dismiss];
-        [self setContentList:responseObject];
+        
         [self.tableView reloadData];
         if (_contentList.count == 0) {
             [self.navigationController popViewControllerAnimated:YES];

@@ -14,6 +14,7 @@
 #import "MMAppDelegate.h"
 #import "GetRelativeTime.h"
 #import "AdWhirlView.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface MMLocationMediaViewController ()
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
@@ -99,17 +100,14 @@
 
 - (void)selectMediaType:(id)sender
 {
-    _mediaArray = nil;
+    //_mediaArray = nil;
     self.mediaType = [sender selectedSegmentIndex];
     [self.tableView reloadData];
     NSArray *mediaTypes = @[@"livestreaming", @"video", @"image"];
-    [MMAPI getMediaForLocationID:_locationId providerID:_providerId success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type LIKE %@", mediaTypes[[sender selectedSegmentIndex]]];
-        self.mediaArray = [[responseObject valueForKey:@"media"] filteredArrayUsingPredicate:predicate];
-        [self.tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Could not add Bookmark!");
-    }];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type LIKE %@", mediaTypes[[sender selectedSegmentIndex]]];
+    self.selectedMedia = [self.allMedia filteredArrayUsingPredicate:predicate];
+    [self.tableView reloadData];
+
 }
 
 #pragma mark - Table view data source
@@ -121,7 +119,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.mediaArray.count;
+    return self.selectedMedia.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -135,8 +133,8 @@
     }
     cell.locationImageView.image = nil;
     
-    if (![[[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"uploadedDate"] isKindOfClass:[NSNull class]]) {
-        double unixTime = [[[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"uploadedDate"] floatValue]/1000;
+    if (![[[self.selectedMedia objectAtIndex:indexPath.row] valueForKey:@"uploadedDate"] isKindOfClass:[NSNull class]]) {
+        double unixTime = [[[self.selectedMedia objectAtIndex:indexPath.row] valueForKey:@"uploadedDate"] floatValue]/1000;
         NSDate *dateAnswered = [NSDate dateWithTimeIntervalSince1970:
                                 (NSTimeInterval)unixTime];
         
@@ -147,16 +145,23 @@
     }
     
     if ([self.segmentedControl selectedSegmentIndex] == MMPhotoMediaType) {
-        [cell.locationImageView reloadWithUrl:[[self.mediaArray objectAtIndex:indexPath.row] valueForKey:@"mediaURL"]];
+        [cell.locationImageView reloadWithUrl:[[self.selectedMedia objectAtIndex:indexPath.row] valueForKey:@"mediaURL"]];
+        [cell.playButtonImageView setHidden:YES];
     }
     else if ([self.segmentedControl selectedSegmentIndex] == MMLiveCameraMediaType) {
         [cell.locationImageView setImage:[UIImage imageNamed:@"liveFeedPlaceholder"]];
         [cell.playButtonImageView setHidden:NO];
     }
     else {
-        dispatch_async(backgroundQueue, ^(void) {
-            cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row cell:cell];
-        });
+        
+        NSString *imagePath = [[self.selectedMedia objectAtIndex:indexPath.row] objectForKey:@"thumbURL"];
+        NSString *thumbURLPath = [[self.selectedMedia objectAtIndex:indexPath.row] objectForKey:@"thumbURL"];
+        if(imagePath){
+            [cell.locationImageView setImageWithURL:[NSURL URLWithString:imagePath]];
+        }
+        
+        
+        
         [cell.playButtonImageView setHidden:NO];
     }
     
@@ -222,7 +227,7 @@
         });
     }
     else {
-        AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[self.mediaArray objectAtIndex:row] valueForKey:@"mediaURL"]] options:nil];
+        AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[self.selectedMedia objectAtIndex:row] valueForKey:@"mediaURL"]] options:nil];
         AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
         generate.appliesPreferredTrackTransform = YES;
         NSError *err = NULL;
@@ -325,7 +330,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
     [params setValue:_locationName forKey:@"initialText"];
     if ([self.segmentedControl selectedSegmentIndex] != MMPhotoMediaType) {
-        [params setValue:[[self.mediaArray objectAtIndex:selectedRow] valueForKey:@"mediaURL"] forKey:@"url"];
+        [params setValue:[[self.selectedMedia objectAtIndex:selectedRow] valueForKey:@"mediaURL"] forKey:@"url"];
     }
     else {
         [params setValue:cell.locationImageView.image forKey:@"image"];
@@ -340,7 +345,10 @@
     MMLocationMediaCell *cell = (MMLocationMediaCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[sender tag] inSection:0]];
     didShowModal = NO;
     didShowAd = NO;
-    NSString *urlString = [[self.mediaArray objectAtIndex:[sender tag]] valueForKey:@"mediaURL"];
+    NSString *urlString = [[self.selectedMedia objectAtIndex:[sender tag]] valueForKey:@"mediaURL"];
+    
+    //NSString *newURL = [urlString stringByReplacingOccurrencesOfString:@"http" withString:@"rtmp"];
+    //newURL = [newURL stringByReplacingOccurrencesOfString:@".com" withString:@".com:1935"];
     
     NSInteger viewsThisMonth = 0;
     viewsThisMonth = [self viewsThisMonth];
@@ -348,7 +356,15 @@
     NSLog(@"viewsThisMonth: %i", viewsThisMonth);
     
     if ([self.segmentedControl selectedSegmentIndex] != MMPhotoMediaType) {
+        
+        UIGraphicsBeginImageContext(CGSizeMake(1,1));
+        
+        if([self.segmentedControl selectedSegmentIndex] == MMVideoMediaType){
+            urlString =  [urlString stringByReplacingOccurrencesOfString:@"http://vod-cdn.mobmonkey.com" withString:@"https://s3.amazonaws.com/mobmonkeyvod"];
+        }
+        
         self.moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:urlString]];
+        UIGraphicsEndImageContext();
         [self.navigationController presentMoviePlayerViewControllerAnimated:self.moviePlayerViewController];
     } else {
         [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:cell.locationImageView.image locationName:nil];
@@ -364,7 +380,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
     [params setValue:_locationName forKey:@"initialText"];
     if ([self.segmentedControl selectedSegmentIndex] != MMPhotoMediaType) {
-        [params setValue:[[self.mediaArray objectAtIndex:selectedRow] valueForKey:@"mediaURL"] forKey:@"url"];
+        [params setValue:[[self.selectedMedia objectAtIndex:selectedRow] valueForKey:@"mediaURL"] forKey:@"url"];
     }
     else {
         [params setValue:cell.locationImageView.image forKey:@"image"];
@@ -380,7 +396,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
     [params setValue:_locationName forKey:@"initialText"];
     if ([self.segmentedControl selectedSegmentIndex] != MMPhotoMediaType) {
-        [params setValue:[[self.mediaArray objectAtIndex:selectedRow] valueForKey:@"mediaURL"] forKey:@"url"];
+        [params setValue:[[self.selectedMedia objectAtIndex:selectedRow] valueForKey:@"mediaURL"] forKey:@"url"];
     }
     else {
         [params setValue:cell.locationImageView.image forKey:@"image"];

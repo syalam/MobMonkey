@@ -56,14 +56,15 @@
 }
 
 + (void)displayMMLocationDetailScreenFromPresentingViewController:(UIViewController*)presentingViewController withLocationParams:(NSDictionary*)params {
-    MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+    MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithStyle:UITableViewStyleGrouped];
     [locationVC loadLocationDataWithLocationId:[params valueForKey:@"locationId"] providerId:[params valueForKey:@"providerId"]];
     [presentingViewController.navigationController pushViewController:locationVC animated:YES];
 }
 
-+ (void)displayMMMakeARequestScreenFromPresentingViewController:(UIViewController*)presentingViewController withLocationParams:(NSDictionary*)params {
++ (void)displayMMMakeARequestScreenFromPresentingViewController:(UIViewController*)presentingViewController withLocationInformation:(MMLocationInformation*)locationInformation {
     MMRequestViewController *requestVC = [[MMRequestViewController alloc]initWithNibName:@"MMRequestViewController" bundle:nil];
-    [requestVC setContentList:params];
+    requestVC.locationInformation = locationInformation;
+    //[requestVC setContentList:params];
     UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
     [presentingViewController.navigationController presentViewController:requestNavC animated:YES completion:NULL];
 }

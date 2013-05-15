@@ -2,34 +2,44 @@
 //  MMLocationViewController.m
 //  MobMonkey
 //
-//  Created by Reyaad Sidique on 9/2/12.
-//  Copyright (c) 2012 Reyaad Sidique. All rights reserved.
+//  Created by Michael Kral on 5/6/13.
+//  Copyright (c) 2013 Reyaad Sidique. All rights reserved.
 //
 
 #import "MMLocationViewController.h"
-#import "MMNotificationSettingsViewController.h"
-#import "MMFullScreenImageViewController.h"
-#import "MMSetTitleImage.h"
-#import "MMLoginViewController.h"
-#import "MMMapViewController.h"
-#import "MMClientSDK.h"
-#import "PhoneNumberFormatter.h"
+#import "MMLocationHeaderView.h"
+#import "MMLocationMediaView.h"
+#import <QuartzCore/QuartzCore.h>
 #import "MMRequestViewController.h"
-#import "MMLocationMediaViewController.h"
-#import <MapKit/MapKit.h>
-#import "MMLocationAnnotation.h"
-#import "GetRelativeTime.h"
+#import "UIImageView+AFNetworking.h"
 #import "UIActionSheet+Blocks.h"
+#import "MMMapViewController.h"
+#import "MMNotificationSettingsViewController.h"
+#import "MMHotSpotBadge.h"
+#import "BrowserViewController.h"
+#import "MMEditHotSpotViewController.h"
+
+@implementation MMLocationDetailCellData
+
+
+@end
+
+
+
 @interface MMLocationViewController ()
 
+@property (nonatomic, strong) NSArray *locationCellData;
 
 @end
 
 @implementation MMLocationViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+@synthesize mediaArray;
+@synthesize headerView = _headerView;
+
+- (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
     }
@@ -39,15 +49,34 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
-    backgroundQueue = dispatch_queue_create("com.MobMonkey.GenerateThumbnail", NULL);
+    loadingInfo = YES;
     
-    //setup scrollview size
-    [_scrollView setContentSize:CGSizeMake(320, 815)];
+    self.view.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
+    self.tableView.backgroundView = nil;
     
-    //set background color
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background~iphone"]]];
+    self.headerView = [[MMLocationHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
+    self.headerView.layer.zPosition = 100;
+    self.headerView.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
+    self.headerView.delegate = self;
+    
+    
+    UIView *headerViewSpacer = [[UIView alloc] initWithFrame:self.headerView.frame];
+    [self.tableView addSubview:self.headerView];
+    [self.tableView setTableHeaderView:headerViewSpacer];
+    
+    
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 55)];
+    [self.tableView setTableFooterView:footerView];
+
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+ 
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+   // [self.tableView reloadData];
+    
     UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
     [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
     [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
@@ -56,78 +85,110 @@
     self.navigationItem.leftBarButtonItem = backButton;
     
     
-    //set location name label text and font
-  _locationNameLabel.textColor = [UIColor blackColor];
+    self.headerView.mediaView.liveStreamButton.tag = MMLiveCameraMediaType;
+    self.headerView.mediaView.videosButton.tag = MMVideoMediaType;
+    self.headerView.mediaView.photosButton.tag = MMPhotoMediaType;
     
-    //Add custom back button to the nav bar    
+    [self.headerView.mediaView.videosButton addTarget:self action:@selector(mediaButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.headerView.mediaView.liveStreamButton addTarget:self action:@selector(mediaButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.headerView.mediaView.photosButton addTarget:self action:@selector(mediaButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
-    if ([[NSUserDefaults standardUserDefaults]boolForKey:[NSString stringWithFormat:@"row%dFlagged", self.rowIndex]]) {
-        [self.flagButton setBackgroundColor:[UIColor blueColor]];
-    }
-    else {
-        [self.flagButton setBackgroundColor:[UIColor clearColor]];
+    [self.headerView.mediaView.shareButton addTarget:self action:@selector(shareButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UITapGestureRecognizer *tapMediaGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(enlargeButtonTapped:)];
+    tapMediaGesture.numberOfTapsRequired = 1;
+    [self.headerView.mediaView.mediaImageView addGestureRecognizer:tapMediaGesture];
+    
+    [self.headerView.makeARequestButton addTarget:self action:@selector(makeRequestButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UITapGestureRecognizer *tapRegister = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pressedMessageLink:)];
+    tapRegister.numberOfTapsRequired = 1;
+    [self.headerView.mediaView.messageLabel addGestureRecognizer:tapRegister];
+    self.headerView.mediaView.messageLabel.userInteractionEnabled = YES;
+    
+    if(self.locationInformation){
+        [self setLocationDetailItems];
     }
 
-    [_notificationSettingView setHidden:YES];
-    [_notificationSettingLabel setHidden:YES];
-    
-    //Get Counts of photos and videos for this location
-    [_locationLatestImageView setCaching:YES];
-    
-    //Set location detail items to display
-    [self setLocationDetailItems];
-    
-    //initialize variables
-    uiAdjustedForNotificationSetting = NO;
-    
-    //initialize gesture recognizer
-    expandImageGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(enlargeButtonTapped:)];
-    expandImageGesture.numberOfTapsRequired = 1;
-    
-    [_locationLatestImageView addGestureRecognizer:expandImageGesture];
-    
+    [self loadLocationDataWithLocationId:self.locationInformation.locationID providerId:self.locationInformation.providerID];
     
 }
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    if(self.locationID && self.providerID){
-        [self loadLocationDataWithLocationId:self.locationID providerId:self.providerID];
-    }
-}
-- (void)viewDidUnload
+
+- (void)didReceiveMemoryWarning
 {
-    [self setTableView:nil];
-    [self setStreamingCountLabel:nil];
-    [self setMonkeyCountLabel:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+-(void)loadCellData{
+    NSMutableArray *cellData = [NSMutableArray array];
+    
+    if(_locationInformation.phoneNumber && _locationInformation.phoneNumber !=(id)[NSNull null]){
+        MMLocationDetailCellData *phoneData = [[MMLocationDetailCellData alloc] init];
+        phoneData.text = _locationInformation.phoneNumber;
+        phoneData.cellType = LocationCellTypePhoneNumber;
+        phoneData.image = [UIImage imageNamed:@"telephone"];
+        [cellData addObject:phoneData];
+    }
+    
+    NSString *addressString = [_locationInformation formattedAddressString];
+    if(addressString){
+        MMLocationDetailCellData *addressData = [[MMLocationDetailCellData alloc] init];
+        addressData.text = addressString;
+        addressData.cellType = LocationCellTypeAddressBOOL;
+        addressData.image = [UIImage imageNamed:@"mapPin"];
+        [cellData addObject:addressData];
+        
+    }
+    
+    
+    
+    self.locationCellData = cellData;
 }
-
-#pragma mark - UINavBar Button Tap method
-- (void)backButtonTapped:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+-(void)setLocationInformation:(MMLocationInformation *)locationInformation{
+    
+    _locationInformation = locationInformation;
+    
+    [self loadCellData];
+    
+    
+    [self.tableView reloadData];
+    
 }
-
-#pragma mark - UITableView datasource
+#pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    tableView.backgroundView = nil;
-    tableView.backgroundColor = [UIColor clearColor];
-    return 2;
+    
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? 3 : 1;
+    
+    //No Rows if there is no location information
+    if(!self.locationInformation && section == 0){
+        return 1;
+    }
+    
+    NSUInteger rowCount = 0;
+    if(section == 0){
+        rowCount = self.locationCellData.count;
+    }else if(section == 2){
+        
+        // Row for "Add to Favorites and notifications
+        rowCount  = 2;
+    }else if(section == 1){
+        return ((!self.locationInformation.parentLocationID || [self.locationInformation.parentLocationID isKindOfClass:[NSNull class]]) && !loadingInfo) ?  self.locationInformation.sublocations.count +1 :  0;
+    }
+    
+    return rowCount;
+    
 }
-
+-(void)createHotSpotAtLocation{
+    MMEditHotSpotViewController *hotSpotEditViewController = [[MMEditHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    hotSpotEditViewController.parentLocation = self.locationInformation;
+    [self.navigationController pushViewController:hotSpotEditViewController animated:YES];
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -137,199 +198,352 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.font = [UIFont systemFontOfSize:17.0];
     }
-    
-    if (indexPath.section == 1) {
-        cell.textLabel.text = @"Add to Favorites";
-        if ([[_contentList valueForKey:@"bookmark"] boolValue]) {
-            cell.textLabel.text = @"Remove from Favorites";
-        }
-        cell.imageView.image = [UIImage imageNamed:@"favorite"];
-        return cell;
-    }
-    switch (indexPath.row) {
-        case 0:
-            cell.textLabel.text = [[PhoneNumberFormatter alloc] stringForObjectValue:[_contentList valueForKey:@"phoneNumber"]];
-            cell.imageView.image = [UIImage imageNamed:@"telephone"];
-            break;
-        case 1:
+    if(indexPath.section == 0){
+        
+        MMLocationDetailCellData *cellData = [self.locationCellData objectAtIndex:indexPath.row];
+        cell.imageView.image = cellData.image;
+        cell.textLabel.text = cellData.text;
+        cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+        cell.textLabel.textAlignment = NSTextAlignmentLeft;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        if(cellData.cellType == LocationCellTypeAddressBOOL){
             cell.textLabel.numberOfLines = 2;
             cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
-            cell.textLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@",
-                                   [_contentList valueForKey:@"address"],
-                                   [_contentList valueForKey:@"locality"],
-                                   [_contentList valueForKey:@"region"],
-                                   [_contentList valueForKey:@"postcode"]];
-            cell.imageView.image = [UIImage imageNamed:@"mapPin"];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            break;
-            
-        case 2:
+            cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+            cell.textLabel.textAlignment = NSTextAlignmentLeft;
+        }else if(cellData.cellType == LocationCellTypeNotification){
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+            cell.textLabel.textAlignment = NSTextAlignmentLeft;
+        }
+    } else if (indexPath.section == 2) {
+        
+        if(indexPath.row == 1){
+            cell.textLabel.text = @"Add to Favorites";
+            if (_locationInformation.isBookmark) {
+                cell.textLabel.text = @"Remove from Favorites";
+            }
+            cell.imageView.image = [UIImage imageNamed:@"favorite"];
+            return cell;
+        } else if (indexPath.row == 0){
             cell.textLabel.text = @"Add Notifications";
             cell.imageView.image = [UIImage imageNamed:@"alarmClock"];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            break;
-        default:
-            break;
+            return cell;
+        }
+        
+    } else if (indexPath.section == 1){
+        
+        if(indexPath.row != self.locationInformation.sublocations.allObjects.count){
+            MMLocationInformation *subLocation = [self.locationInformation.sublocations.allObjects objectAtIndex:indexPath.row];
+            cell.textLabel.text = subLocation.name;
+            cell.textLabel.textAlignment = NSTextAlignmentLeft;
+            cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+            
+        }else{
+            cell.textLabel.text = @"Create Hot Spot";
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+        }
+        cell.imageView.image = nil;
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
+    
     return cell;
+
+}
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if(section == 1 && self.locationInformation.sublocations.count > 0) return @"Hot Spots";
+    if(section == 0) return @"Location Information";
+    return nil;
 }
 
-#pragma mark - UITableView Delegate Methods
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1) {
-        [self bookmarkButtonTapped:nil];
+- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if(indexPath.section == 0){
+        MMLocationDetailCellData *cellData = [self.locationCellData objectAtIndex:indexPath.row];
+        
+        if(cellData.cellType == LocationCellTypeAddressBOOL){
+            return 65;
+        }
+        
+    }
+    
+    return 44;
+}
+/*
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+*/
+
+/*
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }   
+    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
+*/
+
+/*
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+}
+*/
+
+/*
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+*/
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 2) {
+        if(indexPath.row == 1){
+            [self bookmarkButtonTapped:nil];
+        }else if(indexPath.row == 0){
+            [self notificationSettingsButtonTapped:nil];
+        }
+        
         return;
     }
-    switch (indexPath.row) {
-        case 0: {
-            
-            NSString *telNumber = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
-            NSString *telURI;
-            if(telNumber.length > 0){
-                telURI = [@"tel:" stringByAppendingString:telNumber];
-                telURI = [telURI stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            }else{
-                //Break switch, if there is no number.
+    if(indexPath.section == 0){
+        
+        MMLocationDetailCellData *cellData = [self.locationCellData objectAtIndex:indexPath.row];
+        
+        switch (cellData.cellType) {
+            case LocationCellTypePhoneNumber: {
+                
+                NSString *telNumber = cellData.text;
+                NSString *telURI;
+                if(telNumber.length > 0){
+                    telURI = [@"tel:" stringByAppendingString:telNumber];
+                    telURI = [telURI stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                }else{
+                    //Break switch, if there is no number.
+                    break;
+                }
+                
+                //Create the ActionView Buttons (using +Blocks category)
+                RIButtonItem *copyButton = [RIButtonItem itemWithLabel:@"Copy"];
+                RIButtonItem *callButton = [RIButtonItem itemWithLabel:[NSString stringWithFormat:@"Call: %@", telNumber]];
+                RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:@"Cancel"];
+                
+                /*****
+                 Set Action blocks for buttons
+                 *****/
+                //Copy text to pasteboard
+                [copyButton setAction:^{
+                    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                    pasteboard.string = telNumber;
+                }];
+                
+                //Call number
+                [callButton setAction:^{
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telURI]];
+                }];
+                
+                
+                UIActionSheet *copyCallActionsheet;
+                
+                //Only show call if phone has the capability
+                if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:telURI]]){
+                    copyCallActionsheet = [[UIActionSheet alloc] initWithTitle:@"Options" cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:callButton, copyButton, nil];
+                }else{
+                    copyCallActionsheet = [[UIActionSheet alloc] initWithTitle:@"Options" cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:copyButton, nil];
+                }
+                
+                //Show the action sheet
+                [copyCallActionsheet showFromTabBar:self.tabBarController.tabBar];
                 break;
             }
-            
-            //Create the ActionView Buttons (using +Blocks category)
-            RIButtonItem *copyButton = [RIButtonItem itemWithLabel:@"Copy"];
-            RIButtonItem *callButton = [RIButtonItem itemWithLabel:[NSString stringWithFormat:@"Call: %@", telNumber]];
-            RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:@"Cancel"];
-            
-            /*****
-             Set Action blocks for buttons
-            *****/
-            //Copy text to pasteboard
-            [copyButton setAction:^{
-                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-                pasteboard.string = telNumber;
-            }];
-            
-            //Call number
-            [callButton setAction:^{
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telURI]];
-            }];
-
-            
-            UIActionSheet *copyCallActionsheet;
-            
-            //Only show call if phone has the capability
-            if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:telURI]]){
-                copyCallActionsheet = [[UIActionSheet alloc] initWithTitle:@"Options" cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:callButton, copyButton, nil];
-            }else{
-                copyCallActionsheet = [[UIActionSheet alloc] initWithTitle:@"Options" cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:copyButton, nil];
+            case LocationCellTypeAddressBOOL: {
+                MMMapViewController *mapViewController = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
+                mapViewController.title = self.locationInformation.name;
+                mapViewController.locationInformationCollection = @[self.locationInformation];
+                mapViewController.showHotSpots = YES;
+                [self.navigationController pushViewController:mapViewController animated:YES];
+                break;
             }
-            
-            //Show the action sheet
-            [copyCallActionsheet showFromTabBar:self.tabBarController.tabBar];
-            
-            break;
+            case LocationCellTypeNotification: {
+                [self notificationSettingsButtonTapped:nil];
+                break;
+            }
+                
+            default:
+                break;
         }
-            
-        case 1: {
-            MMMapViewController *mapViewController = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
-            mapViewController.title = [_contentList valueForKey:@"name"];
-            mapViewController.contentList = [NSArray arrayWithObject:_contentList];
-            [self.navigationController pushViewController:mapViewController animated:YES];
-            break;
+    }else if(indexPath.section == 1){
+        
+        if(indexPath.row != self.locationInformation.sublocations.count){
+            MMLocationInformation *subLocation = [self.locationInformation.sublocations.allObjects objectAtIndex:indexPath.row];
+            MMLocationViewController *subLocationViewController = [[MMLocationViewController alloc] initWithNibName:@"MMLocationViewController" bundle:nil];
+            subLocationViewController.locationInformation = subLocation;
+            [self.navigationController pushViewController:subLocationViewController animated:YES];
+        }else{
+            [self createHotSpotAtLocation];
         }
-        case 2: {
-            [self notificationSettingsButtonTapped:nil];
-            break;
-        }
-        default:
-            break;
-    }
-   
-}
-- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    switch (indexPath.row) {
-        case 1:
-            return 88;
-            break;
-        default:
-            return 44;
-            break;
+        
+        
     }
 }
 
+#pragma mark - ScrollView Delegate
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+
+    if(self.headerView.frame.size.height < 230){
+        
+        CGRect newFrame = self.headerView.frame;
+        newFrame.origin.x = 0;
+        newFrame.origin.y = self.tableView.contentOffset.y;
+        self.headerView.frame = newFrame;
+        
+    }
+    
+}
+
+#pragma mark Button methods
 #pragma mark - IBAction Methods
 - (IBAction)mediaButtonTapped:(id)sender
 {
-  switch ([sender tag]) {
-    case MMLiveCameraMediaType:
-      if ([[[self.contentList valueForKey:@"livestreaming"] description] intValue] == 0)
-        return;
-      
-      break;
-      
-    case MMVideoMediaType:
-      if ([[[self.contentList valueForKey:@"videos"] description] intValue] == 0)
-        return;
-      
-      break;
-      
-    case MMPhotoMediaType:
-      if ([[[self.contentList valueForKey:@"images"] description] intValue] == 0)
-        return;
-
-      break;
-      
-    default:
-      break;
-  }
-
+    switch ([sender tag]) {
+        case MMLiveCameraMediaType:
+            
+            if ([[self.locationInformation.livestreaming description] intValue] == 0)
+                return;
+            
+            break;
+            
+        case MMVideoMediaType:
+            if ([[self.locationInformation.videos description] intValue] == 0)
+                return;
+            
+            break;
+            
+        case MMPhotoMediaType:
+            if ([[self.locationInformation.images description] intValue] == 0)
+                return;
+            
+            break;
+            
+        default:
+            break;
+    }
+    
     MMLocationMediaViewController *lmvc = [[MMLocationMediaViewController alloc] initWithNibName:@"MMLocationMediaViewController" bundle:nil];
-    lmvc.location = self.contentList;
+    //lmvc.location = self.contentList;
+    lmvc.allMedia = mediaArray;
+    lmvc.locationInformation = self.locationInformation;
     lmvc.title = self.title;
-    lmvc.providerId = [_contentList valueForKey:@"providerId"];
-    lmvc.locationId = [_contentList valueForKey:@"locationId"];
+    lmvc.providerId = self.locationInformation.locationID;
+    lmvc.locationId = self.locationInformation.providerID;
     lmvc.mediaType = [sender tag];
-  
+    
     UINavigationController *locationMediaNavC = [[UINavigationController alloc] initWithRootViewController:lmvc];
     [self presentViewController:locationMediaNavC animated:YES completion:NULL];
 }
-- (IBAction)videoMediaButtonTapped:(id)sender {
-    
-}
-
 - (IBAction)makeRequestButtonTapped:(id)sender {
     if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Request" bundle:nil];
         UINavigationController *navVC = [storyboard instantiateInitialViewController];
         MMRequestViewController *requestVC = (MMRequestViewController *)navVC.viewControllers[0];
-        [requestVC setContentList:self.contentList];
+        requestVC.locationInformation = self.locationInformation;
+        //[requestVC setContentList:self.contentList];
         [self.navigationController presentViewController:navVC animated:YES completion:nil];
     }
     else {
         [[MMClientSDK sharedSDK] signInScreen:self];
     }
 }
+-(void)pressedMessageLink:(id)sender{
+    if(self.locationInformation.messageURL && ![self.locationInformation.messageURL isKindOfClass:[NSNull class]]){
+        [self openURL: self.locationInformation.messageURL];
+    }
+}
+- (IBAction)shareButtonTapped:(id)sender {
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    BOOL isVideo = NO;
+    [params setValue:self.headerView.locationTitleLabel.text forKey:@"initialText"];
+    if (mediaArray.count > 0) {
+        if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"video"]) {
+            [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
+            isVideo = YES;
+        }
+        else {
+            [params setValue:self.headerView.mediaView.mediaImageView.image forKey:@"image"];
+        }
+    }
+    if (![self.locationInformation.website isKindOfClass:[NSNull class]] && ![self.locationInformation.website isEqualToString:@""] && !isVideo) {
+        [params setValue:self.locationInformation.website forKey:@"url"];
+    }
+    
+    [[MMClientSDK sharedSDK]showMoreActionSheet:self showFromTabBar:YES paramsForPublishingToSocialNetwork:params];
+}
+- (void)enlargeButtonTapped:(id)sender {
+    if (mediaArray.count > 0) {
+        if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"video"] || [[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"livestreaming"]) {
+            
+            
+            
+            
+            NSString *mediaURLPath = [[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"];
+            
+            //http://vod-cdn.mobmonkey.com with https://s3.amazonaws.com/mobmonkeyvod
+            if([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"video"]){
+               mediaURLPath =  [mediaURLPath stringByReplacingOccurrencesOfString:@"http://vod-cdn.mobmonkey.com" withString:@"https://s3.amazonaws.com/mobmonkeyvod"];
+            }
+            
+            NSURL *url = [NSURL URLWithString:mediaURLPath];
+            UIGraphicsBeginImageContext(CGSizeMake(1,1));
+            _player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+            UIGraphicsEndImageContext();
+            [self.navigationController presentMoviePlayerViewControllerAnimated:_player];
+        }
+        else {
+            [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:self.headerView.mediaView.mediaImageView.image locationName:self.title];
+        }
+    }
+}
+- (IBAction)bookmarkButtonTapped:(id)sender {
+    if (self.locationInformation.isBookmark) {
+        self.locationInformation.isBookmark = NO;
+        [self.tableView reloadData];
+        [MMAPI deleteBookmarkWithLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"Removed bookmark");
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@", operation.responseString);
+        }];
+        
+        return;
+    }
+    self.locationInformation.isBookmark = YES;
+    [self.tableView reloadData];
+    [MMAPI createBookmarkWithLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Added Bookmark!");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Could not add Bookmark!");
+    }];
+}
 
-- (IBAction)phoneNumberButtonTapped:(id)sender {
-    NSString *urlString = [NSString stringWithFormat:@"tel:%@", _phoneNumberLabel.text];
-    NSString *escaped = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSLog(@"%@", escaped);
-    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:escaped]];
-}
-- (IBAction)addressButtonTapped:(id)sender {
-    MMMapViewController *mmmVc = [[MMMapViewController alloc]initWithNibName:@"MMMapViewController" bundle:nil];
-    mmmVc.address = [NSString stringWithFormat:@"%@ %@, %@ %@", [_contentList valueForKey:@"address"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];
-    mmmVc.contentList = @[mmmVc.address];
-    [self.navigationController pushViewController:mmmVc animated:YES];
-    UIViewController *mapViewController = [[UIViewController alloc] init];
-    UIView *view = mapViewController.view;
-    MKMapView *mapView = [[MKMapView alloc] initWithFrame:view.frame];
-    [mapView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
-    [view addSubview:mapView];
-    CLLocationCoordinate2D coordinate;
-    coordinate.latitude = [[_contentList valueForKey:@"latitude"] floatValue];
-    coordinate.longitude = [[_contentList valueForKey:@"longitude"] floatValue];
-    id annotation = [[MMLocationAnnotation alloc] initWithName:[_contentList valueForKey:@"name"] address:[_contentList valueForKey:@"address"] coordinate:coordinate arrayIndex:0];
-    [mapView addAnnotation:annotation];
-}
 
 - (IBAction)notificationSettingsButtonTapped:(id)sender {
     MMNotificationSettingsViewController *noticiationSettingsVC = [[MMNotificationSettingsViewController alloc]initWithNibName:@"MMNotificationSettingsViewController" bundle:nil];
@@ -337,231 +551,270 @@
     [self.navigationController pushViewController:noticiationSettingsVC animated:YES];
 }
 
-- (IBAction)shareButtonTapped:(id)sender {
-    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-    BOOL isVideo = NO;
-    [params setValue:_locationNameLabel.text forKey:@"initialText"];
-    if (mediaArray.count > 0) {
-        if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"video"]) {
-            [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
-            isVideo = YES;
-        }
-        else {
-            [params setValue:_locationLatestImageView.image forKey:@"image"];
-        }
-    }
-    if (![[_contentList valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[_contentList valueForKey:@"webSite"]isEqualToString:@""] && !isVideo) {
-        [params setValue:[_contentList valueForKey:@"webSite"] forKey:@"url"];
+#pragma  mark Load Location Data
+- (void)loadLocationDataWithLocationId:(NSString*)locationId providerId:(NSString*)providerId {
+    
+    loadingInfo = YES;
+    //locationId = self.locationInformation.locationID;
+    //providerId = self.locationInformation.providerID;
+    //locationId = @"5d44fab0-6f4f-4fe7-8351-aa4fb695d764";
+    //providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181";
+    //self.locationID = locationId;
+    //self.providerID = providerId;
+    //[self loadLocationDataWithLocationId:locationId providerId:providerId];
+    //self.locationInformation.locationID = locationId;
+    //self.locationInformation.providerID = providerId;
+    //self.locationInformation = nil;
+
+    
+    if(!locationId && !providerId) {
+        
+        if(!self.locationInformation)return;
+        
+        //locationId = self.locationInformation.locationID;
+        //providerId = self.locationInformation.providerID;
     }
     
-    [[MMClientSDK sharedSDK]showMoreActionSheet:self showFromTabBar:YES paramsForPublishingToSocialNetwork:params];
-    /*UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    if ([prefs boolForKey:@"facebookEnabled"]) {
-        [actionSheet addButtonWithTitle:@"Share on Facebook"];
+    if(!self.locationInformation){
+        [SVProgressHUD showWithStatus:@"Loading"];
+    }else{
+        self.headerView.makeARequestSubLabel.text = @"Finding Members...";
+        /*[self resizeTableViewForMediaLoadingView];
+        self.mediaLoadingView.hidden = NO;
+        [self.mediaIndicatorView startAnimating];*/
     }
-    if ([prefs boolForKey:@"twitterEnabled"]) {
-        [actionSheet addButtonWithTitle:@"Share on Twitter"];
-    }
-    [actionSheet addButtonWithTitle:@"Flag for Review"];
-    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
-    [actionSheet showFromTabBar:self.tabBarController.tabBar];*/
-}
-
-- (void)enlargeButtonTapped:(id)sender {
-    if (mediaArray.count > 0) {
-        if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"video"] || [[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"livestreaming"]) {
-            NSURL *url = [NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
-            _player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-            [self.navigationController presentMoviePlayerViewControllerAnimated:_player];
-        }
-        else {
-            [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:_locationLatestImageView.image locationName:self.title];
-        }
-    }
-}
-
-- (IBAction)flagButtonTapped:(id)sender {
+    [self.headerView showLoadingView];
+    
+    [MMAPI getLocationWithID:locationId providerID:providerId success:^(AFHTTPRequestOperation *operation, MMLocationInformation *locationInformation) {
         
-}
-
-- (IBAction)bookmarkButtonTapped:(id)sender {
-    _contentList = [_contentList mutableCopy];
-    if ([[_contentList valueForKey:@"bookmark"] boolValue]) {
-        [_contentList setValue:[NSNumber numberWithBool:NO] forKey:@"bookmark"];
+        [SVProgressHUD dismiss];
+        
+        if(!self.locationInformation){
+            self.locationInformation = locationInformation;
+        }else{
+            self.locationInformation.monkeys = locationInformation.monkeys;
+            self.locationInformation.videos = locationInformation.videos;
+            self.locationInformation.images = locationInformation.images;
+            self.locationInformation.livestreaming = locationInformation.livestreaming;
+            self.locationInformation.message = locationInformation.message;
+            self.locationInformation.messageURL = locationInformation.messageURL;
+            self.locationInformation.parentLocationID = locationInformation.parentLocationID;
+            self.locationInformation.isBookmark = locationInformation.isBookmark;
+        
+        }
+        
+        if(self.locationInformation.sublocations.count > 0){
+            self.headerView.hotSpotBadge.badgeNumber = [NSNumber numberWithInt:self.locationInformation.sublocations.count];
+            self.headerView.hotSpotBadge.hidden = NO;
+        }
+        [self setLocationDetailItems];
+        [self fetchLatestMediaForLocation];
+        loadingInfo = NO;
         [self.tableView reloadData];
-        [MMAPI deleteBookmarkWithLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             NSLog(@"Removed bookmark");
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"%@", operation.responseString);
-        }];
-        /*[MMAPI deleteBookmarkWithLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(id responseObject) {
-            NSLog(@"Removed bookmark");
-        } failure:^(NSError *error) {
-            NSLog(@"Could not remove! %@", [error description]);
-        }];*/
-        return;
-    }
-    [_contentList setValue:[NSNumber numberWithBool:YES] forKey:@"bookmark"];
-    [self.tableView reloadData];
-    [MMAPI createBookmarkWithLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Added Bookmark!");
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Could not add Bookmark!");
-    }];
-}
-
-- (IBAction)clearNotificationSettingButtonTapped:(id)sender {
-    uiAdjustedForNotificationSetting = NO;
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    [UIView beginAnimations:nil context:context];
-    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-    [UIView setAnimationDuration: 0.5];
-    [UIView setAnimationDelegate: self];
-    [_notificationSettingView setHidden:YES];
-    [_bookmarkView setFrame:CGRectMake(_bookmarkView.frame.origin.x, _bookmarkView.frame.origin.y - 46, _bookmarkView.frame.size.width, _bookmarkView.frame.size.height)];
-    [UIView commitAnimations];
-}
-
-#pragma mark - Action Sheet Delegate Methods
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if ([buttonTitle isEqualToString:@"Share on Facebook"]) {
-            [self publishStoryToFacebook];
-    }
-    else if ([buttonTitle isEqualToString:@"Share on Twitter"]) {
-        [self publishOnTwitter];
-    }
-    else if ([buttonTitle isEqualToString:@"Flag for Review"]) {
         
-    }
-
-}
-
-#pragma mark - MMNotificationSettings delegate methods
-- (void)selectedSetting:(id)selectedNotificationSetting {
-    [_notificationSettingLabel setHidden:NO];
-    [_notificationSettingView setHidden:NO];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        if(operation.response.statusCode == 401){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Confirm Email Address" message:@"Please check your email and confirm the registration." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+        }
+        [self.headerView hideLoadingViewShowMedia:NO];
+        NSLog(@"Failed: %@", error);
+    }];
     
-    if (!uiAdjustedForNotificationSetting) {
-        uiAdjustedForNotificationSetting = YES;
-        [_bookmarkView setFrame:CGRectMake(_bookmarkView.frame.origin.x, _bookmarkView.frame.origin.y + 46, _bookmarkView.frame.size.width, _bookmarkView.frame.size.height)];
-    }
 }
 
-#pragma mark - Helper Methods
 - (void)setLocationDetailItems {
     
-    if([_contentList valueForKey:@"name"] && [[_contentList valueForKey:@"name"] length] > 0){
-        self.title = [_contentList valueForKey:@"name"];
+    if(self.locationInformation.name && [self.locationInformation.name length] > 0){
+        
+        if(self.locationInformation.parentLocation){
+            self.title = [NSString stringWithFormat:@"HOT SPOT: %@", self.locationInformation.name];
+        }else{
+            self.title = self.locationInformation.name;
+        }
+        
     }
     
-    _locationNameLabel.text = self.title;
-    _phoneNumberLabel.text = [_contentList valueForKey:@"phoneNumber"];
-    _addressLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", [_contentList valueForKey:@"streetAddress"], [_contentList valueForKey:@"locality"], [_contentList valueForKey:@"region"], [_contentList valueForKey:@"postcode"]];
-    NSLog(@"%@", _contentList);
-    NSString *message = [_contentList valueForKey:@"message"];
-    if (![message isKindOfClass:[NSNull class]]) {
-        _messageLabel.adjustsFontSizeToFitWidth = YES;
-        _messageLabel.text = [_contentList valueForKey:@"message"];
-        _mediaToolbarView.backgroundColor = [UIColor clearColor];
+    self.headerView.locationTitleLabel.text = self.title;
+    self.headerView.locationDetailLabel.text = self.locationInformation.details;
+    /*_phoneNumberLabel.text = self.locationInformation.phoneNumber;
+    _addressLabel.text = [self.locationInformation formattedAddressString];
+    //NSLog(@"%@", _contentList);*/
+    NSString *message = self.locationInformation.message;
+    
+    if(message && ![message isEqual:[NSNull null]]){
+        self.headerView.mediaView.messageLabel.adjustsFontSizeToFitWidth = YES;
+        self.headerView.mediaView.messageLabel.text = message;
+        self.headerView.mediaView.messageLabel.backgroundColor = [UIColor clearColor];
     }
+    
+    
+    
+    [self.headerView.mediaView.liveStreamButton setEnabled:YES];
+    [self.headerView.mediaView.liveVideoButtonImageView setImage:[UIImage imageNamed:@"location-liveVideoIcn"]];
+    [self.headerView.mediaView.videosButton setEnabled:YES];
+    [self.headerView.mediaView.photosButton setEnabled:YES];
+    
    
-  
     
-    [_liveStreamButton setEnabled:YES];
-    [liveStreamImage setImage:[UIImage imageNamed:@"location-liveVideoIcn"]];
-    [_videosButton setEnabled:YES];
-    [_photosButton setEnabled:YES];
-  
-    int streamingCount = [[self.contentList valueForKey:@"livestreaming"] intValue];
-    if (streamingCount == 0) {
-        self.streamingCountLabel.hidden = YES;
-        [_liveStreamButton setEnabled:NO];
-        [liveStreamImage setImage:[UIImage imageNamed:@"location-liveVideoIcnOff"]];
-    }
-    else {
-        self.streamingCountLabel.hidden = NO;
-        self.streamingCountLabel.text = [NSString stringWithFormat:@"%d", streamingCount];
-    }
-    
-    int videoCount = [[self.contentList valueForKey:@"videos"] intValue];
-    if (videoCount == 0) {
-        self.videoCountLabel.hidden = YES;
-        [self.videosButton setEnabled:NO];
-        
-    } else {
-        self.videoCountLabel.hidden = NO;
-        self.videoCountLabel.text = [NSString stringWithFormat:@"%d", videoCount];
-    }
-  
-    int photoCount = [[self.contentList valueForKey:@"images"] intValue];
-    if (photoCount == 0) {
-        self.photoCountLabel.hidden = YES;
-        [self.photosButton setEnabled:NO];
-        
-    }
-    else {
-        self.photoCountLabel.hidden = NO;
-        self.photoCountLabel.text = [NSString stringWithFormat:@"%d", photoCount];
-    }
-  
-  int monkeyCount = [[self.contentList valueForKey:@"monkeys"] intValue];
+    int monkeyCount = [self.locationInformation.monkeys intValue];
     if (monkeyCount == 0) {
-        _monkeyCountLabel.text = @"No members found";
+        self.headerView.makeARequestSubLabel.text = @"No members found";
         
     }
     else if (monkeyCount == 1) {
-        _monkeyCountLabel.text = @"1 member found";
+        self.headerView.makeARequestSubLabel.text = @"1 member found";
     }
     else {
-        self.monkeyCountLabel.text = [NSString stringWithFormat:@"%d members found", monkeyCount];
+        self.headerView.makeARequestSubLabel.text = [NSString stringWithFormat:@"%d members found", monkeyCount];
     }
 }
 
-- (void)loadLocationDataWithLocationId:(NSString*)locationId providerId:(NSString*)providerId {
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            locationId, @"locationId",
-                            providerId, @"providerId", nil];
-    [SVProgressHUD showWithStatus:@"Loading location information"];
-    [MMAPI getLocationInfo:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [SVProgressHUD dismiss];
-        [self setContentList:responseObject];
-        [self setLocationDetailItems];
-        [self fetchLatestMediaForLocation];
-        [self.tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", operation.responseString);
-        [SVProgressHUD showErrorWithStatus:@"Unable to load location data"];
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
+-(void)showMediaNumbers{
+    
+    
+    NSUInteger videoCount = 0;
+    NSUInteger photoCount = 0;
+    NSUInteger liveVideoCount = 0;
+    
+    
+    for (NSDictionary *media in mediaArray) {
+        if([[media objectForKey:@"type"] isEqualToString:@"video"]){
+            videoCount++;
+        }else if([[media objectForKey:@"type"] isEqualToString:@"livestreaming"]){
+            liveVideoCount++;
+        }else if([[media objectForKey:@"type"] isEqualToString:@"image"]){
+            photoCount++;
+        }
+    }
+    
+    
+    if (liveVideoCount == 0) {
+        self.headerView.mediaView.liveStreamCountLabel.hidden = YES;
+        [self.headerView.mediaView.liveStreamButton setEnabled:NO];
+        [self.headerView.mediaView.liveVideoButtonImageView setImage:[UIImage imageNamed:@"location-liveVideoIcnOff"]];
+    }
+    else {
+        self.headerView.mediaView.liveStreamCountLabel.hidden = NO;
+        self.headerView.mediaView.liveStreamCountLabel.text = [NSString stringWithFormat:@"%d", liveVideoCount];
+    }
+    
+    if (videoCount == 0) {
+        self.headerView.mediaView.videoCountLabel.hidden = YES;
+        [self.headerView.mediaView.videosButton setEnabled:NO];
+        
+    } else {
+        self.headerView.mediaView.videoCountLabel.hidden = NO;
+        self.headerView.mediaView.videoCountLabel.text = [NSString stringWithFormat:@"%d", videoCount];
+    }
+    
+    if (photoCount == 0) {
+        self.headerView.mediaView.photoCountLabel.hidden = YES;
+        [self.headerView.mediaView.photosButton setEnabled:NO];
+        
+    }
+    else {
+        self.headerView.mediaView.photoCountLabel.hidden = NO;
+        self.headerView.mediaView.photoCountLabel.text = [NSString stringWithFormat:@"%d", photoCount];
+    }
 }
-
 - (void)fetchLatestMediaForLocation {
-    [MMAPI getMediaForLocationID:[_contentList valueForKey:@"locationId"] providerID:[_contentList valueForKey:@"providerId"] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+    
+    //self.mediaLoadingView.hidden = NO;
+    //[self.mediaIndicatorView startAnimating];
+    
+    self.headerView.mediaView.topGradientView.hidden = YES;
+    self.headerView.mediaView.bottomGradientView.hidden = YES;
+    
+    [MMAPI getMediaForLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"DATA: %@", responseObject);
         mediaArray = [responseObject valueForKey:@"media"];
-        if (mediaArray.count > 0) {
-            [_uploadDateLabel setHidden:NO];
-            [_clockImageView setHidden:NO];
+        //locationId = @"5d44fab0-6f4f-4fe7-8351-aa4fb695d764";
+        //providerId = @"e048acf0-9e61-4794-b901-6a4bb49c3181";
+        if (mediaArray.count > 0 || ([self.locationInformation.locationID isEqualToString:@"5d44fab0-6f4f-4fe7-8351-aa4fb695d764"] &&
+                                     [self.locationInformation.providerID isEqualToString:@"e048acf0-9e61-4794-b901-6a4bb49c3181"]) || ([self.locationInformation.locationID isEqualToString:@"9153ef25-4c49-47da-b3ba-324e5f8e5acd"] && [self.locationInformation.providerID isEqualToString:@"222e736f-c7fa-4c40-b78e-d99243441fae"])) {
+            
+            
+            if([self.locationInformation.locationID isEqualToString:@"5d44fab0-6f4f-4fe7-8351-aa4fb695d764"] && [self.locationInformation.providerID isEqualToString:@"e048acf0-9e61-4794-b901-6a4bb49c3181"]){
+                self.headerView.mediaView.mediaImageView.image = [UIImage imageNamed:@"liveFeedPlaceholder"];
+                self.headerView.mediaView.bottomGradientView.hidden = NO;
+                [self.headerView.mediaView.playButtonOverlay setHidden:NO];
+                [self.headerView hideLoadingViewShowMedia:YES];
+                
+                /*
+                 {
+                 "mediaURL" : "http://d2vj1o2r35jhpr.cloudfront.net/hds-live/livepkgr/_definst_/liveevent/mobmonkey.m3u8",
+                 "type":"livestreaming",
+                 "expiryDate" : 1352567323678
+                 }
+                 */
+                NSDictionary *fakeLiveStreamVideo = @{@"mediaURL": @"http://wowza-cloudfront.mobmonkey.com/live/97a1a0b0-16d9-4c86-9a58-7ecfe9292321.stream/playlist.m3u8",
+                                                      @"type":@"livestreaming",
+                                                      @"expiryDate":@1352567323678};
+                self.headerView.mediaView.liveStreamCountLabel.text = @"1";
+                mediaArray = @[fakeLiveStreamVideo];
+                
+                return;
+            }
+            
+            
+            
+            
+            if([self.locationInformation.locationID isEqualToString:@"9153ef25-4c49-47da-b3ba-324e5f8e5acd"] && [self.locationInformation.providerID isEqualToString:@"222e736f-c7fa-4c40-b78e-d99243441fae"]){
+                self.headerView.mediaView.mediaImageView.image = [UIImage imageNamed:@"liveFeedPlaceholder"];
+                self.headerView.mediaView.bottomGradientView.hidden = NO;
+                [self.headerView.mediaView.playButtonOverlay setHidden:NO];
+                [self.headerView hideLoadingViewShowMedia:YES];
+                
+                /*
+                 {
+                 "mediaURL" : "http://d2vj1o2r35jhpr.cloudfront.net/hds-live/livepkgr/_definst_/liveevent/mobmonkey.m3u8",
+                 "type":"livestreaming",
+                 "expiryDate" : 1352567323678
+                 }
+                 */
+                NSDictionary *fakeLiveStreamVideo = @{@"mediaURL": @"http://wowza-cloudfront.mobmonkey.com/live/e70c51cd-8461-4ac7-86e5-00c35abb9693.stream/playlist.m3u8",
+                                                      @"type":@"livestreaming",
+                                                      @"expiryDate":@1352567323678};
+                self.headerView.mediaView.liveStreamCountLabel.text = @"1";
+                mediaArray = @[fakeLiveStreamVideo];
+                
+                return;
+            }
+            
+            
+            [self showMediaNumbers];
+            
+            
+            //self.headerView.mediaView = [[MMLocationMediaView alloc] init];
+            [self.headerView.mediaView.clockLabel setHidden:NO];
             double unixTime = [[[mediaArray objectAtIndex:0]valueForKey:@"uploadedDate"] floatValue]/1000;
             NSDate *dateAnswered = [NSDate dateWithTimeIntervalSince1970:
                                     (NSTimeInterval)unixTime];
             
-            _uploadDateLabel.text = [GetRelativeTime getRelativeTime:dateAnswered];
+            //TODO: _uploadDateLabel.text = [GetRelativeTime getRelativeTime:dateAnswered];
             
             NSString *mediaUrl = [[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"];
+            __weak typeof(self) weakSelf = self;
             if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"image"]) {
-                [_locationLatestImageView reloadWithUrl:mediaUrl];
+                NSURLRequest *imageRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:mediaUrl]];
+                [self.headerView.mediaView.mediaImageView setImageWithURL:[NSURL URLWithString:mediaUrl]];
+                self.headerView.mediaView.topGradientView.hidden = NO;
+                self.headerView.mediaView.bottomGradientView.hidden = NO;
+                //self.bottonBlackGradient.hid
             }
             else if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"livestreaming"]) {
-                _locationLatestImageView.image = [UIImage imageNamed:@"liveFeedPlaceholder"];
-                [playButtonImageView setHidden:NO];
+                self.headerView.mediaView.mediaImageView.image = [UIImage imageNamed:@"liveFeedPlaceholder"];
+                self.headerView.mediaView.bottomGradientView.hidden = NO;
+                [self.headerView.mediaView.playButtonOverlay setHidden:NO];
             }
             else {
-                [playButtonImageView setHidden:NO];
-                dispatch_async(backgroundQueue, ^(void) {
+                [self.headerView.mediaView.playButtonOverlay setHidden:NO];
+                [self.headerView.mediaView.mediaImageView setImageWithURL:[NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"thumbURL"]]];
+                
+                /*dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
                     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]] options:nil];
                     AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
                     generate.appliesPreferredTrackTransform = YES;
@@ -569,64 +822,54 @@
                     CMTime time = CMTimeMake(0, 60);
                     CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
                     dispatch_async(dispatch_get_main_queue(), ^(void) {
-                        _locationLatestImageView.image =  [UIImage imageWithCGImage:imgRef];
+                        self.headerView.mediaView.mediaImageView.image =  [UIImage imageWithCGImage:imgRef];
+                        self.headerView.mediaView.bottomGradientView.hidden = NO;
                     });
-                });
+                });*/
                 
             }
-            [_makeRequestButton setFrame:CGRectMake(9, 349, 302, 66)];
-            [_makeRequestLabel setFrame:CGRectMake(10, 361, 300, 21)];
-            [_numberOfPeopleLabel setFrame:CGRectMake(10, 380, 300, 22)];
-            [_tableView setFrame:CGRectMake(0, 427,320, 440)];
-            [_mediaView setHidden:NO];
+            [self.headerView hideLoadingViewShowMedia:YES];
+        }else{
+            [self.headerView hideLoadingViewShowMedia:NO];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", operation.responseString);
+        NSLog(@"ERROR: %@", operation.responseString);
+        [self.headerView hideLoadingViewShowMedia:NO];
     }];
-
-}
-
-- (void)publishStoryToFacebook
-{
-    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-    BOOL isVideo = NO;
-    [params setValue:_locationNameLabel.text forKey:@"initialText"];
-    if (mediaArray.count > 0) {
-        if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"video"]) {
-            [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
-            isVideo = YES;
-        }
-        else {
-            [params setValue:_locationLatestImageView.image forKey:@"image"];
-        }
-    }
-    if (![[_contentList valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[_contentList valueForKey:@"webSite"]isEqualToString:@""] && !isVideo) {
-        [params setValue:[_contentList valueForKey:@"webSite"] forKey:@"url"];
-    }
     
-    [[MMClientSDK sharedSDK]shareViaFacebook:params presentingViewController:self];
 }
 
-- (void)publishOnTwitter {
-    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-    BOOL isVideo = NO;
-    [params setValue:_locationNameLabel.text forKey:@"initialText"];
-    if (mediaArray.count > 0) {
-        if ([[[mediaArray objectAtIndex:0]valueForKey:@"type"]isEqualToString:@"video"]) {
-            [params setValue:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"] forKey:@"url"];
-            isVideo = YES;
-        }
-        else {
-            [params setValue:_locationLatestImageView.image forKey:@"image"];
-        }
-    }
-    if (![[_contentList valueForKey:@"webSite"] isKindOfClass:[NSNull class]] && ![[_contentList valueForKey:@"webSite"]isEqualToString:@""] && !isVideo) {
-        [params setValue:[_contentList valueForKey:@"webSite"] forKey:@"url"];
-    }
+/*#pragma mark - header view delegate
+-(void)headerViewNeedsToBeSetOnSuperView:(MMLocationHeaderView *)headerView{
     
-    [[MMClientSDK sharedSDK]shareViaTwitter:params presentingViewController:self];
+    self.headerView = headerView;
+    self.headerView.delegate = self;
+    self.tableView.tableHeaderView = self.headerView;
+}*/
+
+#pragma mark - browser
+-(void)openURL:(NSURL*)url{
+    BrowserViewController *bvc = [[BrowserViewController alloc] initWithUrls:url];
+    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+    [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    bvc.navigationItem.leftBarButtonItem = backButton;
+    
+    [self.navigationController pushViewController:bvc animated:YES];
+    
 }
 
 
 
+
+
+
+
+
+
+-(void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker {
+    NSLog(@"CANCELED");
+}
 @end

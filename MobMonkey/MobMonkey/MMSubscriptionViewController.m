@@ -8,6 +8,7 @@
 
 #import "MMSubscriptionViewController.h"
 #import "AdWhirlView.h"
+#import "MMAPI.h"
 
 
 @interface MMSubscriptionViewController ()
@@ -38,6 +39,10 @@
     
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"mmSubscribed"]){
+       // [subscribeButton setEnabled:NO];
+    }
 
 }
 
@@ -54,13 +59,40 @@
 }
 
 - (IBAction) dismissButtonTapped:(id)sender {
+    [SVProgressHUD dismiss];
         [self.navigationController dismissModalViewControllerAnimated:YES];
 
 }
 
 
 - (IBAction)subscribeButtonTapped:(id)sender {
-    [subscribeButton setEnabled:NO];
+    
+    
+    NSString *partnerID = [[NSUserDefaults standardUserDefaults] objectForKey:@"mmPartnerId"];
+    NSString *userEmailID = [[NSUserDefaults standardUserDefaults] stringForKey:@"userName"];
+    
+    NSLog(@"User: %@ Partner:%@", userEmailID, partnerID);
+    if(partnerID && userEmailID){
+        
+        [SVProgressHUD showWithStatus:@"Subscribing..."];
+        
+        
+        [MMAPI subscribeUserEmail:userEmailID partnerId:partnerID success:^{
+            [subscribeButton setEnabled:NO];
+            
+            [SVProgressHUD showSuccessWithStatus:@"You are subscribed!"];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"mmSubscribed"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+        } failure:^(NSError *error) {
+            [SVProgressHUD showErrorWithStatus:@"Failed to subscribe"];
+            NSLog(@"error: %@", error);
+        }];
+        
+    }
+    
 
 }
 

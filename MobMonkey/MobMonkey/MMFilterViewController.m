@@ -117,6 +117,9 @@
 }
 
 #pragma mark - UIBarButtonItem Action Methods
+-(void)doneButtonPressed:(id)sender{
+    
+}
 - (void)backButtonTapped:(id)sender {
     switch (distancePicker.selectedSegmentIndex) {
         case 0:

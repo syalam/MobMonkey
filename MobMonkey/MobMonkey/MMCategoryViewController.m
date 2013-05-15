@@ -100,11 +100,14 @@
         }
     }
     else {
-        if (allCategories) {
+        if ([allCategories isKindOfClass:[NSDictionary class]] && [[allCategories allKeys] count] > 0) {
             categoriesArray = [allCategories allKeys];
             [self setTableContent];
         }
         else {
+            if(![allCategories isKindOfClass:[NSDictionary class]]){
+                [TestFlight passCheckpoint:@"allCategories not dictionary"];
+            }
             [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"%@", responseObject);
                 [[NSUserDefaults standardUserDefaults]setObject:responseObject forKey:@"allCategories"];
@@ -416,8 +419,8 @@
         cellIconImage = [UIImage imageNamed:@"beachesIcon"];
     }
     //Currently the Web Service returns " Dog Parks" this should be "Dog Parks"
-    else if ([categoryName isEqualToString:@" Dog Parks"] || [categoryName isEqualToString:@"Dog Parks"]) {
-        cellIconImage = [UIImage imageNamed:@"dogParksIcon"];
+    else if ([categoryName isEqualToString:@"Parks"] || [categoryName isEqualToString:@" Parks"]) {
+        cellIconImage = [UIImage imageNamed:@"pineTree"];
     }
     else if ([categoryName isEqualToString:@"Restaurants"]) {
         cellIconImage = [UIImage imageNamed:@"restaurantsIcon"];

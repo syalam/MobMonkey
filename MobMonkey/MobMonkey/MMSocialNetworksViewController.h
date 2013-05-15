@@ -10,6 +10,7 @@
 #import "MMSocialNetworksCell.h"
 #import <Twitter/Twitter.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import "MMAPI.h"
 
 @interface MMSocialNetworksViewController : UIViewController <MMSocialNetworksCellDelegate, UITableViewDataSource, UITableViewDelegate>
 

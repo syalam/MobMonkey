@@ -16,8 +16,10 @@
 #import "MMInboxFullScreenImageViewController.h"
 #import "MMAnsweredRequestsViewController.h"
 #import "MMFullScreenImageViewController.h"
+#import "MMSocialNetworkModel.h"
 
 #import "MMRequestViewController.h"
+#import "MMLocationInformation.h"
 
 @implementation MMClientSDK
 
@@ -80,12 +82,16 @@
     [presentingViewController.navigationController pushViewController:trendingVC animated:YES];
 }
 
-- (void)locationScreen:(UIViewController*)presentingViewController locationDetail:(NSMutableDictionary*)locationDetail {
+/*- (void)locationScreen:(UIViewController*)presentingViewController locationDetail:(NSMutableDictionary*)locationDetail {
     MMLocationViewController *locationVC = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
     locationVC.contentList = locationDetail;
     [presentingViewController.navigationController pushViewController:locationVC animated:YES];
+}*/
+-(void)locationScreen:(UIViewController *)presentingViewController locationInformation:(MMLocationInformation *)locationInformation {
+    MMLocationViewController *locationVC = [[MMLocationViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    locationVC.locationInformation = locationInformation;
+    [presentingViewController.navigationController pushViewController:locationVC animated:YES];
 }
-
 //- (void)makeARequestScreen:(UIViewController*)presentingViewController locationDetail:(NSDictionary*)locationDetail {
 //    MMMakeRequestViewController *requestVC = [[MMMakeRequestViewController alloc]initWithNibName:@"MMMakeRequestViewController" bundle:nil];
 //    requestVC.title = @"Make a Request";
@@ -94,12 +100,12 @@
 //    [presentingViewController.navigationController presentViewController:requestNavC animated:YES completion:NULL];
 //}
 
-- (void)makeARequestScreen:(UIViewController*)presentingViewController locationDetail:(NSDictionary*)locationDetail {
+- (void)makeARequestScreen:(UIViewController*)presentingViewController locationDetail:(MMLocationInformation *)locationInformation {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Request" bundle:nil];
     UINavigationController *navVC = [storyboard instantiateInitialViewController];
     MMRequestViewController *requestVC = navVC.viewControllers[0];
     requestVC.title = @"Make Request";
-    requestVC.contentList = locationDetail;
+    requestVC.locationInformation = locationInformation;
     //UINavigationController *requestNavC = [[UINavigationController alloc]initWithRootViewController:requestVC];
     [presentingViewController presentViewController:navVC animated:YES completion:NULL];
 }
@@ -204,7 +210,11 @@
                         gender = [NSNumber numberWithInt:1];
                     else if([[my valueForKey:@"gender"] isEqualToString:@"female"])
                         gender = [NSNumber numberWithInt:0];
-                                        
+                    
+                    
+                    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"apnsToken"];
+                    //NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
+                    
                     NSString* accessToken = me.session.accessToken;
                     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                                             [my valueForKey:@"email"], @"providerUserName",
@@ -225,10 +235,11 @@
                         [[NSUserDefaults standardUserDefaults]setValue:accessToken forKey:@"oauthToken"];
                         [[NSUserDefaults standardUserDefaults]synchronize];
                         
-                        [self checkInUser];
+                        
                         [self getAllCategories];
                         [SVProgressHUD showSuccessWithStatus:@"Signed in with Facebook"];
                         [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:nil];
+                        [self checkInUser];
                         [presentingViewController.navigationController dismissViewControllerAnimated:YES completion:NULL];
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         
@@ -258,6 +269,10 @@
     }];
 }
 - (void)signInViaTwitter:(ACAccount*)account presentingViewController:(UIViewController*)presentingViewController {
+    
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"apnsToken"];
+    //NSAssert(token.length > 0, @"MUST HAVE APNS TOKEN");
+    
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                             account.username, @"providerUserName",
                             account.identifier, @"oauthToken",
@@ -317,6 +332,10 @@
 
 - (void)checkInUser {
     NSMutableDictionary *checkinParams = [[NSMutableDictionary alloc]init];
+    
+    
+    
+    
     [checkinParams setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"]doubleValue]] forKey:@"latitude"];
     [checkinParams setObject:[NSNumber numberWithDouble:[[[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"]doubleValue]]forKey:@"longitude"];
     [MMAPI checkUserIn:checkinParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -363,7 +382,7 @@
     if ([prefs boolForKey:@"facebookEnabled"]) {
         [actionSheet addButtonWithTitle:@"Share on Facebook"];
     }
-    if ([prefs boolForKey:@"twitterEnabled"]) {
+    if ([prefs boolForKey:@"twitterEnabled"] && [storyToPublishToSocialNetworkDictionary valueForKey:@"image"]) {
         [actionSheet addButtonWithTitle:@"Share on Twitter"];
     }
     [actionSheet addButtonWithTitle:@"Flag for Review"];
@@ -388,10 +407,52 @@
         }
     }
     if ([buttonTitle isEqualToString:@"Share on Facebook"]) {
-        [self shareViaFacebook:storyToPublishToSocialNetworkDictionary presentingViewController:presentingVC];
+        
+        UIImage *image = [storyToPublishToSocialNetworkDictionary objectForKey:@"image"];
+        
+        if(image){
+            [SVProgressHUD showWithStatus:@"Uploading Photo to Facebook"];
+            NSString *imageTitle = [NSString stringWithFormat:@"MobMonkey Image: %@", [storyToPublishToSocialNetworkDictionary objectForKey:@"initialText"]];
+            [MMSocialNetworkModel uploadImage:image title:imageTitle details:nil toSocialNetwork:SocialNetworkFacebook success:^{
+                NSLog(@"Success");
+                [SVProgressHUD showSuccessWithStatus:@"Success"];
+            } failure:^(NSError *error) {
+                NSLog(@"Failure");
+                [SVProgressHUD showErrorWithStatus:@"Request Failed"];
+            }];
+        }else{
+            NSURL *videoURLPath = [ NSURL URLWithString:[storyToPublishToSocialNetworkDictionary valueForKey:@"url"]];
+            NSString *videoTitle = [NSString stringWithFormat:@"MobMonkey Video: %@", [storyToPublishToSocialNetworkDictionary objectForKey:@"initialText"]];
+            [SVProgressHUD showWithStatus:@"Uploading Video to Facebook"];
+            [self downloadVideoFromURL:videoURLPath completion:^(NSData *videoData, NSError *error) {
+                if(!error){
+                    
+                    [MMSocialNetworkModel uploadVideo:videoData title:videoTitle details:@"" toSocialNetwork:SocialNetworkFacebook success:^{
+                        NSLog(@"Upload Video Success");
+                        [SVProgressHUD showSuccessWithStatus:@"Success"];
+                    } failure:^(NSError * error) {
+                        NSLog(@"Upload Video failed");
+                        [SVProgressHUD showErrorWithStatus:@"Request Failed"];
+                    }];
+                }
+            }];
+        }
     }
     else if ([buttonTitle isEqualToString:@"Share on Twitter"]) {
-        [self shareViaTwitter:storyToPublishToSocialNetworkDictionary presentingViewController:presentingVC];
+        //[self shareViaTwitter:storyToPublishToSocialNetworkDictionary presentingViewController:presentingVC];
+        UIImage *image = [storyToPublishToSocialNetworkDictionary objectForKey:@"image"];
+        
+        if(image){
+            [SVProgressHUD showWithStatus:@"Uploading Photo to Twitter"];
+            NSString *imageTitle = [NSString stringWithFormat:@"MobMonkey Image: %@ #MobMonkey http://mobmonkey.com", [storyToPublishToSocialNetworkDictionary objectForKey:@"initialText"]];
+            [MMSocialNetworkModel uploadImage:image title:imageTitle details:nil toSocialNetwork:SocialNetworkTwitter success:^{
+                NSLog(@"Success");
+                [SVProgressHUD showSuccessWithStatus:@"Success"];
+            } failure:^(NSError *error) {
+                NSLog(@"Failure");
+                [SVProgressHUD showErrorWithStatus:@"Request Failed"];
+            }];
+        }
     }
     else if ([buttonTitle isEqualToString:@"Flag for Review"]) {
         
@@ -399,23 +460,51 @@
     
 }
 
-#pragma mark - Helper Methods
-- (void)saveVideoToCameraRoll {
+-(void)downloadVideoFromURL:(NSURL *)videoURL completion:(void(^)(NSData *videoData, NSError *error))completion{
     dispatch_queue_t backgroundQueue = dispatch_queue_create("com.MobMonkey.SaveVideo", NULL);
     dispatch_async(backgroundQueue, ^(void) {
         NSString *stringURL = [storyToPublishToSocialNetworkDictionary valueForKey:@"url"];
         NSURL  *url = [NSURL URLWithString:stringURL];
         NSData *urlData = [NSData dataWithContentsOfURL:url];
-        if ( urlData )
-        {
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *documentsDirectory = [paths objectAtIndex:0];
-            
-            NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"filename.mp4"];
-            [urlData writeToFile:filePath atomically:YES];
-            
-            UISaveVideoAtPathToSavedPhotosAlbum(filePath, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+        
+        NSError *error = nil;
+        
+        if(!urlData){
+            error = [NSError errorWithDomain:@"com.MobMonkey" code:1251 userInfo:@{@"error":@"video was not downloaded successfully"}];
         }
+        
+        
+        if (completion) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                completion(urlData, error);
+            });
+        }
+                    
+        
+    });
+}
+
+#pragma mark - Helper Methods
+- (void)saveVideoToCameraRoll {
+    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.MobMonkey.SaveVideo", NULL);
+    dispatch_async(backgroundQueue, ^(void) {
+        NSString *stringURL = [storyToPublishToSocialNetworkDictionary valueForKey:@"url"];
+        if(stringURL && stringURL.length > 0)
+        {
+            NSURL  *url = [NSURL URLWithString:stringURL];
+            NSData *urlData = [NSData dataWithContentsOfURL:url];
+            if ( urlData )
+            {
+                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                NSString *documentsDirectory = [paths objectAtIndex:0];
+                
+                NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"filename.mp4"];
+                [urlData writeToFile:filePath atomically:YES];
+                
+                UISaveVideoAtPathToSavedPhotosAlbum(filePath, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+            }
+        }
+        
     });
 }
 
@@ -436,7 +525,7 @@
 
 - (void)video: (NSString *) videoPath didFinishSavingWithError: (NSError *) error contextInfo: (void *) contextInfo {
     dispatch_async(dispatch_get_main_queue(), ^(void) {
-        if (error != NULL)
+        if (error)
         {
             [SVProgressHUD showErrorWithStatus:@"Unable to save. Please try again"];
             

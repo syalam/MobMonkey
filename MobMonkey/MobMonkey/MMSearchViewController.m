@@ -47,27 +47,15 @@
     UIImage *customButtonImage = [[UIImage imageNamed:@"navBarButtonBlank"]
                             resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
     
-    if (_subCategoryIndex) {
+    
         UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
         [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
         
         UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
         self.navigationItem.leftBarButtonItem = backButton;
-    }
-    else {
-        UIButton *customButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        customButton.bounds = CGRectMake(0, 0, 52, 31);
-        [customButton setBackgroundImage:customButtonImage forState:UIControlStateNormal];
-        [customButton setTitle:@"Filter" forState:UIControlStateNormal];
-        [customButton.titleLabel setTextColor:[UIColor whiteColor]];
-        [customButton.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
-        [customButton.titleLabel setShadowColor:[UIColor darkGrayColor]];
-        [customButton.titleLabel setShadowOffset:CGSizeMake(0, -1)];
-        [customButton addTarget:self action:@selector(showFilterView:) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem* filterButton = [[UIBarButtonItem alloc] initWithCustomView:customButton];
-        self.navigationItem.leftBarButtonItem = filterButton;
-    }
+    
+
   
     UIButton *plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [plusButton setFrame:CGRectMake(0, 0, 31, 31)];
@@ -114,8 +102,17 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [SVProgressHUD dismiss];
+    
     [super viewWillAppear:animated];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    [super viewDidAppear:animated];
+    
+    [SVProgressHUD dismiss];
     if (![prefs objectForKey:@"userName"]) {
         [[MMClientSDK sharedSDK]signInScreen:self];
     }
@@ -128,7 +125,8 @@
             
         }
         else {
-            if (allCategories.count > 0) {
+            if ([allCategories isKindOfClass:[NSDictionary class]] && [[allCategories allKeys] count] > 0) {
+            //if(allCategories.count > 0) {
                 NSLog(@"ARRAY: %@", allCategories);
                 self.categories = [allCategories allKeys];
                 [self.tableView reloadData];
@@ -148,27 +146,13 @@
                     [SVProgressHUD showErrorWithStatus:@"Unable to load categories"];
                     
                 }];
-
+                
             }
         }
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    
-    [super viewDidAppear:animated];
     
     
     
-    
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    self.searchWasActive = [self.searchDisplayController isActive];
-    self.savedSearchTerm = [self.searchDisplayController.searchBar text];
 }
 
 - (void)didReceiveMemoryWarning
@@ -196,6 +180,16 @@
 }
 
 - (void)backButtonTapped:(id)sender {
+    
+    NSUInteger currentViewControllerIndex = [self.navigationController.viewControllers indexOfObject:self];
+    
+    if([[self.navigationController.viewControllers objectAtIndex:currentViewControllerIndex - 1] isKindOfClass:[MMSearchViewController class]]){
+        MMSearchViewController *previousViewControl = [self.navigationController.viewControllers objectAtIndex:currentViewControllerIndex - 1];
+        
+        previousViewControl.searchWasActive = [self.searchDisplayController isActive];
+        previousViewControl.savedSearchTerm = [self.searchDisplayController.searchBar text];
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -209,7 +203,7 @@
     }
   
     self.searchResultsViewController.category = category;
-    self.searchResultsViewController.locations = [NSMutableArray array];
+    //self.searchResultsViewController.locations = [NSMutableArray array];
     [self.searchResultsViewController.tableView reloadData];
     self.searchResultsViewController.isSearching = YES;
     self.searchResultsViewController.isHistory = NO;
@@ -219,6 +213,8 @@
     } else {
         if ([self.searchBar.text length] > 0) {
             self.searchResultsViewController.title = [NSString stringWithFormat:@"“%@”", self.searchBar.text];
+            self.searchResultsViewController.searchString = [NSString stringWithFormat:@"%@", self.searchBar.text];
+
         }
         else {
             self.searchResultsViewController.title = @"All Nearby";
@@ -253,7 +249,35 @@
     }
     NSLog(@"%@", params);
     [SVProgressHUD showWithStatus:@"Searching"];
-    [MMAPI searchForLocation:params mediaType:mediaType success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    
+    NSLog(@"Params: %@", params);
+    
+    [MMAPI searchForLocations:params mediaType:mediaType success:^(AFHTTPRequestOperation *operation, NSArray *locationInformations) {
+        
+        self.searchResultsViewController.isSearching = NO;
+        [SVProgressHUD dismiss];
+        if (locationInformations.count <= 0) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"No locations found" delegate:self.searchResultsViewController cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
+        
+        self.searchResultsViewController.locationsInformationCollection = locationInformations.mutableCopy;
+     
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"%@", operation.responseString);
+        if(operation.response.statusCode == 500){
+#warning Remove Debug message from status
+            [SVProgressHUD showErrorWithStatus:@"We're having techincal difficulties at this time. Please try again later. DEBUG: Server at Capacity Status:503 (from factual)"];
+        }else{
+            [SVProgressHUD showErrorWithStatus:[error description]];
+        }
+        
+    }];
+    
+    /*[MMAPI searchForLocation:params mediaType:mediaType success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.searchResultsViewController.isSearching = NO;
         [SVProgressHUD dismiss];
         NSArray *responseObjectArray = responseObject;
@@ -261,12 +285,20 @@
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"No locations found" delegate:self.searchResultsViewController cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
         }
+        
+    
         self.searchResultsViewController.locations = responseObject;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", operation.responseString);
-        [SVProgressHUD showErrorWithStatus:[error description]];
-    }];
+        if(operation.response.statusCode == 500){
+#warning Remove Debug message from status
+            [SVProgressHUD showErrorWithStatus:@"We're having techincal difficulties at this time. Please try again later. DEBUG: Server at Capacity Status:503 (from factual)"];
+        }else{
+            [SVProgressHUD showErrorWithStatus:[error description]];
+        }
+        
+    }];*/
 
     
     [self.navigationController pushViewController:self.searchResultsViewController animated:YES];
@@ -282,11 +314,8 @@
         numberOfSections += self.filteredCategories.count > 0;
         return numberOfSections;
     }
-    else if (_subCategoryIndex) {
-        return 1;
-    }
     else {
-        return 2;
+        return 1;
     }
 }
 
@@ -307,22 +336,10 @@
         }
         return numberOfRows;
     }
-    else if (_subCategoryIndex) {
+    else {
         numberOfRows = self.categories.count;
     }
-    else {
-        switch (section) {
-            case 0:
-                numberOfRows = 2;
-                break;
-            case 1:
-                numberOfRows = self.categories.count;
-                break;
-            default:
-                numberOfRows = 0;
-                break;
-        }
-    }
+    
     return numberOfRows;
 }
 
@@ -351,41 +368,20 @@
     }
     NSDictionary *category;
     NSString *categoryName;
-    int section;
-    if (_subCategoryIndex) {
-        section = indexPath.section + 1;
-    }
-    else {
-        section = indexPath.section;
-    }
-    switch (section) {
-        case 0:
-            if (indexPath.row == 0) {
-                categoryName = @"Show All Nearby";
-            }
-            else {
-                categoryName = @"History";
-            }
-            break;
-        case 1: {
-            if (tableView == self.searchDisplayController.searchResultsTableView) {
-                category = self.filteredCategories[indexPath.row];
-            } else {
-                if (_subCategoryIndex) {
-                    category = self.categories[indexPath.row];
-                    categoryName = [category objectForKey:@"en"];
-                }
-                else {
-                    categoryName = self.categories[indexPath.row];
-                }
-                
-            }
-            cell.imageView.image = [UIImage imageNamed:@"picture"];
+
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        category = self.filteredCategories[indexPath.row];
+    } else {
+        if (_subCategoryIndex) {
+            category = self.categories[indexPath.row];
+            categoryName = [category objectForKey:@"en"];
         }
-            break;
-        default:
-            break;
+        else {
+            categoryName = self.categories[indexPath.row];
+        }
+        
     }
+    
     cell.textLabel.text = categoryName;
     cell.imageView.image = [self assignIconToSearchCategoryWithCategoryName:categoryName];
     return cell;
@@ -398,48 +394,32 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSDictionary *category = nil;
 
-    int section;
-    if (_subCategoryIndex) {
-        section = indexPath.section + 1;
-    }
-    else {
-        section = indexPath.section;
-    }
-
-    
-    if (section == 1) {
-        if (tableView == self.searchDisplayController.searchResultsTableView) {
-            category = self.filteredCategories[indexPath.row];
-        } else {
-            if (!_subCategoryIndex) {
-                
-                if ([[[allCategories allValues]objectAtIndex:indexPath.row] count] > 1) {
-                    MMSearchViewController *searchVC = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
-                    searchVC.subCategoryIndex = indexPath.row;
-                    searchVC.title = self.categories[indexPath.row];
-                    [self.navigationController pushViewController:searchVC animated:YES];
-                }
-                else {
-                    category = [[[allCategories allValues]objectAtIndex:indexPath.row] objectAtIndex:0];
-                    [self showSearchResultsForCategory:category];
-
-                }
-
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        category = self.filteredCategories[indexPath.row];
+    } else {
+        if (!_subCategoryIndex) {
+            
+            if ([[[allCategories allValues]objectAtIndex:indexPath.row] count] > 1) {
+                MMSearchViewController *searchVC = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
+                searchVC.subCategoryIndex = indexPath.row;
+                searchVC.title = self.categories[indexPath.row];
+                [self.navigationController pushViewController:searchVC animated:YES];
             }
             else {
-                category = self.categories[indexPath.row];
+                category = [[[allCategories allValues]objectAtIndex:indexPath.row] objectAtIndex:0];
                 [self showSearchResultsForCategory:category];
 
             }
+
         }
-                
+        else {
+            category = self.categories[indexPath.row];
+            [self showSearchResultsForCategory:category];
+
+        }
     }
-    else if (section == 0 && indexPath.row == 0) {
-        [self showSearchResultsForCategory:category];
-    }
-    else {
-        [self showSearchHistory];
-    }
+    
+    
 
 }
 
@@ -457,8 +437,8 @@
         cellIconImage = [UIImage imageNamed:@"beachesIcon"];
     }
     //Currently the Web Service returns " Dog Parks" this should be "Dog Parks"
-    else if ([categoryName isEqualToString:@" Dog Parks"] || [categoryName isEqualToString:@"Dog Parks"]) {
-        cellIconImage = [UIImage imageNamed:@"dogParksIcon"];
+    else if ([categoryName isEqualToString:@"Parks"] || [categoryName isEqualToString:@" Parks"]) {
+        cellIconImage = [UIImage imageNamed:@"pineTree"];
     }
     else if ([categoryName isEqualToString:@"Restaurants"]) {
         cellIconImage = [UIImage imageNamed:@"restaurantsIcon"];
@@ -513,7 +493,15 @@
     else {
         searchHistory = [[NSMutableArray alloc]init];
     }
-    self.searchResultsViewController.locations = searchHistory;
+    
+    NSMutableArray *locationInformations = [NSMutableArray array];
+    
+    for(NSDictionary *locationDictionary in searchHistory){
+        MMLocationInformation *locationInformation = [MMAPI locationInformationForLocationDictionary:locationDictionary];
+        [locationInformations addObject:locationInformation];
+    }
+    
+    self.searchResultsViewController.locationsInformationCollection = locationInformations;
     [self.searchResultsViewController.tableView reloadData];
     self.searchResultsViewController.isHistory = YES;
     self.searchResultsViewController.title = @"History";
@@ -555,7 +543,7 @@
 
 #pragma mark - MMMapFilterDelegate
 - (void)locationAddedViaMapViewWithLocationID:(NSString*)locationId providerId:(NSString*)providerId {
-    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+    MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
     [self.navigationController pushViewController:locationViewController animated:YES];
 }

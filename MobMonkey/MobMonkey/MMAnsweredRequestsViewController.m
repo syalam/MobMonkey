@@ -11,7 +11,8 @@
 #import "GetRelativeTime.h"
 #import "MMLocationViewController.h"
 #import "MMLocationListCell.h"
-
+#import <AVFoundation/AVFoundation.h>
+#import "UIImageView+AFNetworking.h"
 @interface MMAnsweredRequestsViewController ()
 
 @end
@@ -160,9 +161,18 @@
             }
         }
         else {
-            dispatch_async(backgroundQueue, ^(void) {
-                cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row cell:cell];
-            });
+            
+            NSString *thumbURL = [[mediaArray objectAtIndex:0] objectForKey:@"thumbURL"];
+            
+            if(thumbURL && ![thumbURL isEqual:[NSNull null]] && thumbURL.length > 0){
+                [cell.locationImageView setImageWithURL:[NSURL URLWithString: thumbURL]];
+            }
+            
+            
+            NSLog(@"URL: %@", [[mediaArray objectAtIndex:0]valueForKey:@"thumbURL"]);
+            //dispatch_async(backgroundQueue, ^(void) {
+            //    cell.locationImageView.image =  [self generateThumbnailForVideo:indexPath.row cell:cell];
+            //});
             cell.playButtonImageView.hidden = NO;
         }
     }
@@ -205,7 +215,7 @@
     NSString *locationId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"locationId"];
     NSString *providerId = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"providerId"];
     
-    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithStyle:UITableViewStyleGrouped];
     [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
     [self.navigationController pushViewController:locationViewController animated:YES];
 }
@@ -282,10 +292,18 @@
         else {
             NSArray *mediaArray  = [[_contentList objectAtIndex:[sender tag]]valueForKey:@"media"];
             if (mediaArray.count > 0) {
-                NSURL *url = [NSURL URLWithString:[[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"]];
+                
+                NSString *urlPath = [[mediaArray objectAtIndex:0]valueForKey:@"mediaURL"];
+                
+                if([[[_contentList objectAtIndex:[sender tag]]valueForKey:@"mediaType"]intValue] == 2){
+                    urlPath = [urlPath stringByReplacingOccurrencesOfString:@"http://vod-cdn.mobmonkey.com" withString:@"https://s3.amazonaws.com/mobmonkeyvod"];
+                }
+                NSURL *url = [NSURL URLWithString:urlPath];
                 NSLog(@"%@", url);
+                UIGraphicsBeginImageContext(CGSizeMake(1,1));
                 MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-                [self.navigationController presentMoviePlayerViewControllerAnimated:player];
+                [self presentMoviePlayerViewControllerAnimated:player];
+                UIGraphicsEndImageContext();
             }
         }
     }

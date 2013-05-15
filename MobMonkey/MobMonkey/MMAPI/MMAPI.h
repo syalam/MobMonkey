@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import "AFJSONRequestOperation.h"
-
+#import "MMMyInfo.h"
+#import "MMLocationInformation.h"
+#import "MMSocialNetworkModel.h"
 
 typedef enum apiCall {
     kAPICallOpenRequests,
@@ -28,6 +30,15 @@ typedef enum OAuthProvider {
     OAuthProviderTwitter
 } OAuthProvider;
 
+@interface MMOAuth : NSObject
+
+@property (nonatomic, strong) NSString *token;
+@property (nonatomic, assign) OAuthProvider provider;
+@property (nonatomic, strong) NSString *username;
+@property (nonatomic, strong) NSString *deviceID;
+@property (nonatomic, strong) NSString *providerString;
+
+@end
 @protocol MMAPIDelegate
 
 @optional
@@ -83,6 +94,17 @@ typedef enum OAuthProvider {
                     success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+//Newer version without dictionary
++ (void) updateUserInfo:(MMMyInfo *)userInfo
+                    newPassword:(NSString *)newPassword
+                     success:(void (^)(AFHTTPRequestOperation *, id))success
+                     failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
+
++(void)updateUserInfo:(MMMyInfo *)userInfo
+            withOauth:(MMOAuth *)oauth
+          newPassword:(NSString *)newPassword
+              success:(void (^)(AFHTTPRequestOperation * operation, id responseObject))success
+              failure:(void (^)(AFHTTPRequestOperation * opertaion, NSError * error))failure;
 ///---------------------------------------------
 /// @name Signing in an existing user
 ///---------------------------------------------
@@ -133,6 +155,16 @@ typedef enum OAuthProvider {
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 
+//This is a non-dictionary dependant version of the oauthSignIn method
+
++(void)oauthSignIn:(MMOAuth *)oauth
+          userInfo:(MMMyInfo *)userInfo
+        forService:(SocialNetwork)socialNetwork
+           success:(void (^)(AFHTTPRequestOperation *, id))success
+           failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
+
+
+
 ///---------------------------------------------
 /// @name Register email address for twitter user
 ///---------------------------------------------
@@ -144,6 +176,12 @@ typedef enum OAuthProvider {
 + (void)registerTwitterUserDetails:(NSDictionary*)params
                     success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+//NEW MTHOD -- NO Dictionaries
+
++ (void) registerTwitterWithOauth:(MMOAuth*)oauth userInfo:(MMMyInfo *)userInfo
+                          success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 ///---------------------------------------------
 /// @name Sign's a user in with Twitter
@@ -290,6 +328,11 @@ typedef enum OAuthProvider {
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+//NEW METHOD
++ (void)searchForLocations:(NSMutableDictionary*)params mediaType:(NSString*)mediaType
+                  success:(void (^)(AFHTTPRequestOperation *operation, NSArray *locationInformations))success
+                  failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 
 @property (nonatomic, assign)id<MMAPIDelegate> delegate;
 
@@ -312,6 +355,12 @@ Fetches livestreaming URLs for a location
  Fetches Bookmarks
  */
 + (void)getBookmarksOnSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+
+//NEW METHOD
+
++ (void)getBookmarkLocationInformationOnSuccess:(void (^)(AFHTTPRequestOperation *operation, NSArray *locationInformations ))success
                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 ///---------------------------------------------
@@ -356,6 +405,12 @@ Fetches livestreaming URLs for a location
                 success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+//Newer Method
++(void)getLocationWithID:(NSString *)locationID
+              providerID:(NSString *)providerID
+                 success:(void(^)(AFHTTPRequestOperation *operation , MMLocationInformation *locationInformation))success
+                 failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 
 ///---------------------------------------------
 /// @name Reject Media
@@ -384,5 +439,25 @@ Fetches livestreaming URLs for a location
             success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+
+///---------------------------------------------
+/// @name Subscribe User
+///---------------------------------------------
+/**
+    Subscribe User
+ 
+ @param userEmail This is the user's id email
+ @param partnerId This is the user's partner ID
+ @param Returns success block if subscription was successful
+ @param Returns failure block if subscription was unsucceful
+ 
+ */
++(void)subscribeUserEmail:(NSString *)userEmail partnerId:(NSString *)partnerId success:(void(^)(void))success failure:(void(^)(NSError * error))failure;
+
++(void)createSubLocationWithLocationInformation:(MMLocationInformation*)locationInformation success:(void(^)(void))success failure:(void(^)(NSError * error))failure;
+
+
++(MMLocationInformation *)locationInformationForLocationDictionary:(NSDictionary *)locationDictionary;
++(NSDictionary *)locationDictionaryForLocationInformation:(MMLocationInformation *)locationInformation;
 
 @end

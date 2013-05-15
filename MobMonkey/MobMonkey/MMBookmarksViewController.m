@@ -35,18 +35,30 @@
 
 - (void)getBookmarks
 {
-    [MMAPI getBookmarksOnSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MMAPI getBookmarkLocationInformationOnSuccess:^(AFHTTPRequestOperation *operation, NSArray *locationInformations) {
+       
+        NSMutableArray *bookmarks = [NSMutableArray arrayWithCapacity:locationInformations.count];
+        for(MMLocationInformation *locationInformation in locationInformations){
+            locationInformation.isBookmark = YES;
+            [bookmarks addObject:locationInformation];
+        }
+        
+        self.locationsInformationCollection = bookmarks.mutableCopy;
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (operation.responseData) {
+            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:nil];
+            if ([[response valueForKey:@"status"] isEqualToString:@"Unauthorized"]) {
+                //[[MMClientSDK sharedSDK] signInScreen:self];
+            }
+        }
+    }];
+    
+    /*[MMAPI getBookmarksOnSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Response: %@", [responseObject description]);
         
-        //  Monkey hack until API is fixed
-        NSMutableArray *locations = [NSMutableArray array];
-        NSMutableDictionary *mutableLocation;
-        for (NSDictionary *location in responseObject) {
-            mutableLocation = [location mutableCopy];
-            [mutableLocation setValue:[NSNumber numberWithBool:YES] forKey:@"bookmark"];
-            [locations addObject:mutableLocation];
-        }
-        self.locations = locations;
+       
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (operation.responseData) {
@@ -56,7 +68,7 @@
             }
         }
         
-    }];
+    }];*/
 }
 
 @end

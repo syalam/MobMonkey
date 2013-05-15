@@ -10,8 +10,21 @@
 #import "MMLocationViewController.h"
 #import "MMLocationListCell.h"
 #import "MMLocationAnnotation.h"
+#import "MMLocationSearch.h"
+
+
 
 @interface MMLocationsViewController ()
+
+@property (nonatomic, strong) UIBarButtonItem * radius5mileButton;
+@property (nonatomic, strong) UIBarButtonItem * radius10mileButton;
+@property (nonatomic, strong) UIBarButtonItem * radius20mileButton;
+
+@property (nonatomic, strong) UIColor *itemNormalTint;
+@property (nonatomic, strong) UIColor *itemSelectedTint;
+
+
+
 
 - (void)flipView:(id)sender;
 - (void)reloadMapView;
@@ -22,10 +35,53 @@
 @implementation MMLocationsViewController
 @synthesize mapView;
 @synthesize category;
+@synthesize radius5mileButton, radius10mileButton, radius20mileButton, itemNormalTint, itemSelectedTint;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.itemSelectedTint = [UIColor colorWithRed:0.934 green:0.480 blue:0.200 alpha:1.000];
+    self.itemNormalTint = [UIColor colorWithRed:1.000 green:0.558 blue:0.286 alpha:1.000];
+    
+    
+    
+    [[NSUserDefaults standardUserDefaults] setObject:@8800 forKey:@"savedSegmentValue"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    //Set up radius Toolbar
+    
+    radiusToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
+        
+    radiusToolbar.tintColor = self.itemNormalTint;
+    
+    UILabel *radiusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 20)];
+    radiusLabel.backgroundColor = [UIColor clearColor];
+    radiusLabel.textColor = [UIColor whiteColor];
+    radiusLabel.text = @"Radius:";
+    
+    UIBarButtonItem *radiusText = [[UIBarButtonItem alloc] initWithCustomView:radiusLabel];
+    
+    radius5mileButton = [[UIBarButtonItem alloc] initWithTitle:@"5" style:UIBarButtonItemStyleBordered target:self action:@selector(radiusButtonPressed:)];
+    radius5mileButton.width = 44;
+    radius5mileButton.tag = 5;
+    radius5mileButton.tintColor = self.itemSelectedTint;
+    
+    radius10mileButton = [[UIBarButtonItem alloc] initWithTitle:@"10" style:UIBarButtonItemStyleBordered target:self action:@selector(radiusButtonPressed:)];
+    radius10mileButton.tag = 10;
+    radius10mileButton.width = 44;
+    radius10mileButton.tintColor = self.itemNormalTint;
+    
+    radius20mileButton = [[UIBarButtonItem alloc] initWithTitle:@"20" style:UIBarButtonItemStyleBordered target:self action:@selector(radiusButtonPressed:)];
+    radius20mileButton.tag = 20;
+    radius20mileButton.width = 44;
+    radius20mileButton.tintColor = self.itemNormalTint;
+    
+    UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    radiusToolbar.items = @[radiusText,radius5mileButton,flexibleSpace, radius10mileButton, flexibleSpace ,radius20mileButton, flexibleSpace, flexibleSpace];
+    
+    
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -97,8 +153,8 @@
         UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
         self.navigationItem.leftBarButtonItem = backButton;
     }
-    if (!self.locations) {
-        self.locations = [NSMutableArray array];
+    if (!self.locationsInformationCollection) {
+        self.locationsInformationCollection = [NSMutableArray array];
     }
     
     mapFilterViewController = [[MMMapFilterViewController alloc] initWithMapView:mapView];
@@ -135,6 +191,18 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [overlayImageView setHidden:YES];
+    [mapView setScrollEnabled:YES];
+    [mapView setZoomEnabled:YES];
+    [mapView removeGestureRecognizer:tapGestureRecognizer];
+    
+    [radiusToolbar removeFromSuperview];
+    if([self.title isEqualToString:@"All Nearby"]){
+        [self.view addSubview:radiusToolbar];
+    }
+
+    
     if (!_isHistory) {
         self.navigationItem.rightBarButtonItem = nil;
         self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:addLocationButton, globeButton, nil];
@@ -142,7 +210,7 @@
     else {
         self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:nil, nil, nil];
         self.navigationItem.rightBarButtonItem = clearBarButton;
-        if (_locations.count == 0) {
+        if (_locationsInformationCollection.count == 0) {
             [clearBarButton setEnabled:NO];
         }
         else {
@@ -159,18 +227,10 @@
     if (![[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
         [[MMClientSDK sharedSDK]signInScreen:self];
     }
+    
+    
 
     [self.tableView reloadData];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    //[SVProgressHUD dismiss];
 }
 
 #pragma mark - IBAction Methods
@@ -193,8 +253,9 @@
     [sender setTitle:@"Map"];
 }
 
-- (void)addLocationButtonTapped:(id)sender {
-    if ([self.mapView isHidden]) {
+-(void)addLocationFromMap:(BOOL)fromMap{
+    
+    if (!fromMap) {
         MMAddLocationViewController *addLocationViewController = [[MMAddLocationViewController alloc] initWithNibName:@"MMAddLocationViewController" bundle:nil];
         addLocationViewController.title = @"Add Location";
         addLocationViewController.category = self.category;
@@ -211,6 +272,13 @@
         
         self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:cancelButton, globeButton, nil];
     }
+    
+}
+- (void)addLocationButtonTapped:(id)sender {
+    BOOL fromMap = self.mapView.hidden ? NO : YES;
+    
+    [self addLocationFromMap:fromMap];
+    
 }
 
 - (void)cancelButtonTapped:(id)sender {
@@ -221,12 +289,17 @@
     [mapView removeGestureRecognizer:tapGestureRecognizer];
 }
 
-- (void)setLocations:(NSMutableArray *)locations
+-(void)setLocationsInformationCollection:(NSMutableArray *)locationsInformationCollection{
+    _locationsInformationCollection = locationsInformationCollection;
+    [self.tableView reloadData];
+    [self reloadMapView];
+}
+/*- (void)setLocations:(NSMutableArray *)locations
 {
     _locations = locations;
     [self.tableView reloadData];
     [self reloadMapView];
-}
+}*/
 
 - (void)clearButtonTapped:(id)sender {
     UIAlertView *clearHistoryAlert = [[UIAlertView alloc]initWithTitle:@"Clear your history" message:@"Are you sure you want to clear you recently viewed results?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
@@ -243,28 +316,39 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.locations.count;
+    return self.locationsInformationCollection.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    
     static NSString *CellIdentifier = @"Cell";
+    
     MMLocationListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
     if (cell == nil) {
         cell = [[MMLocationListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    [cell setLocation:[self.locations objectAtIndex:indexPath.row]];
-    //cell.location = [self.locations objectAtIndex:indexPath.row];
+    [cell setLocationInformation:[self.locationsInformationCollection objectAtIndex:indexPath.row]];
     
     return cell;
+    
+    
+    //cell.location = [self.locations objectAtIndex:indexPath.row];
+    
+    
 }
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (![[[_locations objectAtIndex:indexPath.row]valueForKey:@"locationId"] isKindOfClass:[NSNull class]] && ![[[_locations objectAtIndex:indexPath.row]valueForKey:@"providerId"]isKindOfClass:[NSNull class]]) {
+    
+    MMLocationInformation *locationInformation = [self.locationsInformationCollection objectAtIndex:indexPath.row];
+    
+    if (![locationInformation.locationID isKindOfClass:[NSNull class]] && ![locationInformation.providerID isKindOfClass:[NSNull class]]) {
         NSString *historyKey = [NSString stringWithFormat:@"%@ history", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
         if (!self.isHistory) {
             NSMutableArray *searchHistory;
@@ -274,14 +358,16 @@
             else {
                 searchHistory = [[NSMutableArray alloc]init];
             }
-            NSMutableDictionary *locationDictionary = [[_locations objectAtIndex:indexPath.row] mutableCopy];
-            NSString *locationId = [locationDictionary objectForKey:@"locationId"];
-            NSString *providerId = [locationDictionary objectForKey:@"providerId"];
+            //NSMutableDictionary *locationDictionary = [[_locations objectAtIndex:indexPath.row] mutableCopy];
+            NSString *locationId = locationInformation.locationID;
+            NSString *providerId = locationInformation.providerID;
             NSPredicate *locationPredicate = [NSPredicate predicateWithFormat:@"(locationId MATCHES %@) AND (providerId MATCHES %@)", locationId, providerId];
             NSArray *matchingLocations = [searchHistory filteredArrayUsingPredicate:locationPredicate];
             if (matchingLocations.count == 0) {
                 id const nul = [NSNull null];
-                NSDictionary *dictionaryToCleanUp = [locationDictionary copy];
+                NSMutableDictionary *locationDictionary = [MMAPI locationDictionaryForLocationInformation:locationInformation].mutableCopy;
+                NSMutableDictionary *dictionaryToCleanUp = [locationDictionary mutableCopy];
+                
                 for (NSString *key in dictionaryToCleanUp) {
                     id const obj = [locationDictionary valueForKey:key];
                     if (nul == obj) {
@@ -296,11 +382,12 @@
             }
             
         }
-        NSString *locationId = [[_locations objectAtIndex:indexPath.row]valueForKey:@"locationId"];
-        NSString *providerId = [[_locations objectAtIndex:indexPath.row]valueForKey:@"providerId"];
+        NSString *locationId = locationInformation.locationID;
+        NSString *providerId = locationInformation.providerID;
         
-        MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
-        [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
+        MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithStyle:UITableViewStyleGrouped];
+        locationViewController.locationInformation = locationInformation;
+        //[locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
         [self.navigationController pushViewController:locationViewController animated:YES];
     }
     else {
@@ -309,9 +396,11 @@
 }
 
 - (void)viewDidUnload {
+    
     [self setTableView:nil];
     [self setMapView:nil];
     [super viewDidUnload];
+    
 }
 
 #pragma mark - Manage map view
@@ -319,12 +408,13 @@
 - (void)reloadMapView
 {
     [self.mapView removeAnnotations:self.mapView.annotations];
-    for (NSMutableDictionary *location in self.locations) {
-        if (![[location valueForKey:@"latitude"]isKindOfClass:[NSNull class]] && ![[location valueForKey:@"longitude"]isKindOfClass:[NSNull class]]) {
+    for (MMLocationInformation *locationInformation in self.locationsInformationCollection) {
+        if (![locationInformation.latitude isKindOfClass:[NSNull class]] && ![locationInformation.longitude isKindOfClass:[NSNull class]]) {
             CLLocationCoordinate2D coordinate;
-            coordinate.latitude = [[location valueForKey:@"latitude"] floatValue];
-            coordinate.longitude = [[location valueForKey:@"longitude"] floatValue];
-            MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc] initWithName:[location valueForKey:@"name"] address:[location valueForKey:@"address"] coordinate:coordinate arrayIndex:[self.locations indexOfObject:location]];
+            coordinate.latitude = [locationInformation.latitude floatValue];
+            coordinate.longitude = [locationInformation.longitude floatValue];
+            MMLocationAnnotation *annotation = [[MMLocationAnnotation alloc] initWithName:locationInformation.name address:
+                                                [locationInformation formattedAddressString] coordinate:coordinate arrayIndex:[self.locationsInformationCollection indexOfObject:locationInformation]];
             [self.mapView addAnnotation:(id)annotation];
         }
     }
@@ -344,7 +434,9 @@
 }
 
 - (void)infoButtonTapped:(id)sender {
-    [[MMClientSDK sharedSDK] locationScreen:self locationDetail:[self.locations objectAtIndex:[sender tag]]];
+    
+    //[[MMClientSDK sharedSDK] locationScreen:self locationDetail:[self.locations objectAtIndex:[sender tag]]];
+    [[MMClientSDK sharedSDK] locationScreen:self locationInformation:[self.locationsInformationCollection objectAtIndex:[sender tag]]];
 }
 
 - (void)handleTap:(UIGestureRecognizer *)gestureRecognizer
@@ -397,7 +489,7 @@
     switch (buttonIndex) {
         case 1:
             [[NSUserDefaults standardUserDefaults]removeObjectForKey:historyKey];
-            [_locations removeAllObjects];
+            [_locationsInformationCollection removeAllObjects];
             [_tableView reloadData];
             [clearBarButton setEnabled:NO];
             break;
@@ -409,9 +501,64 @@
 
 #pragma mark - MMAddLocation Delegate methods
 - (void)locationAddedViaAddLocationViewWithLocationId:(NSString*)locationId providerId:(NSString*)providerId {
-    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithNibName:@"MMLocationViewController" bundle:nil];
+    MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithStyle:UITableViewStyleGrouped];
     [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
     [self.navigationController pushViewController:locationViewController animated:YES];
 }
 
+#pragma mark - UIToolbar Button
+-(void)clearSelectionColors{
+    radius5mileButton.tintColor = self.itemNormalTint;
+    radius10mileButton.tintColor = self.itemNormalTint;
+    radius20mileButton.tintColor = self.itemNormalTint;
+
+}
+-(void)radiusButtonPressed:(UIBarButtonItem *)sender{
+    
+    [self clearSelectionColors];
+    NSUInteger tag = [sender tag];
+    sender.tintColor = self.itemSelectedTint;
+    
+    NSNumber * radiusSelected;
+    switch (tag) {
+        case 5:
+            radiusSelected = @8800;
+            break;
+        case 10:
+            radiusSelected = @17600;
+            break;
+        case 20:
+            radiusSelected = @35200;
+            break;
+        default:
+            radiusSelected = @8800;
+            break;
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:radiusSelected forKey:@"savedSegmentValue"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [SVProgressHUD showWithStatus:@"Searching..."];
+    [self reloadLocations];
+    
+    [self.tableView reloadData];
+
+}
+-(void)reloadLocations{
+    MMLocationSearch *locationSearch = [[MMLocationSearch alloc] init];
+    
+    [locationSearch locationsInfoForCategory:self.category searchString:self.searchString success:^(NSArray *locationInformations) {
+        self.locationsInformationCollection = locationInformations.mutableCopy;
+        [SVProgressHUD dismiss];
+    } failure:^(NSError *error) {
+        NSLog(@"There was an error getting location data: %@", error);
+        [SVProgressHUD dismiss];
+    }];
+    
+    /*[locationSearch locationsForCategory:self.category searchString:self.searchString success:^(NSArray *locations) {
+        self.locationsInformationCollection = locations.mutableCopy;
+        [SVProgressHUD dismiss];
+    } failure:^(NSError *error) {
+        NSLog(@"There was an error getting location data: %@", error);
+        [SVProgressHUD dismiss];
+    }];*/
+}
 @end

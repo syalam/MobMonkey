@@ -26,12 +26,15 @@
     UIBarButtonItem *clearBarButton;
 }
 
-@property (strong, nonatomic) NSMutableArray *locations;
+@property (nonatomic, strong) NSMutableArray *locationsInformationCollection;
+//@property (strong, nonatomic) NSMutableArray *locations;
 @property (assign, nonatomic) BOOL isSearching;
 @property (strong, nonatomic) NSDictionary *category;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (assign, nonatomic) BOOL isHistory;
+
+@property (nonatomic, strong) NSString *searchString;
 
 - (void)handleTap:(UIGestureRecognizer *)gestureRecognizer;
 

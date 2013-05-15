@@ -17,6 +17,9 @@
 #import "UIAlertView+Blocks.h"
 #import "Flurry.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import "TestFlight.h"
+#import "MMHotSpotViewController.h"
+#import "MMInboxViewController.h"
 
 @implementation MMAppDelegate
 
@@ -28,11 +31,14 @@
 
 #if TARGET_IPHONE_SIMULATOR
     [[NSUserDefaults standardUserDefaults] setValue:@"1234" forKey:@"apnsToken"];
+    
     [[NSUserDefaults standardUserDefaults]synchronize];
 #endif
-    
+    popUpVisible = NO;
     //initialize testflight SDK
-    //[TestFlight takeOff:@"e6432d80aed42a955243c8d93a493dea_MTAwODk2MjAxMi0wNi0yMyAxODoxNzoxOC45NjMzMjY"];
+    // !!!: Use the next line only during beta
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+    [TestFlight takeOff:@"c02622dc-9b14-438f-add8-c3247da6261f"];
     
     //Add Activity Indicator when AFNetwork is making requests
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
@@ -50,25 +56,27 @@
     
     [FBProfilePictureView class];
     
-    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
-     UIRemoteNotificationTypeAlert|
-     UIRemoteNotificationTypeSound];
+    [[UIApplication sharedApplication]
+     registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeAlert |
+      UIRemoteNotificationTypeBadge |
+      UIRemoteNotificationTypeSound)];
     
     if ([UINavigationBar respondsToSelector:@selector(appearance)]) {
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar~iphone"] forBarMetrics:UIBarMetricsDefault];
-    } 
+    }
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     UIViewController *inboxVC = [[MMInboxViewController alloc] initWithNibName:@"MMInboxViewController" bundle:nil];
-  
-    UIViewController *searchVC = [[MMSearchViewController alloc] initWithNibName:@"MMSearchViewController" bundle:nil];
+    UIViewController *hotSpotVC = [[MMHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
+   // UIViewController *searchVC = [[MMSearchViewController alloc] initWithNibName:@"MMSearchViewController" bundle:nil];
     UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithNibName:@"MMTrendingViewController" bundle:nil];
     UIViewController *bookmarksVC = [[MMBookmarksViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
     UIViewController *settingsVC = [[MMSettingsViewController alloc] initWithNibName:@"MMSettingsViewController" bundle:nil];
     
     UINavigationController *inboxNavC = [[UINavigationController alloc] initWithRootViewController:inboxVC];
-    UINavigationController *searchNavC = [[UINavigationController alloc] initWithRootViewController:searchVC];
+    UINavigationController *searchNavC = [[UINavigationController alloc] initWithRootViewController:hotSpotVC];
 
     UINavigationController *trendingNavC = [[UINavigationController alloc] initWithRootViewController:trendingVC];
 
@@ -77,7 +85,7 @@
     UINavigationController *settingsNavC = [[UINavigationController alloc] initWithRootViewController:settingsVC];
 
     inboxVC.title = @"Inbox";
-    searchVC.title = @"Search";
+    hotSpotVC.title = @"Search Locations";
     trendingVC.title = @"What's Trending Now!";
     bookmarksVC.title = @"Favorites";
     settingsVC.title = @"Settings";
@@ -147,9 +155,9 @@
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     //42.029486, -87.680550
-    [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%f", 33.421098] forKey:@"latitude"];
+    /*[[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%f", 33.421098] forKey:@"latitude"];
     [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%f", -111.942648] forKey:@"longitude"];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+    [[NSUserDefaults standardUserDefaults]synchronize];*/
     
     [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -202,10 +210,16 @@
     _locationManager = [[CLLocationManager alloc]init];
     _locationManager.delegate = self;
     _locationManager.desiredAccuracy =kCLLocationAccuracyBest;
-    _locationManager.distanceFilter = 60.0f; // update every 200ft
+    _locationManager.distanceFilter = 15.0f; // update every 200ft
     [_locationManager startUpdatingLocation];
 }
 
+
+-(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"FAILED TO REGISTER DEVICE");
+    [TestFlight passCheckpoint:[NSString stringWithFormat:@"ERROR: %@", error]];
+    TFLog(@"FAILED TO REEGISTER DEVICE: %@", error);
+}
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
 {
     NSString* tokenString = [[[[newDeviceToken description]
@@ -220,16 +234,24 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    NSLog(@"%@", @"Push Notification Received");
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:userInfo];
 
+    NSLog(@"%@", userInfo);
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:userInfo];
     
-//#ifdef PRODUCTION
+    
+    NSDictionary *aps = [userInfo objectForKey:@"aps"];
+    NSString *alert = [aps objectForKey:@"alert"];
+
+   // NSLog(@"Request Type: %@", requestType);
+    //#ifdef PRODUCTION
     
     //Make sure the root view controller is a tab bar controller.
     if([self.window.rootViewController isKindOfClass:[UITabBarController class]]){
         
         UITabBarController *tabBarController = (UITabBarController*)self.window.rootViewController;
+        UINavigationController *inboxViewController = (UINavigationController*)tabBarController.selectedViewController;
+        
+        //UIViewController *visibleViewController = [inboxViewController.childViewControllers lastObject];
         
         //Check if the app is already open or not.
         if ( application.applicationState == UIApplicationStateActive ) {
@@ -244,15 +266,44 @@
             [goToRequestButton setAction:^{
                 
                 [tabBarController setSelectedIndex:1];
-                
+                [inboxViewController popToRootViewControllerAnimated:YES];
+                popUpVisible = NO;
+            }];
+            
+            [cancelButton setAction:^{
+                popUpVisible = NO;
             }];
             
             UIAlertView *confirmGoToRequest = [[UIAlertView alloc] initWithTitle:@"New Request" message:@"You have a new request in your inbox. Would you like to go there now?" cancelButtonItem:cancelButton otherButtonItems:goToRequestButton, nil];
             
-            //Present the alert view only if the user is signed in
-            if([[NSUserDefaults standardUserDefaults] stringForKey:@"userName"]){
-                [confirmGoToRequest show];
+            
+            if ([alert rangeOfString:@"You've been assigned a request"].location != NSNotFound) {
+                //Present the alert view only if the user is signed in
+                if(([[NSUserDefaults standardUserDefaults] stringForKey:@"userName"] &&
+                    ![inboxViewController.title isEqualToString:@"Inbox"]) &&
+                   !popUpVisible){
+                    [confirmGoToRequest show];
+                    popUpVisible = YES;
+                }else{
+                    NSLog(@"NOT LOGGED IN OR ON INBOX");
+                    if(![inboxViewController.visibleViewController.title isEqualToString:@"Inbox"]){
+                        [confirmGoToRequest show];
+                        NSLog(@"TITLE: %@", inboxViewController.visibleViewController.title);
+                    }else{
+                        
+                        if([inboxViewController.visibleViewController isKindOfClass:[MMInboxViewController class]]){
+                            [SVProgressHUD showWithStatus:@"Refreshing"];
+                            [((MMInboxViewController *)inboxViewController.visibleViewController) getInboxCountsWithComplete:^{
+                                [SVProgressHUD showSuccessWithStatus:@"New Requests"];
+                            }];
+                            
+                        }else{
+                            NSLog(@"CLASS: %@", inboxViewController.visibleViewController.class);
+                        }
+                    }
+                }
             }
+            
             
             
         } else {
@@ -263,12 +314,6 @@
             
         }
     }
-    
-    
-    
-//#else
-    // Production
-//#endif
     
             
     
