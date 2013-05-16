@@ -55,9 +55,10 @@
     self.navigationItem.rightBarButtonItem = doneButton;
 }
 -(void)doneButtonPressed:(id)sender{
+    
     [self.requestInfo setValue:self.textView.text forKey:@"message"];
-    //self.textView.text = [self.requestInfo valueForKey:@"message"];
     [self.navigationController popViewControllerAnimated:YES];
+
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -116,19 +117,13 @@
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UITableViewRowAnimationTop animated:YES];
     self.textView.scrollEnabled = YES;
 }
-#pragma mark - Table view delegate
 
+#pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.textView.text = [self.savedMessages objectAtIndex:indexPath.row];
     //[self insertTextAtCursor: [self.savedMessages objectAtIndex:indexPath.row]];
 }
-
-
-- (IBAction)clearText:(id)sender
-{
-}
-
 
 - (void)viewDidUnload {
     [self setTextFieldBackground:nil];

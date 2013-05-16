@@ -10,6 +10,7 @@
 #import "MMLocationInformation.h"
 #import "MMMapSelectView.h"
 #import "MMTextFieldCell.h"
+#import "TPKeyboardAvoidingTableView.h"
 
 @interface MMEditHotSpotViewController : UITableViewController<MMMapSelectViewDelegate, UITextFieldDelegate> {
     UIButton *createSubLocationButton;

@@ -25,6 +25,8 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        
+        
     }
     return self;
 }
@@ -32,6 +34,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.tableView = [[TPKeyboardAvoidingTableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
     
     self.title = @"New Hot Spot";
     
