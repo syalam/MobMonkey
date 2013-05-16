@@ -181,11 +181,11 @@
                 
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     //Maybe correct the frame too
-                     if (cell.tag == indexPath.row) {
-                         [cell.imageViewButton setImage:image forState:UIControlStateNormal];
-                         [cell setNeedsDisplay];
-                     }
-                    
+                    MMTrendingCollectionViewCell *cellToUpdate = (MMTrendingCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath]; // create a copy of the cell to avoid keeping a strong pointer to "cell" since that one may have been reused by the time the block is ready to update it.
+                    if (cellToUpdate != nil) {
+                        [cellToUpdate.imageViewButton setImage:image forState:UIControlStateNormal];
+                        [cellToUpdate setNeedsLayout];
+                    }
                     
                     
                 });

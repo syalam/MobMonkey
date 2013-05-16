@@ -241,7 +241,7 @@
         [self addAnotationsToMap:locationInformations];
         [SVProgressHUD dismiss];
     } failure:^(NSError *error) {
-        NSLog(@"Failed");
+        NSLog(@"Failed: %@", error);
         [SVProgressHUD showErrorWithStatus:@"Failed to retreive locations"];
     }];
 }
