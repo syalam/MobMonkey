@@ -202,6 +202,18 @@
 		B977AE9917220A0F00528A94 /* whiteCircleX@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B977AE9517220A0F00528A94 /* whiteCircleX@2x.png */; };
 		B98B375B17441B9F00C96962 /* MMTrendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B375A17441B9F00C96962 /* MMTrendingViewController.m */; };
 		B98B375C17441B9F00C96962 /* MMTrendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B375A17441B9F00C96962 /* MMTrendingViewController.m */; };
+		B98B375E1744369C00C96962 /* gradientBar.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B375D1744369C00C96962 /* gradientBar.png */; };
+		B98B375F1744369C00C96962 /* gradientBar.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B375D1744369C00C96962 /* gradientBar.png */; };
+		B98B376217443A2900C96962 /* MMTrendingCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B376117443A2900C96962 /* MMTrendingCollectionViewCell.m */; };
+		B98B376317443A2900C96962 /* MMTrendingCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B376117443A2900C96962 /* MMTrendingCollectionViewCell.m */; };
+		B98B376817443B9900C96962 /* MMTrendingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B98B376717443B9900C96962 /* MMTrendingCollectionViewCell.xib */; };
+		B98B376917443B9900C96962 /* MMTrendingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B98B376717443B9900C96962 /* MMTrendingCollectionViewCell.xib */; };
+		B98B376B17443DD300C96962 /* peoplecoffee.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B376A17443DD300C96962 /* peoplecoffee.png */; };
+		B98B376C17443DD300C96962 /* peoplecoffee.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B376A17443DD300C96962 /* peoplecoffee.png */; };
+		B98B376F17443F8500C96962 /* MMMediaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B376E17443F8400C96962 /* MMMediaObject.m */; };
+		B98B377017443F8500C96962 /* MMMediaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B376E17443F8400C96962 /* MMMediaObject.m */; };
+		B98B37731744405B00C96962 /* MMTrendingMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B37721744405B00C96962 /* MMTrendingMedia.m */; };
+		B98B37741744405B00C96962 /* MMTrendingMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B37721744405B00C96962 /* MMTrendingMedia.m */; };
 		B995D7E1173837A400B57077 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B995D7DF173837A400B57077 /* MMLocationViewController.m */; };
 		B995D7E2173837A400B57077 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B995D7DF173837A400B57077 /* MMLocationViewController.m */; };
 		B995D7E3173837A400B57077 /* MMLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B995D7E0173837A400B57077 /* MMLocationViewController.xib */; };
@@ -1667,6 +1679,15 @@
 		B977AE9517220A0F00528A94 /* whiteCircleX@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "whiteCircleX@2x.png"; path = "Resources/Images/whiteCircleX@2x.png"; sourceTree = "<group>"; };
 		B98B375917441B9F00C96962 /* MMTrendingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTrendingViewController.h; sourceTree = "<group>"; };
 		B98B375A17441B9F00C96962 /* MMTrendingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTrendingViewController.m; sourceTree = "<group>"; };
+		B98B375D1744369C00C96962 /* gradientBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gradientBar.png; sourceTree = "<group>"; };
+		B98B376017443A2900C96962 /* MMTrendingCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTrendingCollectionViewCell.h; sourceTree = "<group>"; };
+		B98B376117443A2900C96962 /* MMTrendingCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTrendingCollectionViewCell.m; sourceTree = "<group>"; };
+		B98B376717443B9900C96962 /* MMTrendingCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMTrendingCollectionViewCell.xib; sourceTree = "<group>"; };
+		B98B376A17443DD300C96962 /* peoplecoffee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = peoplecoffee.png; sourceTree = "<group>"; };
+		B98B376D17443F8400C96962 /* MMMediaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMediaObject.h; sourceTree = "<group>"; };
+		B98B376E17443F8400C96962 /* MMMediaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMediaObject.m; sourceTree = "<group>"; };
+		B98B37711744405B00C96962 /* MMTrendingMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTrendingMedia.h; sourceTree = "<group>"; };
+		B98B37721744405B00C96962 /* MMTrendingMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTrendingMedia.m; sourceTree = "<group>"; };
 		B995D7DE173837A400B57077 /* MMLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationViewController.h; sourceTree = "<group>"; };
 		B995D7DF173837A400B57077 /* MMLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationViewController.m; sourceTree = "<group>"; };
 		B995D7E0173837A400B57077 /* MMLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLocationViewController.xib; sourceTree = "<group>"; };
@@ -2717,8 +2738,17 @@
 		B98B375817441B5D00C96962 /* New Trending */ = {
 			isa = PBXGroup;
 			children = (
+				B98B376A17443DD300C96962 /* peoplecoffee.png */,
+				B98B375D1744369C00C96962 /* gradientBar.png */,
 				B98B375917441B9F00C96962 /* MMTrendingViewController.h */,
 				B98B375A17441B9F00C96962 /* MMTrendingViewController.m */,
+				B98B376017443A2900C96962 /* MMTrendingCollectionViewCell.h */,
+				B98B376117443A2900C96962 /* MMTrendingCollectionViewCell.m */,
+				B98B376717443B9900C96962 /* MMTrendingCollectionViewCell.xib */,
+				B98B376D17443F8400C96962 /* MMMediaObject.h */,
+				B98B376E17443F8400C96962 /* MMMediaObject.m */,
+				B98B37711744405B00C96962 /* MMTrendingMedia.h */,
+				B98B37721744405B00C96962 /* MMTrendingMedia.m */,
 			);
 			name = "New Trending";
 			sourceTree = "<group>";
@@ -4800,6 +4830,9 @@
 				B995D7EA17383A7A00B57077 /* MMLocationMediaView.xib in Resources */,
 				B9AAD917173977A800159B26 /* hotSpotBadgeStretch.png in Resources */,
 				B9AAD919173977A800159B26 /* hotSpotBadgeStretch@2x.png in Resources */,
+				B98B375F1744369C00C96962 /* gradientBar.png in Resources */,
+				B98B376917443B9900C96962 /* MMTrendingCollectionViewCell.xib in Resources */,
+				B98B376C17443DD300C96962 /* peoplecoffee.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5279,6 +5312,9 @@
 				B995D7E917383A7A00B57077 /* MMLocationMediaView.xib in Resources */,
 				B9AAD916173977A800159B26 /* hotSpotBadgeStretch.png in Resources */,
 				B9AAD918173977A800159B26 /* hotSpotBadgeStretch@2x.png in Resources */,
+				B98B375E1744369C00C96962 /* gradientBar.png in Resources */,
+				B98B376817443B9900C96962 /* MMTrendingCollectionViewCell.xib in Resources */,
+				B98B376B17443DD300C96962 /* peoplecoffee.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5469,6 +5505,9 @@
 				B995D7E2173837A400B57077 /* MMLocationViewController.m in Sources */,
 				B9AAD913173976EE00159B26 /* MMHotSpotBadge.m in Sources */,
 				B98B375C17441B9F00C96962 /* MMTrendingViewController.m in Sources */,
+				B98B376317443A2900C96962 /* MMTrendingCollectionViewCell.m in Sources */,
+				B98B377017443F8500C96962 /* MMMediaObject.m in Sources */,
+				B98B37741744405B00C96962 /* MMTrendingMedia.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5605,6 +5644,9 @@
 				B995D7E1173837A400B57077 /* MMLocationViewController.m in Sources */,
 				B9AAD912173976EE00159B26 /* MMHotSpotBadge.m in Sources */,
 				B98B375B17441B9F00C96962 /* MMTrendingViewController.m in Sources */,
+				B98B376217443A2900C96962 /* MMTrendingCollectionViewCell.m in Sources */,
+				B98B376F17443F8500C96962 /* MMMediaObject.m in Sources */,
+				B98B37731744405B00C96962 /* MMTrendingMedia.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

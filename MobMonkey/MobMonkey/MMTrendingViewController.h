@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMTrendingViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@interface MMTrendingViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate> {
+    
+    UIImageView *bottomGradientImageView;
+
+}
 
 @end

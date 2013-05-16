@@ -396,8 +396,7 @@
 
 - (void)adWhirlDidReceiveAd:(AdWhirlView *)adWhirlView {
     
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"AdWhirlChange" object:nil];
+   
     
     NSString *subscribedUserKey = [NSString stringWithFormat:@"%@ subscribed", [[NSUserDefaults standardUserDefaults] valueForKey:@"userName"]];
     
@@ -415,14 +414,18 @@
     
     adWhirlView.frame = newFrame;
     
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"AdWhirlChange" object:nil];
     
 }
 -(void)adWhirlDidFailToReceiveAd:(AdWhirlView *)adWhirlView usingBackup:(BOOL)yesOrNo {
     
+        
+    [adWhirlView setHidden:YES];
+    
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"AdWhirlChange" object:nil];
-    
-    [adWhirlView setHidden:YES];
+
 }
 
 @end
