@@ -173,7 +173,7 @@
         }
         
         if(imageURL){
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, NULL), ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, NULL), ^{
                 
                 NSData *data = [NSData dataWithContentsOfURL:imageURL];
                 UIImage *image = [UIImage imageWithData:data];
@@ -181,7 +181,10 @@
                 
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     //Maybe correct the frame too
-                    [cell.imageViewButton setImage:image forState:UIControlStateNormal];
+                     if (cell.tag == indexPath.row) {
+                         [cell.imageViewButton setImage:image forState:UIControlStateNormal];
+                         [cell setNeedsDisplay];
+                     }
                     
                     
                     
