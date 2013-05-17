@@ -276,6 +276,19 @@ typedef enum OAuthProvider {
 
 
 ///---------------------------------------------
+/// Delete a location
+///---------------------------------------------
+/**
+ @param locationInformation The MMLocationInformation Object to be deleted from server
+ @param success Successful Deletion Block
+ @param failure Failed Deletion Block
+ */
++ (void)deleteLocation:(MMLocationInformation *)locationInformation
+                   success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+
+///---------------------------------------------
 /// @name Fetches a list of fulfilled requests from the server
 ///---------------------------------------------
 /**

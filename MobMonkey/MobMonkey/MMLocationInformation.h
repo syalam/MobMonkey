@@ -54,7 +54,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *parentProviderID;
 @property (nonatomic, strong) NSSet *sublocations;
 @property (nonatomic, strong) MMLocationInformation *parentLocation;
-
+@property (nonatomic, strong) NSString *createdBy;
 
 
 -(void)geocodeLocationWithCompletionHandler:(void(^)(NSArray * placemarks, NSError * error))completion;

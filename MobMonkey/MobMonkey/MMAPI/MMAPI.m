@@ -514,6 +514,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient deletePath:[NSString stringWithFormat:@"media/request?requestId=%@&mediaId=%@", [params valueForKey:@"requestId"], [params valueForKey:@"mediaId"]] parameters:nil success:success failure:failure];
 }
 
+
 + (void)acceptMedia:(NSDictionary *)params
             success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
@@ -526,6 +527,26 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
     [httpClient deletePath:[NSString stringWithFormat:@"requestmedia?requestId=%@&isRecurring=%@", [params valueForKey:@"requestId"], [params valueForKey:@"isRecurring"]] parameters:nil success:success failure:failure];
+}
+
++(void)deleteLocation:(MMLocationInformation *)locationInformation
+              success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+    
+    NSString *path = [NSString stringWithFormat:@"location?locationId=%@&providerId=%@", locationInformation.locationID, locationInformation.providerID];
+    
+    [httpClient deletePath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if(success){
+            success(operation, responseObject);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if(failure){
+            success(operation, error);
+        }
+    }];
+    
 }
 
 
@@ -769,6 +790,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
             locationInformation.message = [json objectForKey:@"message"];
             locationInformation.parentLocationID = [json objectForKey:@"parentLocationId"];
             locationInformation.parentProviderID = [json objectForKey:@"parentProviderId"];
+            locationInformation.createdBy = [json objectForKey:@"submitterEmail"];
             
             if([locationInformation.message isEqual:[NSNull null]] || locationInformation.message.length <= 0){
                 locationInformation.message = @"See what's happening now on MobMonkey!";

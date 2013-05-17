@@ -71,7 +71,14 @@
     UIViewController *inboxVC = [[MMInboxViewController alloc] initWithNibName:@"MMInboxViewController" bundle:nil];
     UIViewController *hotSpotVC = [[MMHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
    // UIViewController *searchVC = [[MMSearchViewController alloc] initWithNibName:@"MMSearchViewController" bundle:nil];
-    UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithNibName:@"MMTrendingViewController" bundle:nil];
+    
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+    [flowLayout setItemSize:CGSizeMake(128 , 128)];
+    [flowLayout setMinimumInteritemSpacing:0.f];
+    [flowLayout setMinimumLineSpacing:0.f];
+    
+    UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithCollectionViewLayout:flowLayout];
     UIViewController *bookmarksVC = [[MMBookmarksViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
     UIViewController *settingsVC = [[MMSettingsViewController alloc] initWithNibName:@"MMSettingsViewController" bundle:nil];
     
@@ -388,6 +395,9 @@
 }
 
 - (void)adWhirlDidReceiveAd:(AdWhirlView *)adWhirlView {
+    
+   
+    
     NSString *subscribedUserKey = [NSString stringWithFormat:@"%@ subscribed", [[NSUserDefaults standardUserDefaults] valueForKey:@"userName"]];
     
     //TODO: UNCOMMENT WHEN iAD working
@@ -403,10 +413,19 @@
     newFrame.origin.y = (screenSize.size.height - adSize.height - 49);
     
     adWhirlView.frame = newFrame;
+    
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"AdWhirlChange" object:nil];
+    
 }
-
 -(void)adWhirlDidFailToReceiveAd:(AdWhirlView *)adWhirlView usingBackup:(BOOL)yesOrNo {
+    
+        
     [adWhirlView setHidden:YES];
+    
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"AdWhirlChange" object:nil];
+
 }
 
 @end

@@ -2,279 +2,336 @@
 //  MMTrendingViewController.m
 //  MobMonkey
 //
-//  Created by Reyaad Sidique on 8/31/12.
-//  Copyright (c) 2012 Reyaad Sidique. All rights reserved.
+//  Created by Michael Kral on 5/15/13.
+//  Copyright (c) 2013 Reyaad Sidique. All rights reserved.
 //
 
 #import "MMTrendingViewController.h"
-#import "MMSetTitleImage.h"
-#import "MMLocationViewController.h"
-#import "MMFullScreenImageViewController.h"
 #import "MMAppDelegate.h"
-#import "SectionInfo.h"
-#import "MMClientSDK.h"
-#import "MMLocationsViewController.h"
-#import "MMInboxCategoryCell.h"
-#import "MMTrendingDetailViewController.h"
+#import <QuartzCore/QuartzCore.h>
+#import "MMTrendingMedia.h"
+#import "MMMediaObject.h"
+#import "MMTrendingCollectionViewCell.h"
+#import <MediaPlayer/MediaPlayer.h>
+
 
 @interface MMTrendingViewController ()
 
-@property (strong, nonatomic) MMLocationsViewController *locationsViewController;
+@property (nonatomic, strong) NSArray *favoriteMedia;
+@property (nonatomic, strong) NSArray *topViewedMedia;
+@property (nonatomic, strong) NSArray *myInterestsMedia;
+@property (nonatomic, strong) NSArray *nearByMedia;
 
 @end
 
-#define DEFAULT_ROW_HEIGHT 78
-#define HEADER_HEIGHT 80
-
 @implementation MMTrendingViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithStyle:style];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        // Custom initialization
     }
     return self;
 }
-
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self reloadMedia];
+    
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
     
-    if (![[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
-        [[MMClientSDK sharedSDK]signInScreen:self];
-    }
-    else {
-        [self getTrendingCounts];
-    }
+    
+    
+    
+    self.favoriteMedia = [NSArray array];
+    self.topViewedMedia = [NSArray array];
+    self.myInterestsMedia = [NSArray array];
+    self.nearByMedia = [NSArray array];
+    
+    self.collectionView.backgroundView = nil;
+    self.collectionView.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
+    
+    bottomGradientImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 40 - 50 - 40, self.view.frame.size.width, 40)];
+    [bottomGradientImageView setImage:[UIImage imageNamed:@"gradientBackgroundBottom"]];
+    bottomGradientImageView.layer.zPosition = 100;
+    [self.collectionView addSubview:bottomGradientImageView];
+    
+    // Do any additional setup after loading the view from its nib.
+    
+    UINib *cellNib = [UINib nibWithNibName:@"MMTrendingCollectionViewCell" bundle:nil];
+    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"MMTrendingCollectionViewCell"];
+    
+    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"TrendingCollectionViewCell"];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(adWhirlChangedValue:)
+                                                 name:@"AdWhirlChange" object:nil];
 }
--(void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [SVProgressHUD dismiss];
+-(void)reloadMedia{
+    [MMTrendingMedia getTrendingMediaForAllTypesCompletion:^(NSArray *mediaObjects, MMTrendingType trendingType, NSError *error) {
+        
+        switch (trendingType) {
+            case MMTrendingTypeFavorites:
+                self.favoriteMedia = mediaObjects;
+                break;
+            case MMTrendingTypeMyInterests:
+                self.myInterestsMedia = mediaObjects;
+                break;
+            case MMTrendingTypeNearBy:
+                self.nearByMedia = mediaObjects;
+                break;
+            case MMTrendingTypeTopViewed:
+                self.topViewedMedia = mediaObjects;
+                break;
+                
+            default:
+                break;
+        }
+        [self.collectionView reloadData];
+    }];
 }
-- (void)viewDidUnload
-{
+-(void)adWhirlChangedValue:(id)sender{
+
+    [self.collectionView reloadData];   
+    [self scrollViewDidScroll:self.collectionView];
+}
+-(void)viewDidUnload {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AdWhirlChange" object:nil];
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (void)didReceiveMemoryWarning
 {
-    return UIInterfaceOrientationMaskPortrait;
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
--(BOOL)shouldAutorotate
-{
-    return NO;
-}
+#pragma mark - Collection View Data Source
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 4;
 }
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    MMInboxCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if (!cell) {
-        cell = [[MMInboxCategoryCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
-        cell.detailTextLabel.textColor = [UIColor blackColor];
-        cell.detailTextLabel.font = [UIFont systemFontOfSize:17.0];
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    NSUInteger numberOfMediaObjects = 0;
+    switch (section) {
+        case MMTrendingTypeFavorites - 1:
+            numberOfMediaObjects = self.favoriteMedia.count;
+            break;
+        case MMTrendingTypeMyInterests - 1:
+            numberOfMediaObjects = self.myInterestsMedia.count;
+            break;
+        case MMTrendingTypeNearBy - 1:
+            numberOfMediaObjects = self.nearByMedia.count;
+            break;
+        case MMTrendingTypeTopViewed - 1:
+            numberOfMediaObjects = self.topViewedMedia.count;
+            break;
+            
+        default:
+            break;
     }
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.textLabel.textColor = [UIColor blackColor];
     
-    switch (indexPath.row) {
-        case 0:
-            cell.textLabel.text = @"Favorites";
-            if ([[trendingCategoryCountsDictionary valueForKey:@"bookmarkCount"]intValue] > 0) {
-                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[trendingCategoryCountsDictionary valueForKey:@"bookmarkCount"]intValue]];
-            }
-            else {
-                cell.categoryItemCountLabel.text = @"";
-                cell.textLabel.textColor = [UIColor lightGrayColor];
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            }
+    return numberOfMediaObjects > 3 ? 3 : numberOfMediaObjects;
+}
+-(void)favoritesMediaTapped:(UIButton*)button{
+    [self mediaTappedWithIndexPath:[NSIndexPath indexPathForItem:button.tag inSection:MMTrendingTypeFavorites - 1]];
+}
+-(void)topViewedMediaTapped:(UIButton*)button{
+    [self mediaTappedWithIndexPath:[NSIndexPath indexPathForItem:button.tag inSection:MMTrendingTypeTopViewed - 1]];
+}
+-(void)myInterestsMediaTapped:(UIButton*)button{
+    [self mediaTappedWithIndexPath:[NSIndexPath indexPathForItem:button.tag inSection:MMTrendingTypeMyInterests - 1]];
+}
+-(void)nearbyMeduaTapped:(UIButton*)button{
+    [self mediaTappedWithIndexPath:[NSIndexPath indexPathForItem:button.tag inSection:MMTrendingTypeNearBy - 1]];
+}
+-(void)mediaTappedWithIndexPath:(NSIndexPath*)indexPath{
+    
+    MMMediaObject *mediaObject;
+    switch (indexPath.section) {
+        case MMTrendingTypeFavorites -1:
+            mediaObject = [self.favoriteMedia objectAtIndex:indexPath.row];
             break;
-        case 1:
-            cell.textLabel.text = @"My Interests";
-            if (myInterestsArray.count > 0) {
-                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", myInterestsArray.count];
-            }
-            else {
-                cell.categoryItemCountLabel.text = @"";
-                cell.textLabel.textColor = [UIColor lightGrayColor];
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            }
+        case MMTrendingTypeMyInterests -1:
+            mediaObject = [self.myInterestsMedia objectAtIndex:indexPath.row];
             break;
-        case 2:
-            cell.textLabel.text = @"Top Viewed";
-            if ([[trendingCategoryCountsDictionary valueForKey:@"topviewedCount"]intValue] > 0) {
-                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[trendingCategoryCountsDictionary valueForKey:@"topviewedCount"]intValue]];
-            }
-            else {
-                cell.categoryItemCountLabel.text = @"";
-                cell.textLabel.textColor = [UIColor lightGrayColor];
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            }
+        case MMTrendingTypeNearBy -1:
+            mediaObject = [self.nearByMedia objectAtIndex:indexPath.row];
             break;
-        case 3:
-            cell.textLabel.text = @"Near Me";
-            if ([[trendingCategoryCountsDictionary valueForKey:@"nearbyCount"]intValue] > 0) {
-                cell.categoryItemCountLabel.text = [NSString stringWithFormat:@"%i", [[trendingCategoryCountsDictionary valueForKey:@"nearbyCount"]intValue]];
-            }
-            else {
-                cell.categoryItemCountLabel.text = @"";
-                cell.textLabel.textColor = [UIColor lightGrayColor];
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            }
+        case MMTrendingTypeTopViewed -1:
+            mediaObject = [self.topViewedMedia objectAtIndex:indexPath.row];
             break;
         default:
             break;
     }
     
-    cell.pillboxImageView.image = nil;
     
-    if (cell.categoryItemCountLabel.text.length == 1) {
-        cell.pillboxImageView.image = [UIImage imageNamed:@"pillBoxSmall"];
+    if (mediaObject.mediaType == MMMediaTypePhoto) {
+        [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:mediaObject.highResImage locationName:mediaObject.name];
     }
-    else if (cell.categoryItemCountLabel.text.length == 2) {
-        cell.pillboxImageView.image = [UIImage imageNamed:@"pillBoxMed"];
+    else {
+        
+        if(mediaObject.mediaURL){
+        
+            UIGraphicsBeginImageContext(CGSizeMake(1,1));
+            
+            MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:mediaObject.mediaURL];
+            UIGraphicsEndImageContext();
+            [self.navigationController presentMoviePlayerViewControllerAnimated:player];
+        }
     }
-    else if (cell.categoryItemCountLabel.text.length == 3) {
-        cell.pillboxImageView.image = [UIImage imageNamed:@"pillBoxLarge"];
+    
+    
+}
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *CellIdentifier = @"MMTrendingCollectionViewCell";
+    
+    MMTrendingCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    cell.imageViewButton.contentMode = UIViewContentModeScaleAspectFill;
+    cell.imageViewButton.tag = indexPath.row;
+    
+    switch (indexPath.section) {
+        case MMTrendingTypeFavorites - 1:
+            [cell.imageViewButton addTarget:self action:@selector(favoritesMediaTapped:) forControlEvents:UIControlEventTouchUpInside];
+            break;
+        case MMTrendingTypeMyInterests - 1:
+            [cell.imageViewButton addTarget:self action:@selector(myInterestsMediaTapped:) forControlEvents:UIControlEventTouchUpInside];
+            break;
+        case MMTrendingTypeTopViewed - 1:
+            [cell.imageViewButton addTarget:self action:@selector(topViewedMediaTapped:) forControlEvents:UIControlEventTouchUpInside];
+            break;
+        case MMTrendingTypeNearBy -1:
+            [cell.imageViewButton addTarget:self action:@selector(nearbyMeduaTapped:) forControlEvents:UIControlEventTouchUpInside];
+            break;
+            
+        default:
+            break;
     }
+    
+    
+    MMMediaObject *mediaObject;
+    switch (indexPath.section) {
+        case MMTrendingTypeFavorites - 1:
+            mediaObject = [self.favoriteMedia objectAtIndex:indexPath.row];
+            break;
+        case MMTrendingTypeMyInterests - 1:
+            mediaObject = [self.myInterestsMedia objectAtIndex:indexPath.row];
+            break;
+        case MMTrendingTypeNearBy - 1:
+            mediaObject = [self.nearByMedia objectAtIndex:indexPath.row];
+            break;
+        case MMTrendingTypeTopViewed - 1:
+            mediaObject = [self.topViewedMedia objectAtIndex:indexPath.row];
+            break;
+            
+        default:
+            break;
+    }
+    
+    if(!mediaObject.highResImage){
+        NSURL * imageURL;
+        
+        if(mediaObject.mediaType == MMMediaTypeVideo){
+            imageURL = mediaObject.highResImageURL;
+        }else if(mediaObject.mediaType == MMMediaTypePhoto){
+            imageURL = mediaObject.mediaURL;
+        }
+        
+        if(imageURL){
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, NULL), ^{
+                
+                NSData *data = [NSData dataWithContentsOfURL:imageURL];
+                UIImage *image = [UIImage imageWithData:data scale:0.25];
+                mediaObject.highResImage = image;
+                
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    //Maybe correct the frame too
+                    MMTrendingCollectionViewCell *cellToUpdate = (MMTrendingCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath]; // create a copy of the cell to avoid keeping a strong pointer to "cell" since that one may have been reused by the time the block is ready to update it.
+                    if (cellToUpdate != nil) {
+                        [cellToUpdate.imageViewButton setImage:image forState:UIControlStateNormal];
+                        [cellToUpdate setNeedsLayout];
+                    }
+                    
+                    
+                });
+            });
+            
+        }
+    }else{
+        [cell.imageViewButton setImage:mediaObject.highResImage forState:UIControlStateNormal];
+    }
+    
+    if(mediaObject.mediaType == MMMediaTypeLiveVideo || mediaObject.mediaType == MMMediaTypeVideo){
+        cell.playButton.hidden = NO;
+    }else{
+        cell.playButton.hidden = YES;
+    }
+    
+    
+    
+    
+    cell.backgroundColor = [UIColor blackColor];
     
     return cell;
 }
 
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    double latitude, longitude;
-    NSMutableDictionary *params = [@{@"timeSpan":@"week"} mutableCopy];
-    
-    
-    latitude = [[[NSUserDefaults standardUserDefaults] valueForKey:@"latitude"]doubleValue];
-    longitude = [[[NSUserDefaults standardUserDefaults] valueForKey:@"longitude"]doubleValue];
-    
-    switch (indexPath.row) {
-        case 0:
-            if ([[trendingCategoryCountsDictionary valueForKey:@"bookmarkCount"]intValue] > 0) {
-                [params setValue:@"true" forKey:@"bookmarksonly"];
-                [self loadTrendingItem:params categoryTitle:@"Favorites"];
-            }
-            break;
-        case 1: {
-            if (myInterestsArray.count > 0) {
-                NSString *selectedInterestsKey = [NSString stringWithFormat:@"%@ selectedInterests", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
-                NSDictionary *favorites = [[NSUserDefaults standardUserDefaults] valueForKey:selectedInterestsKey];                NSString *favoritesParams = [[favorites allValues] componentsJoinedByString:@","];
-                if (favoritesParams && ![favoritesParams isEqualToString:@""]) {
-                    [params setValue:favoritesParams forKey:@"categoryIds"];
-                    [params setValue:@"true" forKey:@"myinterests"];
-                }
-                [self loadTrendingItem:params categoryTitle:@"My Interests"];
-            }
-        }
-            break;
-        case 2:
-            if ([[trendingCategoryCountsDictionary valueForKey:@"topviewedCount"]intValue] > 0) {
-                [self loadTrendingItem:params categoryTitle:@"Top Viewed"];
-            }
-            break;
-        case 3:
-            if ([[trendingCategoryCountsDictionary valueForKey:@"nearbyCount"]intValue] > 0) {
-                [params setValue:@"true" forKey:@"nearby"];
-                [params setValue:[NSNumber numberWithDouble:latitude] forKey:@"latitude"];
-                [params setValue:[NSNumber numberWithDouble:longitude] forKey:@"longitude"];
-                [params setValue:[NSNumber numberWithInt:10000] forKey:@"radius"];
-                
-                [self loadTrendingItem:params categoryTitle:@"Nearby"];
-            }
-            break;
-        default:
-            break;
+#pragma mark - CollectionView Layout 
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    //First row in each section will be larger
+    if(indexPath.row == 0){
+        return CGSizeMake(280, 280);
+    }
+    else{
+        return CGSizeMake(128, 128);
     }
 }
-
-
-#pragma mark - Helper Methods
-- (void)loadTrendingItem:(NSDictionary*)params categoryTitle:(NSString*)categoryTitle {
-    MMTrendingDetailViewController *trendingDetailViewController = [[MMTrendingDetailViewController alloc]initWithNibName:@"MMTrendingDetailViewController" bundle:nil];
-    trendingDetailViewController.title = categoryTitle;
-    [self.navigationController pushViewController:trendingDetailViewController animated:YES];
-   
+-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return 22;
+}
+-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 20;
+}
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    return CGSizeMake(self.view.frame.size.width, 40);
+}
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     
-    NSLog(@"%@", params);
-    
-    [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Loading %@", categoryTitle]];
-    [MMAPI getTrendingType:@"topviewed" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.locationsViewController.isSearching = NO;
-        [SVProgressHUD dismiss];
-        NSLog(@"%@", responseObject);
-        trendingDetailViewController.contentList = responseObject;
-        [trendingDetailViewController.tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%d", [operation.response statusCode]);
-        NSLog(@"%@", operation.responseString);
-        [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Unable to load %@", categoryTitle]];
-        [trendingDetailViewController.navigationController popViewControllerAnimated:YES];
-    }];
+    return UIEdgeInsetsMake(0, 20, 0, 20);
 }
 
-- (void)getTrendingCounts {
-    NSDictionary *params = [NSDictionary dictionaryWithObject:@"true" forKey:@"countsonly"];
-    NSLog(@"Start");
-    [MMAPI getTrendingType:@"topviewed" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Stop");
-        NSLog(@"%@", responseObject);
-        trendingCategoryCountsDictionary = responseObject;
-        [self.tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", operation.responseString);
-    }];
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
     
-    [self getMyInterestsCount];
-}
-
-- (void)getMyInterestsCount {
-    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-    NSString *selectedInterestsKey = [NSString stringWithFormat:@"%@ selectedInterests", [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"]];
-    NSDictionary *favorites = [[NSUserDefaults standardUserDefaults] valueForKey:selectedInterestsKey];
-    NSString *favoritesParams = [[favorites allValues] componentsJoinedByString:@","];
-    if (favoritesParams && ![favoritesParams isEqualToString:@""]) {
-        [params setValue:favoritesParams forKey:@"categoryIds"];
-        [params setValue:@"true" forKey:@"myinterests"];
-        [MMAPI getTrendingType:@"topviewed" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    MMAppDelegate *appDelegate = (MMAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-            myInterestsArray = responseObject;
-            NSLog(@"My Interests Count: %d", myInterestsArray.count);
-            [self.tableView reloadData];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"%@", operation.responseString);
-        }];
+    if(section == [collectionView numberOfSections] - 1 && !appDelegate.adView.hidden){
+        return CGSizeMake(self.view.frame.size.width, 15 + appDelegate.adView.frame.size.height);
     }
-    else {
-        myInterestsArray = [[NSArray alloc]init];
-        [self.tableView reloadData];
+    return CGSizeMake(self.view.frame.size.width, 15);
+}
+/*-(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    //TODO: ADD HEADER AND FOOTER VIEWS
+}*/
+
+#pragma mark - ScrollViewDelegate;
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    MMAppDelegate *appDelegate = (MMAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    NSUInteger adHeight = 0;
+    if(!appDelegate.adView.hidden){
+        adHeight = appDelegate.adView.frame.size.height;
     }
     
+    CGRect newFrame = bottomGradientImageView.frame;
+    newFrame.origin.x = 0;
+    newFrame.origin.y = self.collectionView.contentOffset.y + self.view.frame.size.height - newFrame.size.height - adHeight;
+    bottomGradientImageView.frame = newFrame;
 }
-
 @end

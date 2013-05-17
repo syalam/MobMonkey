@@ -18,6 +18,7 @@
 #import "MMHotSpotBadge.h"
 #import "BrowserViewController.h"
 #import "MMEditHotSpotViewController.h"
+#import "UIAlertView+Blocks.h"
 
 @implementation MMLocationDetailCellData
 
@@ -114,6 +115,12 @@
     
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    canDelete = NO;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -160,7 +167,8 @@
 {
     // Return the number of sections.
     
-    return 3;
+    //return [self.locationInformation.createdBy isEqualToString:[NSUserDefaults standardUserDefaults] objectForKey:@"userName"] ? 4 : 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -179,6 +187,8 @@
         rowCount  = 2;
     }else if(section == 1){
         return ((!self.locationInformation.parentLocationID || [self.locationInformation.parentLocationID isKindOfClass:[NSNull class]]) && !loadingInfo) ?  self.locationInformation.sublocations.count +1 :  0;
+    }else if(section == 3){
+        return canDelete ? 1 : 0;
     }
     
     return rowCount;
@@ -248,6 +258,18 @@
         }
         cell.imageView.image = nil;
         cell.accessoryType = UITableViewCellAccessoryNone;
+    }else if(indexPath.section == 3) {
+        cell.textLabel.text = @"Delete Location";
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.textLabel.textColor = [UIColor whiteColor];
+        cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+        cell.imageView.image = nil;
+        cell.imageView.image = [UIImage imageNamed:@"trashCan"];
+        if(canDelete){
+            cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        }else{
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
     }
     
     return cell;
@@ -401,6 +423,34 @@
             [self createHotSpotAtLocation];
         }
         
+        
+    }else if(indexPath.section == 3 && canDelete) {
+        
+        RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:@"Cancel"];
+        RIButtonItem *confirmDeleteButton = [RIButtonItem itemWithLabel:@"Delete"];
+        
+        [confirmDeleteButton setAction:^{
+            [SVProgressHUD showWithStatus:@"Deleting Location"];
+            
+            [MMAPI deleteLocation:self.locationInformation
+                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                              
+                              [SVProgressHUD showSuccessWithStatus:@"Successfully Deleted"];
+                              
+                              [self.navigationController popViewControllerAnimated:YES];
+                              
+                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                              
+                              [SVProgressHUD showErrorWithStatus:@"Could Not Delete Location"];
+                              
+                          }
+             ];
+            
+        }];
+        
+        UIAlertView *confirmDeleteView = [[UIAlertView alloc] initWithTitle:@"Cofirm Delete" message:@"Are you sure you want to delete this location?" cancelButtonItem:cancelButton otherButtonItems:confirmDeleteButton, nil];
+        
+        [confirmDeleteView show];
         
     }
 }
@@ -583,11 +633,18 @@
         self.mediaLoadingView.hidden = NO;
         [self.mediaIndicatorView startAnimating];*/
     }
+    
+    
+    
+    
+    
     [self.headerView showLoadingView];
     
     [MMAPI getLocationWithID:locationId providerID:providerId success:^(AFHTTPRequestOperation *operation, MMLocationInformation *locationInformation) {
         
         [SVProgressHUD dismiss];
+        
+        
         
         if(!self.locationInformation){
             self.locationInformation = locationInformation;
@@ -600,7 +657,13 @@
             self.locationInformation.messageURL = locationInformation.messageURL;
             self.locationInformation.parentLocationID = locationInformation.parentLocationID;
             self.locationInformation.isBookmark = locationInformation.isBookmark;
+            self.locationInformation.createdBy = locationInformation.createdBy;
+            NSLog(@"created by: %@", locationInformation.createdBy);
+        }
         
+        if(![self.locationInformation.createdBy isEqual:[NSNull null]] && [self.locationInformation.createdBy isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"userName"]]){
+            
+            canDelete = YES;
         }
         
         if(self.locationInformation.sublocations.count > 0){
@@ -864,7 +927,19 @@
 
 
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.section == 3){
+        
+        if(canDelete){
+            cell.backgroundColor = [UIColor colorWithRed:0.785 green:0.138 blue:0.084 alpha:1.000];
+        }else{
+            cell.backgroundColor = [UIColor lightGrayColor];
+        }
 
+    }else{
+        cell.backgroundColor = [UIColor whiteColor];
+    }
+}
 
 
 

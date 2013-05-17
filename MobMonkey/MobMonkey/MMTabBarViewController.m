@@ -28,8 +28,15 @@
         UIViewController *inboxVC = [[MMInboxViewController alloc] initWithNibName:@"MMInboxViewController" bundle:nil];
         //UIViewController *searchVC = [[MMSearchViewController alloc]initWithNibName:@"MMSearchViewController" bundle:nil];
         UIViewController *hotSpot = [[MMHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithNibName:@"MMTrendingViewController" bundle:nil];
-        MMTrendingViewController *bookmarksVC = [[MMTrendingViewController alloc]initWithNibName:@"MMTrendingViewController" bundle:nil];
+        
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+        [flowLayout setItemSize:CGSizeMake(128 , 128)];
+        [flowLayout setMinimumInteritemSpacing:0.f];
+        [flowLayout setMinimumLineSpacing:0.f];
+        
+        UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithCollectionViewLayout:flowLayout];
+        UIViewController *bookmarksVC = [[MMTrendingViewController alloc] initWithCollectionViewLayout:flowLayout];
         UIViewController *settingsVC = [[MMSettingsViewController alloc]initWithNibName:@"MMSettingsViewController" bundle:nil];
         
         UINavigationController *inboxNavC = [[UINavigationController alloc]initWithRootViewController:inboxVC];
@@ -44,8 +51,9 @@
         bookmarksVC.title = @"Bookmarks";
         settingsVC.title = @"Settings";
         
-        bookmarksVC.sectionSelected = YES;
-        bookmarksVC.bookmarkTab = YES;
+#warning FIX THIS BEFORE RELEASE
+        //bookmarksVC.sectionSelected = YES;
+        //bookmarksVC.bookmarkTab = YES;
         
         UITabBarItem *inboxBarItem = [[UITabBarItem alloc]initWithTitle:@"Inbox" image:nil tag:0];
         [inboxBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tabBtn1Selected"] withFinishedUnselectedImage:[UIImage imageNamed:@"tabBtn1"]];

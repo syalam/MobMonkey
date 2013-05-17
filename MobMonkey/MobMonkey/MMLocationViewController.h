@@ -26,6 +26,7 @@
     dispatch_queue_t  backgroundQueue;
     BOOL uiAdjustedForNotificationSetting;
     BOOL loadingInfo;
+    BOOL canDelete;
 }
 
 @property (nonatomic, strong) MMLocationHeaderView *headerView;

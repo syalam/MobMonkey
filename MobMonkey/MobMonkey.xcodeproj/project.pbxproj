@@ -220,6 +220,10 @@
 		B98B37D917455D8A00C96962 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B37D517455D8A00C96962 /* TPKeyboardAvoidingTableView.m */; };
 		B98B37DB174567E300C96962 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B37D317455D8A00C96962 /* TPKeyboardAvoidingScrollView.m */; };
 		B98B37DC174567E700C96962 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B37D517455D8A00C96962 /* TPKeyboardAvoidingTableView.m */; };
+		B98B37DF1746AA8A00C96962 /* trashCan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B37DD1746AA8A00C96962 /* trashCan@2x.png */; };
+		B98B37E01746AA8A00C96962 /* trashCan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B37DD1746AA8A00C96962 /* trashCan@2x.png */; };
+		B98B37E11746AA8A00C96962 /* trashCan.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B37DE1746AA8A00C96962 /* trashCan.png */; };
+		B98B37E21746AA8A00C96962 /* trashCan.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B37DE1746AA8A00C96962 /* trashCan.png */; };
 		B995D7E1173837A400B57077 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B995D7DF173837A400B57077 /* MMLocationViewController.m */; };
 		B995D7E2173837A400B57077 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B995D7DF173837A400B57077 /* MMLocationViewController.m */; };
 		B995D7E3173837A400B57077 /* MMLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B995D7E0173837A400B57077 /* MMLocationViewController.xib */; };
@@ -1698,6 +1702,8 @@
 		B98B37D317455D8A00C96962 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		B98B37D417455D8A00C96962 /* TPKeyboardAvoidingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingTableView.h; sourceTree = "<group>"; };
 		B98B37D517455D8A00C96962 /* TPKeyboardAvoidingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingTableView.m; sourceTree = "<group>"; };
+		B98B37DD1746AA8A00C96962 /* trashCan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trashCan@2x.png"; sourceTree = "<group>"; };
+		B98B37DE1746AA8A00C96962 /* trashCan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trashCan.png; sourceTree = "<group>"; };
 		B995D7DE173837A400B57077 /* MMLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationViewController.h; sourceTree = "<group>"; };
 		B995D7DF173837A400B57077 /* MMLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationViewController.m; sourceTree = "<group>"; };
 		B995D7E0173837A400B57077 /* MMLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLocationViewController.xib; sourceTree = "<group>"; };
@@ -3394,6 +3400,8 @@
 		F734A62D15F146630090E85A /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				B98B37DD1746AA8A00C96962 /* trashCan@2x.png */,
+				B98B37DE1746AA8A00C96962 /* trashCan.png */,
 				1AAFE556168B9EBC0034FAD1 /* Sign In and Sign Up */,
 				1A9F8F23167F7CD20077675B /* Subscription Screen */,
 				F7B012E4165606CC00BCAC26 /* App Icons */,
@@ -4855,6 +4863,8 @@
 				B98B375F1744369C00C96962 /* gradientBar.png in Resources */,
 				B98B376917443B9900C96962 /* MMTrendingCollectionViewCell.xib in Resources */,
 				B98B376C17443DD300C96962 /* peoplecoffee.png in Resources */,
+				B98B37E01746AA8A00C96962 /* trashCan@2x.png in Resources */,
+				B98B37E21746AA8A00C96962 /* trashCan.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5337,6 +5347,8 @@
 				B98B375E1744369C00C96962 /* gradientBar.png in Resources */,
 				B98B376817443B9900C96962 /* MMTrendingCollectionViewCell.xib in Resources */,
 				B98B376B17443DD300C96962 /* peoplecoffee.png in Resources */,
+				B98B37DF1746AA8A00C96962 /* trashCan@2x.png in Resources */,
+				B98B37E11746AA8A00C96962 /* trashCan.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
