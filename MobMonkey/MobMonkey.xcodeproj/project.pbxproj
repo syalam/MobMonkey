@@ -224,6 +224,8 @@
 		B98B37E01746AA8A00C96962 /* trashCan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B37DD1746AA8A00C96962 /* trashCan@2x.png */; };
 		B98B37E11746AA8A00C96962 /* trashCan.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B37DE1746AA8A00C96962 /* trashCan.png */; };
 		B98B37E21746AA8A00C96962 /* trashCan.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B37DE1746AA8A00C96962 /* trashCan.png */; };
+		B98B37E61746D4A000C96962 /* MMGoogleAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B37E51746D4A000C96962 /* MMGoogleAPI.m */; };
+		B98B37E71746D4A000C96962 /* MMGoogleAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B37E51746D4A000C96962 /* MMGoogleAPI.m */; };
 		B995D7E1173837A400B57077 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B995D7DF173837A400B57077 /* MMLocationViewController.m */; };
 		B995D7E2173837A400B57077 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B995D7DF173837A400B57077 /* MMLocationViewController.m */; };
 		B995D7E3173837A400B57077 /* MMLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B995D7E0173837A400B57077 /* MMLocationViewController.xib */; };
@@ -1704,6 +1706,8 @@
 		B98B37D517455D8A00C96962 /* TPKeyboardAvoidingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingTableView.m; sourceTree = "<group>"; };
 		B98B37DD1746AA8A00C96962 /* trashCan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trashCan@2x.png"; sourceTree = "<group>"; };
 		B98B37DE1746AA8A00C96962 /* trashCan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trashCan.png; sourceTree = "<group>"; };
+		B98B37E41746D4A000C96962 /* MMGoogleAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMGoogleAPI.h; sourceTree = "<group>"; };
+		B98B37E51746D4A000C96962 /* MMGoogleAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMGoogleAPI.m; sourceTree = "<group>"; };
 		B995D7DE173837A400B57077 /* MMLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationViewController.h; sourceTree = "<group>"; };
 		B995D7DF173837A400B57077 /* MMLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationViewController.m; sourceTree = "<group>"; };
 		B995D7E0173837A400B57077 /* MMLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLocationViewController.xib; sourceTree = "<group>"; };
@@ -2780,6 +2784,15 @@
 			name = TPKeyboardAvoiding;
 			sourceTree = "<group>";
 		};
+		B98B37E31746D48A00C96962 /* Google Api */ = {
+			isa = PBXGroup;
+			children = (
+				B98B37E41746D4A000C96962 /* MMGoogleAPI.h */,
+				B98B37E51746D4A000C96962 /* MMGoogleAPI.m */,
+			);
+			name = "Google Api";
+			sourceTree = "<group>";
+		};
 		B9960ED617382ABB003348FC /* New Location View Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -3288,6 +3301,7 @@
 		F734A59A15F12A570090E85A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				B98B37E31746D48A00C96962 /* Google Api */,
 				B98B37DA17455D8F00C96962 /* TPKeyboardAvoiding */,
 				B93EBD7C1733035200884663 /* Browser */,
 				B9A1198F170C8C940020C322 /* UIAlertView+Blocks */,
@@ -5544,6 +5558,7 @@
 				B98B37741744405B00C96962 /* MMTrendingMedia.m in Sources */,
 				B98B37D717455D8A00C96962 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				B98B37D917455D8A00C96962 /* TPKeyboardAvoidingTableView.m in Sources */,
+				B98B37E71746D4A000C96962 /* MMGoogleAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5685,6 +5700,7 @@
 				B98B37731744405B00C96962 /* MMTrendingMedia.m in Sources */,
 				B98B37DB174567E300C96962 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				B98B37DC174567E700C96962 /* TPKeyboardAvoidingTableView.m in Sources */,
+				B98B37E61746D4A000C96962 /* MMGoogleAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

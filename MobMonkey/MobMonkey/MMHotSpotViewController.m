@@ -19,6 +19,7 @@
 #import "MMLocationViewController.h"
 #import "MMLocationSearch.h"
 #import "MMLocationListCell.h"
+#import "MMGoogleAPI.h"
 
 @interface MMHotSpotViewController ()
 
@@ -44,6 +45,7 @@
     [super viewDidLoad];
     loadFromServer = NO;
     
+    [self searchInCityStateOrZip:nil];
     UIView *headerSpace = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 137)];
     [self.tableView setTableHeaderView:headerSpace];
     
@@ -700,6 +702,13 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 }
+-(void)searchInCityStateOrZip:(NSString *)cityStateOrZip{
+    [MMGoogleAPI cityInfoForSearch:@" sdfsdfA" success:^(MMCityInfo *cityInfo) {
+        NSLog(@"TESITNG");
+    } failure:^(NSError *error) {
+        NSLog(@"ERROR:");
+    }];
+}
 
 #pragma mark - MapViewDelegate
 
@@ -715,6 +724,9 @@ shouldReloadTableForSearchString:(NSString *)searchString
                                                      selectedScopeButtonIndex]]];
     
     return YES;
+}
+-(void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
+    NSLog(@"Search Started");
 }
 
 #pragma mark - ScrollView Delegate
