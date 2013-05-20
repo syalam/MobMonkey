@@ -11,6 +11,7 @@
 @interface MMTrendingViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate> {
     
     UIImageView *bottomGradientImageView;
+    UIImageView *noMediaImageView;
 
 }
 

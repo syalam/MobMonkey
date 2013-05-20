@@ -33,7 +33,7 @@
         
         MMCityInfo *cityInfo = [[MMCityInfo alloc] init];
         
-        NSDictionary *firstResult = [[JSON valueForKeyPath:@"results"] count] > 0 ? [[JSON valueForKeyPath:@"results"] lastObject] : nil;
+        NSDictionary *firstResult = [[JSON valueForKeyPath:@"results"] count] > 0 ? [[JSON valueForKeyPath:@"results"] objectAtIndex:0] : nil;
         
         if(firstResult){
             
@@ -50,7 +50,49 @@
                 
                 if(isCityOrZip){
                     
-                    NSDictionary *geometryDictionary = [firstResult objectForKey:@"geometry"];
+                    NSDictionary *boundsDictionary = [firstResult valueForKeyPath:@"geometry.bounds"];
+                    NSDictionary *locationDictionary = [firstResult valueForKeyPath:@"geometry.location"];
+                    
+                    NSNumber *latitude = [[JSON valueForKeyPath:@"results.geometry.location.lat"] lastObject];
+                    NSNumber *longitude = [[JSON valueForKeyPath:@"results.geometry.location.lng"] lastObject];
+                    
+                    NSNumber *neLatitude = [boundsDictionary valueForKeyPath:@"northeast.lat"];
+                    NSNumber *neLongitude = [boundsDictionary valueForKeyPath:@"northeast.lng"];
+                    
+                    NSNumber *swLatitude = [boundsDictionary valueForKeyPath:@"southwest.lat"];
+                    NSNumber *swLongitude = [boundsDictionary valueForKeyPath:@"southwest.lng"];
+                    
+                    if(![latitude isEqual:[NSNull null]] &&
+                       ![longitude isEqual:[NSNull null]] &&
+                       ![neLatitude isEqual:[NSNull null]] &&
+                       ![neLongitude isEqual:[NSNull null]] &&
+                       ![swLatitude isEqual:[NSNull null]] &&
+                       ![swLongitude isEqual:[NSNull null]]){
+                        
+                        
+                        CLLocation *locA = [[CLLocation alloc] initWithLatitude:neLatitude.doubleValue longitude:neLongitude.doubleValue];
+                        
+                        CLLocation *locB = [[CLLocation alloc] initWithLatitude:swLatitude.doubleValue longitude:swLongitude.doubleValue ];
+                        
+                        CLLocationDistance distance = [locA distanceFromLocation:locB];
+                        
+                        double distanceInYards = distance * 1.09361; //Convert To Yards
+                        
+                        
+                        cityInfo.locationCoordinate = CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
+                        cityInfo.cityRadiusInYards = [NSNumber numberWithDouble:distanceInYards / 2];
+                        
+                        if(success){
+                            success(cityInfo);
+                        }
+                        
+                    }else{//lat longs missing
+                        if(failure){
+                            failure(nil);
+                            return;
+                        }
+                    }
+
                     
                     //TODO: FIX LOCATION DATA
                     
@@ -69,45 +111,6 @@
                 }
             }
             
-        }
-        
-        
-        NSNumber *latitude = [[JSON valueForKeyPath:@"results.geometry.location.lat"] lastObject];
-        NSNumber *longitude = [[JSON valueForKeyPath:@"results.geometry.location.lng"] lastObject];
-        
-        NSNumber *neLatitude = [[JSON valueForKeyPath:@"results.geometry.bounds.northeast.lat"] lastObject];
-        NSNumber *neLongitude = [[JSON valueForKeyPath:@"results.geometry.bounds.northeast.lng"] lastObject];
-        
-        NSNumber *swLatitude = [[JSON valueForKeyPath:@"results.geometry.bounds.southwest.lat"] lastObject];
-        NSNumber *swLongitude = [[JSON valueForKeyPath:@"results.geometry.bounds.southwest.lng"] lastObject];
-        
-        if(![latitude isEqual:[NSNull null]] &&
-           ![longitude isEqual:[NSNull null]] &&
-           ![neLatitude isEqual:[NSNull null]] &&
-           ![neLongitude isEqual:[NSNull null]] &&
-           ![swLatitude isEqual:[NSNull null]] &&
-           ![swLongitude isEqual:[NSNull null]]){
-            
-            CLLocation *locA = [[CLLocation alloc] initWithLatitude:neLatitude.doubleValue longitude:neLongitude.doubleValue];
-            
-            CLLocation *locB = [[CLLocation alloc] initWithLatitude:swLatitude.doubleValue longitude:swLongitude.doubleValue ];
-            
-            CLLocationDistance distance = [locA distanceFromLocation:locB];
-            
-            double distanceInYards = distance * 1.09361;
-            
-            
-            cityInfo.locationCoordinate = CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
-            cityInfo.cityRadiusInYards = [NSNumber numberWithDouble:distanceInYards / 2];
-            
-            if(success){
-                success(cityInfo);
-            }
-
-        }else{
-            if(failure){
-                failure(nil);
-            }
         }
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {

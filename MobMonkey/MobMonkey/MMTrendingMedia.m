@@ -60,7 +60,7 @@
             for(NSDictionary *locationDictionary in responseObject){
                 NSDictionary *mediaDictionary = [locationDictionary objectForKey:@"media"];
                 
-                if(mediaDictionary.allKeys.count > 0){
+                if(![mediaDictionary isEqual:[NSNull null]] && mediaDictionary.allKeys.count > 0){
                     MMMediaObject *mediaObject = [MMMediaObject getMediaObjectForMediaDictionary:mediaDictionary];
                     [trendingObjects addObject:mediaObject];
                 }

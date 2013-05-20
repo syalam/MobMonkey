@@ -46,6 +46,8 @@
     //Thumbnail URL
     NSString *thumbURLPath = [mediaDictionary objectForKey:@"thumbURL"];
     
+    
+    
     if(thumbURLPath && ![thumbURLPath isEqual:[NSNull null]] && thumbURLPath.length > 0) {
         NSURL *thumbURL = [NSURL URLWithString:thumbURLPath];
         mediaObject.highResImageURL = thumbURL;

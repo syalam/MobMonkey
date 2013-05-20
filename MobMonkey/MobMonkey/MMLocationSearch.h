@@ -20,6 +20,8 @@ typedef enum {
 
 -(void)locationsInfoForCategory:(NSDictionary *)category searchString:(NSString *)searchString success:(void(^)(NSArray * locationInformations))success failure:(void(^)(NSError *error))failure;
 
+-(void)locationsInfoForCategory:(NSDictionary *)category atLocationCoordinates:(CLLocationCoordinate2D)locationCoordinates withRadiusInYards:(NSUInteger)yards searchString:(NSString *)searchString success:(void(^)(NSArray * locationInformations))success failure:(void(^)(NSError *error))failure;
+
 -(void)locationsInfoForCategory:(NSDictionary *)category searchString:(NSString *)searchString rangeInYards:(NSNumber*)yards success:(void(^)(NSArray * locationInformations))success failure:(void(^)(NSError *error))failure;
 
 -(void)testLocationsComplete:(void(^)(NSArray * locations))completion;

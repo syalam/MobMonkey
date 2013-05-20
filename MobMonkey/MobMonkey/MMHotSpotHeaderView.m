@@ -46,15 +46,35 @@
         //_createHotSpotButton.backgroundColor = [UIColor colorWithRed:1.000 green:0.590 blue:0.360 alpha:1.000];
         [self addSubview:_createHotSpotButton];
         
-        _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(padding - 5, _createHotSpotButton.frame.origin.y + _createHotSpotButton.frame.size.height  + 10, frame.size.width - ((padding - 5) * 2), 30)];
-        [self addSubview:_searchBar];
-        
-        [[_searchBar.subviews objectAtIndex:0] removeFromSuperview];
-        [_searchBar setBackgroundColor:[UIColor clearColor]];
+       
         //_searchBar.userInteractionEnabled = NO;
         
        // [self addSubview:opaqueView];
         [self addSubview:translucentView];
+        
+        _locationButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"tags"] landscapeImagePhone:nil style:UIBarButtonItemStyleBordered target:self action:@selector(locationButtonPressed:)];
+        
+        UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        
+        
+        _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,0, frame.size.width - 65, 30)];
+        
+        UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBar];
+        //[self addSubview:_searchBar];
+        
+        [[_searchBar.subviews objectAtIndex:0] removeFromSuperview];
+        [_searchBar setBackgroundColor:[UIColor clearColor]];
+        
+        _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, _createHotSpotButton.frame.origin.y + _createHotSpotButton.frame.size.height  + 10, 320, 44)];
+        [self addSubview:_toolbar];
+        
+        
+        _locationButton.tintColor = [UIColor colorWithRed:0.508 green:0.478 blue:0.480 alpha:1.000];
+        
+        _toolbar.items = @[_locationButton, searchItem];
+        [_toolbar setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+
+        
         
     }
     return self;

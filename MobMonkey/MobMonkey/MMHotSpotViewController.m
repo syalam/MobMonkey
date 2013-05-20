@@ -20,6 +20,8 @@
 #import "MMLocationSearch.h"
 #import "MMLocationListCell.h"
 #import "MMGoogleAPI.h"
+#import "MMLocationFilterTableViewController.h"
+#import "MMGoogleAPI.h"
 
 @interface MMHotSpotViewController ()
 
@@ -69,6 +71,9 @@
     
     
     [headerView.createHotSpotButton addTarget:self action:@selector(createHotSpotButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [headerView.locationButton setTarget:self];
+    [headerView.locationButton setAction:@selector(locationFilterButtonPressed:)];
     headerView.createHotSpotButton.exclusiveTouch = YES;
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
@@ -118,6 +123,34 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+-(void)searchWithSearchParam:(NSString *)cityOrZipString{
+    
+}
+-(void)locationFilterButtonPressed:(id)sender{
+    
+    self.tableView.contentInset=UIEdgeInsetsMake(0,0,200,0);
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+    
+    
+    CGRect newFrame = headerView.frame;
+    newFrame.origin.y -= 88;
+    [UIView animateWithDuration:0.4 animations:^{
+        //[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        headerView.frame = newFrame;
+          
+    } completion:^(BOOL finished) {
+      //[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }];
+    
+    filterLocationVC = [[MMLocationFilterTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    filterLocationVC.cityOrStateString = cityString;
+    filterLocationVC.zipString = zipString;
+    
+    popOverController = [[WEPopoverController alloc] initWithContentViewController:filterLocationVC];
+    popOverController.delegate = self;
+    popOverController.popoverContentSize = CGSizeMake(280, 133);
+    [popOverController presentPopoverFromBarButtonItem:headerView.locationButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+}
 -(void)createHotSpotButtonPressed:(id)sender{
     MMCreateHotSpotViewController *createHotSpotVC = [[MMCreateHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
     createHotSpotVC.nearbyLocations = self.nearbyLocations;
@@ -133,7 +166,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
+    [self setTintForFilterButton];
     headerView.layer.zPosition = 10000;
     
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UITableViewRowAnimationTop animated:NO];
@@ -603,6 +636,52 @@
         
     }
     
+    
+    if((cityString && cityString.length > 0) || (zipString && zipString.length > 0)){
+        NSString * locationSearchString = cityString;
+        
+        if(!locationSearchString || locationSearchString.length == 0){
+            locationSearchString = zipString;
+        }
+        
+        [MMGoogleAPI cityInfoForSearch:locationSearchString success:^(MMCityInfo *cityInfo) {
+            
+            [searchModel locationsInfoForCategory:nil atLocationCoordinates:cityInfo.locationCoordinate withRadiusInYards:cityInfo.cityRadiusInYards.integerValue * 1.2 searchString:self.searchDisplayController.searchBar.text success:^(NSArray *locationInformations) {
+                
+                NSMutableArray *locationsToAdd = [NSMutableArray array];
+                
+                for (MMLocationInformation *location in locationInformations){
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.locationID = %@", location.locationID];
+                    
+                    MMLocationInformation *locationExists = [[searchResults filteredArrayUsingPredicate:predicate] lastObject];
+                    
+                    if(!locationExists){
+                        [locationsToAdd addObject:location];
+                    }
+                }
+                
+                NSMutableArray *updatedSearchResults = [NSMutableArray arrayWithArray:searchResults];
+                [updatedSearchResults addObjectsFromArray:locationsToAdd];
+                searchResults = updatedSearchResults;
+                loadFromServer = YES;
+                [self.searchDisplayController.searchResultsTableView reloadData];
+                [SVProgressHUD dismiss];
+                
+            } failure:^(NSError *error) {
+                
+                NSLog(@"Success");
+                [SVProgressHUD showErrorWithStatus:@"Couldn't Search for Locations on Server"];
+                
+            }];
+            
+            
+        } failure:^(NSError *error) {
+            [SVProgressHUD showErrorWithStatus:@"Couldn't Find City/State or Zip"];
+        }];
+        return;
+        
+    }
+    
     [SVProgressHUD showWithStatus:@"Downloading Locations from Server"];
     [searchModel locationsInfoForCategory:nil searchString:self.searchDisplayController.searchBar.text rangeInYards:@88000 success:^(NSArray *locationInformations) {
         
@@ -703,8 +782,8 @@
      */
 }
 -(void)searchInCityStateOrZip:(NSString *)cityStateOrZip{
-    [MMGoogleAPI cityInfoForSearch:@" sdfsdfA" success:^(MMCityInfo *cityInfo) {
-        NSLog(@"TESITNG");
+    [MMGoogleAPI cityInfoForSearch:cityStateOrZip success:^(MMCityInfo *cityInfo) {
+        
     } failure:^(NSError *error) {
         NSLog(@"ERROR:");
     }];
@@ -743,6 +822,46 @@ shouldReloadTableForSearchString:(NSString *)searchString
     MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithStyle:UITableViewStyleGrouped];
     [locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
     [self.navigationController pushViewController:locationViewController animated:YES];
+}
+
+-(void)setTintForFilterButton{
+    
+    BOOL zipHasText = NO;
+    BOOL cityHasText = NO;
+    if(filterLocationVC.zipString && filterLocationVC.zipString.length > 0){
+        zipString = filterLocationVC.zipString;
+        zipHasText = YES;
+    }else if(filterLocationVC.cityOrStateString && filterLocationVC.cityOrStateString.length > 0){
+        cityString = filterLocationVC.cityOrStateString;
+        cityHasText = YES;
+    }
+    
+    if(cityHasText || zipHasText){
+        [headerView.locationButton setTintColor: [UIColor colorWithRed:0.277 green:0.266 blue:0.879 alpha:1.000]];
+    }else{
+        [headerView.locationButton setTintColor:[UIColor grayColor]];
+    }
+    
+}
+
+#pragma mark - WEPopOver Delegate
+
+-(void)popoverControllerDidDismissPopover:(WEPopoverController *)popoverController {
+    
+    [self setTintForFilterButton];
+    self.tableView.contentInset=UIEdgeInsetsMake(0,0,0,0);
+    CGRect newFrame = headerView.frame;
+    newFrame.origin.y += 88;
+    [UIView animateWithDuration:0.4 animations:^{
+    
+        headerView.frame = newFrame;
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+-(BOOL)popoverControllerShouldDismissPopover:(WEPopoverController *)popoverController {
+    return YES;
 }
 
 @end

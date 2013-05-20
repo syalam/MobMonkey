@@ -44,6 +44,12 @@
 {
     [super viewDidLoad];
     
+    noMediaImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 149)/2, 120, 149, 95)];
+    [noMediaImageView setImage:[UIImage imageNamed:@"noMedia"]];
+    [self.view addSubview:noMediaImageView];
+    //noMediaImageView.hidden = YES;
+    
+    
     
     
     
@@ -91,6 +97,16 @@
             default:
                 break;
         }
+        
+        if(!self.favoriteMedia.count > 0 &&
+           !self.myInterestsMedia.count > 0 &&
+           !self.nearByMedia.count > 0 &&
+           !self.topViewedMedia.count > 0 ) {
+            noMediaImageView.hidden = NO;
+        }else{
+            noMediaImageView.hidden = YES;
+        }
+        
         [self.collectionView reloadData];
     }];
 }

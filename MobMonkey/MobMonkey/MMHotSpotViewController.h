@@ -12,8 +12,10 @@
 #import "MMHotSpotHeaderView.h"
 #import "MMLocationSearch.h"
 #import "MMAddLocationViewController.h"
+#import "WEPopoverController.h"
+#import "MMLocationFilterTableViewController.h"
 
-@interface MMHotSpotViewController : UITableViewController <UIGestureRecognizerDelegate, AdWhirlDelegate, MKMapViewDelegate, UISearchDisplayDelegate, MMAddLocationDelegate, UISearchBarDelegate> {
+@interface MMHotSpotViewController : UITableViewController <UIGestureRecognizerDelegate, AdWhirlDelegate, MKMapViewDelegate, UISearchDisplayDelegate, MMAddLocationDelegate, UISearchBarDelegate, WEPopoverControllerDelegate> {
     MKMapView *mapView;
     UILabel *mapPanLabel;
     UIActivityIndicatorView *loadingIndicator;
@@ -23,6 +25,10 @@
     UISearchDisplayController *searchDisplayController;
     BOOL loadFromServer;
     MMLocationSearch *searchModel;
+    WEPopoverController *popOverController;
+    NSString *cityString;
+    NSString *zipString;
+    MMLocationFilterTableViewController *filterLocationVC;
 }
 
 @property (nonatomic, strong) NSArray *nearbyLocations;
