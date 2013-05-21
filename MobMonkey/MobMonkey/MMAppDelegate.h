@@ -12,6 +12,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
 #import "MMAPI.h"
+#import "MMSlideNavigationController.h"
 
 @interface MMAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, CLLocationManagerDelegate, AdWhirlDelegate> {
     CLLocationManager *_locationManager;
@@ -22,6 +23,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UITabBarController *tabBarController;
+@property (nonatomic, strong) MMSlideNavigationController *slideNavigationController;
 @property (nonatomic, readonly) CLLocation* currentLocation;
 @property (strong, nonatomic) AdWhirlView *adView;
 

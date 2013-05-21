@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UISt</key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -71,6 +73,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
+    <key>UIStatusBarStyle</key>
+    <string>UIStatusBarStyleBlackTranslucent</string>
 	<key>UIStatusBarTintParameters</key>
 	<dict>
 		<key>UINavigationBar</key>
@@ -80,11 +84,11 @@
 			<key>TintColor</key>
 			<dict>
 				<key>Blue</key>
-				<real>0.14117647058823529</real>
+				<real>0.1411764705882353</real>
 				<key>Green</key>
 				<real>0.4392156862745098</real>
 				<key>Red</key>
-				<real>0.88627450980392153</real>
+				<real>0.8862745098039215</real>
 			</dict>
 			<key>Translucent</key>
 			<false/>

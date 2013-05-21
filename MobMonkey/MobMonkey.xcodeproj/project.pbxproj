@@ -293,6 +293,34 @@
 		B98B3852174A857C00C96962 /* noMedia.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B384F174A857A00C96962 /* noMedia.png */; };
 		B98B3853174A857C00C96962 /* noMedia@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B3850174A857B00C96962 /* noMedia@2x.png */; };
 		B98B3854174A857C00C96962 /* noMedia@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B3850174A857B00C96962 /* noMedia@2x.png */; };
+		B98B386A174AE4C000C96962 /* navigationBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B3868174AE4C000C96962 /* navigationBackground.png */; };
+		B98B386B174AE4C000C96962 /* navigationBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B3868174AE4C000C96962 /* navigationBackground.png */; };
+		B98B386C174AE4C000C96962 /* navigationBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B3869174AE4C000C96962 /* navigationBackground@2x.png */; };
+		B98B386D174AE4C000C96962 /* navigationBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B3869174AE4C000C96962 /* navigationBackground@2x.png */; };
+		B98B3870174AE7A600C96962 /* navigationBackground-rounded.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B386E174AE7A600C96962 /* navigationBackground-rounded.png */; };
+		B98B3871174AE7A600C96962 /* navigationBackground-rounded.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B386E174AE7A600C96962 /* navigationBackground-rounded.png */; };
+		B98B3872174AE7A600C96962 /* navigationBackground-rounded@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B386F174AE7A600C96962 /* navigationBackground-rounded@2x.png */; };
+		B98B3873174AE7A600C96962 /* navigationBackground-rounded@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B98B386F174AE7A600C96962 /* navigationBackground-rounded@2x.png */; };
+		B98B38B9174AF8D200C96962 /* ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B38B6174AF8D200C96962 /* ECSlidingViewController.m */; };
+		B98B38BA174AF8D200C96962 /* ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B38B6174AF8D200C96962 /* ECSlidingViewController.m */; };
+		B98B38BB174AF8D200C96962 /* UIImage+ImageWithUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B38B8174AF8D200C96962 /* UIImage+ImageWithUIView.m */; };
+		B98B38BC174AF8D200C96962 /* UIImage+ImageWithUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B38B8174AF8D200C96962 /* UIImage+ImageWithUIView.m */; };
+		B98B38C4174AFEAC00C96962 /* MMContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B38BF174AFEAC00C96962 /* MMContentViewController.m */; };
+		B98B38C5174AFEAC00C96962 /* MMContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B38BF174AFEAC00C96962 /* MMContentViewController.m */; };
+		B98B38C6174AFEAC00C96962 /* MMNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B38C1174AFEAC00C96962 /* MMNavigationViewController.m */; };
+		B98B38C7174AFEAC00C96962 /* MMNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B38C1174AFEAC00C96962 /* MMNavigationViewController.m */; };
+		B98B38C8174AFEAC00C96962 /* MMSlideNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B38C3174AFEAC00C96962 /* MMSlideNavigationController.m */; };
+		B98B38C9174AFEAC00C96962 /* MMSlideNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B38C3174AFEAC00C96962 /* MMSlideNavigationController.m */; };
+		B98B38CD174AFEFA00C96962 /* MMSlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B38CB174AFEFA00C96962 /* MMSlideMenuViewController.m */; };
+		B98B38CE174AFEFA00C96962 /* MMSlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B38CB174AFEFA00C96962 /* MMSlideMenuViewController.m */; };
+		B98B38CF174AFEFA00C96962 /* MMSlideMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B98B38CC174AFEFA00C96962 /* MMSlideMenuViewController.xib */; };
+		B98B38D0174AFEFA00C96962 /* MMSlideMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B98B38CC174AFEFA00C96962 /* MMSlideMenuViewController.xib */; };
+		B98B38D7174AFF1C00C96962 /* MMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B38D2174AFF1B00C96962 /* MMMenuItem.m */; };
+		B98B38D8174AFF1C00C96962 /* MMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B38D2174AFF1B00C96962 /* MMMenuItem.m */; };
+		B98B38D9174AFF1C00C96962 /* MMMenuItems.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B38D4174AFF1B00C96962 /* MMMenuItems.m */; };
+		B98B38DA174AFF1C00C96962 /* MMMenuItems.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B38D4174AFF1B00C96962 /* MMMenuItems.m */; };
+		B98B38DB174AFF1C00C96962 /* MMMenuSlideCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B38D6174AFF1C00C96962 /* MMMenuSlideCell.m */; };
+		B98B38DC174AFF1C00C96962 /* MMMenuSlideCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B98B38D6174AFF1C00C96962 /* MMMenuSlideCell.m */; };
 		B995D7E1173837A400B57077 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B995D7DF173837A400B57077 /* MMLocationViewController.m */; };
 		B995D7E2173837A400B57077 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B995D7DF173837A400B57077 /* MMLocationViewController.m */; };
 		B995D7E3173837A400B57077 /* MMLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B995D7E0173837A400B57077 /* MMLocationViewController.xib */; };
@@ -1805,6 +1833,29 @@
 		B98B38391747036D00C96962 /* MMLocationFilterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationFilterTableViewController.m; sourceTree = "<group>"; };
 		B98B384F174A857A00C96962 /* noMedia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noMedia.png; sourceTree = "<group>"; };
 		B98B3850174A857B00C96962 /* noMedia@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noMedia@2x.png"; sourceTree = "<group>"; };
+		B98B3868174AE4C000C96962 /* navigationBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationBackground.png; sourceTree = "<group>"; };
+		B98B3869174AE4C000C96962 /* navigationBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationBackground@2x.png"; sourceTree = "<group>"; };
+		B98B386E174AE7A600C96962 /* navigationBackground-rounded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationBackground-rounded.png"; sourceTree = "<group>"; };
+		B98B386F174AE7A600C96962 /* navigationBackground-rounded@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationBackground-rounded@2x.png"; sourceTree = "<group>"; };
+		B98B38B5174AF8D200C96962 /* ECSlidingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingViewController.h; sourceTree = "<group>"; };
+		B98B38B6174AF8D200C96962 /* ECSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSlidingViewController.m; sourceTree = "<group>"; };
+		B98B38B7174AF8D200C96962 /* UIImage+ImageWithUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageWithUIView.h"; sourceTree = "<group>"; };
+		B98B38B8174AF8D200C96962 /* UIImage+ImageWithUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageWithUIView.m"; sourceTree = "<group>"; };
+		B98B38BE174AFEAC00C96962 /* MMContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMContentViewController.h; sourceTree = "<group>"; };
+		B98B38BF174AFEAC00C96962 /* MMContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMContentViewController.m; sourceTree = "<group>"; };
+		B98B38C0174AFEAC00C96962 /* MMNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMNavigationViewController.h; sourceTree = "<group>"; };
+		B98B38C1174AFEAC00C96962 /* MMNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMNavigationViewController.m; sourceTree = "<group>"; };
+		B98B38C2174AFEAC00C96962 /* MMSlideNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSlideNavigationController.h; sourceTree = "<group>"; };
+		B98B38C3174AFEAC00C96962 /* MMSlideNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSlideNavigationController.m; sourceTree = "<group>"; };
+		B98B38CA174AFEFA00C96962 /* MMSlideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSlideMenuViewController.h; sourceTree = "<group>"; };
+		B98B38CB174AFEFA00C96962 /* MMSlideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSlideMenuViewController.m; sourceTree = "<group>"; };
+		B98B38CC174AFEFA00C96962 /* MMSlideMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSlideMenuViewController.xib; sourceTree = "<group>"; };
+		B98B38D1174AFF1B00C96962 /* MMMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMenuItem.h; sourceTree = "<group>"; };
+		B98B38D2174AFF1B00C96962 /* MMMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMenuItem.m; sourceTree = "<group>"; };
+		B98B38D3174AFF1B00C96962 /* MMMenuItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMenuItems.h; sourceTree = "<group>"; };
+		B98B38D4174AFF1B00C96962 /* MMMenuItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMenuItems.m; sourceTree = "<group>"; };
+		B98B38D5174AFF1B00C96962 /* MMMenuSlideCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMenuSlideCell.h; sourceTree = "<group>"; };
+		B98B38D6174AFF1C00C96962 /* MMMenuSlideCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMenuSlideCell.m; sourceTree = "<group>"; };
 		B995D7DE173837A400B57077 /* MMLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationViewController.h; sourceTree = "<group>"; };
 		B995D7DF173837A400B57077 /* MMLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationViewController.m; sourceTree = "<group>"; };
 		B995D7E0173837A400B57077 /* MMLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLocationViewController.xib; sourceTree = "<group>"; };
@@ -2935,6 +2986,50 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		B98B3855174AE0D000C96962 /* New Assets */ = {
+			isa = PBXGroup;
+			children = (
+				B98B386E174AE7A600C96962 /* navigationBackground-rounded.png */,
+				B98B386F174AE7A600C96962 /* navigationBackground-rounded@2x.png */,
+				B98B3868174AE4C000C96962 /* navigationBackground.png */,
+				B98B3869174AE4C000C96962 /* navigationBackground@2x.png */,
+			);
+			name = "New Assets";
+			sourceTree = "<group>";
+		};
+		B98B38B4174AF8D100C96962 /* ECSlidingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B98B38B5174AF8D200C96962 /* ECSlidingViewController.h */,
+				B98B38B6174AF8D200C96962 /* ECSlidingViewController.m */,
+				B98B38B7174AF8D200C96962 /* UIImage+ImageWithUIView.h */,
+				B98B38B8174AF8D200C96962 /* UIImage+ImageWithUIView.m */,
+			);
+			path = ECSlidingViewController;
+			sourceTree = "<group>";
+		};
+		B98B38BD174AFE9900C96962 /* MMSlideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				B98B38D1174AFF1B00C96962 /* MMMenuItem.h */,
+				B98B38D2174AFF1B00C96962 /* MMMenuItem.m */,
+				B98B38D3174AFF1B00C96962 /* MMMenuItems.h */,
+				B98B38D4174AFF1B00C96962 /* MMMenuItems.m */,
+				B98B38D5174AFF1B00C96962 /* MMMenuSlideCell.h */,
+				B98B38D6174AFF1C00C96962 /* MMMenuSlideCell.m */,
+				B98B38CA174AFEFA00C96962 /* MMSlideMenuViewController.h */,
+				B98B38CB174AFEFA00C96962 /* MMSlideMenuViewController.m */,
+				B98B38CC174AFEFA00C96962 /* MMSlideMenuViewController.xib */,
+				B98B38BE174AFEAC00C96962 /* MMContentViewController.h */,
+				B98B38BF174AFEAC00C96962 /* MMContentViewController.m */,
+				B98B38C0174AFEAC00C96962 /* MMNavigationViewController.h */,
+				B98B38C1174AFEAC00C96962 /* MMNavigationViewController.m */,
+				B98B38C2174AFEAC00C96962 /* MMSlideNavigationController.h */,
+				B98B38C3174AFEAC00C96962 /* MMSlideNavigationController.m */,
+			);
+			name = MMSlideMenu;
+			sourceTree = "<group>";
+		};
 		B9960ED617382ABB003348FC /* New Location View Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -3346,6 +3441,7 @@
 		F734A53D15F11C3E0090E85A /* MobMonkey */ = {
 			isa = PBXGroup;
 			children = (
+				B98B38BD174AFE9900C96962 /* MMSlideMenu */,
 				B924B4AB172EDD2D00FC4924 /* HotSpots */,
 				B924B4A0172B3EE500FC4924 /* TestFlightSDK1.2.4 */,
 				B99B7D5817271843000BF3AB /* Social Network Model */,
@@ -3443,6 +3539,7 @@
 		F734A59A15F12A570090E85A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				B98B38B4174AF8D100C96962 /* ECSlidingViewController */,
 				B98B37F81747015300C96962 /* WEPopOver */,
 				B98B37E31746D48A00C96962 /* Google Api */,
 				B98B37DA17455D8F00C96962 /* TPKeyboardAvoiding */,
@@ -3557,6 +3654,7 @@
 		F734A62D15F146630090E85A /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				B98B3855174AE0D000C96962 /* New Assets */,
 				B98B37DD1746AA8A00C96962 /* trashCan@2x.png */,
 				B98B37DE1746AA8A00C96962 /* trashCan.png */,
 				1AAFE556168B9EBC0034FAD1 /* Sign In and Sign Up */,
@@ -5041,6 +5139,11 @@
 				B98B382F1747019400C96962 /* popoverBgSimple.png in Resources */,
 				B98B3852174A857C00C96962 /* noMedia.png in Resources */,
 				B98B3854174A857C00C96962 /* noMedia@2x.png in Resources */,
+				B98B386B174AE4C000C96962 /* navigationBackground.png in Resources */,
+				B98B386D174AE4C000C96962 /* navigationBackground@2x.png in Resources */,
+				B98B3871174AE7A600C96962 /* navigationBackground-rounded.png in Resources */,
+				B98B3873174AE7A600C96962 /* navigationBackground-rounded@2x.png in Resources */,
+				B98B38D0174AFEFA00C96962 /* MMSlideMenuViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5544,6 +5647,11 @@
 				B98B384E1747095700C96962 /* popoverBgSimple.png in Resources */,
 				B98B3851174A857C00C96962 /* noMedia.png in Resources */,
 				B98B3853174A857C00C96962 /* noMedia@2x.png in Resources */,
+				B98B386A174AE4C000C96962 /* navigationBackground.png in Resources */,
+				B98B386C174AE4C000C96962 /* navigationBackground@2x.png in Resources */,
+				B98B3870174AE7A600C96962 /* navigationBackground-rounded.png in Resources */,
+				B98B3872174AE7A600C96962 /* navigationBackground-rounded@2x.png in Resources */,
+				B98B38CF174AFEFA00C96962 /* MMSlideMenuViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5760,6 +5868,15 @@
 				B98B38351747019400C96962 /* WEPopoverController.m in Sources */,
 				B98B38371747019400C96962 /* WETouchableView.m in Sources */,
 				B98B383B1747036E00C96962 /* MMLocationFilterTableViewController.m in Sources */,
+				B98B38BA174AF8D200C96962 /* ECSlidingViewController.m in Sources */,
+				B98B38BC174AF8D200C96962 /* UIImage+ImageWithUIView.m in Sources */,
+				B98B38C5174AFEAC00C96962 /* MMContentViewController.m in Sources */,
+				B98B38C7174AFEAC00C96962 /* MMNavigationViewController.m in Sources */,
+				B98B38C9174AFEAC00C96962 /* MMSlideNavigationController.m in Sources */,
+				B98B38CE174AFEFA00C96962 /* MMSlideMenuViewController.m in Sources */,
+				B98B38D8174AFF1C00C96962 /* MMMenuItem.m in Sources */,
+				B98B38DA174AFF1C00C96962 /* MMMenuItems.m in Sources */,
+				B98B38DC174AFF1C00C96962 /* MMMenuSlideCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5907,6 +6024,15 @@
 				B98B383D1747095000C96962 /* WEPopoverContainerView.m in Sources */,
 				B98B383E1747095000C96962 /* WEPopoverController.m in Sources */,
 				B98B383F1747095000C96962 /* WETouchableView.m in Sources */,
+				B98B38B9174AF8D200C96962 /* ECSlidingViewController.m in Sources */,
+				B98B38BB174AF8D200C96962 /* UIImage+ImageWithUIView.m in Sources */,
+				B98B38C4174AFEAC00C96962 /* MMContentViewController.m in Sources */,
+				B98B38C6174AFEAC00C96962 /* MMNavigationViewController.m in Sources */,
+				B98B38C8174AFEAC00C96962 /* MMSlideNavigationController.m in Sources */,
+				B98B38CD174AFEFA00C96962 /* MMSlideMenuViewController.m in Sources */,
+				B98B38D7174AFF1C00C96962 /* MMMenuItem.m in Sources */,
+				B98B38D9174AFF1C00C96962 /* MMMenuItems.m in Sources */,
+				B98B38DB174AFF1C00C96962 /* MMMenuSlideCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

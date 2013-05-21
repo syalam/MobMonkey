@@ -13,7 +13,8 @@
 #import "MMMediaObject.h"
 #import "MMTrendingCollectionViewCell.h"
 #import <MediaPlayer/MediaPlayer.h>
-
+#import "MMSlideMenuViewController.h"
+#import "ECSlidingViewController.h"
 
 @interface MMTrendingViewController ()
 
@@ -76,6 +77,21 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(adWhirlChangedValue:)
                                                  name:@"AdWhirlChange" object:nil];
+}
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.view.layer.shadowOpacity = 0.75f;
+    self.view.layer.shadowRadius = 10.0f;
+    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    
+    if(![self.slidingViewController.underLeftViewController isKindOfClass:[MMSlideMenuViewController class]]){
+        
+        MMSlideMenuViewController *menuViewController = [[MMSlideMenuViewController alloc] initWithNibName:@"MMSlideMenuViewController" bundle:nil];
+        self.slidingViewController.underLeftViewController = menuViewController;   }
+    
+    //if(self.slidingViewController.panGesture){
+    [self.view addGestureRecognizer:self.slidingViewController.panGesture];
 }
 -(void)reloadMedia{
     [MMTrendingMedia getTrendingMediaForAllTypesCompletion:^(NSArray *mediaObjects, MMTrendingType trendingType, NSError *error) {

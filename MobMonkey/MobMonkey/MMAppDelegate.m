@@ -20,6 +20,8 @@
 #import "TestFlight.h"
 #import "MMHotSpotViewController.h"
 #import "MMInboxViewController.h"
+#import "MMNavigationViewController.h"
+//#import "MMSlideNavigationController.h"
 
 @implementation MMAppDelegate
 
@@ -63,7 +65,8 @@
       UIRemoteNotificationTypeSound)];
     
     if ([UINavigationBar respondsToSelector:@selector(appearance)]) {
-        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavBar~iphone"] forBarMetrics:UIBarMetricsDefault];
+        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navigationBackground-rounded"
+                                                          ] forBarMetrics:UIBarMetricsDefault];
     }
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -85,7 +88,7 @@
     UINavigationController *inboxNavC = [[UINavigationController alloc] initWithRootViewController:inboxVC];
     UINavigationController *searchNavC = [[UINavigationController alloc] initWithRootViewController:hotSpotVC];
 
-    UINavigationController *trendingNavC = [[UINavigationController alloc] initWithRootViewController:trendingVC];
+    MMNavigationViewController *trendingNavC = [[MMNavigationViewController alloc] initWithRootViewController:trendingVC];
 
     UINavigationController *bookmarksNavC = [[UINavigationController alloc] initWithRootViewController:bookmarksVC];
 
@@ -97,10 +100,18 @@
     bookmarksVC.title = @"Favorites";
     settingsVC.title = @"Settings";
     
+    
+    _slideNavigationController = [[MMSlideNavigationController alloc] init];
+    //MMNavigationViewController *navigationViewController = [[MMNavigationViewController alloc] initWithRootViewController:trendingVC];
+    
+    self.slideNavigationController.topViewController = trendingNavC;
+    [self.window setRootViewController:_slideNavigationController];
 //    bookmarksVC.sectionSelected = YES;
 //    bookmarksVC.bookmarkTab = YES;
     
-    self.tabBarController = [[UITabBarController alloc] init];
+    
+    //Changing to slide menu
+    /*self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.viewControllers = @[ trendingNavC, inboxNavC, searchNavC, bookmarksNavC, settingsNavC];
     [self.tabBarController.tabBar setBackgroundImage:[[UIImage imageNamed:@"tabbar-background"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 2.0, 0.0, 2.0)]];
     [self.tabBarController.tabBar setSelectionIndicatorImage:[[UIImage imageNamed:@"selected-tab-background"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)]];
@@ -134,7 +145,7 @@
         
         [_adView setHidden:YES];
         [self.window.rootViewController.view addSubview:_adView];
-    }    
+    } */   
   
     [self.window makeKeyAndVisible];
     return YES;
