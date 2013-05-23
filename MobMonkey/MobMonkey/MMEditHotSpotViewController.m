@@ -48,7 +48,7 @@
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    self.view.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
+    self.view.backgroundColor = [UIColor MMEggShell];
     self.tableView.backgroundView = nil;
     
     

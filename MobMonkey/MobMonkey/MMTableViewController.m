@@ -1,21 +1,21 @@
 //
-//  MMLocationHotSpotsViewController.m
+//  MMTableViewController.m
 //  MobMonkey
 //
-//  Created by Michael Kral on 4/29/13.
+//  Created by Michael Kral on 5/21/13.
 //  Copyright (c) 2013 Reyaad Sidique. All rights reserved.
 //
 
-#import "MMLocationHotSpotsViewController.h"
-#import "MMHotSpotInformation.h"
-#import "MMEditHotSpotViewController.h"
-#import "MMLocationViewController.h"
+#import "MMTableViewController.h"
+#import <QuartzCore/QuartzCore.h>
+#import "ECSlidingViewController.h"
+#import "MMSlideMenuViewController.h"
 
-@interface MMLocationHotSpotsViewController ()
+@interface MMTableViewController ()
 
 @end
 
-@implementation MMLocationHotSpotsViewController
+@implementation MMTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -29,29 +29,31 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.title = [NSString stringWithFormat:@"Existing Hot Spots"];
-    
-    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
-    [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
-    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
-    
-    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
-    self.navigationItem.leftBarButtonItem = backButton;
-    
-    self.view.backgroundColor = [UIColor MMEggShell];
-    self.tableView.backgroundView = nil;
 
-    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
--(void)backButtonTapped:(id)sender{
-    [self.navigationController popViewControllerAnimated:YES];
+-(void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    self.view.layer.shadowOpacity = 0.75f;
+    self.view.layer.shadowRadius = 10.0f;
+    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    
+    if(![self.slidingViewController.underLeftViewController isKindOfClass:[MMSlideMenuViewController class]]){
+        
+        MMSlideMenuViewController *menuViewController = [[MMSlideMenuViewController alloc] initWithNibName:@"MMSlideMenuViewController" bundle:nil];
+        //self.slidingViewController.underLeftViewController = menuViewController;
+    }
+    
+    //if(self.slidingViewController.panGesture){
+    //[self.view addGestureRecognizer:self.slidingViewController.panGesture];
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -62,61 +64,26 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return self.hotSpots.count > 0 ? 2 : 1;
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    if(section == 0){
-        return self.hotSpots.count;
-    }else if(section == 1){
-        return 1;
-    }
-    
     return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if(cell == nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
-    switch (indexPath.section) {
-        case 0: {
-            MMHotSpotInformation *hotSpot = [self.hotSpots objectAtIndex:indexPath.row];
-            cell.textLabel.text = hotSpot.name;
-            break;
-        }
-        case 1:
-            cell.textLabel.text = @"Created Hot-Spot";
-            cell.textLabel.textAlignment = NSTextAlignmentCenter;
-            
-        default:
-            break;
-    }
-    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
     
     return cell;
-}
-
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    switch (section) {
-        case 0:
-            return @"Existing Hot Spots";
-            break;
-            
-        default:
-            return nil;
-            break;
-    }
 }
 
 /*
@@ -162,19 +129,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    if(indexPath.section == 1){
-        MMEditHotSpotViewController *editHotSpotVC = [[MMEditHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        editHotSpotVC.parentLocation = self.parentLocation;
-        [self.navigationController pushViewController:editHotSpotVC animated:YES];
-    }else if(indexPath.section == 0){
-        MMLocationInformation *subLocationInformation = [self.hotSpots objectAtIndex:indexPath.row];
-        MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        locationViewController.locationInformation = subLocationInformation;
-        UINavigationController *navController = self.navigationController;
-        [self.navigationController popToRootViewControllerAnimated:NO];
-        [navController pushViewController:locationViewController animated:YES];
-    }
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];

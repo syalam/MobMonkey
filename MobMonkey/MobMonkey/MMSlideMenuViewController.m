@@ -11,6 +11,13 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MMMenuItems.h"
 #import "MMMenuItem.h"
+#import "MMTrendingViewController.h"
+#import "MMNavigationViewController.h"
+#import "MMInboxViewController.h"
+#import "MMBookmarksViewController.h"
+#import "MMSettingsViewController.h"
+#import "MMHotSpotViewController.h"
+#import "MMPlaceViewController.h"
 
 @interface MMSlideMenuViewController ()
 
@@ -45,7 +52,7 @@
     [searchBar setTranslucent:YES];
     [searchBar setBackgroundColor:[UIColor colorWithWhite:0.1 alpha:0.600]];
     
-    self.view.backgroundColor = [UIColor redColor];
+    //self.view.backgroundColor = [UIColor redColor];
     
     UIImage *image = [UIImage imageNamed:@"darkLinenBackground.png"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
@@ -62,16 +69,25 @@
     [self setupViews];
     
     MMMenuItems *menuItemsModel = [MMMenuItems menuItems];
-    menuItems = [menuItemsModel allMenuItems];
-    [menuTableView reloadData];
     
-   
+    menuItems = [menuItemsModel allMenuItems];
+    
+    _selectedMenuItem = [menuItems  objectAtIndex:0];
+    selectedIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+    
+    [menuTableView reloadData];
+    self.menuTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
+    
     
     
     
     [self.slidingViewController setAnchorRightRevealAmount:265.0f];
     
     self.slidingViewController.underLeftWidthLayout = ECFullWidth;
+}
+-(void)viewDidAppear:(BOOL)animated {
+    
+    [menuTableView reloadData];
 }
 
 - (void)viewDidUnload
@@ -106,24 +122,202 @@
         [cellBackgroundView setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:0.500]];
         cell.opaque = NO;
         [cell setBackgroundView:cellBackgroundView];
-        [cell.textLabel setTextColor:[UIColor whiteColor]];
-        [cell.textLabel setTextAlignment:NSTextAlignmentRight];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+        CGRect newFrame = cell.textLabel.frame;
+        newFrame.origin.x = 60;
+        cell.textLabel.frame = newFrame;
     }
     
+    
     MMMenuItem *menuItem = [self.menuItems objectAtIndex:indexPath.row];
+    
+    if(menuItem.menuItemType == MMMenuItemTypeLocations){
+        cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:20];
+    }else{
+        cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+    }
 
+    if([menuItem isEqual:_selectedMenuItem]){
+        [cell.textLabel setTextColor:[UIColor colorWithRed:0.882 green:0.506 blue:0.133 alpha:1.000]];
+        cell.imageView.image = menuItem.selectedImage;
+    }else{
+        [cell.textLabel setTextColor:[UIColor whiteColor]];
+        cell.imageView.image = menuItem.image;
+    }
+    
+    if(menuItem.titleTextAlignment == NSTextAlignmentCenter){
+        [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
+    }else{
+        [cell.textLabel setTextAlignment:NSTextAlignmentLeft];
+    }
+    
 
-    cell.imageView.image = menuItem.image;
+    
     cell.textLabel.text = menuItem.title;
     
     return cell;
     
 }
+-(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"TOUCH");
+    return indexPath;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MMMenuItem *menuItem = [menuItems objectAtIndex:indexPath.row];
+    
+    //If user clicks the selected menu item close the menu and do nothing
+    if([menuItem isEqual:_selectedMenuItem]){
+        [self.slidingViewController resetTopView];
+        return;
+    }
+    
+#warning May want to keep instances of view controllers if this slows down
+    switch (menuItem.menuItemType) {
+            
+        case MMMenuItemTypeLocations:{
+            
+            /*MMHotSpotViewController *hotSpotViewController = [[MMHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            
+            hotSpotViewController.title = @"Locations";
+            
+            MMNavigationViewController *hotSpotNVC = [[MMNavigationViewController alloc] initWithRootViewController:hotSpotViewController];
+            
+            [self.slidingViewController setTopViewController:hotSpotNVC];
+            
+            break;*/
+            
+            MMPlaceViewController *placeViewController = [[MMPlaceViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            
+            MMNavigationViewController *placeNVC = [[MMNavigationViewController alloc] initWithRootViewController:placeViewController];
+            
+            [self.slidingViewController setTopViewController:placeNVC];
+            
+            break;
+            
+        }
+            
+        case MMMenuItemTypeTrending: {
+            
+            UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+            
+            MMTrendingViewController *trendingViewContoller = [[MMTrendingViewController alloc] initWithCollectionViewLayout:layout];
+            
+            trendingViewContoller.title = @"What's Trending Now!";
+            
+            MMNavigationViewController *trendingNVC = [[MMNavigationViewController alloc] initWithRootViewController:trendingViewContoller];
+            
+            [self.slidingViewController setTopViewController:trendingNVC];
+            
+            break;
+        }
+        case MMMenuItemTypeInbox: {
+            
+            MMInboxViewController *inboxViewController = [[MMInboxViewController alloc] initWithNibName:@"MMInboxViewController" bundle:nil];
+            
+            inboxViewController.title = @"Inbox";
+            
+            MMNavigationViewController *inboxNVC = [[MMNavigationViewController alloc] initWithRootViewController:inboxViewController];
+            
+            [self.slidingViewController setTopViewController:inboxNVC];
+            
+            break;
+        }
+            
+        case MMMenuItemTypeFavorites: {
+            
+            MMBookmarksViewController * favoritesViewController = [[MMBookmarksViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
+            
+            favoritesViewController.title = @"Favorites";
+            
+            MMNavigationViewController *favoritesNVC = [[MMNavigationViewController alloc] initWithRootViewController:favoritesViewController];
+            
+            [self.slidingViewController setTopViewController:favoritesNVC];
+            
+             break;
+        }
+            
+        case MMMenuItemTypeSettings: {
+            
+            MMSettingsViewController * settingsViewController = [[MMSettingsViewController alloc] initWithNibName:@"MMSettingsViewController" bundle:nil];
+            
+            settingsViewController.title = @"Settings";
+            
+            MMNavigationViewController *settingsNVC = [[MMNavigationViewController alloc] initWithRootViewController:settingsViewController];
+            
+            [self.slidingViewController setTopViewController:settingsNVC];
+            
+            break;
+        }
+        
+        
+            
+        default:
+            break;
+    }
+    self.selectedMenuItem = menuItem;
+    
+    
+    
+    
+    
+    UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
+    UITableViewCell * previouslySelectedCell = [tableView cellForRowAtIndexPath:selectedIndexPath];
+    
+    MMMenuItem *previousMenuItem = [menuItems objectAtIndex:selectedIndexPath.row];
+    
+    selectedIndexPath = indexPath;
+    
+    UIView *cellBackgroundView = [[UIView alloc] init];
+    [cellBackgroundView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:0.500]];
+    cell.opaque = NO;
+    [cell setBackgroundView:cellBackgroundView];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [cellBackgroundView setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:0.500]];
+        [cell setBackgroundView:cellBackgroundView];
+        [cell.textLabel setTextColor:[UIColor colorWithRed:0.882 green:0.506 blue:0.133 alpha:1.000]];
+        cell.imageView.image = menuItem.selectedImage;
+        
+        previouslySelectedCell.imageView.image = previousMenuItem.image;
+        [previouslySelectedCell.textLabel setTextColor:[UIColor whiteColor]];
+        
+    }];
+    
+    [self.slidingViewController resetTopView];
+    
+    
 
+}
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    MMMenuItem *menuItem = [menuItems objectAtIndex:indexPath.row];
+    
+    if(menuItem.cellHeight){
+        return menuItem.cellHeight.floatValue;
+    }
+    
+    return UITableViewAutomaticDimension;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    // This will create a "invisible" footer
+    return 0.01f;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.01f;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return [UIView new];
+    
+    // If you are not using ARC:
+    // return [[UIView new] autorelease];
+}
 
-
-
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    return [UIView new];
+}
 
 
 

@@ -30,9 +30,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-    
-    
 
     //}
 }
@@ -46,10 +43,11 @@
     if(![self.slidingViewController.underLeftViewController isKindOfClass:[MMSlideMenuViewController class]]){
         
         MMSlideMenuViewController *menuViewController = [[MMSlideMenuViewController alloc] initWithNibName:@"MMSlideMenuViewController" bundle:nil];
-        self.slidingViewController.underLeftViewController = menuViewController;   }
+        //self.slidingViewController.underLeftViewController = menuViewController;
+    }
     
     //if(self.slidingViewController.panGesture){
-    [self.view addGestureRecognizer:self.slidingViewController.panGesture];
+    //[self.view addGestureRecognizer:self.slidingViewController.panGesture];
     
 }
 - (void)didReceiveMemoryWarning

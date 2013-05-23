@@ -22,25 +22,57 @@
 }
 -(NSArray *)standardMenuItems {
     
+    MMMenuItem *whatHappeningMenuItem = [MMMenuItem menuItemWithTitle:@"What's Happening Now!" image:nil];
+    whatHappeningMenuItem.cellHeight = @60;
+    whatHappeningMenuItem.displayOrder = @1;
+    whatHappeningMenuItem.titleTextAlignment = NSTextAlignmentCenter;
+    
+    MMMenuItem *searchMenuItem = [MMMenuItem menuItemWithTitle:@"Search for Places" image:[UIImage imageNamed:@"searchIcnOff"]];
+    searchMenuItem.selectedImage = [UIImage imageNamed:@"searchIcnOff"];
+    searchMenuItem.displayOrder = @2;
+    
+    MMMenuItem *inboxMenuItem = [MMMenuItem menuItemWithTitle:@"Request Inbox" image:[UIImage imageNamed:@"inboxIcnOff"] displayOrder:@3];
+    [inboxMenuItem setSelectedImage:[UIImage imageNamed:@"inboxIcn"]];
+    inboxMenuItem.displayOrder = @3;
+    inboxMenuItem.menuItemType = MMMenuItemTypeInbox;
+    
+    MMMenuItem *createHotSpotMenuItem = [MMMenuItem menuItemWithTitle:@"Create Hot Spot" image:nil displayOrder:@3];
+    //[inboxMenuItem setSelectedImage:[UIImage imageNamed:@"inboxIcn"]];
+    createHotSpotMenuItem.displayOrder = @3;
+    createHotSpotMenuItem.menuItemType = MMMenuItemTypeInbox;
+
+    
+    
+    MMMenuItem *locationsMenuItem = [MMMenuItem menuItemWithTitle:@"Locations" image:[UIImage imageNamed:@"LocationIcn"] displayOrder:@1];
+    locationsMenuItem.cellHeight = @60;
+    [locationsMenuItem setSelectedImage:[UIImage imageNamed:@"LocationIcnSelected"]];
+    locationsMenuItem.menuItemType = MMMenuItemTypeLocations;
+    
     //Stream Now
-    MMMenuItem *streamNowMenuItem = [MMMenuItem menuItemWithTitle:@"Stream Now!" image:[UIImage imageNamed:@"videocamera"] displayOrder:@2];
-    streamNowMenuItem.cellHeight = @80;
+    MMMenuItem *trendingNowMenuItem = [MMMenuItem menuItemWithTitle:@"Trending Now" image:[UIImage imageNamed:@"trendingIcnOff"] displayOrder:@2];
+    [trendingNowMenuItem setSelectedImage:[UIImage imageNamed:@"trendingIcn"]];
+    trendingNowMenuItem.menuItemType = MMMenuItemTypeTrending;
     
-    //Live Stream
-    MMMenuItem *liveStreamsMenuItem = [MMMenuItem menuItemWithTitle:@"Live Streams" image:[UIImage imageNamed:@"circlePlay"] displayOrder:@3];
     
-    MMMenuItem *favoritesMenuItem = [MMMenuItem menuItemWithTitle:@"Favorites" image:[UIImage imageNamed:@"heart"] displayOrder:@4];
     
-    MMMenuItem *manageLists = [MMMenuItem menuItemWithTitle:@"Manage Lists" image:[UIImage imageNamed:@"whiteList"] displayOrder:@5];
+    MMMenuItem *favoritesMenuItem = [MMMenuItem menuItemWithTitle:@"Favorites" image:[UIImage imageNamed:@"favoritesIcon"] displayOrder:@4];
+    [favoritesMenuItem setSelectedImage:[UIImage imageNamed:@"favoritesIconOn"]];
+    favoritesMenuItem.menuItemType = MMMenuItemTypeFavorites;
     
-    return @[streamNowMenuItem, liveStreamsMenuItem, favoritesMenuItem, manageLists];
+    MMMenuItem *settingsMenuItem = [MMMenuItem menuItemWithTitle:@"Settings" image:[UIImage imageNamed:@"settingsIcnOff"] displayOrder:@5];
+    [settingsMenuItem setSelectedImage:[UIImage imageNamed:@"settingsIcn"]];
+    settingsMenuItem.menuItemType = MMMenuItemTypeSettings;
+    
+    
+    
+    return @[whatHappeningMenuItem,locationsMenuItem, trendingNowMenuItem, inboxMenuItem, favoritesMenuItem, settingsMenuItem];
     
     
 }
 -(NSArray *)allMenuItems {
     NSMutableArray *allItems = [NSMutableArray array];
     
-    [allItems addObject:[self profileMenuItem]];
+    //[allItems addObject:[self profileMenuItem]];
     
     [allItems addObjectsFromArray:[self standardMenuItems]];
     

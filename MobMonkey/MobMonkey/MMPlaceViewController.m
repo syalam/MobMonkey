@@ -1,21 +1,18 @@
 //
-//  MMLocationHotSpotsViewController.m
+//  MMPlaceViewController.m
 //  MobMonkey
 //
-//  Created by Michael Kral on 4/29/13.
+//  Created by Michael Kral on 5/22/13.
 //  Copyright (c) 2013 Reyaad Sidique. All rights reserved.
 //
 
-#import "MMLocationHotSpotsViewController.h"
-#import "MMHotSpotInformation.h"
-#import "MMEditHotSpotViewController.h"
-#import "MMLocationViewController.h"
+#import "MMPlaceViewController.h"
 
-@interface MMLocationHotSpotsViewController ()
+@interface MMPlaceViewController ()
 
 @end
 
-@implementation MMLocationHotSpotsViewController
+@implementation MMPlaceViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -30,28 +27,61 @@
 {
     [super viewDidLoad];
     
-    self.title = [NSString stringWithFormat:@"Existing Hot Spots"];
+    //_mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, -(self.view.frame.size.height - 200), self.view.frame.size.width, self.view.frame.size.height)];
     
-    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
-    [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
-    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+    CGFloat defaultVisibleMapHeight = 200;
     
-    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
-    self.navigationItem.leftBarButtonItem = backButton;
+    self.defaultMapViewFrame = CGRectMake(0.0,
+                                          -defaultVisibleMapHeight * 0.5 * 2,
+                                          self.tableView.frame.size.width,
+                                          defaultVisibleMapHeight + (defaultVisibleMapHeight * 0.5 * 4));
     
-    self.view.backgroundColor = [UIColor MMEggShell];
-    self.tableView.backgroundView = nil;
+    
+    
+    
+    
 
-    
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
--(void)backButtonTapped:(id)sender{
-    [self.navigationController popViewControllerAnimated:YES];
+
+-(void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    
+    if(!_mapView){
+        _mapView = [[MKMapView alloc] initWithFrame:self.defaultMapViewFrame];
+        self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        self.mapView.scrollEnabled = NO;
+        self.mapView.zoomEnabled = NO;
+        self.mapView.delegate = self;
+        
+        UIView *fakeHeader = [[UIView alloc] initWithFrame:CGRectMake(0, -300, self.view.frame.size.width, 500)];
+        
+        CGSize currentSize = self.tableView.contentSize;
+        currentSize.height -= 300;
+        self.tableView.contentSize = currentSize;
+        
+        CGPoint currentOffset = self.tableView.contentOffset;
+        currentOffset.y -= 300;
+        self.tableView.contentOffset = currentOffset;
+        
+        fakeHeader.clipsToBounds = YES;
+        [fakeHeader addSubview:_mapView];
+        self.tableView.tableHeaderView = fakeHeader;
+        
+        //[self.tableView addSubview:_mapView];
+        //[self.tableView sendSubviewToBack:_mapView];
+       // [self.tableView.superview insertSubview:_mapView aboveSubview:self.tableView];
+        
+    }
+    
+    
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -62,20 +92,16 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return self.hotSpots.count > 0 ? 2 : 1;
+    return 10;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    if(section == 0){
-        return self.hotSpots.count;
-    }else if(section == 1){
-        return 1;
-    }
-    
-    return 0;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -83,40 +109,14 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    if(cell == nil){
+    if(!cell){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
-    switch (indexPath.section) {
-        case 0: {
-            MMHotSpotInformation *hotSpot = [self.hotSpots objectAtIndex:indexPath.row];
-            cell.textLabel.text = hotSpot.name;
-            break;
-        }
-        case 1:
-            cell.textLabel.text = @"Created Hot-Spot";
-            cell.textLabel.textAlignment = NSTextAlignmentCenter;
-            
-        default:
-            break;
     }
     
     
     // Configure the cell...
     
     return cell;
-}
-
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    switch (section) {
-        case 0:
-            return @"Existing Hot Spots";
-            break;
-            
-        default:
-            return nil;
-            break;
-    }
 }
 
 /*
@@ -157,24 +157,36 @@
     return YES;
 }
 */
+#pragma mark - ScrollView Delegate
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat scrollOffset = scrollView.contentOffset.y;
+    
+   // NSLog(@"FLOAT: %f", y);
+    // did we drag ?
+    NSLog(@"OFFSET: %f", scrollOffset);
+    
+        CGFloat mapFrameYAdjustment = 0.0;
+        
 
+    mapFrameYAdjustment = self.defaultMapViewFrame.origin.y + (scrollOffset * 0.5);
+    
+    // Don't move the map way off-screen
+    if (mapFrameYAdjustment <= -(self.defaultMapViewFrame.size.height)) {
+        mapFrameYAdjustment = -(self.defaultMapViewFrame.size.height);
+    }
+
+
+    if (mapFrameYAdjustment) {
+        CGRect newMapFrame = self.mapView.frame;
+        newMapFrame.origin.y = mapFrameYAdjustment;
+        self.mapView.frame = newMapFrame;
+    }
+
+}
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    if(indexPath.section == 1){
-        MMEditHotSpotViewController *editHotSpotVC = [[MMEditHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        editHotSpotVC.parentLocation = self.parentLocation;
-        [self.navigationController pushViewController:editHotSpotVC animated:YES];
-    }else if(indexPath.section == 0){
-        MMLocationInformation *subLocationInformation = [self.hotSpots objectAtIndex:indexPath.row];
-        MMLocationViewController *locationViewController = [[MMLocationViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        locationViewController.locationInformation = subLocationInformation;
-        UINavigationController *navController = self.navigationController;
-        [self.navigationController popToRootViewControllerAnimated:NO];
-        [navController pushViewController:locationViewController animated:YES];
-    }
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];

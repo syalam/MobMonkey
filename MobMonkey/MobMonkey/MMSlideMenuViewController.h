@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ECSlidingViewController.h"
+#import "MMMenuItem.h"
 
 typedef enum {
     MenuItemProfile,
@@ -20,10 +21,12 @@ typedef enum {
 } MenuItem;
 
 @interface MMSlideMenuViewController : UIViewController <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate> {
+    NSIndexPath *selectedIndexPath;
 }
 
 @property (nonatomic, strong) IBOutlet UITableView *menuTableView;
 @property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, strong) NSArray *menuItems;
+@property (nonatomic, strong) MMMenuItem * selectedMenuItem;
 
 @end

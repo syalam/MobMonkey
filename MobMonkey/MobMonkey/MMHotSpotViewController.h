@@ -14,8 +14,9 @@
 #import "MMAddLocationViewController.h"
 #import "WEPopoverController.h"
 #import "MMLocationFilterTableViewController.h"
+#import "MMTableViewController.h"
 
-@interface MMHotSpotViewController : UITableViewController <UIGestureRecognizerDelegate, AdWhirlDelegate, MKMapViewDelegate, UISearchDisplayDelegate, MMAddLocationDelegate, UISearchBarDelegate, WEPopoverControllerDelegate> {
+@interface MMHotSpotViewController : MMTableViewController <UIGestureRecognizerDelegate, AdWhirlDelegate, MKMapViewDelegate, UISearchDisplayDelegate, MMAddLocationDelegate, UISearchBarDelegate, WEPopoverControllerDelegate> {
     MKMapView *mapView;
     UILabel *mapPanLabel;
     UIActivityIndicatorView *loadingIndicator;

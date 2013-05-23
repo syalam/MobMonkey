@@ -8,7 +8,8 @@
 
 #import "MMNavigationViewController.h"
 #import "ECSlidingViewController.h"
-
+#import "UIBarButtonItem+NoBorder.h"
+#import "MMSlideMenuViewController.h"
 @interface MMNavigationViewController ()
 
 @property (nonatomic, strong) UIBarButtonItem *leftMenuButton;
@@ -31,16 +32,37 @@
         
         self.navigationBar.tintColor = [UIColor colorWithRed:1.000 green:0.558 blue:0.286 alpha:1.000];
         
-        //UIBarButtonItem *menuItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"whiteList.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(menuButtonPressed:)];
+        rootViewController.view.layer.shadowOpacity = 0.75f;
+        rootViewController.view.layer.shadowRadius = 10.0f;
+        rootViewController.view.layer.shadowColor = [UIColor blackColor].CGColor;
         
-        UIBarButtonItem *menuItem = [[UIBarButtonItem alloc] initWithTitle:@"MENU" style:UIBarButtonItemStyleBordered target:self action:@selector(menuButtonPressed:)];
+        //UIBarButtonItem *menuItem = [UIBarButtonItem alloc] initw
         
+        UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"list"] selectedImage:[UIImage imageNamed:@"list-selected"] target:self action:@selector(menuButtonPressed:)];
         rootViewController.navigationItem.leftBarButtonItem = menuItem;
+        
+        
     }
     
     return self;
     
 }
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (![self.slidingViewController.underLeftViewController isKindOfClass:[MMSlideMenuViewController class]]) {
+        self.slidingViewController.underLeftViewController  = [[MMSlideMenuViewController alloc] initWithNibName:@"MMSlideMenuViewController" bundle:nil];
+
+    }
+    
+    self.slidingViewController.topViewController.view.layer.shadowOpacity = 0.75f;
+    self.slidingViewController.topViewController.view.layer.shadowRadius = 10.0f;
+    self.slidingViewController.topViewController.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    
+    [self.view addGestureRecognizer:self.slidingViewController.panGesture];
+}
+
 
 - (void)viewDidLoad
 {

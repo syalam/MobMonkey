@@ -19,4 +19,5 @@
     #import "TestFlight.h"
     #import "AdWhirlView.h"
     #import "MMConstants.h"
+    #import "UIColor+MMColors.h"
 #endif

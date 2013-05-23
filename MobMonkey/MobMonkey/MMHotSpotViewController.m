@@ -53,7 +53,7 @@
     
     
     headerView = [[MMHotSpotHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, 137)];
-    headerView.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
+    headerView.backgroundColor = [UIColor MMEggShell];
     headerView.layer.zPosition = 10000;
     headerView.searchBar.delegate = self;
    
@@ -76,7 +76,7 @@
     [headerView.locationButton setAction:@selector(locationFilterButtonPressed:)];
     headerView.createHotSpotButton.exclusiveTouch = YES;
     
-    self.view.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
+    self.view.backgroundColor = [UIColor MMEggShell];
     self.tableView.backgroundView = nil;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

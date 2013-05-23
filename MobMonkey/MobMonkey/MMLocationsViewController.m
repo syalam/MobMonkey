@@ -11,7 +11,7 @@
 #import "MMLocationListCell.h"
 #import "MMLocationAnnotation.h"
 #import "MMLocationSearch.h"
-
+#import "UIBarButtonItem+NoBorder.h"
 
 
 @interface MMLocationsViewController ()
@@ -88,28 +88,12 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    UIButton *customButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 31, 31)];
-    [customButton addTarget:self action:@selector(flipView:) forControlEvents:UIControlEventTouchUpInside];
-    [customButton setImage:[UIImage imageNamed:@"GlobeBtn"] forState:UIControlStateNormal];
-    globeButton = [[UIBarButtonItem alloc]initWithCustomView:customButton];
     
-    UIButton *plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [plusButton setFrame:CGRectMake(0, 0, 31, 31)];
-    [plusButton setBackgroundImage:[UIImage imageNamed:@"navBarButtonBlank"] forState:UIControlStateNormal];
-    [plusButton addTarget:self action:@selector(addLocationButtonTapped:)
-         forControlEvents:UIControlEventTouchUpInside];
+    globeButton = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"globe"] selectedImage:nil target:self action:@selector(flipView:)];
     
-    UILabel *plusButtonLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, -3, plusButton.frame.size.width, plusButton.frame.size.height)];
-    [plusButtonLabel setBackgroundColor:[UIColor clearColor]];
-    [plusButtonLabel setText:@"+"];
-    [plusButtonLabel setTextColor:[UIColor whiteColor]];
-    [plusButtonLabel setShadowColor:[UIColor darkGrayColor]];
-    [plusButtonLabel setShadowOffset:CGSizeMake(0, -1)];
-    [plusButtonLabel setFont:[UIFont boldSystemFontOfSize:24]];
-    [plusButtonLabel setTextAlignment:NSTextAlignmentCenter];
-    [plusButton addSubview:plusButtonLabel];
-    
-    addLocationButton = [[UIBarButtonItem alloc] initWithCustomView:plusButton];
+       
+        
+    addLocationButton = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"plus"] selectedImage:nil target:self action:@selector(addLocationButtonTapped:)];
     
     UIImage *clearButtonBg = [[UIImage imageNamed:@"navBarButtonBlank"]
                               resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];

@@ -60,7 +60,7 @@
     
     self.title = @"Master Location";
     
-    self.view.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
+    self.view.backgroundColor = [UIColor MMEggShell];
     self.tableView.backgroundView = nil;
     
     numberOfLocations = 5;

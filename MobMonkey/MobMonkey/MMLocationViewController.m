@@ -53,12 +53,12 @@
     
     loadingInfo = YES;
     
-    self.view.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
+    self.view.backgroundColor = [UIColor MMEggShell];
     self.tableView.backgroundView = nil;
     
     self.headerView = [[MMLocationHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
     self.headerView.layer.zPosition = 100;
-    self.headerView.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
+    self.headerView.backgroundColor = [UIColor MMEggShell];
     self.headerView.delegate = self;
     
     

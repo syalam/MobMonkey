@@ -34,12 +34,12 @@
         
         
         self.opaque = NO;
-        _createHotSpotButton = [[UIButton alloc] initWithFrame:CGRectMake(padding, padding+ 5, frame.size.width - (padding * 2), 67)];
+        _createHotSpotButton = [[UIButton alloc] initWithFrame:CGRectMake(padding, padding+ 5, frame.size.width - (padding * 2), 45)];
         [_createHotSpotButton setTitle:@"Create Hot Spot" forState:UIControlStateNormal];
         [_createHotSpotButton setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
         _createHotSpotButton.titleEdgeInsets = UIEdgeInsetsMake(0, 45, 0, 0);
         
-        UIImage *backgroundImage = [[UIImage imageNamed:@"LocationButtonStretch"] stretchableImageWithLeftCapWidth:60 topCapHeight:0];
+        UIImage *backgroundImage = [[UIImage imageNamed:@"orange_buttonStretch"] stretchableImageWithLeftCapWidth:60 topCapHeight:0];
         
         [_createHotSpotButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
         

@@ -21,6 +21,8 @@
 #import "MMHotSpotViewController.h"
 #import "MMInboxViewController.h"
 #import "MMNavigationViewController.h"
+#import "MMContentViewController.h"
+#import "MMTableViewController.h"
 //#import "MMSlideNavigationController.h"
 
 @implementation MMAppDelegate
@@ -65,14 +67,16 @@
       UIRemoteNotificationTypeSound)];
     
     if ([UINavigationBar respondsToSelector:@selector(appearance)]) {
-        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navigationBackground-rounded"
-                                                          ] forBarMetrics:UIBarMetricsDefault];
+    
+        [[UINavigationBar appearance] setTintColor:[UIColor clearColor]];
+        [[UINavigationBar appearance] setBackgroundColor:[UIColor clearColor]];
+    
     }
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     UIViewController *inboxVC = [[MMInboxViewController alloc] initWithNibName:@"MMInboxViewController" bundle:nil];
-    UIViewController *hotSpotVC = [[MMHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    MMTableViewController *hotSpotVC = [[MMHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
    // UIViewController *searchVC = [[MMSearchViewController alloc] initWithNibName:@"MMSearchViewController" bundle:nil];
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -83,10 +87,10 @@
     
     UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithCollectionViewLayout:flowLayout];
     UIViewController *bookmarksVC = [[MMBookmarksViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
-    UIViewController *settingsVC = [[MMSettingsViewController alloc] initWithNibName:@"MMSettingsViewController" bundle:nil];
+    MMContentViewController *settingsVC = [[MMSettingsViewController alloc] initWithNibName:@"MMSettingsViewController" bundle:nil];
     
     UINavigationController *inboxNavC = [[UINavigationController alloc] initWithRootViewController:inboxVC];
-    UINavigationController *searchNavC = [[UINavigationController alloc] initWithRootViewController:hotSpotVC];
+    MMNavigationViewController *searchNavC = [[MMNavigationViewController alloc] initWithRootViewController:hotSpotVC];
 
     MMNavigationViewController *trendingNavC = [[MMNavigationViewController alloc] initWithRootViewController:trendingVC];
 
@@ -104,7 +108,7 @@
     _slideNavigationController = [[MMSlideNavigationController alloc] init];
     //MMNavigationViewController *navigationViewController = [[MMNavigationViewController alloc] initWithRootViewController:trendingVC];
     
-    self.slideNavigationController.topViewController = trendingNavC;
+    self.slideNavigationController.topViewController = searchNavC;
     [self.window setRootViewController:_slideNavigationController];
 //    bookmarksVC.sectionSelected = YES;
 //    bookmarksVC.bookmarkTab = YES;
@@ -139,13 +143,13 @@
     settingsNavC.tabBarItem.title = nil;
     
     self.window.rootViewController = self.tabBarController;
-    
+    */
     if (![[NSUserDefaults standardUserDefaults]boolForKey:subscribedUserKey]) {
         _adView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
         
         [_adView setHidden:YES];
         [self.window.rootViewController.view addSubview:_adView];
-    } */   
+    }
   
     [self.window makeKeyAndVisible];
     return YES;
@@ -421,7 +425,7 @@
     
     newFrame.size = adSize;
     newFrame.origin.x = (self.window.rootViewController.view.bounds.size.width - adSize.width)/ 2;
-    newFrame.origin.y = (screenSize.size.height - adSize.height - 49);
+    newFrame.origin.y = (screenSize.size.height - adSize.height - 20);
     
     adWhirlView.frame = newFrame;
     

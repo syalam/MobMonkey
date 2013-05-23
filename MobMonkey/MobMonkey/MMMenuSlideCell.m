@@ -15,6 +15,10 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        
+        CGRect newFrame = self.textLabel.frame;
+        newFrame.origin.x = 60;
+        self.textLabel.frame = newFrame;
     }
     return self;
 }

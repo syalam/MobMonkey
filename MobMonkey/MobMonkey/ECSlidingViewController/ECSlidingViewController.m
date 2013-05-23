@@ -421,7 +421,7 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
 
 - (void)topViewHorizontalCenterWillChange:(CGFloat)newHorizontalCenter
 {
-  CGPoint center = self.topView.center;
+    CGPoint center = self.topView.center;
   
 	if (center.x >= self.resettedCenter && newHorizontalCenter == self.resettedCenter) {
 		dispatch_async(dispatch_get_main_queue(), ^{

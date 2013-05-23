@@ -48,11 +48,6 @@
     noMediaImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 149)/2, 120, 149, 95)];
     [noMediaImageView setImage:[UIImage imageNamed:@"noMedia"]];
     [self.view addSubview:noMediaImageView];
-    //noMediaImageView.hidden = YES;
-    
-    
-    
-    
     
     self.favoriteMedia = [NSArray array];
     self.topViewedMedia = [NSArray array];
@@ -60,12 +55,7 @@
     self.nearByMedia = [NSArray array];
     
     self.collectionView.backgroundView = nil;
-    self.collectionView.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
-    
-    bottomGradientImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 40 - 50 - 40, self.view.frame.size.width, 40)];
-    [bottomGradientImageView setImage:[UIImage imageNamed:@"gradientBackgroundBottom"]];
-    bottomGradientImageView.layer.zPosition = 100;
-    [self.collectionView addSubview:bottomGradientImageView];
+    self.collectionView.backgroundColor = [UIColor MMEggShell];
     
     // Do any additional setup after loading the view from its nib.
     
@@ -129,7 +119,7 @@
 -(void)adWhirlChangedValue:(id)sender{
 
     [self.collectionView reloadData];   
-    [self scrollViewDidScroll:self.collectionView];
+    //[self scrollViewDidScroll:self.collectionView];
 }
 -(void)viewDidUnload {
     [super viewDidUnload];
@@ -232,15 +222,19 @@
     switch (indexPath.section) {
         case MMTrendingTypeFavorites - 1:
             [cell.imageViewButton addTarget:self action:@selector(favoritesMediaTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.playButton addTarget:self action:@selector(favoritesMediaTapped:) forControlEvents:UIControlEventTouchUpInside];
             break;
         case MMTrendingTypeMyInterests - 1:
             [cell.imageViewButton addTarget:self action:@selector(myInterestsMediaTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.playButton addTarget:self action:@selector(myInterestsMediaTapped:) forControlEvents:UIControlEventTouchUpInside];
             break;
         case MMTrendingTypeTopViewed - 1:
             [cell.imageViewButton addTarget:self action:@selector(topViewedMediaTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.playButton addTarget:self action:@selector(topViewedMediaTapped:) forControlEvents:UIControlEventTouchUpInside];
             break;
         case MMTrendingTypeNearBy -1:
             [cell.imageViewButton addTarget:self action:@selector(nearbyMeduaTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.playButton addTarget:self action:@selector(nearbyMeduaTapped:) forControlEvents:UIControlEventTouchUpInside];
             break;
             
         default:
@@ -347,23 +341,5 @@
     }
     return CGSizeMake(self.view.frame.size.width, 15);
 }
-/*-(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-    //TODO: ADD HEADER AND FOOTER VIEWS
-}*/
 
-#pragma mark - ScrollViewDelegate;
--(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    MMAppDelegate *appDelegate = (MMAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    NSUInteger adHeight = 0;
-    if(!appDelegate.adView.hidden){
-        adHeight = appDelegate.adView.frame.size.height;
-    }
-    
-    CGRect newFrame = bottomGradientImageView.frame;
-    newFrame.origin.x = 0;
-    newFrame.origin.y = self.collectionView.contentOffset.y + self.view.frame.size.height - newFrame.size.height - adHeight;
-    bottomGradientImageView.frame = newFrame;
-}
 @end
