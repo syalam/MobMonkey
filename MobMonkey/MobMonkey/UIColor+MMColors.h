@@ -11,6 +11,12 @@
 @interface UIColor (MMColors)
 
 +(UIColor*)MMEggShell;
++(UIColor*)MMMaroon;
++(UIColor*)MMGreyPurple;
++(UIColor*)MMPaleGreen;
++(UIColor*)MMLightGreen;
++(UIColor*)MMYellowGreen;
++(UIColor *)defaultGroupedCellBGColor;
 
 
 @end

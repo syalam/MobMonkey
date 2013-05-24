@@ -7,6 +7,13 @@
 //
 
 #import "MMPlaceViewController.h"
+#import "MMNavigationBar.h"
+#import "MMPlaceInformationCellView.h"
+#import "UITableViewCell+CellShadows.h"
+#import "MMPlaceInformationCell.h"
+#import "MMPlaceInformationCellWrapper.h"
+
+#define kMMPlaceInformationCellHeight 71.0f
 
 @interface MMPlaceViewController ()
 
@@ -14,11 +21,9 @@
 
 @implementation MMPlaceViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
+-(id)initWithTableViewStyle:(UITableViewCellStyle)tableViewStyle defaultMapHeight:(CGFloat)defaultMapHeight parallaxFactor:(CGFloat)parallaxFactor {
+    if(self = [super initWithTableViewStyle:tableViewStyle defaultMapHeight:defaultMapHeight parallaxFactor:parallaxFactor]){
+        
     }
     return self;
 }
@@ -26,60 +31,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //_mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, -(self.view.frame.size.height - 200), self.view.frame.size.width, self.view.frame.size.height)];
-    
-    CGFloat defaultVisibleMapHeight = 200;
-    
-    self.defaultMapViewFrame = CGRectMake(0.0,
-                                          -defaultVisibleMapHeight * 0.5 * 2,
-                                          self.tableView.frame.size.width,
-                                          defaultVisibleMapHeight + (defaultVisibleMapHeight * 0.5 * 4));
-    
-    
-    
-    
-    
-
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
--(void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
-    
-    if(!_mapView){
-        _mapView = [[MKMapView alloc] initWithFrame:self.defaultMapViewFrame];
-        self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.mapView.scrollEnabled = NO;
-        self.mapView.zoomEnabled = NO;
-        self.mapView.delegate = self;
-        
-        UIView *fakeHeader = [[UIView alloc] initWithFrame:CGRectMake(0, -300, self.view.frame.size.width, 500)];
-        
-        CGSize currentSize = self.tableView.contentSize;
-        currentSize.height -= 300;
-        self.tableView.contentSize = currentSize;
-        
-        CGPoint currentOffset = self.tableView.contentOffset;
-        currentOffset.y -= 300;
-        self.tableView.contentOffset = currentOffset;
-        
-        fakeHeader.clipsToBounds = YES;
-        [fakeHeader addSubview:_mapView];
-        self.tableView.tableHeaderView = fakeHeader;
-        
-        //[self.tableView addSubview:_mapView];
-        //[self.tableView sendSubviewToBack:_mapView];
-       // [self.tableView.superview insertSubview:_mapView aboveSubview:self.tableView];
-        
-    }
-    
-    
+    //self.tableBackground.backgroundColor = [UIColor MMEggShell];
+    self.title = @"Testing";
+    wrapper = [[MMPlaceInformationCellWrapper alloc] init];
+    wrapper.nameText = @"Taco Bell";
+    wrapper.address1Text = @"1234 Fake St.";
+    wrapper.address2Text = @"Tempe, AZ 85282";
+    wrapper.distanceText = @"2.3 miles";
 }
 
 - (void)didReceiveMemoryWarning
@@ -101,22 +59,52 @@
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
+    
+    if(section == 0){
+        return 3;
+    }
     return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    if(indexPath.section == 0 && indexPath.row == 0){
+        static NSString *CellIdentifier = @"MMPlaceInformationCell";
+		
+        MMPlaceInformationCell *placeInformationCell = (MMPlaceInformationCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        if (placeInformationCell == nil) {
+            placeInformationCell = [[MMPlaceInformationCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] ;
+            placeInformationCell.frame = CGRectMake(0.0, 0.0, 320.0, kMMPlaceInformationCellHeight);
+        }
+        
+        [placeInformationCell setPlaceInformationWrapper:wrapper];
+        
+        return placeInformationCell;
+    }
+    
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    if(!cell){
+    if(cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    
-    // Configure the cell...
+    if(indexPath.section == 0 && indexPath.row == 0){
+        MMPlaceInformationCellView *cellView = (MMPlaceInformationCellView *)[[[NSBundle mainBundle] loadNibNamed:@"MMPlaceInformationCellView" owner:self options:nil] lastObject];
+        
+        [cell.contentView addSubview:cellView];
+    }
+
     
     return cell;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.section == 0 && indexPath.row == 0){
+        return kMMPlaceInformationCellHeight;
+    }
+    return UITableViewAutomaticDimension;
 }
 
 /*
@@ -157,32 +145,6 @@
     return YES;
 }
 */
-#pragma mark - ScrollView Delegate
--(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat scrollOffset = scrollView.contentOffset.y;
-    
-   // NSLog(@"FLOAT: %f", y);
-    // did we drag ?
-    NSLog(@"OFFSET: %f", scrollOffset);
-    
-        CGFloat mapFrameYAdjustment = 0.0;
-        
-
-    mapFrameYAdjustment = self.defaultMapViewFrame.origin.y + (scrollOffset * 0.5);
-    
-    // Don't move the map way off-screen
-    if (mapFrameYAdjustment <= -(self.defaultMapViewFrame.size.height)) {
-        mapFrameYAdjustment = -(self.defaultMapViewFrame.size.height);
-    }
-
-
-    if (mapFrameYAdjustment) {
-        CGRect newMapFrame = self.mapView.frame;
-        newMapFrame.origin.y = mapFrameYAdjustment;
-        self.mapView.frame = newMapFrame;
-    }
-
-}
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -196,4 +158,16 @@
      */
 }
 
+/*-(void)mapTableViewController:(MMMapTableViewController *)mapTableViewController didScrollOffMapView:(MKMapView *)mapView {
+    MMNavigationBar *navBar = (MMNavigationBar*)self.navigationController.navigationBar;
+    navBar.translucentFactor = 0.4;
+}
+-(void)mapTableViewController:(MMMapTableViewController *)mapTableViewController didScrollOnMapView:(MKMapView *)mapView {
+    MMNavigationBar *navBar = (MMNavigationBar*)self.navigationController.navigationBar;
+    navBar.translucentFactor = 0.2;
+}*/
+-(void)mapTableViewController:(MMMapTableViewController *)mapTableViewController isScrollingOffScreen:(MKMapView *)mapView visibility:(CGFloat)visibility {
+    MMNavigationBar *navBar = (MMNavigationBar*)self.navigationController.navigationBar;
+    navBar.translucentFactor = 1.0 - ((0.6 - 0.2) * visibility + 0.2);
+}
 @end

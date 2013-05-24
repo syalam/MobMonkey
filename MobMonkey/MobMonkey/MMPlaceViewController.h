@@ -7,15 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMMapTableViewController.h"
+#import "MMPlaceInformationCellWrapper.h"
 
-@interface MMPlaceViewController : UITableViewController <UIScrollViewDelegate> {
-    CLLocationCoordinate2D center;
-    CGFloat deltaLatFor1px;
+@interface MMPlaceViewController : MMMapTableViewController <MMMapTableViewControllerDelegate> {
+    MMPlaceInformationCellWrapper *wrapper;
 }
-
-@property (nonatomic, strong) MKMapView *mapView;
-@property (nonatomic, strong) UIImageView *testView;
-@property (nonatomic, assign) CGRect defaultMapViewFrame;
-
 
 @end

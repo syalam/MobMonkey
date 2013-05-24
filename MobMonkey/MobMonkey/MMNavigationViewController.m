@@ -28,7 +28,14 @@
 }
 -(id)initWithRootViewController:(UIViewController *)rootViewController{
     
-    if(self = [super initWithRootViewController:rootViewController]){
+    if(self = [super initWithNavigationBarClass:[MMNavigationBar class] toolbarClass:[UIToolbar class]]){
+        
+        [self setViewControllers:[NSArray arrayWithObject:rootViewController]];
+        
+        self.navigationBar.translucent = YES;
+        //self.navigationBar.backgroundColor = [UIColor redColor];
+        ((MMNavigationBar *)self.navigationBar).translucentFactor = 0.2;
+        
         
         self.navigationBar.tintColor = [UIColor colorWithRed:1.000 green:0.558 blue:0.286 alpha:1.000];
         
@@ -38,7 +45,7 @@
         
         //UIBarButtonItem *menuItem = [UIBarButtonItem alloc] initw
         
-        UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"list"] selectedImage:[UIImage imageNamed:@"list-selected"] target:self action:@selector(menuButtonPressed:)];
+        UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"list-shadow"] selectedImage:nil target:self action:@selector(menuButtonPressed:)];
         rootViewController.navigationItem.leftBarButtonItem = menuItem;
         
         

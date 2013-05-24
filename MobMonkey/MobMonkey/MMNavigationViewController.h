@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMNavigationBar.h"
 
 @interface MMNavigationViewController : UINavigationController
-
 
 @end
