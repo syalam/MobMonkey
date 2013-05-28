@@ -17,6 +17,10 @@
 @property (nonatomic, assign) CGRect defaultMapViewFrame;
 @property (nonatomic, strong) UITapGestureRecognizer *mapTapGesture;
 @property (nonatomic, assign, getter = isMapVisible) BOOL mapVisible;
+@property (nonatomic, assign) BOOL isMapFullScreen;
+@property (nonatomic, assign) BOOL isMapAnimating;
+@property (nonatomic, assign) BOOL pullToExpandMapEnabled;
+@property (nonatomic, assign) CGFloat amountToScrollToFullScreenMap;
 
 @end
 
@@ -51,7 +55,8 @@
     
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    self.pullToExpandMapEnabled = YES;
+    self.amountToScrollToFullScreenMap = 100;
     
     //Set up TableView
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:self.tableViewStyle];
@@ -59,6 +64,8 @@
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    
+    
     
     UIView *clearView = [[UIView alloc] initWithFrame:self.view.bounds];
     clearView.backgroundColor = [UIColor clearColor];
@@ -99,6 +106,11 @@
     
     [self.view insertSubview:self.mapView belowSubview:self.tableView];
     
+    _closeMapView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 22, self.view.frame.size.width, 22)];
+    _closeMapView.hidden = YES;
+    _closeMapView.backgroundColor = [UIColor grayColor];
+    [self.view insertSubview:_closeMapView aboveSubview:_mapView];
+    
     _mapTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapViewTapped:)];
     [_mapView addGestureRecognizer:_mapTapGesture];
     
@@ -122,9 +134,10 @@
 
 - (void)expandMapView:(id)sender
 {
-
+    self.isMapAnimating = YES;
+    
     [self.tableView.tableHeaderView removeGestureRecognizer:self.mapTapGesture];
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     
     CGRect newMapFrame = self.mapView.frame;
     newMapFrame = CGRectMake(self.defaultMapViewFrame.origin.x,
@@ -144,6 +157,8 @@
                          
                          self.mapView.scrollEnabled = YES;
                          self.mapView.zoomEnabled = YES;
+                         self.isMapFullScreen = YES;
+                         self.isMapAnimating = NO;
                          
                      }];
 }
@@ -151,64 +166,141 @@
 
 #pragma mark - ScrollView Delegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat scrollOffset = scrollView.contentOffset.y;
     
-    NSLog(@"SCROLL: %f", scrollOffset);
+    /*CGFloat scrollOffset = scrollView.contentOffset.y;
     
     CGFloat newMapY = self.defaultMapHeight - scrollOffset +25;
-    
-    if(newMapY > 0){
+    NSLog(@"float: %f", newMapY);
+    if ((self.isMapFullScreen == NO) &&
+        (self.isMapAnimating == NO)) {
+        CGFloat mapFrameYAdjustment = 0.0;
         
-        if(!self.isMapVisible){
-            self.mapVisible = YES;
-            if([self.delegate respondsToSelector:@selector(mapTableViewController:didScrollOnMapView:)]){
-                [self.delegate mapTableViewController:self didScrollOnMapView:_mapView];
-            }
-        }
-        
-                
-        if([self.delegate respondsToSelector:@selector(mapTableViewController:isScrollingOffScreen:visibility:)]){
+        // If the user is pulling down
+        if (scrollOffset < 0) {
             
-            CGFloat visibility = newMapY / self.defaultMapHeight;
-            
-            [self.delegate mapTableViewController:self isScrollingOffScreen:_mapView visibility:visibility];
-        
-        }
-
-        
-        CGRect newBackgroundFrame = self.tableBackground.frame;
-        newBackgroundFrame.origin.y = newMapY;
-        self.tableBackground.frame = newBackgroundFrame;
-    }else{
-        if(self.isMapVisible){
-            self.mapVisible = NO;
-            if([self.delegate respondsToSelector:@selector(mapTableViewController:didScrollOffMapView:)]){
-                [self.delegate mapTableViewController:self didScrollOffMapView:_mapView];
-            }
-        }
-        
-        if(newMapY != 0){
             CGRect newBackgroundFrame = self.tableBackground.frame;
-            newBackgroundFrame.origin.y = 0;
+            newBackgroundFrame.origin.y = newMapY;
             self.tableBackground.frame = newBackgroundFrame;
+            
+            // Pull to expand map?
+            if (self.pullToExpandMapEnabled &&
+                (self.isMapAnimating == NO) &&
+                (scrollOffset <= -self.amountToScrollToFullScreenMap)) {
+                [self expandMapView:self];
+            }
+            else {
+                mapFrameYAdjustment = self.defaultMapViewFrame.origin.y - (scrollOffset * self.parallaxFactor);
+            }
         }
-    }    
+        
+        // If the user is scrolling normally,
+        else {
+            mapFrameYAdjustment = self.defaultMapViewFrame.origin.y - (scrollOffset * self.parallaxFactor);
+            
+            // Don't move the map way off-screen
+            if (mapFrameYAdjustment <= -(self.defaultMapViewFrame.size.height)) {
+                mapFrameYAdjustment = -(self.defaultMapViewFrame.size.height);
+            }
+            
+           
+            
+            //if(newMapY != 0){
+                CGRect newBackgroundFrame = self.tableBackground.frame;
+                newBackgroundFrame.origin.y = 0;
+                self.tableBackground.frame = newBackgroundFrame;
+            //}
+            
+            
+        }
+        
+        if (mapFrameYAdjustment) {
+            CGRect newMapFrame = self.mapView.frame;
+            newMapFrame.origin.y = mapFrameYAdjustment;
+            self.mapView.frame = newMapFrame;
+        }
+    }*/
+
     
+        
+    CGFloat scrollOffset = scrollView.contentOffset.y;
     
-    CGFloat mapFrameYAdjustment = 0.0;
-    
-    mapFrameYAdjustment = self.defaultMapViewFrame.origin.y - (scrollOffset * self.parallaxFactor);
-    
-    // Don't move the map way off-screen
-    if (mapFrameYAdjustment <= -(self.defaultMapViewFrame.size.height)) {
-        mapFrameYAdjustment = -(self.defaultMapViewFrame.size.height);
+    if (scrollOffset < 0) {
+        // Pull to expand map?
+        if (self.pullToExpandMapEnabled &&
+            (self.isMapAnimating == NO) &&
+            (scrollOffset <= -self.amountToScrollToFullScreenMap)) {
+            [self expandMapView:self];
+        }
+        
     }
 
-    if (mapFrameYAdjustment) {
-        CGRect newMapFrame = self.mapView.frame;
-        newMapFrame.origin.y = mapFrameYAdjustment;
-        self.mapView.frame = newMapFrame;
+    
+    if ((self.isMapFullScreen == NO) &&
+        (self.isMapAnimating == NO)) {
+        
+        CGFloat newMapY = self.defaultMapHeight - scrollOffset +25;
+        
+        if(newMapY > 0){
+            
+            if(!self.isMapVisible){
+                self.mapVisible = YES;
+                if([self.delegate respondsToSelector:@selector(mapTableViewController:didScrollOnMapView:)]){
+                    [self.delegate mapTableViewController:self didScrollOnMapView:_mapView];
+                }
+            }
+            
+            
+            if([self.delegate respondsToSelector:@selector(mapTableViewController:isScrollingOffScreen:visibility:)]){
+                
+                CGFloat visibility = newMapY / self.defaultMapHeight;
+                
+                [self.delegate mapTableViewController:self isScrollingOffScreen:_mapView visibility:visibility];
+                
+            }
+            
+            
+            CGRect newBackgroundFrame = self.tableBackground.frame;
+            newBackgroundFrame.origin.y = newMapY;
+            self.tableBackground.frame = newBackgroundFrame;
+        }else{
+            
+            
+                
+            if(self.isMapVisible){
+                self.mapVisible = NO;
+                if([self.delegate respondsToSelector:@selector(mapTableViewController:didScrollOffMapView:)]){
+                    [self.delegate mapTableViewController:self didScrollOffMapView:_mapView];
+                }
+            }
+            
+            if(newMapY != 0){
+                CGRect newBackgroundFrame = self.tableBackground.frame;
+                newBackgroundFrame.origin.y = 0;
+                self.tableBackground.frame = newBackgroundFrame;
+            }
+        }
+        
+        
+        CGFloat mapFrameYAdjustment = 0.0;
+        
+        mapFrameYAdjustment = self.defaultMapViewFrame.origin.y - (scrollOffset * self.parallaxFactor);
+        
+        // Don't move the map way off-screen
+        if (mapFrameYAdjustment <= -(self.defaultMapViewFrame.size.height)) {
+            mapFrameYAdjustment = -(self.defaultMapViewFrame.size.height);
+        }
+        
+        if (mapFrameYAdjustment) {
+            CGRect newMapFrame = self.mapView.frame;
+            newMapFrame.origin.y = mapFrameYAdjustment;
+            self.mapView.frame = newMapFrame;
+        }
+        
+        
     }
+
+    
+    
 
 }
 

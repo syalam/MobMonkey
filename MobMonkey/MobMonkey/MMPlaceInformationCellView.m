@@ -8,6 +8,12 @@
 
 #import "MMPlaceInformationCellView.h"
 
+@interface MMPlaceInformationCellView()
+
+@property (nonatomic, assign) CGRect actionButtonFrame;
+
+@end
+
 @implementation MMPlaceInformationCellView
 
 @synthesize cellWrapper, editing, highlighted;
@@ -20,7 +26,8 @@
 		 Cache the formatter. Normally you would use one of the date formatter styles (such as NSDateFormatterShortStyle), but here we want a specific format that excludes seconds.
 		 */
 		self.opaque = YES;
-		self.backgroundColor = [UIColor defaultGroupedCellBGColor];
+		self.backgroundColor = [UIColor whiteColor];
+        self.actionButtonFrame = CGRectMake(self.frame.size.width - 64, 34, 26, 20);
 	}
 	return self;
 }
@@ -37,7 +44,7 @@
 #define LEFT_COLUMN_OFFSET 10
 #define LEFT_COLUMN_WIDTH 200
 	
-#define RIGHT_COLUMN_OFFSET 240
+#define RIGHT_COLUMN_OFFSET 190
 #define RIGHT_COLUMN_WIDTH 90
 	
 #define FIRST_ROW_TOP 8
@@ -68,7 +75,7 @@
 	else {*/
     mainTextColor = [UIColor blackColor];
     secondaryTextColor = [UIColor darkGrayColor];
-    self.backgroundColor = [UIColor defaultGroupedCellBGColor];
+    self.backgroundColor = [UIColor whiteColor];
 	//}
 	
 	CGRect contentRect = self.bounds;
@@ -97,7 +104,11 @@
 
     
     point = CGPointMake(boundsX + RIGHT_COLUMN_OFFSET , FIRST_ROW_TOP);
-    [cellWrapper.distanceText drawAtPoint:point forWidth:RIGHT_COLUMN_WIDTH withFont:secondaryFont minFontSize:MIN_SECONDARY_FONT_SIZE actualFontSize:NULL lineBreakMode:UILineBreakModeTailTruncation baselineAdjustment:UIBaselineAdjustmentAlignBaselines];
+    //[cellWrapper.distanceText drawAtPoint:point forWidth:RIGHT_COLUMN_WIDTH withFont:secondaryFont minFontSize:MIN_SECONDARY_FONT_SIZE actualFontSize:NULL lineBreakMode:UILineBreakModeTailTruncation baselineAdjustment:UIBaselineAdjustmentAlignBaselines];
+    
+    
+    [cellWrapper.distanceText drawInRect:CGRectMake(boundsX  + RIGHT_COLUMN_OFFSET, FIRST_ROW_TOP, RIGHT_COLUMN_WIDTH, 24) withFont:secondaryFont lineBreakMode:NSLineBreakByTruncatingTail alignment:NSTextAlignmentRight];
+    
     //TODO CHANGE THIS TO FIX ALIGNMENT
     //cellWrapper.distanceText draw
     
@@ -116,6 +127,9 @@
     [cellWrapper.address2Text drawAtPoint:point forWidth:LEFT_COLUMN_WIDTH withFont:secondaryFont fontSize:MIN_SECONDARY_FONT_SIZE lineBreakMode:UILineBreakModeTailTruncation baselineAdjustment:UIBaselineAdjustmentAlignBaselines];
     
     
+    UIImage *moreImage = [UIImage imageNamed:@"more"];
+    
+    [moreImage drawInRect:self.actionButtonFrame];
 }
 
 @end

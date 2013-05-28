@@ -188,7 +188,7 @@
             
             break;*/
             
-            MMPlaceViewController *placeViewController = [[MMPlaceViewController alloc] initWithTableViewStyle:UITableViewStyleGrouped defaultMapHeight:128 parallaxFactor:0.5];
+            MMPlaceViewController *placeViewController = [[MMPlaceViewController alloc] initWithTableViewStyle:UITableViewStylePlain defaultMapHeight:128 parallaxFactor:0.5];
             
             MMNavigationViewController *placeNVC = [[MMNavigationViewController alloc] initWithRootViewController:placeViewController];
             

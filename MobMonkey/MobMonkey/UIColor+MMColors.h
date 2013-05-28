@@ -17,6 +17,7 @@
 +(UIColor*)MMLightGreen;
 +(UIColor*)MMYellowGreen;
 +(UIColor *)defaultGroupedCellBGColor;
++(UIColor *)oceanBlue;
 
 
 @end

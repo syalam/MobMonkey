@@ -37,7 +37,7 @@
 {
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    UIColor *color = [UIColor colorWithRed:0.227 green:0.067 blue:0.110 alpha:self.translucentFactor];
+    UIColor *color = [[UIColor oceanBlue] colorWithAlphaComponent:_translucentFactor];
     CGContextSetFillColorWithColor(context, color.CGColor);
     CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
     CGContextSetBlendMode(context, kCGBlendModeNormal);

@@ -31,5 +31,8 @@
 +(UIColor *)defaultGroupedCellBGColor{
     return [UIColor colorWithWhite:0.969 alpha:1.000];
 }
++(UIColor *)oceanBlue {
+    return [UIColor colorWithRed:0.250 green:0.456 blue:0.927 alpha:1.000];
+}
 
 @end
