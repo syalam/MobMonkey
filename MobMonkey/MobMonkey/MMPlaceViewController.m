@@ -16,7 +16,7 @@
 #import "MMShadowCellBackground.h"
 #import "MMPlaceActionWrapper.h"
 
-#define kMMPlaceInformationCellHeight 71.0f
+#define kMMPlaceInformationCellHeight 85.0f
 #define kMMPlaceActionCellHeight
 
 @interface MMPlaceViewController ()
@@ -137,6 +137,23 @@
         
         cellWithShadow =  placeActionCell;
         
+    }else if(indexPath.section == 1){
+        static NSString *CellIdentifier = @"Cell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        if(cell == nil){
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            //cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        
+        cell.textLabel.text = @"Hot Spots";
+        
+        if(indexPath.section == 0 && indexPath.row == 0){
+            MMPlaceInformationCellView *cellView = (MMPlaceInformationCellView *)[[[NSBundle mainBundle] loadNibNamed:@"MMPlaceInformationCellView" owner:self options:nil] lastObject];
+            
+            [cell.contentView addSubview:cellView];
+        }
+        cellWithShadow = cell;
     }else{
         static NSString *CellIdentifier = @"Cell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -235,7 +252,7 @@
     }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 35;
+    return 10;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     return [UIView new];

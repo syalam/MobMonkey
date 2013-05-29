@@ -27,7 +27,7 @@
 		 */
 		self.opaque = YES;
 		self.backgroundColor = [UIColor whiteColor];
-        self.actionButtonFrame = CGRectMake(self.frame.size.width - 64, 34, 26, 20);
+        self.actionButtonFrame = CGRectMake(self.frame.size.width - 36, 34, 26, 20);
 	}
 	return self;
 }
@@ -42,26 +42,29 @@
 
 -(void)drawRect:(CGRect)rect {
 #define LEFT_COLUMN_OFFSET 10
+#define LEFT_COLUMN_SECONDARY_OFFSET 15
 #define LEFT_COLUMN_WIDTH 200
-	
-#define RIGHT_COLUMN_OFFSET 190
+
 #define RIGHT_COLUMN_WIDTH 90
 	
 #define FIRST_ROW_TOP 8
-#define SECOND_ROW_TOP 30
-#define THIRD_ROW_TOP 46
+#define SECOND_ROW_TOP 36
+#define THIRD_ROW_TOP 54
 	
-#define MAIN_FONT_SIZE 18
-#define MIN_MAIN_FONT_SIZE 16
+#define MAIN_FONT_SIZE 22
+#define MIN_MAIN_FONT_SIZE 20
 #define SECONDARY_FONT_SIZE 12
 #define MIN_SECONDARY_FONT_SIZE 12
+    
+    CGFloat RIGHT_COLUMN_OFFSET = rect.size.width - 100;
+    
     UIButton *button = [UIButton buttonWithType:UIButtonTypeContactAdd];
     button.frame = CGRectMake(0, 0, 30, 30);
     
         
     // Color and font for the main text items (time zone name, time)
 	UIColor *mainTextColor = nil;
-	UIFont *mainFont = [UIFont systemFontOfSize:MAIN_FONT_SIZE];
+	UIFont *mainFont = [UIFont fontWithName:@"Helvetica-Bold" size:MAIN_FONT_SIZE];
     
 	// Color and font for the secondary text items (GMT offset, day)
 	UIColor *secondaryTextColor = nil;
@@ -119,11 +122,11 @@
     /*
      Draw the abbreviation botton left; use the NSString UIKit method to scale the font size down if the text does not fit in the given area.
      */
-    point = CGPointMake(boundsX + LEFT_COLUMN_OFFSET, SECOND_ROW_TOP);
+    point = CGPointMake(boundsX + LEFT_COLUMN_SECONDARY_OFFSET, SECOND_ROW_TOP);
     [cellWrapper.address1Text drawAtPoint:point forWidth:LEFT_COLUMN_WIDTH withFont:secondaryFont minFontSize:MIN_SECONDARY_FONT_SIZE actualFontSize:NULL lineBreakMode:UILineBreakModeTailTruncation baselineAdjustment:UIBaselineAdjustmentAlignBaselines];
     
     
-    point = CGPointMake(boundsX + LEFT_COLUMN_OFFSET, THIRD_ROW_TOP);
+    point = CGPointMake(boundsX + LEFT_COLUMN_SECONDARY_OFFSET, THIRD_ROW_TOP);
     [cellWrapper.address2Text drawAtPoint:point forWidth:LEFT_COLUMN_WIDTH withFont:secondaryFont fontSize:MIN_SECONDARY_FONT_SIZE lineBreakMode:UILineBreakModeTailTruncation baselineAdjustment:UIBaselineAdjustmentAlignBaselines];
     
     
