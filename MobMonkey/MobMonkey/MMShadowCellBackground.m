@@ -8,16 +8,23 @@
 
 #import "MMShadowCellBackground.h"
 
+@interface MMShadowCellBackground ()
+
+
+@end
+
 @implementation MMShadowCellBackground
+
+@synthesize cellBackgroundColor;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+    
+    if(self){
         self.backgroundColor = [UIColor clearColor];
-        self.clipsToBounds = NO;
     }
+    
     return self;
 }
 
@@ -109,6 +116,51 @@ CGMutablePathRef createRoundedCornerPathForBottom(CGRect rect) {
     return path;
 }
 
+CGMutablePathRef createRoundedCornerPathForOneCell(CGRect rect) {
+    
+    // create a mutable path
+    CGMutablePathRef path = CGPathCreateMutable();
+    
+    CGFloat spaceForShadow = 5;
+    
+    CGFloat cornerRadius = 4;
+    // get the 4 corners of the rect
+    CGPoint topLeft = CGPointMake(rect.origin.x + spaceForShadow, rect.origin.y + 2 );
+    CGPoint topRight = CGPointMake(rect.origin.x + rect.size.width - spaceForShadow, rect.origin.y + 2 );
+    CGPoint bottomRight = CGPointMake(rect.origin.x + rect.size.width - spaceForShadow, rect.origin.y + rect.size.height - 1 - 2 );
+    CGPoint bottomLeft = CGPointMake(rect.origin.x + spaceForShadow, rect.origin.y + rect.size.height - 1 - 2 );
+    
+    // move to top left
+    CGPathMoveToPoint(path, NULL, topLeft.x , topLeft.y + cornerRadius);
+    
+    // add left line
+    CGPathAddLineToPoint(path, NULL, bottomLeft.x , bottomLeft.y - cornerRadius);
+    
+    // add bottom left curve
+    CGPathAddQuadCurveToPoint(path, NULL, bottomLeft.x, bottomLeft.y , bottomLeft.x + cornerRadius, bottomLeft.y);
+    
+    // add bottom line
+    CGPathAddLineToPoint(path, NULL, bottomRight.x - cornerRadius, bottomRight.y );
+    
+    // add bottom right curve
+    CGPathAddQuadCurveToPoint(path, NULL, bottomRight.x , bottomRight.y, bottomRight.x, bottomRight.y - cornerRadius);
+    
+    // add right line
+    CGPathAddLineToPoint(path, NULL, topRight.x, topRight.y + cornerRadius);
+    
+    
+    // add top right curve
+    CGPathAddQuadCurveToPoint(path, NULL, topRight.x, topRight.y, topRight.x - cornerRadius, topRight.y );
+    
+    //add top line
+    CGPathAddLineToPoint(path, NULL, topLeft.x + cornerRadius, topLeft.y);
+    
+    //add top left curve
+    CGPathAddQuadCurveToPoint(path, NULL, topLeft.x, topLeft.y , topLeft.x, topLeft.y + cornerRadius );
+    
+    return path;
+}
+
 -(void)drawTopRect:(CGRect)rect position:(MMGroupedCellPosition)cellPosition{
     const CGFloat outlineStrokeWidth = 1.0f;
     const CGFloat outlineCornerRadius = 10.0f;
@@ -120,7 +172,7 @@ CGMutablePathRef createRoundedCornerPathForBottom(CGRect rect) {
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     // set the background color to white
-    CGContextSetFillColorWithColor(context, whiteColor);
+    CGContextSetFillColorWithColor(context, self.cellBackgroundColor.CGColor);
     //CGContextFillRect(context, rect);
     
     // inset the rect because half of the stroke applied to this path will be on the outside
@@ -133,6 +185,8 @@ CGMutablePathRef createRoundedCornerPathForBottom(CGRect rect) {
         path = createRoundedCornerPathForTop(rect);
     }else if(cellPosition == MMGroupedCellPositionBottom){
         path = createRoundedCornerPathForBottom(rect);
+    }else if (cellPosition == MMGroupedCellPositionOnly){
+        path = createRoundedCornerPathForOneCell(rect);
     }else{
         return;
     }
@@ -177,13 +231,16 @@ void draw1PxStroke(CGContextRef context, CGPoint startPoint, CGPoint endPoint, C
     const CGFloat outlineStrokeWidth = 1.0f;
     const CGFloat outlineCornerRadius = 10.0f;
     
-    const CGColorRef whiteColor = [[UIColor whiteColor] CGColor];
+    
+    
+    
+    
     const CGColorRef redColor = [[UIColor lightGrayColor] CGColor];
     
     // get the context
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGContextSetFillColorWithColor(context, whiteColor);
+    CGContextSetFillColorWithColor(context, self.cellBackgroundColor.CGColor);
     
     CGFloat spaceForShadow = 5;
     
@@ -217,7 +274,9 @@ void draw1PxStroke(CGContextRef context, CGPoint startPoint, CGPoint endPoint, C
             break;
         case MMGroupedCellPositionBottom:
             [self drawTopRect:rect position:self.cellPosition];
-            
+            break;
+        case MMGroupedCellPositionOnly:
+            [self drawTopRect:rect position:self.cellPosition];
             break;
             
         default:
@@ -230,4 +289,74 @@ void draw1PxStroke(CGContextRef context, CGPoint startPoint, CGPoint endPoint, C
         }
     }
 }
+
++(void)addShadowToCell:(UITableViewCell *)cell inTable:(UITableView *)tableView AtIndexPath:(NSIndexPath *)indexPath {
+    int lastRowInSection = [tableView numberOfRowsInSection:indexPath.section] - 1;
+    
+    BOOL isShadowBG = [cell.backgroundView isKindOfClass:[MMShadowCellBackground class]];
+    
+    CGRect frame = cell.backgroundView.frame;
+    MMShadowCellBackground *backgroundView = [[MMShadowCellBackground alloc] initWithFrame:frame];
+    
+    MMShadowCellBackground *selectedBackgroundView = [[MMShadowCellBackground alloc] initWithFrame:frame];
+    
+    backgroundView.cellBackgroundColor = [UIColor whiteColor];
+    
+    selectedBackgroundView.cellBackgroundColor = [UIColor colorWithRed:0.410 green:0.644 blue:1.000 alpha:1.000];
+    
+    switch (indexPath.row) {
+        case 0:
+            
+            if(lastRowInSection == 0){
+                    
+                backgroundView.showSeperator = NO;
+                backgroundView.cellPosition = MMGroupedCellPositionOnly;
+                
+                selectedBackgroundView.showSeperator = NO;
+                selectedBackgroundView.cellPosition = MMGroupedCellPositionOnly;
+                
+                break;
+                
+            }
+            
+            
+                
+            backgroundView.showSeperator = YES;
+            backgroundView.cellPosition = MMGroupedCellPositionTop;
+
+            selectedBackgroundView.showSeperator = YES;
+            selectedBackgroundView.cellPosition = MMGroupedCellPositionTop;
+
+            
+            
+            break;
+            
+        default:
+            
+            if(indexPath.row == lastRowInSection){
+                    
+                backgroundView.cellPosition = MMGroupedCellPositionBottom;
+                backgroundView.showSeperator = YES;
+                    
+                selectedBackgroundView.cellPosition = MMGroupedCellPositionBottom;
+                selectedBackgroundView.showSeperator = YES;
+                
+                break;
+            }
+            
+            
+            backgroundView.cellPosition = MMGroupedCellPositionMiddle;
+            backgroundView.showSeperator = YES;
+            
+            selectedBackgroundView.cellPosition = MMGroupedCellPositionMiddle;
+            selectedBackgroundView.showSeperator = YES;
+            
+            
+            
+            break;
+    }
+    cell.backgroundView = backgroundView;
+    cell.selectedBackgroundView = selectedBackgroundView;
+}
+
 @end

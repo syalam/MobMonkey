@@ -21,4 +21,6 @@
 @property (nonatomic, strong) MMPlaceActionWrapper *cellWrapper;
 @property (nonatomic, strong) CustomBadge *badge;
 
+-(void)buttonPressed;
+
 @end

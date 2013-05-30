@@ -10,7 +10,8 @@ typedef enum {
     
     MMGroupedCellPositionTop = 1,
     MMGroupedCellPositionMiddle,
-    MMGroupedCellPositionBottom
+    MMGroupedCellPositionBottom,
+    MMGroupedCellPositionOnly
     
 } MMGroupedCellPosition;
 
@@ -20,7 +21,9 @@ typedef enum {
 
 @property (nonatomic, assign) MMGroupedCellPosition cellPosition;
 @property (nonatomic, assign) BOOL showSeperator;
+@property (nonatomic, assign) BOOL isSelected;
+@property (nonatomic, strong) UIColor * cellBackgroundColor;
 
-+(void)addShadowToCellAtIndexPath:(NSIndexPath*)indexPath;
++(void)addShadowToCell:(UITableViewCell *)cell inTable:(UITableView *)tableView AtIndexPath:(NSIndexPath *)indexPath;
 
 @end

@@ -14,5 +14,6 @@
 @property (nonatomic, strong) UIImage * image;
 @property (nonatomic, strong) NSNumber * badgeCount;
 @property (nonatomic, strong) UIColor * backgroundColor;
+@property (nonatomic, strong) UIColor * selectedBackgroundColor;
 
 @end

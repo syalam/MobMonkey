@@ -11,4 +11,6 @@
 @interface MMCoreGraphicsCommon : NSObject
 
 CGMutablePathRef createRoundedCornerPath(CGRect rect, CGFloat cornerRadius);
+
++(CGRect)imageFrameForImage:(UIImage *)image withinSize:(CGSize)size;
 @end

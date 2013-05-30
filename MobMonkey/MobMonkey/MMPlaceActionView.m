@@ -46,6 +46,16 @@
 
 }
 
+-(void)buttonPressed {
+    self.highlighted = YES;
+    
+    [self setNeedsDisplay];
+    
+    [self performSelector:@selector(setHighlighted:) withObject:NO afterDelay:0.1];
+    [self performSelector:@selector(setNeedsDisplay) withObject:nil afterDelay:0.1];
+    
+}
+
 -(void)setCellWrapper:(MMPlaceActionWrapper *)newCellWrapper {
     if(cellWrapper != newCellWrapper){
         cellWrapper = newCellWrapper;
@@ -108,7 +118,12 @@
     CGPathRef path =  createRoundedCornerPath(insetRect, 4);
     
     //const CGColorRef buttonBackgroundColor = [[UIColor colorWithRed:0.230 green:0.394 blue:0.810 alpha:1.000] CGColor];
-    CGContextSetFillColorWithColor(context, cellWrapper.backgroundColor.CGColor);
+    
+    if(!highlighted)
+        CGContextSetFillColorWithColor(context, cellWrapper.backgroundColor.CGColor);
+    else
+        CGContextSetFillColorWithColor(context, cellWrapper.selectedBackgroundColor.CGColor);
+    
     CGContextAddPath(context, path);
     CGContextDrawPath(context, kCGPathFillStroke);
     

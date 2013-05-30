@@ -51,4 +51,21 @@ CGMutablePathRef createRoundedCornerPath(CGRect rect, CGFloat cornerRadius) {
     // return the path
     return path;
 }
+
++(CGRect)imageFrameForImage:(UIImage *)image withinSize:(CGSize)viewSize{
+    CGSize imageSize = image.size;
+    
+    float hfactor = imageSize.width / viewSize.width;
+    float vfactor = imageSize.height / viewSize.height;
+    
+    float factor = fmax(hfactor, vfactor);
+    
+    // Divide the size by the greater of the vertical or horizontal shrinkage factor
+    float newWidth = imageSize.width / factor;
+    float newHeight = imageSize.height / factor;
+    
+    CGRect imageFrame = CGRectMake(0,0, newWidth, newHeight);
+    
+    return imageFrame;
+}
 @end

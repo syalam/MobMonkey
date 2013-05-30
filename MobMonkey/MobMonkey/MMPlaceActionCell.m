@@ -7,6 +7,7 @@
 //
 
 #import "MMPlaceActionCell.h"
+#import "MMShadowCellBackground.h"
 
 @implementation MMPlaceActionCell
 
@@ -24,6 +25,19 @@
 
     }
     return self;
+}
+
+- (void)setSelected:(BOOL)_selected animated:(BOOL)animated
+{
+    [super setSelected:_selected animated:animated];
+    
+    // Configure the view for the selected state
+    
+    if(_selected){
+        [placeActionView buttonPressed];
+    }
+    
+    //[super setSelected:NO animated:animated];
 }
 
 - (void)setPlaceActionWrapper:(MMPlaceActionWrapper *)newPlaceActionWrapper {
