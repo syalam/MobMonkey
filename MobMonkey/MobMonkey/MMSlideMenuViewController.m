@@ -18,6 +18,7 @@
 #import "MMSettingsViewController.h"
 #import "MMHotSpotViewController.h"
 #import "MMPlaceViewController.h"
+#import "MMSearchPlacesViewController.h"
 
 @interface MMSlideMenuViewController ()
 
@@ -249,6 +250,14 @@
             [self.slidingViewController setTopViewController:settingsNVC];
             
             break;
+        }
+        case MMMenuItemTypeSearch: {
+            MMSearchPlacesViewController *searchViewController = [[MMSearchPlacesViewController alloc] initWithStyle:UITableViewStylePlain];
+            searchViewController.title = @"Search";
+            
+            MMNavigationViewController *searchNVC = [[MMNavigationViewController alloc] initWithRootViewController:searchViewController];
+            
+            [self.slidingViewController setTopViewController:searchNVC];
         }
         
         

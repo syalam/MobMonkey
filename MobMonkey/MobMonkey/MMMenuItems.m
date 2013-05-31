@@ -30,6 +30,7 @@
     MMMenuItem *searchMenuItem = [MMMenuItem menuItemWithTitle:@"Search for Places" image:[UIImage imageNamed:@"searchIcnOff"]];
     searchMenuItem.selectedImage = [UIImage imageNamed:@"searchIcnOff"];
     searchMenuItem.displayOrder = @2;
+    searchMenuItem.menuItemType = MMMenuItemTypeSearch;
     
     MMMenuItem *inboxMenuItem = [MMMenuItem menuItemWithTitle:@"Request Inbox" image:[UIImage imageNamed:@"inboxIcnOff"] displayOrder:@3];
     [inboxMenuItem setSelectedImage:[UIImage imageNamed:@"inboxIcn"]];
@@ -62,10 +63,15 @@
     MMMenuItem *settingsMenuItem = [MMMenuItem menuItemWithTitle:@"Settings" image:[UIImage imageNamed:@"settingsIcnOff"] displayOrder:@5];
     [settingsMenuItem setSelectedImage:[UIImage imageNamed:@"settingsIcn"]];
     settingsMenuItem.menuItemType = MMMenuItemTypeSettings;
+
+    
+    /*MMMenuItem *searchMenuItem = [MMMenuItem menuItemWithTitle:@"Search" image:[UIImage imageNamed:@"settingsIcnOff"] displayOrder:@6];
+    [settingsMenuItem setSelectedImage:[UIImage imageNamed:@"settingsIcn"]];
+    settingsMenuItem.menuItemType = MMMenuItemTypeSearch;*/
+
     
     
-    
-    return @[whatHappeningMenuItem,locationsMenuItem, trendingNowMenuItem, inboxMenuItem, favoritesMenuItem, settingsMenuItem];
+    return @[whatHappeningMenuItem,locationsMenuItem, trendingNowMenuItem, inboxMenuItem, favoritesMenuItem, settingsMenuItem, searchMenuItem];
     
     
 }

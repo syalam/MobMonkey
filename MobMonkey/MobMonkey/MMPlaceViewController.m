@@ -42,6 +42,9 @@
     [super viewDidLoad];
     //self.tableBackground.backgroundColor = [UIColor MMEggShell];
     self.title = @"Testing";
+    
+    self.navigationController.navigationBar.translucent = YES;
+    
     wrapper = [[MMPlaceInformationCellWrapper alloc] init];
     wrapper.nameText = @"Taco Bell";
     wrapper.address1Text = @"1234 Fake St.";

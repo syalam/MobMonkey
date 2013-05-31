@@ -12,4 +12,5 @@
 
 @property (nonatomic, assign) CGFloat translucentFactor;
 @property (nonatomic, strong) UIColor * barColor;
+@property (nonatomic, strong) UISearchBar * searchBar;
 @end

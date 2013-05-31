@@ -32,7 +32,7 @@
         
         [self setViewControllers:[NSArray arrayWithObject:rootViewController]];
         
-        self.navigationBar.translucent = YES;
+        
         //self.navigationBar.backgroundColor = [UIColor redColor];
         ((MMNavigationBar *)self.navigationBar).translucentFactor = 0.2;
         

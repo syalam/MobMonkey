@@ -26,6 +26,11 @@
     }
     return self;
 }
+-(void)layoutSubviews {
+    [super layoutSubviews];
+    
+    _searchBar.frame = CGRectMake(50, 0, self.frame.size.width - 50, 40);
+}
 -(void)setTranslucentFactor:(CGFloat)translucentFactor {
     _translucentFactor = translucentFactor;
     [self setNeedsDisplay];

@@ -19,6 +19,7 @@
 @property (nonatomic, assign, getter = isMapVisible) BOOL mapVisible;
 @property (nonatomic, assign) BOOL isMapFullScreen;
 @property (nonatomic, assign) BOOL isMapAnimating;
+@property (nonatomic, assign) BOOL isScrollDragging;
 @property (nonatomic, assign) BOOL pullToExpandMapEnabled;
 @property (nonatomic, assign) CGFloat amountToScrollToFullScreenMap;
 
@@ -107,7 +108,7 @@
     [self.view insertSubview:self.mapView belowSubview:self.tableView];
     
     _closeMapView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 22, self.view.frame.size.width, 22)];
-    _closeMapView.hidden = YES;
+    //_closeMapView.hidden = YES;
     _closeMapView.backgroundColor = [UIColor grayColor];
     [self.view insertSubview:_closeMapView aboveSubview:_mapView];
     
@@ -167,73 +168,8 @@
 
 #pragma mark - ScrollView Delegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    /*CGFloat scrollOffset = scrollView.contentOffset.y;
-    
-    CGFloat newMapY = self.defaultMapHeight - scrollOffset +25;
-    NSLog(@"float: %f", newMapY);
-    if ((self.isMapFullScreen == NO) &&
-        (self.isMapAnimating == NO)) {
-        CGFloat mapFrameYAdjustment = 0.0;
-        
-        // If the user is pulling down
-        if (scrollOffset < 0) {
-            
-            CGRect newBackgroundFrame = self.tableBackground.frame;
-            newBackgroundFrame.origin.y = newMapY;
-            self.tableBackground.frame = newBackgroundFrame;
-            
-            // Pull to expand map?
-            if (self.pullToExpandMapEnabled &&
-                (self.isMapAnimating == NO) &&
-                (scrollOffset <= -self.amountToScrollToFullScreenMap)) {
-                [self expandMapView:self];
-            }
-            else {
-                mapFrameYAdjustment = self.defaultMapViewFrame.origin.y - (scrollOffset * self.parallaxFactor);
-            }
-        }
-        
-        // If the user is scrolling normally,
-        else {
-            mapFrameYAdjustment = self.defaultMapViewFrame.origin.y - (scrollOffset * self.parallaxFactor);
-            
-            // Don't move the map way off-screen
-            if (mapFrameYAdjustment <= -(self.defaultMapViewFrame.size.height)) {
-                mapFrameYAdjustment = -(self.defaultMapViewFrame.size.height);
-            }
-            
-           
-            
-            //if(newMapY != 0){
-                CGRect newBackgroundFrame = self.tableBackground.frame;
-                newBackgroundFrame.origin.y = 0;
-                self.tableBackground.frame = newBackgroundFrame;
-            //}
-            
-            
-        }
-        
-        if (mapFrameYAdjustment) {
-            CGRect newMapFrame = self.mapView.frame;
-            newMapFrame.origin.y = mapFrameYAdjustment;
-            self.mapView.frame = newMapFrame;
-        }
-    }*/
-
-    
         
     CGFloat scrollOffset = scrollView.contentOffset.y;
-    
-    if (scrollOffset < 0) {
-        // Pull to expand map?
-        if (self.pullToExpandMapEnabled &&
-            (self.isMapAnimating == NO) &&
-            (scrollOffset <= -self.amountToScrollToFullScreenMap)) {
-            [self expandMapView:self];
-        }
-        
-    }
 
     
     if ((self.isMapFullScreen == NO) &&
@@ -296,13 +232,18 @@
             newMapFrame.origin.y = mapFrameYAdjustment;
             self.mapView.frame = newMapFrame;
         }
-        
-        
+                
     }
 
-    
-    
+}
 
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (_isMapAnimating) return;
+    _isScrollDragging = NO;
+    if (scrollView.contentOffset.y <= -100) {
+        // Released above the header
+        [self expandMapView:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning
