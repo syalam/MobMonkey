@@ -53,7 +53,7 @@
         locationLabelFrame.origin.y = (self.frame.size.height - locationLabelFrame.size.height)/2;
         
         _locationLabel = [[UILabel alloc] initWithFrame:locationLabelFrame];
-        _locationLabel.text = @"Tempe, AZ, USA";
+        _locationLabel.text = @"Current Location";
         _locationLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:_locationLabel];
         
