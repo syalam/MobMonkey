@@ -11,6 +11,24 @@
 #import <FactualSDK/FactualQuery.h>
 #import "MMFactualOperation.h"
 
+@interface MMFactualLocationItem : NSObject
+
+@property (nonatomic, strong) NSString *locationName;
+@property (nonatomic, strong) NSString *addressLine1;
+@property (nonatomic, strong) NSString *addressLine2;
+@property (nonatomic, assign) CLLocationCoordinate2D coordinates;
+@property (nonatomic, strong) NSNumber *distance;
+@property (nonatomic, strong) NSString *factualId;
+
++(MMFactualLocationItem *)locationItemWithFactualID:(NSString*)factualID
+                                       locationName:(NSString*)locationName
+                                            address:(NSString *)address
+                                               city:(NSString *)city
+                                              state:(NSString *)state
+                                        coordinates:(CLLocationCoordinate2D)coordinates;
+
+@end
+
 //Base Class for Search cell items
 @interface MMSearchItem : NSObject
 

@@ -34,7 +34,7 @@
         
         
         //self.navigationBar.backgroundColor = [UIColor redColor];
-        ((MMNavigationBar *)self.navigationBar).translucentFactor = 0.2;
+        ((MMNavigationBar *)self.navigationBar).translucentFactor = 0.4;
         
         
         self.navigationBar.tintColor = [UIColor colorWithRed:1.000 green:0.558 blue:0.286 alpha:1.000];
@@ -85,6 +85,7 @@
 
 -(void)menuButtonPressed:(id)sender{
     [self.slidingViewController anchorTopViewTo:ECRight];
+    [self.view endEditing:YES];
 }
 
 @end

@@ -41,7 +41,7 @@
 {
     [super viewDidLoad];
     //self.tableBackground.backgroundColor = [UIColor MMEggShell];
-    self.title = @"Testing";
+    self.title = @"Taco Bell";
     
     self.navigationController.navigationBar.translucent = YES;
     
@@ -100,6 +100,12 @@
     [super viewDidAppear:YES];
     
     self.mapView.centerCoordinate = CLLocationCoordinate2DMake(33.639347, -112.418339);
+    
+    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+    [annotation setCoordinate:self.mapView.centerCoordinate];
+    [annotation setTitle:@"Taco Bell"]; //You can set the subtitle too
+    [self.mapView addAnnotation:annotation];
+    
     MKCoordinateRegion region;
     MKCoordinateSpan span;
     span.latitudeDelta = 0.02;     
@@ -300,6 +306,6 @@
 }*/
 -(void)mapTableViewController:(MMMapTableViewController *)mapTableViewController isScrollingOffScreen:(MKMapView *)mapView visibility:(CGFloat)visibility {
     MMNavigationBar *navBar = (MMNavigationBar*)self.navigationController.navigationBar;
-    navBar.translucentFactor = 1.0 - ((0.6 - 0.2) * visibility + 0.2);
+    navBar.translucentFactor = 1.0 - ((0.5 - 0.1) * visibility + 0.1);
 }
 @end

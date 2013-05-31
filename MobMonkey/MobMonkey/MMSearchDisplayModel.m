@@ -9,6 +9,24 @@
 #import "MMSearchDisplayModel.h"
 #import "MMFactualAPI.h"
 
+@implementation MMFactualLocationItem
+
++(MMFactualLocationItem *)locationItemWithFactualID:(NSString *)factualID locationName:(NSString *)locationName address:(NSString *)address city:(NSString *)city state:(NSString *)state coordinates:(CLLocationCoordinate2D)coordinates {
+    MMFactualLocationItem *locationItem = [[self alloc] init];
+    locationItem.factualId = factualID;
+    locationItem.locationName = locationName;
+    locationItem.addressLine1 = address;
+    locationItem.addressLine2 = [NSString stringWithFormat:@"%@, %@", city, state];
+    locationItem.coordinates = coordinates;
+    
+//TODO: CALCULATE DISTANCE
+    locationItem.distance = @456.4;
+    
+    return locationItem;
+}
+
+@end
+
 @implementation MMSearchItem
 
 +(MMSearchItem *)searchItemWithText:(NSString *)text accessoryType:(UITableViewCellAccessoryType)accessoryType badgeCount:(NSNumber *)badgeCount {
@@ -113,8 +131,9 @@
      _singleOperation = [MMFactualOperation factualOperationWithQuery:query onTable:@"places" setSuccessBlock:^(FactualQueryResult *queryResult) {
         
         NSMutableArray * placeItems = [NSMutableArray arrayWithCapacity:queryResult.rowCount];
-        
         for(FactualRow *row in queryResult.rows){
+            NSLog(@"DATA: %@",row.namesAndValues);
+
             MMSearchItem *placeItem = [MMSearchItem searchItemWithText:[row valueForName:@"name"]];
             [placeItems addObject:placeItem];
         }

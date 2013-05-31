@@ -35,5 +35,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)anchorTopViewTo:(ECSide)side{
+    [super anchorTopViewTo:side];
+    [self.topViewController.view endEditing:YES];
+}
 
 @end
