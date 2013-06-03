@@ -19,6 +19,7 @@
 #import "MMHotSpotViewController.h"
 #import "MMPlaceViewController.h"
 #import "MMSearchPlacesViewController.h"
+#import "MMRequestInboxViewController.h"
 
 @interface MMSlideMenuViewController ()
 
@@ -215,7 +216,7 @@
         }
         case MMMenuItemTypeInbox: {
             
-            MMInboxViewController *inboxViewController = [[MMInboxViewController alloc] initWithNibName:@"MMInboxViewController" bundle:nil];
+            MMRequestInboxViewController *inboxViewController = [[MMRequestInboxViewController alloc] initWithStyle:UITableViewStylePlain];
             
             inboxViewController.title = @"Inbox";
             
@@ -259,8 +260,7 @@
             
             [self.slidingViewController setTopViewController:searchNVC];
         }
-        
-        
+                
             
         default:
             break;

@@ -1138,6 +1138,16 @@
 		B9FCFF16175D382000BBD4B8 /* menuPinkHeart.png in Resources */ = {isa = PBXBuildFile; fileRef = B9FCFF13175D382000BBD4B8 /* menuPinkHeart.png */; };
 		B9FCFF17175D382000BBD4B8 /* menuPinkHeart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9FCFF14175D382000BBD4B8 /* menuPinkHeart@2x.png */; };
 		B9FCFF18175D382000BBD4B8 /* menuPinkHeart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9FCFF14175D382000BBD4B8 /* menuPinkHeart@2x.png */; };
+		B9FCFF1C175D3EE000BBD4B8 /* MMRequestInboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FCFF1B175D3EE000BBD4B8 /* MMRequestInboxViewController.m */; };
+		B9FCFF1D175D3EE000BBD4B8 /* MMRequestInboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FCFF1B175D3EE000BBD4B8 /* MMRequestInboxViewController.m */; };
+		B9FCFF21175D3F2900BBD4B8 /* MMRequestInboxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FCFF20175D3F2900BBD4B8 /* MMRequestInboxCell.m */; };
+		B9FCFF22175D3F2900BBD4B8 /* MMRequestInboxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FCFF20175D3F2900BBD4B8 /* MMRequestInboxCell.m */; };
+		B9FCFF25175D3F4000BBD4B8 /* MMRequestInboxView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FCFF24175D3F4000BBD4B8 /* MMRequestInboxView.m */; };
+		B9FCFF26175D3F4000BBD4B8 /* MMRequestInboxView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FCFF24175D3F4000BBD4B8 /* MMRequestInboxView.m */; };
+		B9FCFF29175D3F5200BBD4B8 /* MMRequestInboxWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FCFF28175D3F5200BBD4B8 /* MMRequestInboxWrapper.m */; };
+		B9FCFF2A175D3F5200BBD4B8 /* MMRequestInboxWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FCFF28175D3F5200BBD4B8 /* MMRequestInboxWrapper.m */; };
+		B9FCFF2C175D5AAE00BBD4B8 /* poolParty.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B9FCFF2B175D5AAD00BBD4B8 /* poolParty.jpg */; };
+		B9FCFF2D175D5AAE00BBD4B8 /* poolParty.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B9FCFF2B175D5AAD00BBD4B8 /* poolParty.jpg */; };
 		C731E541167DE443002525C8 /* 187-pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = C731E540167DE443002525C8 /* 187-pencil.png */; };
 		C73F8A4C166F727B00DE6BA8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73F8A4B166F727A00DE6BA8 /* iAd.framework */; };
 		C75171EB1678C0DE009B4DE8 /* MMSubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75171E91678C0DE009B4DE8 /* MMSubscriptionViewController.m */; };
@@ -2210,6 +2220,15 @@
 		B9FCFF08175D116600BBD4B8 /* menuMagnify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menuMagnify@2x.png"; sourceTree = "<group>"; };
 		B9FCFF13175D382000BBD4B8 /* menuPinkHeart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuPinkHeart.png; sourceTree = "<group>"; };
 		B9FCFF14175D382000BBD4B8 /* menuPinkHeart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menuPinkHeart@2x.png"; sourceTree = "<group>"; };
+		B9FCFF1A175D3EE000BBD4B8 /* MMRequestInboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequestInboxViewController.h; sourceTree = "<group>"; };
+		B9FCFF1B175D3EE000BBD4B8 /* MMRequestInboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMRequestInboxViewController.m; sourceTree = "<group>"; };
+		B9FCFF1F175D3F2900BBD4B8 /* MMRequestInboxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequestInboxCell.h; sourceTree = "<group>"; };
+		B9FCFF20175D3F2900BBD4B8 /* MMRequestInboxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMRequestInboxCell.m; sourceTree = "<group>"; };
+		B9FCFF23175D3F4000BBD4B8 /* MMRequestInboxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequestInboxView.h; sourceTree = "<group>"; };
+		B9FCFF24175D3F4000BBD4B8 /* MMRequestInboxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMRequestInboxView.m; sourceTree = "<group>"; };
+		B9FCFF27175D3F5200BBD4B8 /* MMRequestInboxWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequestInboxWrapper.h; sourceTree = "<group>"; };
+		B9FCFF28175D3F5200BBD4B8 /* MMRequestInboxWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMRequestInboxWrapper.m; sourceTree = "<group>"; };
+		B9FCFF2B175D5AAD00BBD4B8 /* poolParty.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = poolParty.jpg; sourceTree = "<group>"; };
 		C731E540167DE443002525C8 /* 187-pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "187-pencil.png"; sourceTree = "<group>"; };
 		C73F8A4B166F727A00DE6BA8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		C75171E81678C0DE009B4DE8 /* MMSubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMSubscriptionViewController.h; path = ../MobMonkey/MMSubscriptionViewController.h; sourceTree = "<group>"; };
@@ -3500,6 +3519,7 @@
 		B9F48E6E174D8CFF00751EB2 /* NEW UI */ = {
 			isa = PBXGroup;
 			children = (
+				B9FCFF19175D3EB500BBD4B8 /* Request Inbox */,
 				B9A843C91756E92000328C9F /* MMSearch */,
 				B9F48E8E174EB90B00751EB2 /* MMPlace */,
 				B9F48E83174E866B00751EB2 /* ReUsable UI Elements */,
@@ -3639,6 +3659,30 @@
 				B9FCFEDC175D0E0000BBD4B8 /* menuStar@2x.png */,
 			);
 			name = images;
+			sourceTree = "<group>";
+		};
+		B9FCFF19175D3EB500BBD4B8 /* Request Inbox */ = {
+			isa = PBXGroup;
+			children = (
+				B9FCFF1E175D3EE500BBD4B8 /* RequestInboxCell */,
+				B9FCFF1A175D3EE000BBD4B8 /* MMRequestInboxViewController.h */,
+				B9FCFF1B175D3EE000BBD4B8 /* MMRequestInboxViewController.m */,
+			);
+			name = "Request Inbox";
+			sourceTree = "<group>";
+		};
+		B9FCFF1E175D3EE500BBD4B8 /* RequestInboxCell */ = {
+			isa = PBXGroup;
+			children = (
+				B9FCFF2B175D5AAD00BBD4B8 /* poolParty.jpg */,
+				B9FCFF1F175D3F2900BBD4B8 /* MMRequestInboxCell.h */,
+				B9FCFF20175D3F2900BBD4B8 /* MMRequestInboxCell.m */,
+				B9FCFF23175D3F4000BBD4B8 /* MMRequestInboxView.h */,
+				B9FCFF24175D3F4000BBD4B8 /* MMRequestInboxView.m */,
+				B9FCFF27175D3F5200BBD4B8 /* MMRequestInboxWrapper.h */,
+				B9FCFF28175D3F5200BBD4B8 /* MMRequestInboxWrapper.m */,
+			);
+			name = RequestInboxCell;
 			sourceTree = "<group>";
 		};
 		C75171D41676076D009B4DE8 /* Subscription */ = {
@@ -5644,6 +5688,7 @@
 				B9FCFF0C175D116600BBD4B8 /* menuMagnify@2x.png in Resources */,
 				B9FCFF16175D382000BBD4B8 /* menuPinkHeart.png in Resources */,
 				B9FCFF18175D382000BBD4B8 /* menuPinkHeart@2x.png in Resources */,
+				B9FCFF2D175D5AAE00BBD4B8 /* poolParty.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6216,6 +6261,7 @@
 				B9FCFF0B175D116600BBD4B8 /* menuMagnify@2x.png in Resources */,
 				B9FCFF15175D382000BBD4B8 /* menuPinkHeart.png in Resources */,
 				B9FCFF17175D382000BBD4B8 /* menuPinkHeart@2x.png in Resources */,
+				B9FCFF2C175D5AAE00BBD4B8 /* poolParty.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6465,6 +6511,10 @@
 				B9FCFE8F17581D1200BBD4B8 /* CJSONSerializer.m in Sources */,
 				B9FCFE9417581DDA00BBD4B8 /* NSString(Escaping).m in Sources */,
 				B9FCFEA51759563800BBD4B8 /* MMFixedHeaderViewController.m in Sources */,
+				B9FCFF1D175D3EE000BBD4B8 /* MMRequestInboxViewController.m in Sources */,
+				B9FCFF22175D3F2900BBD4B8 /* MMRequestInboxCell.m in Sources */,
+				B9FCFF26175D3F4000BBD4B8 /* MMRequestInboxView.m in Sources */,
+				B9FCFF2A175D3F5200BBD4B8 /* MMRequestInboxWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6645,6 +6695,10 @@
 				B9FCFE8E17581D1200BBD4B8 /* CJSONSerializer.m in Sources */,
 				B9FCFE9317581DDA00BBD4B8 /* NSString(Escaping).m in Sources */,
 				B9FCFEA41759563800BBD4B8 /* MMFixedHeaderViewController.m in Sources */,
+				B9FCFF1C175D3EE000BBD4B8 /* MMRequestInboxViewController.m in Sources */,
+				B9FCFF21175D3F2900BBD4B8 /* MMRequestInboxCell.m in Sources */,
+				B9FCFF25175D3F4000BBD4B8 /* MMRequestInboxView.m in Sources */,
+				B9FCFF29175D3F5200BBD4B8 /* MMRequestInboxWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
