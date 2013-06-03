@@ -7,14 +7,18 @@
 //
 
 typedef enum {
-    MMMenuItemTypeTrending = 1,
+    MMMenuItemTypeHappening = 1,
+    MMMenuItemTypeTrending,
     MMMenuItemTypeInbox,
     MMMenuItemTypeFavorites,
     MMMenuItemTypeSettings,
     MMMenuItemTypeSearch,
     MMMenuItemTypeLocations,
     MMMenuItemCreateHotSpot,
-    MMMenuItemSubscribe
+    MMMenuItemSubscribe,
+    MMMenuItemSnapShot,
+    MMMenuItemNotifications,
+    MMMenuItemTermsAndConditions
 }MMMenuItemType;
 
 #import <Foundation/Foundation.h>
@@ -30,6 +34,7 @@ typedef enum {
 @property (nonatomic, assign) MMMenuItemType menuItemType;
 @property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, assign) NSTextAlignment titleTextAlignment;
+@property (nonatomic, strong) UIColor *backgroundColor;
 @property (copy, nonatomic) void (^action)();
 
 +(MMMenuItem *)menuItemWithTitle:(NSString *)title image:(UIImage *) image;

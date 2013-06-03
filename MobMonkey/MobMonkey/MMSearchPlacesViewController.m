@@ -8,6 +8,7 @@
 
 #import "MMSearchPlacesViewController.h"
 #import "MMSearchHeaderView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface MMSearchPlacesViewController ()
 
@@ -23,9 +24,10 @@
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithStyle:style];
+    self = [super init];
     if (self) {
         // Custom initialization
+    
     }
     return self;
 }
@@ -49,10 +51,10 @@
     //Add Header View to Table
     
     _headerView = [[MMSearchHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
-    [self.tableView addSubview:_headerView];
+    _headerView.layer.zPosition = 100;
+    //[self.tableView addSubview:_headerView];
     
-    UIView *fixedHeaderViewSpace = [[UIView alloc] initWithFrame:_headerView.bounds];
-    [self.tableView setTableHeaderView:fixedHeaderViewSpace];
+    self.fixedTableHeaderView = _headerView;
     
     _searchDisplayModel = [[MMSearchDisplayModel alloc] init];
     
@@ -196,15 +198,6 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     return [UIView new];
-}
-
-#pragma mark - Scroll view delegate
--(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    //Scroll the headerview with the table view
-    CGRect headerFrame = _headerView.frame;
-    headerFrame.origin.y = scrollView.contentOffset.y;
-    _headerView.frame = headerFrame;
 }
 
 #pragma mark - Search Bar Delegate

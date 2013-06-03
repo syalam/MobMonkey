@@ -141,7 +141,7 @@
     }
 
     if([menuItem isEqual:_selectedMenuItem]){
-        [cell.textLabel setTextColor:[UIColor colorWithRed:0.882 green:0.506 blue:0.133 alpha:1.000]];
+        [cell.textLabel setTextColor:[UIColor whiteColor]];
         cell.imageView.image = menuItem.selectedImage;
     }else{
         [cell.textLabel setTextColor:[UIColor whiteColor]];
@@ -286,7 +286,7 @@
     [UIView animateWithDuration:0.2 animations:^{
         [cellBackgroundView setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:0.500]];
         [cell setBackgroundView:cellBackgroundView];
-        [cell.textLabel setTextColor:[UIColor colorWithRed:0.882 green:0.506 blue:0.133 alpha:1.000]];
+        //[cell.textLabel setTextColor:[UIColor colorWithRed:0.882 green:0.506 blue:0.133 alpha:1.000]];
         cell.imageView.image = menuItem.selectedImage;
         
         previouslySelectedCell.imageView.image = previousMenuItem.image;
@@ -328,6 +328,32 @@
     return [UIView new];
 }
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    MMMenuItem *menuItem = [menuItems objectAtIndex:indexPath.row];
+    
+    if(menuItem.menuItemType == MMMenuItemTypeHappening){
+
+        cell.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.5];
+        
+        for(UIView *view in cell.subviews){
+            view.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.5];
+        }
+    }/*else if(menuItem.menuItemType == MMMenuItemSubscribe){
+        
+        cell.backgroundColor = [UIColor colorWithWhite:0.28 alpha:0.5];
+        
+        for(UIView *view in cell.subviews){
+            view.backgroundColor = [UIColor colorWithWhite:0.28 alpha:0.5];
+        }
+        
+    }*/else{
+        cell.backgroundColor = [UIColor colorWithWhite:0.25 alpha:0.5];
+        
+        for(UIView *view in cell.subviews){
+            view.backgroundColor = [UIColor colorWithWhite:0.25 alpha:0.5];
+        }
+    }
+}
 
 
 

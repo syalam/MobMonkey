@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MMSearchDisplayModel.h"
+#import "MMFixedHeaderViewController.h"
 
-@interface MMSearchPlacesViewController : UITableViewController <UISearchBarDelegate> {
+@interface MMSearchPlacesViewController : MMFixedHeaderViewController <UISearchBarDelegate, UIGestureRecognizerDelegate> {
     
 }
 
@@ -19,4 +20,6 @@
 @property (nonatomic, strong) NSArray * placesSearchResults;
 @property (nonatomic, strong) NSArray * categorySearchResults;
 
+
+-(id)initWithStyle:(UITableViewStyle)style;
 @end
