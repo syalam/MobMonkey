@@ -71,7 +71,7 @@
 
 -(void)redisplay {
     [self.requestInboxView setNeedsDisplay];
-    //[self.shadowBackground setNeedsUpdateConstraints];
+    [self.shadowBackground setNeedsDisplay];
 }
 
 
