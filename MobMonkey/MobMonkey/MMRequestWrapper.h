@@ -47,5 +47,7 @@ typedef enum {
 @interface MMTextRequestWrapper : MMRequestWrapper
 
 @property (nonatomic, strong) NSString * answerText;
+@property (nonatomic, assign) CGSize answerTextSize;
+@property (nonatomic, strong) UIFont * answerTextFont;
 
 @end

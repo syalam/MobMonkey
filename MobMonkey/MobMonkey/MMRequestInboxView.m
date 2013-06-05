@@ -8,6 +8,7 @@
 
 #import "MMRequestInboxView.h"
 #import "MMCoreGraphicsCommon.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface MMRequestInboxView ()
 
@@ -22,11 +23,32 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.backgroundColor = [UIColor colorWithRed:0.930 green:0.911 blue:0.920 alpha:1.000];
-        //self.backgroundColor = [UIColor clearColor];
+        //self.backgroundColor = [UIColor colorWithRed:0.930 green:0.911 blue:0.920 alpha:1.000];
+        self.backgroundColor = [UIColor clearColor];
         self.questionTextFont = [UIFont fontWithName:@"Helvetica-LightOblique" size:14];
+       
+        _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _imageView.layer.borderWidth = 1.0f;
+        _imageView.layer.borderColor = [UIColor colorWithRed:0.830 green:0.811 blue:0.820 alpha:1.000].CGColor;
+        _imageView.clipsToBounds = YES;
+        
+        
+        _imageView.contentMode = UIViewContentModeScaleAspectFill;
+        [self addSubview:_imageView];
     }
     return self;
+}
+-(void)layoutSubviews {
+    [super layoutSubviews];
+    
+    CGRect imageViewFrame = CGRectMake((self.frame.size.width - 310)/2, 0, 310, 280);
+    if(_wrapper.cellStyle == MMRequestCellStyleInbox){
+        imageViewFrame.origin.y = 105;
+    }else if(_wrapper.cellStyle == MMRequestCellStyleTimeline){
+        imageViewFrame.origin.y = 65;
+    }
+    imageViewFrame.origin.y += _wrapper.questionTextSize.height;
+    _imageView.frame = imageViewFrame;
 }
 
 -(void)setWrapper:(MMRequestWrapper *)wrapper {
@@ -37,6 +59,22 @@
         
     }
     
+    
+    
+    if([_wrapper isKindOfClass:[MMMediaRequestWrapper class]]){
+        
+        MMMediaRequestWrapper *mediaRequest = ((MMMediaRequestWrapper *)_wrapper);
+        
+        if(mediaRequest.placeholderImage){
+            _imageView.hidden = NO;
+        }else{
+            _imageView.hidden = YES;
+        }
+       
+        _imageView.image = mediaRequest.placeholderImage;
+    }else{
+        _imageView.hidden = YES;
+    }
     [self setNeedsDisplay];
 }
 // Only override drawRect: if you perform custom drawing.
@@ -123,12 +161,29 @@
     
     
     
-    if([_wrapper isKindOfClass:[MMMediaRequestWrapper class]]){
+    /*if([_wrapper isKindOfClass:[MMMediaRequestWrapper class]]){
         
         MMMediaRequestWrapper *mediaRequest = ((MMMediaRequestWrapper *)_wrapper);
         
         CGRect imageFrame = CGRectMake((self.frame.size.width - mediaRequest.imageSize.width)/2 ,frame.origin.y + frame.size.height + 10, mediaRequest.imageSize.width, mediaRequest.imageSize.height);
         [mediaRequest.placeholderImage drawInRect:imageFrame];
+    }*/
+    
+    if([_wrapper isKindOfClass:[MMTextRequestWrapper class]]){
+        MMTextRequestWrapper *textWrapper = (MMTextRequestWrapper *)_wrapper;
+        
+        if(textWrapper.answerText && textWrapper.answerText.length > 0){
+            point = CGPointMake(FIRST_ROW_XOFFSET, frame.origin.y + frame.size.height +10);
+            [@"A:" drawAtPoint:point withFont:[UIFont fontWithName:@"Helvetica-Bold" size:24]];
+            
+            point = CGPointMake(FORTH_ROW_SECOND_COLUMN_XOFFSET, point.y + 7);
+            
+            frame = CGRectMake(point.x, point.y, textWrapper.answerTextSize.width, textWrapper.answerTextSize.height);
+            
+            [textWrapper.answerText drawInRect:frame withFont:textWrapper.answerTextFont lineBreakMode:NSLineBreakByWordWrapping];
+        }
+        
+        
     }
     
     

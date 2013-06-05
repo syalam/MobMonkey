@@ -29,7 +29,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.tableView.backgroundColor = [UIColor colorWithRed:0.930 green:0.911 blue:0.920 alpha:1.000];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     _wrapper = [[MMMediaRequestWrapper alloc] initWithTableWidth:self.tableView.frame.size.width];
     _wrapper.durationSincePost = @"8 mins ago";
@@ -49,8 +50,8 @@
     wrapperNotAnswered.nameOfLocation = @"Maya Pool";
     wrapperNotAnswered.nameOfParentLocation = @"@ Maya Day and Night Club";
     wrapperNotAnswered.questionText = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. I dont have an image";
-    //_wrapper.placeholderImage = [UIImage imageNamed:@"poolParty.jpg"];
-    wrapperNotAnswered.cellStyle = MMRequestCellStyleInbox;
+    wrapperNotAnswered.placeholderImage = [UIImage imageNamed:@"poolParty.jpg"];
+    wrapperNotAnswered.cellStyle = MMRequestCellStyleTimeline;
     
     
     MMTextRequestWrapper * textWrapper = [[MMTextRequestWrapper alloc] initWithTableWidth:self.tableView.frame.size.width];
@@ -61,6 +62,7 @@
     textWrapper.questionText = @"I have a text request, but no answer yet";
     //textWrapper.placeholderImage = [UIImage imageNamed:@"poolParty.jpg"];
     textWrapper.cellStyle = MMRequestCellStyleTimeline;
+    textWrapper.answerText = @"This is a new answer!";
     
     [tempCellWrapper addObject:wrapperNotAnswered];
     [tempCellWrapper addObject:textWrapper];

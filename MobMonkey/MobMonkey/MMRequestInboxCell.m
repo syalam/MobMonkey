@@ -28,11 +28,11 @@
 		_requestInboxView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		
         
-        /*_shadowBackground = [[MMShadowBackground alloc]  initWithFrame:placeViewFrame];
+        _shadowBackground = [[MMShadowBackground alloc]  initWithFrame:placeViewFrame];
        
         _shadowBackground.autoresizingMask =  UIViewAutoresizingFlexibleHeight;
         
-        //[self.contentView addSubview:_shadowBackground];*/
+        [self.contentView addSubview:_shadowBackground];
         
         [self.contentView addSubview:_requestInboxView];
         

@@ -26,6 +26,7 @@
        _tableWidth = tableWidth;
         
         _questionTextFont = [UIFont fontWithName:@"Helvetica-LightOblique" size:14];
+
     }
     
     return self;
@@ -40,18 +41,18 @@
 -(CGFloat)cellHeight {
     
     //Add height for duration label
-    CGFloat height = 60;
+    CGFloat height = 40;
     
     //Add height if cell will show place name and parent place name
     if(self.cellStyle == MMRequestCellStyleInbox){
-        height += 20;
+        height += 40;
     }
     
-    if(_questionTextSize.height <= 25){
+    /*if(_questionTextSize.height <= 25){
         height += 25;
-    }else{
-        height += _questionTextSize.height + 5;
-    }
+    }else{*/
+        height += _questionTextSize.height ;
+    //}
     
     return height;
     
@@ -91,7 +92,12 @@
 -(CGFloat)cellHeight {
     CGFloat cellHeight = [super cellHeight];
     
-    cellHeight += _imageSize.height + 45;
+    CGFloat imagePadding = 0;
+    
+    if(self.placeholderImage){
+        imagePadding = 40;
+    }
+    cellHeight += _imageSize.height + 40 + imagePadding;
     
     return cellHeight;
 }
@@ -99,5 +105,33 @@
 
 
 @implementation MMTextRequestWrapper
+
+-(id)initWithTableWidth:(CGFloat)tableWidth {
+    if(self = [super initWithTableWidth:tableWidth]){
+        _answerTextFont = [UIFont fontWithName:@"Helvetica-Light" size:14];
+    }
+    return self;
+}
+
+-(void)setAnswerText:(NSString *)answerText {
+    
+    _answerText = answerText;
+    [self resizeAnswerTextSize];
+}
+-(void)setAnswerTextFont:(UIFont *)answerTextFont {
+    _answerTextFont = answerTextFont;
+    [self resizeAnswerTextSize];
+}
+-(void)resizeAnswerTextSize{
+    _answerTextSize = [_answerText sizeWithFont:self.answerTextFont constrainedToSize:CGSizeMake(self.tableWidth - 70, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+}
+-(CGFloat)cellHeight {
+    CGFloat cellHeight = [super cellHeight];
+    
+    
+    cellHeight += _answerTextSize.height + 7 + 48;
+    
+    return cellHeight;
+}
 
 @end

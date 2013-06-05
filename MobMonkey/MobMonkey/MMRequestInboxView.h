@@ -21,5 +21,6 @@
 @property (nonatomic, assign) BOOL editing;
 @property (nonatomic, assign) MMRequestCellStyle style;
 @property (nonatomic, assign) MMMediaType mediaType;
+@property (nonatomic, strong) UIImageView *imageView;
 
 @end
