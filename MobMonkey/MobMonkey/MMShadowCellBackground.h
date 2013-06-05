@@ -25,5 +25,5 @@ typedef enum {
 @property (nonatomic, strong) UIColor * cellBackgroundColor;
 
 +(void)addShadowToCell:(UITableViewCell *)cell inTable:(UITableView *)tableView AtIndexPath:(NSIndexPath *)indexPath;
-
++(void)addShadowOnlyToCell:(UITableViewCell *)cell;
 @end

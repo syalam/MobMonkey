@@ -8,10 +8,11 @@
 
 #import "MMRequestInboxViewController.h"
 #import "MMRequestInboxCell.h"
-#import "MMRequestInboxWrapper.h"
+#import "MMRequestWrapper.h"
+#import "MMShadowCellBackground.h"
 
 @interface MMRequestInboxViewController ()
-
+@property (nonatomic, strong) MMMediaRequestWrapper *wrapper;
 @end
 
 @implementation MMRequestInboxViewController
@@ -29,6 +30,43 @@
 {
     [super viewDidLoad];
 
+    
+    _wrapper = [[MMMediaRequestWrapper alloc] initWithTableWidth:self.tableView.frame.size.width];
+    _wrapper.durationSincePost = @"8 mins ago";
+    _wrapper.nameOfLocation = @"Maya Pool";
+    _wrapper.nameOfParentLocation = @"@ Maya Day and Night Club";
+    _wrapper.questionText = @"I have an image!!";
+    _wrapper.placeholderImage = [UIImage imageNamed:@"poolParty.jpg"];
+    _wrapper.cellStyle = MMRequestCellStyleInbox;
+    
+    NSMutableArray * tempCellWrapper = [NSMutableArray array];
+    
+    [tempCellWrapper addObject:_wrapper];
+    
+    
+    MMMediaRequestWrapper * wrapperNotAnswered = [[MMMediaRequestWrapper alloc] initWithTableWidth:self.tableView.frame.size.width];
+    wrapperNotAnswered.durationSincePost = @"8 mins ago";
+    wrapperNotAnswered.nameOfLocation = @"Maya Pool";
+    wrapperNotAnswered.nameOfParentLocation = @"@ Maya Day and Night Club";
+    wrapperNotAnswered.questionText = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. I dont have an image";
+    //_wrapper.placeholderImage = [UIImage imageNamed:@"poolParty.jpg"];
+    wrapperNotAnswered.cellStyle = MMRequestCellStyleInbox;
+    
+    
+    MMTextRequestWrapper * textWrapper = [[MMTextRequestWrapper alloc] initWithTableWidth:self.tableView.frame.size.width];
+    textWrapper = [[MMTextRequestWrapper alloc] initWithTableWidth:self.tableView.frame.size.width];
+    textWrapper.durationSincePost = @"8 mins ago";
+    textWrapper.nameOfLocation = @"Maya Pool";
+    textWrapper.nameOfParentLocation = @"@ Maya Day and Night Club";
+    textWrapper.questionText = @"I have a text request, but no answer yet";
+    //textWrapper.placeholderImage = [UIImage imageNamed:@"poolParty.jpg"];
+    textWrapper.cellStyle = MMRequestCellStyleTimeline;
+    
+    [tempCellWrapper addObject:wrapperNotAnswered];
+    [tempCellWrapper addObject:textWrapper];
+    
+    self.cellWrappers = tempCellWrapper;
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -69,14 +107,14 @@
         
     }
     
-    MMRequestInboxWrapper *wrapper = [[MMRequestInboxWrapper alloc] init];
-    wrapper.durationSincePost = @"8 mins ago";
-    wrapper.nameOfLocation = @"Maya Pool";
-    wrapper.nameOfParentLocation = @"@ Maya Day and Night Club";
-    wrapper.questionText = @"What's happening at the Maya Pool?";
-    [cell setRequestInboxWrapper:wrapper];
+    UIView *test = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 300)];
+    test.backgroundColor = [UIColor redColor];
     
+    NSUInteger toggle = indexPath.row % 3;
+    MMRequestWrapper *wrapper = [self.cellWrappers objectAtIndex:toggle];
     
+    [cell setRequestInboxWrapper:wrapper];    
+    //[cell redisplay];
     // Configure the cell...
     
     return cell;
@@ -121,7 +159,9 @@
 }
 */
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 398;
+    NSUInteger toggle = indexPath.row % 3;
+    MMRequestWrapper *wrapper = [self.cellWrappers objectAtIndex:toggle];
+    return [wrapper cellHeight];
 }
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     cell.backgroundColor = [UIColor colorWithRed:0.930 green:0.911 blue:0.920 alpha:1.000];

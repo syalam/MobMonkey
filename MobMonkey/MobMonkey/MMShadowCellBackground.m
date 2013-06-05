@@ -290,6 +290,15 @@ void draw1PxStroke(CGContextRef context, CGPoint startPoint, CGPoint endPoint, C
     }
 }
 
++(void)addShadowOnlyToCell:(UITableViewCell *)cell{
+    
+     CGRect frame = cell.frame;
+     MMShadowCellBackground *backgroundView = [[MMShadowCellBackground alloc] initWithFrame:frame];
+    backgroundView.showSeperator = NO;
+    backgroundView.cellPosition = MMGroupedCellPositionOnly;
+    cell.backgroundView = backgroundView;
+    
+}
 +(void)addShadowToCell:(UITableViewCell *)cell inTable:(UITableView *)tableView AtIndexPath:(NSIndexPath *)indexPath {
     int lastRowInSection = [tableView numberOfRowsInSection:indexPath.section] - 1;
     

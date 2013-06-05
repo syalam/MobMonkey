@@ -7,12 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MMRequestInboxWrapper.h"
+#import "MMRequestWrapper.h"
+#import "MMRequestInboxCell.h"
+
+
+
+@class MMRequestWrapper;
 
 @interface MMRequestInboxView : UIView
 
-@property (nonatomic, strong) MMRequestInboxWrapper *wrapper;
+@property (nonatomic, strong) MMRequestWrapper *wrapper;
 @property (nonatomic, assign) BOOL highlighted;
 @property (nonatomic, assign) BOOL editing;
+@property (nonatomic, assign) MMRequestCellStyle style;
+@property (nonatomic, assign) MMMediaType mediaType;
 
 @end

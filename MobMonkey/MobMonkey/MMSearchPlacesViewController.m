@@ -52,7 +52,10 @@
     
     _headerView = [[MMSearchHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     _headerView.layer.zPosition = 100;
-    //[self.tableView addSubview:_headerView];
+    [_headerView setClickAction:^{
+        [self nearButtonPressed];
+    }];
+    [self.tableView addSubview:_headerView];
     
     self.fixedTableHeaderView = _headerView;
     
@@ -62,6 +65,10 @@
 
 }
 
+-(void)nearButtonPressed {
+    NSLog(@"PRESSED");
+    
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

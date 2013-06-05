@@ -7,14 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MMRequestInboxWrapper.h"
+#import "MMRequestWrapper.h"
 #import "MMRequestInboxView.h"
+
+@class MMRequestInboxView;
 
 @interface MMRequestInboxCell : UITableViewCell
 
 @property(nonatomic, strong) MMRequestInboxView * requestInboxView;
 
--(void)setRequestInboxWrapper:(MMRequestInboxWrapper *)wrapper;
+-(void)setRequestInboxWrapper:(MMRequestWrapper *)wrapper;
 
 -(void)redisplay;
+-(id)initWithStyle:(MMRequestCellStyle)style mediaType:(MMMediaType)mediaType reuseIdentifier:(NSString *)reuseIdentifier;
+
+
 @end

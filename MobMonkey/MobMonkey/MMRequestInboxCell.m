@@ -7,16 +7,51 @@
 //
 
 #import "MMRequestInboxCell.h"
+#import "MMShadowBackground.h"
+
+@interface MMRequestInboxCell()
+
+@property (nonatomic, strong) MMShadowBackground *shadowBackground;
+
+@end
 
 @implementation MMRequestInboxCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
+-(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
+    
+    if(self) {
+        
+        self.autoresizesSubviews = YES;
         CGRect placeViewFrame = CGRectMake(0, 0, self.contentView.bounds.size.width , self.contentView.bounds.size.height);
 		_requestInboxView = [[MMRequestInboxView alloc] initWithFrame:placeViewFrame];
+		_requestInboxView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		
+        
+        /*_shadowBackground = [[MMShadowBackground alloc]  initWithFrame:placeViewFrame];
+       
+        _shadowBackground.autoresizingMask =  UIViewAutoresizingFlexibleHeight;
+        
+        //[self.contentView addSubview:_shadowBackground];*/
+        
+        [self.contentView addSubview:_requestInboxView];
+        
+        
+        self.clipsToBounds = YES;
+
+    }
+    
+    return self;
+}
+
+-(id)initWithStyle:(MMRequestCellStyle)style mediaType:(MMMediaType)mediaType reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+    
+    if(self){
+        CGRect placeViewFrame = CGRectMake(0, 0, self.contentView.bounds.size.width , self.contentView.bounds.size.height);
+		_requestInboxView = [[MMRequestInboxView alloc] initWithFrame:placeViewFrame];
+        _requestInboxView.style = style;
+        _requestInboxView.mediaType = mediaType;
 		_requestInboxView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		[self.contentView addSubview:_requestInboxView];
         self.clipsToBounds = YES;
@@ -24,9 +59,9 @@
     return self;
 }
 
--(void)setRequestInboxWrapper:(MMRequestInboxWrapper *)wrapper
+-(void)setRequestInboxWrapper:(MMRequestWrapper *)wrapper
 {
-    [_requestInboxView setWrapper:wrapper];
+    [self.requestInboxView setWrapper:wrapper];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -36,6 +71,9 @@
 
 -(void)redisplay {
     [self.requestInboxView setNeedsDisplay];
+    //[self.shadowBackground setNeedsUpdateConstraints];
 }
+
+
 
 @end

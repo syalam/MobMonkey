@@ -10,8 +10,9 @@
 
 @interface MMSearchHeaderView : UIView
 
--(void)addTarget:(id)target andSelector:(SEL)selector;
+
 
 @property (nonatomic, strong) UILabel *locationLabel;
+@property (copy, nonatomic) void (^clickAction)();
 
 @end

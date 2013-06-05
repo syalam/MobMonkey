@@ -1,5 +1,5 @@
 //
-//  MMRequestInboxViewController.h
+//  MMMediaTimelineViewController.h
 //  MobMonkey
 //
 //  Created by Michael Kral on 6/3/13.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMRequestInboxViewController : UITableViewController
-
-@property (nonatomic, strong) NSArray * cellWrappers;
+@interface MMMediaTimelineViewController : UITableViewController
 
 @end
