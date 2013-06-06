@@ -22,6 +22,7 @@
 #import "MMRequestInboxViewController.h"
 #import "MMCreateHotSpotMapViewController.h"
 #import "MMSettingsViewController.h"
+#import "MMMakeARequestTableViewController.h"
 
 @interface MMSlideMenuViewController ()
 
@@ -271,6 +272,14 @@
             MMNavigationViewController *createHotSpotNVC = [[MMNavigationViewController alloc] initWithRootViewController:createHotSpotMapViewController];
             
             [self.slidingViewController setTopViewController:createHotSpotNVC];
+            break;
+        }
+        case MMMenuItemSnapShot: {
+            MMMakeARequestTableViewController *makeARequestTableViewController = [[MMMakeARequestTableViewController alloc] initWithNibName:@"MMMakeARequestTableViewController" bundle:nil];
+            
+            MMNavigationViewController *snapShotNVC = [[MMNavigationViewController alloc] initWithRootViewController:makeARequestTableViewController];
+            
+            [self.slidingViewController setTopViewController:snapShotNVC];
             break;
         }
         

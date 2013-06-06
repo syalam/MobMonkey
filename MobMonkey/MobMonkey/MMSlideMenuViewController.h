@@ -22,7 +22,9 @@ typedef enum {
 
 @interface MMSlideMenuViewController : UIViewController <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate> {
     NSIndexPath *selectedIndexPath;
+
 }
+
 
 @property (nonatomic, strong) IBOutlet UITableView *menuTableView;
 @property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
