@@ -21,6 +21,7 @@
 #import "MMSearchPlacesViewController.h"
 #import "MMRequestInboxViewController.h"
 #import "MMCreateHotSpotMapViewController.h"
+#import "MMSettingsViewController.h"
 
 @interface MMSlideMenuViewController ()
 
@@ -260,6 +261,7 @@
             MMNavigationViewController *searchNVC = [[MMNavigationViewController alloc] initWithRootViewController:searchViewController];
             
             [self.slidingViewController setTopViewController:searchNVC];
+            break;
         }
         case MMMenuItemCreateHotSpot: {
             
@@ -269,7 +271,9 @@
             MMNavigationViewController *createHotSpotNVC = [[MMNavigationViewController alloc] initWithRootViewController:createHotSpotMapViewController];
             
             [self.slidingViewController setTopViewController:createHotSpotNVC];
+            break;
         }
+        
                 
             
         default:

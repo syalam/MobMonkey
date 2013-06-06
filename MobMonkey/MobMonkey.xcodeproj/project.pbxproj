@@ -1162,6 +1162,8 @@
 		B9FCFF50175FFB2300BBD4B8 /* pinFlame.png in Resources */ = {isa = PBXBuildFile; fileRef = B9FCFF4D175FFB2300BBD4B8 /* pinFlame.png */; };
 		B9FCFF51175FFB2300BBD4B8 /* pinFlame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9FCFF4E175FFB2300BBD4B8 /* pinFlame@2x.png */; };
 		B9FCFF52175FFB2300BBD4B8 /* pinFlame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9FCFF4E175FFB2300BBD4B8 /* pinFlame@2x.png */; };
+		B9FCFF551760E1D700BBD4B8 /* MMSectionHeaderWithBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FCFF541760E1D700BBD4B8 /* MMSectionHeaderWithBadgeView.m */; };
+		B9FCFF561760E1D700BBD4B8 /* MMSectionHeaderWithBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FCFF541760E1D700BBD4B8 /* MMSectionHeaderWithBadgeView.m */; };
 		C731E541167DE443002525C8 /* 187-pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = C731E540167DE443002525C8 /* 187-pencil.png */; };
 		C73F8A4C166F727B00DE6BA8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73F8A4B166F727A00DE6BA8 /* iAd.framework */; };
 		C75171EB1678C0DE009B4DE8 /* MMSubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75171E91678C0DE009B4DE8 /* MMSubscriptionViewController.m */; };
@@ -2255,6 +2257,8 @@
 		B9FCFF44175FE08B00BBD4B8 /* MMCreateHotSpotMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCreateHotSpotMapViewController.m; sourceTree = "<group>"; };
 		B9FCFF4D175FFB2300BBD4B8 /* pinFlame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinFlame.png; sourceTree = "<group>"; };
 		B9FCFF4E175FFB2300BBD4B8 /* pinFlame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pinFlame@2x.png"; sourceTree = "<group>"; };
+		B9FCFF531760E1D600BBD4B8 /* MMSectionHeaderWithBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSectionHeaderWithBadgeView.h; sourceTree = "<group>"; };
+		B9FCFF541760E1D700BBD4B8 /* MMSectionHeaderWithBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSectionHeaderWithBadgeView.m; sourceTree = "<group>"; };
 		C731E540167DE443002525C8 /* 187-pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "187-pencil.png"; sourceTree = "<group>"; };
 		C73F8A4B166F727A00DE6BA8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		C75171E81678C0DE009B4DE8 /* MMSubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMSubscriptionViewController.h; path = ../MobMonkey/MMSubscriptionViewController.h; sourceTree = "<group>"; };
@@ -3704,6 +3708,8 @@
 			isa = PBXGroup;
 			children = (
 				B9FCFF2B175D5AAD00BBD4B8 /* poolParty.jpg */,
+				B9FCFF531760E1D600BBD4B8 /* MMSectionHeaderWithBadgeView.h */,
+				B9FCFF541760E1D700BBD4B8 /* MMSectionHeaderWithBadgeView.m */,
 				B9FCFF1F175D3F2900BBD4B8 /* MMRequestInboxCell.h */,
 				B9FCFF20175D3F2900BBD4B8 /* MMRequestInboxCell.m */,
 				B9FCFF23175D3F4000BBD4B8 /* MMRequestInboxView.h */,
@@ -6602,6 +6608,7 @@
 				B9FCFF3C175DB80600BBD4B8 /* MMGeographicalLocation.m in Sources */,
 				B9FCFF41175EE66100BBD4B8 /* MMShadowBackground.m in Sources */,
 				B9FCFF46175FE08B00BBD4B8 /* MMCreateHotSpotMapViewController.m in Sources */,
+				B9FCFF561760E1D700BBD4B8 /* MMSectionHeaderWithBadgeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6791,6 +6798,7 @@
 				B9FCFF3B175DB80600BBD4B8 /* MMGeographicalLocation.m in Sources */,
 				B9FCFF40175EE66100BBD4B8 /* MMShadowBackground.m in Sources */,
 				B9FCFF45175FE08B00BBD4B8 /* MMCreateHotSpotMapViewController.m in Sources */,
+				B9FCFF551760E1D700BBD4B8 /* MMSectionHeaderWithBadgeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,7 +17,7 @@
 @property (nonatomic, retain) NSMutableArray *contentList;
 @property (nonatomic, weak) IBOutlet UIImageView *screenBackground;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
-@property (nonatomic, weak) IBOutlet UIButton *signInButton;
+@property (nonatomic, strong) NSArray * settingItems;
 
 - (IBAction)signInButtonTapped:(id)sender;
 

@@ -10,7 +10,7 @@
 #import "MMRequestInboxCell.h"
 #import "MMRequestWrapper.h"
 #import "MMShadowCellBackground.h"
-
+#import "MMSectionHeaderWithBadgeView.h"
 @interface MMRequestInboxViewController ()
 @property (nonatomic, strong) MMMediaRequestWrapper *wrapper;
 @end
@@ -160,6 +160,18 @@
     return YES;
 }
 */
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 3;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 27;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    return [[MMSectionHeaderWithBadgeView alloc] initWithTitle:@"Testing" andBadgeNumber:@24];
+}
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return [UIView new];
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSUInteger toggle = indexPath.row % 3;
     MMRequestWrapper *wrapper = [self.cellWrappers objectAtIndex:toggle];

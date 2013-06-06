@@ -43,14 +43,11 @@
     selectionDictionary = [[NSMutableDictionary alloc]init];
     
     
-    NSArray *sectionOneArray = [NSArray arrayWithObjects:@"My Info", @"Social Networks", @"My Interests", @"Subscribe",@"Terms of Use", nil];
-    
-    NSArray *tableContentsArray = [NSArray arrayWithObjects:sectionOneArray, nil];
-    
-    [self setContentList:[tableContentsArray mutableCopy]];
+   _settingItems = [NSArray arrayWithObjects: @"Social Networks", @"My Interests", @"Requests",@"My Activity", nil];
     
     self.title = @"Settings";
 }
+
 
 - (void)viewDidUnload
 {
@@ -61,10 +58,19 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    //Deselect Row
+    NSIndexPath*    selection = [self.tableView indexPathForSelectedRow];
+    if (selection) {
+        [self.tableView deselectRowAtIndexPath:selection animated:YES];
+    }
+    
     [SVProgressHUD dismiss];
     if (![[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
         [[MMClientSDK sharedSDK]signInScreen:self];
     }
+    
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -87,71 +93,101 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return _contentList.count;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray *sectionArray = [_contentList objectAtIndex:section];
-    return sectionArray.count;
+    switch (section) {
+        case 0:
+            return _settingItems.count;
+            break;
+            
+        case 1:
+            return 1;
+            break;
+        default:
+            return 0;
+            break;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *sectionArray = [_contentList objectAtIndex:indexPath.section];
-    id contentForThisRow = [sectionArray objectAtIndex:indexPath.row];
-    
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    cell.textLabel.text = contentForThisRow;
+    
+    if(indexPath.section == 0){
+        
+        cell.textLabel.text = [_settingItems objectAtIndex:indexPath.row];
+        cell.textLabel.textAlignment = NSTextAlignmentLeft;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.textColor = [UIColor darkGrayColor];
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+        
+    }else if(indexPath.section == 1){
+        
+        cell.textLabel.text = @"Log Out";
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.textLabel.textColor = [UIColor whiteColor];
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        
+    }
+    
     return cell;
+}
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0) {
+        cell.backgroundColor = [UIColor whiteColor];
+    }else if(indexPath.section == 1) {
+        cell.backgroundColor = [UIColor colorWithRed:0.871 green:0.131 blue:0.144 alpha:1.000];
+    }
+    
 }
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.row) {
-        case 0: {
-            MMSignUpViewController *myInfoVc = [[MMSignUpViewController alloc] initWithNibName:@"MMSignUpViewController" bundle:nil];
-            myInfoVc.title = @"My Info";
-            [self.navigationController pushViewController:myInfoVc animated:YES];
+    if(indexPath.section == 0) {
+        
+        switch (indexPath.row) {
+            case 0: {
+                MMSocialNetworksViewController *socialNetworksVC = [[MMSocialNetworksViewController alloc]initWithNibName:@"MMSocialNetworksViewController" bundle:nil];
+                socialNetworksVC.title = @"Social Networks";
+                [self.navigationController pushViewController:socialNetworksVC animated:YES];
+            }
+                break;
+            case 1: {
+                MMCategoryViewController *categoryVC = [[MMCategoryViewController alloc] initWithNibName:@"MMCategoryViewController" bundle:nil];
+                categoryVC.title = @"My Interests";
+                [self.navigationController pushViewController:categoryVC animated:YES];
+            }
+                break;
+            case 2: {
+                //TODO Requests
+            }
+                break;
+            case 3: {
+                //TODO My Activity
+            } 
+                break;
+            default:
+                break;
         }
-            break;
-        case 1: {
-            MMSocialNetworksViewController *socialNetworksVC = [[MMSocialNetworksViewController alloc]initWithNibName:@"MMSocialNetworksViewController" bundle:nil];
-            socialNetworksVC.title = @"Social Networks";
-            [self.navigationController pushViewController:socialNetworksVC animated:YES];
-        }
-            break;
-        case 2: {
-            MMCategoryViewController *categoryVC = [[MMCategoryViewController alloc] initWithNibName:@"MMCategoryViewController" bundle:nil];
-            categoryVC.title = @"My Interests";
-            [self.navigationController pushViewController:categoryVC animated:YES];
-        }
-            break;
-        case 3: {
-            MMSubscriptionViewController *subscriptionVC = [[MMSubscriptionViewController alloc]initWithNibName:@"MMSubscriptionViewController" bundle:nil];
-            subscriptionVC.title = @"Subscribe";
-            UINavigationController *subscriptionNavC = [[UINavigationController alloc]initWithRootViewController:subscriptionVC];
-            [self.navigationController presentModalViewController:subscriptionNavC animated:YES];
-        } case 4: {
-            MMTermsOfUseViewController *termsOfUseVC = [[MMTermsOfUseViewController alloc] initWithNibName:@"MMTermsOfUseViewController" bundle:nil];
-            termsOfUseVC.title = @"Terms of Use";
-            UINavigationController *termsOfUseNVC = [[UINavigationController alloc] initWithRootViewController:termsOfUseVC];
-            [self.navigationController presentViewController:termsOfUseNVC animated:YES completion:nil];
-            
-        }
-            break;
-        default:
-            break;
+    }else if(indexPath.section == 1){
+        [self signInButtonTapped:nil];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    //
 }
 
 #pragma mark - Settings tableview action methods
@@ -215,5 +251,6 @@
     }];
     
 }
+
 
 @end
