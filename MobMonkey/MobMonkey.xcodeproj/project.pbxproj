@@ -1156,6 +1156,12 @@
 		B9FCFF3C175DB80600BBD4B8 /* MMGeographicalLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FCFF3A175DB80600BBD4B8 /* MMGeographicalLocation.m */; };
 		B9FCFF40175EE66100BBD4B8 /* MMShadowBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FCFF3F175EE66000BBD4B8 /* MMShadowBackground.m */; };
 		B9FCFF41175EE66100BBD4B8 /* MMShadowBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FCFF3F175EE66000BBD4B8 /* MMShadowBackground.m */; };
+		B9FCFF45175FE08B00BBD4B8 /* MMCreateHotSpotMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FCFF44175FE08B00BBD4B8 /* MMCreateHotSpotMapViewController.m */; };
+		B9FCFF46175FE08B00BBD4B8 /* MMCreateHotSpotMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FCFF44175FE08B00BBD4B8 /* MMCreateHotSpotMapViewController.m */; };
+		B9FCFF4F175FFB2300BBD4B8 /* pinFlame.png in Resources */ = {isa = PBXBuildFile; fileRef = B9FCFF4D175FFB2300BBD4B8 /* pinFlame.png */; };
+		B9FCFF50175FFB2300BBD4B8 /* pinFlame.png in Resources */ = {isa = PBXBuildFile; fileRef = B9FCFF4D175FFB2300BBD4B8 /* pinFlame.png */; };
+		B9FCFF51175FFB2300BBD4B8 /* pinFlame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9FCFF4E175FFB2300BBD4B8 /* pinFlame@2x.png */; };
+		B9FCFF52175FFB2300BBD4B8 /* pinFlame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9FCFF4E175FFB2300BBD4B8 /* pinFlame@2x.png */; };
 		C731E541167DE443002525C8 /* 187-pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = C731E540167DE443002525C8 /* 187-pencil.png */; };
 		C73F8A4C166F727B00DE6BA8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73F8A4B166F727A00DE6BA8 /* iAd.framework */; };
 		C75171EB1678C0DE009B4DE8 /* MMSubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75171E91678C0DE009B4DE8 /* MMSubscriptionViewController.m */; };
@@ -2245,6 +2251,10 @@
 		B9FCFF3A175DB80600BBD4B8 /* MMGeographicalLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMGeographicalLocation.m; sourceTree = "<group>"; };
 		B9FCFF3E175EE66000BBD4B8 /* MMShadowBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMShadowBackground.h; sourceTree = "<group>"; };
 		B9FCFF3F175EE66000BBD4B8 /* MMShadowBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMShadowBackground.m; sourceTree = "<group>"; };
+		B9FCFF43175FE08B00BBD4B8 /* MMCreateHotSpotMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCreateHotSpotMapViewController.h; sourceTree = "<group>"; };
+		B9FCFF44175FE08B00BBD4B8 /* MMCreateHotSpotMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCreateHotSpotMapViewController.m; sourceTree = "<group>"; };
+		B9FCFF4D175FFB2300BBD4B8 /* pinFlame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinFlame.png; sourceTree = "<group>"; };
+		B9FCFF4E175FFB2300BBD4B8 /* pinFlame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pinFlame@2x.png"; sourceTree = "<group>"; };
 		C731E540167DE443002525C8 /* 187-pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "187-pencil.png"; sourceTree = "<group>"; };
 		C73F8A4B166F727A00DE6BA8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		C75171E81678C0DE009B4DE8 /* MMSubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMSubscriptionViewController.h; path = ../MobMonkey/MMSubscriptionViewController.h; sourceTree = "<group>"; };
@@ -3536,6 +3546,7 @@
 		B9F48E6E174D8CFF00751EB2 /* NEW UI */ = {
 			isa = PBXGroup;
 			children = (
+				B9FCFF42175FE05400BBD4B8 /* CreateHotSpot */,
 				B9FCFF2E175D678000BBD4B8 /* Media Timeline */,
 				B9FCFF19175D3EB500BBD4B8 /* Request Inbox */,
 				B9A843C91756E92000328C9F /* MMSearch */,
@@ -3739,6 +3750,17 @@
 			children = (
 			);
 			name = TimeLineCell;
+			sourceTree = "<group>";
+		};
+		B9FCFF42175FE05400BBD4B8 /* CreateHotSpot */ = {
+			isa = PBXGroup;
+			children = (
+				B9FCFF4D175FFB2300BBD4B8 /* pinFlame.png */,
+				B9FCFF4E175FFB2300BBD4B8 /* pinFlame@2x.png */,
+				B9FCFF43175FE08B00BBD4B8 /* MMCreateHotSpotMapViewController.h */,
+				B9FCFF44175FE08B00BBD4B8 /* MMCreateHotSpotMapViewController.m */,
+			);
+			name = CreateHotSpot;
 			sourceTree = "<group>";
 		};
 		C75171D41676076D009B4DE8 /* Subscription */ = {
@@ -5745,6 +5767,8 @@
 				B9FCFF16175D382000BBD4B8 /* menuPinkHeart.png in Resources */,
 				B9FCFF18175D382000BBD4B8 /* menuPinkHeart@2x.png in Resources */,
 				B9FCFF2D175D5AAE00BBD4B8 /* poolParty.jpg in Resources */,
+				B9FCFF50175FFB2300BBD4B8 /* pinFlame.png in Resources */,
+				B9FCFF52175FFB2300BBD4B8 /* pinFlame@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6318,6 +6342,8 @@
 				B9FCFF15175D382000BBD4B8 /* menuPinkHeart.png in Resources */,
 				B9FCFF17175D382000BBD4B8 /* menuPinkHeart@2x.png in Resources */,
 				B9FCFF2C175D5AAE00BBD4B8 /* poolParty.jpg in Resources */,
+				B9FCFF4F175FFB2300BBD4B8 /* pinFlame.png in Resources */,
+				B9FCFF51175FFB2300BBD4B8 /* pinFlame@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6575,6 +6601,7 @@
 				B9FCFF38175DB6E100BBD4B8 /* MMGeographicLocationChooseViewController.m in Sources */,
 				B9FCFF3C175DB80600BBD4B8 /* MMGeographicalLocation.m in Sources */,
 				B9FCFF41175EE66100BBD4B8 /* MMShadowBackground.m in Sources */,
+				B9FCFF46175FE08B00BBD4B8 /* MMCreateHotSpotMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6763,6 +6790,7 @@
 				B9FCFF37175DB6E100BBD4B8 /* MMGeographicLocationChooseViewController.m in Sources */,
 				B9FCFF3B175DB80600BBD4B8 /* MMGeographicalLocation.m in Sources */,
 				B9FCFF40175EE66100BBD4B8 /* MMShadowBackground.m in Sources */,
+				B9FCFF45175FE08B00BBD4B8 /* MMCreateHotSpotMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
