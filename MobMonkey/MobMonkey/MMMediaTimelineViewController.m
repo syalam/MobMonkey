@@ -27,6 +27,27 @@
 {
     [super viewDidLoad];
 
+    self.view.backgroundColor = [UIColor MMEggShell];
+    self.tableView.backgroundView = nil;
+    
+    UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
+    
+    UILabel * sortByLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 80, 30)];
+    sortByLabel.text = @"Sort By:";
+    sortByLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:20];
+    sortByLabel.textColor = [UIColor darkGrayColor];
+    sortByLabel.backgroundColor = self.view.backgroundColor;
+    
+    [headerView addSubview:sortByLabel];
+    
+    UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"Time", @"Type"]];
+                                          
+                                          
+    segmentControl.frame = CGRectMake(sortByLabel.frame.origin.x + sortByLabel.frame.size.width + 10, 8, self.view.frame.size.width - 110, 34);
+    
+    [headerView addSubview:segmentControl];
+    
+    self.tableView.tableHeaderView = headerView;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  

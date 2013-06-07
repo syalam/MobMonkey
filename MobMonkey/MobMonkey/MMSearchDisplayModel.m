@@ -44,7 +44,9 @@
 +(MMSearchItem *)searchItemWithText:(NSString *)text {
     return [self searchItemWithText:text accessoryType:UITableViewCellAccessoryNone badgeCount:nil];
 }
-
++(MMSearchItem *)searchItemFromLocationInformation:(MMLocationInformation *)locationInformation {
+    return [self searchItemWithText:locationInformation.name];
+}
 @end
 
 @interface MMSearchDisplayModel ()

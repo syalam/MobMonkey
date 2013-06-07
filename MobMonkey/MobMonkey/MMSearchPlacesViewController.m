@@ -9,12 +9,16 @@
 #import "MMSearchPlacesViewController.h"
 #import "MMSearchHeaderView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "MMLocationSearch.h"
+#import "MMPlaceViewController.h"
+#import "MMNavigationViewController.h"
 
 @interface MMSearchPlacesViewController ()
 
 @property (nonatomic, strong) MMSearchHeaderView *headerView;
 @property (nonatomic, assign) BOOL isSearching;
 @property (nonatomic, strong) MMSearchDisplayModel *searchDisplayModel;
+
 @end
 
 @implementation MMSearchPlacesViewController
@@ -40,8 +44,7 @@
     //Add Search Bar to titleView of Navigation Bar
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.navigationItem.titleView.frame.size.width, 44)];
-    
-    //hides background
+       //hides background
     [[_searchBar.subviews objectAtIndex:0] removeFromSuperview];
     [_searchBar setBackgroundColor:[UIColor clearColor]];
     [_searchBar setDelegate:self];
@@ -64,7 +67,25 @@
     _defaultList = [self.searchDisplayModel defaultSearchItems];
 
 }
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+}
 
+-(void)keyboardWasShown:(id)sender {
+    [super keyboardWasShown:sender];
+    CGRect frame = self.tableView.frame;
+    frame.size.height -= self.keyboardSize.height;
+    self.tableView.frame  = frame;
+}
+-(void)keyboardWillHide:(id)sender {
+    [super keyboardWillHide:sender];
+    
+    CGRect frame = self.tableView.frame;
+    frame.size.height = self.view.frame.size.height - _headerView.frame.size.height;
+    self.tableView.frame  = frame;
+    }
 -(void)nearButtonPressed {
     NSLog(@"PRESSED");
     
@@ -98,7 +119,7 @@
         if(section == 0){
             return self.categorySearchResults.count;
         }else if(section == 1){
-            return self.placesSearchResults.count;
+            return self.locationInformationCollection.count;
         }
         
     }else{
@@ -128,7 +149,7 @@
       
         }else if(indexPath.section == 1){
         
-            searchItem = [self.placesSearchResults objectAtIndex:indexPath.row];
+            searchItem = [MMSearchItem searchItemFromLocationInformation:[self.locationInformationCollection objectAtIndex:indexPath.row]];
         }
         
     } else {
@@ -189,6 +210,30 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [_searchBar resignFirstResponder];
+    //If Searching Section 0 is Categories and Section 1 is Places
+    if(_isSearching){
+        
+        switch (indexPath.section) {
+            case 0:
+                //TODO: go to category page
+                break;
+            case 1: {
+                MMPlaceViewController *placeViewController = [[MMPlaceViewController alloc] initWithTableViewStyle:UITableViewStylePlain defaultMapHeight:100 parallaxFactor:0.4];
+                placeViewController.locationInformation = [self.locationInformationCollection objectAtIndex:indexPath.row];
+                
+                [self.navigationController pushViewController:placeViewController animated:YES];
+            }
+                
+                break;
+                
+            default:
+                break;
+        }
+        
+        
+    }
+    
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
@@ -220,15 +265,24 @@
         
         NSNumber *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
         NSNumber *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
-        
-        [self.searchDisplayModel placesMatchingSearchString:searchText atLocation:CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue) radius:@100 success:^(NSArray *searchItems) {
+    
+    
+    MMLocationSearch *searchModel = [[MMLocationSearch alloc] init];
+    
+    [searchModel locationsInfoForCategory:nil atLocationCoordinates:CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue) withRadiusInYards:@100 searchString:searchText success:^(NSArray *locationInformations) {
+        self.locationInformationCollection = locationInformations;
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"SEARCH ERROR: %@", error);
+    }];
+        /*[self.searchDisplayModel placesMatchingSearchString:searchText atLocation:CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue) radius:@100 success:^(NSArray *searchItems) {
             self.placesSearchResults = searchItems;
             [self.tableView reloadData];
         } failure:^(NSError *error) {
             NSLog(@"Failed to get places: %@", error);
             self.placesSearchResults = @[];
             [self.tableView reloadData];
-        }];
+        }];*/
 
     //}
     

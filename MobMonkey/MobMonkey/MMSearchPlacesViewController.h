@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSArray * defaultList;
 @property (nonatomic, strong) NSArray * placesSearchResults;
 @property (nonatomic, strong) NSArray * categorySearchResults;
+@property (nonatomic, strong) NSArray * locationInformationCollection;
 
 
 -(id)initWithStyle:(UITableViewStyle)style;

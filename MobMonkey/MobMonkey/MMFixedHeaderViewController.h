@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+
+
 @interface MMFixedHeaderViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *fixedTableHeaderView;
+@property (nonatomic, assign, readonly) CGSize keyboardSize;
+
+-(void)keyboardWasShown:(id)sender;
+-(void)keyboardWillHide:(id)sender;
 
 @end

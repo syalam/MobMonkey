@@ -18,4 +18,6 @@
     MMPlaceSectionHeaderWrapper * notificationSectionHeader;
 }
 
+@property (nonatomic, strong) MMLocationInformation *locationInformation;
+
 @end

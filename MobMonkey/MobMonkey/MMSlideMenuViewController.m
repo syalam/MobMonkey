@@ -282,7 +282,14 @@
             [self.slidingViewController setTopViewController:snapShotNVC];
             break;
         }
-        
+        case MMMenuItemNotifications: {
+            MMPlaceViewController *placeViewController = [[MMPlaceViewController alloc] initWithTableViewStyle:UITableViewStyleGrouped defaultMapHeight:100 parallaxFactor:0.4];
+            
+            MMNavigationViewController * notificationsNVC = [[MMNavigationViewController alloc] initWithRootViewController:placeViewController];
+            
+            [self.slidingViewController setTopViewController:notificationsNVC];
+            
+        }
                 
             
         default:

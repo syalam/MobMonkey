@@ -46,6 +46,8 @@
                       accessoryType:(UITableViewCellAccessoryType)accessoryType
                          badgeCount:(NSNumber *)badgeCount;
 
++(MMSearchItem *)searchItemFromLocationInformation:(MMLocationInformation *)locationInformation;
+
 @end
 
 

@@ -8,6 +8,7 @@
 
 #import "MMMakeARequestTableViewController.h"
 #import "MMIconTitleSubTextTableViewCell.h"
+#import "MMRequestMessageViewController.h"
 
 @interface MMMakeARequestTableViewController ()
 
@@ -206,6 +207,16 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+    switch (indexPath.row) {
+        case 0: {
+            
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
 }
 
 @end

@@ -17,6 +17,8 @@
 #import "MMPlaceActionWrapper.h"
 #import "CustomBadge.h"
 #import "MMSectionHeaderCell.h"
+#import "MMMediaTimelineViewController.h"
+#import "MMAPI.h"
 
 #define kMMPlaceInformationCellHeight 85.0f
 #define kMMPlaceActionCellHeight
@@ -31,25 +33,107 @@
 @implementation MMPlaceViewController
 
 -(id)initWithTableViewStyle:(UITableViewCellStyle)tableViewStyle defaultMapHeight:(CGFloat)defaultMapHeight parallaxFactor:(CGFloat)parallaxFactor {
-    if(self = [super initWithTableViewStyle:tableViewStyle defaultMapHeight:defaultMapHeight parallaxFactor:parallaxFactor]){
+    if(self = [super initWithTableViewStyle:tableViewStyle defaultMapHeight:170 parallaxFactor:0.4]){
         
     }
     return self;
 }
 
+-(void)displayLocationInformation {
+    self.title = _locationInformation.name;
+    
+    wrapper = [[MMPlaceInformationCellWrapper alloc] init];
+    wrapper.nameText = _locationInformation.name;
+    wrapper.address1Text = [_locationInformation formattedAddressStringLine1];
+    wrapper.address2Text = [_locationInformation formattedAddressStringLine2];
+    wrapper.distanceText = @"2.3 miles";
+    
+    
+    
+    
+}
+-(void)mapAnimation{
+    self.mapView.centerCoordinate = CLLocationCoordinate2DMake(_locationInformation.latitude.doubleValue, _locationInformation.longitude.doubleValue);
+    
+    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+    [annotation setCoordinate:self.mapView.centerCoordinate];
+    [annotation setTitle:_locationInformation.name]; //You can set the subtitle too
+    [self.mapView addAnnotation:annotation];
+    
+    MKCoordinateRegion region;
+    MKCoordinateSpan span;
+    span.latitudeDelta = 0.02;
+    span.longitudeDelta= 0.02;
+    
+    region.span=span;
+    region.center =self.mapView.centerCoordinate;     // to locate to the center
+    [self.mapView setRegion:region animated:TRUE];
+    [self.mapView regionThatFits:region];
+}
+-(void)loadLocationInformation {
+    
+    if(_locationInformation){
+        [self displayLocationInformation];
+    }
+    
+    /*[MMAPI getLocationWithID:_locationInformation.locationID providerID:providerId success:^(AFHTTPRequestOperation *operation, MMLocationInformation *locationInformation) {
+        
+        [SVProgressHUD dismiss];
+        
+        
+        
+        if(!self.locationInformation){
+            self.locationInformation = locationInformation;
+        }else{
+            self.locationInformation.monkeys = locationInformation.monkeys;
+            self.locationInformation.videos = locationInformation.videos;
+            self.locationInformation.images = locationInformation.images;
+            self.locationInformation.livestreaming = locationInformation.livestreaming;
+            self.locationInformation.message = locationInformation.message;
+            self.locationInformation.messageURL = locationInformation.messageURL;
+            self.locationInformation.parentLocationID = locationInformation.parentLocationID;
+            self.locationInformation.isBookmark = locationInformation.isBookmark;
+            self.locationInformation.createdBy = locationInformation.createdBy;
+            NSLog(@"created by: %@", locationInformation.createdBy);
+        }
+        
+        if(![self.locationInformation.createdBy isEqual:[NSNull null]] && [self.locationInformation.createdBy isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"userName"]]){
+            
+            canDelete = YES;
+        }
+        
+        if(self.locationInformation.sublocations.count > 0){
+            self.headerView.hotSpotBadge.badgeNumber = [NSNumber numberWithInt:self.locationInformation.sublocations.count];
+            self.headerView.hotSpotBadge.hidden = NO;
+        }
+        [self setLocationDetailItems];
+        [self fetchLatestMediaForLocation];
+        loadingInfo = NO;
+        [self.tableView reloadData];
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        if(operation.response.statusCode == 401){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Confirm Email Address" message:@"Please check your email and confirm the registration." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+        }
+        [self.headerView hideLoadingViewShowMedia:NO];
+        NSLog(@"Failed: %@", error);
+    }];*/
+    
+
+    
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     //self.tableBackground.backgroundColor = [UIColor MMEggShell];
     self.title = @"Taco Bell";
-    
+    [self loadLocationInformation];
     self.navigationController.navigationBar.translucent = YES;
     
-    wrapper = [[MMPlaceInformationCellWrapper alloc] init];
-    wrapper.nameText = @"Taco Bell";
-    wrapper.address1Text = @"1234 Fake St.";
-    wrapper.address2Text = @"Tempe, AZ 85282";
-    wrapper.distanceText = @"2.3 miles";
+    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     _numberOfCellsInSections = @[@3,@3,@3,@3];
@@ -96,25 +180,15 @@
     
     
 }
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    self.navigationController.navigationBar.translucent = NO;
+}
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
     
-    self.mapView.centerCoordinate = CLLocationCoordinate2DMake(33.639347, -112.418339);
-    
-    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
-    [annotation setCoordinate:self.mapView.centerCoordinate];
-    [annotation setTitle:@"Taco Bell"]; //You can set the subtitle too
-    [self.mapView addAnnotation:annotation];
-    
-    MKCoordinateRegion region;
-    MKCoordinateSpan span;
-    span.latitudeDelta = 0.02;     
-    span.longitudeDelta= 0.02;
-    
-    region.span=span;
-    region.center =self.mapView.centerCoordinate;     // to locate to the center
-    [self.mapView setRegion:region animated:TRUE];
-    [self.mapView regionThatFits:region];
+    [self mapAnimation];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -223,6 +297,7 @@
 
     return cellWithShadow;
 }
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == 0){
         if(indexPath.row == 0)
@@ -294,6 +369,11 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+   if(indexPath.section == 1 && indexPath.row == 0){
+        MMMediaTimelineViewController *mediaTimelineViewController = [[MMMediaTimelineViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        
+        [self.navigationController pushViewController:mediaTimelineViewController animated:YES];
+    }
 }
 
 /*-(void)mapTableViewController:(MMMapTableViewController *)mapTableViewController didScrollOffMapView:(MKMapView *)mapView {

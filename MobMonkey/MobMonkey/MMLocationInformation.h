@@ -59,5 +59,7 @@ typedef enum {
 
 -(void)geocodeLocationWithCompletionHandler:(void(^)(NSArray * placemarks, NSError * error))completion;
 -(NSString *)formattedAddressString;
+-(NSString *)formattedAddressStringLine1;
+-(NSString *)formattedAddressStringLine2;
 
 @end
