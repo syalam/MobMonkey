@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "MMRequestWrapper.h"
+#import "MMMediaObject.h"
+
+@class MMRequestWrapper;
+@class MMMediaObject;
 
 @interface MMRequestObject : NSObject
 
@@ -25,6 +29,12 @@
 @property (nonatomic, strong) NSString * requestID;
 @property (nonatomic, assign) NSUInteger requestType;
 @property (nonatomic, strong) MMRequestWrapper *requestWrapper;
+@property (nonatomic, strong) MMMediaObject * mediaObject;
+@property (nonatomic, assign) BOOL expired;
+@property (nonatomic, strong) NSString * emailAddress;
+@property (nonatomic, strong) NSDate * scheduleDate;
+@property (nonatomic, assign) BOOL requestFulfilled;
+@property (nonatomic, assign) BOOL recurring;
 
 
 +(MMRequestObject *)requestObjectFromJSON:(NSDictionary *)jsonDictionary;

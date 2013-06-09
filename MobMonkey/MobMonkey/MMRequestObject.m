@@ -7,27 +7,10 @@
 //
 
 #import "MMRequestObject.h"
+#import "MMJSONCommon.h"
 
 @implementation MMRequestObject
 
-+(NSDate *)dateFromServerTime:(id)jsonValue {
-    
-    if([jsonValue isEqual:[NSNull null]]){
-        return nil;
-    }
-    
-    double unixTime = [jsonValue floatValue]/1000;
-    
-    return [NSDate dateWithTimeIntervalSince1970:unixTime];
-    
-}
-+(BOOL)boolFromServerBool:(id)jsonValue {
-    if([jsonValue isEqual:[NSNull null]]){
-        return NO;
-    }
-    return [jsonValue boolValue];
-    
-}
 
 +(MMRequestObject *)requestObjectFromJSON:(NSDictionary *)jsonDictionary {
     
@@ -49,19 +32,28 @@
     
     MMRequestObject *requestObject = [[self alloc] init];
     
-    requestObject.assignedDate = [self dateFromServerTime:[jsonDictionary valueForKey:@"assignedDate"]];
-    requestObject.expiryDate = [self dateFromServerTime:[jsonDictionary valueForKey:@"expiryDate"]];
-    requestObject.fulfilledDate = [self dateFromServerTime:[jsonDictionary valueForKey:@"fulFilledDate"]];
+    requestObject.assignedDate = [MMJSONCommon dateFromServerTime:[jsonDictionary valueForKey:@"assignedDate"]];
+    requestObject.expiryDate = [MMJSONCommon dateFromServerTime:[jsonDictionary valueForKey:@"expiryDate"]];
+    requestObject.fulfilledDate = [MMJSONCommon dateFromServerTime:[jsonDictionary valueForKey:@"fulFilledDate"]];
     requestObject.coordinate = CLLocationCoordinate2DMake([[jsonDictionary valueForKey:@"latitude"] doubleValue], [[jsonDictionary valueForKey:@"longitude"] doubleValue]);
     requestObject.locationID = [jsonDictionary objectForKey:@"locationId"];
-    requestObject.markAsRead = [self boolFromServerBool:[jsonDictionary valueForKey:@"markAsRead"]];
+    requestObject.markAsRead = [MMJSONCommon boolFromServerBool:[jsonDictionary valueForKey:@"markAsRead"]];
     requestObject.mediaType = [[jsonDictionary valueForKey:@"mediaType"] intValue];
     requestObject.message = [jsonDictionary objectForKey:@"message"];
     requestObject.nameOfLocation = [jsonDictionary objectForKey:@"nameOfLocation"];
     requestObject.providerID = [jsonDictionary objectForKey:@"providerId"];
-    requestObject.requestDate = [self dateFromServerTime:[jsonDictionary valueForKey:@"requestDate"]];
+    requestObject.requestDate = [MMJSONCommon dateFromServerTime:[jsonDictionary valueForKey:@"requestDate"]];
     requestObject.requestID = [jsonDictionary objectForKey:@"requestId"];
     requestObject.requestType = [[jsonDictionary valueForKey:@"requestType"] intValue];
+    requestObject.expired = [MMJSONCommon boolFromServerBool:[jsonDictionary valueForKey:@"expired"]];
+    requestObject.emailAddress = [jsonDictionary objectForKey:@"eMailAddress"];
+    requestObject.scheduleDate = [MMJSONCommon dateFromServerTime:[jsonDictionary valueForKey:@"scheduleDate"]];
+    requestObject.requestFulfilled = [MMJSONCommon boolFromServerBool:[jsonDictionary valueForKey:@"requestFulfilled"]];
+    requestObject.recurring = [MMJSONCommon boolFromServerBool:[jsonDictionary valueForKey:@"recurring"]];
+    
+    NSDictionary * mediaDictionary = [[jsonDictionary objectForKey:@"media"] lastObject];
+    
+    requestObject.mediaObject = [MMMediaObject mediaObjectFromJSON:mediaDictionary];
     
     return requestObject;
     

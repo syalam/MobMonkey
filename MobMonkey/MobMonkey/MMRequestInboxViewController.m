@@ -101,8 +101,34 @@
                 [arrayOfWrappers addObject:assingedRequest];
 
             }
-
             break;
+        case MMRequestTypeAnswered:
+            for (MMRequestObject * requestObject in requests){
+                
+                MMRequestWrapper * requestWrapper;
+                if(requestObject.mediaType == 1){
+                    
+                    requestWrapper = (MMRequestWrapper *)[[MMMediaRequestWrapper alloc] initWithTableWidth:320];
+                    ((MMMediaRequestWrapper *)requestObject).mediaURL = requestObject.mediaObject.thumbURL;
+                    
+                }else{
+                    requestWrapper = [[MMRequestWrapper alloc] initWithTableWidth:320];
+                }
+                
+                requestWrapper.nameOfLocation = requestObject.nameOfLocation;
+                requestWrapper.mediaType = requestObject.mediaType;
+                requestWrapper.durationSincePost = [requestObject dateStringDurationSinceCreate];
+                requestWrapper.nameOfParentLocation = @"Not Implemented Yet";
+                requestWrapper.isAnswered = NO;
+                requestWrapper.questionText = ![requestObject.message isEqual:[NSNull null]] ? requestObject.message : @" No Text";
+                requestWrapper.cellStyle = MMRequestCellStyleInbox;
+                
+                //Video
+                
+                
+                [arrayOfWrappers addObject:requestWrapper];
+                
+            }
             
         default:
             break;
@@ -124,10 +150,12 @@
     }];
     
     
-    [MMAPI getFulfilledRequests:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"DATA: %@", responseObject);
-        NSLog(@"");
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    [MMAPI getFulfilledRequestsWithSuccess:^(NSArray *fulfilledRequests) {
+        NSLog(@"fulfilled: %@", fulfilledRequests);
+        self.answeredRequests = fulfilledRequests;
+        self.answeredRequestWrappers = [self wrappersForRequests:fulfilledRequests type:MMRequestTypeAnswered];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
         
     }];
     
@@ -156,8 +184,14 @@
     //Assigned Request
     if(section == 0){
         return self.assignedRequests.count;
+    }else if(section == 1){
+        return self.answeredRequests.count;
+    }else if(section == 2){
+        return self.notifications.count;
+    }else if (section == 3){
+        return self.openRequests.count;
     }
-    return 3;
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -179,8 +213,10 @@
     
     if(indexPath.section == 0){
         [cell setRequestInboxWrapper:[self.assingedRequestWrappers objectAtIndex:indexPath.row]];
+    }else if (indexPath.section == 1){
+        [cell setRequestInboxWrapper:[self.answeredRequestWrappers objectAtIndex:indexPath.row]];
     }else{
-        [cell setRequestInboxWrapper:wrapper];  
+        [cell setRequestInboxWrapper:wrapper];
     }
     
       
@@ -269,6 +305,9 @@
     
     if(indexPath.section == 0){
         MMRequestWrapper *wrapper = [self.assingedRequestWrappers objectAtIndex:indexPath.row];
+        return [wrapper cellHeight];
+    }else if(indexPath.section == 1){
+        MMRequestWrapper *wrapper = [self.answeredRequestWrappers objectAtIndex:indexPath.row];
         return [wrapper cellHeight];
     }
     

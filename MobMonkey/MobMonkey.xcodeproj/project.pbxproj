@@ -393,6 +393,8 @@
 		B99B7D671727473C000BF3AB /* pineTree@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B99B7D631727473C000BF3AB /* pineTree@2x.png */; };
 		B99F78271764F3C800406CD8 /* MMRequestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B99F78261764F3C800406CD8 /* MMRequestObject.m */; };
 		B99F78281764F3C800406CD8 /* MMRequestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B99F78261764F3C800406CD8 /* MMRequestObject.m */; };
+		B99F782B17652FF500406CD8 /* MMJSONCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = B99F782A17652FF500406CD8 /* MMJSONCommon.m */; };
+		B99F782C17652FF500406CD8 /* MMJSONCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = B99F782A17652FF500406CD8 /* MMJSONCommon.m */; };
 		B9A11718170A54FB0020C322 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53715F11C3E0090E85A /* UIKit.framework */; };
 		B9A11719170A54FB0020C322 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53915F11C3E0090E85A /* Foundation.framework */; };
 		B9A1171A170A54FB0020C322 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53B15F11C3E0090E85A /* CoreGraphics.framework */; };
@@ -2127,6 +2129,8 @@
 		B99B7D631727473C000BF3AB /* pineTree@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pineTree@2x.png"; sourceTree = "<group>"; };
 		B99F78251764F3C800406CD8 /* MMRequestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequestObject.h; sourceTree = "<group>"; };
 		B99F78261764F3C800406CD8 /* MMRequestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMRequestObject.m; sourceTree = "<group>"; };
+		B99F782917652FF500406CD8 /* MMJSONCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMJSONCommon.h; sourceTree = "<group>"; };
+		B99F782A17652FF500406CD8 /* MMJSONCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMJSONCommon.m; sourceTree = "<group>"; };
 		B9A11717170A54FB0020C322 /* MobMonkeyStaging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobMonkeyStaging.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9A1171D170A54FB0020C322 /* MobMonkeyStaging-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MobMonkeyStaging-Info.plist"; sourceTree = "<group>"; };
 		B9A1171F170A54FB0020C322 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -3624,6 +3628,8 @@
 			children = (
 				B99F78251764F3C800406CD8 /* MMRequestObject.h */,
 				B99F78261764F3C800406CD8 /* MMRequestObject.m */,
+				B99F782917652FF500406CD8 /* MMJSONCommon.h */,
+				B99F782A17652FF500406CD8 /* MMJSONCommon.m */,
 				B9FCFF571760FFC300BBD4B8 /* Make a Request */,
 				B9FCFF42175FE05400BBD4B8 /* CreateHotSpot */,
 				B9FCFF2E175D678000BBD4B8 /* Media Timeline */,
@@ -6728,6 +6734,7 @@
 				B92602071762A632008899A3 /* MMAdvancedSearchTableViewController.m in Sources */,
 				B926020B1762A670008899A3 /* MMSearchTableViewController.m in Sources */,
 				B99F78281764F3C800406CD8 /* MMRequestObject.m in Sources */,
+				B99F782C17652FF500406CD8 /* MMJSONCommon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6923,6 +6930,7 @@
 				B92602061762A632008899A3 /* MMAdvancedSearchTableViewController.m in Sources */,
 				B926020A1762A670008899A3 /* MMSearchTableViewController.m in Sources */,
 				B99F78271764F3C800406CD8 /* MMRequestObject.m in Sources */,
+				B99F782B17652FF500406CD8 /* MMJSONCommon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

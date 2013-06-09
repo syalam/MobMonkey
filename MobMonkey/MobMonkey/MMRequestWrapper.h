@@ -38,7 +38,7 @@ typedef enum {
 @interface MMMediaRequestWrapper : MMRequestWrapper
 
 @property (nonatomic, strong) UIImage * placeholderImage;
-@property (nonatomic, strong) NSString * mediaURL;
+@property (nonatomic, strong) NSURL * mediaURL;
 @property (nonatomic, readonly) CGSize imageSize;
 
 @end

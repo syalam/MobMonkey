@@ -16,20 +16,24 @@ typedef enum {
 } MMMediaType;
 
 #import <Foundation/Foundation.h>
+#import "MMRequestObject.h"
+
+@class MMRequestObject;
 
 @interface MMMediaObject : NSObject
 
-@property (nonatomic, strong) UIImage *lowResImage;
-@property (nonatomic, strong) UIImage *highResImage;
-@property (nonatomic, strong) NSURL *lowResImageURL;
-@property (nonatomic, strong) NSURL *highResImageURL;
-@property (nonatomic, strong) NSURL *mediaURL;
-@property (nonatomic, strong) NSString *locationID;
-@property (nonatomic, strong) NSString *providerID;
-@property (nonatomic, strong) NSString *name;
+@property (nonatomic, assign) BOOL accepted;
+@property (nonatomic, assign) NSUInteger contentType;
+@property (nonatomic, strong) NSDate *expiryDate;
+@property (nonatomic, strong) NSString * mediaID;
+@property (nonatomic, strong) NSURL * mediaURL;
+@property (nonatomic, strong) MMRequestObject * requestObject;
+@property (nonatomic, strong) NSString * text;
+@property (nonatomic, strong) NSURL * thumbURL;
 @property (nonatomic, assign) MMMediaType mediaType;
-@property (nonatomic, strong) NSString *expiryDateString;
+@property (nonatomic, strong) NSDate *uploadDate;
 
-+(MMMediaObject*)getMediaObjectForMediaDictionary:(NSDictionary *)mediaDictionary;
+
++(MMMediaObject*)mediaObjectFromJSON:(NSDictionary *)jsonDictionary;
 
 @end

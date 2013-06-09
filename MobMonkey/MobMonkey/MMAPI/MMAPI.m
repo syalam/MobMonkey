@@ -580,6 +580,25 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient getPath:@"inbox/fulfilledrequests" parameters:nil success:success failure:failure];
 }
 
++(void)getFulfilledRequestsWithSuccess:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure {
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+    [httpClient getPath:@"inbox/fulfilledrequests" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSMutableArray * fulfilledRequests = [NSMutableArray array];
+        
+        for(NSDictionary * requestDictionary in responseObject){
+            [fulfilledRequests addObject:[MMRequestObject requestObjectFromJSON:requestDictionary]];
+        }
+        
+        if(success){
+            success(fulfilledRequests);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if(failure){
+            failure(error);
+        }
+    }];
+}
+
 + (void)rejectMedia:(NSDictionary *)params
             success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {

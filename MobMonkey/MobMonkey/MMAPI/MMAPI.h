@@ -302,7 +302,11 @@ typedef enum OAuthProvider {
 
 + (void)getFulfilledRequests:(NSMutableDictionary*)params
                     success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure; 
+                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+//New
++(void)getFulfilledRequestsWithSuccess:(void(^)(NSArray * fulfilledRequests))success
+                               failure:(void(^)(NSError * error))failure;
 
 ///---------------------------------------------
 /// @name Adds a new location to the system

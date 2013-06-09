@@ -7,59 +7,41 @@
 //
 
 #import "MMMediaObject.h"
+#import "MMJSONCommon.h"
 
 @implementation MMMediaObject 
 
 
-+(MMMediaObject *)getMediaObjectForMediaDictionary:(NSDictionary *)mediaDictionary{
-   
++(MMMediaObject *)mediaObjectFromJSON:(NSDictionary *)jsonDictionary {
     
-    MMMediaObject *mediaObject = [[self alloc] init];
+    /*
+     
+     accepted = 0;
+     contentType = "<null>";
+     expiryDate = 1370818922593;
+     mediaId = "c0e1150a-d15c-40a2-bb98-00db16407f3f";
+     mediaURL = "http://vod-cdn.mobmonkey.com/vod-c0e1150a-d15c-40a2-bb98-00db16407f3f.mp4";
+     requestId = "469ea058-c787-4cbe-8006-e57d92b7a280";
+     text = "<null>";
+     thumbURL = "http://vod-cdn.mobmonkey.com/thumb-c0e1150a-d15c-40a2-bb98-00db16407f3f00001.png";
+     type = video;
+     uploadedDate = "<null>";
+     
+     */
     
-    
-    // Media URL
-    NSString *mediaURLPath = [mediaDictionary objectForKey:@"mediaURL"];
-
-    if(mediaURLPath && ![mediaURLPath isEqual:[NSNull null]] && mediaURLPath.length > 0) {
-        NSURL *mediaURL = [NSURL URLWithString:mediaURLPath];
-        mediaObject.mediaURL = mediaURL;
-    }
-    
-    
-    // Media Type
-    NSString *type = [mediaDictionary objectForKey:@"type"];
-    
-    if(type && ![type isEqual:[NSNull null]] && type.length > 0){
-        
-        if([type isEqualToString:@"image"]){
-            mediaObject.mediaType = MMMediaTypePhoto;
-        }else if ([type isEqualToString:@"livevideo"]){
-            mediaObject.mediaType = MMMediaTypeLiveVideo;
-        } else if([type isEqualToString:@"video"]){
-            mediaObject.mediaType = MMMediaTypeVideo;
-        } else if([type isEqualToString:@"text"]){
-            mediaObject.mediaType = MMMediaTypeVideo;
-        }
-        
-    }
-    
-    //Thumbnail URL
-    NSString *thumbURLPath = [mediaDictionary objectForKey:@"thumbURL"];
+    MMMediaObject * mediaObject = [[MMMediaObject alloc] init];
     
     
-    
-    if(thumbURLPath && ![thumbURLPath isEqual:[NSNull null]] && thumbURLPath.length > 0) {
-        NSURL *thumbURL = [NSURL URLWithString:thumbURLPath];
-        mediaObject.highResImageURL = thumbURL;
-    }
-    
-    //Expiry Date
-    NSString *expiryDateString = [mediaDictionary objectForKey:@"expiryDate"];
-    
-    if(expiryDateString && ![expiryDateString isEqual:[NSNull null]]) {
-        mediaObject.expiryDateString = expiryDateString;
-    }
+    mediaObject.accepted = [MMJSONCommon boolFromServerBool:[jsonDictionary valueForKey:@"accepted"]];
+    mediaObject.expiryDate = [MMJSONCommon dateFromServerTime:[jsonDictionary valueForKey:@"expiryDate"]];
+    mediaObject.mediaID = [jsonDictionary objectForKey:@"mediaId"];
+    mediaObject.mediaURL = [MMJSONCommon urlFromServerPath:[jsonDictionary objectForKey:@"mediaURL"]];
+    mediaObject.text = [jsonDictionary objectForKey:@"text"];
+    mediaObject.thumbURL = [MMJSONCommon urlFromServerPath:[jsonDictionary objectForKey:@"thumbURL"]];
+    mediaObject.mediaType = [[jsonDictionary valueForKey:@"type"]intValue];
+    mediaObject.uploadDate = [MMJSONCommon dateFromServerTime:[jsonDictionary valueForKey:@"uploadedDate"]];                     
     
     return mediaObject;
+    
 }
 @end

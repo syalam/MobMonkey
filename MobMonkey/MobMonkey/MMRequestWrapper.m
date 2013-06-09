@@ -100,7 +100,7 @@
     if(self.placeholderImage){
         imagePadding = 40;
     }
-    cellHeight += _imageSize.height + 40 + imagePadding;
+    cellHeight += 310 + 40 + imagePadding;
     
     return cellHeight;
 }

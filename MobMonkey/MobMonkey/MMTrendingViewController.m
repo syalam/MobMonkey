@@ -194,7 +194,7 @@
     
     
     if (mediaObject.mediaType == MMMediaTypePhoto) {
-        [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:mediaObject.highResImage locationName:mediaObject.name];
+        //[[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self imageToDisplay:mediaObject.highResImage locationName:mediaObject.name];
     }
     else {
         
@@ -261,11 +261,11 @@
             break;
     }
     
-    if(!mediaObject.highResImage){
+    if(YES){
         NSURL * imageURL;
         
         if(mediaObject.mediaType == MMMediaTypeVideo){
-            imageURL = mediaObject.highResImageURL;
+            //imageURL = mediaObject.highResImageURL;
         }else if(mediaObject.mediaType == MMMediaTypePhoto){
             imageURL = mediaObject.mediaURL;
         }
@@ -275,7 +275,7 @@
                 
                 NSData *data = [NSData dataWithContentsOfURL:imageURL];
                 UIImage *image = [UIImage imageWithData:data scale:0.25];
-                mediaObject.highResImage = image;
+                //mediaObject.highResImage = image;
                 
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     //Maybe correct the frame too
@@ -291,7 +291,7 @@
             
         }
     }else{
-        [cell.imageViewButton setImage:mediaObject.highResImage forState:UIControlStateNormal];
+        //[cell.imageViewButton setImage:mediaObject.highResImage forState:UIControlStateNormal];
     }
     
     if(mediaObject.mediaType == MMMediaTypeLiveVideo || mediaObject.mediaType == MMMediaTypeVideo){

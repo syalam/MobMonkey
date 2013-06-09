@@ -61,8 +61,8 @@
                 NSDictionary *mediaDictionary = [locationDictionary objectForKey:@"media"];
                 
                 if(![mediaDictionary isEqual:[NSNull null]] && mediaDictionary.allKeys.count > 0){
-                    MMMediaObject *mediaObject = [MMMediaObject getMediaObjectForMediaDictionary:mediaDictionary];
-                    [trendingObjects addObject:mediaObject];
+                    //MMMediaObject *mediaObject = [MMMediaObject getMediaObjectForMediaDictionary:mediaDictionary];
+                    //[trendingObjects addObject:mediaObject];
                 }
             }
         }
