@@ -15,6 +15,8 @@ typedef enum {
 #import <Foundation/Foundation.h>
 #import "MMMediaObject.h"
 
+@class MMRequestObject;
+
 @interface MMRequestWrapper : NSObject
 
 @property (nonatomic, strong) NSString * durationSincePost;
@@ -24,6 +26,8 @@ typedef enum {
 @property (nonatomic, strong) NSString * nameOfParentLocation;
 @property (nonatomic, assign) MMMediaType mediaType;
 @property (nonatomic, assign) MMRequestCellStyle cellStyle;
+@property (nonatomic, strong) MMRequestObject * requestObject;
+
 //@property (nonatomic, readonly) CGFloat cellHeight;
 
 @property (nonatomic, strong) UIFont * questionTextFont;

@@ -9,7 +9,9 @@
 #import "MMRequestInboxView.h"
 #import "MMCoreGraphicsCommon.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "UIImageView+AFNetworking.h"
+#import "MMClientSDK.h"
+#import <MediaPlayer/MediaPlayer.h>
 @interface MMRequestInboxView ()
 
 @property (nonatomic, strong) UIFont *questionTextFont;
@@ -32,11 +34,29 @@
         _imageView.layer.borderColor = [UIColor colorWithRed:0.830 green:0.811 blue:0.820 alpha:1.000].CGColor;
         _imageView.clipsToBounds = YES;
         
+        UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
+        _imageView.userInteractionEnabled = YES;
+        [_imageView addGestureRecognizer:tapGesture];
         
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
         [self addSubview:_imageView];
     }
     return self;
+}
+-(void)imageTapped:(id)sender{
+    if (_wrapper.mediaType == 1) {
+        [[MMClientSDK sharedSDK] inboxFullScreenImageScreen:self.window.rootViewController imageToDisplay:_imageView.image locationName:_wrapper.nameOfLocation];
+    }
+    else {
+        
+        NSURL *url = _wrapper.requestObject.mediaObject.mediaURL;
+        NSLog(@"%@", url);
+        UIGraphicsBeginImageContext(CGSizeMake(1,1));
+        MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+        [self.window.rootViewController presentMoviePlayerViewControllerAnimated:player];
+        UIGraphicsEndImageContext();
+        
+    }
 }
 -(void)layoutSubviews {
     [super layoutSubviews];
@@ -68,13 +88,20 @@
         if(mediaRequest.placeholderImage){
             _imageView.hidden = NO;
         }else{
-            _imageView.hidden = YES;
+            _imageView.hidden = NO;
         }
        
         _imageView.image = mediaRequest.placeholderImage;
+        
+        
+        [_imageView setImageWithURL:mediaRequest.mediaURL placeholderImage:nil];
+        
     }else{
         _imageView.hidden = YES;
     }
+    
+  
+    
     [self setNeedsDisplay];
 }
 // Only override drawRect: if you perform custom drawing.

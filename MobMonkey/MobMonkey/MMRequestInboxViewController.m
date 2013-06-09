@@ -98,6 +98,7 @@
                 assingedRequest.isAnswered = NO;
                 assingedRequest.questionText = ![requestObject.message isEqual:[NSNull null]] ? requestObject.message : @" No Text";
                 assingedRequest.cellStyle = MMRequestCellStyleInbox;
+                assingedRequest.requestObject = requestObject;
                 [arrayOfWrappers addObject:assingedRequest];
 
             }
@@ -106,10 +107,10 @@
             for (MMRequestObject * requestObject in requests){
                 
                 MMRequestWrapper * requestWrapper;
-                if(requestObject.mediaType == 1){
+                if(requestObject.mediaType == 2){
                     
-                    requestWrapper = (MMRequestWrapper *)[[MMMediaRequestWrapper alloc] initWithTableWidth:320];
-                    ((MMMediaRequestWrapper *)requestObject).mediaURL = requestObject.mediaObject.thumbURL;
+                    requestWrapper = [[MMMediaRequestWrapper alloc] initWithTableWidth:320];
+                    ((MMMediaRequestWrapper *)requestWrapper).mediaURL = requestObject.mediaObject.thumbURL;
                     
                 }else{
                     requestWrapper = [[MMRequestWrapper alloc] initWithTableWidth:320];
@@ -119,10 +120,10 @@
                 requestWrapper.mediaType = requestObject.mediaType;
                 requestWrapper.durationSincePost = [requestObject dateStringDurationSinceCreate];
                 requestWrapper.nameOfParentLocation = @"Not Implemented Yet";
-                requestWrapper.isAnswered = NO;
+                requestWrapper.isAnswered = YES;
                 requestWrapper.questionText = ![requestObject.message isEqual:[NSNull null]] ? requestObject.message : @" No Text";
                 requestWrapper.cellStyle = MMRequestCellStyleInbox;
-                
+                requestWrapper.requestObject = requestObject;
                 //Video
                 
                 
@@ -307,7 +308,12 @@
         MMRequestWrapper *wrapper = [self.assingedRequestWrappers objectAtIndex:indexPath.row];
         return [wrapper cellHeight];
     }else if(indexPath.section == 1){
+        
         MMRequestWrapper *wrapper = [self.answeredRequestWrappers objectAtIndex:indexPath.row];
+        
+        if([wrapper isKindOfClass:[MMMediaRequestWrapper class]]){
+            NSLog(@"MEDIA");
+        }
         return [wrapper cellHeight];
     }
     
