@@ -19,6 +19,9 @@
 #import "MMSectionHeaderCell.h"
 #import "MMMediaTimelineViewController.h"
 #import "MMAPI.h"
+#import "UIBarButtonItem+NoBorder.h"
+#import "UIActionSheet+Blocks.h"
+#import "MMCreateHotSpotMapViewController.h"
 
 #define kMMPlaceInformationCellHeight 85.0f
 #define kMMPlaceActionCellHeight
@@ -129,6 +132,12 @@
 {
     [super viewDidLoad];
     //self.tableBackground.backgroundColor = [UIColor MMEggShell];
+    
+    
+    //Add backbutton
+    UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"whiteBackButton"] selectedImage:nil target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    self.navigationItem.leftBarButtonItem = menuItem;
+    
     self.title = @"Taco Bell";
     [self loadLocationInformation];
     self.navigationController.navigationBar.translucent = YES;
@@ -169,6 +178,7 @@
     [addHotSpotButton setImage:[UIImage imageNamed:@"circlePlus"] forState:UIControlStateNormal];
     hotSpotSectionHeader.accessoryView = addHotSpotButton;
     hotSpotSectionHeader.showDisclosureIndicator = NO;
+    hotSpotSectionHeader.backgroundColor = [UIColor colorWithRed:0.910 green:0.921 blue:0.968 alpha:1.000];
     
     notificationSectionHeader = [[MMPlaceSectionHeaderWrapper alloc] init];
     notificationSectionHeader.title = @"Notifications";
@@ -195,7 +205,29 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)showActionsheet {
+    
+    RIButtonItem * cancelButton = [RIButtonItem itemWithLabel:@"Cancel"];
+    RIButtonItem * createHotSpotButton = [RIButtonItem itemWithLabel:@"Create Hot Spot"];
+    RIButtonItem * addToFavorites = [RIButtonItem itemWithLabel:@"Add to Favorites"];
+    RIButtonItem * addVideo = [RIButtonItem itemWithLabel:@"Add Video"];
+    RIButtonItem * addPhoto = [RIButtonItem itemWithLabel:@"Add Photo"];
+    RIButtonItem * addComment = [RIButtonItem itemWithLabel:@"Add Comment"];
+    
+    [createHotSpotButton setAction:^{
+        MMCreateHotSpotMapViewController *createHotSpotMapViewController = [[MMCreateHotSpotMapViewController alloc] initWithNibName:nil bundle:nil];
+        
+        createHotSpotMapViewController.parentLocationInformation = _locationInformation;
+        
+        [self.navigationController pushViewController:createHotSpotMapViewController animated:YES];
+    }];
+    
+    
+    
+    UIActionSheet *actionsheet = [[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:createHotSpotButton, addToFavorites, addVideo, addPhoto, addComment, nil];
+    
+    [actionsheet showInView:self.view];
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -215,7 +247,7 @@
     }else if (section == 1){
         return 1;
     }else if (section == 2){
-        return 1;
+        return 1 + _locationInformation.sublocations.count;
     }else if(section == 3){
         return 1;
     }
@@ -226,7 +258,9 @@
 {
 
     UITableViewCell *cellWithShadow;
-    
+    BOOL drawSeperator = NO;
+    BOOL highlighted = NO;
+    UIColor *highLightedbackgroundColor = [UIColor blueColor] ;
     if(indexPath.section == 0 && indexPath.row == 0){
         static NSString *CellIdentifier = @"MMPlaceInformationCell";
 		
@@ -256,10 +290,10 @@
         
         cellWithShadow =  placeActionCell;
         
-    }else if((indexPath.section == 1 ||
+    }else if(indexPath.section == 1 ||
               indexPath.section == 2 ||
-              indexPath.section == 3) &&
-                indexPath.row == 0){
+              indexPath.section == 3){
+        
         
         static NSString *CellIdentifier = @"HeaderCell";
         MMSectionHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -268,16 +302,38 @@
             cell = [[MMSectionHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
         
-        if(indexPath.section == 1)
-            [cell setPlaceSectionHeaderWrapper:mediaSectionHeader];
-        else if(indexPath.section == 2)
-            [cell setPlaceSectionHeaderWrapper:hotSpotSectionHeader];
-        else if(indexPath.section == 3)
-            [cell setPlaceSectionHeaderWrapper:notificationSectionHeader];
+        
+        if(indexPath.row == 0){
+            if(indexPath.section == 1)
+                [cell setPlaceSectionHeaderWrapper:mediaSectionHeader];
+            else if(indexPath.section == 2){
+                [cell setPlaceSectionHeaderWrapper:hotSpotSectionHeader];
+                cell.placeSectionHeaderView.backgroundColor = highLightedbackgroundColor;
+                highlighted = YES;
+                highLightedbackgroundColor = hotSpotSectionHeader.backgroundColor;
+            }
+            else if(indexPath.section == 3)
+                [cell setPlaceSectionHeaderWrapper:notificationSectionHeader];
+        }else{
+            MMPlaceSectionHeaderWrapper *subLocationWrapper = [[MMPlaceSectionHeaderWrapper alloc] init];
+            MMLocationInformation *subLocation = [_locationInformation.sublocations.allObjects objectAtIndex:indexPath.row-1];
+            subLocationWrapper.title = subLocation.name;
+            subLocationWrapper.showSeperator = YES;
+            subLocationWrapper.showDisclosureIndicator = YES;
+            
+            
+            [cell setPlaceSectionHeaderWrapper:subLocationWrapper];
+            drawSeperator = YES;
+            
+        }
+        
         
         cellWithShadow = cell;
         
-    }  else {
+        
+    } else if(indexPath.section == 2) {
+        
+    }else {
         static NSString *CellIdentifier = @"Cell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
@@ -293,7 +349,8 @@
         }
     cellWithShadow = cell;
     }
-    [MMShadowCellBackground addShadowToCell:cellWithShadow inTable:tableView AtIndexPath:indexPath];
+    
+    [MMShadowCellBackground addShadowToCell:cellWithShadow showSeperator:drawSeperator backgroundColor:highlighted ? highLightedbackgroundColor : nil inTable:tableView AtIndexPath:indexPath];
 
     return cellWithShadow;
 }
@@ -369,6 +426,10 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+    
+    if(indexPath.section == 0 && indexPath.row == 0){
+        [self showActionsheet];
+    }
    if(indexPath.section == 1 && indexPath.row == 0){
         MMMediaTimelineViewController *mediaTimelineViewController = [[MMMediaTimelineViewController alloc] initWithStyle:UITableViewStyleGrouped];
         

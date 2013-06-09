@@ -37,7 +37,7 @@
         ((MMNavigationBar *)self.navigationBar).translucentFactor = 0.4;
         
         
-        self.navigationBar.tintColor = [UIColor colorWithRed:1.000 green:0.558 blue:0.286 alpha:1.000];
+        //self.navigationBar.tintColor = [UIColor colorWithRed:1.000 green:0.558 blue:0.286 alpha:1.000];
         
         rootViewController.view.layer.shadowOpacity = 0.75f;
         rootViewController.view.layer.shadowRadius = 10.0f;

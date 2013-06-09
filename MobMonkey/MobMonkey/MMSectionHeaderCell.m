@@ -19,6 +19,7 @@
 		CGRect placeViewFrame = CGRectMake(8.5, 3.0, self.contentView.bounds.size.width- 17, self.contentView.bounds.size.height - 8);
 		placeSectionHeaderView = [[MMPlaceSectionHeaderView alloc] initWithFrame:placeViewFrame];
 		placeSectionHeaderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        placeSectionHeaderView.backgroundColor = self.backgroundColor;
 		[self.contentView addSubview:placeSectionHeaderView];
         self.clipsToBounds = YES;
     }
@@ -36,11 +37,19 @@
 - (void)setPlaceSectionHeaderWrapper:(MMPlaceSectionHeaderWrapper *)newPlaceSectionHeaderWrapper {
     // Pass the time zone wrapper to the view
 	placeSectionHeaderView.cellWrapper = newPlaceSectionHeaderWrapper;
+    
 }
 
 
 - (void)redisplay {
 	[placeSectionHeaderView setNeedsDisplay];
+}
+-(void)drawRect:(CGRect)rect {
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    if(placeSectionHeaderView.cellWrapper.showSeperator){
+        draw1PxStroke(context, CGPointMake(0, 1), CGPointMake(rect.size.width, 1), [UIColor colorWithWhite:0.943 alpha:1.000].CGColor);
+    }
 }
 
 @end

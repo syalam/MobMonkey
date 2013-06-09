@@ -17,7 +17,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor redColor];
         
         [self addSubview:cellWrapper.accessoryView];
         
@@ -33,6 +33,8 @@
     }
     [self addSubview:newCellWrapper.accessoryView];
     cellWrapper = newCellWrapper;
+    
+    self.backgroundColor = cellWrapper.backgroundColor;
     
 }
 
@@ -52,8 +54,6 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing Icon
-    
-    
     
     
     CGFloat imageOffset = 0;
@@ -103,12 +103,13 @@
     
     [cellWrapper.title drawInRect:titleRect withFont:titleFont lineBreakMode:NSLineBreakByTruncatingTail alignment:NSTextAlignmentLeft];
     
+        
     
 }
 
 -(void)setHighlighted:(BOOL)_highlighted {
     //NSLog(@"SHOULD HIGHLIGHT: %d", _highlighted);
-    self.backgroundColor = _highlighted ? [UIColor colorWithRed:0.410 green:0.644 blue:1.000 alpha:1.000] : [UIColor whiteColor];
+    self.backgroundColor = _highlighted ? [UIColor colorWithRed:0.410 green:0.644 blue:1.000 alpha:1.000] : cellWrapper.backgroundColor ? cellWrapper.backgroundColor : [UIColor whiteColor];
     [self setNeedsDisplay];
     highlighted = _highlighted;
 }

@@ -24,6 +24,6 @@ typedef enum {
 @property (nonatomic, assign) BOOL isSelected;
 @property (nonatomic, strong) UIColor * cellBackgroundColor;
 
-+(void)addShadowToCell:(UITableViewCell *)cell inTable:(UITableView *)tableView AtIndexPath:(NSIndexPath *)indexPath;
++(void)addShadowToCell:(UITableViewCell *)cell showSeperator:(BOOL)seperator backgroundColor:(UIColor*)backgroundColor inTable:(UITableView *)tableView AtIndexPath:(NSIndexPath *)indexPath;
 +(void)addShadowOnlyToCell:(UITableViewCell *)cell;
 @end

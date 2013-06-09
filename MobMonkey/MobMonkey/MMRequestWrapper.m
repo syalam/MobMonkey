@@ -34,7 +34,10 @@
 -(void)setQuestionText:(NSString *)questionText {
     //_questionTextSize = [questionText sizeWithFont:self.questionTextFont forWidth:self.tableWidth - 50 lineBreakMode:NSLineBreakByWordWrapping];
     
-    _questionTextSize = [questionText sizeWithFont:self.questionTextFont constrainedToSize:CGSizeMake(self.tableWidth - 70, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+    if (![questionText isEqual:[NSNull null]]) {
+         _questionTextSize = [questionText sizeWithFont:self.questionTextFont constrainedToSize:CGSizeMake(self.tableWidth - 70, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+    }
+   
     
     _questionText = questionText;
 }
@@ -45,7 +48,7 @@
     
     //Add height if cell will show place name and parent place name
     if(self.cellStyle == MMRequestCellStyleInbox){
-        height += 40;
+        height += 80;
     }
     
     /*if(_questionTextSize.height <= 25){

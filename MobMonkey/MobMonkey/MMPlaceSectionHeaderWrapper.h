@@ -14,5 +14,6 @@
 @property (nonatomic, strong) NSString * title;
 @property (nonatomic, strong) UIView * accessoryView;
 @property (nonatomic, assign) BOOL showDisclosureIndicator;
-
+@property (nonatomic, assign) BOOL showSeperator;
+@property (nonatomic, strong) UIColor *backgroundColor;
 @end

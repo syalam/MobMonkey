@@ -11,7 +11,7 @@
 #import "SVProgressHUD.h"
 #import "NSString+URLParams.h"
 #import "MMSocialNetworkModel.h"
-
+#import "MMRequestObject.h"
 
 #ifdef STAGING
 
@@ -493,11 +493,84 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient getPath:@"inbox/openrequests" parameters:nil success:success failure:failure];
 }
 
++(void)getAssignedRequestObjectsWithSuccess:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure {
+    
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+    [httpClient  getPath:@"inbox/assignedrequests" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSMutableArray *filteredResults = [NSMutableArray array];
+        NSArray *respondedRequests = [[NSUserDefaults standardUserDefaults] objectForKey:@"tempRequests"];
+        NSLog(@"CLASS: %@", [[[NSUserDefaults standardUserDefaults] objectForKey:@"tempRequests"] class]);
+        if([responseObject isKindOfClass:[NSArray class]] && respondedRequests){
+            for(NSDictionary *request in responseObject){
+                NSString *requestID = [request objectForKey:@"requestId"];
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF = %@", requestID];
+                NSArray *objectExists = [respondedRequests filteredArrayUsingPredicate:predicate];
+                if(objectExists.count == 0){
+                    [filteredResults addObject:request];
+                }else{
+                    NSLog(@"REUQEST ALREADY ANSWERED");
+                    
+                }
+            }
+        }else{
+            filteredResults = responseObject;
+        }
+        
+     NSMutableArray * requestObjects = [NSMutableArray arrayWithCapacity:filteredResults.count];
+     
+     for(NSDictionary * requestDictionary in filteredResults){
+         [requestObjects addObject:[MMRequestObject requestObjectFromJSON:requestDictionary]];
+     }
+     
+     if(success){
+         success(requestObjects);
+     }
+     
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+    
+}
+
 + (void)getAssignedRequests:(NSMutableDictionary*)params
-                 success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                 success:(void (^)(AFHTTPRequestOperation *operation, NSArray * assignedRequests))success
                  failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
-    [httpClient  getPath:@"inbox/assignedrequests" parameters:nil success:success failure:failure];
+    [httpClient  getPath:@"inbox/assignedrequests" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSMutableArray *filteredResults = [NSMutableArray array];
+        NSArray *respondedRequests = [[NSUserDefaults standardUserDefaults] objectForKey:@"tempRequests"];
+        NSLog(@"CLASS: %@", [[[NSUserDefaults standardUserDefaults] objectForKey:@"tempRequests"] class]);
+        if([responseObject isKindOfClass:[NSArray class]] && respondedRequests){
+            for(NSDictionary *request in responseObject){
+                NSString *requestID = [request objectForKey:@"requestId"];
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF = %@", requestID];
+                NSArray *objectExists = [respondedRequests filteredArrayUsingPredicate:predicate];
+                if(objectExists.count == 0){
+                    [filteredResults addObject:request];
+                }else{
+                    NSLog(@"REUQEST ALREADY ANSWERED");
+                    
+                }
+            }
+        }else{
+            filteredResults = responseObject;
+        }
+        
+        if(success){
+            success(operation, filteredResults);
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (failure) {
+            failure(operation, error);
+        }
+    }];
 }
 
 + (void)getFulfilledRequests:(NSMutableDictionary*)params

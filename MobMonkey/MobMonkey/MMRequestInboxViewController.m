@@ -11,6 +11,7 @@
 #import "MMRequestWrapper.h"
 #import "MMShadowCellBackground.h"
 #import "MMSectionHeaderWithBadgeView.h"
+#import "MMRequestObject.h"
 @interface MMRequestInboxViewController ()
 @property (nonatomic, strong) MMMediaRequestWrapper *wrapper;
 @end
@@ -29,6 +30,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
     self.tableView.backgroundColor = [UIColor colorWithRed:0.930 green:0.911 blue:0.920 alpha:1.000];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -75,6 +78,52 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+-(void)viewDidAppear:(BOOL)animated {
+    [self loadRequests];
+}
+
+-(NSArray *)wrappersForRequests:(NSArray *)requests type:(MMRequestType)requestType{
+    
+    NSMutableArray * arrayOfWrappers = [NSMutableArray arrayWithCapacity:requests.count];
+    
+    switch (requestType) {
+        case MMRequestTypeAssigned:
+            for(MMRequestObject *requestObject in requests) {
+                
+                MMRequestWrapper * assingedRequest = [[MMRequestWrapper alloc] initWithTableWidth:320];
+                assingedRequest.nameOfLocation = requestObject.nameOfLocation;
+                assingedRequest.mediaType = requestObject.mediaType;
+                assingedRequest.durationSincePost = [requestObject dateStringDurationSinceCreate];
+                assingedRequest.nameOfParentLocation = @"Not Implemented Yet";
+                assingedRequest.isAnswered = NO;
+                assingedRequest.questionText = ![requestObject.message isEqual:[NSNull null]] ? requestObject.message : @" No Text";
+                assingedRequest.cellStyle = MMRequestCellStyleInbox;
+                [arrayOfWrappers addObject:assingedRequest];
+
+            }
+
+            break;
+            
+        default:
+            break;
+    }
+    
+        
+    return arrayOfWrappers;
+    
+    
+}
+-(void)loadRequests {
+    
+    [MMAPI getAssignedRequestObjectsWithSuccess:^(NSArray *requestObjects) {
+        self.assignedRequests = requestObjects;
+        self.assingedRequestWrappers = [self wrappersForRequests:requestObjects type:MMRequestTypeAssigned];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"ERROR: %@", error);
+    }];
+    
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -95,6 +144,11 @@
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
+    
+    //Assigned Request
+    if(section == 0){
+        return self.assignedRequests.count;
+    }
     return 3;
 }
 
@@ -115,7 +169,13 @@
     NSUInteger toggle = indexPath.row % 3;
     MMRequestWrapper *wrapper = [self.cellWrappers objectAtIndex:toggle];
     
-    [cell setRequestInboxWrapper:wrapper];    
+    if(indexPath.section == 0){
+        [cell setRequestInboxWrapper:[self.assingedRequestWrappers objectAtIndex:indexPath.row]];
+    }else{
+        [cell setRequestInboxWrapper:wrapper];  
+    }
+    
+      
     //[cell redisplay];
     // Configure the cell...
     
@@ -167,12 +227,43 @@
     return 27;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return [[MMSectionHeaderWithBadgeView alloc] initWithTitle:@"Testing" andBadgeNumber:@24];
+    NSString *title = nil;
+    NSNumber *number = nil;
+    
+    switch (section) {
+        case 0:
+            title = @"Assigned Requests";
+            number = [NSNumber numberWithInt:self.assignedRequests.count];
+            break;
+        case 1:
+            title = @"Answered Requests";
+            number = [NSNumber numberWithInt:self.answeredRequests.count];
+            break;
+        case 2:
+            title = @"Notifications";
+            number = [NSNumber numberWithInt:self.notifications.count];
+            break;
+        case 3:
+            title = @"Open Requests";
+            number = [NSNumber numberWithInt:self.openRequests.count];
+            break;
+            
+        default:
+            break;
+    }
+    
+    return [[MMSectionHeaderWithBadgeView alloc] initWithTitle:title andBadgeNumber:number];
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     return [UIView new];
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if(indexPath.section == 0){
+        MMRequestWrapper *wrapper = [self.assingedRequestWrappers objectAtIndex:indexPath.row];
+        return [wrapper cellHeight];
+    }
+    
     NSUInteger toggle = indexPath.row % 3;
     MMRequestWrapper *wrapper = [self.cellWrappers objectAtIndex:toggle];
     return [wrapper cellHeight];

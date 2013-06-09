@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMLocationInformation.h"
 
 @interface MMCreateHotSpotMapViewController : UIViewController <MKMapViewDelegate> {
     MKPointAnnotation *hotSpotAnnotation;
@@ -14,6 +15,6 @@
 
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) UIButton * hotSpotActionButton;
-
+@property (nonatomic, strong) MMLocationInformation *parentLocationInformation;
 
 @end

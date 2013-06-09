@@ -7,6 +7,7 @@
 //
 
 #import "MMCreateHotSpotMapViewController.h"
+#import "UIBarButtonItem+NoBorder.h"
 
 @interface MMCreateHotSpotMapViewController ()
 
@@ -29,6 +30,12 @@
 {
     [super viewDidLoad];
     
+    self.title = @"Create Hot Spot";
+    //Add backbutton
+    UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"whiteBackButton"] selectedImage:nil target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    self.navigationItem.leftBarButtonItem = menuItem;
+
+    
     self.navigationController.navigationBar.translucent = YES;
     
     _mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
@@ -40,8 +47,9 @@
     
     _hotSpotActionButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     
-    _hotSpotActionButton.frame = CGRectMake((self.view.frame.size.width - 280)/2, self.view.frame.size.height - 50 - 25, 280, 50);
+    _hotSpotActionButton.frame = CGRectMake((self.view.frame.size.width - 280)/2, self.view.frame.size.height - 100 - 25, 280, 50);
     [self.view addSubview:_hotSpotActionButton];
+    [_hotSpotActionButton setTitle:@"Select Hot Spot" forState:UIControlStateNormal];
     
     hotSpotAnnotation = [[MKPointAnnotation alloc] init];
     [self.mapView addAnnotation:hotSpotAnnotation];
@@ -56,6 +64,36 @@
     
     [_mapView addGestureRecognizer:tapGesture];
 	// Do any additional setup after loading the view.
+}
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self zoomToParentLocation];
+}
+-(void)zoomToParentLocation {
+    self.mapView.centerCoordinate = CLLocationCoordinate2DMake(_parentLocationInformation.latitude.doubleValue, _parentLocationInformation.longitude.doubleValue);
+    
+    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+    [annotation setCoordinate:self.mapView.centerCoordinate];
+    [annotation setTitle:_parentLocationInformation.name]; //You can set the subtitle too
+    [self.mapView addAnnotation:annotation];
+    
+    MKCoordinateRegion region;
+    MKCoordinateSpan span;
+    span.latitudeDelta = 0.1;
+    span.longitudeDelta= 0.1;
+    
+    region.span=span;
+    region.center =self.mapView.centerCoordinate;     // to locate to the center
+    [self.mapView setRegion:region animated:NO];
+    
+    span.latitudeDelta = 0.003;
+    span.longitudeDelta= 0.003;
+    
+    region.span=span;
+    
+    [self.mapView setRegion:region animated:YES];
+    [self.mapView regionThatFits:region];
 }
 -(void)mapTapped:(UITapGestureRecognizer*)sender{
     

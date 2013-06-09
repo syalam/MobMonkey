@@ -149,14 +149,21 @@
     
     point = CGPointMake(FIRST_ROW_XOFFSET, point.y);
     
-    [@"Q:" drawAtPoint:point withFont:[UIFont fontWithName:@"Helvetica-Bold" size:24] ];
     
-    point = CGPointMake(FORTH_ROW_SECOND_COLUMN_XOFFSET, point.y);
-    
-    NSLog(@"FLOAT: %f", _wrapper.questionTextSize.height);
-    CGRect frame = CGRectMake(point.x, point.y + 7 , self.frame.size.width - 70, _wrapper.questionTextSize.height <= 25 ? 25 : _wrapper.questionTextSize.height);
 
-    [self.wrapper.questionText drawInRect:frame withFont:self.questionTextFont lineBreakMode:NSLineBreakByWordWrapping];
+    CGRect frame;
+    if(![self.wrapper.questionText isEqual:[NSNull null]]){
+        
+        [@"Q:" drawAtPoint:point withFont:[UIFont fontWithName:@"Helvetica-Bold" size:24] ];
+        
+        point = CGPointMake(FORTH_ROW_SECOND_COLUMN_XOFFSET, point.y);
+        
+        NSLog(@"FLOAT: %f", _wrapper.questionTextSize.height);
+         CGRect frame = CGRectMake(point.x, point.y + 7 , self.frame.size.width - 70, _wrapper.questionTextSize.height <= 25 ? 25 : _wrapper.questionTextSize.height);
+        
+        [self.wrapper.questionText drawInRect:frame withFont:self.questionTextFont lineBreakMode:NSLineBreakByWordWrapping];
+    }
+    
     
     
     

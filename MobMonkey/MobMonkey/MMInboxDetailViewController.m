@@ -232,28 +232,8 @@
 
 - (void)fetchAssignedRequests {
     [SVProgressHUD showWithStatus:@"Loading Assigned Requests"];
-    [MMAPI getAssignedRequests:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSMutableArray *filteredResults = [NSMutableArray array];
-        NSArray *respondedRequests = [[NSUserDefaults standardUserDefaults] objectForKey:@"tempRequests"];
-        NSLog(@"CLASS: %@", [[[NSUserDefaults standardUserDefaults] objectForKey:@"tempRequests"] class]);
-        if([responseObject isKindOfClass:[NSArray class]] && respondedRequests){
-            for(NSDictionary *request in responseObject){
-                NSString *requestID = [request objectForKey:@"requestId"];
-                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF = %@", requestID];
-                NSArray *objectExists = [respondedRequests filteredArrayUsingPredicate:predicate];
-                if(objectExists.count == 0){
-                    [filteredResults addObject:request];
-                }else{
-                    NSLog(@"REUQEST ALREADY ANSWERED");
-                    
-                }
-            }
-            [self setContentList:filteredResults];
-        }else{
-            [self setContentList:responseObject];
-        }
-        
+    [MMAPI getAssignedRequests:nil success:^(AFHTTPRequestOperation *operation, NSArray *assignedRequests) {
+        [self setContentList:assignedRequests];
         
         [SVProgressHUD dismiss];
         
@@ -264,6 +244,8 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD showErrorWithStatus:@"Unable to load assigned requests"];
     }];
+        
+
 }
 
 - (id)failureBlock

@@ -214,17 +214,7 @@ CGMutablePathRef createRoundedCornerPathForOneCell(CGRect rect) {
 }
 
 
-void draw1PxStroke(CGContextRef context, CGPoint startPoint, CGPoint endPoint, CGColorRef color)
-{
-    CGContextSaveGState(context);
-    CGContextSetLineCap(context, kCGLineCapSquare);
-    CGContextSetStrokeColorWithColor(context, color);
-    CGContextSetLineWidth(context, 1.0);
-    CGContextMoveToPoint(context, startPoint.x + 0.5, startPoint.y + 0.5);
-    CGContextAddLineToPoint(context, endPoint.x + 0.5, endPoint.y + 0.5);
-    CGContextStrokePath(context);
-    CGContextRestoreGState(context);
-}
+
 
 -(void)drawMiddleRect:(CGRect)rect{
     
@@ -283,9 +273,10 @@ void draw1PxStroke(CGContextRef context, CGPoint startPoint, CGPoint endPoint, C
             break;
     }
     
+    CGContextSetShadow(context, CGSizeZero, 0);
     if(self.showSeperator){
         if(self.cellPosition != MMGroupedCellPositionBottom){
-            //draw1PxStroke(context, CGPointMake(5, rect.size.height), CGPointMake(rect.size.width-5, rect.size.height), [UIColor grayColor].CGColor);
+            draw1PxStroke(context, CGPointMake(5, rect.size.height - 1), CGPointMake(rect.size.width-5, rect.size.height - 1), [UIColor colorWithWhite:0.930 alpha:1.000].CGColor);
         }
     }
 }
@@ -299,17 +290,27 @@ void draw1PxStroke(CGContextRef context, CGPoint startPoint, CGPoint endPoint, C
     cell.backgroundView = backgroundView;
     
 }
-+(void)addShadowToCell:(UITableViewCell *)cell inTable:(UITableView *)tableView AtIndexPath:(NSIndexPath *)indexPath {
++(void)addShadowToCell:(UITableViewCell *)cell showSeperator:(BOOL)seperator  backgroundColor:(UIColor *)backgroundColor inTable:(UITableView *)tableView AtIndexPath:(NSIndexPath *)indexPath {
+    
+    
     int lastRowInSection = [tableView numberOfRowsInSection:indexPath.section] - 1;
     
     BOOL isShadowBG = [cell.backgroundView isKindOfClass:[MMShadowCellBackground class]];
+
     
     CGRect frame = cell.backgroundView.frame;
     MMShadowCellBackground *backgroundView = [[MMShadowCellBackground alloc] initWithFrame:frame];
+    backgroundView.showSeperator = seperator;
+    if(backgroundColor){
+        backgroundView.cellBackgroundColor = backgroundColor;
+    }else{
+        backgroundView.cellBackgroundColor = [UIColor whiteColor];
+    }
+    
     
     MMShadowCellBackground *selectedBackgroundView = [[MMShadowCellBackground alloc] initWithFrame:frame];
     
-    backgroundView.cellBackgroundColor = [UIColor whiteColor];
+    
     
     selectedBackgroundView.cellBackgroundColor = [UIColor colorWithRed:0.410 green:0.644 blue:1.000 alpha:1.000];
     

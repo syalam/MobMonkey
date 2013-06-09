@@ -11,6 +11,7 @@
 @interface MMCoreGraphicsCommon : NSObject
 
 CGMutablePathRef createRoundedCornerPath(CGRect rect, CGFloat cornerRadius);
+void draw1PxStroke(CGContextRef context, CGPoint startPoint, CGPoint endPoint, CGColorRef color);
 
 +(CGRect)imageFrameForImage:(UIImage *)image withinSize:(CGSize)size;
 @end

@@ -172,6 +172,14 @@
 		B924B4CB172F21D300FC4924 /* MMHotSpotInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = B924B4C9172F21D300FC4924 /* MMHotSpotInformation.m */; };
 		B924B4CE172F41D600FC4924 /* MMLocationHotSpotsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B924B4CD172F41D600FC4924 /* MMLocationHotSpotsViewController.m */; };
 		B924B4CF172F41D600FC4924 /* MMLocationHotSpotsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B924B4CD172F41D600FC4924 /* MMLocationHotSpotsViewController.m */; };
+		B92601FF17628DC3008899A3 /* whiteBackButton.png in Resources */ = {isa = PBXBuildFile; fileRef = B92601FD17628DC2008899A3 /* whiteBackButton.png */; };
+		B926020017628DC3008899A3 /* whiteBackButton.png in Resources */ = {isa = PBXBuildFile; fileRef = B92601FD17628DC2008899A3 /* whiteBackButton.png */; };
+		B926020117628DC3008899A3 /* whiteBackButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B92601FE17628DC2008899A3 /* whiteBackButton@2x.png */; };
+		B926020217628DC3008899A3 /* whiteBackButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B92601FE17628DC2008899A3 /* whiteBackButton@2x.png */; };
+		B92602061762A632008899A3 /* MMAdvancedSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B92602051762A632008899A3 /* MMAdvancedSearchTableViewController.m */; };
+		B92602071762A632008899A3 /* MMAdvancedSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B92602051762A632008899A3 /* MMAdvancedSearchTableViewController.m */; };
+		B926020A1762A670008899A3 /* MMSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B92602091762A670008899A3 /* MMSearchTableViewController.m */; };
+		B926020B1762A670008899A3 /* MMSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B92602091762A670008899A3 /* MMSearchTableViewController.m */; };
 		B93EBD711733007300884663 /* gradientBackgroundBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = B93EBD6F1733007300884663 /* gradientBackgroundBottom.png */; };
 		B93EBD721733007300884663 /* gradientBackgroundBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = B93EBD6F1733007300884663 /* gradientBackgroundBottom.png */; };
 		B93EBD731733007300884663 /* gradientBackgroundBottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B93EBD701733007300884663 /* gradientBackgroundBottom@2x.png */; };
@@ -383,6 +391,8 @@
 		B99B7D651727473C000BF3AB /* pineTree.png in Resources */ = {isa = PBXBuildFile; fileRef = B99B7D621727473C000BF3AB /* pineTree.png */; };
 		B99B7D661727473C000BF3AB /* pineTree@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B99B7D631727473C000BF3AB /* pineTree@2x.png */; };
 		B99B7D671727473C000BF3AB /* pineTree@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B99B7D631727473C000BF3AB /* pineTree@2x.png */; };
+		B99F78271764F3C800406CD8 /* MMRequestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B99F78261764F3C800406CD8 /* MMRequestObject.m */; };
+		B99F78281764F3C800406CD8 /* MMRequestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B99F78261764F3C800406CD8 /* MMRequestObject.m */; };
 		B9A11718170A54FB0020C322 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53715F11C3E0090E85A /* UIKit.framework */; };
 		B9A11719170A54FB0020C322 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53915F11C3E0090E85A /* Foundation.framework */; };
 		B9A1171A170A54FB0020C322 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F734A53B15F11C3E0090E85A /* CoreGraphics.framework */; };
@@ -1981,6 +1991,12 @@
 		B924B4C9172F21D300FC4924 /* MMHotSpotInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMHotSpotInformation.m; sourceTree = "<group>"; };
 		B924B4CC172F41D600FC4924 /* MMLocationHotSpotsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationHotSpotsViewController.h; sourceTree = "<group>"; };
 		B924B4CD172F41D600FC4924 /* MMLocationHotSpotsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationHotSpotsViewController.m; sourceTree = "<group>"; };
+		B92601FD17628DC2008899A3 /* whiteBackButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteBackButton.png; sourceTree = "<group>"; };
+		B92601FE17628DC2008899A3 /* whiteBackButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteBackButton@2x.png"; sourceTree = "<group>"; };
+		B92602041762A632008899A3 /* MMAdvancedSearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAdvancedSearchTableViewController.h; sourceTree = "<group>"; };
+		B92602051762A632008899A3 /* MMAdvancedSearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAdvancedSearchTableViewController.m; sourceTree = "<group>"; };
+		B92602081762A66F008899A3 /* MMSearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSearchTableViewController.h; sourceTree = "<group>"; };
+		B92602091762A670008899A3 /* MMSearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSearchTableViewController.m; sourceTree = "<group>"; };
 		B93EBD6F1733007300884663 /* gradientBackgroundBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gradientBackgroundBottom.png; sourceTree = "<group>"; };
 		B93EBD701733007300884663 /* gradientBackgroundBottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradientBackgroundBottom@2x.png"; sourceTree = "<group>"; };
 		B93EBD7D1733036500884663 /* BrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserViewController.h; sourceTree = "<group>"; };
@@ -2109,6 +2125,8 @@
 		B99B7D5A1727185A000BF3AB /* MMSocialNetworkModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSocialNetworkModel.m; sourceTree = "<group>"; };
 		B99B7D621727473C000BF3AB /* pineTree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pineTree.png; sourceTree = "<group>"; };
 		B99B7D631727473C000BF3AB /* pineTree@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pineTree@2x.png"; sourceTree = "<group>"; };
+		B99F78251764F3C800406CD8 /* MMRequestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequestObject.h; sourceTree = "<group>"; };
+		B99F78261764F3C800406CD8 /* MMRequestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMRequestObject.m; sourceTree = "<group>"; };
 		B9A11717170A54FB0020C322 /* MobMonkeyStaging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobMonkeyStaging.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9A1171D170A54FB0020C322 /* MobMonkeyStaging-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MobMonkeyStaging-Info.plist"; sourceTree = "<group>"; };
 		B9A1171F170A54FB0020C322 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -3223,6 +3241,25 @@
 			name = HotSpots;
 			sourceTree = "<group>";
 		};
+		B92601FC176270F9008899A3 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B9F16DE0174F581400DD39E5 /* Place Action Cell */,
+				B9F16DDA174F576500DD39E5 /* Place Information Cell */,
+				B9A843AC1756A9C200328C9F /* Place Section Header Cells */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		B92602031762A612008899A3 /* Advanced Search */ = {
+			isa = PBXGroup;
+			children = (
+				B92602041762A632008899A3 /* MMAdvancedSearchTableViewController.h */,
+				B92602051762A632008899A3 /* MMAdvancedSearchTableViewController.m */,
+			);
+			name = "Advanced Search";
+			sourceTree = "<group>";
+		};
 		B93EBD7C1733035200884663 /* Browser */ = {
 			isa = PBXGroup;
 			children = (
@@ -3490,6 +3527,7 @@
 		B9A843C91756E92000328C9F /* MMSearch */ = {
 			isa = PBXGroup;
 			children = (
+				B92602031762A612008899A3 /* Advanced Search */,
 				B9FCFF34175DB6BC00BBD4B8 /* Choose World Geographic Location */,
 				B9FCFEA11759059300BBD4B8 /* Cell Background Images */,
 				B9A843CA1756E93800328C9F /* MMSearchPlacesViewController.h */,
@@ -3502,6 +3540,8 @@
 				B9FCFE521758107700BBD4B8 /* MMFactualOperation.m */,
 				B9FCFE55175815B600BBD4B8 /* MMFactualAPI.h */,
 				B9FCFE56175815B600BBD4B8 /* MMFactualAPI.m */,
+				B92602081762A66F008899A3 /* MMSearchTableViewController.h */,
+				B92602091762A670008899A3 /* MMSearchTableViewController.m */,
 			);
 			name = MMSearch;
 			sourceTree = "<group>";
@@ -3582,6 +3622,8 @@
 		B9F48E6E174D8CFF00751EB2 /* NEW UI */ = {
 			isa = PBXGroup;
 			children = (
+				B99F78251764F3C800406CD8 /* MMRequestObject.h */,
+				B99F78261764F3C800406CD8 /* MMRequestObject.m */,
 				B9FCFF571760FFC300BBD4B8 /* Make a Request */,
 				B9FCFF42175FE05400BBD4B8 /* CreateHotSpot */,
 				B9FCFF2E175D678000BBD4B8 /* Media Timeline */,
@@ -3609,6 +3651,8 @@
 			children = (
 				B9F48EAC174EECE200751EB2 /* gradient5pt.png */,
 				B9F48EAD174EECE200751EB2 /* gradient5pt@2x.png */,
+				B92601FD17628DC2008899A3 /* whiteBackButton.png */,
+				B92601FE17628DC2008899A3 /* whiteBackButton@2x.png */,
 				B9F48E88174E98EB00751EB2 /* list-shadow.png */,
 				B9F48E89174E98EB00751EB2 /* list-shadow@2x.png */,
 				B9F48E7C174E75C700751EB2 /* MMMapTableViewController.h */,
@@ -3628,12 +3672,10 @@
 		B9F48E8E174EB90B00751EB2 /* MMPlace */ = {
 			isa = PBXGroup;
 			children = (
-				B9A843AC1756A9C200328C9F /* Place Section Header Cells */,
+				B92601FC176270F9008899A3 /* Cells */,
 				B9F16DF71755260200DD39E5 /* images */,
 				B9F48E6F174D8D1C00751EB2 /* MMPlaceViewController.h */,
 				B9F48E70174D8D1C00751EB2 /* MMPlaceViewController.m */,
-				B9F16DDA174F576500DD39E5 /* Place Information Cell */,
-				B9F16DE0174F581400DD39E5 /* Place Action Cell */,
 			);
 			name = MMPlace;
 			sourceTree = "<group>";
@@ -5835,6 +5877,8 @@
 				B9FCFF8C176135FF00BBD4B8 /* calendar@2x.png in Resources */,
 				B9FCFF96176136C800BBD4B8 /* 11-clock.png in Resources */,
 				B9FCFF98176136C800BBD4B8 /* 11-clock@2x.png in Resources */,
+				B926020017628DC3008899A3 /* whiteBackButton.png in Resources */,
+				B926020217628DC3008899A3 /* whiteBackButton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6418,6 +6462,8 @@
 				B9FCFF8B176135FF00BBD4B8 /* calendar@2x.png in Resources */,
 				B9FCFF95176136C800BBD4B8 /* 11-clock.png in Resources */,
 				B9FCFF97176136C800BBD4B8 /* 11-clock@2x.png in Resources */,
+				B92601FF17628DC3008899A3 /* whiteBackButton.png in Resources */,
+				B926020117628DC3008899A3 /* whiteBackButton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6679,6 +6725,9 @@
 				B9FCFF561760E1D700BBD4B8 /* MMSectionHeaderWithBadgeView.m in Sources */,
 				B9FCFF6C176105A000BBD4B8 /* MMMakeARequestTableViewController.m in Sources */,
 				B9FCFF7217610BE500BBD4B8 /* MMIconTitleSubTextTableViewCell.m in Sources */,
+				B92602071762A632008899A3 /* MMAdvancedSearchTableViewController.m in Sources */,
+				B926020B1762A670008899A3 /* MMSearchTableViewController.m in Sources */,
+				B99F78281764F3C800406CD8 /* MMRequestObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6871,6 +6920,9 @@
 				B9FCFF551760E1D700BBD4B8 /* MMSectionHeaderWithBadgeView.m in Sources */,
 				B9FCFF6B176105A000BBD4B8 /* MMMakeARequestTableViewController.m in Sources */,
 				B9FCFF7117610BE500BBD4B8 /* MMIconTitleSubTextTableViewCell.m in Sources */,
+				B92602061762A632008899A3 /* MMAdvancedSearchTableViewController.m in Sources */,
+				B926020A1762A670008899A3 /* MMSearchTableViewController.m in Sources */,
+				B99F78271764F3C800406CD8 /* MMRequestObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
