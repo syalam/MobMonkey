@@ -123,6 +123,14 @@
         NSLog(@"ERROR: %@", error);
     }];
     
+    
+    [MMAPI getFulfilledRequests:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"DATA: %@", responseObject);
+        NSLog(@"");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning
