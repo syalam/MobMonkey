@@ -98,9 +98,9 @@
     return jsonDictionary;
 }
 
--(NSString *)dateStringDurationSinceCreate {
+-(NSString *)dateStringDurationSinceDate:(NSDate *)previousDate {
     NSDate * dateNow = [NSDate date];
-    NSTimeInterval diff = [dateNow timeIntervalSinceDate:self.assignedDate];
+    NSTimeInterval diff = [dateNow timeIntervalSinceDate:previousDate];
     
     if(diff < 30){
         return @"Just Now";

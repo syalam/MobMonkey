@@ -15,6 +15,8 @@
 @interface MMRequestInboxView ()
 
 @property (nonatomic, strong) UIFont *questionTextFont;
+@property (nonatomic, assign) CGRect acceptButtonFrame;
+@property (nonatomic, assign) CGRect rejectButtonFrame;
 
 @end
 
@@ -62,7 +64,7 @@
     [super layoutSubviews];
     
     CGRect imageViewFrame = CGRectMake((self.frame.size.width - 310)/2, 0, 310, 280);
-    if(_wrapper.cellStyle == MMRequestCellStyleInbox){
+    if(_wrapper.cellStyle == MMRequestCellStyleInbox || _wrapper.cellStyle == MMRequestCellStyleInboxNeedsReview){
         imageViewFrame.origin.y = 105;
     }else if(_wrapper.cellStyle == MMRequestCellStyleTimeline){
         imageViewFrame.origin.y = 65;
@@ -159,7 +161,7 @@
     point = CGPointMake(SECOND_ROW_XOFFSET, SECOND_ROW_YOFFSET);
     
     
-    if(_wrapper.cellStyle == MMRequestCellStyleInbox){
+    if(_wrapper.cellStyle == MMRequestCellStyleInbox || _wrapper.cellStyle == MMRequestCellStyleInboxNeedsReview){
         
         [_wrapper.nameOfLocation drawAtPoint:point withFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
         
@@ -178,7 +180,8 @@
     
     
 
-    CGRect frame;
+    CGRect frame = CGRectMake(point.x, point.y
+                              ,0 , 0);
     if(![self.wrapper.questionText isEqual:[NSNull null]]){
         
         [@"Q:" drawAtPoint:point withFont:[UIFont fontWithName:@"Helvetica-Bold" size:24] ];
@@ -186,7 +189,9 @@
         point = CGPointMake(FORTH_ROW_SECOND_COLUMN_XOFFSET, point.y);
         
         NSLog(@"FLOAT: %f", _wrapper.questionTextSize.height);
-         CGRect frame = CGRectMake(point.x, point.y + 7 , self.frame.size.width - 70, _wrapper.questionTextSize.height <= 25 ? 25 : _wrapper.questionTextSize.height);
+        frame = CGRectMake(point.x, point.y + 7 , self.frame.size.width - 70, _wrapper.questionTextSize.height <= 25 ? 25 : _wrapper.questionTextSize.height);
+        
+        
         
         [self.wrapper.questionText drawInRect:frame withFont:self.questionTextFont lineBreakMode:NSLineBreakByWordWrapping];
     }
@@ -220,6 +225,53 @@
         
     }
     
+    
+    //Draw Accept / Reject Button if needed
+    if(_wrapper.cellStyle == MMRequestCellStyleInboxNeedsReview){
+        
+        if(!self.imageView.hidden){
+            point
+            .y += 290;
+        }
+        
+        _acceptButtonFrame = CGRectMake(FIRST_ROW_XOFFSET, point.y + frame.size.height + 10, (rect.size.width - (FIRST_ROW_XOFFSET * 2) - (15))/2, 34);
+        _rejectButtonFrame = CGRectMake(_acceptButtonFrame.origin.x + _acceptButtonFrame.size.width + 15, _acceptButtonFrame.origin.y, _acceptButtonFrame.size.width, _acceptButtonFrame.size.height);
+        
+        CGContextSetStrokeColorWithColor(context, [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.000].CGColor);
+    
+        
+        CGContextSetFillColorWithColor(context, [UIColor colorWithRed:0.268 green:0.822 blue:0.410 alpha:1.000].CGColor);
+        
+        CGPathRef acceptPath = createRoundedCornerPath(_acceptButtonFrame, 3);
+        CGPathRef rejectPath = createRoundedCornerPath(_rejectButtonFrame, 3);
+        
+        CGContextAddPath(context, acceptPath);
+        
+        CGContextDrawPath(context, kCGPathFillStroke);
+        
+        
+        CGContextSetFillColorWithColor(context, [UIColor colorWithRed:0.854 green:0.208 blue:0.208 alpha:1.000].CGColor);
+        CGContextAddPath(context, rejectPath);
+        CGContextDrawPath(context, kCGPathFillStroke);
+        
+        
+        
+        CGRect acceptTextFrame = _acceptButtonFrame;
+        acceptTextFrame.size.height -= 14;
+        acceptTextFrame.origin.y += 5;
+        
+        CGRect rejectTextFrame = _rejectButtonFrame;
+        rejectTextFrame.size.height -= 14;
+        rejectTextFrame.origin.y += 5;
+        
+        UIFont *acceptFont = [UIFont fontWithName:@"Helvetica-Bold" size:20];
+        
+        CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
+        
+        [@"Accept" drawInRect:acceptTextFrame withFont:acceptFont lineBreakMode:NSLineBreakByTruncatingTail alignment:NSTextAlignmentCenter];
+
+        [@"Reject" drawInRect:rejectTextFrame withFont:acceptFont lineBreakMode:NSLineBreakByTruncatingTail alignment:NSTextAlignmentCenter];
+    }
     
     
     

@@ -47,7 +47,7 @@
     CGFloat height = 40;
     
     //Add height if cell will show place name and parent place name
-    if(self.cellStyle == MMRequestCellStyleInbox){
+    if(self.cellStyle == MMRequestCellStyleInbox || self.cellStyle == MMRequestCellStyleInboxNeedsReview){
         height += 80;
     }
     
@@ -56,6 +56,9 @@
     }else{*/
         height += _questionTextSize.height ;
     //}
+    if(self.cellStyle == MMRequestCellStyleInboxNeedsReview){
+        height += 45;
+    }
     
     return height;
     
@@ -98,6 +101,8 @@
     if(self.isAnswered){
        cellHeight += 310 - 20;
     }
+    
+    
     
     
     return cellHeight;

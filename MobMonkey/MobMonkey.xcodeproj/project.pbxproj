@@ -7308,6 +7308,7 @@
 					"$(inherited)",
 					PRODUCTION,
 				);
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "MobMonkey/MobMonkey-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7343,6 +7344,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobMonkey/MobMonkey-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "PRODUCTION=1";
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "MobMonkey/MobMonkey-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

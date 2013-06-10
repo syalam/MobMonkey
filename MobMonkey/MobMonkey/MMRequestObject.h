@@ -39,7 +39,7 @@
 
 
 +(MMRequestObject *)requestObjectFromJSON:(NSDictionary *)jsonDictionary;
--(NSString *)dateStringDurationSinceCreate;
+-(NSString *)dateStringDurationSinceDate:(NSDate *)previousDate;
 -(NSDictionary *)jsonParameters;
 
 

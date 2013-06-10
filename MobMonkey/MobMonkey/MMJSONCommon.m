@@ -29,7 +29,7 @@
     
 }
 +(NSURL *)urlFromServerPath:(NSString *)pathString {
-    if(pathString){
+    if(pathString && ![pathString isEqual:[NSNull null]]){
         return [NSURL URLWithString:pathString];
     }
     return nil;

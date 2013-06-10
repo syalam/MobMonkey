@@ -98,7 +98,7 @@
                 MMRequestWrapper * assingedRequest = [[MMRequestWrapper alloc] initWithTableWidth:320];
                 assingedRequest.nameOfLocation = requestObject.nameOfLocation;
                 assingedRequest.mediaType = requestObject.mediaType;
-                assingedRequest.durationSincePost = [requestObject dateStringDurationSinceCreate];
+                assingedRequest.durationSincePost = [requestObject dateStringDurationSinceDate:requestObject.assignedDate];
                 assingedRequest.nameOfParentLocation = @"Not Implemented Yet";
                 assingedRequest.isAnswered = NO;
                 assingedRequest.questionText = ![requestObject.message isEqual:[NSNull null]] ? requestObject.message : @" No Text";
@@ -112,10 +112,15 @@
             for (MMRequestObject * requestObject in requests){
                 
                 MMRequestWrapper * requestWrapper;
-                if(requestObject.mediaType == 2){
+                if(requestObject.mediaType == MMMediaTypeVideo){
                     
                     requestWrapper = [[MMMediaRequestWrapper alloc] initWithTableWidth:320];
                     ((MMMediaRequestWrapper *)requestWrapper).mediaURL = requestObject.mediaObject.thumbURL;
+                    
+                }else if(requestObject.mediaType == MMMediaTypePhoto){
+                    
+                    requestWrapper = [[MMMediaRequestWrapper alloc] initWithTableWidth:320];
+                    ((MMMediaRequestWrapper *)requestWrapper).mediaURL = requestObject.mediaObject.mediaURL;
                     
                 }else{
                     requestWrapper = [[MMRequestWrapper alloc] initWithTableWidth:320];
@@ -123,11 +128,17 @@
                 
                 requestWrapper.nameOfLocation = requestObject.nameOfLocation;
                 requestWrapper.mediaType = requestObject.mediaType;
-                requestWrapper.durationSincePost = [requestObject dateStringDurationSinceCreate];
+                requestWrapper.durationSincePost = [requestObject dateStringDurationSinceDate:requestObject.requestDate];
                 requestWrapper.nameOfParentLocation = @"Not Implemented Yet";
                 requestWrapper.isAnswered = YES;
                 requestWrapper.questionText = ![requestObject.message isEqual:[NSNull null]] ? requestObject.message : @" No Text";
-                requestWrapper.cellStyle = MMRequestCellStyleInbox;
+                
+                //if(requestObject.requestFulfilled.boolValue){
+                //    requestWrapper.cellStyle = MMRequestCellStyleInbox;
+                //}else{
+                    requestWrapper.cellStyle = MMRequestCellStyleInboxNeedsReview;
+                //}
+                
                 requestWrapper.requestObject = requestObject;
                 //Video
                 

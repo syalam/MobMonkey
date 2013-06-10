@@ -57,7 +57,7 @@
     self.tableView.tableHeaderView = headerView;
     
     UINib *nib = [UINib nibWithNibName:@"MMIconTitleSubTextTableViewCell" bundle:nil];
-    [[self tableView] registerNib:nib forCellReuseIdentifier:@"IconTitleSubTextCell"];
+    [[self tableView] registerNib:nib forCellReuseIdentifier:@"MMIconTitleSubTextTableViewCell"];
     
     
     self.messageString = @"Please show me what's happening there, thank you!!";
@@ -197,7 +197,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"IconTitleSubTextCell";
+    static NSString *CellIdentifier = @"MMIconTitleSubTextTableViewCell";
     MMIconTitleSubTextTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[MMIconTitleSubTextTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -207,7 +207,7 @@
         case 0:
             cell.titleLabel.text = @"Include Message";
             cell.accessoryLabel.text = nil;
-            if(self.messageString)
+            //if(self.messageString)
             cell.textView.text = self.messageString;
             cell.iconView.image = [UIImage imageNamed:@"compose2"];
             //self.messageTextView = cell.textView;
@@ -215,7 +215,7 @@
         case 1:
             cell.titleLabel.text = @"Schedule Request";
             cell.accessoryLabel.text = nil;
-             if(self.scheduleString)
+            if(self.scheduleString)
             cell.textView.text = self.scheduleString;
             cell.iconView.image = [UIImage imageNamed:@"calendar"];
             break;

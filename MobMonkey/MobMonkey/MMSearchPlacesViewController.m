@@ -159,7 +159,10 @@
     
     }
     
-    cell.textLabel.text = searchItem.mainText;
+    if(![searchItem.mainText isEqual:[NSNull null]]){
+        cell.textLabel.text = searchItem.mainText;
+    }
+    
     cell.accessoryType = searchItem.accessoryType;
     
     
@@ -302,7 +305,7 @@
     
     MMLocationSearch *searchModel = [[MMLocationSearch alloc] init];
     
-    [searchModel locationsInfoForCategory:nil atLocationCoordinates:CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue) withRadiusInYards:@100 searchString:searchText success:^(NSArray *locationInformations) {
+    [searchModel locationsInfoForCategory:nil atLocationCoordinates:CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue) withRadiusInYards:100 searchString:searchText success:^(NSArray *locationInformations) {
         self.locationInformationCollection = locationInformations;
         [self.tableView reloadData];
     } failure:^(NSError *error) {

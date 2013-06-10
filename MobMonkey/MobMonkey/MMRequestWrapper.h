@@ -8,7 +8,8 @@
 
 typedef enum {
     MMRequestCellStyleInbox = 1,
-    MMRequestCellStyleTimeline
+    MMRequestCellStyleTimeline,
+    MMRequestCellStyleInboxNeedsReview
 } MMRequestCellStyle;
 
 
