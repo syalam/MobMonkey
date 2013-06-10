@@ -12,8 +12,13 @@
 #import "MMShadowCellBackground.h"
 #import "MMSectionHeaderWithBadgeView.h"
 #import "MMRequestObject.h"
+#import <MobileCoreServices/MobileCoreServices.h>
+#import "NSData+Base64.h"
+#import "MMAnswerTextRequestViewController.h"
+
 @interface MMRequestInboxViewController ()
 @property (nonatomic, strong) MMMediaRequestWrapper *wrapper;
+@property (nonatomic, strong) MMRequestObject *selectedRequest;
 @end
 
 @implementation MMRequestInboxViewController
@@ -333,6 +338,32 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    switch (indexPath.section) {
+        case 0: {
+            _selectedRequest = [self.assignedRequests objectAtIndex:indexPath.row];
+            
+            if(_selectedRequest.mediaType == MMMediaTypeText){
+                MMAnswerTextRequestViewController *answerTextRequest = [[MMAnswerTextRequestViewController alloc]initWithNibName:@"MMAnswerTextRequestViewController" bundle:nil];
+                answerTextRequest.requestObject = _selectedRequest.jsonParameters;
+                [self.navigationController pushViewController:answerTextRequest animated:YES];
+
+            }else{
+                 [self openCameraSheet:indexPath.row];
+            }
+            
+            
+            break;
+            
+        }
+            
+        case 1:
+            _selectedRequest = [self.answeredRequests objectAtIndex:indexPath.row];
+            
+        default:
+            break;
+    }
+    
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
@@ -340,6 +371,166 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+}
+
+
+- (void)openCameraSheet:(int)arrayIndex {
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        UIImagePickerController* picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        picker.showsCameraControls = YES;
+        
+        if ([[self.assignedRequests objectAtIndex:arrayIndex] mediaType] == MMMediaTypePhoto) {
+            picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+            picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+        }
+        else {
+            //[picker setVideoMaximumDuration:10];
+            picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
+            [picker setVideoQuality:UIImagePickerControllerQualityTypeMedium];
+            picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+            [picker setVideoMaximumDuration:10];
+            
+        }
+        [self presentViewController:picker animated:YES completion:nil];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Unable to take a photo or video using this device" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+}
+
+#pragma mark - UIImagePickerController Delegate Methods
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    NSString *mediaRequested;
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+    [params setObject:self.selectedRequest.requestID forKey:@"requestId"];
+    [params setObject:[NSNumber numberWithInt:0] forKey:@"requestType"];
+    
+    NSData *dataObj;
+    NSString *fileType = [info objectForKey: UIImagePickerControllerMediaType];
+    if (CFStringCompare ((__bridge CFStringRef) fileType, kUTTypeImage, 0)
+        == kCFCompareEqualTo) {
+        mediaRequested = @"image";
+        UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+        image = [self resizeImage:image];
+        //image = [self imageWithImage:image scaledToSize:CGSizeMake(image.size.width * .15, image.size.height * .15)];
+        dataObj = UIImageJPEGRepresentation(image, 1);
+        
+        [params setObject:@"image/jpeg" forKey:@"contentType"];
+        [params setObject:[dataObj base64EncodedString] forKey:@"mediaData"];
+    }
+    else if (CFStringCompare ((__bridge CFStringRef) fileType, kUTTypeMovie, 0)
+             == kCFCompareEqualTo) {
+        mediaRequested = @"video";
+        NSString *moviePath = [[info objectForKey:UIImagePickerControllerMediaURL] path];
+        dataObj = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:moviePath]];
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *tempPath = [documentsDirectory stringByAppendingFormat:@"/vid1.mp4"];
+        
+        [dataObj writeToFile:tempPath atomically:NO];
+        
+        dataObj = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:tempPath]];
+        
+        NSLog(@"%@", tempPath);
+        
+        
+        [params setObject:@"video/mp4" forKey:@"contentType"];
+        [params setObject:[dataObj base64EncodedString] forKey:@"mediaData"];
+    }
+    
+    [picker dismissModalViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)]) { //Check if our iOS version supports multitasking I.E iOS 4
+        if ([[UIDevice currentDevice] isMultitaskingSupported]) { //Check if device supports mulitasking
+            UIApplication *application = [UIApplication sharedApplication]; //Get the shared application instance
+            __block UIBackgroundTaskIdentifier background_task; //Create a task object
+            background_task = [application beginBackgroundTaskWithExpirationHandler: ^ {
+                [application endBackgroundTask: background_task]; //Tell the system that we are done with the tasks
+                background_task = UIBackgroundTaskInvalid; //Set the task to be invalid
+                //System will be shutting down the app at any point in time now
+            }];
+            //Background tasks require you to use asyncrous tasks
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                //Perform your tasks that your application requires
+                [MMAPI fulfillRequest:mediaRequested
+                               params:params
+                              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                  NSLog(@"%@", responseObject);
+                                  
+                                  [[NSNotificationCenter defaultCenter]postNotificationName:@"checkForUpdatedCounts" object:nil];
+                                  
+                                  [application endBackgroundTask: background_task]; //End the task so the system knows that you are done with what you need to perform
+                                  background_task = UIBackgroundTaskInvalid; //Invalidate the background_task
+                              }
+                              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                  NSLog(@"%@", operation.responseString);
+                                  [application endBackgroundTask: background_task]; //End the task so the system knows that you are done with what you need to perform
+                                  background_task = UIBackgroundTaskInvalid; //Invalidate the background_task
+                              }];
+                
+                
+                
+            });
+        }
+    }
+}
+
+
+#pragma mark - Helper Methods
+// Shrink to 640x480 if larger. Aspect ratio is already correct.
+- (UIImage *)resizeImage:(UIImage *)image {
+    CGFloat sourceWidth = image.size.width;
+    CGFloat sourceHeight = image.size.height;
+    
+    // Float comparison works with height/width but not width/height
+    if ((sourceHeight / sourceWidth) == (480 / 640.0)) {
+        return image;
+    } else {
+        CGRect cropRect;
+        
+        if ((sourceHeight / sourceWidth) > (480 / 640.0)) {
+            // Too tall
+            CGFloat destinationHeight = sourceWidth * 480 / 640;
+            CGFloat cropMargin = (sourceHeight - destinationHeight) / 2;
+            
+            // When calculating crop rectangle, note that actual images are UIImageOrientationUp with rotation meta data
+            if (image.imageOrientation == UIImageOrientationUp   || image.imageOrientation == UIImageOrientationUpMirrored ||
+                image.imageOrientation == UIImageOrientationDown || image.imageOrientation == UIImageOrientationDownMirrored ) {
+                cropRect = CGRectMake(0, cropMargin, sourceWidth, destinationHeight);
+            } else if (image.imageOrientation == UIImageOrientationLeft  || image.imageOrientation == UIImageOrientationLeftMirrored ||
+                       image.imageOrientation == UIImageOrientationRight || image.imageOrientation == UIImageOrientationRightMirrored  ) {
+                cropRect = CGRectMake(cropMargin, 0, destinationHeight, sourceWidth);
+            }
+        } else {
+            // Too wide
+            CGFloat destinationWidth = sourceHeight * 640 / 480;
+            CGFloat cropMargin = (sourceWidth - destinationWidth) / 2;
+            
+            // When calculating crop rectangle, note that actual images are UIImageOrientationUp with rotation meta data
+            if (image.imageOrientation == UIImageOrientationUp   || image.imageOrientation == UIImageOrientationUpMirrored ||
+                image.imageOrientation == UIImageOrientationDown || image.imageOrientation == UIImageOrientationDownMirrored ) {
+                cropRect = CGRectMake(cropMargin, 0, destinationWidth, sourceHeight);
+            } else if (image.imageOrientation == UIImageOrientationLeft  || image.imageOrientation == UIImageOrientationLeftMirrored ||
+                       image.imageOrientation == UIImageOrientationRight || image.imageOrientation == UIImageOrientationRightMirrored  ) {
+                cropRect = CGRectMake(0, cropMargin, sourceHeight, destinationWidth);
+            }
+        }
+        
+        // Draw new image in current graphics context
+        CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
+        
+        // Create new resized UIImage
+        UIImage *resizedImage = [[UIImage alloc] initWithCGImage:imageRef scale:1.0 orientation:image.imageOrientation];
+        
+        CGImageRelease(imageRef);
+        
+        return resizedImage;
+    }
 }
 
 @end

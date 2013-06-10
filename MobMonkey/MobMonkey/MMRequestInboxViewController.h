@@ -15,7 +15,7 @@ typedef enum {
 
 #import <UIKit/UIKit.h>
 
-@interface MMRequestInboxViewController : UITableViewController
+@interface MMRequestInboxViewController : UITableViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) NSArray * cellWrappers;
 
