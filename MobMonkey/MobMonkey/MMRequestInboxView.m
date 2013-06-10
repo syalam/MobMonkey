@@ -26,6 +26,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
+        self.userInteractionEnabled = YES;
         // Initialization code
         //self.backgroundColor = [UIColor colorWithRed:0.930 green:0.911 blue:0.920 alpha:1.000];
         self.backgroundColor = [UIColor clearColor];
@@ -327,6 +329,22 @@
     return height;
     
 }
-
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch =[touches anyObject];
+    CGPoint startPoint =[touch locationInView:self];
+    if(CGRectContainsPoint(_acceptButtonFrame,startPoint))
+    {
+        if([self.delegate respondsToSelector:@selector(requestInboxViewAcceptTapped:requestObject:)]){
+            [self.delegate requestInboxViewAcceptTapped:self requestObject:self.wrapper.requestObject];
+        }
+    }else if(CGRectContainsPoint(_rejectButtonFrame, startPoint)){
+        if([self.delegate respondsToSelector:@selector(requestInboxViewRejectTapped:requestObject:)]){
+            [self.delegate requestInboxViewRejectTapped:self requestObject:self.wrapper.requestObject];
+        }
+    }
+    else
+        [super touchesBegan:touches withEvent:event];
+}
 
 @end

@@ -26,7 +26,7 @@
         CGRect placeViewFrame = CGRectMake(0, 0, self.contentView.bounds.size.width , self.contentView.bounds.size.height);
 		_requestInboxView = [[MMRequestInboxView alloc] initWithFrame:placeViewFrame];
 		_requestInboxView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-		
+		_requestInboxView.delegate =self;
         
         _shadowBackground = [[MMShadowBackground alloc]  initWithFrame:placeViewFrame];
        
@@ -51,6 +51,7 @@
         CGRect placeViewFrame = CGRectMake(0, 0, self.contentView.bounds.size.width , self.contentView.bounds.size.height);
 		_requestInboxView = [[MMRequestInboxView alloc] initWithFrame:placeViewFrame];
         _requestInboxView.style = style;
+        _requestInboxView.delegate = self;
         _requestInboxView.mediaType = mediaType;
 		_requestInboxView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		[self.contentView addSubview:_requestInboxView];
@@ -72,6 +73,15 @@
 -(void)redisplay {
     [self.requestInboxView setNeedsDisplay];
     [self.shadowBackground setNeedsDisplay];
+}
+
+#pragma mark - view delegate
+
+-(void)requestInboxViewAcceptTapped:(id)wrapper requestObject:(MMRequestObject *)requestObject{
+    NSLog(@"Accept");
+}
+-(void)requestInboxViewRejectTapped:(id)wrapper requestObject:(MMRequestObject *)requestObject{
+    NSLog(@"Reject");
 }
 
 

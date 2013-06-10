@@ -11,8 +11,18 @@
 #import "MMRequestInboxView.h"
 
 @class MMRequestInboxView;
+@class MMRequestInboxCell;
 
-@interface MMRequestInboxCell : UITableViewCell
+@protocol MMRequestInboxCellDelegate <NSObject>
+
+@optional
+-(void)requestInboxCell:(MMRequestInboxCell *)cell mediaWasAccepted:(BOOL)accepted;
+
+@end
+
+@class MMRequestInboxView;
+
+@interface MMRequestInboxCell : UITableViewCell <MMRequestInboxViewDelegate>
 
 @property(nonatomic, strong) MMRequestInboxView * requestInboxView;
 
