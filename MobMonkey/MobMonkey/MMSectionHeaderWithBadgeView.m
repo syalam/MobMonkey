@@ -29,7 +29,7 @@
         _title = title;
         _badgeNumber = badgeNumber;
         
-        self.backgroundColor = [UIColor colorWithRed:0.796 green:0.780 blue:0.788 alpha:1.000];
+        self.backgroundColor = [UIColor colorWithWhite:0.854 alpha:1.000];
         
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 2, screenRect.size.width - 48, 20)];
         titleLabel.textColor = [UIColor darkGrayColor];
@@ -38,7 +38,7 @@
         titleLabel.backgroundColor = self.backgroundColor;
         [self addSubview:titleLabel];
         
-        CustomBadge *badge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%@", badgeNumber.stringValue] withStringColor:[UIColor darkGrayColor] withInsetColor:[UIColor colorWithRed:0.796 green:0.780 blue:0.788 alpha:1.000] withBadgeFrame:YES withBadgeFrameColor:[UIColor lightGrayColor] withScale:1.0 withShining:NO];
+        CustomBadge *badge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%@", badgeNumber.stringValue] withStringColor:[UIColor darkGrayColor] withInsetColor:self.backgroundColor withBadgeFrame:YES withBadgeFrameColor:[UIColor lightGrayColor] withScale:1.0 withShining:NO];
         
         badge.frame = CGRectMake(screenRect.size.width - badge.frame.size.width - 7, (25 - badge.frame.size.height)/2, badge.frame.size.width, badge.frame.size.height);
         

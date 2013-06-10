@@ -22,6 +22,7 @@
 #import "UIBarButtonItem+NoBorder.h"
 #import "UIActionSheet+Blocks.h"
 #import "MMCreateHotSpotMapViewController.h"
+#import "MMMakeARequestTableViewController.h"
 
 #define kMMPlaceInformationCellHeight 85.0f
 #define kMMPlaceActionCellHeight
@@ -166,7 +167,7 @@
     mediaSectionHeader = [[MMPlaceSectionHeaderWrapper alloc] init];
     mediaSectionHeader.title = @"Media Timeline";
     mediaSectionHeader.icon = [UIImage imageNamed:@"clock"];
-    CustomBadge *badge = [CustomBadge customBadgeWithString:@"8" withStringColor:[UIColor blackColor] withInsetColor:[UIColor whiteColor] withBadgeFrame:YES withBadgeFrameColor:[UIColor blackColor] withScale:1.0 withShining:NO];
+    CustomBadge *badge = [CustomBadge customBadgeWithString:@"0" withStringColor:[UIColor blackColor] withInsetColor:[UIColor whiteColor] withBadgeFrame:YES withBadgeFrameColor:[UIColor blackColor] withScale:1.0 withShining:NO];
     mediaSectionHeader.accessoryView = badge;
     mediaSectionHeader.showDisclosureIndicator = YES;
     
@@ -186,9 +187,19 @@
     notificationSectionHeader.showDisclosureIndicator = YES;
     
     
+}
+
+-(void)reloadValues{
+    NSUInteger mediaCount = 0;
     
+    mediaCount += _locationInformation.videos.intValue;
+    mediaCount += _locationInformation.images.intValue;
+    mediaCount += _locationInformation.comments.intValue;
     
+    CustomBadge *badge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", mediaCount] withStringColor:[UIColor blackColor] withInsetColor:[UIColor whiteColor] withBadgeFrame:YES withBadgeFrameColor:[UIColor blackColor] withScale:1.0 withShining:NO];
+    mediaSectionHeader.accessoryView = badge;
     
+    [self.tableView reloadData];
 }
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -234,7 +245,7 @@
 {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 4;
+    return !_locationInformation.parentLocation ? 4 : 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -243,12 +254,19 @@
     // Return the number of rows in the section.
     
     if(section == 0){
-        return 3;
+        NSUInteger rows = 2;
+        
+        //If has live streaming need 3 rows
+        if(_locationInformation.livestreaming.intValue > 0){
+            rows++;
+        }
+        
+        return rows;
     }else if (section == 1){
         return 1;
-    }else if (section == 2){
+    }else if (section == 2 && !_locationInformation.parentLocation){
         return 1 + _locationInformation.sublocations.count;
-    }else if(section == 3){
+    }else if(section == 3 || (section == 2 && _locationInformation.parentLocation)){
         return 1;
     }
     return 0;
@@ -286,7 +304,12 @@
             placeActionCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
-        [placeActionCell setPlaceActionWrapper:[_actionCellWrappers objectAtIndex:indexPath.row - 1]];
+        NSUInteger arrayOffset = 1;
+        
+        if(_locationInformation.livestreaming.intValue == 0){
+            arrayOffset = 0;
+        }
+        [placeActionCell setPlaceActionWrapper:[_actionCellWrappers objectAtIndex:indexPath.row - arrayOffset]];
         
         cellWithShadow =  placeActionCell;
         
@@ -306,13 +329,13 @@
         if(indexPath.row == 0){
             if(indexPath.section == 1)
                 [cell setPlaceSectionHeaderWrapper:mediaSectionHeader];
-            else if(indexPath.section == 2){
+            else if(indexPath.section == 2 && !_locationInformation.parentLocation){
                 [cell setPlaceSectionHeaderWrapper:hotSpotSectionHeader];
                 cell.placeSectionHeaderView.backgroundColor = highLightedbackgroundColor;
                 highlighted = YES;
                 highLightedbackgroundColor = hotSpotSectionHeader.backgroundColor;
             }
-            else if(indexPath.section == 3)
+            else if(indexPath.section == 3 || (_locationInformation.parentLocation && indexPath.section == 2))
                 [cell setPlaceSectionHeaderWrapper:notificationSectionHeader];
         }else{
             MMPlaceSectionHeaderWrapper *subLocationWrapper = [[MMPlaceSectionHeaderWrapper alloc] init];
@@ -331,9 +354,7 @@
         cellWithShadow = cell;
         
         
-    } else if(indexPath.section == 2) {
-        
-    }else {
+    } else {
         static NSString *CellIdentifier = @"Cell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
@@ -429,11 +450,33 @@
     
     if(indexPath.section == 0 && indexPath.row == 0){
         [self showActionsheet];
+    }else if((indexPath.section == 0 && indexPath.row == 2 && _locationInformation.livestreaming.intValue > 0) ||
+             (indexPath.section == 0 && indexPath.row == 1 && _locationInformation.livestreaming.intValue == 0)
+             ){
+        MMMakeARequestTableViewController * makeARequestViewController = [[MMMakeARequestTableViewController alloc] initWithNibName:@"MMMakeARequestTableViewController" bundle:nil];
+        makeARequestViewController.locationInformation = self.locationInformation;
+        [self.navigationController pushViewController:makeARequestViewController animated:YES];
     }
+    
+    
    if(indexPath.section == 1 && indexPath.row == 0){
         MMMediaTimelineViewController *mediaTimelineViewController = [[MMMediaTimelineViewController alloc] initWithStyle:UITableViewStyleGrouped];
         
         [self.navigationController pushViewController:mediaTimelineViewController animated:YES];
+    }
+    
+    if(indexPath.section == 2 && !_locationInformation.parentLocation){
+        if(indexPath.row == 0){//create hotspot
+        
+            MMCreateHotSpotMapViewController * createHotSpotViewController = [[MMCreateHotSpotMapViewController alloc] initWithNibName:nil bundle:nil];
+            createHotSpotViewController.parentLocationInformation = _locationInformation;
+            
+            [self.navigationController pushViewController:createHotSpotViewController animated:YES];
+        }else{
+            MMPlaceViewController *placeViewController = [[MMPlaceViewController alloc] initWithTableViewStyle:UITableViewStylePlain defaultMapHeight:120 parallaxFactor:0.4];
+            placeViewController.locationInformation = [_locationInformation.sublocations.allObjects objectAtIndex:indexPath.row - 1];
+            [self.navigationController pushViewController:placeViewController animated:YES];
+        }
     }
 }
 

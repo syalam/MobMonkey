@@ -59,12 +59,39 @@
 
 -(id)init {
     if(self = [super init]){
-        _categories = @[@"Dog Parks", @"Museums", @"Day Care", @" Dance Studio", @"Music Hall"];
+        NSLog(@"DATA: %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"allCategories"]);
+       [self allCategoriesComplete:^(NSArray *categories, NSError *error) {
+           if(!error){
+               _categories = categories;
+           }
+       }];
         _factualAPI = [[FactualAPI alloc] initWithAPIKey:@"4CghCzGRA37VHpyToY97L7W4QGUG9IGz3rzZQbru" secret:@"X4ZXy7AdLnRrmjkBn9GjQgANDiqVOz2sS2IZdigQ"];
     }
     return self;
 }
 
+
+
+-(void)allCategoriesComplete:(void (^)(NSArray * , NSError * ))complete {
+    __block NSDictionary * savedCategories = [[NSUserDefaults standardUserDefaults] objectForKey:@"allCategories"];
+    
+    NSArray * categories;
+    if(!savedCategories){
+        [MMAPI getAllCategories:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            savedCategories = responseObject;
+            
+            [[NSUserDefaults standardUserDefaults] setObject:savedCategories forKey:@"allCategories"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            
+            complete([savedCategories allKeys], nil);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            complete(nil, error);
+        }];
+        
+    }else{
+        complete([savedCategories allKeys], nil);
+    }
+}
 
 -(NSArray *)defaultSearchItems {
     
@@ -94,7 +121,7 @@
 
 -(NSArray *)categoriesMatchingSearchString:(NSString *)searchString {
     NSPredicate * resultPredicate = [NSPredicate
-                                     predicateWithFormat:@"self BEGINSWITH[cd] %@",
+                                     predicateWithFormat:@"self CONTAINS [cd] %@",
                                      searchString];
     
     NSArray * filteredCategoryNames = [self.categories filteredArrayUsingPredicate:resultPredicate];

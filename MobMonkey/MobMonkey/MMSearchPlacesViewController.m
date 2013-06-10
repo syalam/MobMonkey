@@ -12,6 +12,7 @@
 #import "MMLocationSearch.h"
 #import "MMPlaceViewController.h"
 #import "MMNavigationViewController.h"
+#import "MMSectionHeaderWithBadgeView.h"
 
 @interface MMSearchPlacesViewController ()
 
@@ -76,14 +77,14 @@
 -(void)keyboardWasShown:(id)sender {
     [super keyboardWasShown:sender];
     CGRect frame = self.tableView.frame;
-    frame.size.height -= self.keyboardSize.height;
+    frame.size.height -= self.keyboardSize.height + 30;
     self.tableView.frame  = frame;
 }
 -(void)keyboardWillHide:(id)sender {
     [super keyboardWillHide:sender];
     
     CGRect frame = self.tableView.frame;
-    frame.size.height = self.view.frame.size.height - _headerView.frame.size.height;
+    frame.size.height = self.view.frame.size.height - _headerView.frame.size.height + 30;
     self.tableView.frame  = frame;
     }
 -(void)nearButtonPressed {
@@ -243,9 +244,41 @@
      */
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if(_isSearching){
+        
+        if(section == 0){
+            if(self.categorySearchResults.count > 0){
+                return 25.0f;
+            }else{
+                return 0.0f;
+            }
+        }
+        return 25.0f;
+    }else{
+        return 0.0f;
+    }
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    NSString * title;
+    NSNumber * badgeNumber;
+    
+    if(section == 0){
+        title = @"Categories";
+        badgeNumber = [NSNumber numberWithInt:self.categorySearchResults.count];
+    }else if(section == 1){
+        title = @"Places";
+        badgeNumber = [NSNumber numberWithInt:self.locationInformationCollection.count];
+    }
+    
+    
+    MMSectionHeaderWithBadgeView * headerView = [[MMSectionHeaderWithBadgeView alloc] initWithTitle:title andBadgeNumber:badgeNumber];
+    return headerView;
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-    return 22.0f;
+    return 0.0f;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {

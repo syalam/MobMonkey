@@ -61,6 +61,7 @@
 @property (nonatomic, strong) FactualAPIRequest *activeRequest;
 @property (nonatomic, strong) MMFactualOperation * singleOperation;
 
+-(void)allCategoriesComplete:(void(^)(NSArray * categories , NSError * error))complete;
 -(NSArray *)defaultSearchItems;
 -(NSArray *)categoriesMatchingSearchString:(NSString *)searchString;
 -(void)placesMatchingSearchString:(NSString *)searchString success:(void(^)(NSArray *searchItems))success failure:(void(^)(NSError * error))failure;

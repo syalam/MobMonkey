@@ -9,8 +9,8 @@
 typedef enum {
     
     MMMediaTypePhoto = 1 ,
-    MMMediaTypeVideo,
-    MMMediaTypeLiveVideo,
+    MMMediaTypeVideo = 2,
+    MMMediaTypeLiveVideo = 3,
     MMMediaTypeText
     
 } MMMediaType;

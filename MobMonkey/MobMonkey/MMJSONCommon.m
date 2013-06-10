@@ -21,11 +21,11 @@
     return [NSDate dateWithTimeIntervalSince1970:unixTime];
     
 }
-+(BOOL)boolFromServerBool:(id)jsonValue {
++(NSNumber *)boolFromServerBool:(id)jsonValue {
     if([jsonValue isEqual:[NSNull null]]){
-        return NO;
+        return nil;
     }
-    return [jsonValue boolValue];
+    return [NSNumber numberWithBool:[jsonValue boolValue]];
     
 }
 +(NSURL *)urlFromServerPath:(NSString *)pathString {

@@ -20,7 +20,7 @@
 @property (nonatomic, strong) NSDate * fulfilledDate;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, strong) NSString * locationID;
-@property (nonatomic, assign) BOOL markAsRead;
+@property (nonatomic, assign) NSNumber * markAsRead;
 @property (nonatomic, assign) NSUInteger mediaType;
 @property (nonatomic, strong) NSString * message;
 @property (nonatomic, strong) NSString * nameOfLocation;
@@ -30,15 +30,17 @@
 @property (nonatomic, assign) NSUInteger requestType;
 @property (nonatomic, strong) MMRequestWrapper *requestWrapper;
 @property (nonatomic, strong) MMMediaObject * mediaObject;
-@property (nonatomic, assign) BOOL expired;
+@property (nonatomic, assign) NSNumber * expired;
 @property (nonatomic, strong) NSString * emailAddress;
 @property (nonatomic, strong) NSDate * scheduleDate;
-@property (nonatomic, assign) BOOL requestFulfilled;
-@property (nonatomic, assign) BOOL recurring;
+@property (nonatomic, assign) NSNumber * requestFulfilled;
+@property (nonatomic, assign) NSNumber * recurring;
+@property (nonatomic, strong) NSNumber * duration;
 
 
 +(MMRequestObject *)requestObjectFromJSON:(NSDictionary *)jsonDictionary;
 -(NSString *)dateStringDurationSinceCreate;
+-(NSDictionary *)jsonParameters;
 
 
 /*

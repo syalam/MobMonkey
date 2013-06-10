@@ -48,6 +48,7 @@ typedef enum {
 @property (nonatomic, strong) NSNumber *livestreaming;
 @property (nonatomic, strong) NSNumber *videos;
 @property (nonatomic, strong) NSNumber *images;
+@property (nonatomic, strong) NSNumber * comments;
 @property (nonatomic, strong) NSNumber *monkeys;
 @property (nonatomic, strong) NSURL *messageURL;
 @property (nonatomic, strong) NSString *parentLocationID;

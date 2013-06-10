@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMLocationInformation.h"
 
-@interface MMMakeARequestTableViewController : UITableViewController
+
+@interface MMMakeARequestTableViewController : UITableViewController <UITextViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UISegmentedControl *segmentControl;
+@property (nonatomic, strong) MMLocationInformation *locationInformation;
 @end

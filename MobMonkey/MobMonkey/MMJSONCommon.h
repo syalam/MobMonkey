@@ -12,7 +12,7 @@
 
 
 +(NSDate *)dateFromServerTime:(id)jsonValue;
-+(BOOL)boolFromServerBool:(id)jsonValue;
++(NSNumber *)boolFromServerBool:(id)jsonValue;
 +(NSURL *)urlFromServerPath:(NSString *)pathString;
 
 @end

@@ -59,6 +59,45 @@
     
 }
 
+-(NSDictionary *)jsonParameters {
+    
+    /*
+     requestObject.scheduleDate = self.selectedScheduleDate;
+     requestObject.providerID = self.locationInformation.providerID;
+     requestObject.locationID = self.locationInformation.locationID;
+     requestObject.duration = self.duration;
+     requestObject.recurring = [NSNumber numberWithBool:self.isRecurring];
+     */
+    NSMutableDictionary * jsonDictionary = [NSMutableDictionary dictionary];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+    
+    if(self.scheduleDate) {
+        NSString * scheduleDateString = [dateFormatter stringFromDate:self.scheduleDate];
+        [jsonDictionary setObject:scheduleDateString forKey:@"scheduleDate"];
+    }
+    
+    if(self.providerID){
+        [jsonDictionary setObject:self.providerID forKey:@"providerId"];
+    }
+    
+    if(self.locationID){
+        [jsonDictionary setObject:self.locationID forKey:@"locationId"];
+    }
+    
+    if(self.duration){
+        [jsonDictionary setObject:self.duration forKey:@"duration"];
+    }
+    
+    if(self.recurring){
+        [jsonDictionary setObject:self.recurring forKey:@"recurring"];
+    }
+    
+    return jsonDictionary;
+}
+
 -(NSString *)dateStringDurationSinceCreate {
     NSDate * dateNow = [NSDate date];
     NSTimeInterval diff = [dateNow timeIntervalSinceDate:self.assignedDate];

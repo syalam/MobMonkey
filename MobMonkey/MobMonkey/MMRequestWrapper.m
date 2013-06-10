@@ -48,7 +48,7 @@
     
     //Add height if cell will show place name and parent place name
     if(self.cellStyle == MMRequestCellStyleInbox){
-        height += 60;
+        height += 80;
     }
     
     /*if(_questionTextSize.height <= 25){
@@ -95,10 +95,8 @@
 -(CGFloat)cellHeight {
     CGFloat cellHeight = [super cellHeight];
     
-    CGFloat imagePadding = 0;
-    
     if(self.isAnswered){
-       cellHeight += 310 ;
+       cellHeight += 310 - 20;
     }
     
     
