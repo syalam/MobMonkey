@@ -15,6 +15,8 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "MMSlideMenuViewController.h"
 #import "ECSlidingViewController.h"
+#import "MMRequestInboxCell.h"
+#import "MMJSONCommon.h"
 
 @interface MMTrendingViewController ()
 
@@ -54,15 +56,15 @@
     self.myInterestsMedia = [NSArray array];
     self.nearByMedia = [NSArray array];
     
-    self.collectionView.backgroundView = nil;
-    self.collectionView.backgroundColor = [UIColor MMEggShell];
+    //self.collectionView.backgroundView = nil;
+    //self.collectionView.backgroundColor = [UIColor MMEggShell];
     
     // Do any additional setup after loading the view from its nib.
     
     UINib *cellNib = [UINib nibWithNibName:@"MMTrendingCollectionViewCell" bundle:nil];
-    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"MMTrendingCollectionViewCell"];
+    //[self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"MMTrendingCollectionViewCell"];
     
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"TrendingCollectionViewCell"];
+    //[self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"TrendingCollectionViewCell"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(adWhirlChangedValue:)
@@ -83,6 +85,49 @@
     //if(self.slidingViewController.panGesture){
     [self.view addGestureRecognizer:self.slidingViewController.panGesture];
 }
+
+-(NSArray *)mediaCellWrappersWithMediaObjects:(NSArray *)mediaObjects {
+    
+    NSMutableArray * arrayOfWrappers = [NSMutableArray arrayWithCapacity:mediaObjects.count];
+    for (MMMediaObject * mediaObject in mediaObjects){
+        
+        MMRequestWrapper * requestWrapper;
+        if(mediaObject.mediaType == MMMediaTypeVideo){
+            
+            requestWrapper = [[MMMediaRequestWrapper alloc] initWithTableWidth:320];
+            ((MMMediaRequestWrapper *)requestWrapper).mediaURL = mediaObject.thumbURL;
+            
+        }else if(mediaObject.mediaType == MMMediaTypePhoto){
+            
+            requestWrapper = [[MMMediaRequestWrapper alloc] initWithTableWidth:320];
+            ((MMMediaRequestWrapper *)requestWrapper).mediaURL = mediaObject.mediaURL;
+            
+        }else if(mediaObject.mediaType == MMMediaTypeLiveVideo){
+            requestWrapper = [[MMMediaRequestWrapper alloc] initWithTableWidth:320];
+        }else{
+            requestWrapper = [[MMRequestWrapper alloc] initWithTableWidth:320];
+        }
+        
+        requestWrapper.mediaType = mediaObject.mediaType;
+        requestWrapper.durationSincePost = [MMJSONCommon dateStringDurationSinceDate:mediaObject.uploadDate];
+        requestWrapper.cellStyle = MMRequestCellStyleTimeline;
+        requestWrapper.isAnswered = YES;
+        
+        MMRequestObject * requestObject = [[MMRequestObject alloc] init];
+        requestObject.mediaObject = mediaObject;
+        
+        requestWrapper.requestObject = requestObject;
+        
+        
+        
+        
+        [arrayOfWrappers addObject:requestWrapper];
+        
+    }
+    return arrayOfWrappers;
+    
+}
+
 -(void)reloadMedia{
     [MMTrendingMedia getTrendingMediaForAllTypesCompletion:^(NSArray *mediaObjects, MMTrendingType trendingType, NSError *error) {
         
@@ -113,12 +158,12 @@
             noMediaImageView.hidden = YES;
         }
         
-        [self.collectionView reloadData];
+        [self.tableView reloadData];
     }];
 }
 -(void)adWhirlChangedValue:(id)sender{
 
-    [self.collectionView reloadData];   
+    [self.tableView reloadData];
     //[self scrollViewDidScroll:self.collectionView];
 }
 -(void)viewDidUnload {
@@ -210,7 +255,7 @@
     
     
 }
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+/*- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"MMTrendingCollectionViewCell";
     
@@ -341,5 +386,5 @@
     }
     return CGSizeMake(self.view.frame.size.width, 15);
 }
-
+*/
 @end

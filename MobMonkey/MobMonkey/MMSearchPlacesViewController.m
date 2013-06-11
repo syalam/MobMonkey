@@ -70,7 +70,7 @@
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+    [self searchBar:self.searchBar textDidChange:self.searchBar.text];
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 }
 

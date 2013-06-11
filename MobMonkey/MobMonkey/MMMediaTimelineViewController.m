@@ -7,6 +7,9 @@
 //
 
 #import "MMMediaTimelineViewController.h"
+#import "MMMediaObject.h"
+#import "MMJSONCommon.h"
+#import "MMRequestInboxCell.h"
 
 @interface MMMediaTimelineViewController ()
 
@@ -27,6 +30,7 @@
 {
     [super viewDidLoad];
 
+    [self loadMediaObjects];
     self.view.backgroundColor = [UIColor MMEggShell];
     self.tableView.backgroundView = nil;
     
@@ -54,7 +58,66 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-
+-(NSArray *)mediaCellWrappersWithMediaObjects:(NSArray *)mediaObjects {
+    
+    NSMutableArray * arrayOfWrappers = [NSMutableArray arrayWithCapacity:mediaObjects.count];
+    for (MMMediaObject * mediaObject in mediaObjects){
+        
+        MMRequestWrapper * requestWrapper;
+        if(mediaObject.mediaType == MMMediaTypeVideo){
+            
+            requestWrapper = [[MMMediaRequestWrapper alloc] initWithTableWidth:320];
+            ((MMMediaRequestWrapper *)requestWrapper).mediaURL = mediaObject.thumbURL;
+            
+        }else if(mediaObject.mediaType == MMMediaTypePhoto){
+            
+            requestWrapper = [[MMMediaRequestWrapper alloc] initWithTableWidth:320];
+            ((MMMediaRequestWrapper *)requestWrapper).mediaURL = mediaObject.mediaURL;
+            
+        }else if(mediaObject.mediaType == MMMediaTypeLiveVideo){
+            requestWrapper = [[MMMediaRequestWrapper alloc] initWithTableWidth:320];
+        }else{
+            requestWrapper = [[MMRequestWrapper alloc] initWithTableWidth:320];
+        }
+        
+        requestWrapper.mediaType = mediaObject.mediaType;
+        requestWrapper.durationSincePost = [MMJSONCommon dateStringDurationSinceDate:mediaObject.uploadDate];
+        requestWrapper.cellStyle = MMRequestCellStyleTimeline;
+        requestWrapper.isAnswered = YES;
+        
+        MMRequestObject * requestObject = [[MMRequestObject alloc] init];
+        requestObject.mediaObject = mediaObject;
+        
+        requestWrapper.requestObject = requestObject;
+        
+    
+        
+        
+        [arrayOfWrappers addObject:requestWrapper];
+        
+    }
+    return arrayOfWrappers;
+    
+}
+-(void)loadMediaObjects {
+    [MMAPI getMediaObjectsForLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(NSArray *mediaObjects) {
+        
+        NSLog(@"MEDIA: %@", mediaObjects);
+        MMMediaObject * mediaObject;
+        if(mediaObjects.count > 0) {
+            mediaObject= [mediaObjects objectAtIndex:0];
+        }
+       
+        NSLog(@"");
+        
+        self.mediaObjects = mediaObjects;
+        self.mediaCellWrappers = [self mediaCellWrappersWithMediaObjects:mediaObjects];
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -67,24 +130,43 @@
 {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return self.mediaCellWrappers.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    MMRequestInboxCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
+    if(cell == nil){
+        cell = [[MMRequestInboxCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.selectionStyle  = UITableViewCellSelectionStyleNone;
+        
+    }
+    
+    UIView *test = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 300)];
+    test.backgroundColor = [UIColor redColor];
+    
+    [cell setRequestInboxWrapper: [self.mediaCellWrappers objectAtIndex:indexPath.row]];
+    
+    
+    //[cell redisplay];
     // Configure the cell...
     
     return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CGFloat cellHeight = [[self.mediaCellWrappers objectAtIndex:indexPath.row] cellHeight];
+    return cellHeight;
 }
 
 /*

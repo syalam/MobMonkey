@@ -43,6 +43,7 @@
     
     _badge.frame = CGRectMake(self.frame.size.width - _originalBadgeFrame.size.width - 12, (self.frame.size.height - _originalBadgeFrame.size.height)/2 , _originalBadgeFrame.size.width + 4, _originalBadgeFrame.size.height);
     
+    
 
 }
 

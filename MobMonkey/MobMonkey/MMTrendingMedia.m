@@ -54,15 +54,22 @@
     [MMAPI getTrendingType:@"topviewed" params:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject: %@", responseObject);
         
+        
+        
         NSMutableArray * trendingObjects = [NSMutableArray array];
         
         if([responseObject isKindOfClass:[NSArray class]]){
             for(NSDictionary *locationDictionary in responseObject){
                 NSDictionary *mediaDictionary = [locationDictionary objectForKey:@"media"];
                 
+                
+                
                 if(![mediaDictionary isEqual:[NSNull null]] && mediaDictionary.allKeys.count > 0){
-                    //MMMediaObject *mediaObject = [MMMediaObject getMediaObjectForMediaDictionary:mediaDictionary];
-                    //[trendingObjects addObject:mediaObject];
+                    MMMediaObject *mediaObject = [MMMediaObject mediaObjectFromJSON:mediaDictionary];
+                    mediaObject.nameOfPlace = [locationDictionary objectForKey:@"name"];
+                    mediaObject.placeLocationID = [locationDictionary objectForKey:@"locationId"];
+                    mediaObject.placeProviderID = [locationDictionary objectForKey:@"providerId"];
+                    [trendingObjects addObject:mediaObject];
                 }
             }
         }

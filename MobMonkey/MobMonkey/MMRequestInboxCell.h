@@ -16,7 +16,7 @@
 @protocol MMRequestInboxCellDelegate <NSObject>
 
 @optional
--(void)requestInboxCell:(MMRequestInboxCell *)cell mediaWasAccepted:(BOOL)accepted;
+-(void)requestInboxCell:(MMRequestInboxCell *)cell request:(MMRequestObject*) request wasAccepted:(BOOL)accepted;
 
 @end
 
@@ -25,6 +25,8 @@
 @interface MMRequestInboxCell : UITableViewCell <MMRequestInboxViewDelegate>
 
 @property(nonatomic, strong) MMRequestInboxView * requestInboxView;
+
+@property (assign) id <MMRequestInboxCellDelegate> delegate;
 
 -(void)setRequestInboxWrapper:(MMRequestWrapper *)wrapper;
 

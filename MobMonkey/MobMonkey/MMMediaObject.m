@@ -32,13 +32,27 @@
     MMMediaObject * mediaObject = [[MMMediaObject alloc] init];
     
     
-    mediaObject.accepted = [MMJSONCommon boolFromServerBool:[jsonDictionary valueForKey:@"accepted"]];
+    NSNumber * acceptedBool = [MMJSONCommon boolFromServerBool:[jsonDictionary valueForKey:@"accepted"]];
+    mediaObject.accepted = acceptedBool ? acceptedBool.boolValue : NO;
     mediaObject.expiryDate = [MMJSONCommon dateFromServerTime:[jsonDictionary valueForKey:@"expiryDate"]];
     mediaObject.mediaID = [jsonDictionary objectForKey:@"mediaId"];
     mediaObject.mediaURL = [MMJSONCommon urlFromServerPath:[jsonDictionary objectForKey:@"mediaURL"]];
     mediaObject.text = [jsonDictionary objectForKey:@"text"];
     mediaObject.thumbURL = [MMJSONCommon urlFromServerPath:[jsonDictionary objectForKey:@"thumbURL"]];
-    mediaObject.mediaType = [[jsonDictionary valueForKey:@"type"]intValue];
+    
+    NSString * typeString = [jsonDictionary objectForKey:@"type"];
+    MMMediaType mediaType;
+    if([typeString isEqualToString:@"livestreaming"]){
+        mediaType = MMMediaTypeLiveVideo;
+    }else if([typeString isEqualToString:@"video"]){
+        mediaType = MMMediaTypeVideo;
+    }else if ([typeString isEqualToString:@"image"]) {
+        mediaType = MMMediaTypePhoto;
+    }else if([typeString isEqualToString:@"text"]){
+        mediaType = MMMediaTypeText;
+    }
+    
+    mediaObject.mediaType = mediaType;
     mediaObject.uploadDate = [MMJSONCommon dateFromServerTime:[jsonDictionary valueForKey:@"uploadedDate"]];                     
     
     return mediaObject;

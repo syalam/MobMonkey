@@ -38,12 +38,17 @@
         _imageView.layer.borderColor = [UIColor colorWithRed:0.830 green:0.811 blue:0.820 alpha:1.000].CGColor;
         _imageView.clipsToBounds = YES;
         
+        _videoOverlayView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _videoOverlayView.contentMode = UIViewContentModeCenter;
+        _videoOverlayView.image = [UIImage imageNamed:@"playBtnOverlay"];
+        
         UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
         _imageView.userInteractionEnabled = YES;
         [_imageView addGestureRecognizer:tapGesture];
         
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
         [self addSubview:_imageView];
+        [self addSubview:_videoOverlayView];
     }
     return self;
 }
@@ -68,11 +73,19 @@
     CGRect imageViewFrame = CGRectMake((self.frame.size.width - 310)/2, 0, 310, 280);
     if(_wrapper.cellStyle == MMRequestCellStyleInbox || _wrapper.cellStyle == MMRequestCellStyleInboxNeedsReview){
         imageViewFrame.origin.y = 105;
+        imageViewFrame.origin.y += _wrapper.questionTextSize.height;
     }else if(_wrapper.cellStyle == MMRequestCellStyleTimeline){
-        imageViewFrame.origin.y = 65;
+        imageViewFrame.origin.y = 45;
     }
-    imageViewFrame.origin.y += _wrapper.questionTextSize.height;
+    
     _imageView.frame = imageViewFrame;
+    _videoOverlayView.frame = imageViewFrame;
+    
+    if(_wrapper.mediaType == MMMediaTypeLiveVideo || _wrapper.mediaType == MMMediaTypeVideo){
+        _videoOverlayView.hidden = NO;
+    }else{
+        _videoOverlayView.hidden = YES;
+    }
 }
 
 -(void)setWrapper:(MMRequestWrapper *)wrapper {
@@ -184,7 +197,7 @@
 
     CGRect frame = CGRectMake(point.x, point.y
                               ,0 , 0);
-    if(![self.wrapper.questionText isEqual:[NSNull null]]){
+    if(![self.wrapper.questionText isEqual:[NSNull null]] && self.wrapper.questionText.length > 0){
         
         [@"Q:" drawAtPoint:point withFont:[UIFont fontWithName:@"Helvetica-Bold" size:24] ];
         

@@ -368,6 +368,13 @@ Fetches livestreaming URLs for a location
                       success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+//new
+
++ (void)getMediaObjectsForLocationID:(NSString *)locationID
+                          providerID:(NSString *)providerID
+                             success:(void(^)(NSArray * mediaObjects))success
+                             failure:(void(^)(NSError * error))failure;
+
 
 ///---------------------------------------------
 /// @name Fetches Bookmarks

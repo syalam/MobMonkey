@@ -116,7 +116,7 @@
     
     
     
-    [SVProgressHUD showWithStatus:@"Searching for Locations"];
+    //[SVProgressHUD showWithStatus:@"Searching for Locations"];
     
     
  

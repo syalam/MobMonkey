@@ -32,6 +32,7 @@
 @property (nonatomic, assign) MMRequestCellStyle style;
 @property (nonatomic, assign) MMMediaType mediaType;
 @property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIImageView *videoOverlayView;
 @property (assign) id <MMRequestInboxViewDelegate> delegate;
 
 @end

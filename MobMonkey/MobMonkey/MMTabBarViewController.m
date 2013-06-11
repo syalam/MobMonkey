@@ -35,20 +35,20 @@
         [flowLayout setMinimumInteritemSpacing:0.f];
         [flowLayout setMinimumLineSpacing:0.f];
         
-        UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithCollectionViewLayout:flowLayout];
-        UIViewController *bookmarksVC = [[MMTrendingViewController alloc] initWithCollectionViewLayout:flowLayout];
+        /*UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithCollectionViewLayout:flowLayout];
+        UIViewController *bookmarksVC = [[MMTrendingViewController alloc] initWithCollectionViewLayout:flowLayout];*/
         UIViewController *settingsVC = [[MMSettingsViewController alloc]initWithNibName:@"MMSettingsViewController" bundle:nil];
         
         UINavigationController *inboxNavC = [[UINavigationController alloc]initWithRootViewController:inboxVC];
         UINavigationController *searchNavC = [[UINavigationController alloc]initWithRootViewController:hotSpot];
-        UINavigationController *trendingNavC = [[UINavigationController alloc]initWithRootViewController:trendingVC];
-        UINavigationController *bookmarksNavC = [[UINavigationController alloc]initWithRootViewController:bookmarksVC];
+        //UINavigationController *trendingNavC = [[UINavigationController alloc]initWithRootViewController:trendingVC];
+       // UINavigationController *bookmarksNavC = [[UINavigationController alloc]initWithRootViewController:bookmarksVC];
         UINavigationController *settingsNavC = [[UINavigationController alloc]initWithRootViewController:settingsVC];
         
         inboxVC.title = @"Inbox";
         hotSpot.title = @"Hot Spots";
-        trendingVC.title = @"Trending";
-        bookmarksVC.title = @"Bookmarks";
+        //trendingVC.title = @"Trending";
+        //bookmarksVC.title = @"Bookmarks";
         settingsVC.title = @"Settings";
         
 #warning FIX THIS BEFORE RELEASE
@@ -68,12 +68,12 @@
         UITabBarItem *trendingBarItem = [[UITabBarItem alloc]initWithTitle:@"Trending" image:nil tag:0];
         [trendingBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tabBtn3Selected"] withFinishedUnselectedImage:[UIImage imageNamed:@"tabBtn3"]];
         [trendingBarItem setTitlePositionAdjustment:UIOffsetMake(0, 100)];
-        [trendingNavC setTabBarItem:trendingBarItem];
+        //[trendingNavC setTabBarItem:trendingBarItem];
         
         UITabBarItem *bookmarksBarItem = [[UITabBarItem alloc]initWithTitle:@"Favorites" image:nil tag:0];
         [bookmarksBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tabBtn4Selected"] withFinishedUnselectedImage:[UIImage imageNamed:@"tabBtn4"]];
         [bookmarksBarItem setTitlePositionAdjustment:UIOffsetMake(0, 100)];
-        [bookmarksNavC setTabBarItem:bookmarksBarItem];
+        //[bookmarksNavC setTabBarItem:bookmarksBarItem];
         
         UITabBarItem *settingsBarItem = [[UITabBarItem alloc]initWithTitle:@"Settings" image:nil tag:0];
         [settingsBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tabBtn5Selected"] withFinishedUnselectedImage:[UIImage imageNamed:@"tabBtn5"]];

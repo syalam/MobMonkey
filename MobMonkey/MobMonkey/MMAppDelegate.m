@@ -23,6 +23,7 @@
 #import "MMNavigationViewController.h"
 #import "MMContentViewController.h"
 #import "MMTableViewController.h"
+#import "MMHappeningViewController.h"
 //#import "MMSlideNavigationController.h"
 
 @implementation MMAppDelegate
@@ -85,22 +86,29 @@
     [flowLayout setMinimumInteritemSpacing:0.f];
     [flowLayout setMinimumLineSpacing:0.f];
     
-    UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithCollectionViewLayout:flowLayout];
+    //UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithCollectionViewLayout:flowLayout];
     UIViewController *bookmarksVC = [[MMBookmarksViewController alloc] initWithNibName:@"MMLocationsViewController" bundle:nil];
     MMContentViewController *settingsVC = [[MMSettingsViewController alloc] initWithNibName:@"MMSettingsViewController" bundle:nil];
     
     UINavigationController *inboxNavC = [[UINavigationController alloc] initWithRootViewController:inboxVC];
     MMNavigationViewController *searchNavC = [[MMNavigationViewController alloc] initWithRootViewController:hotSpotVC];
 
-    MMNavigationViewController *trendingNavC = [[MMNavigationViewController alloc] initWithRootViewController:trendingVC];
+   // MMNavigationViewController *trendingNavC = [[MMNavigationViewController alloc] initWithRootViewController:trendingVC];
 
     UINavigationController *bookmarksNavC = [[UINavigationController alloc] initWithRootViewController:bookmarksVC];
 
     UINavigationController *settingsNavC = [[UINavigationController alloc] initWithRootViewController:settingsVC];
+    
+    
+    MMHappeningViewController * happeningViewController = [[MMHappeningViewController alloc] initWithStyle:UITableViewStylePlain];
+    happeningViewController.title = @"What's Happening Now";
+    MMNavigationViewController * happeningNVC = [[MMNavigationViewController alloc] initWithRootViewController:happeningViewController];
+    
+    
 
     inboxVC.title = @"Inbox";
     hotSpotVC.title = @"Search Locations";
-    trendingVC.title = @"What's Trending Now!";
+    //trendingVC.title = @"What's Trending Now!";
     bookmarksVC.title = @"Favorites";
     settingsVC.title = @"Settings";
     
@@ -108,7 +116,7 @@
     _slideNavigationController = [[MMSlideNavigationController alloc] init];
     //MMNavigationViewController *navigationViewController = [[MMNavigationViewController alloc] initWithRootViewController:trendingVC];
     
-    self.slideNavigationController.topViewController = searchNavC;
+    self.slideNavigationController.topViewController = happeningNVC;
     [self.window setRootViewController:_slideNavigationController];
 //    bookmarksVC.sectionSelected = YES;
 //    bookmarksVC.bookmarkTab = YES;

@@ -83,12 +83,12 @@
     [flowLayout setMinimumInteritemSpacing:0.f];
     [flowLayout setMinimumLineSpacing:0.f];
     
-    UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithCollectionViewLayout:flowLayout];
+   // UIViewController *trendingVC = [[MMTrendingViewController alloc] initWithCollectionViewLayout:flowLayout];
     
 #warning  FIX THIS BEFORE RELEASE
     //trendingVC.sectionSelected = YES;
-    trendingVC.title = selectedCategory;
-    [presentingViewController.navigationController pushViewController:trendingVC animated:YES];
+    //trendingVC.title = selectedCategory;
+    //[presentingViewController.navigationController pushViewController:trendingVC animated:YES];
 }
 
 /*- (void)locationScreen:(UIViewController*)presentingViewController locationDetail:(NSMutableDictionary*)locationDetail {

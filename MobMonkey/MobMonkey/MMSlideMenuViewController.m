@@ -23,6 +23,9 @@
 #import "MMCreateHotSpotMapViewController.h"
 #import "MMSettingsViewController.h"
 #import "MMMakeARequestTableViewController.h"
+#import "MMSubscriptionViewController.h"
+#import "MMHappeningViewController.h"
+#import "MMTermsOfUseViewController.h"
 
 @interface MMSlideMenuViewController ()
 
@@ -205,15 +208,7 @@
             
         case MMMenuItemTypeTrending: {
             
-            UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
             
-            MMTrendingViewController *trendingViewContoller = [[MMTrendingViewController alloc] initWithCollectionViewLayout:layout];
-            
-            trendingViewContoller.title = @"What's Trending Now!";
-            
-            MMNavigationViewController *trendingNVC = [[MMNavigationViewController alloc] initWithRootViewController:trendingViewContoller];
-            
-            [self.slidingViewController setTopViewController:trendingNVC];
             
             break;
         }
@@ -266,29 +261,55 @@
         }
         case MMMenuItemCreateHotSpot: {
             
-            MMCreateHotSpotMapViewController *createHotSpotMapViewController = [[MMCreateHotSpotMapViewController alloc] initWithNibName:nil bundle:nil];
+            /*MMCreateHotSpotMapViewController *createHotSpotMapViewController = [[MMCreateHotSpotMapViewController alloc] initWithNibName:nil bundle:nil];
             createHotSpotMapViewController.title = @"Choose a location";
             
             MMNavigationViewController *createHotSpotNVC = [[MMNavigationViewController alloc] initWithRootViewController:createHotSpotMapViewController];
             
-            [self.slidingViewController setTopViewController:createHotSpotNVC];
+            [self.slidingViewController setTopViewController:createHotSpotNVC];*/
             break;
         }
         case MMMenuItemSnapShot: {
-            MMMakeARequestTableViewController *makeARequestTableViewController = [[MMMakeARequestTableViewController alloc] initWithNibName:@"MMMakeARequestTableViewController" bundle:nil];
+           /* MMMakeARequestTableViewController *makeARequestTableViewController = [[MMMakeARequestTableViewController alloc] initWithNibName:@"MMMakeARequestTableViewController" bundle:nil];
             
             MMNavigationViewController *snapShotNVC = [[MMNavigationViewController alloc] initWithRootViewController:makeARequestTableViewController];
             
-            [self.slidingViewController setTopViewController:snapShotNVC];
+            [self.slidingViewController setTopViewController:snapShotNVC];*/
             break;
         }
         case MMMenuItemNotifications: {
-            MMPlaceViewController *placeViewController = [[MMPlaceViewController alloc] initWithTableViewStyle:UITableViewStyleGrouped defaultMapHeight:100 parallaxFactor:0.4];
+           /* MMPlaceViewController *placeViewController = [[MMPlaceViewController alloc] initWithTableViewStyle:UITableViewStyleGrouped defaultMapHeight:100 parallaxFactor:0.4];
             
             MMNavigationViewController * notificationsNVC = [[MMNavigationViewController alloc] initWithRootViewController:placeViewController];
             
-            [self.slidingViewController setTopViewController:notificationsNVC];
+            [self.slidingViewController setTopViewController:notificationsNVC];*/
+            break;
+        }
+        case MMMenuItemSubscribe: {
+            MMSubscriptionViewController * subscriptionViewController = [[MMSubscriptionViewController alloc] initWithNibName:@"MMSubscriptionViewController" bundle:nil];
+            subscriptionViewController.title = @"Subscribe";
             
+            MMNavigationViewController * subscribeNVC = [[MMNavigationViewController alloc] initWithRootViewController:subscriptionViewController];
+            
+            [self.slidingViewController setTopViewController:subscribeNVC];
+            break;
+        }
+        case MMMenuItemTypeHappening: {
+            
+            MMHappeningViewController * happeningViewController = [[MMHappeningViewController alloc] initWithStyle:UITableViewStylePlain];
+            happeningViewController.title = @"What's Happening Now";
+            MMNavigationViewController * happeningNVC = [[MMNavigationViewController alloc] initWithRootViewController:happeningViewController];
+            
+            [self.slidingViewController setTopViewController:happeningNVC];
+            
+            break;
+        }
+        case MMMenuItemTermsAndConditions:{
+            MMTermsOfUseViewController * termsViewController = [[MMTermsOfUseViewController alloc] initWithNibName:@"MMTermsOfUseViewController" bundle:nil];
+            
+            MMNavigationViewController * termsNVC = [[MMNavigationViewController alloc] initWithRootViewController:termsViewController];
+            
+            [self.slidingViewController setTopViewController:termsNVC];
         }
                 
             

@@ -101,6 +101,8 @@
                 assingedRequest.durationSincePost = [requestObject dateStringDurationSinceDate:requestObject.assignedDate];
                 assingedRequest.nameOfParentLocation = @"Not Implemented Yet";
                 assingedRequest.isAnswered = NO;
+                
+                
                 assingedRequest.questionText = ![requestObject.message isEqual:[NSNull null]] ? requestObject.message : @" No Text";
                 assingedRequest.cellStyle = MMRequestCellStyleInbox;
                 assingedRequest.requestObject = requestObject;
@@ -133,11 +135,11 @@
                 requestWrapper.isAnswered = YES;
                 requestWrapper.questionText = ![requestObject.message isEqual:[NSNull null]] ? requestObject.message : @" No Text";
                 
-                //if(requestObject.requestFulfilled.boolValue){
-                //    requestWrapper.cellStyle = MMRequestCellStyleInbox;
-                //}else{
+                if(requestObject.mediaObject.accepted){
+                    requestWrapper.cellStyle = MMRequestCellStyleInbox;
+                }else{
                     requestWrapper.cellStyle = MMRequestCellStyleInboxNeedsReview;
-                //}
+                }
                 
                 requestWrapper.requestObject = requestObject;
                 //Video
@@ -232,6 +234,7 @@
         [cell setRequestInboxWrapper:[self.assingedRequestWrappers objectAtIndex:indexPath.row]];
     }else if (indexPath.section == 1){
         [cell setRequestInboxWrapper:[self.answeredRequestWrappers objectAtIndex:indexPath.row]];
+        cell.delegate = self;
     }else{
         [cell setRequestInboxWrapper:wrapper];
     }
@@ -542,6 +545,39 @@
         
         return resizedImage;
     }
+}
+
+#pragma mark - Request Cell Delegate
+
+-(void)requestInboxCell:(MMRequestInboxCell *)cell request:(MMRequestObject *)request wasAccepted:(BOOL)accepted {
+    
+    if(accepted){
+        NSString *requestId = request.requestID;
+        NSString *mediaId = request.mediaObject.mediaID;
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                requestId, @"requestId",
+                                mediaId, @"mediaId", nil];
+        [MMAPI acceptMedia:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self loadRequests];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"ERROR: %@", error);
+        }];
+    }else{
+        
+        NSString *requestId = request.requestID;
+        NSString *mediaId = request.mediaObject.mediaID;
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                requestId, @"requestId",
+                                mediaId, @"mediaId", nil];
+        
+        [MMAPI rejectMedia:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self loadRequests];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"ERROR: %@", error);
+        }];
+        
+    }
+    
 }
 
 @end

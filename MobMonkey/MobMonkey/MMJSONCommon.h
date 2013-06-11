@@ -14,5 +14,5 @@
 +(NSDate *)dateFromServerTime:(id)jsonValue;
 +(NSNumber *)boolFromServerBool:(id)jsonValue;
 +(NSURL *)urlFromServerPath:(NSString *)pathString;
-
++(NSString *)dateStringDurationSinceDate:(NSDate *)previousDate ;
 @end

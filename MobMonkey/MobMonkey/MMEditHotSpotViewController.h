@@ -18,7 +18,7 @@
 
 @property (nonatomic, weak) MMLocationInformation *parentLocation;
 @property (nonatomic, strong) NSArray *cellLabels;
-@property (nonatomic, strong) MMMapSelectView *mapSelectView;
+@property (nonatomic, assign) CLLocationCoordinate2D sublocationCoordinates;
 @property (nonatomic, strong) MMLocationInformation *sublocationInformation;
 
 @property (nonatomic, strong) NSString *nameText;

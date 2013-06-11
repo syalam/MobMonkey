@@ -12,7 +12,7 @@
 #import "MMLocationAnnotation.h"
 #import "MMLocationSearch.h"
 #import "UIBarButtonItem+NoBorder.h"
-
+#import "MMPlaceViewController.h"
 
 @interface MMLocationsViewController ()
 
@@ -128,15 +128,15 @@
     
     cancelButton = [[UIBarButtonItem alloc]initWithCustomView:cancelNavButton];
     
-    
-    if ([self.navigationController viewControllers].count > 1) {
+    self.navigationItem.leftBarButtonItem = nil;
+    /*if ([self.navigationController viewControllers].count > 1) {
         UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
         [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
         
         UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
         self.navigationItem.leftBarButtonItem = backButton;
-    }
+    }*/
     if (!self.locationsInformationCollection) {
         self.locationsInformationCollection = [NSMutableArray array];
     }
@@ -154,10 +154,10 @@
      initWithTarget:self action:@selector(handleLongPress:)];
      [mapView addGestureRecognizer:longPressGestureRecognizer];*/
     
-    [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:226.0/255.0
+    /*[self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:226.0/255.0
                                                                           green:112.0/225.0
                                                                            blue:36.0/255.0
-                                                                          alpha:1.0]];
+                                                                          alpha:1.0]];*/
 }
 
 - (void)setCategory:(NSDictionary *)categoryParameter
@@ -189,7 +189,7 @@
     
     if (!_isHistory) {
         self.navigationItem.rightBarButtonItem = nil;
-        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:addLocationButton, globeButton, nil];
+       // self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:addLocationButton, globeButton, nil];
     }
     else {
         self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:nil, nil, nil];
@@ -369,10 +369,10 @@
         NSString *locationId = locationInformation.locationID;
         NSString *providerId = locationInformation.providerID;
         
-        MMLocationViewController *locationViewController = [[MMLocationViewController alloc]initWithStyle:UITableViewStyleGrouped];
-        locationViewController.locationInformation = locationInformation;
+        MMPlaceViewController *placeViewController = [[MMPlaceViewController alloc]initWithTableViewStyle:UITableViewStylePlain defaultMapHeight:120 parallaxFactor:0.4];
+        placeViewController.locationInformation = locationInformation;
         //[locationViewController loadLocationDataWithLocationId:locationId providerId:providerId];
-        [self.navigationController pushViewController:locationViewController animated:YES];
+        [self.navigationController pushViewController:placeViewController animated:YES];
     }
     else {
         [SVProgressHUD showErrorWithStatus:@"Unable to load this location"];
@@ -525,6 +525,9 @@
     
     [self.tableView reloadData];
 
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 74;
 }
 -(void)reloadLocations{
     MMLocationSearch *locationSearch = [[MMLocationSearch alloc] init];

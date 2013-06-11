@@ -8,8 +8,11 @@
 
 #import "MMCreateHotSpotMapViewController.h"
 #import "UIBarButtonItem+NoBorder.h"
+#import "MMEditHotSpotViewController.h"
 
 @interface MMCreateHotSpotMapViewController ()
+
+@property (nonatomic, assign) CLLocationCoordinate2D selectedCoordinates;
 
 @end
 
@@ -46,10 +49,11 @@
     [self.view addSubview:_mapView];
     
     _hotSpotActionButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    
+    [_hotSpotActionButton addTarget:self action:@selector(selectHotSpotTapped:) forControlEvents:UIControlEventTouchUpInside];
     _hotSpotActionButton.frame = CGRectMake((self.view.frame.size.width - 280)/2, self.view.frame.size.height - 100 - 25, 280, 50);
     [self.view addSubview:_hotSpotActionButton];
     [_hotSpotActionButton setTitle:@"Select Hot Spot" forState:UIControlStateNormal];
+    
     
     hotSpotAnnotation = [[MKPointAnnotation alloc] init];
     [self.mapView addAnnotation:hotSpotAnnotation];
@@ -69,6 +73,12 @@
     [super viewDidAppear:animated];
     
     [self zoomToParentLocation];
+}
+-(void)selectHotSpotTapped:(id)sender{
+    MMEditHotSpotViewController * editHotSpotViewController = [[MMEditHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    editHotSpotViewController.sublocationCoordinates = _selectedCoordinates;
+    editHotSpotViewController.parentLocation = self.parentLocationInformation;
+    [self.navigationController pushViewController:editHotSpotViewController animated:YES];
 }
 -(void)zoomToParentLocation {
     self.mapView.centerCoordinate = CLLocationCoordinate2DMake(_parentLocationInformation.latitude.doubleValue, _parentLocationInformation.longitude.doubleValue);
@@ -99,6 +109,8 @@
     
     CGPoint touchPoint = [sender locationInView:self.mapView];
     CLLocationCoordinate2D touchMapCoordinate = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+    
+    _selectedCoordinates = touchMapCoordinate;
     
     [hotSpotAnnotation setCoordinate:touchMapCoordinate];
     

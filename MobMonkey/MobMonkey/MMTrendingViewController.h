@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMTrendingViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate> {
+@interface MMTrendingViewController : UITableViewController <UITableViewDataSource, UITabBarDelegate, UIScrollViewDelegate> {
     
-    UIImageView *bottomGradientImageView;
     UIImageView *noMediaImageView;
 
 }

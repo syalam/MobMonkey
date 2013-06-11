@@ -113,7 +113,7 @@
     requestObject.locationID = self.locationInformation.locationID;
     requestObject.duration = self.duration;
     requestObject.recurring = [NSNumber numberWithBool:self.isRecurring];
-    
+    requestObject.message = self.messageString;
     
     
     NSString *mediaType;
@@ -210,7 +210,8 @@
             //if(self.messageString)
             cell.textView.text = self.messageString;
             cell.iconView.image = [UIImage imageNamed:@"compose2"];
-            //self.messageTextView = cell.textView;
+            self.messageTextView = cell.textView;
+            self.messageTextView.delegate = self;
             break;
         case 1:
             cell.titleLabel.text = @"Schedule Request";
@@ -304,8 +305,26 @@
      */
     switch (indexPath.row) {
         case 0: {
-            self.messageTextView.editable = YES;
-            [self.messageTextView becomeFirstResponder];
+            
+            self.isEditingMessage = !_isEditingMessage;
+            
+            if(!_isEditingMessage){
+                self.messageTextView.editable = NO;
+                [self.messageTextView endEditing:YES];
+            }
+            NSIndexPath * messageIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+            [self.tableView beginUpdates];
+            
+            [self.tableView reloadRowsAtIndexPaths:@[messageIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+            [self.tableView endUpdates];
+            
+            if(_isEditingMessage){
+                self.messageTextView.editable = YES;
+                self.messageTextView.text = nil;
+                [self.messageTextView becomeFirstResponder];
+            }            
+            
             break;
         }
             
@@ -318,10 +337,16 @@
 #pragma mark - TextView Delegate
 
 -(void)textViewDidBeginEditing:(UITextView *)textView {
-    self.isEditingMessage = YES;
+    
+    
+    NSLog(@"EDITTIng");
 }
 
 -(void)textViewDidEndEditing:(UITextView *)textView {
     self.isEditingMessage = NO;
+    
+    if(textView.text.length > 0){
+        self.messageString = textView.text;
+    }
 }
 @end

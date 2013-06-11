@@ -58,6 +58,8 @@
     //}
     if(self.cellStyle == MMRequestCellStyleInboxNeedsReview){
         height += 45;
+    }else if(self.cellStyle == MMRequestCellStyleTimeline){
+        height += 20;
     }
     
     return height;

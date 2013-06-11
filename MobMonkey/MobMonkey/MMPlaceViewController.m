@@ -208,7 +208,7 @@
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-    
+    [self reloadLocationInfo];
     [self mapAnimation];
 }
 - (void)didReceiveMemoryWarning
@@ -221,6 +221,7 @@
     RIButtonItem * cancelButton = [RIButtonItem itemWithLabel:@"Cancel"];
     RIButtonItem * createHotSpotButton = [RIButtonItem itemWithLabel:@"Create Hot Spot"];
     RIButtonItem * addToFavorites = [RIButtonItem itemWithLabel:@"Add to Favorites"];
+    RIButtonItem * removeFromFavorites = [RIButtonItem itemWithLabel:@"Remove from Favorites"];
     RIButtonItem * addVideo = [RIButtonItem itemWithLabel:@"Add Video"];
     RIButtonItem * addPhoto = [RIButtonItem itemWithLabel:@"Add Photo"];
     RIButtonItem * addComment = [RIButtonItem itemWithLabel:@"Add Comment"];
@@ -233,9 +234,39 @@
         [self.navigationController pushViewController:createHotSpotMapViewController animated:YES];
     }];
     
+    [addToFavorites setAction:^{
+        [MMAPI createBookmarkWithLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [SVProgressHUD showSuccessWithStatus:@"Favorite Added"];
+            self.locationInformation.isBookmark = YES;
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [SVProgressHUD showErrorWithStatus:@"Could not add to Favorites."];
+        }];
+    }];
+    
+    [removeFromFavorites setAction:^{
+        [MMAPI deleteBookmarkWithLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            [SVProgressHUD showSuccessWithStatus:@"Favorite Removed"];
+            self.locationInformation.isBookmark = NO;
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [SVProgressHUD showErrorWithStatus:@"Could not remove from Favorites."];
+        }];
+    }];
     
     
-    UIActionSheet *actionsheet = [[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:createHotSpotButton, addToFavorites, addVideo, addPhoto, addComment, nil];
+    
+    UIActionSheet *actionsheet;
+    
+    if(self.locationInformation.isBookmark){
+        
+        actionsheet = [[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:createHotSpotButton, removeFromFavorites, addVideo, addPhoto, addComment, nil];
+        
+    }else{
+        
+        actionsheet = [[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:createHotSpotButton, addToFavorites, addVideo, addPhoto, addComment, nil];
+    }
+    
     
     [actionsheet showInView:self.view];
 }
@@ -460,8 +491,8 @@
     
     
    if(indexPath.section == 1 && indexPath.row == 0){
-        MMMediaTimelineViewController *mediaTimelineViewController = [[MMMediaTimelineViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        
+        MMMediaTimelineViewController *mediaTimelineViewController = [[MMMediaTimelineViewController alloc] initWithStyle:UITableViewStylePlain];
+       mediaTimelineViewController.locationInformation = self.locationInformation;
         [self.navigationController pushViewController:mediaTimelineViewController animated:YES];
     }
     
@@ -480,6 +511,27 @@
     }
 }
 
+-(void)reloadLocationInfo {
+    [MMAPI getLocationWithID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(AFHTTPRequestOperation *operation, MMLocationInformation *locationInformation) {
+        if(!self.locationInformation){
+            self.locationInformation = locationInformation;
+        }else{
+            self.locationInformation.monkeys = locationInformation.monkeys;
+            self.locationInformation.videos = locationInformation.videos;
+            self.locationInformation.images = locationInformation.images;
+            self.locationInformation.livestreaming = locationInformation.livestreaming;
+            self.locationInformation.message = locationInformation.message;
+            self.locationInformation.messageURL = locationInformation.messageURL;
+            self.locationInformation.parentLocationID = locationInformation.parentLocationID;
+            self.locationInformation.isBookmark = locationInformation.isBookmark;
+            self.locationInformation.createdBy = locationInformation.createdBy;
+            NSLog(@"created by: %@", locationInformation.createdBy);
+        }
+        [self.tableView reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    
+    }];
+}
 /*-(void)mapTableViewController:(MMMapTableViewController *)mapTableViewController didScrollOffMapView:(MKMapView *)mapView {
     MMNavigationBar *navBar = (MMNavigationBar*)self.navigationController.navigationBar;
     navBar.translucentFactor = 0.4;

@@ -751,6 +751,57 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     [httpClient getPath:@"media" parameters:@{ @"locationId" : locationID , @"providerId" : providerID } success:success failure:failure];
 }
 
++(void)getMediaObjectsForLocationID:(NSString *)locationID providerID:(NSString *)providerID success:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure {
+    MMHTTPClient *httpClient = [MMHTTPClient sharedClient];
+    [httpClient getPath:@"media" parameters:@{ @"locationId" : locationID , @"providerId" : providerID } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSMutableArray * mediaObjects = [NSMutableArray array];
+        //DELETE THIS FOR PRODUCTION
+        MMMediaObject * fakeLiveVideo;
+        
+        if([locationID isEqualToString:@"5d44fab0-6f4f-4fe7-8351-aa4fb695d764"] && [providerID isEqualToString:@"e048acf0-9e61-4794-b901-6a4bb49c3181"]){
+            
+            /*
+             {
+             "mediaURL" : "http://d2vj1o2r35jhpr.cloudfront.net/hds-live/livepkgr/_definst_/liveevent/mobmonkey.m3u8",
+             "type":"livestreaming",
+             "expiryDate" : 1352567323678
+             }*/
+             
+            NSDictionary *fakeLiveStreamVideo = @{@"mediaURL": @"http://wowza-cloudfront.mobmonkey.com/live/97a1a0b0-16d9-4c86-9a58-7ecfe9292321.stream/playlist.m3u8",
+                                                  @"type":@"livestreaming",
+                                                  @"expiryDate":@1352567323678};
+            
+            fakeLiveVideo = [MMMediaObject mediaObjectFromJSON:fakeLiveStreamVideo];
+            [mediaObjects addObject:fakeLiveVideo];
+        }
+        
+        if([locationID isEqualToString:@"9153ef25-4c49-47da-b3ba-324e5f8e5acd"] && [providerID isEqualToString:@"222e736f-c7fa-4c40-b78e-d99243441fae"]){
+                         
+            NSDictionary *fakeLiveStreamVideo = @{@"mediaURL": @"http://wowza-cloudfront.mobmonkey.com/live/e70c51cd-8461-4ac7-86e5-00c35abb9693.stream/playlist.m3u8",
+                                                  @"type":@"livestreaming",
+                                                  @"expiryDate":@1352567323678};
+            
+            
+            fakeLiveVideo = [MMMediaObject mediaObjectFromJSON:fakeLiveStreamVideo];
+            [mediaObjects addObject:fakeLiveVideo];
+        }
+        
+        for(NSDictionary * mediaDictionary in [responseObject objectForKey:@"media"]){
+            MMMediaObject * mediaObject = [MMMediaObject mediaObjectFromJSON:mediaDictionary];
+            [mediaObjects addObject:mediaObject];
+        }
+        
+     if(success){
+         success(mediaObjects);
+     }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if(failure){
+            failure(error);
+        }
+    }];
+}
+
 #pragma mark - Bookmarks
 + (void)getBookmarksOnSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {

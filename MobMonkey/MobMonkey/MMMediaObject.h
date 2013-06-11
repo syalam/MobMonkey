@@ -33,6 +33,11 @@ typedef enum {
 @property (nonatomic, assign) MMMediaType mediaType;
 @property (nonatomic, strong) NSDate *uploadDate;
 
+@property (nonatomic, strong) NSString * nameOfPlace;
+@property (nonatomic, strong) NSString * placeLocationID;
+@property (nonatomic, strong) NSString * placeProviderID;
+
+
 
 +(MMMediaObject*)mediaObjectFromJSON:(NSDictionary *)jsonDictionary;
 

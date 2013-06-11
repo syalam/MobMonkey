@@ -51,12 +51,6 @@
     self.view.backgroundColor = [UIColor MMEggShell];
     self.tableView.backgroundView = nil;
     
-    
-    self.mapSelectView = [[MMMapSelectView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 250)];
-    self.tableView.tableHeaderView = self.mapSelectView;
-    self.mapSelectView.parentLocation = self.parentLocation;
-    self.mapSelectView.delegate =self;
-    
     self.cellLabels = @[@"Name", @"Description", @"Range"];
     
     createSubLocationButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, self.view.frame.size.width - 40, 50)];
@@ -82,13 +76,9 @@
     
     [self.view endEditing:YES];
     
-    if(!sublocationInformation.latitude){
-        sublocationInformation.latitude = [NSNumber numberWithDouble: self.mapSelectView.mapView.userLocation.coordinate.latitude];
-    }
+    sublocationInformation.latitude = [NSNumber numberWithDouble:_sublocationCoordinates.latitude];
     
-    if(!sublocationInformation.longitude){
-         sublocationInformation.longitude = [NSNumber numberWithDouble: self.mapSelectView.mapView.userLocation.coordinate.longitude];
-    }
+    sublocationInformation.longitude = [NSNumber numberWithDouble:_sublocationCoordinates.longitude];
     
 
     if (!self.nameText || self.nameText.length <= 0) {
@@ -170,7 +160,7 @@
     
     UIActionSheet *selectRangeAction = [[UIActionSheet alloc] initWithTitle:@"Select a Range" cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:meter5, meter10, meter30, meter50, meter100, nil];
     
-    [selectRangeAction showFromTabBar:self.tabBarController.tabBar];
+    [selectRangeAction showInView:self.view];
 }
 #pragma mark - Table view data source
 
@@ -261,17 +251,6 @@
 }
 */
 
-#pragma mark - Map Select View Delegate
--(void)mapSelectView:(MMMapSelectView *)mapSelectView didSelectLocation:(CLLocationCoordinate2D)coordinate{
-    
-    self.sublocationInformation.latitude = [NSNumber numberWithFloat:coordinate.latitude];
-    self.sublocationInformation.longitude = [NSNumber numberWithFloat:coordinate.longitude];
-
-}
--(void)mapSelectViewUseCurrentLocation:(MMMapSelectView *)mapSelectView {
-    self.sublocationInformation.latitude = nil;
-    self.sublocationInformation.longitude = nil;
-}
 
 #pragma mark - TextField Delegate
 

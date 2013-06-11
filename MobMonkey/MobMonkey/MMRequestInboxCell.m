@@ -78,10 +78,14 @@
 #pragma mark - view delegate
 
 -(void)requestInboxViewAcceptTapped:(id)wrapper requestObject:(MMRequestObject *)requestObject{
-    NSLog(@"Accept");
+    if([self.delegate respondsToSelector:@selector(requestInboxCell:request:wasAccepted:)]){
+        [self.delegate requestInboxCell:self request:requestObject wasAccepted:YES];
+    }
 }
 -(void)requestInboxViewRejectTapped:(id)wrapper requestObject:(MMRequestObject *)requestObject{
-    NSLog(@"Reject");
+    if([self.delegate respondsToSelector:@selector(requestInboxCell:request:wasAccepted:)]){
+        [self.delegate requestInboxCell:self request:requestObject wasAccepted:YES];
+    }
 }
 
 

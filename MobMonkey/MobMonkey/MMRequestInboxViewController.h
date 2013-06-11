@@ -14,8 +14,8 @@ typedef enum {
 } MMRequestType;
 
 #import <UIKit/UIKit.h>
-
-@interface MMRequestInboxViewController : UITableViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+#import "MMRequestInboxCell.h"
+@interface MMRequestInboxViewController : UITableViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, MMRequestInboxCellDelegate>
 
 @property (nonatomic, strong) NSArray * cellWrappers;
 
