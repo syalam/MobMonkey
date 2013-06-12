@@ -36,6 +36,7 @@
         
 		_liveVideoView = [[MMLiveVideoView alloc] initWithFrame:placeViewFrame];
 		_liveVideoView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _liveVideoView.delegate = self;
 		[self.contentView addSubview:_liveVideoView];
         self.clipsToBounds = YES;
         
@@ -58,4 +59,10 @@
     // Configure the view for the selected state
 }
 
+#pragma  mark -LiveVideDelegate
+-(void)liveVideoView:(MMLiveVideoView *)view messageURLClick:(NSURL *)meduaURL {
+    if([self.delegate respondsToSelector:@selector(liveVideoCell:openMessageURL:)]){
+        [self.delegate liveVideoCell:self openMessageURL:meduaURL];
+    }
+}
 @end

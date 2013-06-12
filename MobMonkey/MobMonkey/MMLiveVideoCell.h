@@ -11,13 +11,21 @@
 
 @class MMLiveVideoWrapper;
 @class MMLiveVideoView;
+@class MMLiveVideoCell;
 
-@interface MMLiveVideoCell : UITableViewCell {
+@protocol MMLiveVideoCellDelegate <NSObject>
+
+-(void)liveVideoCell:(MMLiveVideoCell *)cell openMessageURL:(NSURL *)messageURL;
+
+@end
+
+@interface MMLiveVideoCell : UITableViewCell <MMLiveVideoViewDelegate>{
     MMLiveVideoView *liveVideoView;
 }
 
 - (void)setLiveVideoWrapper:(MMLiveVideoWrapper *)newLiveVideoWrapper;
 @property (nonatomic, retain) MMLiveVideoView *liveVideoView;
+@property (assign) id <MMLiveVideoCellDelegate> delegate;
 
 - (void)redisplay;
 

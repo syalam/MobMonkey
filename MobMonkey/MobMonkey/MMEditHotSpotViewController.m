@@ -10,6 +10,7 @@
 #import "MMTextFieldCell.h"
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
+#import "UIBarButtonItem+NoBorder.h"
 
 @interface MMEditHotSpotViewController ()
 
@@ -41,12 +42,8 @@
     
     self.sublocationInformation = [[MMLocationInformation alloc] init];
 
-    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
-    [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
-    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
-    
-    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
-    self.navigationItem.leftBarButtonItem = backButton;
+    UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"whiteBackButton"] selectedImage:nil target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    self.navigationItem.leftBarButtonItem = menuItem;
     
     self.view.backgroundColor = [UIColor MMEggShell];
     self.tableView.backgroundView = nil;

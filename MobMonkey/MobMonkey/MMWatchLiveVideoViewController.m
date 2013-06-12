@@ -10,7 +10,8 @@
 #import "MMMediaObject.h"
 #import "MMLiveVideoWrapper.h"
 #import "MMLiveVideoCell.h"
-
+#import "BrowserViewController.h"
+#import "UIBarButtonItem+NoBorder.h"
 @interface MMWatchLiveVideoViewController ()
 
 @property (nonatomic, strong) NSArray *liveVideoWrappers;
@@ -32,7 +33,12 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor MMEggShell];
+    self.title = @"Live Video Cameras";
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = [UIColor colorWithRed:0.930 green:0.911 blue:0.920 alpha:1.000];
+    
+    UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"whiteBackButton"] selectedImage:nil target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    self.navigationItem.leftBarButtonItem = menuItem;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -74,6 +80,7 @@
         MMLiveVideoWrapper * wrapper = [[MMLiveVideoWrapper alloc] init];
         wrapper.cameraName = @"Test Live Video";
         wrapper.messageString = @"Come check out our great deals at MobMonkey";
+        wrapper.messageURL = [NSURL URLWithString:@"http://mobmonkey.com"];
         wrapper.webcamPlaceholder = [UIImage imageNamed:@"liveStreamPlaceholder"];
         wrapper.mediaURL = mediaObject.mediaURL;
         wrapper.mediaObject = mediaObject;
@@ -93,6 +100,9 @@
     
     if(cell == nil){
         cell = [[MMLiveVideoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.delegate = self;
     }
     
     [cell setLiveVideoWrapper:[self.liveVideoWrappers objectAtIndex:indexPath.row]];
@@ -105,7 +115,9 @@
     MMLiveVideoWrapper * wrapper = [self.liveVideoWrappers objectAtIndex:indexPath.row];
     return wrapper.cellHeight;
 }
-
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return [UIView new];
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -156,6 +168,24 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+}
+
+#pragma mark - Live Video Cell Delegate
+
+-(void)liveVideoCell:(MMLiveVideoCell *)cell openMessageURL:(NSURL *)messageURL {
+    BrowserViewController *bvc = [[BrowserViewController alloc] initWithUrls:messageURL];
+    /*UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
+    [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
+    bvc.navigationItem.leftBarButtonItem = backButton;*/
+    
+    //Add backbutton
+    UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"whiteBackButton"] selectedImage:nil target:self.navigationController action:@selector(popViewControllerAnimated:)];
+     bvc.navigationItem.leftBarButtonItem = menuItem;
+    
+    [self.navigationController pushViewController:bvc animated:YES];
 }
 
 @end

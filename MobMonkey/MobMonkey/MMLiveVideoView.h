@@ -11,6 +11,13 @@
 
 @class MMLiveVideoWrapper;
 
+@class MMLiveVideoView;
+@protocol MMLiveVideoViewDelegate <NSObject>
+
+-(void)liveVideoView:(MMLiveVideoView *)view messageURLClick:(NSURL *)meduaURL;
+
+@end
+
 @interface MMLiveVideoView : UIView{
     
     BOOL highlighted;
@@ -18,6 +25,7 @@
     MMLiveVideoWrapper *cellWrapper;
     UIImageView * placeHolderImageView;
     UIImageView * playButtonOverlay;
+    UIImageView * rightArrowView;
 }
 
 @property (nonatomic, assign) BOOL highlighted;
@@ -25,6 +33,7 @@
 @property (nonatomic, assign) CGRect messageTouchFrame;
 @property (nonatomic, assign) CGRect messageFrame;
 @property (nonatomic, strong) MMLiveVideoWrapper *cellWrapper;
+@property (assign) id <MMLiveVideoViewDelegate> delegate;
 
 -(void)buttonPressed;
 

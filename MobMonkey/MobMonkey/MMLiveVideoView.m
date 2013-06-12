@@ -10,6 +10,8 @@
 #import "MMCoreGraphicsCommon.h"
 #import <QuartzCore/QuartzCore.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import "BrowserViewController.h"
+#import "UIBarButtonItem+NoBorder.h"
 
 @implementation MMLiveVideoView
 
@@ -23,7 +25,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        
+        self.userInteractionEnabled = YES;
         self.backgroundColor = [UIColor clearColor];
         
         placeHolderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, 310, 280)];
@@ -44,6 +46,11 @@
         playButtonOverlay.contentMode = UIViewContentModeCenter;
         
         [self addSubview:playButtonOverlay];
+        
+        rightArrowView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+        rightArrowView.contentMode = UIViewContentModeScaleAspectFit;
+        rightArrowView.image = [UIImage imageNamed:@"arrowRight"];
+        [self addSubview:rightArrowView];
         
         
         
@@ -78,6 +85,11 @@
     
     placeHolderImageView.frame = imageViewFrame;
     playButtonOverlay.frame = imageViewFrame;
+    
+    CGRect rightArrowFrame = rightArrowView.frame;
+    rightArrowFrame.origin.x = _messageTouchFrame.origin.x + _messageTouchFrame.size.width + 3;
+    rightArrowFrame.origin.y = _messageTouchFrame.origin.y + (_messageTouchFrame.size.height - 25)/2;
+    rightArrowView.frame = rightArrowFrame;
 }
 
 // Only override drawRect: if you perform custom drawing.
@@ -133,8 +145,21 @@
     
     CGContextStrokePath(context);
     
+
     [self.cellWrapper.messageString drawInRect:_messageFrame withFont:self.cellWrapper.messageStringFont lineBreakMode:NSLineBreakByWordWrapping];
 }
-
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch =[touches anyObject];
+    CGPoint startPoint =[touch locationInView:self];
+    if(CGRectContainsPoint(_messageTouchFrame,startPoint))
+    {
+        if([self.delegate respondsToSelector:@selector(liveVideoView:messageURLClick:)]){
+            [self.delegate liveVideoView:self messageURLClick:self.cellWrapper.messageURL];
+        }
+    }
+    else
+        [super touchesBegan:touches withEvent:event];
+}
 
 @end

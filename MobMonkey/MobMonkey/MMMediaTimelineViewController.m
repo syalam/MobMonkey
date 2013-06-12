@@ -10,6 +10,7 @@
 #import "MMMediaObject.h"
 #import "MMJSONCommon.h"
 #import "MMRequestInboxCell.h"
+#import "UIBarButtonItem+NoBorder.h"
 
 @interface MMMediaTimelineViewController ()
 
@@ -30,6 +31,10 @@
 {
     [super viewDidLoad];
 
+    
+    UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"whiteBackButton"] selectedImage:nil target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    self.navigationItem.leftBarButtonItem = menuItem;
+    
     [self loadMediaObjects];
     self.view.backgroundColor = [UIColor MMEggShell];
     self.tableView.backgroundView = nil;

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMLiveVideoCell.h"
 
-@interface MMWatchLiveVideoViewController : UITableViewController
+@interface MMWatchLiveVideoViewController : UITableViewController <MMLiveVideoCellDelegate>
 
 @property (nonatomic, strong) NSArray * mediaObjects;
 
