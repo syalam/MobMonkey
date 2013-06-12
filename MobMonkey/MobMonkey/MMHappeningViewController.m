@@ -12,6 +12,7 @@
 #import "MMJSONCommon.h"
 #import "MMRequestInboxCell.h"
 #import "MMSectionHeaderWithBadgeView.h"
+#import "UIBarButtonItem+NoBorder.h"
 
 @interface MMHappeningViewController ()
 
@@ -46,6 +47,9 @@
     
     self.tableView.backgroundView = nil;
     self.tableView.backgroundColor = [UIColor MMEggShell];
+    
+    UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"whiteBackButton"] selectedImage:nil target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    self.navigationItem.leftBarButtonItem = menuItem;
     
     
     _noMediaImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 149)/2, 120, 149, 95)];

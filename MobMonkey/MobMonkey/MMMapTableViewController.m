@@ -17,8 +17,6 @@
 @property (nonatomic, assign) CGRect defaultMapViewFrame;
 @property (nonatomic, strong) UITapGestureRecognizer *mapTapGesture;
 @property (nonatomic, assign, getter = isMapVisible) BOOL mapVisible;
-@property (nonatomic, assign) BOOL isMapFullScreen;
-@property (nonatomic, assign) BOOL isMapAnimating;
 @property (nonatomic, assign) BOOL isScrollDragging;
 @property (nonatomic, assign) BOOL pullToExpandMapEnabled;
 @property (nonatomic, assign) CGFloat amountToScrollToFullScreenMap;
@@ -95,7 +93,7 @@
     self.defaultMapViewFrame = CGRectMake(0.0,
                                           -(self.view.frame.size.height / 2) + self.defaultMapHeight/2,
                                           self.tableView.frame.size.width,
-                                          self.view.frame.size.height);
+                                          self.view.frame.size.height );
     
     _mapView = [[MKMapView alloc] initWithFrame:self.defaultMapViewFrame];
     _mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -106,11 +104,6 @@
     self.mapVisible = YES;
     
     [self.view insertSubview:self.mapView belowSubview:self.tableView];
-    
-    _closeMapView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 22, self.view.frame.size.width, 22)];
-    //_closeMapView.hidden = YES;
-    _closeMapView.backgroundColor = [UIColor grayColor];
-    [self.view insertSubview:_closeMapView aboveSubview:_mapView];
     
     _mapTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapViewTapped:)];
     [_mapView addGestureRecognizer:_mapTapGesture];
@@ -163,7 +156,35 @@
                          
                      }];
 }
-
+- (void)closeMapView
+{
+    
+    self.isMapAnimating = YES;
+    self.mapView.scrollEnabled = NO;
+    self.mapView.zoomEnabled = NO;
+    [self.tableView.tableHeaderView addGestureRecognizer:self.mapTapGesture];
+    
+    [UIView animateWithDuration:0.3
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         CGRect newMapFrame = CGRectMake(self.mapView.frame.origin.x,
+                                                         self.mapView.frame.origin.y,
+                                                         self.mapView.frame.size.width,
+                                                         self.defaultMapHeight + 25);
+                         self.mapView.frame = newMapFrame;
+                     } completion:^(BOOL finished) {
+                         
+                         // "Pop" the map view back in
+                         self.mapView.frame = self.defaultMapViewFrame;
+                         [self.view insertSubview:self.mapView belowSubview:self.tableView];
+        
+                         self.isMapAnimating = NO;
+                         _isMapFullScreen = NO;
+                         
+                        
+                     }];
+}
 
 
 #pragma mark - ScrollView Delegate

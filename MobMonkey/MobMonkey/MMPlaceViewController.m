@@ -140,7 +140,7 @@
     
     
     //Add backbutton
-    UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"whiteBackButton"] selectedImage:nil target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"whiteBackButton"] selectedImage:nil target:self action:@selector(backButtonPressed:)];
     self.navigationItem.leftBarButtonItem = menuItem;
     
     self.title = @"Taco Bell";
@@ -193,7 +193,14 @@
     
     
 }
-
+-(void)backButtonPressed:(id)sender{
+    if((self.isMapFullScreen && !self.isMapAnimating) || (!self.isMapFullScreen && self.isMapAnimating)){
+        [self closeMapView];
+    }
+    else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 -(void)reloadValues{
   /* [MMAPI getMediaForLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(AFHTTPRequestOperation *operation, id responseObject) {
        

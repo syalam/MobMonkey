@@ -23,8 +23,9 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (assign) id <MMMapTableViewControllerDelegate> delegate;
 @property (nonatomic, strong) UIView *tableBackground;
-@property (nonatomic, strong) UIView *closeMapView;
+@property (nonatomic, assign) BOOL isMapFullScreen;
+@property (nonatomic, assign) BOOL isMapAnimating;
 
 -(id)initWithTableViewStyle:(UITableViewCellStyle)tableViewStyle defaultMapHeight:(CGFloat)defaultMapHeight parallaxFactor:(CGFloat)parallaxFactor;
-
+-(void)closeMapView;
 @end
