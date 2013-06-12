@@ -10,6 +10,8 @@
 #import "MMHotSpotInformation.h"
 #import "MMEditHotSpotViewController.h"
 #import "MMLocationViewController.h"
+#import "UIBarButtonItem+NoBorder.h"
+#import "MMCreateHotSpotMapViewController.h"
 
 @interface MMLocationHotSpotsViewController ()
 
@@ -32,12 +34,8 @@
     
     self.title = [NSString stringWithFormat:@"Existing Hot Spots"];
     
-    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
-    [backNavbutton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
-    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
-    
-    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
-    self.navigationItem.leftBarButtonItem = backButton;
+    UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"whiteBackButton"] selectedImage:nil target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    self.navigationItem.leftBarButtonItem = menuItem;
     
     self.view.backgroundColor = [UIColor MMEggShell];
     self.tableView.backgroundView = nil;
@@ -94,7 +92,7 @@
             break;
         }
         case 1:
-            cell.textLabel.text = @"Created Hot-Spot";
+            cell.textLabel.text = @"Create Hot-Spot";
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
             
         default:
@@ -164,8 +162,8 @@
 {
     
     if(indexPath.section == 1){
-        MMEditHotSpotViewController *editHotSpotVC = [[MMEditHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        editHotSpotVC.parentLocation = self.parentLocation;
+        MMCreateHotSpotMapViewController *editHotSpotVC = [[MMCreateHotSpotMapViewController alloc] initWithNibName:nil bundle:nil];
+        editHotSpotVC.parentLocationInformation = self.parentLocation;
         [self.navigationController pushViewController:editHotSpotVC animated:YES];
     }else if(indexPath.section == 0){
         MMLocationInformation *subLocationInformation = [self.hotSpots objectAtIndex:indexPath.row];

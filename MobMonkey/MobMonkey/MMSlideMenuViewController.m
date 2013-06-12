@@ -26,6 +26,7 @@
 #import "MMSubscriptionViewController.h"
 #import "MMHappeningViewController.h"
 #import "MMTermsOfUseViewController.h"
+#import "MMCreateHotSpotViewController.h"
 
 @interface MMSlideMenuViewController ()
 
@@ -261,6 +262,13 @@
         }
         case MMMenuItemCreateHotSpot: {
             
+            
+            MMCreateHotSpotViewController *  createHotSpotViewController = [[MMCreateHotSpotViewController alloc] initWithStyle:UITableViewStylePlain];
+            createHotSpotViewController.title = @"Choose a Location";
+            
+            MMNavigationViewController *createHotSpotNVC = [[MMNavigationViewController alloc] initWithRootViewController:createHotSpotViewController];
+            
+            [self.slidingViewController setTopViewController:createHotSpotNVC];
             /*MMCreateHotSpotMapViewController *createHotSpotMapViewController = [[MMCreateHotSpotMapViewController alloc] initWithNibName:nil bundle:nil];
             createHotSpotMapViewController.title = @"Choose a location";
             

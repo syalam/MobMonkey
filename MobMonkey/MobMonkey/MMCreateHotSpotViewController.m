@@ -11,6 +11,7 @@
 #import "MMLocationHotSpotsViewController.h"
 #import "MMEditHotSpotViewController.h"
 #import "MMLocationListCell.h"
+#import "MMCreateHotSpotMapViewController.h"
 
 @interface MMCreateHotSpotViewController ()
 
@@ -27,36 +28,24 @@
     return self;
 }
 
--(void)loadNearByLocations{
-    
-    if(!self.nearbyLocations){
-        [SVProgressHUD showWithStatus:@"Finding Nearby Locations"];
-       
-        MMLocationSearch *locationSearch = [[MMLocationSearch alloc] init];
-        
-        [locationSearch locationsForCategory:nil searchString:nil success:^(NSArray *locations) {
-            
-            self.nearbyLocations = locations;
-            [self.tableView reloadData];
-            [SVProgressHUD dismiss];
-            
-        } failure:^(NSError *error) {
-            
-            NSLog(@"Failed: %@", error);
-            [SVProgressHUD showErrorWithStatus:@"Couldn't Load Nearby Locations"];
-            
-        }];
-        
-    }else{
-        
+-(void)loadNearbyLocations {
+    MMLocationSearch *locationSearchModel = [[MMLocationSearch alloc] init];
+    [locationSearchModel locationsInfoForCategory:nil searchString:nil success:^(NSArray *locationInformations) {
+        self.nearbyLocations = locationInformations;
         [self.tableView reloadData];
+        // [mapView setCenterCoordinate:mapView.userLocation.location.coordinate animated:YES]
         
-    }
-    
+        [SVProgressHUD dismiss];
+    } failure:^(NSError *error) {
+        NSLog(@"Failed: %@", error);
+        [SVProgressHUD showErrorWithStatus:@"Failed to retreive locations"];
+    }];
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
     
     self.title = @"Master Location";
     
@@ -80,6 +69,11 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self loadNearbyLocations];
 }
 
 -(void)showMoreLocations {
@@ -211,6 +205,9 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 55;
 }
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    return [UIView new];
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -250,6 +247,12 @@
 }
 */
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    for(UIView * view in cell.contentView.subviews){
+        view.backgroundColor = [UIColor MMEggShell];
+    }
+}
+
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if(section == 0){
         return @"Choose the Hot Spot Location";
@@ -272,8 +275,8 @@
             [self.navigationController pushViewController:hotSpotsLocationVC animated:YES];
         }else{
             [SVProgressHUD showSuccessWithStatus:@"No Hot Spots Found. Creating a New One"];
-            MMEditHotSpotViewController *editHotSpotVC = [[MMEditHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
-            editHotSpotVC.parentLocation = parentLocation;
+            MMCreateHotSpotMapViewController *editHotSpotVC = [[MMCreateHotSpotMapViewController alloc] initWithNibName:nil bundle:nil];
+            editHotSpotVC.parentLocationInformation = parentLocation;
             [self.navigationController pushViewController:editHotSpotVC animated:YES];
 
         }

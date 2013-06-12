@@ -81,7 +81,9 @@
 
     
     
-    return @[whatHappeningMenuItem, searchMenuItem,inboxMenuItem, createHotSpotMenuItem, subscribeMenuItem, snapShotMenuItem, trendingNowMenuItem, favoritesMenuItem, notificationsMenuItem, settingsMenuItem, termsAndConditionsMenuItem];
+    //return @[whatHappeningMenuItem, searchMenuItem,inboxMenuItem, createHotSpotMenuItem, subscribeMenuItem, snapShotMenuItem, trendingNowMenuItem, favoritesMenuItem, notificationsMenuItem, settingsMenuItem, termsAndConditionsMenuItem];
+    
+    return @[whatHappeningMenuItem, searchMenuItem,inboxMenuItem, createHotSpotMenuItem, subscribeMenuItem, favoritesMenuItem, settingsMenuItem, termsAndConditionsMenuItem];
     
     
 }
