@@ -32,6 +32,9 @@ typedef enum {
 @property (nonatomic, strong) NSURL * thumbURL;
 @property (nonatomic, assign) MMMediaType mediaType;
 @property (nonatomic, strong) NSDate *uploadDate;
+@property (nonatomic, strong) NSString * messageString;
+@property (nonatomic, strong) NSURL * messageURL;
+
 
 @property (nonatomic, strong) NSString * nameOfPlace;
 @property (nonatomic, strong) NSString * placeLocationID;

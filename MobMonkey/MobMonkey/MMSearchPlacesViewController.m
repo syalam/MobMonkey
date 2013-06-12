@@ -13,6 +13,7 @@
 #import "MMPlaceViewController.h"
 #import "MMNavigationViewController.h"
 #import "MMSectionHeaderWithBadgeView.h"
+#import "MMLocationListCell.h"
 
 @interface MMSearchPlacesViewController ()
 
@@ -131,44 +132,59 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    if(cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
-    
-    //Grab the correct search item
-    MMSearchItem *searchItem;
-
-    if(self.isSearching){
+    if((_isSearching && indexPath.section != 1) || !_isSearching){
+        static NSString *CellIdentifier = @"Cell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
-        if(indexPath.section == 0){
-            
-            searchItem = [self.categorySearchResults objectAtIndex:indexPath.row];
-      
-        }else if(indexPath.section == 1){
-        
-            searchItem = [MMSearchItem searchItemFromLocationInformation:[self.locationInformationCollection objectAtIndex:indexPath.row]];
+        if(cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
         
-    } else {
         
-        searchItem = [self.defaultList objectAtIndex:indexPath.row];
-    
+        //Grab the correct search item
+        MMSearchItem *searchItem;
+        
+        if(self.isSearching){
+            
+            if(indexPath.section == 0){
+                
+                searchItem = [self.categorySearchResults objectAtIndex:indexPath.row];
+                
+            }else if(indexPath.section == 1){
+                
+                searchItem = [MMSearchItem searchItemFromLocationInformation:[self.locationInformationCollection objectAtIndex:indexPath.row]];
+            }
+            
+        } else {
+            
+            searchItem = [self.defaultList objectAtIndex:indexPath.row];
+            
+        }
+        
+        if(![searchItem.mainText isEqual:[NSNull null]]){
+            cell.textLabel.text = searchItem.mainText;
+        }
+        
+        cell.accessoryType = searchItem.accessoryType;
+        
+        
+        // Configure the cell...
+        
+        return cell;
+    }else{
+        static NSString * CellIdentifier2 =  @"ListLocation";
+        MMLocationListCell * listCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
+        
+        if(listCell == nil){
+            listCell = [[MMLocationListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2];
+        }
+        
+        [listCell setLocationInformation:[self.locationInformationCollection objectAtIndex:indexPath.row]];
+        
+        return listCell;
     }
     
-    if(![searchItem.mainText isEqual:[NSNull null]]){
-        cell.textLabel.text = searchItem.mainText;
-    }
-    
-    cell.accessoryType = searchItem.accessoryType;
-    
-    
-    // Configure the cell...
-    
-    return cell;
 }
 
 /*
@@ -287,7 +303,12 @@
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     return [UIView new];
 }
-
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.section == 1 && _isSearching){
+        return 74.0f;
+    }
+    return UITableViewAutomaticDimension;
+}
 #pragma mark - Search Bar Delegate
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     _isSearching = searchText.length > 0 ? YES : NO;

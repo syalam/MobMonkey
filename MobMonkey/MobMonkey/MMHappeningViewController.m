@@ -25,6 +25,8 @@
 @property (nonatomic, strong) NSArray *myInterestsMediaWrappers;
 @property (nonatomic, strong) NSArray *nearByMediaWrappers;
 
+@property (nonatomic, strong) UIImageView * noMediaImageView;
+
 @end
 
 @implementation MMHappeningViewController
@@ -42,8 +44,13 @@
 {
     [super viewDidLoad];
     
+    self.tableView.backgroundView = nil;
+    self.tableView.backgroundColor = [UIColor MMEggShell];
     
     
+    _noMediaImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 149)/2, 120, 149, 95)];
+    [_noMediaImageView setImage:[UIImage imageNamed:@"noMedia"]];
+    [self.view addSubview:_noMediaImageView];
     
 
     // Uncomment the following line to preserve selection between presentations.
@@ -144,9 +151,9 @@
            !self.myInterestsMedia.count > 0 &&
            !self.nearByMedia.count > 0 &&
            !self.topViewedMedia.count > 0 ) {
-           // noMediaImageView.hidden = NO;
+           _noMediaImageView.hidden = NO;
         }else{
-            //noMediaImageView.hidden = YES;
+            _noMediaImageView.hidden = YES;
         }
         
         [self.tableView reloadData];
@@ -268,7 +275,7 @@
     if(number.intValue > 0){
         return 25.0f;
     }else{
-        return 0;
+        return 0.0f;
     }
 
 }
@@ -299,6 +306,9 @@
     }
     
     return [[MMSectionHeaderWithBadgeView alloc] initWithTitle:title andBadgeNumber:number];
+}
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return [UIView new];
 }
 /*
 // Override to support conditional editing of the table view.

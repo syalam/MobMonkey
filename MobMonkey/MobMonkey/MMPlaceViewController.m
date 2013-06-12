@@ -23,6 +23,8 @@
 #import "UIActionSheet+Blocks.h"
 #import "MMCreateHotSpotMapViewController.h"
 #import "MMMakeARequestTableViewController.h"
+#import "MMMediaObject.h"
+#import "MMWatchLiveVideoViewController.h"
 
 #define kMMPlaceInformationCellHeight 85.0f
 #define kMMPlaceActionCellHeight
@@ -31,6 +33,8 @@
 
 @property (nonatomic, strong) NSArray *numberOfCellsInSections;
 @property (nonatomic, strong) NSArray *actionCellWrappers;
+@property (nonatomic, assign) BOOL hasLiveVideo;
+@property (nonatomic, strong) NSArray * liveVideos;
 
 @end
 
@@ -148,21 +152,22 @@
     
     _numberOfCellsInSections = @[@3,@3,@3,@3];
     
-    MMPlaceActionWrapper *liveVideoActionWrapper = [[MMPlaceActionWrapper alloc] init];
+    liveVideoActionWrapper = [[MMPlaceActionWrapper alloc] init];
     liveVideoActionWrapper.text = @"Watch Live Video";
     liveVideoActionWrapper.image = [UIImage imageNamed:@"videoCamera"];
     liveVideoActionWrapper.backgroundColor = [UIColor colorWithRed:0.349 green:0.548 blue:0.851 alpha:1.000];
     liveVideoActionWrapper.selectedBackgroundColor = [UIColor colorWithRed:0.275 green:0.431 blue:0.670 alpha:1.000];
     
-    MMPlaceActionWrapper *requestActionWrapper = [[MMPlaceActionWrapper alloc] init];
+    requestActionWrapper = [[MMPlaceActionWrapper alloc] init];
     requestActionWrapper.text = @"Make a Request";
+    requestActionWrapper.badgeCount = self.locationInformation.monkeys;                                
     requestActionWrapper.image = [UIImage imageNamed:@"paperPlane"];
     requestActionWrapper.backgroundColor = [UIColor colorWithRed:0.879 green:0.343 blue:0.290 alpha:1.000];
     requestActionWrapper.selectedBackgroundColor = [UIColor colorWithRed:0.681 green:0.266 blue:0.225 alpha:1.000];
     
     _actionCellWrappers = @[liveVideoActionWrapper, requestActionWrapper];
     
-    
+                                              
     //Create the wrapper for media section header
     mediaSectionHeader = [[MMPlaceSectionHeaderWrapper alloc] init];
     mediaSectionHeader.title = @"Media Timeline";
@@ -190,16 +195,56 @@
 }
 
 -(void)reloadValues{
-    NSUInteger mediaCount = 0;
+  /* [MMAPI getMediaForLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(AFHTTPRequestOperation *operation, id responseObject) {
+       
+       NSArray * mediaArray = [responseObject objectForKey:@"media"];
+       
+       for(NSDictionary * mediaDictionary in mediaArray){
+           NSLog(@"MEDIA: %@", mediaDictionary);
+           if([[mediaDictionary objectForKey:@"type"] isEqualToString:@"livestreaming"]){
+               _hasLiveVideo = YES;
+           }
+       }
+       
+       NSUInteger mediaCount = mediaArray.count;
+       
+       CustomBadge *badge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", mediaCount] withStringColor:[UIColor blackColor] withInsetColor:[UIColor whiteColor] withBadgeFrame:YES withBadgeFrameColor:[UIColor blackColor] withScale:1.0 withShining:NO];
+       mediaSectionHeader.accessoryView = badge;
+       
+       [self.tableView reloadData];
+       
+       
+   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+       
+   }];*/
     
-    mediaCount += _locationInformation.videos.intValue;
-    mediaCount += _locationInformation.images.intValue;
-    mediaCount += _locationInformation.comments.intValue;
+    [MMAPI getMediaObjectsForLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(NSArray *mediaObjects) {
+        
+        NSMutableArray * liveVideos = [[NSMutableArray alloc] initWithCapacity:mediaObjects.count];
+        for(MMMediaObject * mediaObject in mediaObjects){
+            if(mediaObject.mediaType == MMMediaTypeLiveVideo){
+                _hasLiveVideo = YES;
+                [liveVideos addObject:mediaObject];
+                
+            }
+        }
+        self.liveVideos = liveVideos;
+        
+        NSUInteger mediaCount = mediaObjects.count;
+        
+        CustomBadge *mediaBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", mediaCount] withStringColor:[UIColor blackColor] withInsetColor:[UIColor whiteColor] withBadgeFrame:YES withBadgeFrameColor:[UIColor blackColor] withScale:1.0 withShining:NO];
+        
+        
+        mediaSectionHeader.accessoryView = mediaBadge;
+        liveVideoActionWrapper.badgeCount = [NSNumber numberWithInt: liveVideos.count];
+        
+        [self.tableView reloadData];
+
+        
+    } failure:^(NSError *error) {
+        
+    }];
     
-    CustomBadge *badge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", mediaCount] withStringColor:[UIColor blackColor] withInsetColor:[UIColor whiteColor] withBadgeFrame:YES withBadgeFrameColor:[UIColor blackColor] withScale:1.0 withShining:NO];
-    mediaSectionHeader.accessoryView = badge;
-    
-    [self.tableView reloadData];
 }
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -288,7 +333,7 @@
         NSUInteger rows = 2;
         
         //If has live streaming need 3 rows
-        if(_locationInformation.livestreaming.intValue > 0){
+        if(_hasLiveVideo){
             rows++;
         }
         
@@ -337,7 +382,7 @@
         
         NSUInteger arrayOffset = 1;
         
-        if(_locationInformation.livestreaming.intValue == 0){
+        if(!_hasLiveVideo){
             arrayOffset = 0;
         }
         [placeActionCell setPlaceActionWrapper:[_actionCellWrappers objectAtIndex:indexPath.row - arrayOffset]];
@@ -481,12 +526,17 @@
     
     if(indexPath.section == 0 && indexPath.row == 0){
         [self showActionsheet];
-    }else if((indexPath.section == 0 && indexPath.row == 2 && _locationInformation.livestreaming.intValue > 0) ||
-             (indexPath.section == 0 && indexPath.row == 1 && _locationInformation.livestreaming.intValue == 0)
+    }else if((indexPath.section == 0 && indexPath.row == 2 && _hasLiveVideo) ||
+             (indexPath.section == 0 && indexPath.row == 1 && !_hasLiveVideo)
              ){
         MMMakeARequestTableViewController * makeARequestViewController = [[MMMakeARequestTableViewController alloc] initWithNibName:@"MMMakeARequestTableViewController" bundle:nil];
         makeARequestViewController.locationInformation = self.locationInformation;
         [self.navigationController pushViewController:makeARequestViewController animated:YES];
+    }else if(indexPath.section == 0 && indexPath.row == 1 && _hasLiveVideo){
+    
+        MMWatchLiveVideoViewController * watchLiveVideoViewController = [[MMWatchLiveVideoViewController alloc] initWithStyle:UITableViewStylePlain];
+        watchLiveVideoViewController.mediaObjects = self.liveVideos;
+        [self.navigationController pushViewController:watchLiveVideoViewController animated:YES];
     }
     
     
@@ -512,6 +562,7 @@
 }
 
 -(void)reloadLocationInfo {
+    
     [MMAPI getLocationWithID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(AFHTTPRequestOperation *operation, MMLocationInformation *locationInformation) {
         if(!self.locationInformation){
             self.locationInformation = locationInformation;
@@ -527,6 +578,8 @@
             self.locationInformation.createdBy = locationInformation.createdBy;
             NSLog(@"created by: %@", locationInformation.createdBy);
         }
+        requestActionWrapper.badgeCount = self.locationInformation.monkeys;
+        [self reloadValues];
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
     

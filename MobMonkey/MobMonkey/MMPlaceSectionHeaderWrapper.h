@@ -17,3 +17,4 @@
 @property (nonatomic, assign) BOOL showSeperator;
 @property (nonatomic, strong) UIColor *backgroundColor;
 @end
+

@@ -13,6 +13,8 @@
 #import "MMRequestObject.h"
 #import "MMAPI.h"
 #import "UIAlertView+Blocks.h"
+#import "UIBarButtonItem+NoBorder.h"
+
 @interface MMMakeARequestTableViewController ()
 
 @property (nonatomic, strong) NSString * messageString;
@@ -47,6 +49,10 @@
     self.duration = @30;
     
     self.mediaType = MMMediaTypeVideo;
+    
+    //Add backbutton
+    UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"whiteBackButton"] selectedImage:nil target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    self.navigationItem.leftBarButtonItem = menuItem;
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
     _segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"Video", @"Photo", @"Text"]];
@@ -132,7 +138,7 @@
             break;
     }
     
-    if ([mediaType isEqualToString:@"text"] && ![self.messageString valueForKey:@"message"]) {
+    if ([mediaType isEqualToString:@"text"] && !self.messageString) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"MobMonkey" message:@"Text must be entered for a text request" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     } else {

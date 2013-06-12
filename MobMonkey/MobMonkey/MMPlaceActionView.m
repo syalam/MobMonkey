@@ -27,7 +27,7 @@
         // Initialization code
         self.opaque = YES;
 		self.backgroundColor = [UIColor whiteColor];
-        _badge = [CustomBadge customBadgeWithString:@"1" withStringColor:[UIColor whiteColor] withInsetColor:self.cellWrapper.backgroundColor withBadgeFrame:YES withBadgeFrameColor:[UIColor whiteColor] withScale:0.8 withShining:NO];
+        _badge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", self.cellWrapper.badgeCount.intValue] withStringColor:[UIColor whiteColor] withInsetColor:self.cellWrapper.backgroundColor withBadgeFrame:YES withBadgeFrameColor:[UIColor whiteColor] withScale:0.8 withShining:NO];
         _badge.badgeShadow = NO;
         _originalBadgeFrame = _badge.frame;
         [self addSubview:_badge];
@@ -40,10 +40,8 @@
     [super layoutSubviews];
     
     _badge.badgeInsetColor = cellWrapper.backgroundColor;
-    
+        
     _badge.frame = CGRectMake(self.frame.size.width - _originalBadgeFrame.size.width - 12, (self.frame.size.height - _originalBadgeFrame.size.height)/2 , _originalBadgeFrame.size.width + 4, _originalBadgeFrame.size.height);
-    
-    
 
 }
 
@@ -58,10 +56,16 @@
 }
 
 -(void)setCellWrapper:(MMPlaceActionWrapper *)newCellWrapper {
-    if(cellWrapper != newCellWrapper){
+    //*if(cellWrapper != newCellWrapper){
         cellWrapper = newCellWrapper;
-    }
+    //}*/
+    
+    NSLog(@"TEST: %@", [NSString stringWithFormat:@"%d", self.cellWrapper.badgeCount.intValue]);
+    _badge.badgeText = [NSString stringWithFormat:@"%d", self.cellWrapper.badgeCount.intValue];
+    [_badge setNeedsDisplay];
+
     [self setNeedsDisplay];
+
 }
 
 -(void)drawRect:(CGRect)rect {
