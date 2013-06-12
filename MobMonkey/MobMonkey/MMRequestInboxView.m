@@ -59,6 +59,13 @@
     else {
         
         NSURL *url = _wrapper.requestObject.mediaObject.mediaURL;
+        
+        if(_wrapper.mediaType == MMMediaTypeVideo){
+            
+            NSString *urlString = url.absoluteString;
+            urlString =  [urlString stringByReplacingOccurrencesOfString:@"http://vod-cdn.mobmonkey.com" withString:@"https://s3.amazonaws.com/mobmonkeyvod"];
+            url = [NSURL URLWithString:urlString];
+        }
         NSLog(@"%@", url);
         UIGraphicsBeginImageContext(CGSizeMake(1,1));
         MPMoviePlayerViewController* player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
@@ -115,6 +122,26 @@
         
     }else{
         _imageView.hidden = YES;
+    }
+    
+    
+    switch (_wrapper.mediaType) {
+        case MMMediaTypeVideo:
+            self.requestIcon = [UIImage imageNamed:@"add-video"];
+            self.responseIcon = nil;
+            break;
+        case MMMediaTypePhoto:
+            self.requestIcon = [UIImage imageNamed:@"add-image"];
+            self.responseIcon = nil;
+            break;
+        case MMMediaTypeText:
+            self.requestIcon = [UIImage imageNamed:@"add-chat"];
+            self.responseIcon = [UIImage imageNamed:@"chat"];
+            break;
+        default:
+            self.responseIcon = nil;
+            self.requestIcon = nil;
+            break;
     }
     
   
@@ -199,7 +226,11 @@
                               ,0 , 0);
     if(![self.wrapper.questionText isEqual:[NSNull null]] && self.wrapper.questionText.length > 0){
         
-        [@"Q:" drawAtPoint:point withFont:[UIFont fontWithName:@"Helvetica-Bold" size:24] ];
+        CGRect requestImageFrame = CGRectMake(point.x + 4, point.y + 7, 18, 18);
+        
+        [self.requestIcon drawInRect:requestImageFrame];
+        
+        //[@"Q:" drawAtPoint:point withFont:[UIFont fontWithName:@"Helvetica-Bold" size:24] ];
         
         point = CGPointMake(FORTH_ROW_SECOND_COLUMN_XOFFSET, point.y);
         
@@ -228,7 +259,12 @@
         
         if(textWrapper.answerText && textWrapper.answerText.length > 0){
             point = CGPointMake(FIRST_ROW_XOFFSET, frame.origin.y + frame.size.height +10);
-            [@"A:" drawAtPoint:point withFont:[UIFont fontWithName:@"Helvetica-Bold" size:24]];
+            
+            CGRect requestImageFrame = CGRectMake(point.x + 4, point.y + 7, 18, 18);
+            
+            [self.responseIcon drawInRect:requestImageFrame];
+            
+            //[@"A:" drawAtPoint:point withFont:[UIFont fontWithName:@"Helvetica-Bold" size:24]];
             
             point = CGPointMake(FORTH_ROW_SECOND_COLUMN_XOFFSET, point.y + 7);
             

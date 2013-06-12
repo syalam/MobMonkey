@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMRequestObject.h"
 
 @interface MMAnswerTextRequestViewController : UIViewController <UITextViewDelegate> {
     IBOutlet UITextView* textView;
@@ -15,6 +16,7 @@
 
 - (IBAction)submitButtonTapped:(id)sender;
 
-@property (nonatomic, retain) NSDictionary *requestObject;
+//@property (nonatomic, retain) NSDictionary *requestObject;
+@property (nonatomic, strong) MMRequestObject * requestObject;
 
 @end

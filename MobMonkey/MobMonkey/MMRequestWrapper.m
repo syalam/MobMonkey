@@ -51,11 +51,11 @@
         height += 80;
     }
     
-    /*if(_questionTextSize.height <= 25){
+    if(_questionTextSize.height <= 25){
         height += 25;
-    }else{*/
+    }else{
         height += _questionTextSize.height ;
-    //}
+    }
     if(self.cellStyle == MMRequestCellStyleInboxNeedsReview){
         height += 45;
     }else if(self.cellStyle == MMRequestCellStyleTimeline){
@@ -137,7 +137,12 @@
     CGFloat cellHeight = [super cellHeight];
     
     
-    cellHeight += _answerTextSize.height + 7 + 48;
+    CGFloat padding = 0;
+    
+    if(self.questionTextSize.height <= 16){
+        padding += 8;
+    }
+    cellHeight += _answerTextSize.height + 12 + padding;
     
     return cellHeight;
 }

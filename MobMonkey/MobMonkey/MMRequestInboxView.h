@@ -33,6 +33,8 @@
 @property (nonatomic, assign) MMMediaType mediaType;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIImageView *videoOverlayView;
+@property (nonatomic, strong) UIImage *requestIcon;
+@property (nonatomic, strong) UIImage *responseIcon;
 @property (assign) id <MMRequestInboxViewDelegate> delegate;
 
 @end

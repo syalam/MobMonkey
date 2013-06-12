@@ -441,7 +441,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     
     NSMutableArray * newRespondedRequests = [NSMutableArray array];
     
-    if(respondedRequests){
+    if(respondedRequests && respondedRequests.count > 0){
         [newRespondedRequests addObjectsFromArray:respondedRequests];
     }
     [newRespondedRequests addObject:requestID];

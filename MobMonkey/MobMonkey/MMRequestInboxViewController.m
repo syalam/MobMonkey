@@ -124,6 +124,9 @@
                     requestWrapper = [[MMMediaRequestWrapper alloc] initWithTableWidth:320];
                     ((MMMediaRequestWrapper *)requestWrapper).mediaURL = requestObject.mediaObject.mediaURL;
                     
+                }else if(requestObject.mediaType == MMMediaTypeText){
+                    requestWrapper = [[MMTextRequestWrapper alloc] initWithTableWidth:320];
+                    ((MMTextRequestWrapper *)requestWrapper).answerText = requestObject.mediaObject.text;
                 }else{
                     requestWrapper = [[MMRequestWrapper alloc] initWithTableWidth:320];
                 }
@@ -359,7 +362,7 @@
             
             if(_selectedRequest.mediaType == MMMediaTypeText){
                 MMAnswerTextRequestViewController *answerTextRequest = [[MMAnswerTextRequestViewController alloc]initWithNibName:@"MMAnswerTextRequestViewController" bundle:nil];
-                answerTextRequest.requestObject = _selectedRequest.jsonParameters;
+                answerTextRequest.requestObject = _selectedRequest;
                 [self.navigationController pushViewController:answerTextRequest animated:YES];
 
             }else{

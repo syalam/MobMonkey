@@ -95,6 +95,11 @@
         [jsonDictionary setObject:self.recurring forKey:@"recurring"];
     }
     
+    if(self.message){
+        [jsonDictionary setObject:self.message forKey:@"message"];
+    }
+    
+    
     return jsonDictionary;
 }
 

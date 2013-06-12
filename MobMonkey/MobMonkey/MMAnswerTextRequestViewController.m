@@ -44,7 +44,7 @@
 }
 
 - (void)backButtonTapped:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - IBAction Methods
@@ -55,11 +55,11 @@
                                        textView.text, @"text",
                                        @"text/plain", @"contentType",
                                        [NSNumber numberWithInt:0], @"requestType",
-                                       [_requestObject valueForKey:@"requestId"], @"requestId", nil];
+                                       _requestObject.requestID, @"requestId", nil];
         NSLog(@"%@", params);
         [MMAPI fulfillRequest:@"text" params:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [SVProgressHUD showSuccessWithStatus:@"Response submitted"];
-            [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+            [self.navigationController popViewControllerAnimated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"%@", operation.responseString);
             if (operation.responseData) {
