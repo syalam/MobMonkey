@@ -25,13 +25,17 @@
         self.autoresizesSubviews = YES;
         CGRect placeViewFrame = CGRectMake(0, 0, self.contentView.bounds.size.width , self.contentView.bounds.size.height);
 		_requestInboxView = [[MMRequestInboxView alloc] initWithFrame:placeViewFrame];
-		_requestInboxView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		_requestInboxView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
 		_requestInboxView.delegate =self;
+        
+        
         
         _shadowBackground = [[MMShadowBackground alloc]  initWithFrame:placeViewFrame];
        
-        _shadowBackground.autoresizingMask =  UIViewAutoresizingFlexibleHeight;
+        _shadowBackground.autoresizingMask =  UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
         
+        self.contentView.autoresizesSubviews = YES;
+        self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
         [self.contentView addSubview:_shadowBackground];
         
         [self.contentView addSubview:_requestInboxView];
@@ -44,6 +48,9 @@
     return self;
 }
 
+-(void)layoutSubviews {
+    [super layoutSubviews];
+}
 -(id)initWithStyle:(MMRequestCellStyle)style mediaType:(MMMediaType)mediaType reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     
@@ -72,6 +79,7 @@
 
 -(void)redisplay {
     [self.requestInboxView setNeedsDisplay];
+    
     [self.shadowBackground setNeedsDisplay];
 }
 

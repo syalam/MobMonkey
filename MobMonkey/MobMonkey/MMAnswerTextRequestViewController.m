@@ -7,6 +7,7 @@
 //
 
 #import "MMAnswerTextRequestViewController.h"
+#import "UIBarButtonItem+NoBorder.h"
 
 @interface MMAnswerTextRequestViewController ()
 
@@ -29,12 +30,8 @@
     self.title = @"Answer Text Request";
     // Do any additional setup after loading the view from its nib.
     
-    UIButton *backNavbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 39, 30)];
-    [backNavbutton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [backNavbutton setBackgroundImage:[UIImage imageNamed:@"BackBtn~iphone"] forState:UIControlStateNormal];
-    
-    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
-    self.navigationItem.leftBarButtonItem = backButton;
+    UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"whiteBackButton"] selectedImage:nil target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    self.navigationItem.leftBarButtonItem = menuItem;
 }
 
 - (void)didReceiveMemoryWarning
