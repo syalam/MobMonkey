@@ -373,7 +373,13 @@
     
     _googleCityObject = cityObject;
     
-    _headerView.locationLabel.text = cityObject.formattedLocalityPoliticalGeocodeString;
+    if(cityObject){
+        _headerView.locationLabel.text = cityObject.formattedLocalityPoliticalGeocodeString;
+    }else{
+        _headerView.locationLabel.text = @"Current Location";
+    }
+    
+    
     
     
 }

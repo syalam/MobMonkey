@@ -19,6 +19,8 @@
 
 @property (nonatomic, assign) CLLocationCoordinate2D myLocation;
 
+@property (nonatomic, assign) BOOL showCurrentLocation;
+
 @end
 
 @implementation MMSearchCitySelectViewController
@@ -39,12 +41,14 @@
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     _searchBar.delegate = self;
     
+    
     self.tableView.tableHeaderView = _searchBar;
     
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     
     _myLocation = CLLocationCoordinate2DMake([[defaults objectForKey:@"latitude"] doubleValue], [[defaults objectForKey:@"longitude"] doubleValue]);
     
+    _showCurrentLocation = YES;
     
     //Load previously search cities from NSUserDefaults
     NSData *savedArrayData = [defaults objectForKey:kPreviouslySearchedCities];
@@ -129,7 +133,9 @@
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return _citiesToDisplay.count;
+    
+    
+    return _showCurrentLocation ? _citiesToDisplay.count + 1 : _citiesToDisplay.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -141,7 +147,17 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    MMGoogleCityDataObject * cityDetails = [_citiesToDisplay objectAtIndex:indexPath.row];
+    if(_showCurrentLocation && indexPath.row == 0){
+        cell.textLabel.text = @"Current Location";
+        return cell;
+    }
+    
+    
+    NSUInteger cityIndex = _showCurrentLocation ? indexPath.row - 1 : indexPath.row;
+    
+    
+    
+    MMGoogleCityDataObject * cityDetails = [_citiesToDisplay objectAtIndex:cityIndex];
     
     cell.textLabel.text = cityDetails.formattedLocalityPoliticalGeocodeString;
     
@@ -195,7 +211,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    MMGoogleCityDataObject * googleCityObject = [self.citiesToDisplay objectAtIndex:indexPath.row];
+    if(_showCurrentLocation && indexPath.row == 0){
+        if([self.delegate respondsToSelector:@selector(citySelectVC:didSelectCityObject:)]){
+            [self.delegate citySelectVC:self didSelectCityObject:nil];
+            [self.navigationController popViewControllerAnimated:YES];
+            return;
+        }
+    }
+    
+    NSUInteger cityIndex = _showCurrentLocation ? indexPath.row - 1 : indexPath.row;
+    
+    MMGoogleCityDataObject * googleCityObject = [self.citiesToDisplay objectAtIndex:cityIndex];
     
     
     [googleCityObject updatePlaceWithDetails:^(MMGoogleCityDataObject *updatedObject, NSError *error) {
@@ -217,6 +243,14 @@
 
 #pragma mark - Search Bar Delegate
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    
+    if(searchText.length <= 0){
+        _showCurrentLocation = YES;
+        [self.tableView reloadData];
+        return;
+    }else{
+        _showCurrentLocation = NO;
+    }
     [self updateCitiesWithSearchString:searchText];
 }
 @end
