@@ -60,6 +60,7 @@
     
     
 }
+
 -(void)mapAnimation{
     self.mapView.centerCoordinate = CLLocationCoordinate2DMake(_locationInformation.latitude.doubleValue, _locationInformation.longitude.doubleValue);
     
@@ -155,14 +156,14 @@
     liveVideoActionWrapper = [[MMPlaceActionWrapper alloc] init];
     liveVideoActionWrapper.text = @"Watch Live Video";
     liveVideoActionWrapper.image = [UIImage imageNamed:@"videoCamera"];
-    liveVideoActionWrapper.backgroundColor = [UIColor colorWithRed:0.349 green:0.548 blue:0.851 alpha:1.000];
+    liveVideoActionWrapper.backgroundColor = [UIColor MMLightMainColor];
     liveVideoActionWrapper.selectedBackgroundColor = [UIColor colorWithRed:0.275 green:0.431 blue:0.670 alpha:1.000];
     
     requestActionWrapper = [[MMPlaceActionWrapper alloc] init];
     requestActionWrapper.text = @"Make a Request";
     requestActionWrapper.badgeCount = self.locationInformation.monkeys;                                
     requestActionWrapper.image = [UIImage imageNamed:@"paperPlane"];
-    requestActionWrapper.backgroundColor = [UIColor colorWithRed:0.879 green:0.343 blue:0.290 alpha:1.000];
+    requestActionWrapper.backgroundColor = [UIColor MMLightAccentColor];
     requestActionWrapper.selectedBackgroundColor = [UIColor colorWithRed:0.681 green:0.266 blue:0.225 alpha:1.000];
     
     _actionCellWrappers = @[liveVideoActionWrapper, requestActionWrapper];
@@ -184,7 +185,7 @@
     [addHotSpotButton setImage:[UIImage imageNamed:@"circlePlus"] forState:UIControlStateNormal];
     hotSpotSectionHeader.accessoryView = addHotSpotButton;
     hotSpotSectionHeader.showDisclosureIndicator = NO;
-    hotSpotSectionHeader.backgroundColor = [UIColor colorWithRed:0.910 green:0.921 blue:0.968 alpha:1.000];
+    //hotSpotSectionHeader.backgroundColor = [UIColor colorWithRed:0.910 green:0.921 blue:0.968 alpha:1.000];
     
     notificationSectionHeader = [[MMPlaceSectionHeaderWrapper alloc] init];
     notificationSectionHeader.title = @"Notifications";
@@ -225,6 +226,9 @@
        
    }];*/
     
+    NSAssert(self.locationInformation.locationID, @"NO LOCATION ID");
+    NSAssert(self.locationInformation.providerID, @"NO PROVIDER ID");
+    
     [MMAPI getMediaObjectsForLocationID:self.locationInformation.locationID providerID:self.locationInformation.providerID success:^(NSArray *mediaObjects) {
         
         NSMutableArray * liveVideos = [[NSMutableArray alloc] initWithCapacity:mediaObjects.count];
@@ -249,7 +253,7 @@
 
         
     } failure:^(NSError *error) {
-        
+        NSLog(@"Failed");
     }];
     
 }
@@ -257,9 +261,17 @@
     [super viewWillDisappear:animated];
     
     self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.backgroundColor = [UIColor MMDarkMainColor];
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
+    
+    if(self.newlyCreatedHotSpot){
+        NSMutableSet * newHotSpots = [NSMutableSet setWithSet:self.locationInformation.sublocations];
+        [newHotSpots addObject:_newlyCreatedHotSpot];
+        self.locationInformation.sublocations = newHotSpots;
+    }
+    
     [self reloadLocationInfo];
     [self mapAnimation];
 }

@@ -45,7 +45,7 @@
         
         //UIBarButtonItem *menuItem = [UIBarButtonItem alloc] initw
         
-        UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"list-shadow"] selectedImage:nil target:self action:@selector(menuButtonPressed:)];
+        UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"3ListMenuItem"] selectedImage:nil target:self action:@selector(menuButtonPressed:)];
         rootViewController.navigationItem.leftBarButtonItem = menuItem;
         
         

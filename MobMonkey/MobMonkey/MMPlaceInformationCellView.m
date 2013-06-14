@@ -76,8 +76,8 @@
 		secondaryTextColor = [UIColor whiteColor];
 	}
 	else {*/
-    mainTextColor = [UIColor blackColor];
-    secondaryTextColor = [UIColor darkGrayColor];
+    mainTextColor = [UIColor MMMainTextColor];
+    secondaryTextColor = [UIColor MMSecondaryTextColor];
     self.backgroundColor = [UIColor whiteColor];
 	//}
 	

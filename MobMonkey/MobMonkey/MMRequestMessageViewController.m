@@ -49,10 +49,10 @@
     
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithCustomView:backNavbutton];
     
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButtonPressed:)];
+    
     
     self.navigationItem.leftBarButtonItem = backButton;
-    self.navigationItem.rightBarButtonItem = doneButton;
+    
 }
 -(void)doneButtonPressed:(id)sender{
     

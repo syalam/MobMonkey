@@ -120,7 +120,7 @@
                 break;
             case 1:
                 [cell.textField setHidden:YES];
-                cell.textLabel.textColor = [UIColor blackColor];
+                cell.textLabel.textColor = [UIColor MMMainTextColor];
                 
                 cell.textLabel.numberOfLines = 0;
                 cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;

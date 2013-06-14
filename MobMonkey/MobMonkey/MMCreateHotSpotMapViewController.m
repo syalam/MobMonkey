@@ -69,6 +69,10 @@
     [_mapView addGestureRecognizer:tapGesture];
 	// Do any additional setup after loading the view.
 }
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.translucent = NO;
+}
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     

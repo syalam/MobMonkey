@@ -42,8 +42,13 @@
 {
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    UIColor *color = [[UIColor oceanBlue] colorWithAlphaComponent:_translucentFactor];
-    CGContextSetFillColorWithColor(context, color.CGColor);
+    
+    UIColor * barColor = [UIColor MMDarkMainColor];
+    if(self.translucent){
+        barColor = [barColor colorWithAlphaComponent:_translucentFactor];
+    }
+
+    CGContextSetFillColorWithColor(context, barColor.CGColor);
     CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
     CGContextSetBlendMode(context, kCGBlendModeNormal);
     CGContextFillRect(context, self.bounds);

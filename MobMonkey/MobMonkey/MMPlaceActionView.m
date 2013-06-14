@@ -85,8 +85,8 @@
     
     NSString * string = @"Watch Live Video";
     UIImage * image = [UIImage imageNamed:@"play"];
-    UIColor *fontColor = [UIColor colorWithRed:0.176 green:0.196 blue:0.322 alpha:1.000];
-    
+    //UIColor *fontColor = [UIColor colorWithRed:0.176 green:0.196 blue:0.322 alpha:1.000];
+    UIColor *fontColor = [UIColor MMMainAccentColor];
     [cellWrapper.backgroundColor set];
     
     UIFont * font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
@@ -134,7 +134,7 @@
     
     [cellWrapper.image drawInRect:imageFrame];
     
-    CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
+    CGContextSetFillColorWithColor(context, [UIColor MMMainAccentColor].CGColor);
     
     
     CGRect textFrame = CGRectMake(5, ((rect.size.height - font.pointSize )/2 ) - 2, rect.size.width - 10 - (rect.size.width - imageFrame.origin.x), font.pointSize );

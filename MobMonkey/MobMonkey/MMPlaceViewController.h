@@ -23,4 +23,6 @@
 
 @property (nonatomic, strong) MMLocationInformation *locationInformation;
 
+@property (nonatomic, strong) MMLocationInformation * newlyCreatedHotSpot;
+
 @end

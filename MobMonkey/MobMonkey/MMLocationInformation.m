@@ -79,7 +79,7 @@
         return nil;
     }
     
-    return formattedString.length > 0 ? formattedString : nil;
+    return formattedString.length > 1 ? formattedString : nil;
 
     
 }

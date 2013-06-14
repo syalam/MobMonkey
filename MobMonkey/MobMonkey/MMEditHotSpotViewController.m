@@ -11,9 +11,12 @@
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
 #import "UIBarButtonItem+NoBorder.h"
+#import "ECSlidingViewController.h"
+#import "MMPlaceViewController.h"
+#import "MMNavigationViewController.h"
 
 @interface MMEditHotSpotViewController ()
-
+@property (nonatomic, strong) ECSlidingViewController * slidingViewControllerRef;
 @end
 
 @implementation MMEditHotSpotViewController
@@ -43,7 +46,12 @@
     self.sublocationInformation = [[MMLocationInformation alloc] init];
 
     UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"whiteBackButton"] selectedImage:nil target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    
     self.navigationItem.leftBarButtonItem = menuItem;
+    
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(createSubLocation:)];
+    doneButton.tintColor = [UIColor MMDarkMainColor];
+    self.navigationItem.rightBarButtonItem = doneButton;
     
     self.view.backgroundColor = [UIColor MMEggShell];
     self.tableView.backgroundView = nil;
@@ -52,21 +60,6 @@
     
     createSubLocationButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, self.view.frame.size.width - 40, 50)];
     
-    UIImage *backgroundImage = [UIImage imageNamed:@"deselectedRectRed@2x"];
-    [createSubLocationButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
-    [createSubLocationButton setTitle:@"Create Hot Spot" forState:UIControlStateNormal];
-    //createSubLocationButton.backgroundColor = [UIColor redColor];
-    [createSubLocationButton addTarget:self action:@selector(createSubLocation:) forControlEvents:UIControlEventTouchUpInside];
-
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
-    
-    [footerView addSubview:createSubLocationButton];
-    self.tableView.tableFooterView = footerView;
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 -(void)createSubLocation:(id)sender{
@@ -101,7 +94,14 @@
     [MMAPI createSubLocationWithLocationInformation:sublocationInformation success:^{
         
         [SVProgressHUD showSuccessWithStatus:@"Hot Spot Created"];
+        
+        
+        _slidingViewControllerRef = self.slidingViewController;
+        
         [self.navigationController popToRootViewControllerAnimated:YES];
+        
+        
+       
     
     } failure:^(NSError *error) {
     
@@ -110,7 +110,15 @@
     }];
     
 }
-
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    MMPlaceViewController * placeViewController = [[MMPlaceViewController alloc] initWithTableViewStyle:UITableViewStylePlain defaultMapHeight:120 parallaxFactor:0.4];
+    placeViewController.newlyCreatedHotSpot = sublocationInformation;
+    placeViewController.locationInformation = self.parentLocation;
+    MMNavigationViewController * navigationViewController = [[MMNavigationViewController alloc] initWithRootViewController:placeViewController];
+    
+    [_slidingViewControllerRef setTopViewController:navigationViewController];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

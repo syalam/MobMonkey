@@ -19,5 +19,15 @@
 +(UIColor *)defaultGroupedCellBGColor;
 +(UIColor *)oceanBlue;
 
++(UIColor *)MMDarkMainColor;
++(UIColor *)MMDarkAccentColor;
++(UIColor *)MMMainTextColor;
++(UIColor *)MMSecondaryTextColor;
++(UIColor *)MMBackgroundColor;
++(UIColor *)MMLightMainColor;
++(UIColor *)MMLightAccentColor;
++(UIColor *)MMMainAccentColor;
+  
+
 
 @end

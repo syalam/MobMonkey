@@ -400,6 +400,10 @@
 		B992D6A3176A8CDE00B6A07F /* MMGooglePlacesCitySearch.m in Sources */ = {isa = PBXBuildFile; fileRef = B992D6A1176A8CDE00B6A07F /* MMGooglePlacesCitySearch.m */; };
 		B992D6A6176A9C1600B6A07F /* MMSearchCitySelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B992D6A5176A9C1600B6A07F /* MMSearchCitySelectViewController.m */; };
 		B992D6A7176A9C1600B6A07F /* MMSearchCitySelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B992D6A5176A9C1600B6A07F /* MMSearchCitySelectViewController.m */; };
+		B992D6B6176BA6E700B6A07F /* 3ListMenuItem.png in Resources */ = {isa = PBXBuildFile; fileRef = B992D6B4176BA6E700B6A07F /* 3ListMenuItem.png */; };
+		B992D6B7176BA6E700B6A07F /* 3ListMenuItem.png in Resources */ = {isa = PBXBuildFile; fileRef = B992D6B4176BA6E700B6A07F /* 3ListMenuItem.png */; };
+		B992D6B8176BA6E700B6A07F /* 3ListMenuItem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B992D6B5176BA6E700B6A07F /* 3ListMenuItem@2x.png */; };
+		B992D6B9176BA6E700B6A07F /* 3ListMenuItem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B992D6B5176BA6E700B6A07F /* 3ListMenuItem@2x.png */; };
 		B995D7E1173837A400B57077 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B995D7DF173837A400B57077 /* MMLocationViewController.m */; };
 		B995D7E2173837A400B57077 /* MMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B995D7DF173837A400B57077 /* MMLocationViewController.m */; };
 		B995D7E3173837A400B57077 /* MMLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B995D7E0173837A400B57077 /* MMLocationViewController.xib */; };
@@ -2162,6 +2166,8 @@
 		B992D6A1176A8CDE00B6A07F /* MMGooglePlacesCitySearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMGooglePlacesCitySearch.m; sourceTree = "<group>"; };
 		B992D6A4176A9C1600B6A07F /* MMSearchCitySelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSearchCitySelectViewController.h; sourceTree = "<group>"; };
 		B992D6A5176A9C1600B6A07F /* MMSearchCitySelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSearchCitySelectViewController.m; sourceTree = "<group>"; };
+		B992D6B4176BA6E700B6A07F /* 3ListMenuItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3ListMenuItem.png; sourceTree = "<group>"; };
+		B992D6B5176BA6E700B6A07F /* 3ListMenuItem@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3ListMenuItem@2x.png"; sourceTree = "<group>"; };
 		B995D7DE173837A400B57077 /* MMLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationViewController.h; sourceTree = "<group>"; };
 		B995D7DF173837A400B57077 /* MMLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationViewController.m; sourceTree = "<group>"; };
 		B995D7E0173837A400B57077 /* MMLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMLocationViewController.xib; sourceTree = "<group>"; };
@@ -3757,6 +3763,8 @@
 		B9F48E83174E866B00751EB2 /* ReUsable UI Elements */ = {
 			isa = PBXGroup;
 			children = (
+				B992D6B4176BA6E700B6A07F /* 3ListMenuItem.png */,
+				B992D6B5176BA6E700B6A07F /* 3ListMenuItem@2x.png */,
 				B9F48EAC174EECE200751EB2 /* gradient5pt.png */,
 				B9F48EAD174EECE200751EB2 /* gradient5pt@2x.png */,
 				B92601FD17628DC2008899A3 /* whiteBackButton.png */,
@@ -5999,6 +6007,8 @@
 				B9581A3C17683D69003A82BD /* add-video@2x.png in Resources */,
 				B9581A3E17683D69003A82BD /* chat.png in Resources */,
 				B9581A4017683D69003A82BD /* chat@2x.png in Resources */,
+				B992D6B7176BA6E700B6A07F /* 3ListMenuItem.png in Resources */,
+				B992D6B9176BA6E700B6A07F /* 3ListMenuItem@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6594,6 +6604,8 @@
 				B9581A3B17683D69003A82BD /* add-video@2x.png in Resources */,
 				B9581A3D17683D69003A82BD /* chat.png in Resources */,
 				B9581A3F17683D69003A82BD /* chat@2x.png in Resources */,
+				B992D6B6176BA6E700B6A07F /* 3ListMenuItem.png in Resources */,
+				B992D6B8176BA6E700B6A07F /* 3ListMenuItem@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
