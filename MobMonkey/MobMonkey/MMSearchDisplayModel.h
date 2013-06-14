@@ -64,7 +64,7 @@
 -(void)allCategoriesComplete:(void(^)(NSArray * categories , NSError * error))complete;
 -(NSArray *)defaultSearchItems;
 -(NSArray *)categoriesMatchingSearchString:(NSString *)searchString;
--(void)placesMatchingSearchString:(NSString *)searchString success:(void(^)(NSArray *searchItems))success failure:(void(^)(NSError * error))failure;
+-(void)placesMatchingSearchString:(NSString *)searchString success:(void(^)(NSArray *locations))success failure:(void(^)(NSError * error))failure;
 -(void)placesMatchingSearchString:(NSString *)searchString atLocation:(CLLocationCoordinate2D)coordinates radius:(NSNumber *)radiusInMeters success:(void(^)(NSArray *searchItems))success failure:(void(^)(NSError * error))failure;
 
 @end

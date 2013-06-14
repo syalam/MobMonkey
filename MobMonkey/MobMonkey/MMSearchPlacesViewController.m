@@ -14,6 +14,7 @@
 #import "MMNavigationViewController.h"
 #import "MMSectionHeaderWithBadgeView.h"
 #import "MMLocationListCell.h"
+#import "MMSearchCitySelectViewController.h"
 
 @interface MMSearchPlacesViewController ()
 
@@ -57,8 +58,11 @@
     
     _headerView = [[MMSearchHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     _headerView.layer.zPosition = 100;
+    
+    //Action for pressing location
+    __weak typeof(self) weakSelf = self;
     [_headerView setClickAction:^{
-        [self nearButtonPressed];
+        [weakSelf nearButtonPressed];
     }];
     [self.tableView addSubview:_headerView];
     
@@ -89,7 +93,11 @@
     self.tableView.frame  = frame;
     }
 -(void)nearButtonPressed {
-    NSLog(@"PRESSED");
+    MMSearchCitySelectViewController *searchCityViewController = [[MMSearchCitySelectViewController alloc] initWithStyle:UITableViewStylePlain];
+    searchCityViewController.delegate = self;
+    searchCityViewController.title = @"Choose a City";
+    
+    [self.navigationController pushViewController:searchCityViewController animated:YES];
     
 }
 - (void)didReceiveMemoryWarning
@@ -105,7 +113,7 @@
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
     
-    if(self.isSearching){
+    if(_isSearching){
         return 2;
     }
     return 1;
@@ -154,6 +162,7 @@
             }else if(indexPath.section == 1){
                 
                 searchItem = [MMSearchItem searchItemFromLocationInformation:[self.locationInformationCollection objectAtIndex:indexPath.row]];
+            
             }
             
         } else {
@@ -313,6 +322,8 @@
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     _isSearching = searchText.length > 0 ? YES : NO;
     
+    if(!_isSearching)return;
+    
     self.categorySearchResults = [self.searchDisplayModel categoriesMatchingSearchString:searchText];
     
     [self.tableView reloadData];
@@ -320,28 +331,49 @@
     //Only query the server if the search string length is over 3
     //if(searchText.length >= 3){
         
-        NSNumber *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
-        NSNumber *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
+        
     
     
-    MMLocationSearch *searchModel = [[MMLocationSearch alloc] init];
+   /* MMLocationSearch *searchModel = [[MMLocationSearch alloc] init];
     
     [searchModel locationsInfoForCategory:nil atLocationCoordinates:CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue) withRadiusInYards:100 searchString:searchText success:^(NSArray *locationInformations) {
         self.locationInformationCollection = locationInformations;
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"SEARCH ERROR: %@", error);
-    }];
-        /*[self.searchDisplayModel placesMatchingSearchString:searchText atLocation:CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue) radius:@100 success:^(NSArray *searchItems) {
-            self.placesSearchResults = searchItems;
+    }];*/
+    
+    CLLocationCoordinate2D searchCoordinate;
+    
+    if(_googleCityObject){
+        searchCoordinate = CLLocationCoordinate2DMake(_googleCityObject.cooridnates.latitude, _googleCityObject.cooridnates.longitude);
+    }else{
+        NSNumber *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
+        NSNumber *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
+        
+        searchCoordinate = CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
+    }
+    
+        [self.searchDisplayModel placesMatchingSearchString:searchText atLocation:searchCoordinate radius:@48280.3 success:^(NSArray *searchItems) {
+            self.locationInformationCollection = searchItems;
             [self.tableView reloadData];
         } failure:^(NSError *error) {
             NSLog(@"Failed to get places: %@", error);
             self.placesSearchResults = @[];
             [self.tableView reloadData];
-        }];*/
+        }];
 
     //}
+    
+    
+}
+
+#pragma mark - Search City Delegate
+-(void)citySelectVC:(MMSearchCitySelectViewController *)viewController didSelectCityObject:(MMGoogleCityDataObject *)cityObject {
+    
+    _googleCityObject = cityObject;
+    
+    _headerView.locationLabel.text = cityObject.formattedLocalityPoliticalGeocodeString;
     
     
 }

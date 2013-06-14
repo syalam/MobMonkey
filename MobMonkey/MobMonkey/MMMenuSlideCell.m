@@ -14,20 +14,25 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
-        
-        CGRect newFrame = self.textLabel.frame;
-        newFrame.origin.x = 60;
-        self.textLabel.frame = newFrame;
+    
     }
     return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+-(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
 {
-    [super setSelected:selected animated:animated];
+    [super setHighlighted:highlighted animated:animated];
+    if(highlighted){
+        [self.backgroundView setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:0.500]];
+        [UIView animateWithDuration:0.2 animations:^{
+            
+            [self.backgroundView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:0.500]];
+    
+        }];
+    }
+    
 
-    // Configure the view for the selected state
+    
 }
 
 @end

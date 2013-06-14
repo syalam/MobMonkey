@@ -149,7 +149,7 @@
 
     FactualQuery * query = [FactualQuery query];
     
-    query.limit = 50;
+    query.limit = 10;
     
     [query setGeoFilter:coordinates radiusInMeters:radiusInMeters.doubleValue];
     
@@ -163,8 +163,9 @@
         for(FactualRow *row in queryResult.rows){
             NSLog(@"DATA: %@",row.namesAndValues);
 
-            MMSearchItem *placeItem = [MMSearchItem searchItemWithText:[row valueForName:@"name"]];
-            [placeItems addObject:placeItem];
+            MMLocationInformation *location = [MMAPI locationInformationForLocationDictionary:row.namesAndValues];
+            [placeItems addObject:location
+             ];
         }
         if(success){
             success(placeItems);

@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "MMSearchDisplayModel.h"
 #import "MMFixedHeaderViewController.h"
+#import "MMSearchCitySelectViewController.h"
+#import "MMGooglePlacesCitySearch.h"
 
-@interface MMSearchPlacesViewController : MMFixedHeaderViewController <UISearchBarDelegate, UIGestureRecognizerDelegate> {
+@interface MMSearchPlacesViewController : MMFixedHeaderViewController <UISearchBarDelegate, UIGestureRecognizerDelegate, MMSearchCitySelectDelegate> {
     
 }
 
@@ -21,6 +23,7 @@
 @property (nonatomic, strong) NSArray * categorySearchResults;
 @property (nonatomic, strong) NSArray * locationInformationCollection;
 
+@property (nonatomic, strong) MMGoogleCityDataObject * googleCityObject;
 
 -(id)initWithStyle:(UITableViewStyle)style;
 @end

@@ -101,4 +101,8 @@
     
     return formattedString.length > 0 ? formattedString : nil;
 }
+
++(MMLocationInformation *)locationInformationFromJSON:(NSDictionary *)json {
+    
+}
 @end

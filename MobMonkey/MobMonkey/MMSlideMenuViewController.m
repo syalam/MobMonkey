@@ -27,6 +27,7 @@
 #import "MMHappeningViewController.h"
 #import "MMTermsOfUseViewController.h"
 #import "MMCreateHotSpotViewController.h"
+#import "MMMenuSlideCell.h"
 
 @interface MMSlideMenuViewController ()
 
@@ -123,10 +124,10 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"MenuCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    MMMenuSlideCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if(cell == nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[MMMenuSlideCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         UIView *cellBackgroundView = [[UIView alloc] init];
         [cellBackgroundView setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:0.500]];
         cell.opaque = NO;
@@ -150,7 +151,7 @@
 
     if([menuItem isEqual:_selectedMenuItem]){
         [cell.textLabel setTextColor:[UIColor whiteColor]];
-        cell.imageView.image = menuItem.selectedImage;
+        cell.imageView.image = menuItem.image;
     }else{
         [cell.textLabel setTextColor:[UIColor whiteColor]];
         cell.imageView.image = menuItem.image;
@@ -337,7 +338,7 @@
     
     selectedIndexPath = indexPath;
     
-    UIView *cellBackgroundView = [[UIView alloc] init];
+    /*UIView *cellBackgroundView = [[UIView alloc] init];
     [cellBackgroundView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:0.500]];
     cell.opaque = NO;
     [cell setBackgroundView:cellBackgroundView];
@@ -346,12 +347,12 @@
         [cellBackgroundView setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:0.500]];
         [cell setBackgroundView:cellBackgroundView];
         //[cell.textLabel setTextColor:[UIColor colorWithRed:0.882 green:0.506 blue:0.133 alpha:1.000]];
-        cell.imageView.image = menuItem.selectedImage;
+        //cell.imageView.image = menuItem.image;
         
         previouslySelectedCell.imageView.image = previousMenuItem.image;
         [previouslySelectedCell.textLabel setTextColor:[UIColor whiteColor]];
         
-    }];
+    }];*/
     
     [self.slidingViewController resetTopView];
     

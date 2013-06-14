@@ -172,7 +172,7 @@
     mediaSectionHeader = [[MMPlaceSectionHeaderWrapper alloc] init];
     mediaSectionHeader.title = @"Media Timeline";
     mediaSectionHeader.icon = [UIImage imageNamed:@"clock"];
-    CustomBadge *badge = [CustomBadge customBadgeWithString:@"0" withStringColor:[UIColor blackColor] withInsetColor:[UIColor whiteColor] withBadgeFrame:YES withBadgeFrameColor:[UIColor blackColor] withScale:1.0 withShining:NO];
+    CustomBadge *badge = [CustomBadge customBadgeWithString:@"0" withStringColor:[UIColor blackColor] withInsetColor:[UIColor whiteColor] withBadgeFrame:YES withBadgeFrameColor:[UIColor blackColor] withScale:0.8 withShining:NO];
     mediaSectionHeader.accessoryView = badge;
     mediaSectionHeader.showDisclosureIndicator = YES;
     
@@ -239,7 +239,7 @@
         
         NSUInteger mediaCount = mediaObjects.count;
         
-        CustomBadge *mediaBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", mediaCount] withStringColor:[UIColor blackColor] withInsetColor:[UIColor whiteColor] withBadgeFrame:YES withBadgeFrameColor:[UIColor blackColor] withScale:1.0 withShining:NO];
+        CustomBadge *mediaBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", mediaCount] withStringColor:[UIColor blackColor] withInsetColor:[UIColor whiteColor] withBadgeFrame:YES withBadgeFrameColor:[UIColor blackColor] withScale:0.8 withShining:NO];
         
         
         mediaSectionHeader.accessoryView = mediaBadge;

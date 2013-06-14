@@ -63,4 +63,5 @@ typedef enum {
 -(NSString *)formattedAddressStringLine1;
 -(NSString *)formattedAddressStringLine2;
 
++(MMLocationInformation *)locationInformationFromJSON:(NSDictionary *)json;
 @end

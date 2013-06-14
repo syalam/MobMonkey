@@ -1092,7 +1092,16 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     MMLocationInformation *locationInformation = [[MMLocationInformation alloc] init];
     
     locationInformation.locationID = [locationDictionary objectForKey:@"locationId"];
+    
+    if(locationInformation.locationID.length <= 0){
+        locationInformation.locationID = [locationDictionary objectForKey:@"factual_id"];
+        NSLog(@"LID: %@", locationInformation.locationID);
+    }
     locationInformation.providerID = [locationDictionary objectForKey:@"providerId"];
+    
+    if(locationInformation.providerID.length <= 0){
+        locationInformation.providerID = @"e048acf0-9e61-4794-b901-6a4bb49c3181";
+    }
     locationInformation.street = [locationDictionary objectForKey:@"address"];
     locationInformation.details = [locationDictionary objectForKey:@"details"];
     locationInformation.unitNumber = [locationDictionary objectForKey:@"address_ext"];
