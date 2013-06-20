@@ -1100,7 +1100,7 @@ static NSString * const kBMHTTPClientApplicationSecret = @"305F0990-CF6F-11E1-BE
     locationInformation.providerID = [locationDictionary objectForKey:@"providerId"];
     
     if(locationInformation.providerID.length <= 0){
-        locationInformation.providerID = @"e048acf0-9e61-4794-b901-6a4bb49c3181";
+        locationInformation.providerID = @"222e736f-c7fa-4c40-b78e-d99243441fae";
     }
     locationInformation.street = [locationDictionary objectForKey:@"address"];
     locationInformation.details = [locationDictionary objectForKey:@"details"];

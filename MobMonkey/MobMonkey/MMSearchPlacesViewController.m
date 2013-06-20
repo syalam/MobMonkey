@@ -147,6 +147,8 @@
         
         if(cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell.textLabel.textColor = [UIColor MMMainTextColor];
+            cell.backgroundColor = [UIColor MMEggShell];
         }
         
         
@@ -327,21 +329,6 @@
     self.categorySearchResults = [self.searchDisplayModel categoriesMatchingSearchString:searchText];
     
     [self.tableView reloadData];
-    
-    //Only query the server if the search string length is over 3
-    //if(searchText.length >= 3){
-        
-        
-    
-    
-   /* MMLocationSearch *searchModel = [[MMLocationSearch alloc] init];
-    
-    [searchModel locationsInfoForCategory:nil atLocationCoordinates:CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue) withRadiusInYards:100 searchString:searchText success:^(NSArray *locationInformations) {
-        self.locationInformationCollection = locationInformations;
-        [self.tableView reloadData];
-    } failure:^(NSError *error) {
-        NSLog(@"SEARCH ERROR: %@", error);
-    }];*/
     
     CLLocationCoordinate2D searchCoordinate;
     
