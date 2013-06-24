@@ -26,6 +26,7 @@
 @property (nonatomic, assign) BOOL isMapFullScreen;
 @property (nonatomic, assign) BOOL isMapAnimating;
 
+
 -(id)initWithTableViewStyle:(UITableViewCellStyle)tableViewStyle defaultMapHeight:(CGFloat)defaultMapHeight parallaxFactor:(CGFloat)parallaxFactor;
 -(void)closeMapView;
 @end

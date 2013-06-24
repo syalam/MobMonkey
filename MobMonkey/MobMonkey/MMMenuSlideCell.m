@@ -23,10 +23,14 @@
 {
     [super setHighlighted:highlighted animated:animated];
     if(highlighted){
+    
         [self.backgroundView setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:0.500]];
-        [UIView animateWithDuration:0.2 animations:^{
+        [self setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:0.500]];
+        [UIView animateWithDuration:0.1 animations:^{
             
             [self.backgroundView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:0.500]];
+            [self setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:0.500]];
+            
     
         }];
     }

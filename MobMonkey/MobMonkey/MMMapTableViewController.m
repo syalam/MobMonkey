@@ -7,7 +7,8 @@
 //
 
 #import "MMMapTableViewController.h"
-
+#import <QuartzCore/QuartzCore.h>
+#import "UIBarButtonItem+NoBorder.h"
 
 @interface MMMapTableViewController ()
 
@@ -20,6 +21,8 @@
 @property (nonatomic, assign) BOOL isScrollDragging;
 @property (nonatomic, assign) BOOL pullToExpandMapEnabled;
 @property (nonatomic, assign) CGFloat amountToScrollToFullScreenMap;
+
+@property (nonatomic, strong) UIBarButtonItem *centerLocationButton ;
 
 @end
 
@@ -56,6 +59,9 @@
     // Do any additional setup after loading the view from its nib.
     self.pullToExpandMapEnabled = YES;
     self.amountToScrollToFullScreenMap = 100;
+    
+    _centerLocationButton = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"22-location-arrow2"] selectedImage:[UIImage imageNamed:@"22-location-arrow2"] target:self action:@selector(centerUserLocationTapped:)];
+    
     
     //Set up TableView
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:self.tableViewStyle];
@@ -122,14 +128,23 @@
     self.delegate = self;
     
 }
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.mapView.showsUserLocation = YES;
+}
+-(void)centerUserLocationTapped:(id)sender{
+    [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
+}
 -(void)mapViewTapped:(id)sender{
     [self expandMapView:sender];
 }
 
 - (void)expandMapView:(id)sender
 {
-    self.isMapAnimating = YES;
     
+    [self.navigationItem setRightBarButtonItem:_centerLocationButton animated:YES];
+    
+    self.isMapAnimating = YES;
     [self.tableView.tableHeaderView removeGestureRecognizer:self.mapTapGesture];
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     
@@ -158,7 +173,8 @@
 }
 - (void)closeMapView
 {
-    
+ 
+    [self.navigationItem setRightBarButtonItem:nil animated:YES];
     self.isMapAnimating = YES;
     self.mapView.scrollEnabled = NO;
     self.mapView.zoomEnabled = NO;

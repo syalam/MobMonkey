@@ -48,11 +48,18 @@
     
     [self.view addSubview:_mapView];
     
-    _hotSpotActionButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _hotSpotActionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *backgroundImage = [[UIImage imageNamed:@"buttonBG"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
+    
+    [_hotSpotActionButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
     [_hotSpotActionButton addTarget:self action:@selector(selectHotSpotTapped:) forControlEvents:UIControlEventTouchUpInside];
     _hotSpotActionButton.frame = CGRectMake((self.view.frame.size.width - 280)/2, self.view.frame.size.height - 100 - 25, 280, 50);
     [self.view addSubview:_hotSpotActionButton];
-    [_hotSpotActionButton setTitle:@"Select Hot Spot" forState:UIControlStateNormal];
+    [_hotSpotActionButton setTitle:@"Select Map to Create HotSpot" forState:UIControlStateNormal];
+    _hotSpotActionButton.enabled = NO;
+    //[_hotSpotActionButton
+    _hotSpotActionButton.alpha = 0.75;
+    [_hotSpotActionButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     
     
     hotSpotAnnotation = [[MKPointAnnotation alloc] init];
@@ -79,6 +86,7 @@
     [self zoomToParentLocation];
 }
 -(void)selectHotSpotTapped:(id)sender{
+
     MMEditHotSpotViewController * editHotSpotViewController = [[MMEditHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
     editHotSpotViewController.sublocationCoordinates = _selectedCoordinates;
     editHotSpotViewController.parentLocation = self.parentLocationInformation;
@@ -110,6 +118,10 @@
     [self.mapView regionThatFits:region];
 }
 -(void)mapTapped:(UITapGestureRecognizer*)sender{
+    
+    _hotSpotActionButton.enabled = YES;
+    _hotSpotActionButton.alpha = 1.0;
+    [_hotSpotActionButton setTitle:@"Done" forState:UIControlStateNormal];
     
     CGPoint touchPoint = [sender locationInView:self.mapView];
     CLLocationCoordinate2D touchMapCoordinate = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
