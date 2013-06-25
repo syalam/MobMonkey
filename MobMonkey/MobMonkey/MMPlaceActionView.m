@@ -27,7 +27,7 @@
         // Initialization code
         self.opaque = YES;
 		self.backgroundColor = [UIColor whiteColor];
-        _badge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", self.cellWrapper.badgeCount.intValue] withStringColor:[UIColor whiteColor] withInsetColor:self.cellWrapper.backgroundColor withBadgeFrame:YES withBadgeFrameColor:[UIColor whiteColor] withScale:0.8 withShining:NO];
+        _badge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", self.cellWrapper.badgeCount.intValue] withStringColor:[UIColor grayColor] withInsetColor:self.cellWrapper.backgroundColor withBadgeFrame:YES withBadgeFrameColor:[UIColor grayColor] withScale:0.8 withShining:NO];
         _badge.badgeShadow = NO;
         _originalBadgeFrame = _badge.frame;
         [self addSubview:_badge];
@@ -39,7 +39,7 @@
 -(void)layoutSubviews {
     [super layoutSubviews];
     
-    _badge.badgeInsetColor = cellWrapper.backgroundColor;
+    _badge.badgeInsetColor = self.cellWrapper.backgroundColor;
         
     _badge.frame = CGRectMake(self.frame.size.width - _originalBadgeFrame.size.width - 12, (self.frame.size.height - _originalBadgeFrame.size.height)/2 , _originalBadgeFrame.size.width + 4, _originalBadgeFrame.size.height);
 
@@ -62,6 +62,7 @@
     
     NSLog(@"TEST: %@", [NSString stringWithFormat:@"%d", self.cellWrapper.badgeCount.intValue]);
     _badge.badgeText = [NSString stringWithFormat:@"%d", self.cellWrapper.badgeCount.intValue];
+    _badge.badgeInsetColor = self.cellWrapper.backgroundColor;
     [_badge setNeedsDisplay];
 
     [self setNeedsDisplay];
@@ -86,7 +87,7 @@
     NSString * string = @"Watch Live Video";
     UIImage * image = [UIImage imageNamed:@"play"];
     //UIColor *fontColor = [UIColor colorWithRed:0.176 green:0.196 blue:0.322 alpha:1.000];
-    UIColor *fontColor = [UIColor MMMainAccentColor];
+    UIColor *fontColor = [UIColor MMMainTextColor];
     [cellWrapper.backgroundColor set];
     
     UIFont * font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
@@ -129,17 +130,19 @@
     else
         CGContextSetFillColorWithColor(context, cellWrapper.selectedBackgroundColor.CGColor);
     
+    CGContextSetStrokeColorWithColor(context, [UIColor lightGrayColor].CGColor);
+    
     CGContextAddPath(context, path);
     CGContextDrawPath(context, kCGPathFillStroke);
     
-    [cellWrapper.image drawInRect:imageFrame];
+    //[cellWrapper.image drawInRect:imageFrame];
     
-    CGContextSetFillColorWithColor(context, [UIColor MMMainAccentColor].CGColor);
+    CGContextSetFillColorWithColor(context, [UIColor grayColor].CGColor);
     
     
-    CGRect textFrame = CGRectMake(5, ((rect.size.height - font.pointSize )/2 ) - 2, rect.size.width - 10 - (rect.size.width - imageFrame.origin.x), font.pointSize );
+    CGRect textFrame = CGRectMake(15, ((rect.size.height - font.pointSize )/2 ) - 2, rect.size.width - 10 - (rect.size.width - imageFrame.origin.x), font.pointSize );
     
-    [cellWrapper.text drawInRect:textFrame withFont:font lineBreakMode:NSLineBreakByTruncatingTail alignment:NSTextAlignmentCenter];
+    [cellWrapper.text drawInRect:textFrame withFont:font lineBreakMode:NSLineBreakByTruncatingTail alignment:NSTextAlignmentLeft];
     
     
     

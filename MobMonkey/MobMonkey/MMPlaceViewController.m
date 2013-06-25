@@ -35,6 +35,7 @@
 @property (nonatomic, strong) NSArray *actionCellWrappers;
 @property (nonatomic, assign) BOOL hasLiveVideo;
 @property (nonatomic, strong) NSArray * liveVideos;
+@property (nonatomic, strong) CustomBadge *mediaBadge;
 
 @end
 
@@ -173,8 +174,12 @@
     mediaSectionHeader = [[MMPlaceSectionHeaderWrapper alloc] init];
     mediaSectionHeader.title = @"Media Timeline";
     mediaSectionHeader.icon = [UIImage imageNamed:@"clock"];
-    CustomBadge *badge = [CustomBadge customBadgeWithString:@"0" withStringColor:[UIColor blackColor] withInsetColor:[UIColor whiteColor] withBadgeFrame:YES withBadgeFrameColor:[UIColor blackColor] withScale:0.8 withShining:NO];
-    mediaSectionHeader.accessoryView = badge;
+    _mediaBadge = [CustomBadge customBadgeWithString:@"0" withStringColor:[UIColor blackColor] withInsetColor:[UIColor whiteColor] withBadgeFrame:YES withBadgeFrameColor:[UIColor blackColor] withScale:0.8 withShining:NO];
+    
+    CGRect frame = _mediaBadge.frame;
+    frame.size.height -= 5;
+    _mediaBadge.frame = frame;
+    mediaSectionHeader.accessoryView = _mediaBadge;
     mediaSectionHeader.showDisclosureIndicator = YES;
     
     //Create the wrapper for hot spot section header
@@ -242,11 +247,9 @@
         self.liveVideos = liveVideos;
         
         NSUInteger mediaCount = mediaObjects.count;
+        _mediaBadge.badgeText = [NSString stringWithFormat:@"%d", mediaCount];
+        [_mediaBadge setNeedsDisplay];
         
-        CustomBadge *mediaBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", mediaCount] withStringColor:[UIColor blackColor] withInsetColor:[UIColor whiteColor] withBadgeFrame:YES withBadgeFrameColor:[UIColor blackColor] withScale:0.8 withShining:NO];
-        
-        
-        mediaSectionHeader.accessoryView = mediaBadge;
         liveVideoActionWrapper.badgeCount = [NSNumber numberWithInt: liveVideos.count];
         
         [self.tableView reloadData];
@@ -264,6 +267,10 @@
     self.navigationController.navigationBar.backgroundColor = [UIColor MMDarkMainColor];
 }
 -(void)viewDidAppear:(BOOL)animated {
+    
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.backgroundColor = [[UIColor MMDarkMainColor] colorWithAlphaComponent:0.6];
+    
     [super viewDidAppear:YES];
     
     if(self.newlyCreatedHotSpot){
@@ -476,7 +483,7 @@
         if(indexPath.row == 0)
             return kMMPlaceInformationCellHeight;
         else
-            return UITableViewAutomaticDimension;
+            return 55;
     }
     
     return 50;

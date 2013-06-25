@@ -45,7 +45,7 @@
     
     UIColor * barColor = [UIColor MMDarkMainColor];
     if(self.translucent){
-        barColor = [barColor colorWithAlphaComponent:_translucentFactor];
+        barColor = [barColor colorWithAlphaComponent:0.6];
     }
 
     CGContextSetFillColorWithColor(context, barColor.CGColor);

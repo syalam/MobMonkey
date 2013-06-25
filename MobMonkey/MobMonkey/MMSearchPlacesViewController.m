@@ -43,7 +43,8 @@
 {
     [super viewDidLoad];
     
-    
+    self.tableView.tableFooterView = [UIView new];
+    self.tableView.backgroundColor = [UIColor MMEggShell];
     //Add Search Bar to titleView of Navigation Bar
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.navigationItem.titleView.frame.size.width, 44)];
@@ -197,7 +198,14 @@
     }
     
 }
-
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    cell.contentView.backgroundColor = [UIColor MMEggShell];
+    cell.backgroundColor = [UIColor MMEggShell];
+    cell.accessoryView.backgroundColor = [UIColor MMEggShell];
+    for(UIView * view in cell.contentView.subviews){
+        view.backgroundColor = [UIColor MMEggShell];
+    }
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

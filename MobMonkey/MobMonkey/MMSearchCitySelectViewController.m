@@ -40,7 +40,12 @@
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     _searchBar.delegate = self;
+    [[self.searchBar.subviews objectAtIndex:0] removeFromSuperview];
+    self.searchBar.backgroundColor = [UIColor MMDarkMainColor];
     
+    
+    self.tableView.tableFooterView = [UIView new];
+    self.tableView.backgroundColor = [UIColor MMEggShell];
     
     self.tableView.tableHeaderView = _searchBar;
     
@@ -147,10 +152,12 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
+    cell.backgroundColor = [UIColor MMEggShell];
     if(_showCurrentLocation && indexPath.row == 0){
         cell.textLabel.text = @"Current Location";
         return cell;
     }
+    
     
     
     NSUInteger cityIndex = _showCurrentLocation ? indexPath.row - 1 : indexPath.row;
@@ -166,7 +173,14 @@
     
     return cell;
 }
-
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    cell.accessoryView.backgroundColor = [UIColor MMEggShell];
+    cell.contentView.backgroundColor = [UIColor MMEggShell];
+    
+    for(UIView * view in cell.contentView.subviews){
+        view.backgroundColor = [UIColor MMEggShell];
+    }
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

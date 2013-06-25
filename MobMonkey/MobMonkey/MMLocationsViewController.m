@@ -41,10 +41,13 @@
 {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor MMEggShell];
+    
     self.itemSelectedTint = [UIColor colorWithRed:0.934 green:0.480 blue:0.200 alpha:1.000];
     self.itemNormalTint = [UIColor colorWithRed:1.000 green:0.558 blue:0.286 alpha:1.000];
     
-    
+    self.tableView.tableFooterView = [UIView new];
+    self.tableView.backgroundColor = [UIColor MMEggShell];
     
     [[NSUserDefaults standardUserDefaults] setObject:@8800 forKey:@"savedSegmentValue"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -156,7 +159,7 @@
     
     /*[self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:226.0/255.0
                                                                           green:112.0/225.0
-                                                                           blue:36.0/255.0
+                                                                        blue:36.0/255.0
                                                                           alpha:1.0]];*/
 }
 
@@ -317,6 +320,7 @@
     
     [cell setLocationInformation:[self.locationsInformationCollection objectAtIndex:indexPath.row]];
     
+    cell.backgroundColor = [UIColor MMEggShell];
     return cell;
     
     
@@ -324,7 +328,12 @@
     
     
 }
-
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    cell.backgroundColor = [UIColor MMEggShell];
+    for(UIView * view in cell.contentView.subviews){
+        view.backgroundColor = [UIColor MMEggShell];
+    }
+}
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
