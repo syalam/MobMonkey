@@ -188,16 +188,6 @@
             
         case MMMenuItemTypeLocations:{
             
-            /*MMHotSpotViewController *hotSpotViewController = [[MMHotSpotViewController alloc] initWithStyle:UITableViewStyleGrouped];
-            
-            hotSpotViewController.title = @"Locations";
-            
-            MMNavigationViewController *hotSpotNVC = [[MMNavigationViewController alloc] initWithRootViewController:hotSpotViewController];
-            
-            [self.slidingViewController setTopViewController:hotSpotNVC];
-            
-            break;*/
-            
             MMPlaceViewController *placeViewController = [[MMPlaceViewController alloc] initWithTableViewStyle:UITableViewStylePlain defaultMapHeight:128 parallaxFactor:0.5];
             
             MMNavigationViewController *placeNVC = [[MMNavigationViewController alloc] initWithRootViewController:placeViewController];
@@ -270,12 +260,7 @@
             MMNavigationViewController *createHotSpotNVC = [[MMNavigationViewController alloc] initWithRootViewController:createHotSpotViewController];
             
             [self.slidingViewController setTopViewController:createHotSpotNVC];
-            /*MMCreateHotSpotMapViewController *createHotSpotMapViewController = [[MMCreateHotSpotMapViewController alloc] initWithNibName:nil bundle:nil];
-            createHotSpotMapViewController.title = @"Choose a location";
             
-            MMNavigationViewController *createHotSpotNVC = [[MMNavigationViewController alloc] initWithRootViewController:createHotSpotMapViewController];
-            
-            [self.slidingViewController setTopViewController:createHotSpotNVC];*/
             break;
         }
         case MMMenuItemSnapShot: {
@@ -338,22 +323,6 @@
     
     selectedIndexPath = indexPath;
     
-    /*UIView *cellBackgroundView = [[UIView alloc] init];
-    [cellBackgroundView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:0.500]];
-    cell.opaque = NO;
-    [cell setBackgroundView:cellBackgroundView];
-    
-    [UIView animateWithDuration:0.2 animations:^{
-        [cellBackgroundView setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:0.500]];
-        [cell setBackgroundView:cellBackgroundView];
-        //[cell.textLabel setTextColor:[UIColor colorWithRed:0.882 green:0.506 blue:0.133 alpha:1.000]];
-        //cell.imageView.image = menuItem.image;
-        
-        previouslySelectedCell.imageView.image = previousMenuItem.image;
-        [previouslySelectedCell.textLabel setTextColor:[UIColor whiteColor]];
-        
-    }];*/
-    
     [self.slidingViewController resetTopView];
     
     
@@ -370,7 +339,6 @@
     return UITableViewAutomaticDimension;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    // This will create a "invisible" footer
     return 0.01f;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -379,9 +347,6 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     return [UIView new];
-    
-    // If you are not using ARC:
-    // return [[UIView new] autorelease];
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -398,15 +363,7 @@
         for(UIView *view in cell.subviews){
             view.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.5];
         }
-    }/*else if(menuItem.menuItemType == MMMenuItemSubscribe){
-        
-        cell.backgroundColor = [UIColor colorWithWhite:0.28 alpha:0.5];
-        
-        for(UIView *view in cell.subviews){
-            view.backgroundColor = [UIColor colorWithWhite:0.28 alpha:0.5];
-        }
-        
-    }*/else{
+    }else{
         cell.backgroundColor = [UIColor colorWithWhite:0.25 alpha:0.5];
         
         for(UIView *view in cell.subviews){

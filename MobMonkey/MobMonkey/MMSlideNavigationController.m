@@ -38,6 +38,7 @@
 -(void)anchorTopViewTo:(ECSide)side{
     [super anchorTopViewTo:side];
     [self.topViewController.view endEditing:YES];
+    
 }
 
 @end

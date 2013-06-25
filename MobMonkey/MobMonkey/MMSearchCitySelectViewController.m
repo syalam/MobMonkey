@@ -8,6 +8,7 @@
 #define kPreviouslySearchedCities @"previouslySearchedGoogleCityObjects"
 
 #import "MMSearchCitySelectViewController.h"
+#import "UIBarButtonItem+NoBorder.h"
 
 @interface MMSearchCitySelectViewController ()
 
@@ -37,6 +38,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIBarButtonItem *menuItem = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"whiteBackButton"] selectedImage:nil target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    self.navigationItem.leftBarButtonItem = menuItem;
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     _searchBar.delegate = self;

@@ -12,6 +12,7 @@
 #import "MMEditHotSpotViewController.h"
 #import "MMLocationListCell.h"
 #import "MMCreateHotSpotMapViewController.h"
+#import "MMSearchDisplayModel.h"
 
 @interface MMCreateHotSpotViewController ()
 
@@ -29,17 +30,24 @@
 }
 
 -(void)loadNearbyLocations {
-    MMLocationSearch *locationSearchModel = [[MMLocationSearch alloc] init];
-    [locationSearchModel locationsInfoForCategory:nil searchString:nil success:^(NSArray *locationInformations) {
-        self.nearbyLocations = locationInformations;
-        [self.tableView reloadData];
-        // [mapView setCenterCoordinate:mapView.userLocation.location.coordinate animated:YES]
-        
+    MMSearchDisplayModel *locationSearchModel = [[MMSearchDisplayModel alloc] init];
+    NSNumber *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
+    NSNumber *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
+    
+    CLLocationCoordinate2D searchCoordinate = CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
+
+    [SVProgressHUD showWithStatus:@"Loading Nearby Locations"];
+    [locationSearchModel placesMatchingSearchString:@"" atLocation:searchCoordinate radius:@1609.34 success:^(NSArray *searchItems) {
         [SVProgressHUD dismiss];
+        self.nearbyLocations = searchItems;
+        [self.tableView reloadData];
     } failure:^(NSError *error) {
-        NSLog(@"Failed: %@", error);
+        NSLog(@"Failed to get places: %@", error);
+        self.nearbyLocations = @[];
+        [self.tableView reloadData];
         [SVProgressHUD showErrorWithStatus:@"Failed to retreive locations"];
     }];
+
 }
 - (void)viewDidLoad
 {

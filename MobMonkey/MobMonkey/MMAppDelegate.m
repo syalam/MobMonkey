@@ -43,7 +43,7 @@
     //initialize testflight SDK
     // !!!: Use the next line only during beta
     [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
-    [TestFlight takeOff:@"c02622dc-9b14-438f-add8-c3247da6261f"];
+    [TestFlight takeOff:@"51bac64a-569f-4da3-bef5-879c0db3d909"];
     
     //Add Activity Indicator when AFNetwork is making requests
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
@@ -118,51 +118,19 @@
     
     self.slideNavigationController.topViewController = happeningNVC;
     [self.window setRootViewController:_slideNavigationController];
-//    bookmarksVC.sectionSelected = YES;
-//    bookmarksVC.bookmarkTab = YES;
+
     
-    
-    //Changing to slide menu
-    /*self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = @[ trendingNavC, inboxNavC, searchNavC, bookmarksNavC, settingsNavC];
-    [self.tabBarController.tabBar setBackgroundImage:[[UIImage imageNamed:@"tabbar-background"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 2.0, 0.0, 2.0)]];
-    [self.tabBarController.tabBar setSelectionIndicatorImage:[[UIImage imageNamed:@"selected-tab-background"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)]];
-    
-    CGFloat inset = 5.0;
-    
-    [trendingNavC.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"trendingIcn"] withFinishedUnselectedImage:[UIImage imageNamed:@"trendingIcnOff"]];
-    [trendingNavC.tabBarItem setImageInsets:UIEdgeInsetsMake(inset, 0, -inset, 0)];
-    trendingNavC.tabBarItem.title = nil;
-    
-    [inboxNavC.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"inboxIcn"] withFinishedUnselectedImage:[UIImage imageNamed:@"inboxIcnOff"]];
-    [inboxNavC.tabBarItem setImageInsets:UIEdgeInsetsMake(inset, 0, -inset, 0)];
-    inboxNavC.tabBarItem.title=nil;
-    
-    [searchNavC.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"searchIcn"] withFinishedUnselectedImage:[UIImage imageNamed:@"searchIcnOff"]];
-    [searchNavC.tabBarItem setImageInsets:UIEdgeInsetsMake(inset, 0, -inset, 0)];
-    searchNavC.tabBarItem.title = nil;
-    
-    [bookmarksNavC.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"favoritesIconOn"] withFinishedUnselectedImage:[UIImage imageNamed:@"favoritesIcon"]];
-    [bookmarksNavC.tabBarItem setImageInsets:UIEdgeInsetsMake(inset-1, 0, -inset+1, 0)];
-    bookmarksNavC.tabBarItem.title = nil;
-    
-    [settingsNavC.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"settingsIcn"] withFinishedUnselectedImage:[UIImage imageNamed:@"settingsIcnOff"]];
-    [settingsNavC.tabBarItem setImageInsets:UIEdgeInsetsMake(inset, 0, -inset, 0)];
-    settingsNavC.tabBarItem.title = nil;
-    
-    self.window.rootViewController = self.tabBarController;
-    */
-    if (![[NSUserDefaults standardUserDefaults]boolForKey:subscribedUserKey]) {
-        _adView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
-        
-        [_adView setHidden:YES];
-        [self.window.rootViewController.view addSubview:_adView];
-    }
   
     [self.window makeKeyAndVisible];
+    
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:subscribedUserKey]) {
+        _adView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
+        _adView.layer.zPosition = 1000;
+        [_adView setHidden:YES];
+        [self.slideNavigationController.view addSubview:_adView];
+    }
     return YES;
 }
-
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
